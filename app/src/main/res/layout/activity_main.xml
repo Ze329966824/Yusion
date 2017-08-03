@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_gravity="bottom"
+            android:background="@mipmap/shadow_h_line" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/main_tab_home_rb"
+                style="@style/tab"
+                android:checked="true"
+                android:drawableTop="@drawable/tab_home_selector"
+                android:text="首页"/>
+
+            <RadioButton
+                android:id="@+id/main_tab_apply_rb"
+                style="@style/tab"
+                android:drawableTop="@drawable/tab_order_selector"
+                android:text="申请"/>
+
+            <RadioButton
+                android:id="@+id/main_tab_mine_rb"
+                style="@style/tab"
+                android:drawableTop="@drawable/tab_mine_selector"
+                android:text="我的"/>
+
+        </RadioGroup>
+    </LinearLayout>
+</LinearLayout>
