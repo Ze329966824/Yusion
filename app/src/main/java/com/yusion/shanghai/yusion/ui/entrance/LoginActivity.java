@@ -41,7 +41,9 @@ public class LoginActivity extends AppCompatActivity {
                     AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), new OnItemDataCallBack<GetVCodeResp>() {
                         @Override
                         public void onItemDataCallBack(GetVCodeResp data) {
-                            mLoginCodeTV.setText(data.verify_code);
+                            if (data != null) {
+                                mLoginCodeTV.setText(data.verify_code);
+                            }
                         }
                     });
                 }
@@ -56,13 +58,42 @@ public class LoginActivity extends AppCompatActivity {
                 AuthApi.login(LoginActivity.this, req, new OnItemDataCallBack<LoginResp>() {
                     @Override
                     public void onItemDataCallBack(LoginResp data) {
-
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
             }
         });
 
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
+
     }
+
+    private void loginSuccess(LoginResp resp) {
+
+//        WangDaiApp.isLogin = true;
+//        WangDaiApp.mToken = resp.token;
+//        WangDaiApp.mMobile = mLoginMobileTV.getText().toString();
+//
+//        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", WangDaiApp.mToken);
+//        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", WangDaiApp.mMobile);
+//
+//        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//
+//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//        finish();
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //每次回到登陆界面都需清除缓存
+//        myApp.clearUserData();
+//    }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
+//        ActivityManager.finishOtherActivityEx(LoginActivity.class);
+//    }
 }

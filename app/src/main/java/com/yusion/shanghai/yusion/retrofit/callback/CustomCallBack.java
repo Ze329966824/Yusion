@@ -8,6 +8,8 @@ import com.pgyersdk.crash.PgyCrashManager;
 import com.yusion.shanghai.yusion.base.BaseResult;
 import com.yusion.shanghai.yusion.settings.Settings;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,13 +29,22 @@ public abstract class CustomCallBack<T> implements Callback<BaseResult<T>> {
     public CustomCallBack(Context context, ProgressDialog dialog) {
         this.context = context;
         this.dialog = dialog;
+        this.dialog.show();
     }
 
     public abstract void onCustomResponse(T data);
 
     @Override
     public void onResponse(Call<BaseResult<T>> call, Response<BaseResult<T>> response) {
-        onCustomResponse(response.body().data);
+        BaseResult<T> body = response.body();
+        if (body.code < 0) {
+            if (Settings.isOnline) {
+                Toast.makeText(context, body.msg, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, String.format(Locale.CHINA, "code = %d and msg = %s", body.code, body.msg), Toast.LENGTH_SHORT).show();
+            }
+        }
+        onCustomResponse(body.data);
         if (dialog != null) {
             dialog.dismiss();
         }
