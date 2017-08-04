@@ -7,10 +7,10 @@ import com.pgyersdk.crash.PgyCrashManager;
 /**
  * Created by ice on 2017/8/3.
  */
-
 public class YusionApp extends Application {
 
     public static String TOKEN;
+    public static String MOBILE;
 
     @Override
     public void onCreate() {

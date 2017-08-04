@@ -1,12 +1,9 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
@@ -31,7 +28,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //        Log.e("TAG", "token: " + WangDaiApp.mToken);
 
 //        WangDaiApp.isBack2Home = false;
-
         setContentView(R.layout.activity_main);
 
 //        if (getIntent().getBooleanExtra("toJPushDialogActivity", false)) {

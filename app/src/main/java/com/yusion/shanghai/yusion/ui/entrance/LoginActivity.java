@@ -2,20 +2,21 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.utils.CheckDataFormatUtil;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText mLoginMobileTV;
     private EditText mLoginCodeTV;
@@ -32,8 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
         mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
         mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
-
-        mLoginMobileTV.setText("17621098734");
         mLoginCodeBtn.setOnClickListener(v -> {
             if (!CheckDataFormatUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
@@ -49,10 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             LoginReq req = new LoginReq();
             req.mobile = mLoginMobileTV.getText().toString();
             req.verify_code = mLoginCodeTV.getText().toString();
-            AuthApi.login(LoginActivity.this, req, data -> {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
-            });
+            AuthApi.login(LoginActivity.this, req, this::loginSuccess);
         });
 
         mLoginAgreement.setOnClickListener(v -> {
@@ -64,18 +60,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginSuccess(LoginResp resp) {
-
 //        WangDaiApp.isLogin = true;
-//        WangDaiApp.mToken = resp.token;
-//        WangDaiApp.mMobile = mLoginMobileTV.getText().toString();
-//
-//        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", WangDaiApp.mToken);
-//        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", WangDaiApp.mMobile);
-//
-//        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-//
-//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//        finish();
+        YusionApp.TOKEN = resp.token;
+        YusionApp.MOBILE = mLoginMobileTV.getText().toString();
+        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
+        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
 //    @Override

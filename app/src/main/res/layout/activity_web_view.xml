@@ -5,7 +5,7 @@
               android:background="#F5F7F9"
               android:orientation="vertical">
 
-    <TextView
+    <com.yusion.shanghai.yusion.widget.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
