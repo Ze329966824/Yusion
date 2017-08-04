@@ -21,8 +21,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    signingConfigs{
-        debug{
+    signingConfigs {
+        debug {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
@@ -57,7 +57,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     //retrofit
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    //kotlin
+//    kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //pgy
     compile 'com.pgyersdk:sdk:2.7.0'
