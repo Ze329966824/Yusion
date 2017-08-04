@@ -6,6 +6,7 @@ import android.util.Log;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.retrofit.service.AuthService;
 import com.yusion.shanghai.yusion.retrofit.service.OcrService;
+import com.yusion.shanghai.yusion.retrofit.service.OrderService;
 import com.yusion.shanghai.yusion.retrofit.service.ProductService;
 import com.yusion.shanghai.yusion.settings.Settings;
 
@@ -106,5 +107,9 @@ public class Api {
 
     public static ProductService getProductService() {
         return retrofit.create(ProductService.class);
+    }
+
+    public static OrderService getOrderService() {
+        return retrofit.create(OrderService.class);
     }
 }

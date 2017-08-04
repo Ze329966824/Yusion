@@ -13,12 +13,12 @@ import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
-import com.yusion.shanghai.yusion.ui.main.OrderFragment;
+import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private HomeFragment mHomeFragment;
-    private OrderFragment mOrderFragment;
+    private MyOrderFragment mOrderFragment;
     private MineFragment mMineFragment;
     private Fragment mCurrentFragment;
     private FragmentManager mFragmentManager;
@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //        }
 
         mHomeFragment = new HomeFragment();
-        mOrderFragment = new OrderFragment();
+        mOrderFragment = new MyOrderFragment();
         mMineFragment = new MineFragment();
         mCurrentFragment = mHomeFragment;
         mFragmentManager = getSupportFragmentManager();
