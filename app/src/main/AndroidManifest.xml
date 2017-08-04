@@ -41,6 +41,8 @@
         <activity android:name=".ui.entrance.LoginActivity"/>
         <activity android:name=".ui.entrance.MainActivity">
         </activity>
+        <activity android:name=".ui.entrance.WebViewActivity">
+        </activity>
     </application>
 
 </manifest>

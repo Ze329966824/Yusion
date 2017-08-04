@@ -7,4 +7,5 @@
     <color name="textHintColor">#b1b1b1</color>
     <color name="textColor">#222a36</color>
     <color name="system_color">#06b7a3</color>
+    <color name="white">#FFFFFF</color>
 </resources>

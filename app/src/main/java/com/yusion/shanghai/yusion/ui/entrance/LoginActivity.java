@@ -3,8 +3,10 @@ package com.yusion.shanghai.yusion.ui.entrance;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
@@ -19,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mLoginCodeTV;
     private Button mLoginCodeBtn;
     private Button mLoginSubmitBtn;
+    private TextView mLoginAgreement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
         mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
         mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
+        mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
+
         mLoginMobileTV.setText("17621098734");
         mLoginCodeBtn.setOnClickListener(v -> {
             if (!CheckDataFormatUtil.checkMobile(mLoginMobileTV.getText().toString())) {
@@ -50,6 +55,11 @@ public class LoginActivity extends AppCompatActivity {
             });
         });
 
+        mLoginAgreement.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+            intent.putExtra("type", "Agreement");
+            startActivity(intent);
+        });
 
     }
 
