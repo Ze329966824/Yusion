@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -13,7 +14,7 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
  * Created by ice on 2017/8/3.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
 
     protected YusionApp myApp;
 
@@ -34,4 +35,11 @@ public class BaseActivity extends AppCompatActivity {
         titleBar.setDividerColor(activity.getResources().getColor(R.color.system_color));
         return titleBar;
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+
 }

@@ -43,6 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.kotlin.KotlinActivity" />
+        <activity android:name=".ui.main.mine.SettingsActivity" />
         <activity android:name=".ui.entrance.LoginActivity" />
         <activity android:name=".ui.entrance.MainActivity"></activity>
         <activity android:name=".ui.entrance.WebViewActivity"></activity>

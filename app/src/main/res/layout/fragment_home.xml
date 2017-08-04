@@ -3,150 +3,39 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@mipmap/home_bg">
+                android:layout_centerVertical="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/home_icon_selfapply"
-            android:gravity="center"
-            android:text="自助申请"
-            android:textColor="#c3fff9"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/home_icon_fastapproval"
-            android:gravity="center"
-            android:text="极速审批"
-            android:textColor="#c3fff9"
-            android:textSize="13sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/home_icon_multiplesafe"
-            android:gravity="center"
-            android:text="多重安全"
-            android:textColor="#c3fff9"
-            android:textSize="13sp" />
-    </LinearLayout>
-
+<ImageView
+    android:adjustViewBounds="true"
+    android:src="@mipmap/home_bg"
+    android:layout_alignParentTop="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scaleType="fitXY"
+    android:id="@+id/imageView3"/>
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/home_icon"
+    android:layout_marginBottom="58dp"
+    android:layout_above="@+id/home_bottom_btn"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"/>
     <Button
+
         android:id="@+id/home_bottom_btn"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="280dp"
-        android:layout_height="70dp"
-        android:layout_above="@+id/home_car_loan_step_lin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="55dp"
         android:background="@drawable/apply_button"
         android:text="立即申请"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        tools:visibility="visible" />
-
-    <LinearLayout
-        android:id="@+id/home_car_loan_step_lin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/home_step_lin"
-        android:layout_marginBottom="15dp"
-        android:gravity="center_vertical">
-
-        <View
-            android:alpha="0.18"
-            android:layout_width="0dp"
-            android:layout_height="0.05dp"
-            android:layout_weight="1"
-            android:background="@color/system_color" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:text="车贷流程"
-            android:textColor="#999999"
-            android:textSize="13.5sp" />
-
-        <View
-            android:alpha="0.18"
-            android:layout_width="0dp"
-            android:layout_height="0.05dp"
-            android:layout_weight="1"
-            android:background="@color/system_color" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/home_step_lin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        tools:visibility="visible"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/home_icon_writedata"
-            android:gravity="center"
-            android:text="填写资料"
-            android:textColor="#999999"
-            android:textSize="13sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:src="@mipmap/home_arrow" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/home_icon_shopsign"
-            android:gravity="center"
-            android:text="到店签约"
-            android:textColor="#999999"
-            android:textSize="13sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:src="@mipmap/home_arrow" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/home_icon_easybuy"
-            android:gravity="center"
-            android:text="轻松提车"
-            android:textColor="#999999"
-            android:textSize="13sp" />
-
-    </LinearLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>
