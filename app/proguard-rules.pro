@@ -36,7 +36,26 @@
 -dontwarn okio.**
 -dontwarn javax.annotation.**
 
+#混淆后的有a.a予pgyersdk中的a.a重复！！！
 #pgy
--libraryjars libs/pgyer_sdk_x.x.jar
--dontwarn com.pgyersdk.**
--keep class com.pgyersdk.** { *; }
+#-dontwarn com.pgyersdk.**
+#-keep class com.pgyersdk.** { *; }
+#-keep class com.a.a.** { *; }
+
+#lambda
+-dontwarn java.lang.invoke.*
+
+#eventBus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+
+#如果你使用是okhttp和rxAndroid，retrofit2。并且在打release包是报找不到okio，rx，retrofit。你只需要在app下的proguard-rules.pro混淆文件中加入
+#-dontwarn org.codehaus.**
+#-dontwarn java.nio.**
+#-dontwarn java.lang.invoke.**
+-dontwarn rx.**
+-dontwarn retrofit2.**
