@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="bg_color">#f5f7f9</color>
+
     <color name="textHintColor">#b1b1b1</color>
     <color name="textColor">#222a36</color>
     <color name="system_color">#06b7a3</color>

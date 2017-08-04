@@ -6,6 +6,7 @@ import android.util.Log;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.retrofit.service.AuthService;
 import com.yusion.shanghai.yusion.retrofit.service.OcrService;
+import com.yusion.shanghai.yusion.retrofit.service.ProductService;
 import com.yusion.shanghai.yusion.settings.Settings;
 
 import java.io.IOException;
@@ -101,5 +102,9 @@ public class Api {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    public static ProductService getProductService() {
+        return retrofit.create(ProductService.class);
     }
 }
