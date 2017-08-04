@@ -1,13 +1,16 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.os.Bundle;
 import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
+import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.OrderFragment;
@@ -28,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //        Log.e("TAG", "token: " + WangDaiApp.mToken);
 
 //        WangDaiApp.isBack2Home = false;
+
         setContentView(R.layout.activity_main);
 
 //        if (getIntent().getBooleanExtra("toJPushDialogActivity", false)) {
@@ -73,21 +77,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         transaction.commit();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        AuthApi.checkUserInfo(this, "正在获取用户资料...", new OnDataCallBack<CheckUserInfoResp>() {
-//            @Override
-//            public void callBack(CheckUserInfoResp resp) {
-//                mHomeFragment.refresh(resp);
-//                mMineFragment.refresh(resp);
-//            }
-//        });
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
+            @Override
+            public void onItemDataCallBack(CheckUserInfoResp data) {
+//                mHomeFragment.refesh(data);
+                mMineFragment.refresh(data);
+            }
+        });
 
 //    @Override
 //    protected void onDestroy() {
 //        super.onDestroy();
 //        WangDaiApp.isBack2Home = true;
 //    }
+    }
 }

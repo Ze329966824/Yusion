@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
+import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +80,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.mine_setting_lin:
 //                if (WangDaiApp.isLogin) {
-//                startActivity(new Intent(mContext, SettingActivity.class));
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
 //                } else {
 //                    requestLogin();
 //                }
@@ -111,6 +113,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 //                        .build()
 //                        .update();
                 break;
+        }
+    }
+
+
+    public void refresh(CheckUserInfoResp userInfo) {
+        mMineFragmentNameTV.setText(userInfo.name);
+        mMineFragmentPhoneTV.setText(userInfo.mobile);
+        if (!userInfo.commited) {
+            mineUserInfoLin.setVisibility(View.GONE);
+        } else {
+            mineUserInfoLin.setVisibility(View.VISIBLE);
         }
     }
 }

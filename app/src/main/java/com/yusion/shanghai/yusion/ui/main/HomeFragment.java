@@ -13,8 +13,8 @@ import android.widget.Button;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
-import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
-import com.yusion.shanghai.yusion.ui.entrance.info.UpdateUserInfoActivity;
+import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
+import com.yusion.shanghai.yusion.ui.apply.*;
 
 import static com.yusion.shanghai.yusion.R.id.home_bottom_btn;
 
@@ -42,7 +42,7 @@ public class HomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         bottomBtn = (Button) view.findViewById(home_bottom_btn);
         bottomBtn.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), ApplyActivity.class));
+//            startActivity(new Intent(getActivity(), ApplyActivity.class));
         });
     }
 
@@ -52,7 +52,7 @@ public class HomeFragment extends BaseFragment {
             bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
         } else {
             bottomBtn.setText("立即申请");
-            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
+//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
         }
     }
 }

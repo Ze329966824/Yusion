@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
@@ -34,4 +35,15 @@ public class AuthApi {
             }
         });
     }
+
+    public static void checkUserInfo(Context context, final OnItemDataCallBack<CheckUserInfoResp> onItemDataCallBack){
+        ProgressDialog dialog = new ProgressDialog(context);
+        Api.getAuthService().checkUserInfo().enqueue(new CustomCallBack<CheckUserInfoResp>(context,dialog) {
+            @Override
+            public void onCustomResponse(CheckUserInfoResp data) {
+                onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
 }
