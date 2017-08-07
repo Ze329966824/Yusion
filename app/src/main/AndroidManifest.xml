@@ -27,12 +27,18 @@
             android:name="PGYER_APPID"
             android:value="e3947209e3276c8bda14e6de42c191a6" />
 
-        <activity android:name=".ui.entrance.LaunchActivity">
+        <activity android:name=".ui.entrance.LaunchActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.kotlin.KotlinActivity" />
+        <activity android:name=".ui.main.mine.SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.apply.ApplyActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.kotlin.KotlinActivity"
             android:screenOrientation="portrait" />

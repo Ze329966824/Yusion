@@ -9,4 +9,13 @@
     <string name="number_1">&#xe901;</string>
     <string name="number_2">&#xe902;</string>
     <string name="number_3">&#xe903;</string>
+
+    <!--设置模块-->
+    <string name="main_setting_title">设置</string>
+    <!--设置-退出登录-->
+    <string name="mine_logout_dialog_title">提示</string>
+    <string name="mine_logout_dialog_msg">是否退出登录</string>
+    <string name="mine_logout_dialog_sure">确定</string>
+    <string name="mine_logout_dialog_cancle">取消</string>
+
 </resources>
