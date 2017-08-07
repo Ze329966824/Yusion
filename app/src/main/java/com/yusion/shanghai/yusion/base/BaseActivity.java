@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.pgyersdk.crash.PgyCrashManager;
+import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.widget.TitleBar;
@@ -22,6 +24,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myApp = ((YusionApp) getApplication());
+        PgyCrashManager.register(this);
+
     }
 
     public TitleBar initTitleBar(final Activity activity, String title) {
@@ -41,5 +45,21 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        // 自定义摇一摇的灵敏度，默认为950，数值越小灵敏度越高。
+        PgyFeedbackShakeManager.setShakingThreshold(1000);
 
+        // 以对话框的形式弹出
+        PgyFeedbackShakeManager.register(BaseActivity.this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PgyFeedbackShakeManager.unregister();
+
+    }
 }
