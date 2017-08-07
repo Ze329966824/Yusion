@@ -5,10 +5,10 @@
               android:background="#F5F7F9"
               android:orientation="vertical">
 
-    <!--<com.wangzi.wangdai.widget.TitleBar-->
-    <!--android:id="@+id/title_bar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content" />-->
+    <com.yusion.shanghai.yusion.widget.TitleBar
+    android:id="@+id/title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 
 
     <LinearLayout

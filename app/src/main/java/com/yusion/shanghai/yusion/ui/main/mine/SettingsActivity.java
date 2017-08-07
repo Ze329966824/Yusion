@@ -20,7 +20,8 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-//        initTitleBar(this, getResources().getString(R.string.main_setting_title));
+        initTitleBar(this, getResources().getString(R.string.main_setting_title));
+
 //        initView();
     }
 
