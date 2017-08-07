@@ -13,10 +13,8 @@ import android.widget.Button;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
+import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
 import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
-import com.yusion.shanghai.yusion.ui.apply.*;
-
-import static com.yusion.shanghai.yusion.R.id.home_bottom_btn;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,10 +38,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        bottomBtn = (Button) view.findViewById(home_bottom_btn);
-        bottomBtn.setOnClickListener(v -> {
-//            startActivity(new Intent(getActivity(), ApplyActivity.class));
-        });
+        bottomBtn = (Button) view.findViewById(R.id.home_bottom_btn);
     }
 
     public void refresh(CheckUserInfoResp userInfo) {
@@ -52,7 +47,7 @@ public class HomeFragment extends BaseFragment {
             bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
         } else {
             bottomBtn.setText("立即申请");
-//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
+            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
         }
     }
 }

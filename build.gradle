@@ -20,6 +20,12 @@ allprojects {
         maven { url "https://jitpack.io" }//tabLayout
         maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }//pgy
     }
+    //lint
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+//            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//        }
+//    }
 }
 
 task clean(type: Delete) {

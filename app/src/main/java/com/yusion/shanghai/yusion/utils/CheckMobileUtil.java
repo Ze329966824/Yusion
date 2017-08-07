@@ -3,7 +3,7 @@ package com.yusion.shanghai.yusion.utils;
 import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class CheckDataFormatUtil {
+public class CheckMobileUtil {
     public static boolean checkMobile(String str) {
         if (TextUtils.isEmpty(str)) {
             return false;

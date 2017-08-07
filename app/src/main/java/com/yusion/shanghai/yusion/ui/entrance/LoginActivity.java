@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
-import com.yusion.shanghai.yusion.utils.CheckDataFormatUtil;
+import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity {
         mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
         mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
         mLoginCodeBtn.setOnClickListener(v -> {
-            if (!CheckDataFormatUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else {
                 AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
@@ -45,10 +46,16 @@ public class LoginActivity extends BaseActivity {
             }
         });
         mLoginSubmitBtn.setOnClickListener(v -> {
-            LoginReq req = new LoginReq();
-            req.mobile = mLoginMobileTV.getText().toString();
-            req.verify_code = mLoginCodeTV.getText().toString();
-            AuthApi.login(LoginActivity.this, req, this::loginSuccess);
+            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+                Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
+                Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                LoginReq req = new LoginReq();
+                req.mobile = mLoginMobileTV.getText().toString();
+                req.verify_code = mLoginCodeTV.getText().toString();
+                AuthApi.login(LoginActivity.this, req, this::loginSuccess);
+            }
         });
 
         mLoginAgreement.setOnClickListener(v -> {

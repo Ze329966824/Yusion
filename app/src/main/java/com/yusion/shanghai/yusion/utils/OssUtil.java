@@ -58,10 +58,12 @@ public class OssUtil {
             public void onResponse(Call<GetOssTokenBean> call, Response<GetOssTokenBean> response) {
                 GetOssTokenBean ossTokenBean = response.body();
                 final String objectKey = getObjectKey(objectKeyBean.role, objectKeyBean.category, objectKeyBean.suffix);
-                PutObjectRequest request = new PutObjectRequest(ossTokenBean.Bucket, objectKey, localPath);
+                PutObjectRequest request = new PutObjectRequest(ossTokenBean.FidDetail.Bucket, objectKey, localPath);
 
                 OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossTokenBean.AccessKeyId, ossTokenBean.AccessKeySecret, ossTokenBean.SecurityToken);
-                OSS oss = new OSSClient(context, ossTokenBean.Region, credentialProvider);
+                OSS oss = new OSSClient(context, ossTokenBean.FidDetail.Region, credentialProvider);
+                SharedPrefsUtil.getInstance(context).putValue("region",ossTokenBean.FidDetail.Region);
+                SharedPrefsUtil.getInstance(context).putValue("bucket",ossTokenBean.FidDetail.Bucket);
 
                 oss.asyncPutObject(request, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override

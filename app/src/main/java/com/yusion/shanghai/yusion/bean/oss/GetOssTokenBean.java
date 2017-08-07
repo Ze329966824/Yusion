@@ -19,10 +19,7 @@ public class GetOssTokenBean {
     public String AccessKeyId;
     public String Expiration;
     public String SecurityToken;
-    public String Fid;
     public FidDetailBean FidDetail;
-    public String Bucket;
-    public String Region;
 
 
     @Override

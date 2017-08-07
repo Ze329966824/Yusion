@@ -12,4 +12,9 @@
     <color name="system_color">#06b7a3</color>
     <color name="title_bar_text_color">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
+
+
+    <color name="apply_step_style_1_color">#f8e71c</color>
+    <color name="apply_step_style_2_color">#66ffffff</color>
+    <color name="apply_step_triangle_color">#f5f7f9</color>
 </resources>

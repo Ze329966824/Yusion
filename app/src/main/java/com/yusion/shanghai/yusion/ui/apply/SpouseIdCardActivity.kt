@@ -1,3 +1,3 @@
-package com.wangzi.wangdai.kt.ui
+package com.yusion.shanghai.yusion.ui.apply
 
 class SpouseIdCardActivity {}

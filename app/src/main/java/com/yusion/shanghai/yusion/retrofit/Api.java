@@ -7,6 +7,7 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.retrofit.service.AuthService;
 import com.yusion.shanghai.yusion.retrofit.service.OcrService;
 import com.yusion.shanghai.yusion.retrofit.service.ProductService;
+import com.yusion.shanghai.yusion.retrofit.service.UploadService;
 import com.yusion.shanghai.yusion.settings.Settings;
 
 import java.io.IOException;
@@ -68,8 +69,12 @@ public class Api {
         return retrofit.create(OcrService.class);
     }
 
+    public static UploadService getUploadService() {
+        return retrofit.create(UploadService.class);
+    }
+
     private static void logRequestInfo(Request request) {
-        Log.e("API", "\n******** log request start ******** ");
+        Log.e("API", "\n\n\n******** log request start ******** ");
         Log.e("API", "url: " + request.url());
         Log.e("API", "method: " + request.method());
         Headers headers = request.headers();
@@ -91,7 +96,7 @@ public class Api {
             Log.e("API", "requestParameters: " + paramsStr);
         }
 
-        Log.e("API", "******** log request end ******** ");
+        Log.e("API", "******** log request end ******** \n\n\n");
     }
 
     private static void logResponseInfo(Response response) {

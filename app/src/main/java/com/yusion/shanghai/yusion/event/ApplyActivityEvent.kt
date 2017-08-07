@@ -1,4 +1,4 @@
-package com.wangzi.wangdai.kt.enum
+package com.yusion.shanghai.yusion.event
 
 /**
  * Created by ice on 17/7/6.

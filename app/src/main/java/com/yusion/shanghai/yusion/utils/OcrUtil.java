@@ -50,10 +50,10 @@ public class OcrUtil {
             public void onResponse(Call<GetOssTokenBean> call, Response<GetOssTokenBean> response) {
                 GetOssTokenBean ossTokenBean = response.body();
                 final String objectKey = getObjectKey(objectKeyBean.role, objectKeyBean.category, objectKeyBean.suffix);
-                PutObjectRequest request = new PutObjectRequest(ossTokenBean.Bucket, objectKey, localPath);
+                PutObjectRequest request = new PutObjectRequest(ossTokenBean.FidDetail.Bucket, objectKey, localPath);
 
                 OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossTokenBean.AccessKeyId, ossTokenBean.AccessKeySecret, ossTokenBean.SecurityToken);
-                OSS oss = new OSSClient(context, ossTokenBean.Region, credentialProvider);
+                OSS oss = new OSSClient(context, ossTokenBean.FidDetail.Region, credentialProvider);
 
                 oss.asyncPutObject(request, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override
@@ -61,8 +61,8 @@ public class OcrUtil {
                         //请求ocr
                         OcrReq ocrReq = new OcrReq();
                         ocrReq.fid = objectKey;
-                        ocrReq.bucket = ossTokenBean.Bucket;
-                        ocrReq.region = ossTokenBean.Region;
+                        ocrReq.bucket = ossTokenBean.FidDetail.Bucket;
+                        ocrReq.region = ossTokenBean.FidDetail.Region;
                         ocrReq.type = type;
                         OcrApi.requestOcr(ocrReq, new OnItemDataCallBack<OcrResp>() {
                             @Override

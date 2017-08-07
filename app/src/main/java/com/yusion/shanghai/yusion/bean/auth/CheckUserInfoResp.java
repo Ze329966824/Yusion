@@ -16,4 +16,14 @@ public class CheckUserInfoResp {
     public String mobile;
     public String role;
     public boolean commited;
+
+    @Override
+    public String toString() {
+        return "CheckUserInfoResp{" +
+                "name='" + name + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", role='" + role + '\'' +
+                ", commited=" + commited +
+                '}';
+    }
 }

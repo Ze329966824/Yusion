@@ -1,17 +1,15 @@
 package com.yusion.shanghai.yusion.ui.apply
 
+
 import android.app.AlertDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
-import com.wangzi.wangdai.kt.enum.ApplyActivityEvent
-import com.wangzi.wangdai.kt.ui.AutonymCertifyFragment
-import com.wangzi.wangdai.kt.ui.PersonalInfoFragment
-import com.wangzi.wangdai.kt.ui.SpouseInfoFragment
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean
+import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
