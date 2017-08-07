@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
@@ -181,8 +182,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     Glide.with(mContext).load(idBackFile).into(autonym_certify_id_back_img)
 
                     val dialog = ProgressDialog(mContext)
-                    dialog.setMessage("正在识别身份证...")
-                    dialog.setCancelable(false)
+                    dialog.setIndeterminateDrawable(DoubleBounce())
+//                    dialog.setMessage("正在识别身份证...")
+//                    dialog.setCancelable(false)
                     dialog.show()
 
                     OcrUtil.requestOcr(mContext, idBackFile.absolutePath, OSSObjectKeyBean("lender", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
