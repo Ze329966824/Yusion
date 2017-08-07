@@ -1,7 +1,9 @@
 package com.yusion.shanghai.yusion.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,8 @@ import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.order.GetAppListResp;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
+import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
+import com.yusion.shanghai.yusion.ui.order.OrderDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,27 +113,27 @@ public class MyOrderFragment extends BaseFragment {
                 vh.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                   Intent intent = new Intent(mContext, OrderDetailActivity.class);
-//                   intent.putExtra("app_id", item.app_id);
-//                   mContext.startActivity(intent);
+                        Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                        intent.putExtra("app_id", item.app_id);
+                        mContext.startActivity(intent);
                     }
                 });
             } else if (item.uw && item.uw_confirmed != 1) {
                 vh.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                   Intent intent = new Intent(mContext, FinancePlanlActivity.class);
-//                   intent.putExtra("app_id", item.app_id);
-//                   mContext.startActivity(intent);
+                        Intent intent = new Intent(mContext, FinancePlanActivity.class);
+                        intent.putExtra("app_id", item.app_id);
+                        mContext.startActivity(intent);
                     }
                 });
             } else if (!item.uw) {
                 vh.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                   Intent intent = new Intent(mContext, OrderDetailActivity.class);
-//                   intent.putExtra("app_id", item.app_id);
-//                   mContext.startActivity(intent);
+                        Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                        intent.putExtra("app_id", item.app_id);
+                        mContext.startActivity(intent);
                     }
                 });
             }
@@ -143,9 +147,9 @@ public class MyOrderFragment extends BaseFragment {
             vh.phone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + item.dlr_sales_mobile));
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    mContext.startActivity(intent);
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + item.dlr_sales_mobile));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
                 }
             });
             if (item.status.equals("待审核")) {

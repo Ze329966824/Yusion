@@ -93,7 +93,7 @@ class SpouseIdCardActivity : BaseActivity() {
 
         var dialog = AlertDialog.Builder(this).setMessage("请稍等...").create()
         dialog.show()
-        UploadApi.uploadFileUrl(this, uploadFilesUrlReq) { code, msg ->
+        UploadApi.uploadFileUrl(this, uploadFilesUrlReq) { code, _ ->
             if (code == 0) {
                 dialog.dismiss()
 

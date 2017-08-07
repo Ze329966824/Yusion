@@ -16,7 +16,7 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
  * Created by ice on 2017/8/3.
  */
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
+public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected YusionApp myApp;
 
@@ -50,10 +50,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onPostResume();
         // 自定义摇一摇的灵敏度，默认为950，数值越小灵敏度越高。
         PgyFeedbackShakeManager.setShakingThreshold(1000);
-
         // 以对话框的形式弹出
-        PgyFeedbackShakeManager.register(BaseActivity.this);
-
+        PgyFeedbackShakeManager.register(this);
     }
 
     @Override

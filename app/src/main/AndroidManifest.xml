@@ -28,7 +28,7 @@
         <!-- pgy -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="e3947209e3276c8bda14e6de42c191a6" />
+            android:value="5875beef263c5a292094ccb04c1cd0c3" />
 
         <activity
             android:name=".ui.entrance.LaunchActivity"
@@ -71,6 +71,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.info.UploadListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.order.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.order.FinancePlanActivity"
             android:screenOrientation="portrait" />
     </application>
 
