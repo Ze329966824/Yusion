@@ -16,7 +16,7 @@ import com.yusion.shanghai.yusion.bean.ocr.OcrReq;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.GetOssTokenBean;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
-import com.yusion.shanghai.yusion.retrofit.OcrApi;
+import com.yusion.shanghai.yusion.retrofit.api.OcrApi;
 import com.yusion.shanghai.yusion.retrofit.api.OssApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.OssService;
@@ -105,29 +105,6 @@ public class OcrUtil {
                 }
             }
         });
-
-
-//        OssUtil.uploadOss(context, false, localPath, objectKeyBean, new OnDataCallBack<String>() {
-//            @Override
-//            public void callBack(String objectKey) {
-//                OcrReq ocrReq = new OcrReq();
-//                ocrReq.fid = objectKey;
-//                ocrReq.bucket = OssUtil.getInstance().getOssAuthBean().Bucket;
-//                ocrReq.region = OssUtil.getInstance().getOssAuthBean().Region;
-//                ocrReq.type = type;
-//                OcrApi.requestOcr(ocrReq, new OnDataCallBack<OcrResp>() {
-//                    @Override
-//                    public void callBack(OcrResp ocrResp) {
-//                        onSuccessCallBack.OnOcrSuccess(ocrResp, objectKey);
-//                    }
-//                }, new OnDataCallBack<Throwable>() {
-//                    @Override
-//                    public void callBack(Throwable resp) {
-//                        onFailureCallBack.callBack(resp);
-//                    }
-//                });
-//            }
-//        }, onFailureCallBack);
     }
 
     public interface OnOcrSuccessCallBack {

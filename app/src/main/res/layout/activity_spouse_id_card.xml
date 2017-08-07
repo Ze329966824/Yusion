@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yusion.shanghai.yusion.widget.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.wangzi.wangdai.kt.ui.SpouseIdCardActivity">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="11dp"
+            android:layout_marginBottom="1.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/fill_vertical_line"
+            app:layout_constraintBottom_toBottomOf="@+id/id_info"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/id_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7.5dp"
+            android:layout_marginLeft="22dp"
+            android:text="配偶身份证信息"
+            android:textColor="#666666"
+            android:textSize="11.5sp"
+            app:layout_constraintBottom_toTopOf="@+id/id_pic_group"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/id_pic_group"
+            android:layout_width="0dp"
+            android:layout_height="270dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="38dp"
+            android:background="@mipmap/id_pics_group"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:text="人像面"
+                    android:textColor="#999999"
+                    android:textSize="11.5dp" />
+
+                <FrameLayout
+                    android:layout_width="155dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:id="@+id/spouse_id_card_id_back_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/id_back" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/alphy_camera" />
+                </FrameLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:text="国徽面"
+                    android:textColor="#999999"
+                    android:textSize="11.5dp" />
+
+                <FrameLayout
+                    android:layout_width="155dp"
+                    android:layout_height="95dp"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:id="@+id/spouse_id_card_id_front_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/id_front" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/alphy_camera" />
+                </FrameLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
+

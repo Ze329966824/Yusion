@@ -30,7 +30,9 @@ public abstract class CustomCallBack<T> implements Callback<BaseResult<T>> {
     public CustomCallBack(Context context, ProgressDialog dialog) {
         this.context = context;
         this.dialog = dialog;
-        this.dialog.show();
+        if (this.dialog != null) {
+            this.dialog.show();
+        }
     }
 
     public abstract void onCustomResponse(T data);

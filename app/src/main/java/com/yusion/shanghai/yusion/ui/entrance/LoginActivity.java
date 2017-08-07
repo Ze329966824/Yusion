@@ -14,6 +14,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
@@ -64,10 +65,13 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        if (Settings.isShameData) {
+            mLoginMobileTV.setText("17621066549");
+            mLoginCodeTV.setText("6666");
+        }
     }
 
     private void loginSuccess(LoginResp resp) {
-//        WangDaiApp.isLogin = true;
         YusionApp.TOKEN = resp.token;
         YusionApp.MOBILE = mLoginMobileTV.getText().toString();
         SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);

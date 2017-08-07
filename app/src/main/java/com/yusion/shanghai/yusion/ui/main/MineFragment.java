@@ -12,13 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
+import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
 import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends Fragment implements View.OnClickListener {
+public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private LinearLayout mineRepaymentPlanLin;
     private LinearLayout mineUserInfoLin;
@@ -73,7 +75,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.mine_user_info_lin:
 //                if (WangDaiApp.isLogin) {
-//                startActivity(new Intent(mContext, UpdateUserInfoActivity.class));
+                startActivity(new Intent(mContext, UpdateUserInfoActivity.class));
 //                } else {
 //                    requestLogin();
 //                }

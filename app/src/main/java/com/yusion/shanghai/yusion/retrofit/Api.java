@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.retrofit.service.AuthService;
+import com.yusion.shanghai.yusion.retrofit.service.ConfigService;
 import com.yusion.shanghai.yusion.retrofit.service.OcrService;
 import com.yusion.shanghai.yusion.retrofit.service.OrderService;
 import com.yusion.shanghai.yusion.retrofit.service.ProductService;
@@ -75,7 +76,8 @@ public class Api {
     }
 
     private static void logRequestInfo(Request request) {
-        Log.e("API", "\n\n\n******** log request start ******** ");
+        Log.e("API", "\n");
+        Log.e("API", "\n******** log request start ******** ");
         Log.e("API", "url: " + request.url());
         Log.e("API", "method: " + request.method());
         Headers headers = request.headers();
@@ -97,7 +99,8 @@ public class Api {
             Log.e("API", "requestParameters: " + paramsStr);
         }
 
-        Log.e("API", "******** log request end ******** \n\n\n");
+        Log.e("API", "******** log request end ********\n");
+        Log.e("API", "\n");
     }
 
     private static void logResponseInfo(Response response) {
@@ -116,5 +119,9 @@ public class Api {
 
     public static OrderService getOrderService() {
         return retrofit.create(OrderService.class);
+    }
+
+    public static ConfigService getConfigService() {
+        return retrofit.create(ConfigService.class);
     }
 }

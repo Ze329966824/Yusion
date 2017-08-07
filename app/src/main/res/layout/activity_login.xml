@@ -25,7 +25,6 @@
 
 
     <EditText
-        android:text="17621066549"
         android:id="@+id/login_mobile_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,7 +65,6 @@
             android:maxLength="4"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
-            android:text="6666"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:textColor="@color/textColor"

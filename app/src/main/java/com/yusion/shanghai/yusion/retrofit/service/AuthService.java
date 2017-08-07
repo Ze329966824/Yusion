@@ -1,10 +1,11 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
+import com.yusion.shanghai.yusion.base.BaseResult;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
-import com.yusion.shanghai.yusion.base.BaseResult;
+import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,5 +26,8 @@ public interface AuthService {
 
     @GET("/api/client/check_user_info/")
     Call<BaseResult<CheckUserInfoResp>> checkUserInfo();
+
+    @POST("/api/auth/check_user/")
+    Call<BaseResult<CheckTokenResp>> checkToken();
 
 }

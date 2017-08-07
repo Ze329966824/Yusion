@@ -23,6 +23,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
+import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.OcrUtil
 import com.yusion.shanghai.yusion.utils.OssUtil
@@ -30,6 +31,7 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import kotlinx.android.synthetic.main.autonym_certify.*
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+import java.util.*
 
 /**
  * Created by ice on 17/7/5.
@@ -90,6 +92,17 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
+
+
+        if (Settings.isShameData) {
+            autonym_certify_name_tv.setText("${Date().time}")
+            autonym_certify_id_number_tv.setText("513001198707080231")
+            hasIdBackImg = true
+            hasIdFrontImg = true
+            ID_BACK_FID = "test"
+            ID_FRONT_FID = "test"
+        }
+
     }
 
     fun uploadUrl(cltId: String) {
@@ -141,6 +154,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     private var idBackFile = File("");
     private var idFrontFile = File("");
+
     fun takePhoto() {
         when (CURRENT_CLICKED_VIEW_FOR_PIC) {
             autonym_certify_id_back_img.id -> {
@@ -197,17 +211,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     hasIdFrontImg = true
                     Glide.with(mContext).load(idFrontFile).into(autonym_certify_id_front_img)
 
-                    val dialog = ProgressDialog(mContext)
-                    dialog.setMessage("正在上传图片...")
-                    dialog.setCancelable(false)
-                    dialog.show()
-
-                    OssUtil.uploadOss(mContext, true, idFrontFile.absolutePath, OSSObjectKeyBean(), OnItemDataCallBack<String> {
+                    OssUtil.uploadOss(mContext, true, idFrontFile.absolutePath, OSSObjectKeyBean("lender", "id_card_front", ".png"), OnItemDataCallBack<String> {
                         ID_FRONT_FID = it
-                        dialog.dismiss()
-                    }, OnItemDataCallBack<Throwable> {
-                        dialog.dismiss()
-                    })
+                    }, null)
                 }
             }
         }

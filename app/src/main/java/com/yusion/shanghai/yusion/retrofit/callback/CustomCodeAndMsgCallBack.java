@@ -27,7 +27,9 @@ public abstract class CustomCodeAndMsgCallBack implements Callback<BaseResult> {
     public CustomCodeAndMsgCallBack(Context context, ProgressDialog dialog) {
         this.context = context;
         this.dialog = dialog;
-        this.dialog.show();
+        if (this.dialog != null) {
+            this.dialog.show();
+        }
     }
 
     @Override

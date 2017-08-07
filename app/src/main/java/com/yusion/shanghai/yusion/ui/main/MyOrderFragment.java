@@ -19,7 +19,7 @@ import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.order.GetAppListResp;
-import com.yusion.shanghai.yusion.retrofit.OrderApi;
+import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
 
 import java.util.ArrayList;

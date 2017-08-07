@@ -7,5 +7,7 @@ package com.yusion.shanghai.yusion.settings;
 public class Constants {
     public static final int REQUEST_IDCARD_1_CAPTURE = 201;
     public static final int REQUEST_IDCARD_2_CAPTURE = 202;
+    public static final int REQUEST_CONTACTS = 203;
+    public static final int REQUEST_ADDRESS = 204;
 
 }

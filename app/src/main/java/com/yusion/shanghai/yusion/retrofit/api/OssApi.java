@@ -49,6 +49,7 @@ public class OssApi {
             .build();
 
     private static void logRequestInfo(Request request) {
+        Log.e("API", "\n");
         Log.e("API", "\n******** log request start ******** ");
         Log.e("API", "url: " + request.url());
         Log.e("API", "method: " + request.method());
@@ -72,6 +73,7 @@ public class OssApi {
         }
 
         Log.e("API", "******** log request end ******** \n");
+        Log.e("API", "\n");
     }
 
     private static void logResponseInfo(Response response) {

@@ -18,6 +18,15 @@ public class OcrResp implements Serializable {
     public ShowapiResBodyBean showapi_res_body;
     public String showapi_res_error;
 
+    @Override
+    public String toString() {
+        return "OcrResp{" +
+                "showapi_res_code=" + showapi_res_code +
+                ", showapi_res_body=" + showapi_res_body +
+                ", showapi_res_error='" + showapi_res_error + '\'' +
+                '}';
+    }
+
     public static class ShowapiResBodyBean {
         /**
          * area : 宁夏回族自治区 吴忠市 利通区
@@ -52,5 +61,26 @@ public class OcrResp implements Serializable {
         public String sex;
         public boolean flag;
         public String name;
+
+        @Override
+        public String toString() {
+            return "ShowapiResBodyBean{" +
+                    "area='" + area + '\'' +
+                    ", idNo='" + idNo + '\'' +
+                    ", birthday='" + birthday + '\'' +
+                    ", nationality='" + nationality + '\'' +
+                    ", ret_code=" + ret_code +
+                    ", msg='" + msg + '\'' +
+                    ", town='" + town + '\'' +
+                    ", province='" + province + '\'' +
+                    ", city='" + city + '\'' +
+                    ", birth='" + birth + '\'' +
+                    ", addr='" + addr + '\'' +
+                    ", lastflag='" + lastflag + '\'' +
+                    ", sex='" + sex + '\'' +
+                    ", flag=" + flag +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
     }
 }

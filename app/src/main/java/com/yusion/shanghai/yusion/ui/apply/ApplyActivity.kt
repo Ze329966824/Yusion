@@ -4,7 +4,7 @@ package com.yusion.shanghai.yusion.ui.apply
 import android.app.AlertDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
+import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
@@ -35,7 +35,6 @@ class ApplyActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
-        Log.e("TAG", mUserInfoBean.toString())
         if (mUserInfoBean.reg_addr_details == null) {
             mUserInfoBean.reg_addr_details = ""
         }
@@ -44,7 +43,10 @@ class ApplyActivity : BaseActivity() {
                 mUserInfoBean.spouse.reg_addr_details = ""
             }
         }
-        ProductApi.updateUserInfo(this, mUserInfoBean) { finish() }
+        ProductApi.updateUserInfo(this, mUserInfoBean) {
+            Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show()
+            finish()
+        }
     }
 
     override fun onBackPressed() {
