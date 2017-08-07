@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.pgyersdk.update.PgyUpdateManager;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.settings.Settings;
@@ -37,17 +38,8 @@ public class SettingsActivity extends BaseActivity {
                 showLogoutDialog();
                 break;
             case R.id.main_setting_version_name_layout:   //版本信息
-//                AuthApi.checkUpdate(this, "正在检查更新...", new OnDataCallBack<CheckUpdateResp>() {
-//                    @Override
-//                    public void callBack(CheckUpdateResp resp) {
-//                        Log.e("TAG", "callBack: " + resp);
-//                        if (resp.update == 1) {
-//                            UpdateUtil.showUpdateDialog(SettingActivity.this, resp.desc, false, resp.url);
-//                        } else {
-//                            Toast.makeText(SettingActivity.this, "您的版本已是最高版本", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
+                PgyUpdateManager.setIsForced(true); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
+                PgyUpdateManager.register(this, null);
                 break;
         }
     }
