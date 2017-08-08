@@ -5,7 +5,6 @@ import android.app.Application;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
-import com.yusion.shanghai.yusion.bean.user.UserNameAndMobileResp;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 /**
@@ -22,7 +21,6 @@ public class YusionApp extends Application {
     public static ConfigResp CONFIG_RESP;
 
     public static UserInfoBean USERINFOBEAN;
-    public static UserNameAndMobileResp USERNAMEANDRMOBILERESP;
 
 
     @Override
@@ -36,7 +34,7 @@ public class YusionApp extends Application {
         TOKEN = "";
         MOBILE = "";
         USERINFOBEAN = null;
-        USERNAMEANDRMOBILERESP = null;
+
         SharedPrefsUtil.getInstance(this).putValue("token", TOKEN);
         SharedPrefsUtil.getInstance(this).putValue("mobile", MOBILE);
     }

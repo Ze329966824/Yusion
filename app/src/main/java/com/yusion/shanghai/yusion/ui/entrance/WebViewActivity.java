@@ -61,11 +61,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
-                    LoadingUtils.dismiss();
-                } else {
                     LoadingUtils.createLoadingDialog(WebViewActivity.this);
-                }
             }
         });
 
