@@ -5,11 +5,9 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -23,7 +21,6 @@ import com.pbq.pickerlib.R;
 import com.pbq.pickerlib.adapter.PhotoMediaAdapter;
 import com.pbq.pickerlib.entity.PhotoVideoDir;
 import com.pbq.pickerlib.util.PhoneInfoUtil;
-import com.pbq.pickerlib.util.PictureUtil;
 import com.pbq.pickerlib.view.ImageFolderPopWindow;
 
 import java.io.File;
@@ -113,12 +110,11 @@ public class PhotoMediaActivity extends AppCompatActivity {
         if (isImageType()) {
             loadImagesList();
         }
-        if (isVedioType()) {
-            loadVediosList();
+        if (isVideoType()) {
+            loadVideosList();
         }
         //传入到ImageFolderPopWindow构造方法中 loadType 加载的类型（图片或视频）
-        popDir = new ImageFolderPopWindow(this,
-                PhoneInfoUtil.getScreenWidth(this), PhoneInfoUtil.getScreenHeight(this) * 3 / 5);
+        popDir = new ImageFolderPopWindow(this, PhoneInfoUtil.getScreenWidth(this), PhoneInfoUtil.getScreenHeight(this) * 3 / 5);
         //设置外部可触摸
         popDir.setOutsideTouchable(true);
         popDir.setAnimationStyle(R.style.MyPopupWindow_anim_style);
@@ -130,7 +126,6 @@ public class PhotoMediaActivity extends AppCompatActivity {
         });
         //下拉框的点击事件
         popDir.setOnPopClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 //取出路径Tag
@@ -147,15 +142,10 @@ public class PhotoMediaActivity extends AppCompatActivity {
      * 初始化数据
      */
     private void initData() {
-        //接收从demo中传来的图片选择和录像选择路径
-//        selectedFath = getIntent().getStringArrayListExtra("pickerPaths");
-        //判断是否存在loadType和sizeLimit，如果有，取出值
-        if (getIntent() != null) {
-            if (getIntent().hasExtra("loadType")) {
-                loadType = PhotoVideoDir.Type.valueOf(getIntent().getStringExtra("loadType"));
-            }
+        if (getIntent() != null && getIntent().hasExtra("loadType")) {
+            loadType = PhotoVideoDir.Type.valueOf(getIntent().getStringExtra("loadType"));
         } else {
-            Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请传入loadType", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -170,8 +160,8 @@ public class PhotoMediaActivity extends AppCompatActivity {
     /**
      * 判断类型为视频
      */
-    private boolean isVedioType() {
-        return loadType == PhotoVideoDir.Type.VEDIO;
+    private boolean isVideoType() {
+        return loadType == PhotoVideoDir.Type.VIDEO;
     }
 
 
@@ -180,7 +170,6 @@ public class PhotoMediaActivity extends AppCompatActivity {
      */
     private void loadImagesList() {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 //查询到图片的地址
@@ -198,17 +187,19 @@ public class PhotoMediaActivity extends AppCompatActivity {
                         maxPicSize = dir.files.size();
                         currentDir = dir;
                     }
-
                     if (selectedFath.contains(filePath)) {
                         dir.selectedFiles.add(filePath);
                     }
                 }
                 runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
                         //加载图片列表
-                        loadImages(currentDir);
+                        if (currentDir == null) {
+                            Toast.makeText(PhotoMediaActivity.this, "图片列表为空", Toast.LENGTH_SHORT).show();
+                        }else {
+                            loadImages(currentDir);
+                        }
                     }
                 });
             }
@@ -218,7 +209,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
     /**
      * 开启一个子线程加载下拉框视频列表
      */
-    private void loadVediosList() {
+    private void loadVideosList() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -232,22 +223,24 @@ public class PhotoMediaActivity extends AppCompatActivity {
                     File imageFile = new File(filePath);
                     PhotoVideoDir dir = addToDir(imageFile);
                     //dir.ids.add(id+"");
-                    dir.setType(PhotoVideoDir.Type.VEDIO);
+                    dir.setType(PhotoVideoDir.Type.VIDEO);
                     if (dir.files.size() > maxPicSize) {
                         maxPicSize = dir.files.size();
                         currentDir = dir;
                     }
-
                     if (selectedFath.contains(filePath)) {
                         dir.selectedFiles.add(filePath);
                     }
                 }
 
                 runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
-                        loadVedioImages(currentDir);
+                        if (currentDir == null) {
+                            Toast.makeText(PhotoMediaActivity.this, "视频列表为空", Toast.LENGTH_SHORT).show();
+                        }else {
+                            loadVideoImages(currentDir);
+                        }
                     }
                 });
             }
@@ -265,7 +258,6 @@ public class PhotoMediaActivity extends AppCompatActivity {
         String parentFilePath = parentDirFile.getPath();
         if (!dirMap.containsKey(parentFilePath)) {
             imageDir = new PhotoVideoDir(parentFilePath);
-
             imageDir.dirName = parentDirFile.getName();
             dirMap.put(parentFilePath, imageDir);
             imageDir.firstPath = imageFile.getPath();
@@ -274,7 +266,6 @@ public class PhotoMediaActivity extends AppCompatActivity {
             imageDir = dirMap.get(parentFilePath);
             imageDir.addFile(imageFile.toString());
         }
-
         return imageDir;
     }
 
@@ -288,7 +279,6 @@ public class PhotoMediaActivity extends AppCompatActivity {
         gvPhotos.setAdapter(adapter);
         //选择图片事件
         adapter.setOnItemCheckdedChangedListener(new PhotoMediaAdapter.onItemCheckedChangedListener() {
-
             @Override
             public void onItemCheckChanged(CompoundButton chBox, boolean isCheced, PhotoVideoDir imageDir, String path) {
                 //判断是否可选，如果选择大于9张，则不能再选了，否则可以选择
@@ -305,13 +295,11 @@ public class PhotoMediaActivity extends AppCompatActivity {
                 }
                 updateNext();
             }
-
             @Override
             public void onTakePicture(PhotoVideoDir imageDir) {
                 //在图片选择中拍照
                 takePicture(imageDir);
             }
-
             @Override
             public void onShowPicture(String path) {
                 //显示点击的具体图片
@@ -325,7 +313,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
      *
      * @param imageDir
      */
-    private void loadVedioImages(final PhotoVideoDir imageDir) {
+    private void loadVideoImages(final PhotoVideoDir imageDir) {
         PhotoMediaAdapter adapter = new PhotoMediaAdapter(PhotoMediaActivity.this, imageDir, loadType);
         gvPhotos.setAdapter(adapter);
 
@@ -352,7 +340,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
             @Override
             public void onTakePicture(PhotoVideoDir imageDir) {
                 //在录像选择中录像
-                takeVedio(imageDir);
+                takeVideo(imageDir);
             }
 
             @Override
@@ -412,7 +400,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
      *
      * @param imageDir
      */
-    public void takeVedio(PhotoVideoDir imageDir) {
+    public void takeVideo(PhotoVideoDir imageDir) {
         cameraFile = new File(imageDir.dirPath, System.currentTimeMillis() + ".mp4");
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile));
@@ -442,8 +430,8 @@ public class PhotoMediaActivity extends AppCompatActivity {
                 updateGalleray(cameraFile.getPath());
                 currentDir.selectedFiles.add(cameraFile.getPath());
                 currentDir.files.add(0, cameraFile.getPath());
-                //loadVedioImages(currentDir);
-                loadVediosList();
+                //loadVideoImages(currentDir);
+                loadVideosList();
                 updateNext();
             }
         }
@@ -512,7 +500,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
 //                intent.putExtra("files", picFiles);
                 intent.putExtra("files", getSelectedPicture());
 
-            } else if (loadType == PhotoVideoDir.Type.VEDIO) {
+            } else if (loadType == PhotoVideoDir.Type.VIDEO) {
                 for (int i = 0; i < getSelectedPicture().size(); i++) {
                     final File file = new File(getSelectedPicture().get(i));
                     vedioFiles.add(file);

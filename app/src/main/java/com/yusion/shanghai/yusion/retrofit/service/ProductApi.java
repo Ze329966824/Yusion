@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq;
@@ -8,6 +8,7 @@ import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 /**
  * 类描述：
@@ -18,7 +19,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 public class ProductApi {
 
     public static void getUserInfo(final Context context, GetUserInfoReq req, final OnItemDataCallBack<UserInfoBean> onItemDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getProductService().getUserInfo(req.id_no, req.clt_nm).enqueue(
                 new CustomCallBack<UserInfoBean>(context, dialog) {
                     @Override
@@ -29,7 +30,7 @@ public class ProductApi {
     }
 
     public static void updateUserInfo(final Context context, UserInfoBean req, final OnItemDataCallBack<UserInfoBean> onItemDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getProductService().updateUserInfo(req).enqueue(
                 new CustomCallBack<UserInfoBean>(context, dialog) {
                     @Override

@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 
 import com.yusion.shanghai.yusion.bean.order.ConfirmFinancePlanReq;
@@ -13,6 +13,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.CustomCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class OrderApi {
     public static void getAppList(final Context context, String st, final OnDataCallBack<List<GetAppListResp>> onDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getOrderService().getAppList(st).enqueue(new CustomCallBack<List<GetAppListResp>>(context, dialog) {
             @Override
             public void onCustomResponse(List<GetAppListResp> data) {
@@ -32,7 +33,7 @@ public class OrderApi {
     }
 
     public static void getAppDetails(final Context context, String app_id, final OnItemDataCallBack<GetAppDetailResp> onItemDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getOrderService().getAppDetails(app_id).enqueue(new CustomCallBack<GetAppDetailResp>(context, dialog) {
             @Override
             public void onCustomResponse(GetAppDetailResp data) {
@@ -43,7 +44,7 @@ public class OrderApi {
 
 
     public static void confirmFinancePlan(final Context context, ConfirmFinancePlanReq req, OnCodeAndMsgCallBack codeAndMsgCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getOrderService().confirmFinancePlan(req).enqueue(new CustomCodeAndMsgCallBack(context,dialog) {
             @Override
             public void onCustomResponse(int code, String msg) {
@@ -53,7 +54,7 @@ public class OrderApi {
     }
 
     public static void getFinancePlanDetail(final Context context, String plan_id, OnItemDataCallBack<GetFinancePlanDetailResp> onItemDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getOrderService().getFinancePlanDetail(plan_id).enqueue(new CustomCallBack<GetFinancePlanDetailResp>(context,dialog) {
             @Override
             public void onCustomResponse(GetFinancePlanDetailResp data) {

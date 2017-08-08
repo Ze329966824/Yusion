@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.adapter;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 import java.io.File;
 import java.util.List;
@@ -59,7 +60,7 @@ public class UploadImgListAdapter extends RecyclerView.Adapter<UploadImgListAdap
             holder.itemView.setOnClickListener(v -> mOnItemClick.onFooterClick(v));
         } else {
             UploadImgItemBean item = mItems.get(position);
-            ProgressDialog dialog = new ProgressDialog(mContext);
+            Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
             dialog.show();
             if (!TextUtils.isEmpty(item.local_path)) {
                 Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
@@ -71,9 +72,9 @@ public class UploadImgListAdapter extends RecyclerView.Adapter<UploadImgListAdap
     }
 
     private class GlideRequestListener implements RequestListener<Drawable> {
-        private ProgressDialog dialog;
+        private Dialog dialog;
 
-        public GlideRequestListener(ProgressDialog dialog) {
+        public GlideRequestListener(Dialog dialog) {
             this.dialog = dialog;
         }
 

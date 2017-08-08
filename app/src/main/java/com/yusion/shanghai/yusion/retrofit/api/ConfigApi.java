@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -10,6 +10,7 @@ import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomResponseBodyCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import org.json.JSONArray;
@@ -23,7 +24,7 @@ public class ConfigApi {
      * 否则直接返回并存入缓存文件
      */
     public static void getConfigJson(final Context context, final OnDataCallBack<ConfigResp> onDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getConfigService().getConfigJson().enqueue(new CustomResponseBodyCallBack(context, dialog) {
             @Override
             public void onCustomResponse(String body) {

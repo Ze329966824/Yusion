@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 
@@ -13,6 +14,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 /**
  * 类描述：
@@ -23,7 +25,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 public class UploadApi {
 
     public static void uploadFileUrl(final Context context, UploadFilesUrlReq req, final OnCodeAndMsgCallBack onCodeAndMsgCallBack) {
-//        ProgressDialog dialog = new ProgressDialog(context);
+//        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getUploadService().uploadFileUrl(req).enqueue(new CustomCodeAndMsgCallBack(context) {
             @Override
             public void onCustomResponse(int code, String msg) {
@@ -33,7 +35,7 @@ public class UploadApi {
     }
 
     public static void listImgs(final Context context, ListImgsReq req, OnItemDataCallBack<ListImgsResp> onItemDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getUploadService().listImgs(req).enqueue(new CustomCallBack<ListImgsResp>(context, dialog) {
             @Override
             public void onCustomResponse(ListImgsResp data) {
@@ -43,7 +45,7 @@ public class UploadApi {
     }
 
     public static void listLabelsError(final Context context, ListLabelsErrorReq req, OnItemDataCallBack<ListLabelsErrorResp> onItemDataCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getUploadService().listLabelsError(req).enqueue(new CustomCallBack<ListLabelsErrorResp>(context, dialog) {
             @Override
             public void onCustomResponse(ListLabelsErrorResp data) {

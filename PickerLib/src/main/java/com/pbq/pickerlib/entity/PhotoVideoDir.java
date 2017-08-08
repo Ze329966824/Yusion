@@ -14,7 +14,7 @@ public class PhotoVideoDir {
      * 定义一个枚举类型，将相关常量放入，其它地方能够直接取到
      */
     public enum Type {
-        IMAGE, VEDIO, AUDIO
+        IMAGE, VIDEO, AUDIO
     }
 
     /**

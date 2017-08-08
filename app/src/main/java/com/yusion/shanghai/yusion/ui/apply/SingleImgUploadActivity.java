@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.ui.apply;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,6 +21,7 @@ import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
@@ -59,7 +60,7 @@ public class SingleImgUploadActivity extends BaseActivity {
 
         mImgUrl = mGetIntent.getStringExtra("imgUrl");
         if (!TextUtils.isEmpty(mImgUrl)) {
-            ProgressDialog dialog = new ProgressDialog(this);
+            Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
             Glide.with(this).load(mImgUrl).listener(new RequestListener<Drawable>() {
                 @Override
@@ -86,8 +87,7 @@ public class SingleImgUploadActivity extends BaseActivity {
                 String localUrl = files.get(0);
                 Glide.with(this).load(localUrl).into(mImg);
 
-                ProgressDialog dialog = new ProgressDialog(this);
-                dialog.setCancelable(false);
+                Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 OssUtil.uploadOss(this, false, localUrl, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
                     @Override

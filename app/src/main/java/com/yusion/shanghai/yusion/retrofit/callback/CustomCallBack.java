@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.callback;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,14 +20,14 @@ import retrofit2.Response;
  */
 
 public abstract class CustomCallBack<T> implements Callback<BaseResult<T>> {
-    private ProgressDialog dialog;
+    private Dialog dialog;
     private Context context;
 
     public CustomCallBack(Context context) {
         this(context, null);
     }
 
-    public CustomCallBack(Context context, ProgressDialog dialog) {
+    public CustomCallBack(Context context, Dialog dialog) {
         this.context = context;
         this.dialog = dialog;
         if (this.dialog != null) {

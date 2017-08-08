@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.ui.info;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +21,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 
 import java.util.ArrayList;
@@ -110,8 +111,7 @@ public class UploadListActivity extends BaseActivity {
                 }
                 adapter.notifyItemRangeInserted(adapter.getItemCount(), files.size());
 
-                ProgressDialog dialog = new ProgressDialog(this);
-                dialog.setCancelable(false);
+                Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 int account = 0;
                 for (String url : files) {
