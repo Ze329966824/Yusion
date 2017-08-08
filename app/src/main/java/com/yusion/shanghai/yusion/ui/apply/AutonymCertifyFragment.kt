@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -13,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
@@ -25,10 +23,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
-import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
-import com.yusion.shanghai.yusion.utils.OcrUtil
-import com.yusion.shanghai.yusion.utils.OssUtil
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
+import com.yusion.shanghai.yusion.utils.*
 import kotlinx.android.synthetic.main.autonym_certify.*
 import org.greenrobot.eventbus.EventBus
 import java.io.File
@@ -181,12 +176,8 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     hasIdBackImg = true
                     Glide.with(mContext).load(idBackFile).into(autonym_certify_id_back_img)
 
-                    val dialog = ProgressDialog(mContext)
-                    dialog.setIndeterminateDrawable(DoubleBounce())
-//                    dialog.setMessage("正在识别身份证...")
-//                    dialog.setCancelable(false)
+                    var dialog = LoadingUtils.createLoadingDialog(mContext)
                     dialog.show()
-
                     OcrUtil.requestOcr(mContext, idBackFile.absolutePath, OSSObjectKeyBean("lender", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
                         if (ocrResp == null) {
                             dialog.dismiss()

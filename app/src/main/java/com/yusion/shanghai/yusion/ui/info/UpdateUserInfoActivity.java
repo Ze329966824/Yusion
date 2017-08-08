@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.ui.info;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,7 +28,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
-import com.yusion.shanghai.yusion.ui.apply.SingleImgUploadActivity;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -55,7 +55,7 @@ import java.util.List;
 public class UpdateUserInfoActivity extends BaseActivity implements View.OnClickListener {
 
     private String[] mTabTitle = {"个人信息", "配偶信息", "征信信息", "补充资料"};
-        private UploadLabelListFragment uploadLabelListFragment1;
+    private UploadLabelListFragment uploadLabelListFragment1;
     private UploadLabelListFragment uploadLabelListFragment2;
     private ProgressDialog mUploadFileDialog;
     private UpdatePersonalInfoFragment mPersonalInfoFragment;
@@ -70,7 +70,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_update_user_info);
         uploadFileUrlBeanList.clear();
         EventBus.getDefault().register(this);
-        initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit()).setRightText("提交").setRightClickListener(v -> updateUserInfo());
+        initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit()).setRightTextColor(Color.WHITE).setRightText("提交").setRightClickListener(v -> updateUserInfo());
         initView();
     }
 

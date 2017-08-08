@@ -2,16 +2,16 @@ package com.yusion.shanghai.yusion.ui.main.mine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.pgyersdk.update.PgyUpdateManager;
+import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.MainActivity;
 
@@ -22,6 +22,8 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         initTitleBar(this, getResources().getString(R.string.main_setting_title));
+        TextView versionCodeTv = (TextView) findViewById(R.id.settings_version_code_tv);
+        versionCodeTv.setText(BuildConfig.VERSION_NAME);
 
 //        initView();
     }

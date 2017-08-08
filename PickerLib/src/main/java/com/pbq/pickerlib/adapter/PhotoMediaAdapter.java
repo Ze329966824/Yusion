@@ -4,8 +4,6 @@ package com.pbq.pickerlib.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.media.ThumbnailUtils;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -122,7 +120,7 @@ public class PhotoMediaAdapter extends BaseAdapter {
                 }
             });
 
-            if (imageDir.getType() == PhotoVideoDir.Type.VEDIO) {
+            if (imageDir.getType() == PhotoVideoDir.Type.VIDEO) {
                 Glide.with(context).load(new File(path)).into(viewHolder.photoView);
 //				viewHolder.photoView.setImageBitmap(ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MINI_KIND));
 //				viewHolder.photoView.setImageResource(R.mipmap.ic_launcher);

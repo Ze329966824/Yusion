@@ -19,6 +19,7 @@ import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
+import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
 
 public class LoginActivity extends BaseActivity {
 
@@ -27,6 +28,7 @@ public class LoginActivity extends BaseActivity {
     private Button mLoginCodeBtn;
     private Button mLoginSubmitBtn;
     private TextView mLoginAgreement;
+    private CountDownButtonWrap mCountDownBtnWrap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,15 @@ public class LoginActivity extends BaseActivity {
         mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
         mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
         mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
+        if (Settings.isOnline) {
+            mCountDownBtnWrap = new CountDownButtonWrap(mLoginCodeBtn, "重试", 30, 1);
+        } else {
+            mCountDownBtnWrap = new CountDownButtonWrap(mLoginCodeBtn, "重试", 5, 1);
+        }
         mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
         mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
         mLoginCodeBtn.setOnClickListener(v -> {
+            mCountDownBtnWrap.start();
             if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else {

@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.utils;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Base64;
@@ -18,8 +18,8 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.oss.GetOssTokenBean;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.api.OssApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.OssService;
 
 import java.io.UnsupportedEncodingException;
@@ -42,11 +42,7 @@ import retrofit2.Response;
 
 public class OssUtil {
     public static void uploadOss(final Context context, boolean showDialog, final String localPath, @NonNull OSSObjectKeyBean objectKeyBean, @NonNull final OnItemDataCallBack<String> onSuccessCallBack, final OnItemDataCallBack<Throwable> onFailureCallBack) {
-        ProgressDialog dialog = new ProgressDialog(context);
-        dialog.setMessage("请稍等...");
-        if (showDialog) {
-            dialog.show();
-        }
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
 
         Map<String, String> body = new LinkedHashMap<>();
         body.put("duration_second", "1800");
