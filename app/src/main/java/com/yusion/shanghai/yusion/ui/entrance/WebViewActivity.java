@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -11,7 +10,6 @@ import android.webkit.WebViewClient;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 public class WebViewActivity extends BaseActivity implements View.OnClickListener {
@@ -62,7 +60,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
-                    LoadingUtils.dismiss();
+//                    Loadingtils.dismiss();
                 } else {
                     LoadingUtils.createLoadingDialog(WebViewActivity.this);
                 }

@@ -94,16 +94,12 @@ class UpdatePersonalInfoFragment : BaseFragment() {
         }
 
         update_personal_info_driving_license_lin.setOnClickListener {
-            if (update_personal_info_driving_license_tv.text == "已上传") {
-                val intent = Intent(mContext, SingleImgUploadActivity::class.java)
-                intent.putExtra("type", "driving_lic")
-                intent.putExtra("role", "lender")
-                intent.putExtra("clt_id", mData.clt_id)
-                intent.putExtra("imgUrl", drivingLicenseImgUrl)
-                startActivityForResult(intent, START_FPR_DRIVING_LICENSE_IMG_ACTIVITY)
-            } else {
-                startActivityForResult(Intent(mContext, SingleImgUploadActivity::class.java), START_FPR_DRIVING_LICENSE_IMG_ACTIVITY)
-            }
+            val intent = Intent(mContext, SingleImgUploadActivity::class.java)
+            intent.putExtra("type", "driving_lic")
+            intent.putExtra("role", "lender")
+            intent.putExtra("clt_id", mData.clt_id)
+            intent.putExtra("imgUrl", drivingLicenseImgUrl)
+            startActivityForResult(intent, START_FPR_DRIVING_LICENSE_IMG_ACTIVITY)
         }
         update_personal_info_house_type_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_type_list_key, UpdatePersonalInfoFragment._HOUSE_TYPE_INDEX, update_personal_info_house_type_lin, update_personal_info_house_type_tv, "请选择", { _, index ->
