@@ -22,6 +22,7 @@ public class YusionApp extends Application {
 
     public static UserInfoBean USERINFOBEAN;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,6 +34,7 @@ public class YusionApp extends Application {
         TOKEN = "";
         MOBILE = "";
         USERINFOBEAN = null;
+
         SharedPrefsUtil.getInstance(this).putValue("token", TOKEN);
         SharedPrefsUtil.getInstance(this).putValue("mobile", MOBILE);
     }
