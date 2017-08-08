@@ -23,7 +23,6 @@ import com.yusion.shanghai.yusion.ui.apply.SingleImgUploadActivity
 import com.yusion.shanghai.yusion.ui.apply.SpouseInfoFragment
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
-import kotlinx.android.synthetic.main.fragment_personal_info.*
 import kotlinx.android.synthetic.main.fragment_spouse_info.*
 import java.io.File
 
@@ -111,6 +110,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
         mData = data
         update_spouse_info_marriage_tv.text = mData.marriage
         update_spouse_info_marriage_group_lin.visibility = if (mData.marriage == "已婚") View.VISIBLE else View.GONE
+        update_spouse_info_divorced_group_lin.visibility = if (mData.marriage == "离异") View.VISIBLE else View.GONE
         if (mData.marriage == "已婚") {
             update_spouse_info_clt_nm_edt.setText(mData.spouse.clt_nm)
             update_spouse_info_id_no_edt.setText(mData.spouse.id_no)
