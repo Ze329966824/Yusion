@@ -10,18 +10,24 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
+import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.SingleImgUploadActivity
+import com.yusion.shanghai.yusion.ui.apply.SpouseIdCardActivity
 import com.yusion.shanghai.yusion.ui.apply.SpouseInfoFragment
 import com.yusion.shanghai.yusion.utils.ContactsUtil
+import com.yusion.shanghai.yusion.utils.LoadingUtils
+import com.yusion.shanghai.yusion.utils.OcrUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.fragment_spouse_info.*
 import java.io.File
@@ -172,21 +178,55 @@ class UpdateSpouseInfoFragment : BaseFragment() {
     var regDetailAddress = ""
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            if (requestCode == Constants.REQUEST_CONTACTS) {
-                val uri = data.data
-                val contacts = ContactsUtil.getPhoneContacts(mContext, uri)
-                val result = arrayOf("", "")
-                if (contacts != null) {
-                    System.arraycopy(contacts, 0, result, 0, contacts.size)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                Constants.REQUEST_CONTACTS -> {
+                    data?.let {
+                        val uri = data.data
+                        val contacts = ContactsUtil.getPhoneContacts(mContext, uri)
+                        val result = arrayOf("", "")
+                        if (contacts != null) {
+                            System.arraycopy(contacts, 0, result, 0, contacts.size)
+                        }
+                        update_spouse_info_clt_nm_edt.setText(result[0])
+                        update_spouse_info_mobile_edt.setText(result[1])
+                    }
                 }
-                update_spouse_info_clt_nm_edt.setText(result[0])
-                update_spouse_info_mobile_edt.setText(result[1])
-            } else if (requestCode == Constants.REQUEST_ADDRESS) {
-                update_spouse_info_company_address1_tv.text = data.getStringExtra("result");
-            } else if (requestCode == UpdateSpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY) {
-                divorceImgUrl = data.getStringExtra("imgUrl")
-                update_spouse_info_divorced_tv.text = if (divorceImgUrl.isNotEmpty()) "已上传" else "请上传"
+                Constants.REQUEST_ADDRESS -> {
+                    data?.let {
+                        update_spouse_info_company_address1_tv.text = data.getStringExtra("result")
+                    }
+                }
+                UpdateSpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY -> {
+                    data?.let {
+                        divorceImgUrl = data.getStringExtra("imgUrl")
+                        update_spouse_info_divorced_tv.text = if (divorceImgUrl.isNotEmpty()) "已上传" else "请上传"
+                    }
+                }
+                Constants.REQUEST_IDCARD_1_CAPTURE -> {
+                    var dialog = LoadingUtils.createLoadingDialog(mContext)
+                    dialog.show()
+
+                    OcrUtil.requestOcr(mContext, idBackFile.absolutePath, OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
+                        if (ocrResp == null) {
+                            dialog.dismiss()
+                            Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
+                            return@OnOcrSuccessCallBack
+                        }
+                        SpouseIdCardActivity.ID_BACK_FID = objectKey
+                        if (ocrResp.showapi_res_code != 0 && ocrResp.showapi_res_body.idNo.isNullOrEmpty() || ocrResp.showapi_res_body.name.isNullOrEmpty()) {
+                            Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
+                        } else {
+                            update_spouse_info_clt_nm_edt.setText(ocrResp.showapi_res_body.name)
+                            update_spouse_info_id_no_edt.setText(ocrResp.showapi_res_body.idNo)
+                            update_spouse_info_gender_tv.text = ocrResp.showapi_res_body.sex
+                        }
+                        dialog.dismiss()
+                    }, OnItemDataCallBack<Throwable> {
+                        Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    })
+                }
             }
         }
     }

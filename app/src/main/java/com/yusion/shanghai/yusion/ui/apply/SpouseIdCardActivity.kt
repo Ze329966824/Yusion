@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +16,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack
 import com.yusion.shanghai.yusion.settings.Constants
+import com.yusion.shanghai.yusion.utils.LoadingUtils
 import com.yusion.shanghai.yusion.utils.OcrUtil
 import com.yusion.shanghai.yusion.utils.OssUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
@@ -138,9 +138,7 @@ class SpouseIdCardActivity : BaseActivity() {
                     idBackImgUrl = idBackFile.absolutePath
                     Glide.with(this).load(idBackFile).into(spouse_id_card_id_back_img)
 
-                    val dialog = ProgressDialog(this)
-                    dialog.setMessage("正在识别身份证...")
-                    dialog.setCancelable(false)
+                    var dialog = LoadingUtils.createLoadingDialog(this)
                     dialog.show()
 
                     OcrUtil.requestOcr(this, idBackFile.absolutePath, OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
@@ -168,8 +166,7 @@ class SpouseIdCardActivity : BaseActivity() {
                     idFrontImgUrl = idFrontFile.absolutePath
                     Glide.with(this).load(idFrontFile).into(spouse_id_card_id_front_img)
 
-                    val dialog = ProgressDialog(this)
-                    dialog.setCancelable(false)
+                    var dialog = LoadingUtils.createLoadingDialog(this)
                     dialog.show()
                     OssUtil.uploadOss(this, false, idFrontFile.absolutePath, OSSObjectKeyBean("lender_sp", "id_card_front", ".png"), OnItemDataCallBack<String> {
                         dialog.dismiss()

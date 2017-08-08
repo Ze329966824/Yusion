@@ -1,7 +1,7 @@
 package com.yusion.shanghai.yusion.ui.info;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,11 +23,11 @@ import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
-import com.yusion.shanghai.yusion.event.UpdateUserInfoActivityEvent;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -39,8 +39,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +55,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     private String[] mTabTitle = {"个人信息", "配偶信息", "征信信息", "补充资料"};
     private UploadLabelListFragment uploadLabelListFragment1;
     private UploadLabelListFragment uploadLabelListFragment2;
-    private ProgressDialog mUploadFileDialog;
+    private Dialog mUploadFileDialog;
     private UpdatePersonalInfoFragment mPersonalInfoFragment;
     private UserInfoBean mData;
     private UpdateSpouseInfoFragment mSpouseInfoFragment;
@@ -69,7 +67,6 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user_info);
         uploadFileUrlBeanList.clear();
-        EventBus.getDefault().register(this);
         initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit()).setRightTextColor(Color.WHITE).setRightText("提交").setRightClickListener(v -> updateUserInfo());
         initView();
     }
@@ -87,9 +84,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                                 Toast.makeText(UpdateUserInfoActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
 
                                 if (mUploadFileDialog == null) {
-                                    mUploadFileDialog = new ProgressDialog(UpdateUserInfoActivity.this);
+                                    mUploadFileDialog = LoadingUtils.createLoadingDialog(UpdateUserInfoActivity.this);
                                     mUploadFileDialog.setCancelable(false);
-                                    mUploadFileDialog.setMessage("正在上传图片...");
                                 }
                                 mUploadFileDialog.show();
                                 UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
@@ -107,27 +103,6 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                 });
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-    }
-
-    @Subscribe
-    public void onFilesUploadFinish(UpdateUserInfoActivityEvent event) {
-        switch (event) {
-            case page1filesUploadFinish:
-//                uploadLabelListFragment2.uploadFiles();
-                break;
-            case page2filesUploadFinish:
-                finish();
-                mUploadFileDialog.dismiss();
-                break;
-        }
     }
 
     @Override

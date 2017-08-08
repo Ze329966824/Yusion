@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
