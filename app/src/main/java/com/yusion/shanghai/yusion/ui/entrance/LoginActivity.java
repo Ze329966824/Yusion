@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.ui.entrance;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
@@ -81,17 +83,18 @@ public class LoginActivity extends BaseActivity {
         finish();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        //每次回到登陆界面都需清除缓存
-//        myApp.clearUserData();
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //每次回到登陆界面都需清除缓存
+        myApp.clearUserData();
+    }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
-//        ActivityManager.finishOtherActivityEx(LoginActivity.class);
-//    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
+        ActivityManager.finishOtherActivityEx(LoginActivity.class);
+    }
 }

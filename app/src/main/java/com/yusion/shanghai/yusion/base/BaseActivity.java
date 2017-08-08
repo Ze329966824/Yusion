@@ -23,6 +23,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityManager.addActivity(this);
         myApp = ((YusionApp) getApplication());
         PgyCrashManager.register(this);
 
@@ -59,5 +60,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onPause();
         PgyFeedbackShakeManager.unregister();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityManager.removeActivity(this);
     }
 }

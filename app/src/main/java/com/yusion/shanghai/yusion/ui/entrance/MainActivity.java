@@ -28,6 +28,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        myApp.isBack2Home = false;
+
 //        Log.e("TAG", "token: " + WangDaiApp.mToken);
 
 //        WangDaiApp.isBack2Home = false;
@@ -78,6 +80,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myApp.isBack2Home = true;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
@@ -88,10 +96,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        WangDaiApp.isBack2Home = true;
-//    }
+
     }
 }

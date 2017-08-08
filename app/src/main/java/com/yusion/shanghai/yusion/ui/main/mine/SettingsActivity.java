@@ -13,6 +13,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
+import com.yusion.shanghai.yusion.ui.entrance.MainActivity;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -70,8 +71,15 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void logout() {
-//        ((WangDaiApp) getApplication()).clearUserData();
+        myApp.clearUserData();
+
         startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
