@@ -8,14 +8,19 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
-import com.yusion.shanghai.yusion.ui.entrance.MainActivity;
+
 
 public class SettingsActivity extends BaseActivity {
+    private String desc;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,32 @@ public class SettingsActivity extends BaseActivity {
             case R.id.main_setting_version_name_layout:   //版本信息
                 PgyUpdateManager.setIsForced(true); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
                 PgyUpdateManager.register(this, null);
+//                initUpdate();
                 break;
         }
+    }
+
+    private void initUpdate() {
+
+        PgyUpdateManager.register(SettingsActivity.this, null, new UpdateManagerListener() {
+            @Override
+            public void onNoUpdateAvailable() {
+            }
+
+            @Override
+            public void onUpdateAvailable(String s) {
+                //                Log.e("result:           ", s);
+                final AppBean appBean = getAppBeanFromString(s);
+                desc = appBean.getReleaseNote();
+                url = appBean.getDownloadURL();
+//                Log.e("desc=           ", desc);
+//                Log.e("url=           ", url);
+//                UpdateUtil.showUpdateDialog(SettingActivity.this, desc, false, url);
+                UpdateManagerListener.updateLocalBuildNumber(s);
+            }
+        });
+
+
     }
 
     private void showLogoutDialog() {

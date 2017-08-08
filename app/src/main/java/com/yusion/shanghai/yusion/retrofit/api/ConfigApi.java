@@ -3,8 +3,10 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
@@ -16,6 +18,7 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 public class ConfigApi {
     /**
@@ -49,6 +52,9 @@ public class ConfigApi {
 
     public static ConfigResp parseJsonObject2ConfigResp(Context context, JSONObject jsonObject) throws JSONException {
         ConfigResp configResp = new ConfigResp();
+
+        String agreement_url = jsonObject.optString("agreement_url");
+        configResp.agreement_url = agreement_url;
 
         JSONArray education_list = jsonObject.optJSONArray("education_list");
         for (int i = 0; education_list != null && i < education_list.length(); i++) {

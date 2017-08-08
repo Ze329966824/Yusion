@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class ConfigResp {
+    public String agreement_url = "";
     public String client_material = "";
     public List<String> education_list_key = new ArrayList<>();
     public List<String> education_list_value = new ArrayList<>();
