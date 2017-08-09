@@ -206,9 +206,9 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_current_address_tv.text.isEmpty()) {
             Toast.makeText(mContext, "现住地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_company_address1_tv.text.isEmpty()) {
+        } else if (personal_info_current_address1_tv.text.isEmpty()) {
             Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_company_address2_tv.text.isEmpty()) {
+        } else if (personal_info_current_address2_tv.text.isEmpty()) {
             Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_company_name_edt.text.isEmpty()) {
             Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
@@ -233,17 +233,17 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         } else if (personal_info_house_owner_relation_tv.text.isEmpty()) {
             Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_contact1_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "紧急联系人1姓名不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "亲属联系人姓名不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_mobile1_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "紧急联系人1手机号不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "亲属联系人手机号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_relation1_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "紧急联系人1与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "亲属联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_contact2_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "紧急联系人2姓名不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "其他联系人姓名不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_mobile2_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "紧急联系人2手机号不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "其他联系人手机号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_relation2_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "紧急联系人2与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "其他联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else {
             return true
         }

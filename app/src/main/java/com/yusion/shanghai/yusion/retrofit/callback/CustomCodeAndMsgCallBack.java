@@ -2,12 +2,14 @@ package com.yusion.shanghai.yusion.retrofit.callback;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.pgyersdk.crash.PgyCrashManager;
 import com.yusion.shanghai.yusion.base.BaseResult;
 import com.yusion.shanghai.yusion.settings.Settings;
+import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 
 import java.util.Locale;
 
@@ -41,6 +43,9 @@ public abstract class CustomCodeAndMsgCallBack implements Callback<BaseResult> {
                 Toast.makeText(context, body.msg, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, String.format(Locale.CHINA, "code = %d and msg = %s", body.code, body.msg), Toast.LENGTH_SHORT).show();
+            }
+            if (body.code == -1) {
+                context.startActivity(new Intent(context, LoginActivity.class));
             }
         }
         onCustomResponse(body.code,body.msg);

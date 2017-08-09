@@ -143,7 +143,47 @@ class UpdateSpouseInfoFragment : BaseFragment() {
         }
     }
 
+    fun checkCanNextStep(): Boolean {
+        if (update_spouse_info_marriage_tv.text == "已婚") {
+            if (update_spouse_info_clt_nm_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_id_no_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_gender_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_mobile_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_company_name_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_company_address2_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_work_position_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (update_spouse_info_monthly_income_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "月收入不能为空", Toast.LENGTH_SHORT).show()
+            } else {
+                return true
+            }
+        } else if (update_spouse_info_marriage_tv.text == "离异") {
+            if (update_spouse_info_divorced_tv.text == "请上传") {
+                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+        return false
+    }
+
     fun requestUpdateUserInfoBean(onFinishCallBack: OnVoidCallBack) {
+        if (!checkCanNextStep()) {
+            return
+        }
         mData.marriage = if (update_spouse_info_marriage_tv.text == "已婚") "已婚" else update_spouse_info_marriage_tv.text.toString()
         if (mData.marriage == "已婚") {
             mData.spouse.marriage = "已婚"

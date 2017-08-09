@@ -5,9 +5,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
@@ -171,8 +173,66 @@ class UpdatePersonalInfoFragment : BaseFragment() {
             }
         })
     }
+    
+    fun checkCanNextStep(): Boolean {
+        if (update_personal_info_reg_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_gender_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_mobile_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_education_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_current_address_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "现住地址不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_current_address1_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_current_address2_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_company_name_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_company_address_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_company_address1_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_company_address2_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_work_position_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_monthly_income_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "月收入不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_driving_license_tv.text == "请上传") {
+            Toast.makeText(mContext, "请上传驾照影像件", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_house_type_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_house_area_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋面积不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_house_owner_name_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_house_owner_relation_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_urg_contact1_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "亲属联系人姓名不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_urg_mobile1_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "亲属联系人手机号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_urg_relation1_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "亲属联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_urg_contact2_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "其他联系人姓名不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_urg_mobile2_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "其他联系人手机号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (update_personal_info_urg_relation2_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "其他联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+        } else {
+            return true
+        }
+        return false
+    }
 
     fun requestUpdateUserInfoBean(onFinishCallBack: OnVoidCallBack) {
+        if (!checkCanNextStep()) {
+            return
+        }
         mData.clt_nm = update_personal_info_clt_nm_edt.text.toString()
         mData.id_no = update_personal_info_id_no_edt.text.toString()
         mData.mobile = update_personal_info_mobile_edt.text.toString()

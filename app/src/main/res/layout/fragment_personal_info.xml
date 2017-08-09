@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <View
                 android:layout_width="3dp"
@@ -27,7 +27,6 @@
                 android:background="@drawable/fill_vertical_line"
                 app:layout_constraintBottom_toBottomOf="@+id/personal_info1"
                 app:layout_constraintLeft_toLeftOf="parent" />
-
 
             <TextView
                 android:id="@+id/personal_info1"
@@ -231,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:id="@+id/update_personal_info_current_address_lin"
@@ -681,224 +680,243 @@
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/personal_info_group2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="3dp"
-                android:layout_height="11dp"
-                android:layout_marginBottom="1.5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/fill_vertical_line"
-                app:layout_constraintBottom_toBottomOf="@+id/personal_info2"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <TextView
-                android:id="@+id/personal_info2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7.5dp"
-                android:layout_marginLeft="22dp"
-                android:text="其他联系人"
-                android:textColor="#666666"
-                android:textSize="11.5sp"
-                app:layout_constraintBottom_toTopOf="@+id/personal_info_group2"
-                app:layout_constraintLeft_toLeftOf="parent" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/personal_info_group2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/bg_color"
+                android:orientation="horizontal">
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:background="@color/separate_line_color" />
-
-                <LinearLayout style="@style/apply_info_item">
-
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:text="亲属联系人" />
-
-                    <EditText
-                        android:id="@+id/update_personal_info_urg_contact1_edt"
-                        style="@style/apply_info_content"
-                        android:layout_marginRight="35dp"
-                        android:hint="请输入亲属联系人" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
+                    android:layout_width="3dp"
+                    android:layout_height="11dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@color/separate_line_color" />
-
-                <LinearLayout style="@style/apply_info_item">
-
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:text="手机号码" />
-
-                    <EditText
-                        android:id="@+id/update_personal_info_urg_mobile1_edt"
-                        style="@style/apply_info_content"
-                        android:hint="请选择手机号码" />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/fill_vertical_line" />
 
 
-                    <FrameLayout
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="18dp"
+                    android:text="亲属联系人"
+                    android:textColor="#666666"
+                    android:textSize="11.5sp" />
 
-                        <ImageView
-                            android:id="@+id/update_personal_info_urg_mobile1_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left|center"
-                            android:src="@mipmap/contact" />
-                    </FrameLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:layout_marginLeft="15dp"
-                    android:background="@color/separate_line_color" />
-
-                <LinearLayout
-                    android:id="@+id/update_personal_info_urg_relation1_lin"
-                    style="@style/apply_info_item">
-
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:text="与申请人关系" />
-
-                    <TextView
-                        android:id="@+id/update_personal_info_urg_relation1_tv"
-                        style="@style/apply_info_content"
-                        android:hint="请选择与申请人关系" />
-
-                    <FrameLayout
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left|center_vertical"
-                            android:src="@mipmap/mine_arrow_right" />
-                    </FrameLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:background="@color/separate_line_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/bg_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:background="@color/separate_line_color" />
-
-                <LinearLayout style="@style/apply_info_item">
-
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:text="其他联系人" />
-
-                    <EditText
-                        android:id="@+id/update_personal_info_urg_contact2_edt"
-                        style="@style/apply_info_content"
-                        android:layout_marginRight="35dp"
-                        android:hint="请输入其他联系人" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:layout_marginLeft="15dp"
-                    android:background="@color/separate_line_color" />
-
-                <LinearLayout style="@style/apply_info_item">
-
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:text="手机号码" />
-
-                    <EditText
-                        android:id="@+id/update_personal_info_urg_mobile2_edt"
-                        style="@style/apply_info_content"
-                        android:hint="请选择手机号码" />
-
-                    <FrameLayout
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp">
-
-                        <ImageView
-                            android:id="@+id/update_personal_info_urg_mobile2_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left|center"
-                            android:src="@mipmap/contact" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:layout_marginLeft="15dp"
-                    android:background="@color/separate_line_color" />
-
-                <LinearLayout
-                    android:id="@+id/update_personal_info_urg_relation2_lin"
-                    style="@style/apply_info_item">
-
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:text="与申请人关系" />
-
-                    <TextView
-                        android:id="@+id/update_personal_info_urg_relation2_tv"
-                        style="@style/apply_info_content"
-                        android:hint="请选择与申请人关系" />
-
-                    <FrameLayout
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left|center_vertical"
-                            android:src="@mipmap/mine_arrow_right" />
-                    </FrameLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/separate_line_height"
-                    android:background="@color/separate_line_color" />
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:background="@color/separate_line_color" />
+
+            <LinearLayout style="@style/apply_info_item">
+
+                <TextView
+                    style="@style/apply_info_title"
+                    android:text="亲属联系人" />
+
+                <EditText
+                    android:id="@+id/update_personal_info_urg_contact1_edt"
+                    style="@style/apply_info_content"
+                    android:layout_marginRight="35dp"
+                    android:hint="请输入亲属联系人" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:layout_marginLeft="15dp"
+                android:background="@color/separate_line_color" />
+
+            <LinearLayout style="@style/apply_info_item">
+
+                <TextView
+                    style="@style/apply_info_title"
+                    android:text="手机号码" />
+
+                <EditText
+                    android:id="@+id/update_personal_info_urg_mobile1_edt"
+                    style="@style/apply_info_content"
+                    android:hint="请选择手机号码" />
+
+
+                <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:id="@+id/update_personal_info_urg_mobile1_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:src="@mipmap/contact" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:layout_marginLeft="15dp"
+                android:background="@color/separate_line_color" />
+
+            <LinearLayout
+                android:id="@+id/update_personal_info_urg_relation1_lin"
+                style="@style/apply_info_item">
+
+                <TextView
+                    style="@style/apply_info_title"
+                    android:text="与申请人关系" />
+
+                <TextView
+                    android:id="@+id/update_personal_info_urg_relation1_tv"
+                    style="@style/apply_info_content"
+                    android:hint="请选择与申请人关系" />
+
+                <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:src="@mipmap/mine_arrow_right" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:background="@color/separate_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/bg_color"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/fill_vertical_line" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="18dp"
+                    android:text="其他联系人"
+                    android:textColor="#666666"
+                    android:textSize="11.5sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:background="@color/separate_line_color" />
+
+
+            <LinearLayout style="@style/apply_info_item">
+
+                <TextView
+                    style="@style/apply_info_title"
+                    android:text="其他联系人" />
+
+                <EditText
+                    android:id="@+id/update_personal_info_urg_contact2_edt"
+                    style="@style/apply_info_content"
+                    android:layout_marginRight="35dp"
+                    android:hint="请输入其他联系人" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:layout_marginLeft="15dp"
+                android:background="@color/separate_line_color" />
+
+            <LinearLayout style="@style/apply_info_item">
+
+                <TextView
+                    style="@style/apply_info_title"
+                    android:text="手机号码" />
+
+                <EditText
+                    android:id="@+id/update_personal_info_urg_mobile2_edt"
+                    style="@style/apply_info_content"
+                    android:hint="请选择手机号码" />
+
+                <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:id="@+id/update_personal_info_urg_mobile2_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:src="@mipmap/contact" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:layout_marginLeft="15dp"
+                android:background="@color/separate_line_color" />
+
+            <LinearLayout
+                android:id="@+id/update_personal_info_urg_relation2_lin"
+                style="@style/apply_info_item">
+
+                <TextView
+                    style="@style/apply_info_title"
+                    android:text="与申请人关系" />
+
+                <TextView
+                    android:id="@+id/update_personal_info_urg_relation2_tv"
+                    style="@style/apply_info_content"
+                    android:hint="请选择与申请人关系" />
+
+                <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:src="@mipmap/mine_arrow_right" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:background="@color/separate_line_color" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
