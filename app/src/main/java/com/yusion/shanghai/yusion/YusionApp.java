@@ -14,7 +14,6 @@ public class YusionApp extends Application {
 
     //是否使用back健退出程序
     public static boolean isBack2Home = false;
-    public static boolean isLogin = false;
 
     public static String TOKEN;
     public static String MOBILE;
@@ -30,7 +29,6 @@ public class YusionApp extends Application {
     }
 
     public void clearUserData() {
-        isLogin = false;
         TOKEN = "";
         MOBILE = "";
         USERINFOBEAN = null;
