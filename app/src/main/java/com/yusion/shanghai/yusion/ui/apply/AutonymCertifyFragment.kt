@@ -179,12 +179,12 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     var dialog = LoadingUtils.createLoadingDialog(mContext)
                     dialog.show()
                     OcrUtil.requestOcr(mContext, idBackFile.absolutePath, OSSObjectKeyBean("lender", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
+                        ID_BACK_FID = objectKey
                         if (ocrResp == null) {
                             dialog.dismiss()
                             Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
                             return@OnOcrSuccessCallBack
                         }
-                        ID_BACK_FID = objectKey
                         if (ocrResp.showapi_res_code != 0 && ocrResp.showapi_res_body.idNo.isNullOrEmpty() || ocrResp.showapi_res_body.name.isNullOrEmpty()) {
                             Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
                         } else {
