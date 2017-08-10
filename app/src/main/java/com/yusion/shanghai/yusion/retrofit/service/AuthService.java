@@ -27,7 +27,7 @@ public interface AuthService {
     @GET("/api/client/check_user_info/")
     Call<BaseResult<CheckUserInfoResp>> checkUserInfo();
 
-    @POST("/api/auth/check_user/")
+    @POST("/api/auth/check_token/")
     Call<BaseResult<CheckTokenResp>> checkToken();
 
 }
