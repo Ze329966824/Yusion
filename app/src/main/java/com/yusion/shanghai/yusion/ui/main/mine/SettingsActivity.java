@@ -16,6 +16,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
+import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
 
 
 public class SettingsActivity extends BaseActivity {
@@ -38,10 +39,9 @@ public class SettingsActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.main_setting_agreement_layout:  //用户协议
-//                Intent intent2 = new Intent(SettingActivity.this, WebViewActivity.class);
-//                intent2.putExtra("title", getResources().getString(R.string.main_setting_agreement));
-//                intent2.putExtra("url", JsonUtils.getConfigValueFromKey("agreement_url"));
-//                startActivity(intent2);
+                Intent intent = new Intent(SettingsActivity.this, WebViewActivity.class);
+                intent.putExtra("type", "Agreement");
+                startActivity(intent);
                 break;
             case R.id.main_setting_logout_layout:    //退出登录
                 showLogoutDialog();

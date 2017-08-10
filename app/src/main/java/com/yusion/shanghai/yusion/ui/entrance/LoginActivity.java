@@ -82,13 +82,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void loginSuccess(LoginResp resp) {
-        YusionApp.TOKEN = resp.token;
-        YusionApp.MOBILE = mLoginMobileTV.getText().toString();
-        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
-        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
-        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
+        if (resp != null) {
+            YusionApp.TOKEN = resp.token;
+            YusionApp.MOBILE = mLoginMobileTV.getText().toString();
+            SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+            SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
+            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     @Override
