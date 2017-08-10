@@ -44,7 +44,6 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView replayPeriodsTv;
     private TextView dlrNameTv;
     private TextView salesNameTv;
-    private TextView customerIdTv;
     private TextView customerNameTv;
     private TextView brandTv;
     private TextView trixTv;
@@ -104,7 +103,6 @@ public class OrderDetailActivity extends BaseActivity {
 
         dlrNameTv = (TextView) findViewById(R.id.order_detail_dlr_name_tv);
         salesNameTv = (TextView) findViewById(R.id.order_detail_sales_name_tv);
-        customerIdTv = (TextView) findViewById(R.id.order_detail_customer_id_tv);
         customerNameTv = (TextView) findViewById(R.id.order_detail_customer_name_tv);
     }
 
@@ -170,8 +168,7 @@ public class OrderDetailActivity extends BaseActivity {
 
                 dlrNameTv.setText(resp.dlr_nm);
                 salesNameTv.setText(resp.dlr_sales_name);
-                customerIdTv.setText(resp.id_no);
-                customerNameTv.setText(resp.clt_nm);
+                customerNameTv.setText(resp.dlr_dfim_name);
                 findViewById(R.id.order_detail_customer_mobile_img).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

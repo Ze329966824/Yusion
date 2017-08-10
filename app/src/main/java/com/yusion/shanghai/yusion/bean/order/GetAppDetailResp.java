@@ -46,7 +46,7 @@ public class GetAppDetailResp {
     public UwDetailBean uw_detail;
     public String dlr_sales_name;
     public String dlr_sales_mobile;
-    public Object dlr_dfim_name;
+    public String dlr_dfim_name;
     public Object dlr_dfim_mobile;
     public String app_id;
     public String loan_bank;
