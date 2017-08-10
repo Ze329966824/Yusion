@@ -81,10 +81,6 @@ public class PhotoMediaActivity extends AppCompatActivity {
     private File cameraFile;
     private ArrayList<String> selectedFath = new ArrayList<>();
     /**
-     * 存储已选择的视频路径文件集合
-     */
-    private ArrayList<File> vedioFiles = new ArrayList<>();
-    /**
      * 上传类型
      */
     private PhotoVideoDir.Type loadType = PhotoVideoDir.Type.IMAGE;
@@ -197,7 +193,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
                         //加载图片列表
                         if (currentDir == null) {
                             Toast.makeText(PhotoMediaActivity.this, "图片列表为空", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             loadImages(currentDir);
                         }
                     }
@@ -238,7 +234,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
                     public void run() {
                         if (currentDir == null) {
                             Toast.makeText(PhotoMediaActivity.this, "视频列表为空", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             loadVideoImages(currentDir);
                         }
                     }
@@ -295,11 +291,13 @@ public class PhotoMediaActivity extends AppCompatActivity {
                 }
                 updateNext();
             }
+
             @Override
             public void onTakePicture(PhotoVideoDir imageDir) {
                 //在图片选择中拍照
                 takePicture(imageDir);
             }
+
             @Override
             public void onShowPicture(String path) {
                 //显示点击的具体图片
@@ -483,31 +481,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
     public void goNext(View view) {
         if (getSelectedPictureCont() != 0) {
             Intent intent = new Intent();
-            if (loadType == PhotoVideoDir.Type.IMAGE) {
-                // 存储已选择的图片路径文件集合
-//                ArrayList<File> picFiles = new ArrayList<>();
-//                for (int i = 0; i < getSelectedPicture().size(); i++) {
-//                    String lastPath = Environment.getExternalStorageDirectory() + "/Temp/image/compressPic" + i + ".jpg";
-//                    File f = new File(lastPath);
-//                    if (!f.exists()) {
-//                        f.mkdir();
-//                    }
-//                    final String compressImage = PictureUtil.compressImage(getSelectedPicture().get(i), lastPath, 30);
-//                    final File compressedPic = new File(compressImage);
-//                    picFiles.add(compressedPic);
-//                }
-                //传入图片选择路径的集合
-//                intent.putExtra("files", picFiles);
-                intent.putExtra("files", getSelectedPicture());
-
-            } else if (loadType == PhotoVideoDir.Type.VIDEO) {
-                for (int i = 0; i < getSelectedPicture().size(); i++) {
-                    final File file = new File(getSelectedPicture().get(i));
-                    vedioFiles.add(file);
-                }
-                //传入图片选择路径的集合
-                intent.putExtra("videopath", getSelectedPicture());
-            }
+            intent.putExtra("files", getSelectedPicture());
             //返回成功给DemoActivity界面
             setResult(RESULT_OK, intent);
             finish();
