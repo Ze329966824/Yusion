@@ -51,7 +51,10 @@ public class LoginActivity extends BaseActivity {
             } else {
                 AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
                     if (data != null) {
-                        mLoginCodeTV.setText(data.verify_code);
+                        if (!Settings.isOnline) {
+                            mLoginCodeTV.setText(data.verify_code);
+
+                        }
                     }
                 });
             }

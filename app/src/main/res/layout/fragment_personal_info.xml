@@ -618,7 +618,9 @@
                         android:id="@+id/update_personal_info_house_area_edt"
                         style="@style/apply_info_content"
                         android:layout_marginRight="35dp"
-                        android:hint="请输入房屋面积" />
+                        android:hint="请输入房屋面积"
+                        android:inputType="number"
+                        android:digits="0123456789"/>
                 </LinearLayout>
 
 
