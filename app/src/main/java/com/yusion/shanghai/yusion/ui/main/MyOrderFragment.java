@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.order.GetAppListResp;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 import com.yusion.shanghai.yusion.ui.order.OrderDetailActivity;
 
@@ -72,13 +74,23 @@ public class MyOrderFragment extends BaseFragment {
             }
         });
         refreshData();
+        // Log.e("sss",getArguments().getString("st"));
     }
 
     //getArguments().getString("st")
     private void refreshData() {
-        OrderApi.getAppList(mContext, "0", new OnDataCallBack<List<GetAppListResp>>() {
+//        OrderApi.getAppList(mContext, "0", new OnDataCallBack<List<GetAppListResp>>() {
+//            @Override
+//            public void callBack(List<GetAppListResp> resp) {
+//                items.clear();
+//                items.addAll(resp);
+//                adapter.notifyDataSetChanged();
+//                ptr.refreshComplete();
+//            }
+//        });
+        OrderApi.getAppList(mContext, "0", new OnItemDataCallBack<List<GetAppListResp>>() {
             @Override
-            public void callBack(List<GetAppListResp> resp) {
+            public void onItemDataCallBack(List<GetAppListResp> resp) {
                 items.clear();
                 items.addAll(resp);
                 adapter.notifyDataSetChanged();
@@ -109,16 +121,7 @@ public class MyOrderFragment extends BaseFragment {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             VH vh = (VH) holder;
             GetAppListResp item = mItems.get(position);
-            if (item.uw && item.uw_confirmed == 1) {
-                vh.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                        intent.putExtra("app_id", item.app_id);
-                        mContext.startActivity(intent);
-                    }
-                });
-            } else if (item.uw && item.uw_confirmed != 1) {
+            if (item.status_st == 4) {
                 vh.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -127,7 +130,7 @@ public class MyOrderFragment extends BaseFragment {
                         mContext.startActivity(intent);
                     }
                 });
-            } else if (!item.uw) {
+            } else {
                 vh.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -137,6 +140,35 @@ public class MyOrderFragment extends BaseFragment {
                     }
                 });
             }
+
+//            if (item.uw && item.uw_confirmed == 1) {
+//                vh.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(mContext, OrderDetailActivity.class);
+//                        intent.putExtra("app_id", item.app_id);
+//                        mContext.startActivity(intent);
+//                    }
+//                });
+//            } else if (item.uw && item.uw_confirmed != 1) {
+//                vh.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(mContext, FinancePlanActivity.class);
+//                        intent.putExtra("app_id", item.app_id);
+//                        mContext.startActivity(intent);
+//                    }
+//                });
+//            } else if (!item.uw) {
+//                vh.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(mContext, OrderDetailActivity.class);
+//                        intent.putExtra("app_id", item.app_id);
+//                        mContext.startActivity(intent);
+//                    }
+//                });
+//            }
             vh.salesName.setText(item.dlr_sales_nm);
             vh.name.setText(item.clt_nm);
             vh.door.setText(item.dlr_nm);
@@ -152,16 +184,30 @@ public class MyOrderFragment extends BaseFragment {
                     mContext.startActivity(intent);
                 }
             });
-            if (item.status.equals("待审核")) {
+            if (item.status_st == 2) {//待审核
                 vh.st.setTextColor(Color.parseColor("#FFA400"));
-            } else if (item.status.equals("征信通过")) {
-                vh.st.setTextColor(Color.parseColor("#06B7A3"));
-            } else if (item.status.equals("征信拒绝")) {
+                vh.line_21.setBackgroundColor(Color.parseColor("#06b7a3"));
+                vh.point_image_1.setBackgroundResource(R.drawable.poi_green);
+                vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
+            } else if (item.status_st == 3) {//审核失败
                 vh.st.setTextColor(Color.parseColor("#FF3F00"));
-            } else if (item.status.equals("已取消")) {
+                vh.line_21.setBackgroundColor(Color.parseColor("#FF3F00"));
+                //vh.point_image_2.setBackgroundResource(R.drawable.poi_red);
+                vh.point_image_2.setBackgroundResource(R.drawable.poi_red);
+            } else if (item.status_st == 4) {//待确认金融方案
+                vh.st.setTextColor(Color.parseColor("#FFA400"));
+            } else if (item.status_st == 6) {//放款中
+                vh.line_41.setBackgroundColor(Color.parseColor("#06b7a3"));
+                vh.line_21.setBackgroundColor(Color.parseColor("#06b7a3"));
+                vh.line_22.setBackgroundColor(Color.parseColor("#06b7a3"));
+                vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
+                vh.st.setTextColor(Color.parseColor("#06B7A3"));
+            } else if (item.status_st == 9) {//已取消
                 vh.st.setTextColor(Color.parseColor("#666666"));
+                vh.point_image_1.setBackgroundResource(R.drawable.poi_grey);
+                vh.line_12.setBackgroundColor(Color.parseColor("#dddddd"));
             }
-            vh.st.setText(item.status);
+            vh.st.setText(item.status_code);//待审核  status_code status_st: 2
             vh.periods.setText(item.nper);
             vh.loan.setText(item.loan_amt);
         }
@@ -185,6 +231,14 @@ public class MyOrderFragment extends BaseFragment {
             public TextView periods;
             public ImageView phone;
             public TextView salesName;
+            public View line_21;
+            public View line_22;
+            public View line_41;
+            public View line_12;
+
+            public ImageView point_image_2;
+            public ImageView point_image_1;
+            public ImageView point_image_4;
 
             public VH(View itemView) {
                 super(itemView);
@@ -199,6 +253,16 @@ public class MyOrderFragment extends BaseFragment {
                 loan = ((TextView) itemView.findViewById(R.id.order_list_item_total_loan_tv));
                 periods = ((TextView) itemView.findViewById(R.id.order_list_item_periods_tv));
                 phone = ((ImageView) itemView.findViewById(R.id.order_list_item_sales_phone_img));
+
+                line_21 = itemView.findViewById(R.id.point_line_21);
+                line_22 = itemView.findViewById(R.id.point_line_22);
+                line_41 = itemView.findViewById(R.id.point_line_41);
+                line_12 = itemView.findViewById(R.id.point_line_12);
+
+                point_image_2 = (ImageView) itemView.findViewById(R.id.point_image_2);
+                point_image_1 = (ImageView) itemView.findViewById(R.id.point_image_1);
+                point_image_4 = (ImageView) itemView.findViewById(R.id.point_image_4);
+
             }
         }
 

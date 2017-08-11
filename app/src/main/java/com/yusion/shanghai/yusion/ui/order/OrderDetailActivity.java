@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.order.GetAppDetailResp;
+import com.yusion.shanghai.yusion.bean.order.OrderDetailBean;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 
@@ -108,32 +109,32 @@ public class OrderDetailActivity extends BaseActivity {
 
     private void initData() {
         String app_id = getIntent().getStringExtra("app_id");
-        OrderApi.getAppDetails(this, app_id, new OnItemDataCallBack<GetAppDetailResp>() {
+        OrderApi.getAppDetails(this, app_id, new OnItemDataCallBack<OrderDetailBean>() {
             @Override
-            public void onItemDataCallBack(GetAppDetailResp resp) {
+            public void onItemDataCallBack(OrderDetailBean resp) {
 
-                if (resp.status.equals("待审核")) {
+                if (resp.status_st == 2) {//2是待审核
                     waitRel.setVisibility(View.VISIBLE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.VISIBLE);
                     replyLin.setVisibility(View.GONE);
                     waitReason.setText(resp.uw_detail.comments);
-                } else if (resp.status.equals("待签约")) {
+                } else if (resp.status_st == 4) {
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.VISIBLE);
                     replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
-                } else if (resp.status.equals("放款中")) {
+                } else if (resp.status_st == 6) {
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.VISIBLE);
                     replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
-                } else if (resp.status.equals("审核失败")) {
+                } else if (resp.status_st == 3) {
                     waitRel.setVisibility(View.GONE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.VISIBLE);
@@ -168,7 +169,8 @@ public class OrderDetailActivity extends BaseActivity {
 
                 dlrNameTv.setText(resp.dlr_nm);
                 salesNameTv.setText(resp.dlr_sales_name);
-                customerNameTv.setText(resp.dlr_dfim_name);
+                // customerNameTv.setText(resp.dlr_dfim_name);
+                customerNameTv.setText(resp.dlr_dfim_name + "");
                 findViewById(R.id.order_detail_customer_mobile_img).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

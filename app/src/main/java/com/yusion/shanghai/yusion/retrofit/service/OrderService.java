@@ -5,6 +5,7 @@ import com.yusion.shanghai.yusion.bean.order.ConfirmFinancePlanReq;
 import com.yusion.shanghai.yusion.bean.order.GetAppDetailResp;
 import com.yusion.shanghai.yusion.bean.order.GetAppListResp;
 import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
+import com.yusion.shanghai.yusion.bean.order.OrderDetailBean;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface OrderService {
 
     //获取订单详情
     @GET("/api/application/get_app_details/")
-    Call<BaseResult<GetAppDetailResp>> getAppDetails(@Query("app_id") String app_id);
+    Call<BaseResult<OrderDetailBean>> getAppDetails(@Query("app_id") String app_id);
 
     //确认金融方案
     @POST("/api/application/get_confirm_financial_plan/")

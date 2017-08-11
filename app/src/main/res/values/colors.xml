@@ -8,6 +8,7 @@
     <color name="text_normal">#222A36</color>
     <color name="text_light_grey">#999999</color>
     <color name="point_green">#06b7a3</color>
+    <color name="point_red">#ff3f00</color>
     <color name="point_line_bg">#dddddd</color>
     <color name="separate_line_color">#e1e3e6</color>
     <color name="main_driver">#ffECECEC</color>

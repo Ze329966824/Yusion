@@ -47,6 +47,7 @@
             android:name=".ui.apply.ApplyActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.entrance.LoginActivity"
             android:windowSoftInputMode="stateHidden"

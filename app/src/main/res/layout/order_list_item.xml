@@ -352,54 +352,54 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/order_item_contract"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="签约"
-                android:textColor="@color/text_light_grey"
-                android:textSize="14sp" />
+        <!--<TextView-->
+        <!--android:id="@+id/order_item_contract"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="签约"-->
+        <!--android:textColor="@color/text_light_grey"-->
+        <!--android:textSize="14sp" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:orientation="horizontal">-->
 
-                <View
-                    android:id="@+id/point_line_31"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@color/point_line_bg" />
+        <!--<View-->
+        <!--android:id="@+id/point_line_31"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/point_line_bg" />-->
 
-                <ImageView
-                    android:id="@+id/point_image_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:src="@drawable/poi_grey" />
+        <!--<ImageView-->
+        <!--android:id="@+id/point_image_3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="1dp"-->
+        <!--android:layout_marginRight="1dp"-->
+        <!--android:src="@drawable/poi_grey" />-->
 
-                <View
-                    android:id="@+id/point_line_32"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@color/point_line_bg" />
-            </LinearLayout>
+        <!--<View-->
+        <!--android:id="@+id/point_line_32"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/point_line_bg" />-->
+        <!--</LinearLayout>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
