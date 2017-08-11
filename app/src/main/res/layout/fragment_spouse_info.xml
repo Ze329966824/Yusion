@@ -485,6 +485,7 @@
 
                 <TextView
                     style="@style/apply_info_title"
+                    android:layout_width="wrap_content"
                     android:text="离婚证(法院判决书)" />
 
                 <TextView
