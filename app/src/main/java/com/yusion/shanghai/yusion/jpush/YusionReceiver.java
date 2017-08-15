@@ -29,11 +29,13 @@ public class YusionReceiver extends BroadcastReceiver {
         if (bundle != null) {
             Intent i = new Intent(context, JpushDialogActivity.class);
 
-                String string = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            if (TextUtils.isEmpty(string))return;
-                i.putExtra("jsonObject",string);
+            String string = bundle.getString(JPushInterface.EXTRA_EXTRA);
+            if (TextUtils.isEmpty(string)) {
+                return;
+            }
+            i.putExtra("jsonObject", string);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+            context.startActivity(i);
 
         }
     }
