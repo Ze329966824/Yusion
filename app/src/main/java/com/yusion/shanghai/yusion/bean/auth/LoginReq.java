@@ -9,4 +9,14 @@ package com.yusion.shanghai.yusion.bean.auth;
 public class LoginReq {
     public String mobile;
     public String verify_code;
+    public String reg_id;
+
+    @Override
+    public String toString() {
+        return "LoginReq{" +
+                "mobile='" + mobile + '\'' +
+                ", verify_code='" + verify_code + '\'' +
+                ", reg_id='" + reg_id + '\'' +
+                '}';
+    }
 }
