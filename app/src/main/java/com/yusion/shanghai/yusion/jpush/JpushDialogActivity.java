@@ -1,12 +1,10 @@
 package com.yusion.shanghai.yusion.jpush;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.yusion.shanghai.yusion.R;
@@ -16,7 +14,7 @@ import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JpushDialogActivity extends Activity {
+public class JpushDialogActivity extends BaseActivity {
     private String mobile = null;
     private String title = null;
     private String content = null;
@@ -42,6 +40,8 @@ public class JpushDialogActivity extends Activity {
         }
 
         /*
+
+
         * m每一步都要finish
         * JpushDialogActivity要透明，只显示dialog，，，、、。·
         * */

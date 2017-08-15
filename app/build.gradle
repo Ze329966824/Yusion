@@ -12,8 +12,8 @@ android {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 9
-        versionName "V1.3.5"
+        versionCode 11
+        versionName "V1.3.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

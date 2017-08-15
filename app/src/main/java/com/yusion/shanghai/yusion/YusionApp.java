@@ -24,6 +24,7 @@ public class YusionApp extends Application {
     public static UserInfoBean USERINFOBEAN;
     public static String reg_id;
 
+    public static boolean isLogin;
     @Override
     public void onCreate() {
         super.onCreate();

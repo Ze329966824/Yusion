@@ -83,6 +83,7 @@ public class LoginActivity extends BaseActivity {
             mLoginMobileTV.setText("17621066549");
             mLoginCodeTV.setText("6666");
         }
+        YusionApp.isLogin = false;
     }
 
     private void loginSuccess(LoginResp resp) {

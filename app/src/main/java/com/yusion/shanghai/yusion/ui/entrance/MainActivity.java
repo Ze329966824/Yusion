@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         myApp.isBack2Home = false;
+        myApp.isLogin = true;
 
 //        Log.e("TAG", "token: " + WangDaiApp.mToken);
 

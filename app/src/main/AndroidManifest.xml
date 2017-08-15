@@ -220,7 +220,7 @@
 
         <activity
             android:name=".jpush.JpushDialogActivity"
-            android:theme="@style/myTransparent"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert"
           />
 
 </application>
