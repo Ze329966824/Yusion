@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.user;
 
+import com.google.gson.Gson;
+
 /**
  * 类描述：
  * 伟大的创建人：ice
@@ -66,34 +68,7 @@ public class UserInfoBean {
 
     @Override
     public String toString() {
-        return "UserInfoBean{" +
-                "marriage='" + marriage + '\'' +
-                ", spouse=" + spouse +
-                ", urg_mobile1='" + urg_mobile1 + '\'' +
-                ", clt_nm='" + clt_nm + '\'' +
-                ", house_type='" + house_type + '\'' +
-                ", work_phone_num='" + work_phone_num + '\'' +
-                ", urg_mobile2='" + urg_mobile2 + '\'' +
-                ", house_area=" + house_area +
-                ", mobile='" + mobile + '\'' +
-                ", company_addr=" + company_addr +
-                ", clt_id='" + clt_id + '\'' +
-                ", id_no='" + id_no + '\'' +
-                ", urg_contact2='" + urg_contact2 + '\'' +
-                ", reg_addr_details='" + reg_addr_details + '\'' +
-                ", edu='" + edu + '\'' +
-                ", urg_contact1='" + urg_contact1 + '\'' +
-                ", work_position='" + work_position + '\'' +
-                ", house_owner_name='" + house_owner_name + '\'' +
-                ", house_owner_relation='" + house_owner_relation + '\'' +
-                ", current_addr=" + current_addr +
-                ", gender='" + gender + '\'' +
-                ", company_name='" + company_name + '\'' +
-                ", urg_relation1='" + urg_relation1 + '\'' +
-                ", monthly_income=" + monthly_income +
-                ", reg_addr=" + reg_addr +
-                ", urg_relation2='" + urg_relation2 + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 
     public static class SpouseBean {
@@ -151,32 +126,7 @@ public class UserInfoBean {
 
         @Override
         public String toString() {
-            return "SpouseBean{" +
-                    "marriage='" + marriage + '\'' +
-                    ", urg_mobile1='" + urg_mobile1 + '\'' +
-                    ", clt_nm='" + clt_nm + '\'' +
-                    ", house_type='" + house_type + '\'' +
-                    ", work_phone_num='" + work_phone_num + '\'' +
-                    ", urg_mobile2='" + urg_mobile2 + '\'' +
-                    ", house_area=" + house_area +
-                    ", mobile='" + mobile + '\'' +
-                    ", company_addr=" + company_addr +
-                    ", reg_addr_details=" + reg_addr_details +
-                    ", clt_id='" + clt_id + '\'' +
-                    ", id_no='" + id_no + '\'' +
-                    ", urg_contact2='" + urg_contact2 + '\'' +
-                    ", edu='" + edu + '\'' +
-                    ", urg_contact1='" + urg_contact1 + '\'' +
-                    ", work_position='" + work_position + '\'' +
-                    ", house_owner_name='" + house_owner_name + '\'' +
-                    ", current_addr=" + current_addr +
-                    ", gender='" + gender + '\'' +
-                    ", company_name='" + company_name + '\'' +
-                    ", urg_relation1='" + urg_relation1 + '\'' +
-                    ", monthly_income=" + monthly_income +
-                    ", reg_addr=" + reg_addr +
-                    ", urg_relation2='" + urg_relation2 + '\'' +
-                    '}';
+            return new Gson().toJson(this);
         }
     }
 
@@ -207,18 +157,7 @@ public class UserInfoBean {
 
         @Override
         public String toString() {
-            return "CompanyAddrBeanX{" +
-                    "province='" + province + '\'' +
-                    ", latitude='" + latitude + '\'' +
-                    ", address1='" + address1 + '\'' +
-                    ", longitude='" + longitude + '\'' +
-                    ", county='" + county + '\'' +
-                    ", zip_code='" + zip_code + '\'' +
-                    ", len_of_residence='" + len_of_residence + '\'' +
-                    ", district='" + district + '\'' +
-                    ", city='" + city + '\'' +
-                    ", address2='" + address2 + '\'' +
-                    '}';
+            return new Gson().toJson(this);
         }
     }
 
@@ -249,18 +188,7 @@ public class UserInfoBean {
 
         @Override
         public String toString() {
-            return "CurrentAddrBeanX{" +
-                    "province='" + province + '\'' +
-                    ", latitude='" + latitude + '\'' +
-                    ", address1='" + address1 + '\'' +
-                    ", longitude='" + longitude + '\'' +
-                    ", county='" + county + '\'' +
-                    ", zip_code='" + zip_code + '\'' +
-                    ", len_of_residence='" + len_of_residence + '\'' +
-                    ", district='" + district + '\'' +
-                    ", city='" + city + '\'' +
-                    ", address2='" + address2 + '\'' +
-                    '}';
+            return new Gson().toJson(this);
         }
     }
 
@@ -291,18 +219,7 @@ public class UserInfoBean {
 
         @Override
         public String toString() {
-            return "RegAddrBeanX{" +
-                    "province='" + province + '\'' +
-                    ", latitude='" + latitude + '\'' +
-                    ", address1='" + address1 + '\'' +
-                    ", longitude='" + longitude + '\'' +
-                    ", county='" + county + '\'' +
-                    ", zip_code='" + zip_code + '\'' +
-                    ", len_of_residence='" + len_of_residence + '\'' +
-                    ", district='" + district + '\'' +
-                    ", city='" + city + '\'' +
-                    ", address2='" + address2 + '\'' +
-                    '}';
+            return new Gson().toJson(this);
         }
     }
 }

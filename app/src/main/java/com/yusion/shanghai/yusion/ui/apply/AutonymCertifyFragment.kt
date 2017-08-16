@@ -55,6 +55,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             ProductApi.getUserInfo(mContext, GetUserInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString())) {
+                if (it == null) {
+                    return@getUserInfo
+                }
                 var applyActivity = activity as ApplyActivity
                 applyActivity.mUserInfoBean = it
                 var body = applyActivity.mOcrRespByAutonymCertify.showapi_res_body
