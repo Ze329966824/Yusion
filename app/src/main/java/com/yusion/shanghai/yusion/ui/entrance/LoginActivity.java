@@ -2,9 +2,7 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +15,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -103,6 +102,9 @@ public class LoginActivity extends BaseActivity {
         super.onResume();
         //每次回到登陆界面都需清除缓存
         myApp.clearUserData();
+
+        ConfigApi.getConfigJson(LoginActivity.this, resp -> {
+        });
     }
 
 
