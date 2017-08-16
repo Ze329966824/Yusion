@@ -43,13 +43,6 @@ public class JpushDialogActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        /*
-
-
-        * m每一步都要finish
-        * JpushDialogActivity要透明，只显示dialog，，，、、。·
-        * */
     }
 
 
