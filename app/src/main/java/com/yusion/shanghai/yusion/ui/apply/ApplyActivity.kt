@@ -44,8 +44,10 @@ class ApplyActivity : BaseActivity() {
             }
         }
         ProductApi.updateUserInfo(this, mUserInfoBean) {
-            Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show()
-            finish()
+            if (it != null) {
+                Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
     }
 
