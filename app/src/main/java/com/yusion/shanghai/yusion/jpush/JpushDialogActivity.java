@@ -20,6 +20,7 @@ public class JpushDialogActivity extends BaseActivity {
     private String content = null;
     private String app_st = null;
     private String app_id = null;
+    private String category = null;
     private String stringExtra = null;
 
 /*    "reg_id":xxxx,
@@ -27,7 +28,8 @@ public class JpushDialogActivity extends BaseActivity {
             "title":xxxx,
             "content":xxxx,
             "app_st": "SubmitApplication_Submit_PASS",
-            "app_id": 可为空,*/
+            "app_id": 可为空,
+            "category": "login",*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

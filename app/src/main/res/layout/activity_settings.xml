@@ -1,14 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#F5F7F9"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7F9"
+    android:orientation="vertical">
 
     <com.yusion.shanghai.yusion.widget.TitleBar
-    android:id="@+id/title_bar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <LinearLayout
@@ -42,7 +42,7 @@
                     android:layout_margin="15dp"
                     android:text="用户协议"
                     android:textColor="#222A36"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/main_setting_agreement_next"
@@ -52,7 +52,7 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
                     android:background="@android:color/transparent"
-                    android:src="@mipmap/mine_arrow_right"/>
+                    android:src="@mipmap/mine_arrow_right" />
 
 
             </RelativeLayout>
@@ -63,7 +63,7 @@
                 android:layout_height="0.5dp"
                 android:layout_below="@id/main_setting_agreement"
                 android:layout_marginLeft="15dp"
-                android:background="#ffECECEC"/>
+                android:background="#ffECECEC" />
 
             <RelativeLayout
                 android:id="@+id/main_setting_version_name_layout"
@@ -82,7 +82,7 @@
                     android:layout_margin="15dp"
                     android:text="版本信息"
                     android:textColor="#222A36"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/settings_version_code_tv"
@@ -93,7 +93,7 @@
                     android:layout_margin="15dp"
                     android:text="V1.0.0"
                     android:textColor="#FF333333"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
 
             </RelativeLayout>
@@ -104,25 +104,26 @@
                 android:layout_height="0.5dp"
                 android:layout_below="@id/main_setting_agreement"
                 android:layout_marginLeft="15dp"
-                android:background="#ffECECEC"/>
+                android:background="#ffECECEC" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/main_setting_logout_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@color/white"
+            android:clickable="true"
+            android:onClick="onClick"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/main_setting_logout_layout"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:descendantFocusability="blocksDescendants"
-                android:onClick="onClick">
+                android:descendantFocusability="blocksDescendants">
 
 
                 <TextView
@@ -133,7 +134,7 @@
                     android:layout_margin="15dp"
                     android:text="退出登录"
                     android:textColor="#FF06B7A3"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
 
             </RelativeLayout>
