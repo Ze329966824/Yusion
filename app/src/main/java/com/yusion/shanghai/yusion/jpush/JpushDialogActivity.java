@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 
@@ -50,31 +53,45 @@ public class JpushDialogActivity extends BaseActivity {
     }
 
 
-
     private void initJpush() throws JSONException {
 
-            Intent intent = getIntent();
-            if (intent != null) {
-                stringExtra = intent.getStringExtra("jsonObject");
-                JSONObject jo = new JSONObject(stringExtra);
-                if (jo != null) {
-                    mobile = jo.optString("mobile");
-                    title = jo.optString("title");
-                    content = jo.optString("content");
-                    app_st = jo.optString("app_st");
-                    app_id = jo.optString("app_id");
-                    JpushDialog();
-                }
+        Intent intent = getIntent();
+        if (intent != null) {
+            stringExtra = intent.getStringExtra("jsonObject");
+            JSONObject jo = new JSONObject(stringExtra);
+            if (jo != null) {
+                mobile = jo.optString("mobile");
+                title = jo.optString("title");
+                content = jo.optString("content");
+                app_st = jo.optString("app_st");
+                app_id = jo.optString("app_id");
+                category = jo.optString("category");
+                JpushDialog();
             }
+        }
 
     }
 
     private void JpushDialog() {
-//        switch (app_st == ){
-//            case "1":
-//
-//                break;
-//
+        switch (category) {
+            case "login":
+                myApp.clearUserData();
+                new AlertDialog.Builder(JpushDialogActivity.this)
+                        .setCancelable(false)
+                        .setTitle("")
+                        .setMessage(content)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+
+                                finish();
+                            }
+                        })
+                        .show();
+                break;
+
 //            case "2":
 //
 //                break;
@@ -82,23 +99,28 @@ public class JpushDialogActivity extends BaseActivity {
 //            case "3":
 //
 //                break;
-//        }
+//            default:
+//                new AlertDialog.Builder(JpushDialogActivity.this)
+//                        .setTitle(title)
+//                        .setMessage(content)
+//                        .setCancelable(false)
+//                        .setPositiveButton("知道啦", (dialog, which) -> {
+//                            dialog.dismiss();
+//                            finish();
+//                        });
+//                break;
+        }
 
-        Log.e("jpush","----------------------------------------");
-        new AlertDialog.Builder(JpushDialogActivity.this)
-                .setCancelable(true)
-                .setTitle("")
-//                .setMessage("mobile="+mobile+"\ntitle="+title+"\ncontent="+content+"\napp_st="+app_st+"\napp_id"+app_id)
-                .setMessage(stringExtra)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(JpushDialogActivity.this,LoginActivity.class));
-                        finish();
-                    }
-                })
-                .show();
-
+//        Toast.makeText(myApp, stringExtra, Toast.LENGTH_SHORT).show();
+//        new AlertDialog.Builder(JpushDialogActivity.this)
+//                .setTitle("asdasdasadsad")
+//                .setMessage("syz")
+//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                }).show();
 
     }
 }
