@@ -56,6 +56,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
         var _HOUSE_OWNER_RELATION_INDEX: Int = 0
         var _URG_RELATION_INDEX1: Int = 0
         var _URG_RELATION_INDEX2: Int = 0
+        var reg_addr_detail = ""
     }
 
     private var mData: UserInfoBean = UserInfoBean()
@@ -189,6 +190,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
             mData.spouse.marriage = "已婚"
             mData.spouse.clt_nm = update_spouse_info_clt_nm_edt.text.toString()
             mData.spouse.id_no = update_spouse_info_id_no_edt.text.toString()
+            mData.spouse.reg_addr_details = if (reg_addr_detail.isNotEmpty()) reg_addr_detail else ""
             mData.spouse.gender = update_spouse_info_gender_tv.text.toString()
             mData.spouse.mobile = update_spouse_info_mobile_edt.text.toString()
             mData.spouse.company_name = update_spouse_info_company_name_edt.text.toString()
@@ -260,6 +262,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
                             update_spouse_info_clt_nm_edt.setText(ocrResp.showapi_res_body.name)
                             update_spouse_info_id_no_edt.setText(ocrResp.showapi_res_body.idNo)
                             update_spouse_info_gender_tv.text = ocrResp.showapi_res_body.sex
+                            reg_addr_detail = ocrResp.showapi_res_body.addr
                         }
                         dialog.dismiss()
                     }, OnItemDataCallBack<Throwable> {

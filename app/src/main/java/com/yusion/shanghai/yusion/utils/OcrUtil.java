@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSS;
@@ -79,6 +80,7 @@ public class OcrUtil {
 
                     @Override
                     public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                        Log.e("API", "onFailure() called with: request = [" + request + "], clientExcepion = [" + clientExcepion + "], serviceException = [" + serviceException + "]");
                         if (clientExcepion != null) {
                             // 本地异常如网络异常等
                             clientExcepion.printStackTrace();
@@ -99,7 +101,7 @@ public class OcrUtil {
 
             @Override
             public void onFailure(Call<GetOssTokenBean> call, Throwable t) {
-                t.printStackTrace();
+                Log.e("API", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 if (onFailureCallBack != null) {
                     onFailureCallBack.onItemDataCallBack(t);
                 }
