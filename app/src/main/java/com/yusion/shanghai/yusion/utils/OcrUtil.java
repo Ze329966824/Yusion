@@ -105,6 +105,7 @@ public class OcrUtil {
                 if (onFailureCallBack != null) {
                     onFailureCallBack.onItemDataCallBack(t);
                 }
+
             }
         });
     }
