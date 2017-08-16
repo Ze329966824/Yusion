@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pgyersdk.javabean.AppBean;
@@ -15,6 +16,7 @@ import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
+import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
 
@@ -31,7 +33,34 @@ public class SettingsActivity extends BaseActivity {
         TextView versionCodeTv = (TextView) findViewById(R.id.settings_version_code_tv);
         versionCodeTv.setText(BuildConfig.VERSION_NAME);
 
+        initSetURL();
+
 //        initView();
+    }
+
+    private void initSetURL() {
+
+        findViewById(R.id.main_setting_logout_layout).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!Settings.isOnline) {
+                    EditText editText = new EditText(SettingsActivity.this);
+                    editText.setText(Settings.SERVER_URL);
+                    new android.app.AlertDialog.Builder(SettingsActivity.this).setTitle("服务器地址：")
+                            .setView(editText)
+                            .setCancelable(false)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Settings.SERVER_URL = editText.getText().toString();
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
+                }
+                return true;
+            }
+        });
     }
 
     @Override
