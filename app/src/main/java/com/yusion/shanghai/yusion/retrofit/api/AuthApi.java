@@ -33,7 +33,7 @@ public class AuthApi {
     public static void login(Context context, LoginReq req, final OnItemDataCallBack<LoginResp> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
         req.reg_id = YusionApp.reg_id;
-        Log.e("reg_id",req.reg_id);
+//        Log.e("reg_id",req.reg_id);
         Api.getAuthService().login(req).enqueue(new CustomCallBack<LoginResp>(context, dialog) {
             @Override
             public void onCustomResponse(LoginResp data) {
