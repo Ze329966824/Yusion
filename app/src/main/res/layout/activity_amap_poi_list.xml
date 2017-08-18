@@ -49,6 +49,26 @@
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:textSize="15sp"/>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/poi_delete_icon"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:layout_margin="10dp"
+            android:background="#B1B1B1"/>
+
+        <TextView
+            android:id="@+id/poi_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:color="#FF06B7A3"
+            android:textSize="15sp"
+            android:clickable="true"
+            tools:text="取消"/>
+
 
     </LinearLayout>
 
