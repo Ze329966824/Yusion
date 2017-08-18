@@ -27,7 +27,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <View
             android:id="@+id/step_separate_line1"
             android:layout_width="0dp"
@@ -79,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="实名认证"
+            android:text="征信信息"
             android:textColor="@color/apply_step_style_1_color"
             android:textSize="11.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -131,45 +130,42 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                tools:visibility="visible">
+                android:orientation="vertical">
 
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="11dp"
-                    android:layout_marginBottom="1.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/fill_vertical_line"
-                    app:layout_constraintBottom_toBottomOf="@+id/personal_info1"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="11dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/fill_vertical_line" />
 
 
-                <TextView
-                    android:id="@+id/personal_info1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="7.5dp"
-                    android:layout_marginLeft="22dp"
-                    android:text="个人基本信息"
-                    android:textColor="#666666"
-                    android:textSize="11.5sp"
-                    app:layout_constraintBottom_toTopOf="@+id/personal_info_group"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7.5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="18dp"
+                        android:text="个人基本资料"
+                        android:textColor="#666666"
+                        android:textSize="11.5sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/personal_info_group"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -219,17 +215,17 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:id="@+id/personal_info_reg_lin"
+                            android:id="@+id/personal_info_gender_lin"
                             style="@style/apply_info_item">
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="户籍地" />
+                                android:text="性别" />
 
                             <TextView
-                                android:id="@+id/personal_info_reg_tv"
+                                android:id="@+id/personal_info_gender_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择性别" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -252,17 +248,17 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:id="@+id/personal_info_gender_lin"
+                            android:id="@+id/personal_info_reg_lin"
                             style="@style/apply_info_item">
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="性别" />
+                                android:text="户籍地" />
 
                             <TextView
-                                android:id="@+id/personal_info_gender_tv"
+                                android:id="@+id/personal_info_reg_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择性别" />
+                                android:hint="小区/写字楼/学校等" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -577,80 +573,238 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/personal_info_work_position_lin"
-                        style="@style/apply_info_item">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="职务" />
+                        <LinearLayout
+                            android:id="@+id/personal_info_work_position_lin"
+                            style="@style/apply_info_item">
 
-                        <TextView
-                            android:id="@+id/personal_info_work_position_tv"
-                            style="@style/apply_info_content"
-                            android:hint="请选择职务" />
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="职务" />
 
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
+                            <TextView
+                                android:id="@+id/personal_info_work_position_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择职务" />
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="月收入(元)" />
+
+                            <EditText
+                                android:id="@+id/personal_info_monthly_income_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:digits="0123456789"
+                                android:hint="请输入月收入"
+                                android:inputType="number" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位电话" />
+
+                            <EditText
+                                android:id="@+id/personal_info_work_phone_num_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入单位电话" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
                     </LinearLayout>
 
-                    <View
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        tools:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/personal_info_house_type_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="房屋性质" />
+
+                            <TextView
+                                android:id="@+id/personal_info_house_type_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择房屋性质" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:layout_marginRight="35dp"
+                                android:text="房屋面积(平米)" />
+
+                            <EditText
+                                android:id="@+id/personal_info_house_area_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:digits="0123456789"
+                                android:hint="请输入房屋面积"
+                                android:inputType="number" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="房屋所有权人" />
+
+                            <EditText
+                                android:id="@+id/personal_info_house_owner_name_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入房屋所有权人" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="35dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/personal_info_house_owner_relation_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="与申请人关系" />
+
+                            <TextView
+                                android:id="@+id/personal_info_house_owner_relation_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择与申请人关系" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="11dp"
                         android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/fill_vertical_line" />
 
-                    <LinearLayout style="@style/apply_info_item">
 
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="月收入(元)" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7.5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="18dp"
+                        android:text="紧急联系人"
+                        android:textColor="#666666"
+                        android:textSize="11.5sp" />
+                </LinearLayout>
 
-                        <EditText
-                            android:id="@+id/personal_info_monthly_income_edt"
-                            style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:inputType="number"
-                            android:digits="0123456789"
-                            android:hint="请输入月收入" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="单位电话" />
-
-                        <EditText
-                            android:id="@+id/personal_info_work_phone_num_edt"
-                            style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入单位电话" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="@color/bg_color" />
+                <LinearLayout
+                    android:id="@+id/personal_info_group2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
                     <View
                         android:layout_width="match_parent"
@@ -658,121 +812,7 @@
                         android:background="@color/separate_line_color" />
 
                     <LinearLayout
-                        android:id="@+id/personal_info_driving_license_lin"
-                        style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="驾照影像件" />
-
-                        <TextView
-                            android:id="@+id/personal_info_driving_license_tv"
-                            style="@style/apply_info_content"
-                            android:text="请上传" />
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="@color/bg_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout
-                        android:id="@+id/personal_info_house_type_lin"
-                        style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="房屋性质" />
-
-                        <TextView
-                            android:id="@+id/personal_info_house_type_tv"
-                            style="@style/apply_info_content"
-                            android:hint="请选择房屋性质" />
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:layout_marginRight="35dp"
-                            android:text="房屋面积(平米)" />
-
-                        <EditText
-                            android:id="@+id/personal_info_house_area_edt"
-                            style="@style/apply_info_content"
-                            android:inputType="number"
-                            android:digits="0123456789"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入房屋面积" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="房屋所有权人" />
-
-                        <EditText
-                            android:id="@+id/personal_info_house_owner_name_edt"
-                            style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入房屋所有权人" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="35dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout
-                        android:id="@+id/personal_info_house_owner_relation_lin"
+                        android:id="@+id/personal_info_urg_relation1_lin"
                         style="@style/apply_info_item">
 
                         <TextView
@@ -780,9 +820,9 @@
                             android:text="与申请人关系" />
 
                         <TextView
-                            android:id="@+id/personal_info_house_owner_relation_tv"
+                            android:id="@+id/personal_info_urg_relation1_tv"
                             style="@style/apply_info_content"
-                            android:hint="请选择与申请人关系" />
+                            android:hint="请选择与联系人关系" />
 
                         <FrameLayout
                             android:layout_width="20dp"
@@ -795,69 +835,6 @@
                                 android:layout_gravity="left|center_vertical"
                                 android:src="@mipmap/mine_arrow_right" />
                         </FrameLayout>
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-                </LinearLayout>
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="11dp"
-                    android:layout_marginBottom="1.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/fill_vertical_line"
-                    app:layout_constraintBottom_toBottomOf="@+id/personal_info2"
-                    app:layout_constraintLeft_toLeftOf="parent" />
-
-                <TextView
-                    android:id="@+id/personal_info2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="7.5dp"
-                    android:layout_marginLeft="22dp"
-                    android:text="其他联系人"
-                    android:textColor="#666666"
-                    android:textSize="11.5sp"
-                    app:layout_constraintBottom_toTopOf="@+id/personal_info_group2"
-                    app:layout_constraintLeft_toLeftOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/personal_info_group2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="38dp"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="亲属联系人" />
-
-                        <EditText
-                            android:id="@+id/personal_info_urg_contact1_edt"
-                            style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入亲属联系人" />
                     </LinearLayout>
 
                     <View
@@ -898,31 +875,19 @@
                         android:layout_marginLeft="15dp"
                         android:background="@color/separate_line_color" />
 
-                    <LinearLayout
-                        android:id="@+id/personal_info_urg_relation1_lin"
-                        style="@style/apply_info_item">
+                    <LinearLayout style="@style/apply_info_item">
 
                         <TextView
                             style="@style/apply_info_title"
-                            android:text="与申请人关系" />
+                            android:text="联系人姓名" />
 
-                        <TextView
-                            android:id="@+id/personal_info_urg_relation1_tv"
+                        <EditText
+                            android:id="@+id/personal_info_urg_contact1_edt"
                             style="@style/apply_info_content"
-                            android:hint="请选择与申请人关系" />
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
+                            android:layout_marginRight="35dp"
+                            android:hint="请输入亲属联系人" />
                     </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"
@@ -939,19 +904,32 @@
                         android:layout_height="@dimen/separate_line_height"
                         android:background="@color/separate_line_color" />
 
-                    <LinearLayout style="@style/apply_info_item">
+                    <LinearLayout
+                        android:id="@+id/personal_info_urg_relation2_lin"
+                        style="@style/apply_info_item">
 
                         <TextView
                             style="@style/apply_info_title"
-                            android:text="其他联系人" />
+                            android:text="与申请人关系" />
 
-                        <EditText
-                            android:id="@+id/personal_info_urg_contact2_edt"
+                        <TextView
+                            android:id="@+id/personal_info_urg_relation2_tv"
                             style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入其他联系人" />
+                            android:hint="请选择与联系人关系" />
 
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
                     </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"
@@ -991,30 +969,18 @@
                         android:layout_marginLeft="15dp"
                         android:background="@color/separate_line_color" />
 
-                    <LinearLayout
-                        android:id="@+id/personal_info_urg_relation2_lin"
-                        style="@style/apply_info_item">
+                    <LinearLayout style="@style/apply_info_item">
 
                         <TextView
                             style="@style/apply_info_title"
-                            android:text="与申请人关系" />
+                            android:text="联系人姓名" />
 
-                        <TextView
-                            android:id="@+id/personal_info_urg_relation2_tv"
+                        <EditText
+                            android:id="@+id/personal_info_urg_contact2_edt"
                             style="@style/apply_info_content"
-                            android:hint="请选择与申请人关系" />
+                            android:layout_marginRight="35dp"
+                            android:hint="请输入其他联系人" />
 
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
                     </LinearLayout>
 
                     <View
@@ -1022,7 +988,7 @@
                         android:layout_height="@dimen/separate_line_height"
                         android:background="@color/separate_line_color" />
                 </LinearLayout>
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

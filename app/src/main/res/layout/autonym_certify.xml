@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="实名认证"
+            android:text="征信信息"
             android:textColor="@color/apply_step_style_1_color"
             android:textSize="11.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -125,142 +125,116 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flow_diagram">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <View
-                android:layout_width="3dp"
-                android:layout_height="11dp"
-                android:layout_marginBottom="1.5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/fill_vertical_line"
-                app:layout_constraintBottom_toBottomOf="@+id/id_info"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <TextView
-                android:id="@+id/id_info"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="7.5dp"
-                android:layout_marginLeft="22dp"
-                android:text="身份证信息"
-                android:textColor="#666666"
-                android:textSize="11.5sp"
-                app:layout_constraintBottom_toTopOf="@+id/id_pic_group"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/id_pic_group"
-                android:layout_width="0dp"
-                android:layout_height="270dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="38dp"
-                android:background="@mipmap/id_pics_group"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="42dp"
-                        android:text="人像面"
-                        android:textColor="#999999"
-                        android:textSize="11.5dp" />
-
-                    <FrameLayout
-                        android:layout_width="155dp"
-                        android:layout_height="95dp"
-                        android:layout_centerInParent="true">
-
-                        <ImageView
-                            android:id="@+id/autonym_certify_id_back_img"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@mipmap/id_back" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@mipmap/alphy_camera" />
-                    </FrameLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="42dp"
-                        android:text="国徽面"
-                        android:textColor="#999999"
-                        android:textSize="11.5dp" />
-
-                    <FrameLayout
-                        android:layout_width="155dp"
-                        android:layout_height="95dp"
-                        android:layout_centerInParent="true">
-
-                        <ImageView
-                            android:id="@+id/autonym_certify_id_front_img"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@mipmap/id_front" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@mipmap/alphy_camera" />
-                    </FrameLayout>
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/id_info_group"
-                android:layout_width="0dp"
-                android:layout_height="95dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/id_pic_group">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/separate_line_color" />
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="1"
+                    android:layout_height="40dp"
                     android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="11dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/fill_vertical_line" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7.5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="18dp"
+                        android:text="个人征信资料"
+                        android:textColor="#666666"
+                        android:textSize="11.5sp" />
+                </LinearLayout>
+
+                <include layout="@layout/include_line" />
+
+                <LinearLayout
+                    android:id="@+id/autonym_certify_id_back_lin"
+                    style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:text="身份证人像面" />
+
+                    <TextView
+                        android:id="@+id/autonym_certify_id_back_tv"
+                        style="@style/apply_info_content"
+                        android:text="请上传"
+                        android:textColor="@color/please_upload_color" />
+
+                    <FrameLayout
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical"
+                            android:src="@mipmap/mine_arrow_right" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <include layout="@layout/include_line_left" />
+
+                <LinearLayout
+                    android:id="@+id/autonym_certify_id_front_lin"
+                    style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:text="身份证国徽面" />
+
+                    <TextView
+                        android:id="@+id/autonym_certify_id_front_tv"
+                        style="@style/apply_info_content"
+                        android:text="请上传"
+                        android:textColor="@color/please_upload_color" />
+
+                    <FrameLayout
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical"
+                            android:src="@mipmap/mine_arrow_right" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <include layout="@layout/include_line" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:id="@+id/id_info_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <include layout="@layout/include_line" />
+
+                <LinearLayout style="@style/apply_info_item">
 
                     <TextView
                         android:layout_width="80dp"
@@ -282,13 +256,7 @@
                     android:layout_marginLeft="15dp"
                     android:background="@color/separate_line_color" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                <LinearLayout style="@style/apply_info_item">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -309,11 +277,105 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/separate_line_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_color"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="11dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/fill_vertical_line" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="7.5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="18dp"
+                            android:text="驾驶信息"
+                            android:textColor="#666666"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/include_line" />
+
+                    <LinearLayout
+                        android:id="@+id/autonym_certify_driving_license_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="驾驶证" />
+
+                        <TextView
+                            android:id="@+id/autonym_certify_driving_license_tv"
+                            style="@style/apply_info_content"
+                            android:text="请上传"
+                            android:textColor="@color/please_upload_color"
+                            tools:text="已上传"
+                            tools:textColor="@color/system_color" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <include layout="@layout/include_line_left" />
+
+                    <LinearLayout
+                        android:id="@+id/autonym_certify_driving_license_rel_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="驾驶证持有人与本人关系" />
+
+                        <TextView
+                            android:id="@+id/autonym_certify_driving_license_rel_tv"
+                            style="@style/apply_info_content"
+                            android:text="请选择" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <include layout="@layout/include_line" />
+                </LinearLayout>
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/autonym_certify_next_btn"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="15dp"
@@ -333,7 +395,9 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/id_info_group"
                 tools:enabled="false" />
-        </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
