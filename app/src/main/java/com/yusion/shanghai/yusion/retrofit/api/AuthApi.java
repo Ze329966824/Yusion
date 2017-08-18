@@ -2,7 +2,6 @@ package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
@@ -33,7 +32,6 @@ public class AuthApi {
     public static void login(Context context, LoginReq req, final OnItemDataCallBack<LoginResp> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
         req.reg_id = YusionApp.reg_id;
-//        Log.e("reg_id",req.reg_id);
         Api.getAuthService().login(req).enqueue(new CustomCallBack<LoginResp>(context, dialog) {
             @Override
             public void onCustomResponse(LoginResp data) {
