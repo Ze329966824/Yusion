@@ -14,6 +14,7 @@ import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 /**
  * Created by ice on 2017/8/3.
@@ -32,7 +33,7 @@ public class AuthApi {
 
     public static void login(Context context, LoginReq req, final OnItemDataCallBack<LoginResp> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        req.reg_id = YusionApp.reg_id;
+        req.reg_id = SharedPrefsUtil.getInstance(context).getValue("reg_id","");
 //        Log.e("reg_id",req.reg_id);
         Api.getAuthService().login(req).enqueue(new CustomCallBack<LoginResp>(context, dialog) {
             @Override
