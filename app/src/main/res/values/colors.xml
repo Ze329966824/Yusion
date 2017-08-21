@@ -19,6 +19,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="text_grey">#666666</color>
+    <color name="please_upload_color">#d1d1d1</color>
 
     <color name="apply_step_style_1_color">#f8e71c</color>
     <color name="apply_step_style_2_color">#66ffffff</color>

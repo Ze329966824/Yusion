@@ -81,6 +81,9 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                         ProductApi.updateUserInfo(UpdateUserInfoActivity.this, mData, new OnItemDataCallBack<UserInfoBean>() {
                             @Override
                             public void onItemDataCallBack(UserInfoBean data) {
+                                if (data == null) {
+                                    return;
+                                }
                                 Toast.makeText(UpdateUserInfoActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
 
                                 if (mUploadFileDialog == null) {

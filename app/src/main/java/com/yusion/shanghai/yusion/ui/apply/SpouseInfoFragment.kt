@@ -27,7 +27,6 @@ class SpouseInfoFragment : BaseFragment() {
     companion object {
         var START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000
         var START_FOR_SPOUSE_ID_CARD_ACTIVITY = 1001
-        var CURRENT_CLICKED_VIEW_FOR_PIC: Int = -1
         var _GENDER_INDEX: Int = 0
         var _WORK_POSITION_INDEX: Int = 0
         var _MARRIAGE_INDEX: Int = 0
@@ -56,15 +55,6 @@ class SpouseInfoFragment : BaseFragment() {
             intent.putExtra("imgUrl", divorceImgUrl)
             startActivityForResult(intent, START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
         }
-        spouse_info_id_no_img.setOnClickListener {
-            CURRENT_CLICKED_VIEW_FOR_PIC = spouse_info_id_no_img.id
-            spouse_info_id_no_edt.isEnabled = true
-            var intent = Intent(mContext, SpouseIdCardActivity::class.java)
-            intent.putExtra("idBackImgUrl", idBackImgUrl)
-            intent.putExtra("idFrontImgUrl", idFrontImgUrl)
-            intent.putExtra("clt_id", (activity as ApplyActivity).mUserInfoBean.clt_id)
-            startActivityForResult(intent, START_FOR_SPOUSE_ID_CARD_ACTIVITY)
-        }
         spouse_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, spouse_info_gender_lin, spouse_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
@@ -84,30 +74,30 @@ class SpouseInfoFragment : BaseFragment() {
         }
         spouse_info_mobile_img.setOnClickListener { selectContact() }
         spouse_info_submit_btn.setOnClickListener {
-            if (checkCanNextStep()) {
-                var applyActivity = activity as ApplyActivity
-                applyActivity.mUserInfoBean.marriage = if (spouse_info_marriage_tv.text == "已婚") "已婚" else spouse_info_marriage_tv.text.toString()
-                if (applyActivity.mUserInfoBean.marriage == "已婚") {
-                    applyActivity.mUserInfoBean.spouse.marriage = "已婚"
-                    applyActivity.mUserInfoBean.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
-                    applyActivity.mUserInfoBean.spouse.id_no = spouse_info_id_no_edt.text.toString()
-                    applyActivity.mUserInfoBean.spouse.gender = spouse_info_gender_tv.text.toString()
-                    applyActivity.mUserInfoBean.spouse.mobile = spouse_info_mobile_edt.text.toString()
-                    applyActivity.mUserInfoBean.spouse.company_name = spouse_info_company_name_edt.text.toString()
-                    if (spouse_info_company_address_tv.text.isNotEmpty()) {
-                        applyActivity.mUserInfoBean.spouse.company_addr.province = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                        applyActivity.mUserInfoBean.spouse.company_addr.city = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                        applyActivity.mUserInfoBean.spouse.company_addr.district = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                    }
-                    applyActivity.mUserInfoBean.spouse.company_addr.address1 = spouse_info_company_address1_tv.text.toString()
-                    applyActivity.mUserInfoBean.spouse.company_addr.address2 = spouse_info_company_address2_edt.text.toString()
-                    applyActivity.mUserInfoBean.spouse.work_phone_num = spouse_info_work_phone_num_edt.text.toString()
-                    applyActivity.mUserInfoBean.spouse.work_position = spouse_info_work_position_tv.text.toString()
-                    applyActivity.mUserInfoBean.spouse.monthly_income = spouse_info_monthly_income_edt.text.toString().toInt()
-                    applyActivity.mUserInfoBean.spouse.reg_addr_details = if (regDetailAddress.isEmpty()) "" else regDetailAddress
-                }
-                nextStep()
-            }
+            //            if (checkCanNextStep()) {
+//                var applyActivity = activity as ApplyActivity
+//                applyActivity.mUserInfoBean.marriage = if (spouse_info_marriage_tv.text == "已婚") "已婚" else spouse_info_marriage_tv.text.toString()
+//                if (applyActivity.mUserInfoBean.marriage == "已婚") {
+//                    applyActivity.mUserInfoBean.spouse.marriage = "已婚"
+//                    applyActivity.mUserInfoBean.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.id_no = spouse_info_id_no_edt.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.gender = spouse_info_gender_tv.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.mobile = spouse_info_mobile_edt.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.company_name = spouse_info_company_name_edt.text.toString()
+//                    if (spouse_info_company_address_tv.text.isNotEmpty()) {
+//                        applyActivity.mUserInfoBean.spouse.company_addr.province = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+//                        applyActivity.mUserInfoBean.spouse.company_addr.city = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+//                        applyActivity.mUserInfoBean.spouse.company_addr.district = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+//                    }
+//                    applyActivity.mUserInfoBean.spouse.company_addr.address1 = spouse_info_company_address1_tv.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.company_addr.address2 = spouse_info_company_address2_edt.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.work_phone_num = spouse_info_work_phone_num_edt.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.work_position = spouse_info_work_position_tv.text.toString()
+//                    applyActivity.mUserInfoBean.spouse.monthly_income = spouse_info_monthly_income_edt.text.toString().toInt()
+//                    applyActivity.mUserInfoBean.spouse.reg_addr_details = if (regDetailAddress.isEmpty()) "" else regDetailAddress
+//                }
+            nextStep()
+//            }
         }
 
         step1.setOnClickListener { EventBus.getDefault().post(ApplyActivityEvent.showAutonymCertifyFragment) }

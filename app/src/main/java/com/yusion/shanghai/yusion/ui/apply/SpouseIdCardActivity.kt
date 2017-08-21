@@ -142,12 +142,12 @@ class SpouseIdCardActivity : BaseActivity() {
                     dialog.show()
 
                     OcrUtil.requestOcr(this, idBackFile.absolutePath, OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
+                        ID_BACK_FID = objectKey
                         if (ocrResp == null) {
                             dialog.dismiss()
                             Toast.makeText(this, "识别失败", Toast.LENGTH_SHORT).show()
                             return@OnOcrSuccessCallBack
                         }
-                        ID_BACK_FID = objectKey
                         if (ocrResp.showapi_res_code != 0 && ocrResp.showapi_res_body.idNo.isNullOrEmpty() || ocrResp.showapi_res_body.name.isNullOrEmpty()) {
                             Toast.makeText(this, "识别失败", Toast.LENGTH_SHORT).show()
                         } else {
