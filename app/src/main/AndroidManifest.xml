@@ -225,6 +225,9 @@
         <activity
             android:name=".ui.apply.guarantor.AddGuarantorActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.update.UpdatePersonalInfoActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
     </application>
 
