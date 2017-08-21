@@ -1,6 +1,5 @@
 package com.yusion.shanghai.yusion.ui.apply
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -9,12 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
-import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
-import com.yusion.shanghai.yusion.utils.ContactsUtil
-import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.personal_info.*
 import org.greenrobot.eventbus.EventBus
 
@@ -91,78 +87,78 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         personal_info_next_btn.setOnClickListener {
             if (checkCanNextStep()) {
                 clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", personal_info_clt_nm_edt.text.toString())
-                addDoubleCheckItem("身份证号", personal_info_id_no_edt.text.toString())
-                addDoubleCheckItem("手机号", personal_info_mobile_edt.text.toString())
+//                addDoubleCheckItem("姓名", personal_info_clt_nm_edt.text.toString())
+//                addDoubleCheckItem("身份证号", personal_info_id_no_edt.text.toString())
+//                addDoubleCheckItem("手机号", personal_info_mobile_edt.text.toString())
                 mDoubleCheckDialog.show()
             }
         }
-        personal_info_mobile_edt.setText(YusionApp.MOBILE)
-        personal_info_gender_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
-                _GENDER_INDEX = index
-            })
-        }
-        personal_info_reg_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_reg_lin, personal_info_reg_tv, "请选择所在地区") { _, _ -> }
-        }
-        personal_info_education_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.education_list_key, _EDUCATION_INDEX, personal_info_education_lin, personal_info_education_tv, "请选择", { _, index ->
-                _EDUCATION_INDEX = index
-            })
-        }
-        personal_info_current_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_current_address_lin, personal_info_current_address_tv, "请选择所在地区") { _, _ -> personal_info_current_address1_tv.text = "" }
-        }
-        personal_info_current_address1_tv.setOnClickListener {
-            if (personal_info_current_address_tv.text.isNotEmpty()) {
-                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_current_address1_lin.id
-                requestPOI(personal_info_current_address_tv.text.toString())
-            }
-        }
-        personal_info_company_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_company_address_lin, personal_info_company_address_tv, "请选择所在地区") { _, _ -> personal_info_company_address1_tv.text = "" }
-        }
-        personal_info_company_address1_lin.setOnClickListener {
-            if (personal_info_company_address_tv.text.isNotEmpty()) {
-                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_company_address1_lin.id
-                requestPOI(personal_info_company_address_tv.text.toString())
-            }
-        }
-        personal_info_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _WORK_POSITION_INDEX, personal_info_work_position_lin, personal_info_work_position_tv, "请选择", { _, index ->
-                _WORK_POSITION_INDEX = index
-            })
-        }
-        personal_info_house_type_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_type_list_key, _HOUSE_TYPE_INDEX, personal_info_house_type_lin, personal_info_house_type_tv, "请选择", { _, index ->
-                _HOUSE_TYPE_INDEX = index
-            })
-        }
-        personal_info_house_owner_relation_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_relationship_list_key, _HOUSE_OWNER_RELATION_INDEX, personal_info_house_owner_relation_lin, personal_info_house_owner_relation_tv, "请选择", { _, index ->
-                _HOUSE_OWNER_RELATION_INDEX = index
-            })
-        }
-        personal_info_urg_relation1_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.urg_rela_relationship_list_key, _URG_RELATION_INDEX1, personal_info_urg_relation1_lin, personal_info_urg_relation1_tv, "请选择", { _, index ->
-                _URG_RELATION_INDEX1 = index
-            })
-        }
-        personal_info_urg_relation2_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.urg_other_relationship_list_key, _URG_RELATION_INDEX2, personal_info_urg_relation2_lin, personal_info_urg_relation2_tv, "请选择", { _, index ->
-                _URG_RELATION_INDEX2 = index
-            })
-        }
-
-        personal_info_urg_mobile1_img.setOnClickListener {
-            CURRENT_CLICKED_VIEW_FOR_CONTACT = it.id
-            selectContact()
-        }
-        personal_info_urg_mobile2_img.setOnClickListener {
-            CURRENT_CLICKED_VIEW_FOR_CONTACT = it.id
-            selectContact()
-        }
+//        personal_info_mobile_edt.setText(YusionApp.MOBILE)
+//        personal_info_gender_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
+//                _GENDER_INDEX = index
+//            })
+//        }
+//        personal_info_reg_lin.setOnClickListener {
+//            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_reg_lin, personal_info_reg_tv, "请选择所在地区") { _, _ -> }
+//        }
+//        personal_info_education_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.education_list_key, _EDUCATION_INDEX, personal_info_education_lin, personal_info_education_tv, "请选择", { _, index ->
+//                _EDUCATION_INDEX = index
+//            })
+//        }
+//        personal_info_current_address_lin.setOnClickListener {
+//            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_current_address_lin, personal_info_current_address_tv, "请选择所在地区") { _, _ -> personal_info_current_address1_tv.text = "" }
+//        }
+//        personal_info_current_address1_tv.setOnClickListener {
+//            if (personal_info_current_address_tv.text.isNotEmpty()) {
+//                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_current_address1_lin.id
+//                requestPOI(personal_info_current_address_tv.text.toString())
+//            }
+//        }
+//        personal_info_company_address_lin.setOnClickListener {
+//            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_company_address_lin, personal_info_company_address_tv, "请选择所在地区") { _, _ -> personal_info_company_address1_tv.text = "" }
+//        }
+//        personal_info_company_address1_lin.setOnClickListener {
+//            if (personal_info_company_address_tv.text.isNotEmpty()) {
+//                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_company_address1_lin.id
+//                requestPOI(personal_info_company_address_tv.text.toString())
+//            }
+//        }
+//        personal_info_work_position_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _WORK_POSITION_INDEX, personal_info_work_position_lin, personal_info_work_position_tv, "请选择", { _, index ->
+//                _WORK_POSITION_INDEX = index
+//            })
+//        }
+//        personal_info_house_type_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_type_list_key, _HOUSE_TYPE_INDEX, personal_info_house_type_lin, personal_info_house_type_tv, "请选择", { _, index ->
+//                _HOUSE_TYPE_INDEX = index
+//            })
+//        }
+//        personal_info_house_owner_relation_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_relationship_list_key, _HOUSE_OWNER_RELATION_INDEX, personal_info_house_owner_relation_lin, personal_info_house_owner_relation_tv, "请选择", { _, index ->
+//                _HOUSE_OWNER_RELATION_INDEX = index
+//            })
+//        }
+//        personal_info_urg_relation1_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.urg_rela_relationship_list_key, _URG_RELATION_INDEX1, personal_info_urg_relation1_lin, personal_info_urg_relation1_tv, "请选择", { _, index ->
+//                _URG_RELATION_INDEX1 = index
+//            })
+//        }
+//        personal_info_urg_relation2_lin.setOnClickListener {
+//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.urg_other_relationship_list_key, _URG_RELATION_INDEX2, personal_info_urg_relation2_lin, personal_info_urg_relation2_tv, "请选择", { _, index ->
+//                _URG_RELATION_INDEX2 = index
+//            })
+//        }
+//
+//        personal_info_urg_mobile1_img.setOnClickListener {
+//            CURRENT_CLICKED_VIEW_FOR_CONTACT = it.id
+//            selectContact()
+//        }
+//        personal_info_urg_mobile2_img.setOnClickListener {
+//            CURRENT_CLICKED_VIEW_FOR_CONTACT = it.id
+//            selectContact()
+//        }
 
         step1.setOnClickListener { EventBus.getDefault().post(ApplyActivityEvent.showAutonymCertifyFragment) }
 
@@ -258,34 +254,34 @@ class PersonalInfoFragment : DoubleCheckFragment() {
     private var drivingLicenseImgUrl: String = ""
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            if (requestCode == Constants.REQUEST_CONTACTS) {
-                val uri = data.data
-                val contacts = ContactsUtil.getPhoneContacts(mContext, uri)
-                val result = arrayOf("", "")
-                if (contacts != null) {
-                    System.arraycopy(contacts, 0, result, 0, contacts.size)
-                }
-                when (CURRENT_CLICKED_VIEW_FOR_CONTACT) {
-                    personal_info_urg_mobile1_img.id -> {
-                        personal_info_urg_contact1_edt.setText(result[0])
-                        personal_info_urg_mobile1_edt.setText(result[1])
-                    }
-                    personal_info_urg_mobile2_img.id -> {
-                        personal_info_urg_contact2_edt.setText(result[0])
-                        personal_info_urg_mobile2_edt.setText(result[1])
-                    }
-                }
-            } else if (requestCode == Constants.REQUEST_ADDRESS) {
-                when (CURRENT_CLICKED_VIEW_FOR_ADDRESS) {
-                    personal_info_current_address1_lin.id -> {
-                        personal_info_current_address1_tv.text = data.getStringExtra("result");
-                    }
-                    personal_info_company_address1_lin.id -> {
-                        personal_info_company_address1_tv.text = data.getStringExtra("result");
-                    }
-                }
-            }
-        }
+//        if (resultCode == Activity.RESULT_OK && data != null) {
+//            if (requestCode == Constants.REQUEST_CONTACTS) {
+//                val uri = data.data
+//                val contacts = ContactsUtil.getPhoneContacts(mContext, uri)
+//                val result = arrayOf("", "")
+//                if (contacts != null) {
+//                    System.arraycopy(contacts, 0, result, 0, contacts.size)
+//                }
+//                when (CURRENT_CLICKED_VIEW_FOR_CONTACT) {
+//                    personal_info_urg_mobile1_img.id -> {
+//                        personal_info_urg_contact1_edt.setText(result[0])
+//                        personal_info_urg_mobile1_edt.setText(result[1])
+//                    }
+//                    personal_info_urg_mobile2_img.id -> {
+//                        personal_info_urg_contact2_edt.setText(result[0])
+//                        personal_info_urg_mobile2_edt.setText(result[1])
+//                    }
+//                }
+//            } else if (requestCode == Constants.REQUEST_ADDRESS) {
+//                when (CURRENT_CLICKED_VIEW_FOR_ADDRESS) {
+//                    personal_info_current_address1_lin.id -> {
+//                        personal_info_current_address1_tv.text = data.getStringExtra("result");
+//                    }
+//                    personal_info_company_address1_lin.id -> {
+//                        personal_info_company_address1_tv.text = data.getStringExtra("result");
+//                    }
+//                }
+//            }
+//        }
     }
 }

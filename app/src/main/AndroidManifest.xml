@@ -234,9 +234,16 @@
             android:name=".ui.update.UpdatePersonalInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.update.UpdateSpouseInfoActivity" />
-        <activity android:name=".ui.update.UpdateSecuritySpouseInfoActivity"></activity>
+        <activity android:name=".ui.update.UpdateSpouseInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".ui.update.UpdateSecuritySpouseInfoActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.info.InfoListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
