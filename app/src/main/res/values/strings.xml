@@ -17,5 +17,12 @@
     <string name="mine_logout_dialog_msg">是否退出登录</string>
     <string name="mine_logout_dialog_sure">确定</string>
     <string name="mine_logout_dialog_cancle">取消</string>
+    
+    <!--资料列表-->
+    <string name="list_info">资料列表</string>
+    <string name="person_info">个人资料</string>
+    <string name="spouse_info">配偶资料</string>
+    <string name="live_info">居住材料</string>
+    <string name="certificate_info">征信授权书</string>
 
 </resources>

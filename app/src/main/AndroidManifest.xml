@@ -222,7 +222,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/JpushDialogStyle"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.apply.guarantor.AddGuarantorActivity"></activity>
+        <activity android:name=".ui.apply.guarantor.AddGuarantorActivity" />
+        <activity android:name=".ui.info.InfoListActivity"></activity>
     </application>
 
 </manifest>
