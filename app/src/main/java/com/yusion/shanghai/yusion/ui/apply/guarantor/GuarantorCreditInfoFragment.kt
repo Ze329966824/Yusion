@@ -7,20 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
-import kotlinx.android.synthetic.main.guarantor_spouse_info.*
+import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
+import kotlinx.android.synthetic.main.guarantor_credit_info.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by ice on 2017/8/21.
  */
-class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
+class GuarantorCreditInfoFragment : DoubleCheckFragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.guarantor_spouse_info, container, false)
+        return inflater?.inflate(R.layout.guarantor_credit_info, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        guarantor_spouse_info_submit_btn.setOnClickListener {
-            (activity as AddGuarantorActivity).requestSubmit()
+        guarantor_credit_info_next_btn.setOnClickListener {
+            EventBus.getDefault().post(AddGuarantorActivityEvent.showGuarantorInfoFragment)
         }
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");

@@ -222,7 +222,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/JpushDialogStyle"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.apply.guarantor.AddGuarantorActivity"></activity>
+        <activity
+            android:name=".ui.apply.guarantor.AddGuarantorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
