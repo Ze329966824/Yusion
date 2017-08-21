@@ -14,7 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
-import com.yusion.shanghai.yusion.ui.update.UpdatePersonalInfoActivity;
+import com.yusion.shanghai.yusion.ui.info.InfoListActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +45,11 @@ public class HomeFragment extends BaseFragment {
         if (userInfo.commited) {
             bottomBtn.setText("修改资料");
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
-            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdatePersonalInfoActivity.class)));
+            bottomBtn.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext, InfoListActivity.class);
+                intent.putExtra("ishaveGuarantee", true);
+                startActivity(intent);
+            });
         } else {
             bottomBtn.setText("立即申请");
             bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));

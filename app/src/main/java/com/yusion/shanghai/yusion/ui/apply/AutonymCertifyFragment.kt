@@ -90,6 +90,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
+        autonym_certify_driving_license_lin.setOnClickListener {
+            var intent = Intent(mContext, DocumentActivity::class.java)
+            intent.putExtra("type", "driving_lic")
+            intent.putExtra("role", "lender")
+            intent.putExtra("imgUrl", drivingLicImgUrl)
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
+        }
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");

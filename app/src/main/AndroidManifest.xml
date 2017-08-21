@@ -230,9 +230,14 @@
             android:name=".ui.apply.guarantor.AddGuarantorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.update.UpdatePersonalInfoActivity"
+        <activity
+            android:name=".ui.update.UpdatePersonalInfoActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.info.InfoListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
