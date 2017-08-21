@@ -234,19 +234,23 @@
             android:name=".ui.update.UpdatePersonalInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.update.UpdateSpouseInfoActivity"
+        <activity
+            android:name=".ui.update.UpdateSpouseInfoActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.update.UpdateSecuritySpouseInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.update.InfoListActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".ui.update.UpdateGuarantorInfoActivity"
+        <activity
+            android:name=".ui.update.InfoListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.update.UpdateGuarantorInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.update.CommitActivity"></activity>
     </application>
 
 </manifest>

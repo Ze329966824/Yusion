@@ -15,6 +15,8 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class YusionApp extends Application {
 
+    public static boolean ishaveGuarantee = false;
+
     //是否使用back健退出程序
     public static boolean isBack2Home = false;
 

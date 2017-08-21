@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
 public class InfoListActivity extends BaseActivity {
@@ -40,22 +41,27 @@ public class InfoListActivity extends BaseActivity {
         switch (view.getId()){
             case  R.id.list_personal_info_layout:
                 startActivity(new Intent(InfoListActivity.this,UpdatePersonalInfoActivity.class));
+                finish();
                 break;
 
             case  R.id.list_personalspouse_info_layout:
                 startActivity(new Intent(InfoListActivity.this,UpdateSpouseInfoActivity.class));
+                finish();
                 break;
 
             case  R.id.list_guarantor_info:
                 startActivity(new Intent(InfoListActivity.this,UpdateGuarantorInfoActivity.class));
+                finish();
                 break;
 
             case  R.id.list_guarantorspouse_info:
                 startActivity(new Intent(InfoListActivity.this,UpdateSecuritySpouseInfoActivity.class));
+                finish();
                 break;
 
             case  R.id.icon_add_guarantee:
-//                startActivity(new Intent(InfoListActivity.this,添加担保人.class));
+                startActivity(new Intent(InfoListActivity.this,AddGuarantorActivity.class));
+                finish();
                 break;
 
         }

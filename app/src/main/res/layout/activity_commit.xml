@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yusion.shanghai.yusion.ui.update.CommitActivity">
+
+
+    <com.yusion.shanghai.yusion.widget.TitleBar
+        android:layout_alignParentTop="true"
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/icon_commit_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="39dp"
+        android:src="@mipmap/commit_success" />
+
+    <TextView
+        android:id="@+id/text_commit_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/icon_commit_success"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="50dp"
+        android:text="提交成功"
+        android:textSize="19dp" />
+
+    <TextView
+        android:id="@+id/return_list_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_commit_success"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/commit_success"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="返回资料列表"
+        android:textColor="#FF06B7A3"
+        android:textSize="17dp" />
+</RelativeLayout>

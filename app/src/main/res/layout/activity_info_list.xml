@@ -23,7 +23,7 @@
         <RelativeLayout
             android:id="@+id/list_personal_info_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
@@ -62,7 +62,7 @@
         <RelativeLayout
             android:id="@+id/list_personalspouse_info_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="#FFFFFF"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
@@ -106,7 +106,7 @@
         <RelativeLayout
             android:id="@+id/list_guarantor_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
@@ -147,7 +147,7 @@
         <RelativeLayout
             android:id="@+id/list_guarantorspouse_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="#FFFFFF"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
@@ -185,7 +185,6 @@
         android:id="@+id/add_guarantee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
 
         android:visibility="visible">
@@ -224,8 +223,8 @@
                 android:id="@+id/list_info_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/list_info_text1"
                 android:layout_below="@id/icon_add_guarantee"
+                android:layout_toRightOf="@id/list_info_text1"
                 android:text="提高个人征信和融资额度"
                 android:textColor="#f9c700" />
 
