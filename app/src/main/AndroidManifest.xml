@@ -67,6 +67,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.apply.DocumentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.apply.ApplyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -222,8 +226,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/JpushDialogStyle"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.apply.guarantor.AddGuarantorActivity" />
-        <activity android:name=".ui.info.InfoListActivity"></activity>
+        <activity
+            android:name=".ui.apply.guarantor.AddGuarantorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.update.UpdatePersonalInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

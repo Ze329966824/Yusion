@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="14.5dp"
-            android:text="身份证国徽面"
+            android:text="驾驶证"
             android:textColor="#999999"
             android:textSize="12sp" />
 
@@ -53,7 +53,7 @@
         android:layout_height="46dp"
         android:layout_marginLeft="14.5dp"
         android:gravity="center_vertical"
-        android:text="身份证照片要求"
+        android:text="驾驶证要求"
         android:textSize="14.5dp" />
 
     <View
@@ -64,32 +64,17 @@
         android:background="@color/bg_color" />
 
     <LinearLayout
-        android:layout_marginTop="12.5dp"
         android:layout_width="332dp"
         android:layout_height="16.5dp"
+        android:layout_marginTop="12.5dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14.5dp"
-            android:text="本人持有的"
+            android:text="请拍摄、上传驾驶证示例图页"
             android:textSize="11.5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="有效"
-            android:textColor="#ffa400"
-            android:textSize="11.5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="二代身份证"
-            android:textSize="11.5dp"
-
-            />
 
     </LinearLayout>
 
@@ -102,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14.5dp"
-            android:text="拍摄时确保身份证"
+            android:text="拍摄时确保驾驶证"
             android:textSize="11.5dp" />
 
         <TextView
@@ -118,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="14.5dp"
         android:layout_marginTop="14.5dp"
-        android:text="身份证国徽面实例"
+        android:text="驾驶证实例"
         android:textSize="11.5dp" />
 
     <ImageView
@@ -126,5 +111,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12.5dp"
-        android:src="@mipmap/guohui_document" />
+        android:src="@mipmap/jiashizheng" />
 </LinearLayout>

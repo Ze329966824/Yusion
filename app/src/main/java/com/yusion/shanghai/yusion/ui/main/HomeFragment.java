@@ -13,8 +13,8 @@ import android.widget.Button;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
-import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
-import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
+import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdatePersonalInfoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,10 +44,12 @@ public class HomeFragment extends BaseFragment {
     public void refresh(CheckUserInfoResp userInfo) {
         if (userInfo.commited) {
             bottomBtn.setText("修改资料");
-            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
+//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
+            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdatePersonalInfoActivity.class)));
         } else {
             bottomBtn.setText("立即申请");
-            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
+//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
+            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, AddGuarantorActivity.class)));
         }
     }
 }

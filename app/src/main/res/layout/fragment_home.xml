@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true">
 
-<ImageView
-    android:adjustViewBounds="true"
-    android:src="@mipmap/home_bg"
-    android:layout_alignParentTop="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scaleType="fitXY"
-    android:id="@+id/imageView3"/>
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:src="@mipmap/home_icon"
-    android:layout_marginBottom="58dp"
-    android:layout_above="@+id/home_bottom_btn"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"/>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/home_bg" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/home_bottom_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="58dp"
+        android:src="@mipmap/home_icon" />
+
     <Button
 
         android:id="@+id/home_bottom_btn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginBottom="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/apply_button"
         android:text="立即申请"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        tools:visibility="visible"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        tools:visibility="visible" />
+
 </RelativeLayout>

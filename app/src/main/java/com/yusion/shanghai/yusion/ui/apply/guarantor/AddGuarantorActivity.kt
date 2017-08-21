@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
+import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class AddGuarantorActivity : BaseActivity() {
+    private var mGuarantorCreditInfoFragment: GuarantorCreditInfoFragment? = null
     private var mGuarantorInfoFragment: GuarantorInfoFragment? = null
     private var mGuarantorSpouseInfoFragment: GuarantorSpouseInfoFragment? = null
     private var mCurrentFragment: Fragment? = null
@@ -14,6 +18,7 @@ class AddGuarantorActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_guarantor)
         initView()
+        EventBus.getDefault().register(this)
     }
 
     private fun initView() {
@@ -24,17 +29,48 @@ class AddGuarantorActivity : BaseActivity() {
                         finish()
                     }.setNegativeButton("取消退出") { dialog, _ -> dialog.dismiss() }.show()
         }
+        mGuarantorCreditInfoFragment = GuarantorCreditInfoFragment()
         mGuarantorInfoFragment = GuarantorInfoFragment()
         mGuarantorSpouseInfoFragment = GuarantorSpouseInfoFragment()
         supportFragmentManager
                 .beginTransaction()
+                .add(R.id.container, mGuarantorCreditInfoFragment)
                 .add(R.id.container, mGuarantorInfoFragment)
                 .add(R.id.container, mGuarantorSpouseInfoFragment)
+                .hide(mGuarantorInfoFragment)
                 .hide(mGuarantorSpouseInfoFragment)
                 .commit()
-        mCurrentFragment = mGuarantorInfoFragment
+        mCurrentFragment = mGuarantorCreditInfoFragment
     }
 
     override fun onBackPressed() {
+    }
+
+    fun requestSubmit() {
+        finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe fun changeFragment(event: AddGuarantorActivityEvent) {
+        val transaction = supportFragmentManager.beginTransaction()
+        when (event) {
+            AddGuarantorActivityEvent.showGuarantorCreditInfoFragment -> {
+                transaction.hide(mCurrentFragment).show(mGuarantorCreditInfoFragment)
+                mCurrentFragment = mGuarantorCreditInfoFragment
+            }
+            AddGuarantorActivityEvent.showGuarantorInfoFragment -> {
+                transaction.hide(mCurrentFragment).show(mGuarantorInfoFragment)
+                mCurrentFragment = mGuarantorInfoFragment
+            }
+            AddGuarantorActivityEvent.showGuarantorSpouseInfoFragment -> {
+                transaction.hide(mCurrentFragment).show(mGuarantorSpouseInfoFragment)
+                mCurrentFragment = mGuarantorSpouseInfoFragment
+            }
+        }
+        transaction.commit()
     }
 }

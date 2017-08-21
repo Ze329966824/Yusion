@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="14.5dp"
-            android:text="身份证国徽面"
+            android:text="身份证人像面"
             android:textColor="#999999"
             android:textSize="12sp" />
 
@@ -126,5 +126,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12.5dp"
-        android:src="@mipmap/guohui_document" />
+        android:src="@mipmap/shengfzface" />
 </LinearLayout>

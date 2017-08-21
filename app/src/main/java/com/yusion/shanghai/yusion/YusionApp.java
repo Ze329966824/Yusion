@@ -26,6 +26,7 @@ public class YusionApp extends Application {
     private static String reg_id;
 
     public static boolean isLogin;
+
     @Override
     public void onCreate() {
         super.onCreate();
