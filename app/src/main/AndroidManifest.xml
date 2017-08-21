@@ -35,7 +35,9 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 获取logcat日志 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- 获取logcat日志 -->
     <application
         android:name=".YusionApp"
         android:allowBackup="true"
@@ -220,7 +222,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/JpushDialogStyle"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity android:name=".ui.apply.guarantor.AddGuarantorActivity"></activity>
     </application>
 
-    </manifest>
+</manifest>
