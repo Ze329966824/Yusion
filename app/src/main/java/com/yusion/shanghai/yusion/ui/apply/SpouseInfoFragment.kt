@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,20 @@ class SpouseInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        spouse_info_id_back_lin.setOnClickListener {
+            var intent = Intent(mContext, DocumentActivity::class.java)
+            intent.putExtra("type", "id_card_back")
+            intent.putExtra("role", "lender_sp")
+            intent.putExtra("imgUrl", idBackImgUrl)
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
+        }
+        spouse_info_id_front_lin.setOnClickListener {
+            var intent = Intent(mContext, DocumentActivity::class.java)
+            intent.putExtra("type", "id_card_front")
+            intent.putExtra("role", "lender_sp")
+            intent.putExtra("imgUrl", idFrontImgUrl)
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
+        }
         spouse_info_marriage_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.marriage_key, _MARRIAGE_INDEX, spouse_info_marriage_lin, spouse_info_marriage_tv, "请选择", { _, index ->
                 _MARRIAGE_INDEX = index
@@ -179,16 +194,25 @@ class SpouseInfoFragment : BaseFragment() {
                 spouse_info_mobile_edt.setText(result[1])
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 spouse_info_company_address1_tv.text = data.getStringExtra("result");
-            } else if (requestCode == START_FOR_DRIVING_SINGLE_IMG_ACTIVITY) {
-                divorceImgUrl = data.getStringExtra("imgUrl")
-                spouse_info_divorced_tv.text = if (divorceImgUrl.isNotEmpty()) "已上传" else "请上传"
-            } else if (requestCode == START_FOR_SPOUSE_ID_CARD_ACTIVITY) {
-                idBackImgUrl = data.getStringExtra("idBackImgUrl")
-                idFrontImgUrl = data.getStringExtra("idFrontImgUrl")
-                if (data.getBooleanExtra("hasUpdate", false)) {
-                    spouse_info_id_no_edt.setText(data.getStringExtra("idNo"))
-                    regDetailAddress = data.getStringExtra("addr")
-                    spouse_info_clt_nm_edt.setText(data.getStringExtra("name"))
+            } else if (requestCode == Constants.REQUEST_DOCUMENT) {
+                when (data.getStringExtra("type")) {
+                    "id_card_back" -> {
+                        if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            spouse_info_id_back_tv.text = "已上传"
+                            spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
+                            spouse_info_id_no_edt.setText(data.getStringExtra("idNo"))
+                            regDetailAddress = data.getStringExtra("addr")
+                            spouse_info_clt_nm_edt.setText(data.getStringExtra("name"))
+                            idBackImgUrl = data.getStringExtra("imgUrl")
+                        }
+                    }
+                    "id_card_front" -> {
+                        if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            idFrontImgUrl = data.getStringExtra("imgUrl")
+                            spouse_info_id_front_tv.text = "已上传"
+                            spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                        }
+                    }
                 }
             }
         }
