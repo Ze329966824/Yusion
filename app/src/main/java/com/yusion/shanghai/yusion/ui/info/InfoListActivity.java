@@ -9,6 +9,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
 public class InfoListActivity extends BaseActivity {
+
     private boolean ishaveguarantee = false;
     private LinearLayout guarantee_info;
     private LinearLayout add_guarantee;
