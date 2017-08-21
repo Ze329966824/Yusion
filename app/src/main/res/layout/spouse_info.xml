@@ -194,11 +194,13 @@
                     android:background="@color/separate_line_color" />
             </LinearLayout>
 
+            <!--已婚-->
             <LinearLayout
                 android:id="@+id/spouse_info_marriage_group_lin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -259,10 +261,12 @@
                                 android:src="@mipmap/mine_arrow_right" />
                         </FrameLayout>
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/separate_line_height"
                         android:background="@color/separate_line_color" />
+
                     <LinearLayout
                         android:id="@+id/spouse_info_id_front_lin"
                         style="@style/apply_info_item">
@@ -626,6 +630,7 @@
 
             </LinearLayout>
 
+            <!--离异-->
             <LinearLayout
                 android:id="@+id/spouse_info_divorced_group_lin"
                 android:layout_width="match_parent"
@@ -655,7 +660,7 @@
                         android:layout_marginBottom="7.5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="18dp"
-                        android:text="离异证明"
+                        android:text="婚姻材料(选填)"
                         android:textColor="#666666"
                         android:textSize="11.5sp" />
 
@@ -693,6 +698,104 @@
                             android:src="@mipmap/mine_arrow_right" />
                     </FrameLayout>
                 </LinearLayout>
+            </LinearLayout>
+
+            <!--丧偶-->
+            <LinearLayout
+                android:id="@+id/spouse_info_die_group_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="11dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/fill_vertical_line" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7.5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="18dp"
+                        android:text="婚姻材料(选填)"
+                        android:textColor="#666666"
+                        android:textSize="11.5sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/include_line" />
+
+                <LinearLayout
+                    android:id="@+id/spouse_info_die_proof_lin"
+                    style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:layout_width="wrap_content"
+                        android:text="死亡证明" />
+
+                    <TextView
+                        android:id="@+id/spouse_info_die_proof_tv"
+                        style="@style/apply_info_content"
+                        android:text="请上传" />
+
+                    <FrameLayout
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical"
+                            android:src="@mipmap/mine_arrow_right" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <include layout="@layout/include_line_left" />
+
+                <LinearLayout
+                    android:id="@+id/spouse_info_register_addr_lin"
+                    style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:layout_width="wrap_content"
+                        android:text="户口本" />
+
+                    <TextView
+                        android:id="@+id/spouse_info_register_addr_tv"
+                        style="@style/apply_info_content"
+                        android:text="请上传" />
+
+                    <FrameLayout
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical"
+                            android:src="@mipmap/mine_arrow_right" />
+                    </FrameLayout>
+                </LinearLayout>
+
+
+                <include layout="@layout/include_line" />
             </LinearLayout>
 
             <TextView

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import kotlinx.android.synthetic.main.autonym_certify.*
@@ -32,6 +34,10 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     var hasIdFrontImg = false
     var hasIdBackImg = false
+    var addr = ""
+    var idBackImgUrl = ""
+    var idFrontImgUrl = ""
+    var drivingLicImgUrl = ""
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.autonym_certify, container, false)
@@ -70,15 +76,27 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 mDoubleCheckDialog.show()
             }
         }
-//        autonym_certify_id_back_img.setOnClickListener {
-//            CURRENT_CLICKED_VIEW_FOR_PIC = autonym_certify_id_back_img.id;
-//            takePhoto()
-//        }
-//        autonym_certify_id_front_img.setOnClickListener {
-//            CURRENT_CLICKED_VIEW_FOR_PIC = autonym_certify_id_front_img.id;
-//            takePhoto()
-//        }
-
+        autonym_certify_id_back_lin.setOnClickListener {
+            var intent = Intent(mContext, DocumentActivity::class.java)
+            intent.putExtra("type", "id_card_back")
+            intent.putExtra("role", "lender")
+            intent.putExtra("imgUrl", idBackImgUrl)
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
+        }
+        autonym_certify_id_front_lin.setOnClickListener {
+            var intent = Intent(mContext, DocumentActivity::class.java)
+            intent.putExtra("type", "id_card_front")
+            intent.putExtra("role", "lender")
+            intent.putExtra("imgUrl", idFrontImgUrl)
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
+        }
+        autonym_certify_driving_license_lin.setOnClickListener {
+            var intent = Intent(mContext, DocumentActivity::class.java)
+            intent.putExtra("type", "driving_lic")
+            intent.putExtra("role", "lender")
+            intent.putExtra("imgUrl", drivingLicImgUrl)
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
+        }
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
@@ -166,7 +184,37 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-//            when (requestCode) {
+            when (requestCode) {
+                Constants.REQUEST_DOCUMENT -> {
+                    data?.let {
+                        when (data.getStringExtra("type")) {
+                            "id_card_back" -> {
+                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                                    autonym_certify_id_back_tv.text = "已上传"
+                                    autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
+                                    autonym_certify_id_number_tv.setText(data.getStringExtra("idNo"))
+                                    autonym_certify_name_tv.setText(data.getStringExtra("name"))
+                                    addr = data.getStringExtra("addr")
+                                    idBackImgUrl = data.getStringExtra("imgUrl")
+                                }
+                            }
+                            "id_card_front" -> {
+                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                                    idFrontImgUrl = data.getStringExtra("imgUrl")
+                                    autonym_certify_id_front_tv.text = "已上传"
+                                    autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                                }
+                            }
+                            "driving_lic" -> {
+                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                                    drivingLicImgUrl = data.getStringExtra("imgUrl")
+                                    autonym_certify_driving_license_tv.text = "已上传"
+                                    autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.system_color))
+                                }
+                            }
+                        }
+                    }
+                }
 //                Constants.REQUEST_IDCARD_1_CAPTURE -> {
 //                    hasIdBackImg = true
 //                    Glide.with(mContext).load(idBackFile).into(autonym_certify_id_back_img)
@@ -203,7 +251,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 //                        ID_FRONT_FID = it
 //                    }, null)
 //                }
-//            }
+            }
         }
     }
 }
