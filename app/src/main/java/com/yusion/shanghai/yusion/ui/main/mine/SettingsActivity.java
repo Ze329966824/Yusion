@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.ui.main.mine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 
 public class SettingsActivity extends BaseActivity {
@@ -54,6 +56,7 @@ public class SettingsActivity extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Settings.SERVER_URL = editText.getText().toString();
+                                    SharedPrefsUtil.getInstance(SettingsActivity.this).putValue("SERVER_URL", editText.getText().toString());
                                     dialog.dismiss();
                                 }
                             }).show();

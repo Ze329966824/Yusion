@@ -1,8 +1,10 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -11,6 +13,7 @@ import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import java.util.Date;
@@ -22,7 +25,36 @@ public class LaunchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
         YusionApp.TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
-        getConfigJson();
+        String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+
+        EditText editText = new EditText(this);
+        editText.setText(str);
+        if (!str.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("请再次确认服务器地址！")
+                    .setView(editText)
+                    .setCancelable(false)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Settings.SERVER_URL = editText.getText().toString();
+                            getConfigJson();
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("还原", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            getConfigJson();
+                        }
+                    }).show();
+
+
+
+
+
+
+        }
     }
 
 
