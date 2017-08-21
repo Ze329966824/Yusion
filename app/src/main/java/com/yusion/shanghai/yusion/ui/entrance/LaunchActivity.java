@@ -48,12 +48,8 @@ public class LaunchActivity extends BaseActivity {
                             getConfigJson();
                         }
                     }).show();
-
-
-
-
-
-
+        } else {
+            getConfigJson();
         }
     }
 
