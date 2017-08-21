@@ -8,16 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yusion.shanghai.yusion.R;
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class UpdateGuarantorlInfoFragment extends Fragment {
+import com.yusion.shanghai.yusion.base.BaseFragment;
 
 
-    public UpdateGuarantorlInfoFragment() {
-        // Required empty public constructor
-    }
+public class UpdateGuarantorlInfoFragment extends BaseFragment {
 
 
     @Override

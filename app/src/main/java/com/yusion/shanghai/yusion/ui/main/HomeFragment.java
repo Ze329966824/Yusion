@@ -14,7 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
-import com.yusion.shanghai.yusion.ui.info.InfoListActivity;
+import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 
@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment {
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
             bottomBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, InfoListActivity.class);
-                intent.putExtra("ishaveGuarantee", false);
+                intent.putExtra("ishaveGuarantee", true);
                 startActivity(intent);
             });
         } else {

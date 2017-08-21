@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    tools:context="com.yusion.shanghai.yusion.ui.update.UpdateGuarantorInfoActivity">
+    tools:context="com.yusion.shanghai.yusion.ui.update.UpdateGuarantorInfoActivity"
+    android:orientation="vertical">
 
     <com.yusion.shanghai.yusion.widget.TitleBar
         android:id="@+id/title_bar"
