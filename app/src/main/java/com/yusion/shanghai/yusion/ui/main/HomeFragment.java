@@ -14,7 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
-import com.yusion.shanghai.yusion.ui.info.InfoListActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdatePersonalInfoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +39,24 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bottomBtn = (Button) view.findViewById(R.id.home_bottom_btn);
+        Button btn = (Button) view.findViewById(R.id.btn_test);
+        Button btn2 = (Button) view.findViewById(R.id.btn_test2);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, UpdateSecuritySpouseInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, UpdateSpouseInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void refresh(CheckUserInfoResp userInfo) {

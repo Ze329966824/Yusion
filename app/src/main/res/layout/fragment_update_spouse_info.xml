@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/update_spouse_info_group1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:visibility="visible">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <TextView
+                        android:id="@+id/update_spouse_id_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="18dp"
+                        android:text="个人婚姻状况"
+                        android:textColor="#666666"
+                        android:textSize="11.5sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+
+                <LinearLayout
+                    android:id="@+id/update_spouse_info_marriage_lin"
+                    style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:text="婚否" />
+
+                    <TextView
+                        android:id="@+id/update_spouse_info_marriage_tv"
+                        style="@style/apply_info_content"
+                        android:hint="请选择婚姻状况"
+                        android:text="已婚" />
+
+                    <FrameLayout
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical"
+                            android:src="@mipmap/mine_arrow_right" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+            </LinearLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/update_spouse_info_marriage_group_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:visibility="visible">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="12dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/fill_vertical_line"
+                    app:layout_constraintBottom_toBottomOf="@+id/personal_info2"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <TextView
+                    android:id="@+id/personal_info2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="22dp"
+                    android:text="配偶信息"
+                    android:textColor="#666666"
+                    android:textSize="11.5sp"
+                    app:layout_constraintBottom_toTopOf="@+id/personal_info_group2"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/personal_info_group2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="38dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="配偶姓名" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_clt_nm_edt"
+                            style="@style/apply_info_content"
+                            android:layout_marginRight="35dp"
+                            android:hint="请输入配偶姓名" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="配偶身份证号" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_id_no_edt"
+                            style="@style/apply_info_content_type_id"
+                            android:hint="请输入18位身份证号" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/update_spouse_info_id_no_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center"
+                                android:src="@mipmap/camera" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout
+                        android:id="@+id/update_spouse_info_gender_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="性别" />
+
+                        <TextView
+                            android:id="@+id/update_spouse_info_gender_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择性别" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="手机号码" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_mobile_edt"
+                            style="@style/apply_info_content"
+                            android:hint="请输入手机号码" />
+
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/update_spouse_info_mobile_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center"
+                                android:src="@mipmap/contact" />
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="单位名称" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_company_name_edt"
+                            style="@style/apply_info_content"
+                            android:layout_marginRight="35dp"
+                            android:hint="请输入单位名称" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout
+                        android:id="@+id/update_spouse_info_company_address_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="单位地址" />
+
+                        <TextView
+                            android:id="@+id/update_spouse_info_company_address_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择 省/市/区" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout
+                        android:id="@+id/update_spouse_info_company_address1_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="详细地址" />
+
+                        <TextView
+                            android:id="@+id/update_spouse_info_company_address1_tv"
+                            style="@style/apply_info_content"
+                            android:hint="小区/写字楼/学校等" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="门牌号" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_company_address2_edt"
+                            style="@style/apply_info_content"
+                            android:layout_marginRight="35dp"
+                            android:hint="例:5号楼207室" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="单位电话" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_work_phone_num_edt"
+                            style="@style/apply_info_content"
+                            android:layout_marginRight="35dp"
+                            android:hint="请输入单位电话" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout
+                        android:id="@+id/update_spouse_info_work_position_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="职务" />
+
+                        <TextView
+                            android:id="@+id/update_spouse_info_work_position_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择职务" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="月收入(元)" />
+
+                        <EditText
+                            android:id="@+id/update_spouse_info_monthly_income_edt"
+                            style="@style/apply_info_content"
+                            android:layout_marginRight="35dp"
+                            android:digits="0123456789"
+                            android:hint="请输入月收入"
+                            android:maxLength="10" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/update_spouse_info_divorced_group_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                tools:visibility="visible">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/separate_line_color" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="center"
+        android:src="@mipmap/to_top"
+        app:backgroundTint="@color/transparent"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
+        app:rippleColor="@color/transparent" />
+
+</android.support.design.widget.CoordinatorLayout>
