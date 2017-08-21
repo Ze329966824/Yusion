@@ -67,6 +67,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.apply.DocumentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.apply.ApplyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
