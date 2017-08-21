@@ -31,7 +31,8 @@ public class SettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_settings);
         initTitleBar(this, getResources().getString(R.string.main_setting_title));
         TextView versionCodeTv = (TextView) findViewById(R.id.settings_version_code_tv);
-        versionCodeTv.setText(BuildConfig.VERSION_NAME);
+        String versionCode = Settings.SERVER_URL.contains("alpha") ? "测试环境" : BuildConfig.VERSION_NAME;
+        versionCodeTv.setText(versionCode);
 
         initSetURL();
 
