@@ -14,6 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
+import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
 
 /**
