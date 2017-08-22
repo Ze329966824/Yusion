@@ -171,7 +171,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <View
                             android:layout_width="match_parent"
@@ -450,7 +450,7 @@
 
                         <TextView
                             style="@style/apply_info_title"
-                            android:text="收入来源" />
+                            android:text="主要收入来源" />
 
                         <TextView
                             android:id="@+id/personal_info_income_from_tv"
@@ -475,23 +475,23 @@
                         android:layout_height="@dimen/separate_line_height"
                         android:background="@color/separate_line_color" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="@color/bg_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
                     <!--工资-->
                     <LinearLayout
                         android:id="@+id/personal_info_from_income_group_lin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
 
                         <LinearLayout style="@style/apply_info_item">
 
@@ -700,8 +700,18 @@
                         android:id="@+id/personal_info_from_self_group_lin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
 
                         <LinearLayout style="@style/apply_info_item">
 
@@ -716,7 +726,7 @@
                                 android:hint="请输入年收入" />
                         </LinearLayout>
 
-                        <include layout="@layout/include_line_left"/>
+                        <include layout="@layout/include_line_left" />
 
                         <LinearLayout
                             android:id="@+id/personal_info_from_self_type_lin"
@@ -862,6 +872,15 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
+                    </LinearLayout>
+                    <!--其他-->
+                    <LinearLayout
+                        android:id="@+id/personal_info_from_other_group_lin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
@@ -871,15 +890,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
-
-                    </LinearLayout>
-                    <!--其他-->
-                    <LinearLayout
-                        android:id="@+id/personal_info_from_other_group_lin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        android:orientation="vertical">
 
                         <LinearLayout style="@style/apply_info_item">
 
@@ -894,7 +904,7 @@
                                 android:hint="请输入年收入" />
                         </LinearLayout>
 
-                        <include layout="@layout/include_line_left"/>
+                        <include layout="@layout/include_line_left" />
 
                         <LinearLayout
                             android:id="@+id/personal_info_from_other_remark_lin"
@@ -927,6 +937,59 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <!--额外收入来源-->
+                    <LinearLayout
+                        android:id="@+id/personal_info_extra_income_from_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="额外收入来源" />
+
+                        <TextView
+                            android:id="@+id/personal_info_extra_income_from_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <!--额外->工资-->
+                    <LinearLayout
+                        android:id="@+id/personal_info_extra_from_income_group_lin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
@@ -937,12 +1000,219 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="年收入" />
+
+                            <EditText
+                                android:id="@+id/personal_info_extra_from_income_year_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入年收入" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位名称" />
+
+                            <EditText
+                                android:id="@+id/personal_info_extra_from_income_company_name_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入单位名称" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/personal_info_extra_from_income_company_address_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位地址" />
+
+                            <TextView
+                                android:id="@+id/personal_info_extra_from_income_company_address_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择 省/市/区" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/personal_info_extra_from_income_company_address1_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="详细地址" />
+
+                            <TextView
+                                android:id="@+id/personal_info_extra_from_income_company_address1_tv"
+                                style="@style/apply_info_content"
+                                android:hint="小区/写字楼/学校等" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="门牌号" />
+
+                            <EditText
+                                android:id="@+id/personal_info_extra_from_income_company_address2_tv"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="例:5号楼207室" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/personal_info_extra_from_income_work_position_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="职务" />
+
+                            <TextView
+                                android:id="@+id/personal_extra_info_work_position_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择职务" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位座机" />
+
+                            <EditText
+                                android:id="@+id/personal_info_extra_from_income_work_phone_num_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入单位电话" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         tools:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
 
                         <View
                             android:layout_width="match_parent"
@@ -1019,7 +1289,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
-                            android:layout_marginLeft="35dp"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
