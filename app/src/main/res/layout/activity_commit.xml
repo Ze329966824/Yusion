@@ -14,11 +14,12 @@
         android:layout_height="wrap_content" />
 
     <ImageView
+        android:layout_below="@id/title_bar"
         android:id="@+id/icon_commit_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:paddingTop="39dp"
+        android:layout_marginTop="39dp"
         android:src="@mipmap/commit_success" />
 
     <TextView
@@ -26,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/icon_commit_success"
+        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="50dp"
         android:text="提交成功"
         android:textSize="19dp" />
 
@@ -35,8 +36,10 @@
         android:id="@+id/return_list_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_commit_success"
+        android:layout_below="@id/icon_commit_success"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="76dp"
         android:background="@drawable/commit_success"
         android:clickable="true"
         android:gravity="center"

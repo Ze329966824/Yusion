@@ -24,6 +24,7 @@ public class CommitActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommitActivity.this,InfoListActivity.class);
+                intent.putExtra("ishaveGuarantee",true);
                 startActivity(intent);
                 finish();
             }

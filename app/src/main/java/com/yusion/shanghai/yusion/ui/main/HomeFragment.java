@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment {
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
             bottomBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, InfoListActivity.class);
-                intent.putExtra("ishaveGuarantee", true);
+                intent.putExtra("ishaveGuarantee", false);
                 startActivity(intent);
             });
         } else {
