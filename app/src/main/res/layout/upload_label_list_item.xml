@@ -44,7 +44,7 @@
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="15dp"
         android:layout_toLeftOf="@+id/upload_label_list_item_img"
         android:src="@mipmap/error_img"
         android:textColor="@color/text_light_grey"

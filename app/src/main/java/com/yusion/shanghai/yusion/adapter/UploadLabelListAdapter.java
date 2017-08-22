@@ -41,8 +41,10 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
         holder.name.setText(item.name);
         if (item.hasError) {
             holder.icon.setVisibility(View.VISIBLE);
+            holder.status.setVisibility(View.GONE);
         } else {
             holder.icon.setVisibility(View.GONE);
+            holder.status.setVisibility(View.VISIBLE);
             if (!hasImg(item)) {
                 holder.status.setText("请上传");
                 holder.status.setTextColor(mContext.getResources().getColor(R.color.please_upload_color));

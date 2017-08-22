@@ -87,10 +87,11 @@ public class UploadListActivity extends BaseActivity {
 //                    adapter.notifyDataSetChanged();
 //                }
 //            });
-//        } else if (mTopItem.hasError) {
-//            errorLin.setVisibility(View.VISIBLE);
-//            errorTv.setText(mTopItem.errorInfo);
-//        }
+//        } else
+        if (mTopItem.hasError) {
+            errorLin.setVisibility(View.VISIBLE);
+            errorTv.setText(mTopItem.errorInfo);
+        }
     }
 
     @Override
