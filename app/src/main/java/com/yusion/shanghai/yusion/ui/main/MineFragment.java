@@ -16,6 +16,7 @@ import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
 import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
+import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +76,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.mine_user_info_lin:
 //                if (WangDaiApp.isLogin) {
-                startActivity(new Intent(mContext, UpdateUserInfoActivity.class));
+                Intent goInfoList = new Intent(mContext, InfoListActivity.class);
+                goInfoList.putExtra("ishaveGuarantee", false);
+                startActivity(goInfoList);
 //                } else {
 //                    requestLogin();
 //                }

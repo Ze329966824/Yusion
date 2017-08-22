@@ -32,6 +32,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         var _INCOME_FROME_INDEX: Int = 0
         var _EXTRA_INCOME_FROME_INDEX: Int = 0
         var _WORK_POSITION_INDEX: Int = 0
+        var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
+        var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
         var _EDUCATION_INDEX: Int = 0
         var _HOUSE_TYPE_INDEX: Int = 0
         var _HOUSE_OWNER_RELATION_INDEX: Int = 0
@@ -131,26 +133,57 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         personal_info_current_address_lin.setOnClickListener {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_current_address_lin, personal_info_current_address_tv, "请选择所在地区") { _, _ -> personal_info_current_address1_tv.text = "" }
         }
-        personal_info_current_address1_tv.setOnClickListener {
+        personal_info_current_address1_lin.setOnClickListener {
             if (personal_info_current_address_tv.text.isNotEmpty()) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_current_address1_lin.id
                 requestPOI(personal_info_current_address_tv.text.toString())
             }
         }
-//        personal_info_company_address_lin.setOnClickListener {
-//            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_company_address_lin, personal_info_company_address_tv, "请选择所在地区") { _, _ -> personal_info_company_address1_tv.text = "" }
-//        }
-//        personal_info_company_address1_lin.setOnClickListener {
-//            if (personal_info_company_address_tv.text.isNotEmpty()) {
-//                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_company_address1_lin.id
-//                requestPOI(personal_info_company_address_tv.text.toString())
-//            }
-//        }
-//        personal_info_work_position_lin.setOnClickListener {
-//            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _WORK_POSITION_INDEX, personal_info_work_position_lin, personal_info_work_position_tv, "请选择", { _, index ->
-//                _WORK_POSITION_INDEX = index
-//            })
-//        }
+
+        //工资
+        personal_info_from_income_company_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_income_company_address_lin, personal_info_from_income_company_address_tv, "请选择所在地区") { _, _ -> personal_info_from_income_company_address1_tv.text = "" }
+        }
+        personal_info_from_income_company_address1_lin.setOnClickListener {
+            if (personal_info_from_income_company_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_income_company_address1_lin.id
+                requestPOI(personal_info_from_income_company_address_tv.text.toString())
+            }
+        }
+        personal_info_from_income_work_position_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, personal_info_from_income_work_position_lin, personal_info_from_income_work_position_tv, "请选择", { _, index ->
+                _FROM_INCOME_WORK_POSITION_INDEX = index
+            })
+        }
+
+        //自营
+        personal_info_from_self_company_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_self_company_address_lin, personal_info_from_self_company_address_tv, "请选择所在地区") { _, _ -> personal_info_from_self_company_address1_tv.text = "" }
+        }
+        personal_info_from_self_company_address1_lin.setOnClickListener {
+            if (personal_info_from_self_company_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_self_company_address1_lin.id
+                requestPOI(personal_info_from_self_company_address_tv.text.toString())
+            }
+        }
+
+        //额外工资
+        personal_info_extra_from_income_company_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_extra_from_income_company_address_lin, personal_info_extra_from_income_company_address_tv, "请选择所在地区") { _, _ -> personal_info_extra_from_income_company_address1_tv.text = "" }
+        }
+        personal_info_extra_from_income_company_address1_lin.setOnClickListener {
+            if (personal_info_extra_from_income_company_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_extra_from_income_company_address1_lin.id
+                requestPOI(personal_info_extra_from_income_company_address_tv.text.toString())
+            }
+        }
+        personal_info_extra_from_income_work_position_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, personal_info_extra_from_income_work_position_lin, personal_info_extra_from_income_work_position_tv, "请选择", { _, index ->
+                _FROM_EXTRA_WORK_POSITION_INDEX = index
+            })
+        }
+
+
         personal_info_house_type_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_type_list_key, _HOUSE_TYPE_INDEX, personal_info_house_type_lin, personal_info_house_type_tv, "请选择", { _, index ->
                 _HOUSE_TYPE_INDEX = index
@@ -298,9 +331,15 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     personal_info_current_address1_lin.id -> {
                         personal_info_current_address1_tv.text = data.getStringExtra("result");
                     }
-//                    personal_info_company_address1_lin.id -> {
-//                        personal_info_company_address1_tv.text = data.getStringExtra("result");
-//                    }
+                    personal_info_from_income_company_address1_lin.id -> {
+                        personal_info_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                    personal_info_from_self_company_address1_lin.id -> {
+                        personal_info_from_self_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                    personal_info_extra_from_income_company_address1_lin.id -> {
+                        personal_info_extra_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    }
                 }
             }
         }

@@ -649,7 +649,7 @@
                                 android:text="职务" />
 
                             <TextView
-                                android:id="@+id/personal_info_work_position_tv"
+                                android:id="@+id/personal_info_from_income_work_position_tv"
                                 style="@style/apply_info_content"
                                 android:hint="请选择职务" />
 
@@ -689,11 +689,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"
-                            android:background="@color/bg_color" />
                     </LinearLayout>
                     <!--自营-->
                     <LinearLayout
@@ -1156,7 +1151,7 @@
                                 android:text="职务" />
 
                             <TextView
-                                android:id="@+id/personal_extra_info_work_position_tv"
+                                android:id="@+id/personal_info_extra_from_income_work_position_tv"
                                 style="@style/apply_info_content"
                                 android:hint="请选择职务" />
 
