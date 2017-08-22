@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq;
+import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
@@ -24,6 +25,17 @@ public class ProductApi {
                 new CustomCallBack<UserInfoBean>(context, dialog) {
                     @Override
                     public void onCustomResponse(UserInfoBean data) {
+                        onItemDataCallBack.onItemDataCallBack(data);
+                    }
+                });
+    }
+
+    public static void getClientInfo(final Context context, GetUserInfoReq req, final OnItemDataCallBack<ClientInfo> onItemDataCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getProductService().getClientInfo(req.id_no, req.clt_nm).enqueue(
+                new CustomCallBack<ClientInfo>(context, dialog) {
+                    @Override
+                    public void onCustomResponse(ClientInfo data) {
                         onItemDataCallBack.onItemDataCallBack(data);
                     }
                 });

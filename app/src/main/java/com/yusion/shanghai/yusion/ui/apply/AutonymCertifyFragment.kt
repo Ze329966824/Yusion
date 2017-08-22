@@ -10,15 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
+import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import kotlinx.android.synthetic.main.autonym_certify.*
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 import java.util.*
 
 /**
@@ -50,13 +51,12 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
-            nextStep()
-//            ProductApi.getUserInfo(mContext, GetUserInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString())) {
-//                if (it == null) {
-//                    return@getUserInfo
-//                }
-//                var applyActivity = activity as ApplyActivity
-//                applyActivity.mUserInfoBean = it
+            ProductApi.getClientInfo(mContext, GetUserInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString())) {
+                if (it == null) {
+                    return@getClientInfo
+                }
+                var applyActivity = activity as ApplyActivity
+                applyActivity.mClientInfo = it
 //                var body = applyActivity.mOcrRespByAutonymCertify.showapi_res_body
 //                body?.let {
 //                    applyActivity.mUserInfoBean.gender = body.sex
@@ -65,8 +65,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 //                    applyActivity.mUserInfoBean.reg_addr.city = body.city
 //                    applyActivity.mUserInfoBean.reg_addr.district = body.town
 //                }
+                nextStep()
 //                uploadUrl(it.clt_id)
-//            }
+            }
         }
         autonym_certify_next_btn.setOnClickListener {
             if (checkCanNextStep()) {
@@ -159,26 +160,6 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     fun nextStep() {
         EventBus.getDefault().post(ApplyActivityEvent.showPersonalInfoFragment)
-    }
-
-    private var idBackFile = File("");
-    private var idFrontFile = File("");
-
-    fun takePhoto() {
-        when (CURRENT_CLICKED_VIEW_FOR_PIC) {
-//            autonym_certify_id_back_img.id -> {
-//                idBackFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis().toString() + ".jpg")
-//                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(idBackFile))
-//                startActivityForResult(intent, Constants.REQUEST_IDCARD_1_CAPTURE)
-//            }
-//            autonym_certify_id_front_img.id -> {
-//                idFrontFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis().toString() + ".jpg")
-//                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(idFrontFile))
-//                startActivityForResult(intent, Constants.REQUEST_IDCARD_2_CAPTURE)
-//            }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

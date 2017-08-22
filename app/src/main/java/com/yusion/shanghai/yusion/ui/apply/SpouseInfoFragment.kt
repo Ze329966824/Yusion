@@ -92,7 +92,7 @@ class SpouseInfoFragment : BaseFragment() {
             var intent = Intent(mContext, SingleImgUploadActivity::class.java)
             intent.putExtra("type", "divorce_proof")
             intent.putExtra("role", "lender")
-            intent.putExtra("clt_id", (activity as ApplyActivity).mUserInfoBean.clt_id)
+//            intent.putExtra("clt_id", (activity as ApplyActivity).mClientInfo.clt_id)
             intent.putExtra("imgUrl", divorceImgUrl)
             startActivityForResult(intent, START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
         }
@@ -104,30 +104,30 @@ class SpouseInfoFragment : BaseFragment() {
 
         spouse_info_mobile_img.setOnClickListener { selectContact() }
         spouse_info_submit_btn.setOnClickListener {
-            //            if (checkCanNextStep()) {
-//                var applyActivity = activity as ApplyActivity
-//                applyActivity.mUserInfoBean.marriage = if (spouse_info_marriage_tv.text == "已婚") "已婚" else spouse_info_marriage_tv.text.toString()
-//                if (applyActivity.mUserInfoBean.marriage == "已婚") {
-//                    applyActivity.mUserInfoBean.spouse.marriage = "已婚"
-//                    applyActivity.mUserInfoBean.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.id_no = spouse_info_id_no_edt.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.gender = spouse_info_gender_tv.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.mobile = spouse_info_mobile_edt.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.company_name = spouse_info_company_name_edt.text.toString()
+            if (checkCanNextStep()) {
+                var applyActivity = activity as ApplyActivity
+                applyActivity.mClientInfo.marriage = spouse_info_marriage_tv.text.toString()
+                if (applyActivity.mClientInfo.marriage == "已婚") {
+                    applyActivity.mClientInfo.spouse.marriage = "已婚"
+                    applyActivity.mClientInfo.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.mobile = spouse_info_mobile_edt.text.toString()
+//                    applyActivity.mClientInfo.spouse.company_name = spouse_info_company_name_edt.text.toString()
 //                    if (spouse_info_company_address_tv.text.isNotEmpty()) {
-//                        applyActivity.mUserInfoBean.spouse.company_addr.province = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-//                        applyActivity.mUserInfoBean.spouse.company_addr.city = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-//                        applyActivity.mUserInfoBean.spouse.company_addr.district = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+//                        applyActivity.mClientInfo.spouse.company_addr.province = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+//                        applyActivity.mClientInfo.spouse.company_addr.city = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+//                        applyActivity.mClientInfo.spouse.company_addr.district = spouse_info_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
 //                    }
-//                    applyActivity.mUserInfoBean.spouse.company_addr.address1 = spouse_info_company_address1_tv.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.company_addr.address2 = spouse_info_company_address2_edt.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.work_phone_num = spouse_info_work_phone_num_edt.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.work_position = spouse_info_work_position_tv.text.toString()
-//                    applyActivity.mUserInfoBean.spouse.monthly_income = spouse_info_monthly_income_edt.text.toString().toInt()
-//                    applyActivity.mUserInfoBean.spouse.reg_addr_details = if (regDetailAddress.isEmpty()) "" else regDetailAddress
-//                }
-            nextStep()
-//            }
+//                    applyActivity.mClientInfo.spouse.company_addr.address1 = spouse_info_company_address1_tv.text.toString()
+//                    applyActivity.mClientInfo.spouse.company_addr.address2 = spouse_info_company_address2_edt.text.toString()
+//                    applyActivity.mClientInfo.spouse.work_phone_num = spouse_info_work_phone_num_edt.text.toString()
+//                    applyActivity.mClientInfo.spouse.work_position = spouse_info_work_position_tv.text.toString()
+//                    applyActivity.mClientInfo.spouse.monthly_income = spouse_info_monthly_income_edt.text.toString().toInt()
+//                    applyActivity.mClientInfo.spouse.reg_addr_details = if (regDetailAddress.isEmpty()) "" else regDetailAddress
+                }
+                nextStep()
+            }
         }
 
 
@@ -184,28 +184,29 @@ class SpouseInfoFragment : BaseFragment() {
     }
 
     fun checkCanNextStep(): Boolean {
-        if (spouse_info_marriage_tv.text == "已婚") {
-            if (spouse_info_clt_nm_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_id_no_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_gender_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_mobile_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
-            } else {
-                return true
-            }
-        } else if (spouse_info_marriage_tv.text == "离异") {
-            if (spouse_info_divorced_tv.text == "请上传") {
-                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
-            } else {
-                return true
-            }
-        } else {
-            return true
-        }
-        return false
+        return true
+//        if (spouse_info_marriage_tv.text == "已婚") {
+//            if (spouse_info_clt_nm_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (spouse_info_id_no_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (spouse_info_gender_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (spouse_info_mobile_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+//            } else {
+//                return true
+//            }
+//        } else if (spouse_info_marriage_tv.text == "离异") {
+//            if (spouse_info_divorced_tv.text == "请上传") {
+//                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
+//            } else {
+//                return true
+//            }
+//        } else {
+//            return true
+//        }
+//        return false
     }
 
     fun nextStep() {
