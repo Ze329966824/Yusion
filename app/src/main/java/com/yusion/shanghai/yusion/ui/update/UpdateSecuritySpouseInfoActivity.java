@@ -1,6 +1,5 @@
 package com.yusion.shanghai.yusion.ui.update;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
     private UpdateSecuritySpouseInfoFragment mUpdateSecuritySpouseInfoFragment;
-    private UpdateImgsFragment mUpdateImgsFragment;
+    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人配偶信息", "影像件"};
 
     @Override
@@ -42,9 +41,9 @@ public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
         mUpdateSecuritySpouseInfoFragment = new UpdateSecuritySpouseInfoFragment();
-        mUpdateImgsFragment = new UpdateImgsFragment();
+        mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdateSecuritySpouseInfoFragment);
-        mFragments.add(mUpdateImgsFragment);
+        mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         //viewPager.setAdapter(new UpdatePersonalInfoActivity.InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));

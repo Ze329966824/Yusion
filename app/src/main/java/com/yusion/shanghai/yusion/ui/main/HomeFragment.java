@@ -14,7 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
-import com.yusion.shanghai.yusion.ui.info.InfoListActivity;
+import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 
@@ -63,7 +63,7 @@ public class HomeFragment extends BaseFragment {
 
     public void refresh(CheckUserInfoResp userInfo) {
         if (userInfo.commited) {
-            bottomBtn.setText("修改资料");
+            bottomBtn.setText("查看个人资料");
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
             bottomBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, InfoListActivity.class);

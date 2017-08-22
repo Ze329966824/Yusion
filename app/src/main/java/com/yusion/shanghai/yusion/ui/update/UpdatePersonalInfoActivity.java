@@ -27,7 +27,7 @@ import java.util.List;
 public class UpdatePersonalInfoActivity extends BaseActivity {
 
     private UpdatePersonalInfoFragment mUpdatePersonalInfoFragment;
-    private UpdateImgsFragment mUpdateImgsFragment;
+    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"个人资料", "影像件"};
 
     @Override
@@ -42,9 +42,9 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
         mUpdatePersonalInfoFragment = new UpdatePersonalInfoFragment();
-        mUpdateImgsFragment = new UpdateImgsFragment();
+        mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdatePersonalInfoFragment);
-        mFragments.add(mUpdateImgsFragment);
+        mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);
