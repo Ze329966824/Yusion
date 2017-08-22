@@ -33,6 +33,17 @@ class SpouseInfoFragment : BaseFragment() {
         var _MARRIAGE_INDEX: Int = 0
         var idBackImgUrl = ""
         var idFrontImgUrl = ""
+        var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
+        var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
+        var _INCOME_FROME_INDEX: Int = 0
+        var _EXTRA_INCOME_FROME_INDEX: Int = 0
+        var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
+        var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
+        var _EDUCATION_INDEX: Int = 0
+        var _HOUSE_TYPE_INDEX: Int = 0
+        var _HOUSE_OWNER_RELATION_INDEX: Int = 0
+        var _URG_RELATION_INDEX1: Int = 0
+        var _URG_RELATION_INDEX2: Int = 0
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,17 +75,17 @@ class SpouseInfoFragment : BaseFragment() {
             })
         }
         spouse_info_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), PersonalInfoFragment._INCOME_FROME_INDEX, spouse_info_income_from_lin, spouse_info_income_from_tv, "请选择", { _, index ->
-                PersonalInfoFragment._INCOME_FROME_INDEX = index
-                spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[PersonalInfoFragment._INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
-                spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[PersonalInfoFragment._INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
-                spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[PersonalInfoFragment._INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROME_INDEX, spouse_info_income_from_lin, spouse_info_income_from_tv, "请选择", { _, index ->
+                _INCOME_FROME_INDEX = index
+                spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
+                spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
             })
         }
         spouse_info_extra_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资"), PersonalInfoFragment._EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
-                PersonalInfoFragment._EXTRA_INCOME_FROME_INDEX = index
-                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[PersonalInfoFragment._EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
+                _EXTRA_INCOME_FROME_INDEX = index
+                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
@@ -118,6 +129,51 @@ class SpouseInfoFragment : BaseFragment() {
             nextStep()
 //            }
         }
+
+
+        //工资
+        spouse_info_from_income_company_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, spouse_info_from_income_company_address_lin, spouse_info_from_income_company_address_tv, "请选择所在地区") { _, _ -> spouse_info_from_income_company_address1_tv.text = "" }
+        }
+        spouse_info_from_income_company_address1_lin.setOnClickListener {
+            if (spouse_info_from_income_company_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_from_income_company_address1_lin.id
+                requestPOI(spouse_info_from_income_company_address_tv.text.toString())
+            }
+        }
+        spouse_info_from_income_work_position_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, spouse_info_from_income_work_position_lin, spouse_info_from_income_work_position_tv, "请选择", { _, index ->
+                _FROM_INCOME_WORK_POSITION_INDEX = index
+            })
+        }
+
+        //自营
+        spouse_info_from_self_company_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, spouse_info_from_self_company_address_lin, spouse_info_from_self_company_address_tv, "请选择所在地区") { _, _ -> spouse_info_from_self_company_address1_tv.text = "" }
+        }
+        spouse_info_from_self_company_address1_lin.setOnClickListener {
+            if (spouse_info_from_self_company_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_from_self_company_address1_lin.id
+                requestPOI(spouse_info_from_self_company_address_tv.text.toString())
+            }
+        }
+
+        //额外工资
+        spouse_info_extra_from_income_company_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, spouse_info_extra_from_income_company_address_lin, spouse_info_extra_from_income_company_address_tv, "请选择所在地区") { _, _ -> spouse_info_extra_from_income_company_address1_tv.text = "" }
+        }
+        spouse_info_extra_from_income_company_address1_lin.setOnClickListener {
+            if (spouse_info_extra_from_income_company_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_extra_from_income_company_address1_lin.id
+                requestPOI(spouse_info_extra_from_income_company_address_tv.text.toString())
+            }
+        }
+        spouse_info_extra_from_income_work_position_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, spouse_info_extra_from_income_work_position_lin, spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
+                _FROM_EXTRA_WORK_POSITION_INDEX = index
+            })
+        }
+
 
         step1.setOnClickListener { EventBus.getDefault().post(ApplyActivityEvent.showAutonymCertifyFragment) }
         step2.setOnClickListener { EventBus.getDefault().post(ApplyActivityEvent.showPersonalInfoFragment) }
@@ -201,6 +257,18 @@ class SpouseInfoFragment : BaseFragment() {
                             spouse_info_id_front_tv.text = "已上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
                         }
+                    }
+                }
+            } else if (requestCode == Constants.REQUEST_ADDRESS) {
+                when (CURRENT_CLICKED_VIEW_FOR_ADDRESS) {
+                    spouse_info_from_income_company_address1_lin.id -> {
+                        spouse_info_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                    spouse_info_from_self_company_address1_lin.id -> {
+                        spouse_info_from_self_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                    spouse_info_extra_from_income_company_address1_lin.id -> {
+                        spouse_info_extra_from_income_company_address1_tv.text = data.getStringExtra("result");
                     }
                 }
             }
