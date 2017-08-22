@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
+import com.yusion.shanghai.yusion.bean.user.ClientInfo
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.ui.update.CommitActivity
@@ -20,7 +21,7 @@ class ApplyActivity : BaseActivity() {
     private var mSpouseInfoFragment: SpouseInfoFragment? = null
     private var mCurrentFragment: Fragment? = null
     var mOcrRespByAutonymCertify: OcrResp = OcrResp()
-    var mUserInfoBean: UserInfoBean = UserInfoBean()
+    var mClientInfo = ClientInfo()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

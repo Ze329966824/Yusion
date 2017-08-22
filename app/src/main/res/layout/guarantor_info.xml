@@ -901,22 +901,12 @@
                                 style="@style/apply_info_title"
                                 android:text="备注" />
 
-                            <TextView
+                            <EditText
+                                android:layout_marginRight="35dp"
                                 android:id="@+id/guarantor_info_from_other_remark_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择业务类型" />
+                                android:hint="请输入备注" />
 
-                            <FrameLayout
-                                android:layout_width="20dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="15dp">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="left|center_vertical"
-                                    android:src="@mipmap/mine_arrow_right" />
-                            </FrameLayout>
                         </LinearLayout>
 
                         <View
