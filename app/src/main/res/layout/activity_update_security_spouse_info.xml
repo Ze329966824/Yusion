@@ -33,6 +33,7 @@
             android:background="#ffffff" />
 
         <ImageView
+            android:clickable="true"
             android:id="@+id/submit_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

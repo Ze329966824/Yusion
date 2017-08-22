@@ -8,6 +8,8 @@ import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import com.yusion.shanghai.yusion.ui.update.CommitActivity
+import android.content.Intent
 
 class AddGuarantorActivity : BaseActivity() {
     private var mGuarantorCreditInfoFragment: GuarantorCreditInfoFragment? = null
@@ -47,6 +49,7 @@ class AddGuarantorActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
+        startActivity(Intent(this,CommitActivity::class.java))
         finish()
     }
 

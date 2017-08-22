@@ -2,11 +2,13 @@ package com.yusion.shanghai.yusion.ui.update;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.yusion.shanghai.yusion.R;
@@ -27,7 +29,7 @@ import java.util.List;
 public class UpdatePersonalInfoActivity extends BaseActivity {
 
     private UpdatePersonalInfoFragment mUpdatePersonalInfoFragment;
-    private UpdateImgsFragment mUpdateImgsFragment;
+    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"个人资料", "影像件"};
 
     @Override
@@ -36,15 +38,28 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_update_personal_info);
         initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
+        initCommit();
     }
+
+    private void initCommit() {
+        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UpdatePersonalInfoActivity.this,CommitActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
 
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
         mUpdatePersonalInfoFragment = new UpdatePersonalInfoFragment();
-        mUpdateImgsFragment = new UpdateImgsFragment();
+        mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdatePersonalInfoFragment);
-        mFragments.add(mUpdateImgsFragment);
+        mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);

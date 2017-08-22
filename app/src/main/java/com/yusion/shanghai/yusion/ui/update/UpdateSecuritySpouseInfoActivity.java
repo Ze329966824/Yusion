@@ -1,16 +1,18 @@
 package com.yusion.shanghai.yusion.ui.update;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
     private UpdateSecuritySpouseInfoFragment mUpdateSecuritySpouseInfoFragment;
-    private UpdateImgsFragment mUpdateImgsFragment;
+    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人配偶信息", "影像件"};
 
     @Override
@@ -36,15 +38,27 @@ public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_update_security_spouse_info);
         initTitleBar(this, "担保人配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
+        initCommit();
+    }
+
+    private void initCommit() {
+        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UpdateSecuritySpouseInfoActivity.this,CommitActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
         mUpdateSecuritySpouseInfoFragment = new UpdateSecuritySpouseInfoFragment();
-        mUpdateImgsFragment = new UpdateImgsFragment();
+        mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdateSecuritySpouseInfoFragment);
-        mFragments.add(mUpdateImgsFragment);
+        mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         //viewPager.setAdapter(new UpdatePersonalInfoActivity.InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));

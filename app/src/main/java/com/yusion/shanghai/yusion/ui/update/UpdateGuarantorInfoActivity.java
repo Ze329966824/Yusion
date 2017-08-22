@@ -1,14 +1,13 @@
 package com.yusion.shanghai.yusion.ui.update;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -28,16 +27,16 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateSpouseInfoActivity extends BaseActivity {
-    private UpdateSpouseInfoFragment mUpdateSpouseInfoFragment;
+public class UpdateGuarantorInfoActivity extends BaseActivity {
+    private UpdateGuarantorlInfoFragment mUpdateGuarantorlInfoFragment;
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
-    private String[] mTabTitle = {"配偶信息", "影像件"};
+    private String[] mTabTitle = {"担保人资料", "影像件"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_spouse_info);
-        initTitleBar(this, "配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
+        setContentView(R.layout.activity_update_guarantor_info);
+        initTitleBar(this, "担保人资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
         initCommit();
     }
@@ -46,19 +45,20 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                Intent intent = new Intent(UpdateGuarantorInfoActivity.this,CommitActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
+
     }
 
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
-        mUpdateSpouseInfoFragment = new UpdateSpouseInfoFragment();
+        mUpdateGuarantorlInfoFragment = new UpdateGuarantorlInfoFragment();
         mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
-        mFragments.add(mUpdateSpouseInfoFragment);
+        mFragments.add(mUpdateGuarantorlInfoFragment);
         mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
@@ -74,12 +74,12 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             }
 
             @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
+            public IPagerTitleView getTitleView(Context context, int i) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(0xFF999999);
                 colorTransitionPagerTitleView.setSelectedColor(0xFF06B7A3);
-                colorTransitionPagerTitleView.setText(mTabTitle[index]);
-                colorTransitionPagerTitleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
+                colorTransitionPagerTitleView.setText(mTabTitle[i]);
+                colorTransitionPagerTitleView.setOnClickListener(view -> viewPager.setCurrentItem(i));
                 return colorTransitionPagerTitleView;
             }
 
@@ -92,13 +92,12 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             }
         });
         mMagicIndicator.setNavigator(commonNavigator);
-
         ViewPagerHelper.bind(mMagicIndicator, viewPager);
     }
 
     private class InfoViewPagerAdapter extends FragmentPagerAdapter {
-
         private final List<Fragment> mFragments;
+
 
         InfoViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
             super(fm);
@@ -114,7 +113,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         public int getCount() {
             return mFragments == null ? 0 : mFragments.size();
         }
-
     }
 
     private void showDoubleCheckForExit() {

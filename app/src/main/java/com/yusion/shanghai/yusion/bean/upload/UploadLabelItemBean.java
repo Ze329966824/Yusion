@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.bean.upload;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +18,8 @@ public class UploadLabelItemBean implements Serializable {
      */
     public String name;
     public String value;
-    public List<UploadImgItemBean> img_list;
-    public List<UploadLabelItemBean> label_list;
+    public List<UploadImgItemBean> img_list = new ArrayList<>();
+    public List<UploadLabelItemBean> label_list = new ArrayList<>();
 
     public boolean hasError = false;
     public String errorInfo = "";

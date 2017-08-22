@@ -25,4 +25,6 @@
     <string name="live_info">居住材料</string>
     <string name="certificate_info">征信授权书</string>
 
+    <string name="commit">提交成功</string>
+
 </resources>

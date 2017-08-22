@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
+    tools:context="com.yusion.shanghai.yusion.ui.update.UpdateGuarantorInfoActivity"
     android:orientation="vertical">
 
     <com.yusion.shanghai.yusion.widget.TitleBar
@@ -41,6 +43,8 @@
             android:layout_alignParentRight="true"
             android:layout_margin="15dp"
             android:src="@mipmap/submit_info" />
+
     </RelativeLayout>
+
 
 </LinearLayout>

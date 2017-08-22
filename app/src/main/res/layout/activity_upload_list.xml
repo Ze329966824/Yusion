@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:paddingBottom="15dp"
         android:visibility="gone"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/upload_list_error_tv"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:padding="15dp"
-            android:text="您提交的资料有误："
+            android:text="您提交的资料有误：您提交的资料有误：\n ..."
             android:textColor="#ff4f0f"
             android:textSize="14sp" />
     </LinearLayout>

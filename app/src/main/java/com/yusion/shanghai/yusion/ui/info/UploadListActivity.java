@@ -29,32 +29,29 @@ import java.util.List;
 
 public class UploadListActivity extends BaseActivity {
 
-    private List<UploadImgItemBean> items;
     private UploadImgListAdapter adapter;
     private Intent mGetIntent;
-    private int mIndex;//item对象在上级页面中list的索引
-    private UploadLabelItemBean mTopItemBean;//上级页面传过来的bean
+    private UploadLabelItemBean mTopItem;//上级页面传过来的bean
     private TextView errorTv;
     private LinearLayout errorLin;
+    private List<UploadImgItemBean> imgList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_list);
         mGetIntent = getIntent();
-        mIndex = mGetIntent.getIntExtra("index", -1);
-        mTopItemBean = (UploadLabelItemBean) mGetIntent.getSerializableExtra("item");
-        initTitleBar(this, mGetIntent.getStringExtra("name")).setLeftClickListener(v -> onBack());
+        mTopItem = (UploadLabelItemBean) mGetIntent.getSerializableExtra("topItem");
+        imgList = mTopItem.img_list;
+        initTitleBar(this, mTopItem.name).setLeftClickListener(v -> onBack());
         RecyclerView rv = (RecyclerView) findViewById(R.id.upload_list_rv);
         errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
         errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
-        items = ((UploadLabelItemBean) mGetIntent.getSerializableExtra("item")).img_list;
-        adapter = new UploadImgListAdapter(this, items);
+        adapter = new UploadImgListAdapter(this, imgList);
         adapter.setOnItemClick(new UploadImgListAdapter.OnItemClick() {
             @Override
             public void onItemClick(View v, UploadImgItemBean item) {
-
             }
 
             @Override
@@ -69,30 +66,31 @@ public class UploadListActivity extends BaseActivity {
     }
 
     private void initData() {
-        if (!mTopItemBean.hasGetImgsFromServer) {
-            //第一次进入
-            ListImgsReq req = new ListImgsReq();
-            req.role = mGetIntent.getStringExtra("role");
-            req.label = mTopItemBean.value;
-            req.clt_id = mGetIntent.getStringExtra("clt_id");
-            UploadApi.listImgs(this, req, resp -> {
-                mTopItemBean.hasGetImgsFromServer = true;
-                if (resp.has_err) {
-                    errorLin.setVisibility(View.VISIBLE);
-                    errorTv.setText("您提交的资料有误：" + resp.error);
-                    mTopItemBean.errorInfo = "您提交的资料有误：" + resp.error;
-                } else {
-                    errorLin.setVisibility(View.GONE);
-                    mTopItemBean.errorInfo = "";
-                }
-                if (resp.list.size() != 0) {
-                    items.addAll(resp.list);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        } else if (mTopItemBean.hasError) {
+//        if (!mTopItem.hasGetImgsFromServer) {
+//            //第一次进入
+//            ListImgsReq req = new ListImgsReq();
+//            req.role = mGetIntent.getStringExtra("role");
+//            req.label = mTopItem.value;
+//            req.clt_id = mGetIntent.getStringExtra("clt_id");
+//            UploadApi.listImgs(this, req, resp -> {
+//                mTopItem.hasGetImgsFromServer = true;
+//                if (resp.has_err) {
+//                    errorLin.setVisibility(View.VISIBLE);
+//                    errorTv.setText("您提交的资料有误：" + resp.error);
+//                    mTopItem.errorInfo = "您提交的资料有误：" + resp.error;
+//                } else {
+//                    errorLin.setVisibility(View.GONE);
+//                    mTopItem.errorInfo = "";
+//                }
+//                if (resp.list.size() != 0) {
+//                    items.addAll(resp.list);
+//                    adapter.notifyDataSetChanged();
+//                }
+//            });
+//        } else
+        if (mTopItem.hasError) {
             errorLin.setVisibility(View.VISIBLE);
-            errorTv.setText(mTopItemBean.errorInfo);
+            errorTv.setText(mTopItem.errorInfo);
         }
     }
 
@@ -105,39 +103,39 @@ public class UploadListActivity extends BaseActivity {
                 for (String file : files) {
                     UploadImgItemBean item = new UploadImgItemBean();
                     item.local_path = file;
-                    item.role = mGetIntent.getStringExtra("role");
-                    item.type = mTopItemBean.value;
-                    items.add(item);
+//                    item.role = mGetIntent.getStringExtra("role");
+//                    item.type = mTopItem.value;
+                    imgList.add(item);
                 }
                 adapter.notifyItemRangeInserted(adapter.getItemCount(), files.size());
 
-                Dialog dialog = LoadingUtils.createLoadingDialog(this);
-                dialog.show();
-                int account = 0;
-                for (String url : files) {
-                    account++;
-                    int finalAccount = account;
-                    OssUtil.uploadOss(this, false, url, new OSSObjectKeyBean(mGetIntent.getStringExtra("role"), mTopItemBean.value, ".png"), new OnItemDataCallBack<String>() {
-                        @Override
-                        public void onItemDataCallBack(String objectKey) {
-                            UploadFilesUrlReq.FileUrlBean fileUrlBean = new UploadFilesUrlReq.FileUrlBean();
-                            fileUrlBean.file_id = objectKey;
-                            fileUrlBean.label = mTopItemBean.value;
-                            fileUrlBean.role = mGetIntent.getStringExtra("role");
-                            UpdateUserInfoActivity.uploadFileUrlBeanList.add(fileUrlBean);
-                            if (finalAccount == files.size()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    }, new OnItemDataCallBack<Throwable>() {
-                        @Override
-                        public void onItemDataCallBack(Throwable data) {
-                            if (finalAccount == files.size()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    });
-                }
+//                Dialog dialog = LoadingUtils.createLoadingDialog(this);
+//                dialog.show();
+//                int account = 0;
+//                for (String url : files) {
+//                    account++;
+//                    int finalAccount = account;
+//                    OssUtil.uploadOss(this, false, url, new OSSObjectKeyBean(mGetIntent.getStringExtra("role"), mTopItem.value, ".png"), new OnItemDataCallBack<String>() {
+//                        @Override
+//                        public void onItemDataCallBack(String objectKey) {
+//                            UploadFilesUrlReq.FileUrlBean fileUrlBean = new UploadFilesUrlReq.FileUrlBean();
+//                            fileUrlBean.file_id = objectKey;
+//                            fileUrlBean.label = mTopItem.value;
+//                            fileUrlBean.role = mGetIntent.getStringExtra("role");
+//                            UpdateUserInfoActivity.uploadFileUrlBeanList.add(fileUrlBean);
+//                            if (finalAccount == files.size()) {
+//                                dialog.dismiss();
+//                            }
+//                        }
+//                    }, new OnItemDataCallBack<Throwable>() {
+//                        @Override
+//                        public void onItemDataCallBack(Throwable data) {
+//                            if (finalAccount == files.size()) {
+//                                dialog.dismiss();
+//                            }
+//                        }
+//                    });
+//                }
             }
         }
     }
@@ -148,7 +146,6 @@ public class UploadListActivity extends BaseActivity {
     }
 
     private void onBack() {
-        mGetIntent.putExtra("index", mIndex);
         setResult(RESULT_OK, mGetIntent);
         finish();
     }

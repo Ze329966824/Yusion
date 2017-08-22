@@ -160,6 +160,7 @@
                         android:textSize="11.5sp" />
                 </LinearLayout>
 
+                <!--担保人姓名-->
                 <LinearLayout
                     android:id="@+id/guarantor_info_group"
                     android:layout_width="match_parent"
@@ -306,22 +307,11 @@
                             </FrameLayout>
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="@color/bg_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
 
                     <!--现住地址-->
                     <LinearLayout
@@ -329,6 +319,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         tools:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
 
                         <LinearLayout
                             android:id="@+id/guarantor_info_current_address_lin"
@@ -418,19 +418,95 @@
                             android:layout_height="10dp"
                             android:background="@color/bg_color" />
 
+                    </LinearLayout>
+
+                    <!--收入来源-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <LinearLayout
+                        android:id="@+id/guarantor_info_income_from_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="主要收入来源" />
+
+                        <TextView
+                            android:id="@+id/guarantor_info_income_from_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <!--工资-->
+                    <LinearLayout
+                        android:id="@+id/guarantor_info_from_income_group_lin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
-                    </LinearLayout>
+                        <LinearLayout style="@style/apply_info_item">
 
-                    <!--单位名称-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        tools:visibility="gone">
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="年收入" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_from_income_year_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入年收入" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
 
                         <LinearLayout style="@style/apply_info_item">
 
@@ -439,7 +515,7 @@
                                 android:text="单位名称" />
 
                             <EditText
-                                android:id="@+id/guarantor_info_company_name_edt"
+                                android:id="@+id/guarantor_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入单位名称" />
@@ -461,7 +537,7 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:id="@+id/guarantor_info_company_address_lin"
+                            android:id="@+id/guarantor_info_from_income_company_address_lin"
                             style="@style/apply_info_item">
 
                             <TextView
@@ -469,7 +545,7 @@
                                 android:text="单位地址" />
 
                             <TextView
-                                android:id="@+id/guarantor_info_company_address_tv"
+                                android:id="@+id/guarantor_info_from_income_company_address_tv"
                                 style="@style/apply_info_content"
                                 android:hint="请选择 省/市/区" />
 
@@ -489,11 +565,10 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
-                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:id="@+id/guarantor_info_company_address1_lin"
+                            android:id="@+id/guarantor_info_from_income_company_address1_lin"
                             style="@style/apply_info_item">
 
                             <TextView
@@ -501,7 +576,7 @@
                                 android:text="详细地址" />
 
                             <TextView
-                                android:id="@+id/guarantor_info_company_address1_tv"
+                                android:id="@+id/guarantor_info_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
                                 android:hint="小区/写字楼/学校等" />
 
@@ -521,7 +596,6 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
-                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout style="@style/apply_info_item">
@@ -531,7 +605,7 @@
                                 android:text="门牌号" />
 
                             <EditText
-                                android:id="@+id/guarantor_info_company_address2_tv"
+                                android:id="@+id/guarantor_info_from_income_company_address2_tv"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
@@ -552,16 +626,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
-                    </LinearLayout>
-
-                    <!--职务-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:id="@+id/guarantor_info_work_position_lin"
+                            android:id="@+id/guarantor_info_from_income_work_position_lin"
                             style="@style/apply_info_item">
 
                             <TextView
@@ -596,15 +663,491 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="月收入(元)" />
+                                android:text="单位座机" />
 
                             <EditText
-                                android:id="@+id/guarantor_info_monthly_income_edt"
+                                android:id="@+id/guarantor_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:digits="0123456789"
-                                android:hint="请输入月收入"
-                                android:inputType="number" />
+                                android:hint="请输入单位电话" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+                    </LinearLayout>
+                    <!--自营-->
+                    <LinearLayout
+                        android:id="@+id/guarantor_info_from_self_group_lin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="年收入" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_from_self_year_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入年收入" />
+                        </LinearLayout>
+
+                        <include layout="@layout/include_line_left" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_from_self_type_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="业务类型" />
+
+                            <TextView
+                                android:id="@+id/guarantor_info_from_self_type_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择业务类型" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="店铺名称(选填)" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_from_self_company_name_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入单位名称" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_from_self_company_address_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位地址" />
+
+                            <TextView
+                                android:id="@+id/guarantor_info_from_self_company_address_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择 省/市/区" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <include layout="@layout/include_line_left" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_from_self_company_address1_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="详细地址" />
+
+                            <TextView
+                                android:id="@+id/guarantor_info_from_self_company_address1_tv"
+                                style="@style/apply_info_content"
+                                android:hint="小区/写字楼/学校等" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <include layout="@layout/include_line_left" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="门牌号" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_from_self_company_address2_tv"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="例:5号楼207室" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                    </LinearLayout>
+                    <!--其他-->
+                    <LinearLayout
+                        android:id="@+id/guarantor_info_from_other_group_lin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="年收入" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_from_other_year_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入年收入" />
+                        </LinearLayout>
+
+                        <include layout="@layout/include_line_left" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_from_other_remark_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="备注" />
+
+                            <EditText
+                                android:layout_marginRight="35dp"
+                                android:id="@+id/guarantor_info_from_other_remark_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请输入备注" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <!--额外收入来源-->
+                    <LinearLayout
+                        android:id="@+id/guarantor_info_extra_income_from_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="额外收入来源" />
+
+                        <TextView
+                            android:id="@+id/guarantor_info_extra_income_from_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <!--额外->工资-->
+                    <LinearLayout
+                        android:id="@+id/guarantor_info_extra_from_income_group_lin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="年收入" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_extra_from_income_year_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入年收入" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位名称" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_extra_from_income_company_name_edt"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="请输入单位名称" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_extra_from_income_company_address_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="单位地址" />
+
+                            <TextView
+                                android:id="@+id/guarantor_info_extra_from_income_company_address_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择 省/市/区" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_extra_from_income_company_address1_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="详细地址" />
+
+                            <TextView
+                                android:id="@+id/guarantor_info_extra_from_income_company_address1_tv"
+                                style="@style/apply_info_content"
+                                android:hint="小区/写字楼/学校等" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="门牌号" />
+
+                            <EditText
+                                android:id="@+id/guarantor_info_extra_from_income_company_address2_tv"
+                                style="@style/apply_info_content"
+                                android:layout_marginRight="35dp"
+                                android:hint="例:5号楼207室" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/guarantor_info_extra_from_income_work_position_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="职务" />
+
+                            <TextView
+                                android:id="@+id/personal_extra_info_work_position_tv"
+                                style="@style/apply_info_content"
+                                android:hint="请选择职务" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
                         </LinearLayout>
 
                         <View
@@ -617,10 +1160,10 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="单位电话" />
+                                android:text="单位座机" />
 
                             <EditText
-                                android:id="@+id/guarantor_info_work_phone_num_edt"
+                                android:id="@+id/guarantor_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入单位电话" />
@@ -631,12 +1174,16 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
                     </LinearLayout>
 
                     <View
-                        android:background="@color/bg_color"
                         android:layout_width="match_parent"
-                        android:layout_height="10dp" />
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -840,7 +1387,6 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
                     </LinearLayout>
-
 
                 </LinearLayout>
             </LinearLayout>

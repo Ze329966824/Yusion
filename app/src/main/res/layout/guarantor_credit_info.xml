@@ -284,11 +284,7 @@
                         android:hint="请填写姓名" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:background="@color/separate_line_color" />
+                <include layout="@layout/include_line_left" />
 
                 <LinearLayout style="@style/apply_info_item">
 
