@@ -39,7 +39,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="115dp"
+                        android:layout_height="135dp"
                         android:background="#ffffc723"
                         android:orientation="vertical">
 
@@ -57,10 +57,54 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="20%"
                             android:textColor="@color/white"
-                            android:textSize="40sp" />
+                            android:textSize="45sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp">
+
+                                <TextView
+                                    android:id="@+id/eee"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:text="名称"
+                                    android:textSize="14.5sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="101dp"
+                                    android:layout_marginRight="65dp"
+                                    android:layout_toRightOf="@id/eee"
+                                    android:text="申请信息"
+                                    android:textSize="14.5sp" />
+
+                                <TextView
+
+                                    android:id="@+id/finance_plan_bill_price_tv2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="15dp"
+                                    android:text="批复信息"
+                                    android:textSize="14.5sp" />
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
                     </LinearLayout>
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -69,13 +113,24 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/ss"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
                             android:text="车辆开票价"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:id="@+id/bill_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/finance_plan_bill_price_tv"
+                            android:layout_alignBottom="@+id/finance_plan_bill_price_tv"
+                            android:layout_centerHorizontal="true"
+                            android:text="99999元"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_bill_price_tv"
@@ -84,8 +139,9 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
+                            android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -124,13 +180,24 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/first"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
                             android:text="车辆首付款"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:id="@+id/first_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="60.5dp"
+                            android:layout_toRightOf="@id/first"
+                            android:text="3000元"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_first_price_tv"
@@ -140,7 +207,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -179,13 +246,24 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/daikuan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
-                            android:text="车辆融资金额"
+                            android:text="车辆贷款金额"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:id="@+id/daikuan_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="47dp"
+                            android:layout_toRightOf="@id/daikuan"
+                            android:text="60000元"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_car_loan_price_tv"
@@ -195,7 +273,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -234,13 +312,24 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/manger_document"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
                             android:text="档案管理费"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:id="@+id/manger_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="79dp"
+                            android:layout_toRightOf="@id/manger_document"
+                            android:text="300元"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_management_price_tv"
@@ -250,7 +339,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -289,13 +378,27 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/other_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
                             android:text="其他费用"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/other_price"
+                            android:layout_alignBottom="@+id/other_price"
+                            android:layout_marginLeft="81dp"
+                            android:layout_marginStart="81dp"
+                            android:layout_toEndOf="@+id/other_price"
+                            android:layout_toRightOf="@+id/other_price"
+                            android:text="1000元"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_other_price_tv"
@@ -305,7 +408,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -344,13 +447,24 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/total_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
-                            android:text="总融资额"
+                            android:text="总贷款额"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:id="@+id/total_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="74dp"
+                            android:layout_toRightOf="@id/total_price"
+                            android:text="61000元"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_loan_price_tv"
@@ -360,7 +474,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -399,13 +513,24 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/bank"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
-                            android:text="融资银行"
+                            android:text="贷款银行"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="47.5dp"
+                            android:layout_toRightOf="@id/bank"
+                            android:text="中国工商银行"
+                            android:textSize="14.5sp" />
+
 
                         <TextView
                             android:id="@+id/finance_plan_loan_bank_tv"
@@ -415,7 +540,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -454,13 +579,23 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/data"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:padding="10dp"
                             android:text="还款期限"
                             android:textColor="@color/text_grey"
-                            android:textSize="13.5sp" />
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="100dp"
+                            android:layout_toRightOf="@id/data"
+                            android:text="24期"
+                            android:textSize="14.5sp" />
 
                         <TextView
                             android:id="@+id/finance_plan_periods_tv"

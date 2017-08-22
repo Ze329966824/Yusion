@@ -14,7 +14,11 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
+import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
+import com.yusion.shanghai.yusion.ui.info.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdatePersonalInfoActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +45,15 @@ public class HomeFragment extends BaseFragment {
         bottomBtn = (Button) view.findViewById(R.id.home_bottom_btn);
         Button btn = (Button) view.findViewById(R.id.btn_test);
         Button btn2 = (Button) view.findViewById(R.id.btn_test2);
+        Button btn3 = (Button) view.findViewById(R.id.btn3);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DocumentActivity.class);
+                intent.putExtra("type", "id_card_back");
+                startActivity(intent);
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
