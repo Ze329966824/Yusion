@@ -63,6 +63,20 @@ class SpouseInfoFragment : BaseFragment() {
                 spouse_info_die_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "丧偶") View.VISIBLE else View.GONE
             })
         }
+        spouse_info_income_from_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), PersonalInfoFragment._INCOME_FROME_INDEX, spouse_info_income_from_lin, spouse_info_income_from_tv, "请选择", { _, index ->
+                PersonalInfoFragment._INCOME_FROME_INDEX = index
+                spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[PersonalInfoFragment._INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[PersonalInfoFragment._INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
+                spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[PersonalInfoFragment._INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
+            })
+        }
+        spouse_info_extra_income_from_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(listOf("工资"), PersonalInfoFragment._EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
+                PersonalInfoFragment._EXTRA_INCOME_FROME_INDEX = index
+                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[PersonalInfoFragment._EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+            })
+        }
         spouse_info_divorced_lin.setOnClickListener {
             var intent = Intent(mContext, SingleImgUploadActivity::class.java)
             intent.putExtra("type", "divorce_proof")
@@ -76,18 +90,7 @@ class SpouseInfoFragment : BaseFragment() {
                 _GENDER_INDEX = index
             })
         }
-        spouse_info_company_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, spouse_info_company_address_lin, spouse_info_company_address_tv, "请选择所在地区") { _, _ -> spouse_info_company_address1_tv.text = "" }
-        }
-        spouse_info_company_address1_lin.setOnClickListener {
-            if (spouse_info_company_address_tv.text.isNotEmpty())
-                requestPOI(spouse_info_company_address_tv.text.toString())
-        }
-        spouse_info_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _WORK_POSITION_INDEX, spouse_info_work_position_lin, spouse_info_work_position_tv, "请选择", { _, index ->
-                _WORK_POSITION_INDEX = index
-            })
-        }
+
         spouse_info_mobile_img.setOnClickListener { selectContact() }
         spouse_info_submit_btn.setOnClickListener {
             //            if (checkCanNextStep()) {
@@ -134,18 +137,6 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_mobile_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_company_name_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_company_address_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_company_address1_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_company_address2_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_work_position_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "单职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_monthly_income_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "月收入不能为空", Toast.LENGTH_SHORT).show()
             } else {
                 return true
             }
@@ -192,8 +183,6 @@ class SpouseInfoFragment : BaseFragment() {
                 }
                 spouse_info_clt_nm_edt.setText(result[0])
                 spouse_info_mobile_edt.setText(result[1])
-            } else if (requestCode == Constants.REQUEST_ADDRESS) {
-                spouse_info_company_address1_tv.text = data.getStringExtra("result");
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     "id_card_back" -> {

@@ -63,7 +63,7 @@ public class HomeFragment extends BaseFragment {
 
     public void refresh(CheckUserInfoResp userInfo) {
         if (userInfo.commited) {
-            bottomBtn.setText("修改资料");
+            bottomBtn.setText("查看个人资料");
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
             bottomBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, InfoListActivity.class);

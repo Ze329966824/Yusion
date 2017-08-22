@@ -6,30 +6,33 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.adapter.UploadLabelListAdapter;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
+
 import java.util.List;
 
 public class UploadLabelListActivity extends BaseActivity {
 
     private Intent mGetIntent;
-    private List<UploadLabelItemBean> mItems;
+    private List<UploadLabelItemBean> labelList;
     private UploadLabelListAdapter mAdapter;
     private int mIndex;//item对象在上级页面中list的索引
+    private UploadLabelItemBean topItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upload_label_list);
+        setContentView(R.layout.fragment_update_img);
         mGetIntent = getIntent();
-        mIndex = mGetIntent.getIntExtra("index", -1);
-        initTitleBar(this, mGetIntent.getStringExtra("name")).setLeftClickListener(v -> onBack());
-        RecyclerView rv = (RecyclerView) findViewById(R.id.upload_label_list_rv);
+        topItem = (UploadLabelItemBean) mGetIntent.getSerializableExtra("topItem");
+        initTitleBar(this, topItem.name).setLeftClickListener(v -> onBack());
+        RecyclerView rv = (RecyclerView) findViewById(R.id.update_img_rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        mItems = ((UploadLabelItemBean) mGetIntent.getSerializableExtra("item")).label_list;
-        mAdapter = new UploadLabelListAdapter(this, mItems);
+        labelList = topItem.label_list;
+        mAdapter = new UploadLabelListAdapter(this, labelList);
         mAdapter.setOnItemClick(new UploadLabelListAdapter.OnItemClick() {
             @Override
             public void onItemClick(View v, UploadLabelItemBean item, int index) {
@@ -41,11 +44,10 @@ public class UploadLabelListActivity extends BaseActivity {
                     //下级目录为标签页
                     intent.setClass(UploadLabelListActivity.this, UploadLabelListActivity.class);
                 }
-                intent.putExtra("item", item);
-                intent.putExtra("name", item.name);
+                intent.putExtra("topItem", item);
+                //clt_id取图片
+//                intent.putExtra("clt_id", ((UpdateUserInfoActivity) getActivity()).getUserInfoBean().clt_id);
                 intent.putExtra("index", index);
-                intent.putExtra("clt_id", mGetIntent.getStringExtra("clt_id"));
-                intent.putExtra("role", mGetIntent.getStringExtra("role"));
                 startActivityForResult(intent, 100);
             }
         });
@@ -58,7 +60,6 @@ public class UploadLabelListActivity extends BaseActivity {
     }
 
     private void onBack() {
-        mGetIntent.putExtra("index", mIndex);
         setResult(RESULT_OK, mGetIntent);
         finish();
     }
@@ -68,8 +69,8 @@ public class UploadLabelListActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK) {
-                UploadLabelItemBean item = (UploadLabelItemBean) data.getSerializableExtra("item");
-                mItems.set(data.getIntExtra("index", -1), item);
+                UploadLabelItemBean topItem = (UploadLabelItemBean) data.getSerializableExtra("topItem");
+                labelList.set(data.getIntExtra("index", -1), topItem);
                 mAdapter.notifyDataSetChanged();
             }
         }

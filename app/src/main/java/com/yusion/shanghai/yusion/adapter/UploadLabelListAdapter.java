@@ -41,8 +41,17 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
         holder.name.setText(item.name);
         if (item.hasError) {
             holder.icon.setVisibility(View.VISIBLE);
-        }else {
+            holder.status.setVisibility(View.GONE);
+        } else {
             holder.icon.setVisibility(View.GONE);
+            holder.status.setVisibility(View.VISIBLE);
+            if (!hasImg(item)) {
+                holder.status.setText("请上传");
+                holder.status.setTextColor(mContext.getResources().getColor(R.color.please_upload_color));
+            } else {
+                holder.status.setText("已上传");
+                holder.status.setTextColor(mContext.getResources().getColor(R.color.system_color));
+            }
         }
         holder.itemView.setOnClickListener(mOnItemClick == null ? null : new View.OnClickListener() {
             @Override
@@ -50,6 +59,17 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
                 mOnItemClick.onItemClick(v, item, position);
             }
         });
+    }
+
+    private boolean hasImg(UploadLabelItemBean itemBean) {
+        if (itemBean.label_list.size() == 0) {
+            return itemBean.img_list.size() != 0;
+        } else {
+            for (UploadLabelItemBean labelItemBean : itemBean.label_list) {
+                if (hasImg(labelItemBean)) return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -69,14 +89,16 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
     protected class VH extends RecyclerView.ViewHolder {
 
         public TextView name;
+        public TextView status;
         public TextView mark;
         public ImageView icon;
 
         public VH(View itemView) {
             super(itemView);
             name = ((TextView) itemView.findViewById(R.id.upload_label_list_item_name_tv));
+            status = ((TextView) itemView.findViewById(R.id.upload_label_list_item_status_tv));
             icon = ((ImageView) itemView.findViewById(R.id.upload_label_list_icon_img));
-            mark = ((TextView) itemView.findViewById(R.id.upload_table_list_item_mark));
+            mark = ((TextView) itemView.findViewById(R.id.upload_label_list_item_mark_tv));
         }
     }
 }

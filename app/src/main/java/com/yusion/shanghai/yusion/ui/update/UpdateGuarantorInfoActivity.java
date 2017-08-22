@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +29,7 @@ import java.util.List;
 
 public class UpdateGuarantorInfoActivity extends BaseActivity {
     private UpdateGuarantorlInfoFragment mUpdateGuarantorlInfoFragment;
-    private UpdateImgsFragment mUpdateImgsFragment;
+    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人资料", "影像件"};
 
     @Override
@@ -58,9 +57,9 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
         mUpdateGuarantorlInfoFragment = new UpdateGuarantorlInfoFragment();
-        mUpdateImgsFragment = new UpdateImgsFragment();
+        mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdateGuarantorlInfoFragment);
-        mFragments.add(mUpdateImgsFragment);
+        mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);
