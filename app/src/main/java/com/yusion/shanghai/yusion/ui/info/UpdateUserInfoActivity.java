@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq;
+import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorReq;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
@@ -190,7 +190,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
     }
 
     private void initData() {
-        ProductApi.getUserInfo(this, new GetUserInfoReq(), new OnItemDataCallBack<UserInfoBean>() {
+        ProductApi.getUserInfo(this, new GetClientInfoReq(), new OnItemDataCallBack<UserInfoBean>() {
             @Override
             public void onItemDataCallBack(UserInfoBean data) {
                 mData = data;

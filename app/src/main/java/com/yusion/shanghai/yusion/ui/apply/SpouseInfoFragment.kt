@@ -317,7 +317,6 @@ class SpouseInfoFragment : BaseFragment() {
                         } else {
                             spouse_info_id_back_tv.text = "请上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
-                            ocrResp = OcrResp.ShowapiResBodyBean()
                         }
                         idBackImgUrl = data.getStringExtra("imgUrl")
                         spouse_info_id_no_edt.setText(ocrResp.idNo)

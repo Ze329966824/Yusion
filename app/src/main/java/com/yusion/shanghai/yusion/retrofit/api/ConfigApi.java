@@ -140,6 +140,15 @@ public class ConfigApi {
             configResp.busi_type_list_value.add(value);
         }
 
+        JSONArray guarantor_relationship_list = jsonObject.optJSONArray("guarantor_relationship_list");
+        for (int i = 0; guarantor_relationship_list != null && i < guarantor_relationship_list.length(); i++) {
+            JSONObject item = guarantor_relationship_list.getJSONObject(i);
+            String key = item.keys().next();
+            String value = item.getString(key);
+            configResp.guarantor_relationship_list_key.add(key);
+            configResp.guarantor_relationship_list_value.add(value);
+        }
+
 
         JSONArray client_material = jsonObject.optJSONArray("client_material");
         configResp.client_material = client_material != null ? client_material.toString() : "";

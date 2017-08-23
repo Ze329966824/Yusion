@@ -15,6 +15,7 @@ import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
+import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
 import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
@@ -91,8 +92,8 @@ public class HomeFragment extends BaseFragment {
             });
         } else {
             bottomBtn.setText("立即申请");
-            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
-//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, AddGuarantorActivity.class)));
+//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
+            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, AddGuarantorActivity.class)));
         }
     }
 }
