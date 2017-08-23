@@ -18,7 +18,11 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 public class FinancePlanActivity extends BaseActivity {
 
     private TextView billPriceTv;
+    private TextView applyBillPriceTv;
+
     private TextView firstPriceTv;
+    private TextView applyFirstPriceTv;
+
     private TextView carLoanPriceTv;
     private TextView managementPriceTv;
     private TextView otherPriceTv;
@@ -27,6 +31,7 @@ public class FinancePlanActivity extends BaseActivity {
     private TextView periodsTv;
     private TextView percentTv;
     private Button confirmBtn;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
