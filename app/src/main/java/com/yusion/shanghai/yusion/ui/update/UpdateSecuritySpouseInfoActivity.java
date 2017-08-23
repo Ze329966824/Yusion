@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
-    private UpdateSecuritySpouseInfoFragment mUpdateSecuritySpouseInfoFragment;
+    private UpdateGuarantorSpouseInfoFragment mUpdateGuarantorSpouseInfoFragment;
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人配偶信息", "影像件"};
 
@@ -55,9 +55,9 @@ public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
-        mUpdateSecuritySpouseInfoFragment = new UpdateSecuritySpouseInfoFragment();
+        mUpdateGuarantorSpouseInfoFragment = new UpdateGuarantorSpouseInfoFragment();
         mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
-        mFragments.add(mUpdateSecuritySpouseInfoFragment);
+        mFragments.add(mUpdateGuarantorSpouseInfoFragment);
         mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         //viewPager.setAdapter(new UpdatePersonalInfoActivity.InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));

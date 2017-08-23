@@ -4,12 +4,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.retrofit.service.AuthService;
 import com.yusion.shanghai.yusion.retrofit.service.ConfigService;
 import com.yusion.shanghai.yusion.retrofit.service.OcrService;
 import com.yusion.shanghai.yusion.retrofit.service.OrderService;
 import com.yusion.shanghai.yusion.retrofit.service.ProductService;
 import com.yusion.shanghai.yusion.retrofit.service.UploadService;
+import com.yusion.shanghai.yusion.retrofit.service.UserService;
 import com.yusion.shanghai.yusion.settings.Settings;
 
 import java.io.IOException;
@@ -65,6 +67,10 @@ public class Api {
 
     public static AuthService getAuthService() {
         return retrofit.create(AuthService.class);
+    }
+
+    public static UserService getUserApi() {
+        return retrofit.create(UserService.class);
     }
 
     public static OcrService getOcrService() {

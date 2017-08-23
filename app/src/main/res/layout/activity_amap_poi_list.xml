@@ -26,18 +26,18 @@
             android:layout_marginLeft="10dp"
             android:color="#B1B1B1"
             android:textSize="15sp"
-            tools:text="黄浦区"/>
+            tools:text="黄浦区" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="18dp"
             android:layout_margin="10dp"
-            android:background="#B1B1B1"/>
+            android:background="#B1B1B1" />
 
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@mipmap/poi_search_icon"/>
+            android:src="@mipmap/poi_search_icon" />
 
         <EditText
             android:id="@+id/poi_keywords"
@@ -48,26 +48,28 @@
             android:paddingLeft="5dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
+
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@mipmap/poi_delete_icon"/>
+            android:src="@mipmap/poi_delete_icon" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="18dp"
             android:layout_margin="10dp"
-            android:background="#B1B1B1"/>
+            android:background="#B1B1B1" />
 
         <TextView
             android:id="@+id/poi_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
+            android:clickable="true"
             android:color="#FF06B7A3"
             android:textSize="15sp"
-            android:clickable="true"
-            tools:text="取消"/>
+            tools:text="取消" />
 
 
     </LinearLayout>

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateGuarantorInfoActivity extends BaseActivity {
-    private UpdateGuarantorlInfoFragment mUpdateGuarantorlInfoFragment;
+    private UpdateGuarantorInfoFragment mUpdateGuarantorInfoFragment;
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人资料", "影像件"};
 
@@ -56,9 +56,9 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         ArrayList<Fragment> mFragments = new ArrayList<>();
-        mUpdateGuarantorlInfoFragment = new UpdateGuarantorlInfoFragment();
+        mUpdateGuarantorInfoFragment = new UpdateGuarantorInfoFragment();
         mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
-        mFragments.add(mUpdateGuarantorlInfoFragment);
+        mFragments.add(mUpdateGuarantorInfoFragment);
         mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
