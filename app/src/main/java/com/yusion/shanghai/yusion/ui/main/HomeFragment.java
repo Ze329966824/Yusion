@@ -51,7 +51,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DocumentActivity.class);
-                intent.putExtra("type", "auth_credit");
+                intent.putExtra("type", "id_card_back");
                 startActivity(intent);
             }
         });

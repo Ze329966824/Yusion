@@ -143,7 +143,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="61.5dp"
-        android:background="#ffffff"
+        android:background="@mipmap/bg_delete_btn"
         android:text="删除"
         android:textColor="#d1d1d1"
         android:textSize="13.5sp"

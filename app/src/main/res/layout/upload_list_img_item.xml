@@ -53,7 +53,7 @@
         <CheckBox
             android:id="@+id/image_file_item_upload_check_delete"
             android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>
