@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
+import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
@@ -39,6 +40,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
     var drivingLicImgUrl = ""
+    var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.autonym_certify, container, false)
@@ -57,14 +59,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 }
                 var applyActivity = activity as ApplyActivity
                 applyActivity.mClientInfo = it
-//                var body = applyActivity.mOcrRespByAutonymCertify.showapi_res_body
-//                body?.let {
-//                    applyActivity.mUserInfoBean.gender = body.sex
-//                    applyActivity.mUserInfoBean.reg_addr_details = if (body.addr.isEmpty()) "" else body.addr
-//                    applyActivity.mUserInfoBean.reg_addr.province = body.province
-//                    applyActivity.mUserInfoBean.reg_addr.city = body.city
-//                    applyActivity.mUserInfoBean.reg_addr.district = body.town
-//                }
+                ocrResp?.let {
+                    applyActivity.mClientInfo.gender = ocrResp.sex
+                    applyActivity.mClientInfo.reg_addr_details = if (ocrResp.addr.isEmpty()) "" else ocrResp.addr
+                    applyActivity.mClientInfo.reg_addr.province = ocrResp.province
+                    applyActivity.mClientInfo.reg_addr.city = ocrResp.city
+                    applyActivity.mClientInfo.reg_addr.district = ocrResp.town
+                }
                 nextStep()
 //                uploadUrl(it.clt_id)
             }
@@ -175,7 +176,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                                     autonym_certify_id_number_tv.setText(data.getStringExtra("idNo"))
                                     autonym_certify_name_tv.setText(data.getStringExtra("name"))
-                                    addr = data.getStringExtra("addr")
+                                    ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
                                     idBackImgUrl = data.getStringExtra("imgUrl")
                                 }
                             }
