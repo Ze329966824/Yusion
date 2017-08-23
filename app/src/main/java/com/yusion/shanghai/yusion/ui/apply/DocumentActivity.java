@@ -95,7 +95,6 @@ public class DocumentActivity extends BaseActivity {
             takePhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
@@ -114,10 +113,15 @@ public class DocumentActivity extends BaseActivity {
                 }
             });
         } else if (mType.equals("auth_credit")) {//授权书
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3002);
+            takePhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+                    startActivityForResult(intent, 3002);
+                }
+            });
 
         } else if (mType.equals("driving_lic")) {//驾照
             takePhoto.setOnClickListener(new View.OnClickListener() {
@@ -267,9 +271,7 @@ public class DocumentActivity extends BaseActivity {
     }
 
     private void deleteImage() {
-//        if (mType.equals("id_card_back")) {
-//            titleBar = initTitleBar(DocumentActivity.this, "身份证人像面");
-//        }
+
         titleBar.setRightClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
