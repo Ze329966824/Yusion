@@ -7,6 +7,7 @@ import com.google.gson.Gson;
  */
 
 public class ListCurrentTpye {
+    public Boolean guarantor_commited;
     public String lender="";
     public String lender_sp="";
     public String guarantor="";
@@ -23,6 +24,7 @@ public class ListCurrentTpye {
             "data": {
                         "lender": "5be9490a871f11e7b7f902f1f38b2f4a"，
                         "lender_sp":"ssss",
+                        "guarantor_commited": false,
                         "guarantor":"ssss",
                         "guarantor_sp":"asd"
                      }

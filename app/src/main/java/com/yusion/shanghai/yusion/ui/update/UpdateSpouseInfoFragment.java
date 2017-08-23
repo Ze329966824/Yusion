@@ -1,12 +1,14 @@
 package com.yusion.shanghai.yusion.ui.update;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.tv.TvView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +59,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     public static int UPDATE_SEX_INDEX;
     public static int UPDATE_FROM_INCOME_WORK_POSITION_INDEX;
     public static int UPDATE_FROM_EXTRA_WORK_POSITION_INDEX;
+    public static int UPDATE_FROM_SELF_TYPE_INDEX;
 
     public static int CURRENT_CLICKED_VIEW_FOR_ADDRESS = -1;
     public static int CURRENT_CLICKED_VIEW_FOR_CONTACT = -1;
@@ -110,6 +113,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     private ImageView spouse_info_mobile_img;
     private EditText spouse_info_mobile_edt;
 
+    private LinearLayout spouse_info_from_self_type_lin;
+    private TextView spouse_info_from_self_type_tv;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_spouse_info, container, false);
@@ -320,6 +325,47 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         });
 
         //自营 业务类型
+        spouse_info_from_self_type_lin = (LinearLayout) view.findViewById(R.id.spouse_info_from_self_type_lin);
+        spouse_info_from_self_type_tv = (TextView) view.findViewById(R.id.spouse_info_from_self_type_tv);
+        spouse_info_from_self_type_lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.busi_type_list_key,
+                        UPDATE_FROM_SELF_TYPE_INDEX,
+                        spouse_info_from_self_type_lin,
+                        spouse_info_from_self_type_tv,
+                        "请选择",
+                        new WheelViewUtil.OnSubmitCallBack() {
+                            @Override
+                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
+                                UPDATE_FROM_SELF_TYPE_INDEX = selectedIndex;
+                                if (YusionApp.CONFIG_RESP.busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
+                                    EditText editText = new EditText(mContext);
+                                    new AlertDialog.Builder(mContext)
+                                            .setTitle("请输入业务类型")
+                                            .setView(editText)
+                                            .setCancelable(false)
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    spouse_info_from_self_type_tv.setText(editText.getText());
+                                                    UPDATE_FROM_SELF_TYPE_INDEX = 0;
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
+                                }
+
+                            }
+                        }
+                );
+            }
+        });
 
         //自营 单位地址
         spouse_info_from_self_company_address_lin = (LinearLayout) view.findViewById(R.id.spouse_info_from_self_company_address_lin);
@@ -404,6 +450,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 );
             }
         });
+
+
+
 
         //法院判决书
         spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.spouse_info_divorced_lin);
