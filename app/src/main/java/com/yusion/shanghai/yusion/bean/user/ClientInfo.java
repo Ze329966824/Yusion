@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.user;
 
+import com.google.gson.Gson;
+
 /**
  * Created by ice on 2017/8/22.
  */
@@ -54,7 +56,7 @@ public class ClientInfo {
 
     public String major_income_type;
     public String major_income;
-    public String major_busi_type;
+    public String major_busi_type = "";
     public String major_company_name;
     public MajorCompanyAddrBean major_company_addr;
     public String major_work_position;
@@ -62,7 +64,7 @@ public class ClientInfo {
     public String major_remark;
     public String extra_income_type;
     public String extra_income;
-    public String extra_busi_type;
+    public String extra_busi_type = "";
     public String extra_company_name;
     public ExtraCompanyAddrBean extra_company_addr;
     public String extra_work_position;
@@ -93,8 +95,14 @@ public class ClientInfo {
     public String commited;
     public String status;
     public String created_time;
+    public String drv_lic_relationship;
     public String update_time;
     public SpouseBean spouse;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 
     public static class MajorCompanyAddrBean {
         /**
@@ -122,6 +130,11 @@ public class ClientInfo {
         public String len_of_residence;
         public String created_time;
         public String update_time;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 
     public static class ExtraCompanyAddrBean {
@@ -150,6 +163,11 @@ public class ClientInfo {
         public String len_of_residence;
         public String created_time;
         public String update_time;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 
     public static class RegAddrBean {
@@ -178,6 +196,11 @@ public class ClientInfo {
         public String len_of_residence;
         public String created_time;
         public String update_time;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 
     public static class CurrentAddrBean {
@@ -206,6 +229,11 @@ public class ClientInfo {
         public String len_of_residence;
         public String created_time;
         public String update_time;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 
     public static class SpouseBean {
@@ -256,7 +284,7 @@ public class ClientInfo {
 
         public String major_income_type;
         public String major_income;
-        public String major_busi_type;
+        public String major_busi_type = "";
         public String major_company_name;
         public MajorCompanyAddrBeanX major_company_addr;
         public String major_work_position;
@@ -264,7 +292,7 @@ public class ClientInfo {
         public String major_remark;
         public String extra_income_type;
         public String extra_income;
-        public String extra_busi_type;
+        public String extra_busi_type = "";
         public String extra_company_name;
         public ExtraCompanyAddrBeanX extra_company_addr;
         public String extra_work_position;
@@ -297,6 +325,11 @@ public class ClientInfo {
         public String created_time;
         public String update_time;
 
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
+
         public static class MajorCompanyAddrBeanX {
             /**
              * province : 
@@ -323,6 +356,11 @@ public class ClientInfo {
             public String len_of_residence;
             public String created_time;
             public String update_time;
+
+            @Override
+            public String toString() {
+                return new Gson().toJson(this);
+            }
         }
 
         public static class ExtraCompanyAddrBeanX {
@@ -351,6 +389,11 @@ public class ClientInfo {
             public String len_of_residence;
             public String created_time;
             public String update_time;
+
+            @Override
+            public String toString() {
+                return new Gson().toJson(this);
+            }
         }
 
         public static class RegAddrBeanX {
@@ -379,6 +422,11 @@ public class ClientInfo {
             public String len_of_residence;
             public String created_time;
             public String update_time;
+
+            @Override
+            public String toString() {
+                return new Gson().toJson(this);
+            }
         }
 
         public static class CurrentAddrBeanX {
@@ -407,6 +455,11 @@ public class ClientInfo {
             public String len_of_residence;
             public String created_time;
             public String update_time;
+
+            @Override
+            public String toString() {
+                return new Gson().toJson(this);
+            }
         }
     }
 }

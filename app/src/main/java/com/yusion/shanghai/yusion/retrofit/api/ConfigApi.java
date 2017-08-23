@@ -3,10 +3,8 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
@@ -18,7 +16,6 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 public class ConfigApi {
     /**
@@ -125,15 +122,24 @@ public class ConfigApi {
             configResp.urg_rela_relationship_list_value.add(value);
         }
 
+        JSONArray drv_lic_relationship_list = jsonObject.optJSONArray("drv_lic_relationship_list");
+        for (int i = 0; drv_lic_relationship_list != null && i < drv_lic_relationship_list.length(); i++) {
+            JSONObject item = drv_lic_relationship_list.getJSONObject(i);
+            String key = item.keys().next();
+            String value = item.getString(key);
+            configResp.drv_lic_relationship_list_key.add(key);
+            configResp.drv_lic_relationship_list_value.add(value);
+        }
 
-//        JSONArray urg_relationship_list = jsonObject.optJSONArray("urg_relationship_list");
-//        for (int i = 0; urg_relationship_list != null && i < urg_relationship_list.length(); i++) {
-//            JSONObject item = urg_relationship_list.getJSONObject(i);
-//            String key = item.keys().next();
-//            String value = item.getString(key);
-//            configResp.urg_relationship_list_key.add(key);
-//            configResp.urg_relationship_list_value.add(value);
-//        }
+        JSONArray busi_type_list = jsonObject.optJSONArray("busi_type_list");
+        for (int i = 0; busi_type_list != null && i < busi_type_list.length(); i++) {
+            JSONObject item = busi_type_list.getJSONObject(i);
+            String key = item.keys().next();
+            String value = item.getString(key);
+            configResp.busi_type_list_key.add(key);
+            configResp.busi_type_list_value.add(value);
+        }
+
 
         JSONArray client_material = jsonObject.optJSONArray("client_material");
         configResp.client_material = client_material != null ? client_material.toString() : "";

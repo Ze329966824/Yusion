@@ -41,6 +41,17 @@ public class ProductApi {
                 });
     }
 
+    public static void updateClientInfo(final Context context, ClientInfo req, final OnItemDataCallBack<ClientInfo> onItemDataCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getProductService().updateClientInfo(req).enqueue(
+                new CustomCallBack<ClientInfo>(context, dialog) {
+                    @Override
+                    public void onCustomResponse(ClientInfo data) {
+                        onItemDataCallBack.onItemDataCallBack(data);
+                    }
+                });
+    }
+
     public static void updateUserInfo(final Context context, UserInfoBean req, final OnItemDataCallBack<UserInfoBean> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getProductService().updateUserInfo(req).enqueue(

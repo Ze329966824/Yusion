@@ -382,12 +382,12 @@
                         <LinearLayout style="@style/apply_info_item">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_content_type_number"
                                 android:text="年收入" />
 
                             <EditText
                                 android:id="@+id/personal_info_from_income_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -607,7 +607,7 @@
 
                             <EditText
                                 android:id="@+id/personal_info_from_self_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -785,7 +785,7 @@
 
                             <EditText
                                 android:id="@+id/personal_info_from_other_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -885,7 +885,7 @@
 
                             <EditText
                                 android:id="@+id/personal_info_extra_from_income_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>

@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
+import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
+import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
@@ -18,6 +20,7 @@ import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
+import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.autonym_certify.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -31,6 +34,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         var CURRENT_CLICKED_VIEW_FOR_PIC: Int = -1
         var ID_BACK_FID = ""
         var ID_FRONT_FID = ""
+        var _DIR_REL_INDEX: Int = 0
     }
 
     var hasIdFrontImg = false
@@ -39,6 +43,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
     var drivingLicImgUrl = ""
+    var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.autonym_certify, container, false)
@@ -57,14 +62,14 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 }
                 var applyActivity = activity as ApplyActivity
                 applyActivity.mClientInfo = it
-//                var body = applyActivity.mOcrRespByAutonymCertify.showapi_res_body
-//                body?.let {
-//                    applyActivity.mUserInfoBean.gender = body.sex
-//                    applyActivity.mUserInfoBean.reg_addr_details = if (body.addr.isEmpty()) "" else body.addr
-//                    applyActivity.mUserInfoBean.reg_addr.province = body.province
-//                    applyActivity.mUserInfoBean.reg_addr.city = body.city
-//                    applyActivity.mUserInfoBean.reg_addr.district = body.town
-//                }
+                ocrResp?.let {
+                    applyActivity.mClientInfo.gender = ocrResp.sex
+                    applyActivity.mClientInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
+                    applyActivity.mClientInfo.reg_addr.province = ocrResp.province
+                    applyActivity.mClientInfo.reg_addr.city = ocrResp.city
+                    applyActivity.mClientInfo.reg_addr.district = ocrResp.town
+                }
+                applyActivity.mClientInfo.drv_lic_relationship = YusionApp.CONFIG_RESP.drv_lic_relationship_list_value[_DIR_REL_INDEX]
                 nextStep()
 //                uploadUrl(it.clt_id)
             }
@@ -77,11 +82,17 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 mDoubleCheckDialog.show()
             }
         }
+        autonym_certify_driving_license_rel_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.drv_lic_relationship_list_key, _DIR_REL_INDEX, autonym_certify_driving_license_rel_lin, autonym_certify_driving_license_rel_tv, "请选择", { _, index ->
+                _DIR_REL_INDEX = index
+            })
+        }
         autonym_certify_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", "id_card_back")
             intent.putExtra("role", "lender")
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         autonym_certify_id_front_lin.setOnClickListener {
@@ -103,8 +114,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
 
 
+        autonym_certify_name_tv.setText("just Test")
+        autonym_certify_id_number_tv.setText("${Date().time}")
         if (Settings.isShameData) {
-            autonym_certify_name_tv.setText("${Date().time}")
             autonym_certify_id_number_tv.setText("513001198707080231")
             hasIdBackImg = true
             hasIdFrontImg = true
@@ -173,25 +185,35 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
                                     autonym_certify_id_back_tv.text = "已上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
-                                    autonym_certify_id_number_tv.setText(data.getStringExtra("idNo"))
-                                    autonym_certify_name_tv.setText(data.getStringExtra("name"))
-                                    addr = data.getStringExtra("addr")
-                                    idBackImgUrl = data.getStringExtra("imgUrl")
+                                    ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
+                                } else {
+                                    autonym_certify_id_back_tv.text = "请上传"
+                                    autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    ocrResp = OcrResp.ShowapiResBodyBean()
                                 }
+                                idBackImgUrl = data.getStringExtra("imgUrl")
+                                autonym_certify_id_number_tv.setText(ocrResp.idNo)
+                                autonym_certify_name_tv.setText(ocrResp.name)
                             }
                             "id_card_front" -> {
                                 if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
-                                    idFrontImgUrl = data.getStringExtra("imgUrl")
                                     autonym_certify_id_front_tv.text = "已上传"
                                     autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                                } else {
+                                    autonym_certify_id_front_tv.text = "请上传"
+                                    autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
+                                idFrontImgUrl = data.getStringExtra("imgUrl")
                             }
                             "driving_lic" -> {
                                 if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
-                                    drivingLicImgUrl = data.getStringExtra("imgUrl")
                                     autonym_certify_driving_license_tv.text = "已上传"
                                     autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.system_color))
+                                } else {
+                                    autonym_certify_driving_license_tv.text = "请上传"
+                                    autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
+                                drivingLicImgUrl = data.getStringExtra("imgUrl")
                             }
                         }
                     }

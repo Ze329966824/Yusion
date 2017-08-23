@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -8,7 +9,7 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.EditText
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
@@ -29,10 +30,11 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
 
         var _GENDER_INDEX: Int = 0
-        var _INCOME_FROME_INDEX: Int = 0
+        var _INCOME_FROM_INDEX: Int = 0
         var _EXTRA_INCOME_FROME_INDEX: Int = 0
         var _WORK_POSITION_INDEX: Int = 0
         var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
+        var _FROM_SELF_TYPE_INDEX: Int = 0
         var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
         var _EDUCATION_INDEX: Int = 0
         var _HOUSE_TYPE_INDEX: Int = 0
@@ -88,7 +90,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 "自营" -> {
                     applyActivity.mClientInfo.major_income_type = "自营"
                     applyActivity.mClientInfo.major_income = personal_info_from_self_year_edt.text.toString()
-                    Toast.makeText(mContext, "业务类型", Toast.LENGTH_SHORT).show()
+                    applyActivity.mClientInfo.major_busi_type = personal_info_from_self_type_tv.text.toString()
                     applyActivity.mClientInfo.major_company_name = personal_info_from_self_company_name_edt.text.toString()
                     applyActivity.mClientInfo.major_company_addr.province = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                     applyActivity.mClientInfo.major_company_addr.city = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
@@ -140,18 +142,18 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 mDoubleCheckDialog.show()
             }
         }
-        personal_info_mobile_edt.setText(YusionApp.MOBILE)
+        personal_info_mobile_edt.text = YusionApp.MOBILE
         personal_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
         }
         personal_info_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROME_INDEX, personal_info_income_from_lin, personal_info_income_from_tv, "请选择", { _, index ->
-                _INCOME_FROME_INDEX = index
-                personal_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
-                personal_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
-                personal_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROM_INDEX, personal_info_income_from_lin, personal_info_income_from_tv, "请选择", { _, index ->
+                _INCOME_FROM_INDEX = index
+                personal_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
+                personal_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "自营") View.VISIBLE else View.GONE
+                personal_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "其他") View.VISIBLE else View.GONE
             })
         }
         personal_info_extra_income_from_lin.setOnClickListener {
@@ -197,6 +199,24 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         //自营
         personal_info_from_self_company_address_lin.setOnClickListener {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_self_company_address_lin, personal_info_from_self_company_address_tv, "请选择所在地区") { _, _ -> personal_info_from_self_company_address1_tv.text = "" }
+        }
+        personal_info_from_self_type_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, _FROM_SELF_TYPE_INDEX, personal_info_from_self_type_lin, personal_info_from_self_type_tv, "请选择", { _, index ->
+                _FROM_SELF_TYPE_INDEX = index
+                if (YusionApp.CONFIG_RESP.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
+                    val editText = EditText(mContext)
+                    AlertDialog.Builder(mContext)
+                            .setTitle("请输入业务类型")
+                            .setView(editText)
+                            .setCancelable(false)
+                            .setPositiveButton("确定") { dialog, which ->
+                                personal_info_from_self_type_tv.text = editText.text
+                                _FROM_SELF_TYPE_INDEX = 0
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                }
+            })
         }
         personal_info_from_self_company_address1_lin.setOnClickListener {
             if (personal_info_from_self_company_address_tv.text.isNotEmpty()) {

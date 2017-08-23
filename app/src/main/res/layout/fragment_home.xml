@@ -57,4 +57,20 @@
         android:text="点击"
         android:visibility="gone" />
 
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_test2"
+        android:text="测试编辑样式"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn3"
+        android:text="贷款申请批复"
+        android:visibility="gone" />
+
 </RelativeLayout>
