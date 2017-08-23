@@ -31,12 +31,13 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
         var _GENDER_INDEX: Int = 0
         var _INCOME_FROM_INDEX: Int = 0
+        var _EDUCATION_INDEX: Int = 0
         var _EXTRA_INCOME_FROME_INDEX: Int = 0
+
         var _WORK_POSITION_INDEX: Int = 0
         var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
         var _FROM_SELF_TYPE_INDEX: Int = 0
         var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
-        var _EDUCATION_INDEX: Int = 0
         var _HOUSE_TYPE_INDEX: Int = 0
         var _HOUSE_OWNER_RELATION_INDEX: Int = 0
         var _URG_RELATION_INDEX1: Int = 0

@@ -168,7 +168,6 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                     if (contacts != null) {
                         System.arraycopy(contacts, 0, result, 0, contacts.size)
                     }
-                    guarantor_credit_info_name_tv.setText(result[0])
                     guarantor_credit_info_mobile_edt.setText(result[1])
                 }
             }

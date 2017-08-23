@@ -30,24 +30,24 @@ class SpouseInfoFragment : BaseFragment() {
 
     companion object {
         var START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000
-        var START_FOR_SPOUSE_ID_CARD_ACTIVITY = 1001
         var _GENDER_INDEX: Int = 0
-        var _WORK_POSITION_INDEX: Int = 0
         var _MARRIAGE_INDEX: Int = 0
         var idBackImgUrl = ""
         var idFrontImgUrl = ""
-        var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
+        var START_FOR_SPOUSE_ID_CARD_ACTIVITY = 1001
+        var _WORK_POSITION_INDEX: Int = 0
         var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
         var _INCOME_FROME_INDEX: Int = 0
         var _EXTRA_INCOME_FROME_INDEX: Int = 0
         var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
         var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
+        var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
+        var _FROM_SELF_TYPE_INDEX: Int = 0
         var _EDUCATION_INDEX: Int = 0
         var _HOUSE_TYPE_INDEX: Int = 0
         var _HOUSE_OWNER_RELATION_INDEX: Int = 0
         var _URG_RELATION_INDEX1: Int = 0
         var _URG_RELATION_INDEX2: Int = 0
-        var _FROM_SELF_TYPE_INDEX: Int = 0
     }
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
