@@ -64,7 +64,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 applyActivity.mClientInfo = it
                 ocrResp?.let {
                     applyActivity.mClientInfo.gender = ocrResp.sex
-                    applyActivity.mClientInfo.reg_addr_details = if (ocrResp.addr.isEmpty()) "" else ocrResp.addr
+                    applyActivity.mClientInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
                     applyActivity.mClientInfo.reg_addr.province = ocrResp.province
                     applyActivity.mClientInfo.reg_addr.city = ocrResp.city
                     applyActivity.mClientInfo.reg_addr.district = ocrResp.town
@@ -91,6 +91,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", "id_card_back")
             intent.putExtra("role", "lender")
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         autonym_certify_id_front_lin.setOnClickListener {
@@ -112,8 +113,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
 
 
+        autonym_certify_name_tv.setText("just Test")
+        autonym_certify_id_number_tv.setText("${Date().time}")
         if (Settings.isShameData) {
-            autonym_certify_name_tv.setText("${Date().time}")
             autonym_certify_id_number_tv.setText("513001198707080231")
             hasIdBackImg = true
             hasIdFrontImg = true
@@ -182,9 +184,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
                                     autonym_certify_id_back_tv.text = "已上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
-                                    autonym_certify_id_number_tv.setText(data.getStringExtra("idNo"))
-                                    autonym_certify_name_tv.setText(data.getStringExtra("name"))
                                     ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
+                                    autonym_certify_id_number_tv.setText(ocrResp.idNo)
+                                    autonym_certify_name_tv.setText(ocrResp.name)
                                     idBackImgUrl = data.getStringExtra("imgUrl")
                                 }
                             }

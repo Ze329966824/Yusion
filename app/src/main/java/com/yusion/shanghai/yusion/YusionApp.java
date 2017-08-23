@@ -10,6 +10,8 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import cn.jpush.android.api.JPushInterface;
 
+import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
+
 /**
  * Created by ice on 2017/8/3.
  */
@@ -34,6 +36,8 @@ public class YusionApp extends Application {
         super.onCreate();
         PgyCrashManager.register(this);
         jpush();
+        TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
+        MOBILE = SharedPrefsUtil.getInstance(this).getValue("mobile", "");
     }
 
     public void clearUserData() {
@@ -41,8 +45,8 @@ public class YusionApp extends Application {
         MOBILE = "";
         USERINFOBEAN = null;
 
-        SharedPrefsUtil.getInstance(this).putValue("token", TOKEN);
-        SharedPrefsUtil.getInstance(this).putValue("mobile", MOBILE);
+        getInstance(this).putValue("token", TOKEN);
+        getInstance(this).putValue("mobile", MOBILE);
     }
 
     private void jpush() {
@@ -51,7 +55,7 @@ public class YusionApp extends Application {
         JPushInterface.init(this);
         while (TextUtils.isEmpty(reg_id)) {
             reg_id = JPushInterface.getRegistrationID(YusionApp.this);
-            SharedPrefsUtil.getInstance(this).putValue("reg_id",reg_id);
+            getInstance(this).putValue("reg_id", reg_id);
         }
     }
 }

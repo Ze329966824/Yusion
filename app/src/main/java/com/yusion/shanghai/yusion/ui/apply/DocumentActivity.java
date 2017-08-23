@@ -41,9 +41,7 @@ public class DocumentActivity extends BaseActivity {
     private String mRole;//lender lender_sp guarantor guarantor_sp
     private String mImgObjectKey;
     private View view;
-    private String idNo;
-    private String name;
-    private String addr;
+    private OcrResp.ShowapiResBodyBean mOcrResp;
     private String imgUrl;
     TitleBar titleBar;
     Intent mGetIntent;
@@ -64,6 +62,7 @@ public class DocumentActivity extends BaseActivity {
             view = inFlater.inflate(R.layout.activity_document, null);
         } else if (mType.equals("id_card_back")) {//身份证人像面
             view = inFlater.inflate(R.layout.activity_shengfz, null);
+            mOcrResp = ((OcrResp.ShowapiResBodyBean) mGetIntent.getSerializableExtra("ocrResp"));
         } else if (mType.equals("driving_lic")) {//驾驶证
             view = inFlater.inflate(R.layout.activity_drive, null);
         }
@@ -176,9 +175,7 @@ public class DocumentActivity extends BaseActivity {
                             Toast.makeText(DocumentActivity.this, "识别成功", Toast.LENGTH_LONG).show();
                             imgUrl = imageFile.getAbsolutePath();
                             mImgObjectKey = objectKey;
-                            addr = ocrResp.showapi_res_body.addr;
-                            name = ocrResp.showapi_res_body.name;
-                            idNo = ocrResp.showapi_res_body.idNo;
+                            mOcrResp = ocrResp.showapi_res_body;
                             dialog.dismiss();
                         }
                     }
@@ -240,9 +237,7 @@ public class DocumentActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.putExtra("objectKey", mImgObjectKey);
         intent.putExtra("type", mType);
-        intent.putExtra("name", name);
-        intent.putExtra("idNo", idNo);
-        intent.putExtra("addr", addr);
+        intent.putExtra("ocrResp", mOcrResp);
         intent.putExtra("imgUrl", imgUrl);
         setResult(RESULT_OK, intent);
         finish();

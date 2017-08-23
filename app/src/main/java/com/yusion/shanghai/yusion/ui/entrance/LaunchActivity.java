@@ -24,7 +24,6 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        YusionApp.TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
         String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
 
         EditText editText = new EditText(this);
