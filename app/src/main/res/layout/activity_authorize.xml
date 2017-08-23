@@ -1,131 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     tools:context="com.yusion.shanghai.yusion.ui.apply.DocumentActivity">
 
-    <com.yusion.shanghai.yusion.widget.TitleBar
-        android:id="@+id/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/bg_color"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.yusion.shanghai.yusion.widget.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/bg_color"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="14.5dp"
+                android:text="征信授权书"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/camera_document"
+                android:layout_width="98dp"
+                android:layout_height="98dp"
+                android:layout_marginLeft="14.5dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/camera_document" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/bg_color" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="46dp"
             android:layout_marginLeft="14.5dp"
-            android:text="征信授权书"
-            android:textColor="#999999"
-            android:textSize="12sp" />
+            android:gravity="center_vertical"
+            android:text="征信授权书要求"
+            android:textSize="14.5dp" />
 
-    </LinearLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginLeft="14.5dp"
+            android:layout_marginRight="14.5dp"
+            android:background="@color/bg_color" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="136dp"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="332dp"
+            android:layout_height="16.5dp"
+            android:layout_marginTop="12.5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dp"
+                android:text="本人持有的"
+                android:textSize="11.5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有效"
+                android:textColor="#ffa400"
+                android:textSize="11.5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="征信授权书"
+                android:textSize="11.5dp"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="332dp"
+            android:layout_height="16.5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dp"
+                android:text="拍摄时确保征信授权书"
+                android:textSize="11.5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="边框完整，字体清晰，亮度均匀。"
+                android:textColor="#ffa400"
+                android:textSize="11.5dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14.5dp"
+            android:layout_marginTop="14.5dp"
+            android:text="征信授权书实例"
+            android:textSize="11.5dp" />
 
         <ImageView
-            android:id="@+id/camera_document"
-            android:layout_width="98dp"
-            android:layout_height="98dp"
-            android:layout_marginLeft="14.5dp"
-            android:layout_marginTop="20dp"
-            android:src="@mipmap/camera_document" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12.5dp"
+            android:src="@mipmap/shouquanshu" />
     </LinearLayout>
 
-    <View
+    <Button
+        android:id="@+id/image_update_btn"
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/bg_color" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginLeft="14.5dp"
-        android:gravity="center_vertical"
-        android:text="征信授权书要求"
-        android:textSize="14.5dp" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginLeft="14.5dp"
-        android:layout_marginRight="14.5dp"
-        android:background="@color/bg_color" />
-
-    <LinearLayout
-        android:layout_width="332dp"
-        android:layout_height="16.5dp"
-        android:layout_marginTop="12.5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14.5dp"
-            android:text="本人持有的"
-            android:textSize="11.5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="有效"
-            android:textColor="#ffa400"
-            android:textSize="11.5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="征信授权书"
-            android:textSize="11.5dp"
-
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="332dp"
-        android:layout_height="16.5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14.5dp"
-            android:text="拍摄时确保征信授权书"
-            android:textSize="11.5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="边框完整，字体清晰，亮度均匀。"
-            android:textColor="#ffa400"
-            android:textSize="11.5dp" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="14.5dp"
-        android:layout_marginTop="14.5dp"
-        android:text="征信授权书实例"
-        android:textSize="11.5dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12.5dp"
-        android:src="@mipmap/shouquanshu" />
-</LinearLayout>
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="61.5dp"
+        android:background="#ffffff"
+        android:text="删除"
+        android:textColor="#d1d1d1"
+        android:textSize="13.5sp"
+        android:visibility="gone" />
+</RelativeLayout>
