@@ -1,9 +1,17 @@
 package com.yusion.shanghai.yusion.ui.update;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.ViewGroup;
@@ -11,11 +19,19 @@ import android.view.ViewGroup;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
+import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
+import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 
+import java.lang.reflect.Array;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.yusion.shanghai.yusion.R.id.personal_info_urg_contact1_edt;
+import static com.yusion.shanghai.yusion.R.id.personal_info_urg_contact2_edt;
+import static com.yusion.shanghai.yusion.R.id.personal_info_urg_mobile1_edt;
 
 /**
  * Created by ice on 2017/8/21.
@@ -59,8 +75,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
     public static int UPDATE_URG_RELATION_INDEX2;
     public static int UPDATE_FROM_INCOME_WORK_POSITION_INDEX;
     public static int UPDATE_FROM_EXTRA_WORK_POSITION_INDEX;
+    public static int UPDATE_FROM_SELF_TYPE_INDEX;
 
     public static int CURRENT_CLICKED_VIEW_FOR_ADDRESS = -1;
+    public static int CURRENT_CLICKED_VIEW_FOR_CONTACT = -1;
 
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
@@ -119,6 +137,16 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
     private LinearLayout personal_info_from_self_company_address1_lin;
     private TextView personal_info_from_self_company_address1_tv;
 
+    private ImageView personal_info_urg_mobile1_img;
+    private ImageView personal_info_urg_mobile2_img;
+
+    private EditText personal_info_urg_mobile1_edt;
+    private EditText personal_info_urg_contact1_edt;
+    private EditText personal_info_urg_mobile2_edt;
+    private EditText personal_info_urg_contact2_edt;
+
+    private LinearLayout personal_info_from_self_type_lin;
+    private TextView personal_info_from_self_type_tv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -190,9 +218,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         personal_info_from_income_company_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,AMapPoiListActivity.class);
-                intent.putExtra("city","上海");
-                startActivity(intent);
+                if (personal_info_from_income_company_address_tv != null) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_income_company_address1_lin.getId();
+                    requestPOI(personal_info_from_income_company_address_tv.getText().toString());
+                }
             }
         });
 
@@ -217,6 +246,48 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         });
 
         //自营 业务类型
+        personal_info_from_self_type_lin = (LinearLayout) view.findViewById(R.id.personal_info_from_self_type_lin);
+        personal_info_from_self_type_tv = (TextView) view.findViewById(R.id.personal_info_from_self_type_tv);
+        personal_info_from_self_type_lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.busi_type_list_key,
+                        UPDATE_FROM_SELF_TYPE_INDEX,
+                        personal_info_from_self_type_lin,
+                        personal_info_from_self_type_tv,
+                        "请选择",
+                        new WheelViewUtil.OnSubmitCallBack() {
+                            @Override
+                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
+                                UPDATE_FROM_SELF_TYPE_INDEX = selectedIndex;
+                                if (YusionApp.CONFIG_RESP.busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
+                                    EditText editText = new EditText(mContext);
+                                    new AlertDialog.Builder(mContext)
+                                            .setTitle("请输入业务类型")
+                                            .setView(editText)
+                                            .setCancelable(false)
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    personal_info_from_self_type_tv.setText(editText.getText());
+                                                    UPDATE_FROM_SELF_TYPE_INDEX = 0;
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
+                                }
+
+                            }
+                        }
+                );
+            }
+        });
+
 
         //自营 单位地址
         personal_info_from_self_company_address_lin = (LinearLayout) view.findViewById(R.id.personal_info_from_self_company_address_lin);
@@ -246,9 +317,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         personal_info_from_self_company_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,AMapPoiListActivity.class);
-                intent.putExtra("city","上海");
-                startActivity(intent);
+                if (personal_info_from_self_company_address_tv != null) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_self_company_address1_lin.getId();
+                    requestPOI(personal_info_from_self_company_address_tv.getText().toString());
+                }
             }
         });
 
@@ -309,9 +381,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         personal_info_extra_from_income_company_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,AMapPoiListActivity.class);
-                intent.putExtra("city","上海");
-                startActivity(intent);
+                if (personal_info_extra_from_income_company_address_tv != null) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_extra_from_income_company_address1_lin.getId();
+                    requestPOI(personal_info_extra_from_income_company_address_tv.getText().toString());
+                }
             }
         });
 
@@ -411,6 +484,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                         new WheelViewUtil.OnCitySubmitCallBack() {
                             @Override
                             public void onCitySubmitCallBack(View clickedView, String city) {
+                                personal_info_current_address1_tv.setText("");
                             }
                         }
                 );
@@ -424,13 +498,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         personal_info_current_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (! personal_info_from_income_company_address_tv.getText().toString().isEmpty()) {
-//                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_income_company_address1_lin.getId();
-//                    requestPOI(personal_info_from_income_company_address_tv.getText().toString())
-//                }
-                Intent intent = new Intent(mContext,AMapPoiListActivity.class);
-                intent.putExtra("city","上海");
-                startActivity(intent);
+                if (!personal_info_current_address_tv.getText().toString().isEmpty()) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_current_address1_lin.getId();
+                    requestPOI(personal_info_current_address_tv.getText().toString());
+                }
             }
         });
 
@@ -511,17 +582,91 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                         });
             }
         });
+
+
+        personal_info_urg_mobile1_img = (ImageView) view.findViewById(R.id.personal_info_urg_mobile1_img);
+        personal_info_urg_mobile1_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CURRENT_CLICKED_VIEW_FOR_CONTACT = personal_info_urg_mobile1_img.getId();
+                selectContact();
+            }
+        });
+
+
+        personal_info_urg_mobile2_img = (ImageView) view.findViewById(R.id.personal_info_urg_mobile2_img);
+        personal_info_urg_mobile2_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CURRENT_CLICKED_VIEW_FOR_CONTACT = personal_info_urg_mobile2_img.getId();
+                selectContact();
+            }
+        });
+
+        personal_info_urg_mobile1_edt = (EditText) view.findViewById(R.id.personal_info_urg_mobile1_edt);
+        personal_info_urg_mobile2_edt = (EditText) view.findViewById(R.id.personal_info_urg_mobile2_edt);
+        personal_info_urg_contact1_edt = (EditText) view.findViewById(R.id.personal_info_urg_contact1_edt);
+        personal_info_urg_contact2_edt = (EditText) view.findViewById(R.id.personal_info_urg_contact2_edt);
+
         return view;
 
     }
 
-    private void requestPOI( String city) {
-//        city = "上海市/上海市/浦东新区";
-//        city.split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-//        Intent intent = new Intent(mContext,AMapPoiListActivity.class);
-//
-//        intent.putExtra("city", addressArray[1].substring(0, addressArray[1].length - 1))
-//        intent.putExtra("keywords", addressArray[2].substring(0, addressArray[2].length - 1))
+    private void selectContact() {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, Constants.REQUEST_CONTACTS);
+    }
 
+    private void requestPOI(String city) {
+        String[] citys = city.split("/");
+        String city1 = citys[1];
+        String city2 = citys[2];
+
+        Intent intent = new Intent(mContext, AMapPoiListActivity.class);
+        intent.putExtra("city", city1);
+        intent.putExtra("keywords", city2);
+
+        startActivityForResult(intent, Constants.REQUEST_ADDRESS);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.REQUEST_CONTACTS) {
+                Uri uri = data.getData();
+                String[] contacts = ContactsUtil.getPhoneContacts(mContext, uri);
+                String[] result = new String[]{"", ""};
+                if (contacts != null) {
+                    System.arraycopy(contacts, 0, result, 0, contacts.length);
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == personal_info_urg_mobile1_img.getId()) {
+
+                    personal_info_urg_contact1_edt.setText(result[0]);
+                    personal_info_urg_mobile1_edt.setText(result[1]);
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == personal_info_urg_mobile2_img.getId()) {
+
+                    personal_info_urg_contact2_edt.setText(result[0]);
+                    personal_info_urg_mobile2_edt.setText(result[1]);
+                }
+            } else if (requestCode == Constants.REQUEST_ADDRESS) {
+
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == personal_info_current_address1_lin.getId()) {
+                    personal_info_current_address1_tv.setText(data.getStringExtra("result"));
+                }
+
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == personal_info_from_income_company_address1_lin.getId()) {
+                    personal_info_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == personal_info_from_self_company_address1_lin.getId()) {
+                    personal_info_from_self_company_address1_tv.setText(data.getStringExtra("result"));
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == personal_info_extra_from_income_company_address1_lin.getId()) {
+                    personal_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+                }
+
+            }
+        }
     }
 }

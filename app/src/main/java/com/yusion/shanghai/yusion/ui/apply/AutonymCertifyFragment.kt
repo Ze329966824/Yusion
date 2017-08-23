@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
-import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
+import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
@@ -40,9 +40,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var hasIdFrontImg = false
     var hasIdBackImg = false
     var addr = ""
+    var drivingLicImgUrl = ""
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
-    var drivingLicImgUrl = ""
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,7 +56,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
-            ProductApi.getClientInfo(mContext, GetUserInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString())) {
+            ProductApi.getClientInfo(mContext, GetClientInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString())) {
                 if (it == null) {
                     return@getClientInfo
                 }
@@ -114,9 +114,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
 
 
-        autonym_certify_name_tv.setText("just Test")
-        autonym_certify_id_number_tv.setText("${Date().time}")
         if (Settings.isShameData) {
+            autonym_certify_name_tv.setText("just Test")
+            autonym_certify_id_number_tv.setText("${Date().time}")
             autonym_certify_id_number_tv.setText("513001198707080231")
             hasIdBackImg = true
             hasIdFrontImg = true
@@ -189,7 +189,6 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 } else {
                                     autonym_certify_id_back_tv.text = "请上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
-                                    ocrResp = OcrResp.ShowapiResBodyBean()
                                 }
                                 idBackImgUrl = data.getStringExtra("imgUrl")
                                 autonym_certify_id_number_tv.setText(ocrResp.idNo)

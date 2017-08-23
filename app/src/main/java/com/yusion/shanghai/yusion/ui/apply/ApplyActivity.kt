@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
@@ -39,7 +38,6 @@ class ApplyActivity : BaseActivity() {
     fun requestSubmit() {
         ProductApi.updateClientInfo(this, mClientInfo) {
             if (it != null) {
-                Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, CommitActivity::class.java))
                 finish()
             }

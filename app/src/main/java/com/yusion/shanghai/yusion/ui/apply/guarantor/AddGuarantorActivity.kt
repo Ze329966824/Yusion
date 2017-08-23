@@ -1,21 +1,24 @@
 package com.yusion.shanghai.yusion.ui.apply.guarantor
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
+import com.yusion.shanghai.yusion.bean.user.GuarantorInfo
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
+import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import com.yusion.shanghai.yusion.ui.update.CommitActivity
-import android.content.Intent
 
 class AddGuarantorActivity : BaseActivity() {
     private var mGuarantorCreditInfoFragment: GuarantorCreditInfoFragment? = null
     private var mGuarantorInfoFragment: GuarantorInfoFragment? = null
     private var mGuarantorSpouseInfoFragment: GuarantorSpouseInfoFragment? = null
     private var mCurrentFragment: Fragment? = null
+    var mGuarantorInfo = GuarantorInfo()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_guarantor)
@@ -49,8 +52,12 @@ class AddGuarantorActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
-        startActivity(Intent(this,CommitActivity::class.java))
-        finish()
+        ProductApi.updateGuarantorInfo(this, mGuarantorInfo) {
+            if (it != null) {
+                startActivity(Intent(this,CommitActivity::class.java))
+                finish()
+            }
+        }
     }
 
     override fun onDestroy() {

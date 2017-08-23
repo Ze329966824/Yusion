@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.retrofit.service;
 
 import com.yusion.shanghai.yusion.base.BaseResult;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
+import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
 
 import retrofit2.Call;
@@ -19,11 +20,15 @@ public interface ProductService {
     @POST("api/client/client_info/")
     Call<BaseResult<ClientInfo>> updateClientInfo(@Body ClientInfo req);
 
-    //删
     @GET("api/client/client_info/")
     Call<BaseResult<UserInfoBean>> getUserInfo(@Query("id_no") String id_no, @Query("clt_nm") String clt_nm);
 
-
     @GET("api/client/client_info/")
     Call<BaseResult<ClientInfo>> getClientInfo(@Query("id_no") String id_no, @Query("clt_nm") String clt_nm);
+
+    @POST("api/client/guarantor_info/")
+    Call<BaseResult<GuarantorInfo>> updateGuarantorInfo(@Body GuarantorInfo req);
+
+    @GET("api/client/guarantor_info/")
+    Call<BaseResult<GuarantorInfo>> getGuarantorInfo(@Query("id_no") String id_no, @Query("clt_nm") String clt_nm, @Query("mobile") String mobile, @Query("social_ship") String social_ship);
 }
