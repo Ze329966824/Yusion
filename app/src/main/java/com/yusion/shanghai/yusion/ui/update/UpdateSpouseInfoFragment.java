@@ -1,14 +1,20 @@
 package com.yusion.shanghai.yusion.ui.update;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.tv.TvView;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -16,6 +22,7 @@ import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
+import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 
 import java.util.ArrayList;
@@ -50,6 +57,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     public static int UPDATE_SEX_INDEX;
     public static int UPDATE_FROM_INCOME_WORK_POSITION_INDEX;
     public static int UPDATE_FROM_EXTRA_WORK_POSITION_INDEX;
+
+    public static int CURRENT_CLICKED_VIEW_FOR_ADDRESS = -1;
+    public static int CURRENT_CLICKED_VIEW_FOR_CONTACT = -1;
 
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
@@ -90,6 +100,15 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
     private LinearLayout spouse_info_divorced_lin;
     private TextView spouse_info_divorced_tv;
+
+    private LinearLayout spouse_info_die_proof_lin;
+    private TextView spouse_info_die_proof_tv;
+
+    private LinearLayout spouse_info_register_addr_lin;
+    private TextView spouse_info_register_addr_tv;
+
+    private ImageView spouse_info_mobile_img;
+    private EditText spouse_info_mobile_edt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,31 +151,31 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             }
         });
 
-        //选择额外收入来源
-        income_extra_from_lin = (LinearLayout) view.findViewById(R.id.spouse_info_extra_income_from_lin);
-        income_extra_from_tv = (TextView) view.findViewById(R.id.spouse_info_extra_income_from_tv);
-        income_extra_from_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(incomeextarlist,
-                        UPDATE_EXTRA_INCOME_FROME_INDEX,
-                        income_extra_from_lin,
-                        income_extra_from_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_EXTRA_INCOME_FROME_INDEX = selectedIndex;
-                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX) == "工资") {
-                                    view.findViewById(R.id.spouse_info_extra_from_income_group_lin).setVisibility(View.VISIBLE);
-                                } else {
-                                    view.findViewById(R.id.spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
-                                }
-                            }
-                        }
-                );
-            }
-        });
+//        //选择额外收入来源
+//        income_extra_from_lin = (LinearLayout) view.findViewById(R.id.spouse_info_extra_income_from_lin);
+//        income_extra_from_tv = (TextView) view.findViewById(R.id.spouse_info_extra_income_from_tv);
+//        income_extra_from_lin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                WheelViewUtil.showWheelView(incomeextarlist,
+//                        UPDATE_EXTRA_INCOME_FROME_INDEX,
+//                        income_extra_from_lin,
+//                        income_extra_from_tv,
+//                        "请选择",
+//                        new WheelViewUtil.OnSubmitCallBack() {
+//                            @Override
+//                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
+//                                UPDATE_EXTRA_INCOME_FROME_INDEX = selectedIndex;
+//                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX) == "工资") {
+//                                    view.findViewById(R.id.spouse_info_extra_from_income_group_lin).setVisibility(View.VISIBLE);
+//                                } else {
+//                                    view.findViewById(R.id.spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
+//                                }
+//                            }
+//                        }
+//                );
+//            }
+//        });
 
         //选择个人婚姻状态
         spouse_info_marriage_lin = (LinearLayout) view.findViewById(R.id.spouse_info_marriage_lin);
@@ -273,9 +292,10 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         spouse_info_from_income_company_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AMapPoiListActivity.class);
-                intent.putExtra("city", "上海");
-                startActivity(intent);
+                if (spouse_info_from_income_company_address_tv != null) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_from_income_company_address1_lin.getId();
+                    requestPOI(spouse_info_from_income_company_address_tv.getText().toString());
+                }
             }
         });
 
@@ -329,9 +349,10 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         spouse_info_from_self_company_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AMapPoiListActivity.class);
-                intent.putExtra("city", "上海");
-                startActivity(intent);
+                if (spouse_info_from_self_company_address_tv != null) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_from_self_company_address1_lin.getId();
+                    requestPOI(spouse_info_from_self_company_address_tv.getText().toString());
+                }
             }
         });
 
@@ -384,7 +405,42 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             }
         });
 
+        //法院判决书
+        spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.spouse_info_divorced_lin);
+        spouse_info_divorced_tv = (TextView) view.findViewById(R.id.spouse_info_divorced_tv);
+        spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), DivorcedActivity.class);
+//                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
+                Toast.makeText(mContext, "还没有创建DivorcedActivity，快去创建.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        //死亡证明
+        spouse_info_die_proof_lin = (LinearLayout) view.findViewById(R.id.spouse_info_die_proof_lin);
+        spouse_info_die_proof_tv = (TextView) view.findViewById(R.id.spouse_info_die_proof_tv);
+        spouse_info_die_proof_lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), DiedActivity.class);
+//                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
+                Toast.makeText(mContext, "还没有创建DiedActivity，快去创建.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //户口本
+        spouse_info_register_addr_lin = (LinearLayout) view.findViewById(R.id.spouse_info_register_addr_lin);
+        spouse_info_register_addr_tv = (TextView) view.findViewById(R.id.spouse_info_register_addr_tv);
+        spouse_info_register_addr_lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), RegisteredActivity.class);
+//                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
+                Toast.makeText(mContext, "还没有创建RegisteredActivity，快去创建.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
         //额外 详细地址 ????
 
         spouse_info_extra_from_income_company_address1_lin = (LinearLayout) view.findViewById(R.id.spouse_info_extra_from_income_company_address1_lin);
@@ -392,15 +448,17 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         spouse_info_extra_from_income_company_address1_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AMapPoiListActivity.class);
-                intent.putExtra("city", "上海");
-                startActivity(intent);
+                if (spouse_info_extra_from_income_company_address_tv != null) {
+                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_extra_from_income_company_address1_lin.getId();
+                    requestPOI(spouse_info_extra_from_income_company_address_tv.getText().toString());
+                }
+
             }
         });
 
         // 额外 选择职务
         spouse_info_extra_from_income_work_position_lin = (LinearLayout) view.findViewById(R.id.spouse_info_extra_from_income_work_position_lin);
-        spouse_info_extra_from_income_work_position_tv = (TextView) view.findViewById(R.id.spouse_info_extra_income_from_tv);
+        spouse_info_extra_from_income_work_position_tv = (TextView) view.findViewById(R.id.personal_extra_info_work_position_tv);
         spouse_info_extra_from_income_work_position_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -419,8 +477,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         });
 
 
-
-
         spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.spouse_info_divorced_lin);
         spouse_info_divorced_tv = (TextView) view.findViewById(R.id.spouse_info_divorced_tv);
         spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
@@ -429,6 +485,66 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
             }
         });
+
+
+        spouse_info_mobile_img = (ImageView) view.findViewById(R.id.spouse_info_mobile_img);
+        spouse_info_mobile_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CURRENT_CLICKED_VIEW_FOR_CONTACT = spouse_info_mobile_img.getId();
+                selectContact();
+            }
+        });
+        spouse_info_mobile_edt = (EditText) view.findViewById(R.id.spouse_info_mobile_edt);
+
+
         return view;
+    }
+
+    private void selectContact() {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, Constants.REQUEST_CONTACTS);
+    }
+
+    private void requestPOI(String city) {
+        String[] citys = city.split("/");
+        String city1 = citys[1];
+        String city2 = citys[2];
+
+        Intent intent = new Intent(mContext, AMapPoiListActivity.class);
+        intent.putExtra("city", city1);
+        intent.putExtra("keywords", city2);
+
+        startActivityForResult(intent, Constants.REQUEST_ADDRESS);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.REQUEST_CONTACTS) {
+                Uri uri = data.getData();
+                String[] contacts = ContactsUtil.getPhoneContacts(mContext, uri);
+                String[] result = new String[]{"", ""};
+                if (contacts != null) {
+                    System.arraycopy(contacts, 0, result, 0, contacts.length);
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == spouse_info_mobile_img.getId()) {
+                    spouse_info_mobile_edt.setText(result[1]);
+                }
+
+            } else if (requestCode == Constants.REQUEST_ADDRESS) {
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == spouse_info_from_income_company_address1_lin.getId()) {
+                    spouse_info_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == spouse_info_from_self_company_address1_lin.getId()) {
+                    spouse_info_from_self_company_address1_tv.setText(data.getStringExtra("result"));
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == spouse_info_extra_from_income_company_address1_lin.getId()) {
+                    spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+                }
+
+            }
+        }
     }
 }

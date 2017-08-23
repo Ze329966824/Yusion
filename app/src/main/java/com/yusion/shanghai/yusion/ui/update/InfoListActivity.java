@@ -31,9 +31,9 @@ public class InfoListActivity extends BaseActivity {
         add_guarantee = (LinearLayout) findViewById(R.id.add_guarantee);
         ishaveGuarantee = getIntent().getBooleanExtra("ishaveGuarantee",true);
         if (!ishaveGuarantee) {
-            guarantee_info.setVisibility(View.GONE);
-        } else {
             add_guarantee.setVisibility(View.GONE);
+        } else {
+            guarantee_info.setVisibility(View.GONE);
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
+import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
@@ -86,9 +90,23 @@ public class HomeFragment extends BaseFragment {
             bottomBtn.setText("查看个人资料");
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
             bottomBtn.setOnClickListener(v -> {
-                Intent intent = new Intent(mContext, InfoListActivity.class);
-                intent.putExtra("ishaveGuarantee", true);
-                startActivity(intent);
+                UserApi.getListCurrentTpye(mContext, new OnItemDataCallBack<ListCurrentTpye>() {
+                    @Override
+                    public void onItemDataCallBack(ListCurrentTpye data) {
+                        if (TextUtils.isEmpty(data.guarantor)) {
+                            Intent intent = new Intent(mContext, InfoListActivity.class);
+                            intent.putExtra("ishaveGuarantee", true);
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(mContext, InfoListActivity.class);
+                            intent.putExtra("ishaveGuarantee", false);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+
+
             });
         } else {
             bottomBtn.setText("立即申请");
