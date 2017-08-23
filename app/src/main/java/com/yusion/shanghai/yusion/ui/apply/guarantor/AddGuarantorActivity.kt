@@ -8,6 +8,7 @@ import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -51,8 +52,12 @@ class AddGuarantorActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
-        startActivity(Intent(this,CommitActivity::class.java))
-        finish()
+        ProductApi.updateGuarantorInfo(this, mGuarantorInfo) {
+            if (it != null) {
+                startActivity(Intent(this,CommitActivity::class.java))
+                finish()
+            }
+        }
     }
 
     override fun onDestroy() {

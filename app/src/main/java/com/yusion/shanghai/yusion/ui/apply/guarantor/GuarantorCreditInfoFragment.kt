@@ -22,6 +22,7 @@ import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_credit_info.*
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 /**
  * Created by ice on 2017/8/21.
@@ -38,13 +39,14 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             ProductApi.getGuarantorInfo(mContext, GetGuarantorInfoReq(guarantor_credit_info_id_number_tv.text.toString(), guarantor_credit_info_name_tv.text.toString()
-            ,guarantor_credit_info_rel_tv.text.toString(),guarantor_credit_info_mobile_edt.text.toString())) {
+                    , guarantor_credit_info_rel_tv.text.toString(), guarantor_credit_info_mobile_edt.text.toString())) {
                 if (it == null) {
                     return@getGuarantorInfo
                 }
@@ -98,6 +100,9 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
+
+        guarantor_credit_info_name_tv.setText("just Test")
+        guarantor_credit_info_id_number_tv.setText("${Date().time}")
     }
 
     fun checkCanNextStep(): Boolean {
