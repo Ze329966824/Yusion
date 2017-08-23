@@ -82,10 +82,11 @@ public class LoginActivity extends BaseActivity {
             mLoginMobileTV.setText("17621066549");
             mLoginCodeTV.setText("6666");
         }
-        YusionApp.isLogin = false;
+
     }
 
     private void loginSuccess(LoginResp resp) {
+        YusionApp.isLogin = true;
         if (resp != null) {
             YusionApp.TOKEN = resp.token;
             YusionApp.MOBILE = mLoginMobileTV.getText().toString();
@@ -100,6 +101,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        YusionApp.isLogin = false;
         //每次回到登陆界面都需清除缓存
         myApp.clearUserData();
 

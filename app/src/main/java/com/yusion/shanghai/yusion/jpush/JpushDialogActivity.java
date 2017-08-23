@@ -70,20 +70,22 @@ public class JpushDialogActivity extends BaseActivity {
             case "login":
                 myApp.clearUserData();
                 if (myApp.isLogin == true) {
-                    new AlertDialog.Builder(JpushDialogActivity.this)
-                            .setCancelable(false)
-                            .setTitle("")
-                            .setMessage(content)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
-                                    finish();
-                                }
-                            })
+                    if (mobile != YusionApp.MOBILE) {
+                        new AlertDialog.Builder(JpushDialogActivity.this)
+                                .setCancelable(false)
+                                .setTitle("")
+                                .setMessage(content)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+                                        finish();
+                                    }
+                                })
 
-                            .show();
+                                .show();
 
+                    }
                 }
                 break;
 
