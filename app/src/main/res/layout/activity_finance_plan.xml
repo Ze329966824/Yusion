@@ -31,7 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/finance_plan_confirm_btn"
                 android:layout_alignParentTop="true"
+                android:layout_alignRight="@id/finance_plan_confirm_btn"
                 android:layout_alignStart="@+id/finance_plan_confirm_btn"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="16dp"
                 android:background="#ffe1e3e6"
                 android:visibility="visible">
@@ -64,7 +66,7 @@
                             android:layout_marginTop="5dp"
                             android:text="20%"
                             android:textColor="@color/white"
-                            android:textSize="45sp" />
+                            android:textSize="47sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -80,6 +82,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text="名称"
+                                android:textColor="#ffffff"
                                 android:textSize="14.5sp" />
 
                             <TextView
@@ -89,6 +92,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="申请信息"
+                                android:textColor="#ffffff"
                                 android:textSize="14.5sp" />
 
                             <TextView
@@ -97,6 +101,7 @@
                                 android:layout_weight="1"
                                 android:gravity="right|center_vertical"
                                 android:text="批复信息"
+                                android:textColor="#ffffff"
                                 android:textSize="14.5sp" />
                         </LinearLayout>
 
@@ -573,7 +578,6 @@
                             android:paddingTop="5dp">
 
                             <TextView
-                                android:id="@+id/apply_bank_tv"
 
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -585,8 +589,7 @@
                                 android:textSize="14.5sp" />
 
                             <TextView
-                                android:id="@+id/reply_bank_tv"
-
+                                android:id="@+id/apply_bank_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -595,7 +598,7 @@
                                 android:textSize="14.5sp" />
 
                             <TextView
-
+                                android:id="@+id/reply_bank_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
