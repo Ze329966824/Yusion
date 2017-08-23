@@ -14,6 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
+import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
@@ -45,6 +46,15 @@ public class HomeFragment extends BaseFragment {
         Button btn = (Button) view.findViewById(R.id.btn_test);
         Button btn2 = (Button) view.findViewById(R.id.btn_test2);
         Button btn4 = (Button) view.findViewById(R.id.btn4);
+        Button btn3 = (Button) view.findViewById(R.id.btn3);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DocumentActivity.class);
+                intent.putExtra("type", "auth_credit");
+                startActivity(intent);
+            }
+        });
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

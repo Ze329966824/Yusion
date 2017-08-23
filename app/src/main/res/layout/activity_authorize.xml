@@ -33,10 +33,9 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="136dp"
-            android:orientation="horizontal">
+            android:layout_height="136dp">
 
             <ImageView
                 android:id="@+id/camera_document"
@@ -45,7 +44,25 @@
                 android:layout_marginLeft="14.5dp"
                 android:layout_marginTop="20dp"
                 android:src="@mipmap/camera_document" />
-        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/choose_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="76dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/choose_icon"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/true_choose_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="76dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/surechoose_icon"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"
