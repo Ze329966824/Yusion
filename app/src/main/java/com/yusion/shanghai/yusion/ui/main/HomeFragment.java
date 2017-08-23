@@ -93,7 +93,7 @@ public class HomeFragment extends BaseFragment {
                 UserApi.getListCurrentTpye(mContext, new OnItemDataCallBack<ListCurrentTpye>() {
                     @Override
                     public void onItemDataCallBack(ListCurrentTpye data) {
-                        if (TextUtils.isEmpty(data.guarantor)) {
+                        if (data.guarantor_commited) {
                             Intent intent = new Intent(mContext, InfoListActivity.class);
                             intent.putExtra("ishaveGuarantee", true);
                             startActivity(intent);
@@ -110,8 +110,8 @@ public class HomeFragment extends BaseFragment {
             });
         } else {
             bottomBtn.setText("立即申请");
-//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
-            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, AddGuarantorActivity.class)));
+            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
+//            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, AddGuarantorActivity.class)));
         }
     }
 }

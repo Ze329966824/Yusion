@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -55,6 +56,8 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
     private TextView mPoiCity;
     private String mCity;
     private Intent mIntent;
+    private TextView mCancel;
+    private ImageView mDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,17 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
         });
         mNoAddress = (LinearLayout) findViewById(R.id.poi_no_address);
         mPoiCity = (TextView) findViewById(R.id.poi_city);
+
+        mCancel = (TextView) findViewById(R.id.poi_cancel);
+        mDelete = (ImageView) findViewById(R.id.poi_delete);
+
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPoiKeywords.setText("");
+            }
+        });
+
     }
 
     private void getData(String keywords, String city) {
@@ -122,6 +136,10 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.poi_submit:
+                over(mPoiKeywords.getText().toString());
+                break;
+
+            case R.id.poi_cancel:
                 over(mPoiKeywords.getText().toString());
                 break;
         }

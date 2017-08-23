@@ -2,11 +2,13 @@ package com.yusion.shanghai.yusion.ui.update;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +50,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     public static int UPDATE_URG_RELATION_INDEX2;
     public static int UPDATE_FROM_INCOME_WORK_POSITION_INDEX;
     public static int UPDATE_FROM_EXTRA_WORK_POSITION_INDEX;
+    public static int UPDATE_FROM_SELF_TYPE_INDEX;
 
     public static int CURRENT_CLICKED_VIEW_FOR_ADDRESS = -1;
     public static int CURRENT_CLICKED_VIEW_FOR_CONTACT = -1;
@@ -117,6 +120,9 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     private EditText guarantor_info_urg_contact1_edt;
     private EditText guarantor_info_urg_mobile2_edt;
     private EditText guarantor_info_urg_contact2_edt;
+
+    private LinearLayout guarantor_info_from_self_type_lin;
+    private TextView guarantor_info_from_self_type_tv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -215,6 +221,47 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
         });
 
         //自营 业务类型
+        guarantor_info_from_self_type_lin = (LinearLayout) view.findViewById(R.id.guarantor_info_from_self_type_lin);
+        guarantor_info_from_self_type_tv = (TextView) view.findViewById(R.id.guarantor_info_from_self_type_tv);
+        guarantor_info_from_self_type_lin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.busi_type_list_key,
+                        UPDATE_FROM_SELF_TYPE_INDEX,
+                        guarantor_info_from_self_type_lin,
+                        guarantor_info_from_self_type_tv,
+                        "请选择",
+                        new WheelViewUtil.OnSubmitCallBack() {
+                            @Override
+                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
+                                UPDATE_FROM_SELF_TYPE_INDEX = selectedIndex;
+                                if (YusionApp.CONFIG_RESP.busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
+                                    EditText editText = new EditText(mContext);
+                                    new AlertDialog.Builder(mContext)
+                                            .setTitle("请输入业务类型")
+                                            .setView(editText)
+                                            .setCancelable(false)
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    guarantor_info_from_self_type_tv.setText(editText.getText());
+                                                    UPDATE_FROM_SELF_TYPE_INDEX = 0;
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
+                                }
+
+                            }
+                        }
+                );
+            }
+        });
 
         //自营 单位地址
         guarantor_info_from_self_company_address_lin = (LinearLayout) view.findViewById(R.id.guarantor_info_from_self_company_address_lin);
