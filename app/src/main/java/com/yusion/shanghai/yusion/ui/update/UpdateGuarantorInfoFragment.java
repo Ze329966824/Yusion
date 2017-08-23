@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,12 +124,23 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
 
     private LinearLayout update_guarantor_info_from_self_type_lin;
     private TextView update_guarantor_info_from_self_type_tv;
+    private NestedScrollView mScrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_update_guarantor_info, container, false);
+
+        mScrollView = ((NestedScrollView) view.findViewById(R.id.scrollView));
+
+        //回到顶部按钮
+        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mScrollView.smoothScrollTo(0,0);
+            }
+        });
         //选择收入来源
         income_from_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_info_income_from_lin);
         income_from_tv = (TextView) view.findViewById(R.id.update_guarantor_info_income_from_tv);

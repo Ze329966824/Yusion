@@ -1204,6 +1204,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="@color/bg_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -1433,7 +1434,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp"
         android:layout_marginRight="15dp"
         android:scaleType="center"
         android:src="@mipmap/to_top"
