@@ -305,7 +305,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
 
         // 工资 选择职务
         guarantor_spouse_info_from_income_work_position_lin = (LinearLayout) view.findViewById(R.id.guarantor_spouse_info_from_income_work_position_lin);
-        guarantor_spouse_info_work_position_tv = (TextView) view.findViewById(R.id.guarantor_spouse_info_work_position_tv);
+        guarantor_spouse_info_work_position_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_work_position_tv);
         guarantor_spouse_info_from_income_work_position_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
