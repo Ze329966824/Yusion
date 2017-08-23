@@ -86,6 +86,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         itemBean7.name = "驾照";
         UploadLabelItemBean itemBean8 = new UploadLabelItemBean();
         itemBean8.name = "收入类材料";
+
         List<UploadLabelItemBean> labelList = new ArrayList<>();
         UploadLabelItemBean itemBea81 = new UploadLabelItemBean();
         itemBea81.name = "半年以上银行流水";

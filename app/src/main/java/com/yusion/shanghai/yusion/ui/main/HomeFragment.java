@@ -19,7 +19,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
-import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
 import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
@@ -56,7 +55,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DocumentActivity.class);
-                intent.putExtra("type", "auth_credit");
+                intent.putExtra("type", "id_card_back");
                 startActivity(intent);
             }
         });

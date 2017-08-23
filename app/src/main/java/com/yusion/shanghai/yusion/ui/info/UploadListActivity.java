@@ -23,6 +23,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
+import com.yusion.shanghai.yusion.widget.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class UploadListActivity extends BaseActivity {
     private TextView errorTv;
     private LinearLayout errorLin;
     private List<UploadImgItemBean> imgList;
+    TitleBar titleBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,8 @@ public class UploadListActivity extends BaseActivity {
         mGetIntent = getIntent();
         mTopItem = (UploadLabelItemBean) mGetIntent.getSerializableExtra("topItem");
         imgList = mTopItem.img_list;
-        initTitleBar(this, mTopItem.name).setLeftClickListener(v -> onBack());
+        titleBar = initTitleBar(this, mTopItem.name).setLeftClickListener(v -> onBack());
+        titleBar.setRightText("编辑");
         RecyclerView rv = (RecyclerView) findViewById(R.id.upload_list_rv);
         errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
         errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);

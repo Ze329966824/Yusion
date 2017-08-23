@@ -49,6 +49,10 @@ public class DocumentActivity extends BaseActivity {
     private boolean isHasImage = false;
     private boolean isEdit = true;
 
+    private boolean isFlag = true;
+
+    private boolean isClick = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,58 +84,111 @@ public class DocumentActivity extends BaseActivity {
         } else {
             isHasImage = false;
         }
-        doEvent();
 
-        deleteImage();
-
-    }
-
-    private void doEvent() {
-
-        //判断类型 如果是身份证则 直接拍照，如果不是，则打开本地的数据
-        if (mType.equals("id_card_front")) {//身份证正面
-            // deleteImage();
-            takePhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mType.equals("id_card_front") && !isClick) {
                     imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
                     startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
-                }
-            });
-        } else if (mType.equals("id_card_back")) {//身份证反面
-            takePhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
+                } else if (mType.equals("id_card_back") && !isClick) {
                     imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
                     startActivityForResult(intent, 3001);
-                }
-            });
-        } else if (mType.equals("auth_credit")) {//授权书
-            takePhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                } else if (mType.equals("auth_credit") && !isClick) {
+//                    if (isClick) {//如果是编辑状态
+//                        if (isFlag) {
+//                            choose_icon.setImageResource(R.mipmap.surechoose_icon);
+//                            delete_image_btn.setEnabled(true);
+//                            delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
+//                            isFlag = false;
+//                        } else {
+//                            choose_icon.setImageResource(R.mipmap.choose_icon);
+//                            delete_image_btn.setEnabled(false);
+//                            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+//                            isFlag = true;
+//                        }
+                    // } else {
                     imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
                     startActivityForResult(intent, 3002);
-                }
-            });
-
-        } else if (mType.equals("driving_lic")) {//驾照
-            takePhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    //   }
+                } else if (mType.equals("driving_lic") && !isClick) {
                     Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
                     i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
                     startActivityForResult(i, 100);
+                } else if (isClick) {
+                    if (isFlag) {
+                        choose_icon.setImageResource(R.mipmap.surechoose_icon);
+                        delete_image_btn.setEnabled(true);
+                        delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
+                        isFlag = false;
+                    } else {
+                        choose_icon.setImageResource(R.mipmap.choose_icon);
+                        delete_image_btn.setEnabled(false);
+                        delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+                        isFlag = true;
+                    }
                 }
-            });
-        }
+            }
+        });
+
+        titleBar.setRightClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    if (isHasImage) {//有图的情况下
+                        if (isEdit) { //编辑状态
+                            isClick = true;
+                            choose_icon.setImageResource(R.mipmap.choose_icon);
+                            choose_icon.setVisibility(View.VISIBLE);
+                            delete_image_btn.setVisibility(View.VISIBLE);
+                            titleBar.setRightText("取消");
+                            delete_image_btn.setEnabled(false);
+                            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));//删除按钮是虚化的
+                            isEdit = false;
+
+                        } else {//在点击取消的时候 回归原来的状态
+                            choose_icon.setVisibility(View.GONE);
+                            true_choose_icon.setVisibility(View.GONE);
+                            titleBar.setRightText("编辑");
+                            takePhoto.setEnabled(true);
+                            delete_image_btn.setVisibility(View.GONE);
+                            isEdit = true;
+                            isClick = false;
+                        }
+                    } else {
+                        isClick = false;
+                        return;
+                    }
+                }
+            }
+        });
+
+
+        delete_image_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete_image_btn.setVisibility(View.GONE);
+                choose_icon.setVisibility(View.GONE);
+                true_choose_icon.setVisibility(View.GONE);
+                choose_icon.setImageResource(R.mipmap.choose_icon);
+                titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+
+                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+                imgUrl = "";
+                mImgObjectKey = "";
+
+                isHasImage = false;
+                takePhoto.setEnabled(true);
+                isClick = false;
+            }
+        });
+
     }
 
     @Override
@@ -143,6 +200,7 @@ public class DocumentActivity extends BaseActivity {
                 String localUrl = files.get(0);
                 Glide.with(this).load(localUrl).into(takePhoto);
                 isHasImage = true;
+                titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 OssUtil.uploadOss(this, false, localUrl, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
@@ -162,6 +220,7 @@ public class DocumentActivity extends BaseActivity {
             } else if (requestCode == 3001) {//id_back
                 Glide.with(this).load(imageFile).into(takePhoto);
                 isHasImage = true;
+                titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), "id_card", new OcrUtil.OnOcrSuccessCallBack() {
@@ -195,6 +254,7 @@ public class DocumentActivity extends BaseActivity {
                 dialog.show();
                 Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
                 isHasImage = true;
+                titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 OssUtil.uploadOss(DocumentActivity.this, false, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
@@ -214,6 +274,7 @@ public class DocumentActivity extends BaseActivity {
                 dialog.show();
                 Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
                 isHasImage = true;
+                titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 OssUtil.uploadOss(DocumentActivity.this, false, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
@@ -250,71 +311,83 @@ public class DocumentActivity extends BaseActivity {
     private void getTitleInfo() {
         if (mType.equals("auth_credit")) {//征信授权书
             titleBar = initTitleBar(this, "征信授权书").setLeftClickListener(v -> onBack()).setRightText("编辑")
-                    .setRightTextColor(Color.parseColor("#ffffff")).setRightTextSize(16);
+                    .setRightTextSize(16);
+            if (!isHasImage) {
+                titleBar.setRightTextColor(Color.parseColor("#80ffffff"));
+            }
+
         } else if (mType.equals("id_card_front")) {//身份证国徽面
             titleBar = initTitleBar(this, "身份证国徽面").setLeftClickListener(v -> onBack()).setRightText("编辑")
                     .setRightTextColor(Color.parseColor("#ffffff")).setRightTextSize(16);
+            if (!isHasImage) {
+                titleBar.setRightTextColor(Color.parseColor("#80ffffff"));
+            }
 
         } else if (mType.equals("id_card_back")) {//身份证人像面
             titleBar = initTitleBar(this, "身份证人像面").setLeftClickListener(v -> onBack()).setRightText("编辑")
                     .setRightTextColor(Color.parseColor("#ffffff")).setRightTextSize(16);
+            if (!isHasImage) {
+                titleBar.setRightTextColor(Color.parseColor("#80ffffff"));
+            }
 
         } else if (mType.equals("driving_lic")) {//驾驶证
             titleBar = initTitleBar(this, "驾驶证影像件").setLeftClickListener(v -> onBack()).setRightText("编辑")
                     .setRightTextColor(Color.parseColor("#ffffff")).setRightTextSize(16);
+            if (!isHasImage) {
+                titleBar.setRightTextColor(Color.parseColor("#80ffffff"));
+            }
         }
     }
+
 
     private void deleteImage() {
 
         titleBar.setRightClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isHasImage) {//有图
-                    if (isEdit) {
+                if (isHasImage) {//有图的情况下
+                    if (isEdit) { //编辑状态
                         isEdit = false;
-                        takePhoto.setEnabled(false);
                         choose_icon.setVisibility(View.VISIBLE);
-                        true_choose_icon.setVisibility(View.GONE);
                         delete_image_btn.setVisibility(View.VISIBLE);
                         titleBar.setRightText("取消");
-                        choose_icon.setOnClickListener(new View.OnClickListener() {
+                        delete_image_btn.setEnabled(false);
+                        delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));//删除按钮是虚化的
+
+                        takePhoto.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                choose_icon.setVisibility(View.GONE);
-                                true_choose_icon.setVisibility(View.VISIBLE);
-                                delete_image_btn.setTextColor(Color.parseColor("#222A36"));
-                                delete_image_btn.setEnabled(true);
-                                delete_image_btn.setVisibility(View.VISIBLE);
+                                if (isClick) {
+                                    choose_icon.setImageResource(R.mipmap.surechoose_icon);
+                                    delete_image_btn.setEnabled(true);
+                                    delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
+                                    isClick = false;
+                                } else {
+                                    choose_icon.setImageResource(R.mipmap.choose_icon);
+                                    delete_image_btn.setEnabled(false);
+                                    delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+                                    isClick = true;
+                                }
                             }
                         });
-                        true_choose_icon.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                choose_icon.setVisibility(View.VISIBLE);
-                                true_choose_icon.setVisibility(View.GONE);
-                                delete_image_btn.setEnabled(false);
-                                delete_image_btn.setTextColor(Color.parseColor("#ffffff"));
-                                delete_image_btn.setVisibility(View.GONE);
-                            }
-                        });
+
                         delete_image_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 delete_image_btn.setVisibility(View.GONE);
                                 choose_icon.setVisibility(View.GONE);
                                 true_choose_icon.setVisibility(View.GONE);
-                                titleBar.setRightText("编辑");
-                                takePhoto.setEnabled(true);
-                                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+                                titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
 
+                                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
                                 imgUrl = "";
                                 mImgObjectKey = "";
 
                                 isHasImage = false;
+                                takePhoto.setEnabled(true);
                             }
                         });
-                    } else {
+                    } else {//在点击取消的时候 回归原来的状态
                         isEdit = true;
                         choose_icon.setVisibility(View.GONE);
                         true_choose_icon.setVisibility(View.GONE);
@@ -323,6 +396,7 @@ public class DocumentActivity extends BaseActivity {
                         delete_image_btn.setVisibility(View.GONE);
                     }
                 } else {
+                    isClick = false;
                     return;
                 }
             }
