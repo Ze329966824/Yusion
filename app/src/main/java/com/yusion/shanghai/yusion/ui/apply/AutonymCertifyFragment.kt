@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yusion.shanghai.yusion.R
+import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.auth.GetUserInfoReq
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
@@ -19,6 +20,7 @@ import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
+import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.autonym_certify.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -32,6 +34,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         var CURRENT_CLICKED_VIEW_FOR_PIC: Int = -1
         var ID_BACK_FID = ""
         var ID_FRONT_FID = ""
+        var _DIR_REL_INDEX: Int = 0
     }
 
     var hasIdFrontImg = false
@@ -77,6 +80,11 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 addDoubleCheckItem("身份证号", autonym_certify_id_number_tv.text.toString())
                 mDoubleCheckDialog.show()
             }
+        }
+        autonym_certify_driving_license_rel_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.drv_lic_relationship_list_key, _DIR_REL_INDEX, autonym_certify_driving_license_rel_lin, autonym_certify_driving_license_rel_tv, "请选择", { _, index ->
+                _DIR_REL_INDEX = index
+            })
         }
         autonym_certify_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)

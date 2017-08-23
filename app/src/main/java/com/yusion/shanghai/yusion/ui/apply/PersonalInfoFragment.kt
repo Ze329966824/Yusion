@@ -29,7 +29,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
 
         var _GENDER_INDEX: Int = 0
-        var _INCOME_FROME_INDEX: Int = 0
+        var _INCOME_FROM_INDEX: Int = 0
         var _EXTRA_INCOME_FROME_INDEX: Int = 0
         var _WORK_POSITION_INDEX: Int = 0
         var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
@@ -140,18 +140,18 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 mDoubleCheckDialog.show()
             }
         }
-        personal_info_mobile_edt.setText(YusionApp.MOBILE)
+        personal_info_mobile_edt.text = YusionApp.MOBILE
         personal_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
         }
         personal_info_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROME_INDEX, personal_info_income_from_lin, personal_info_income_from_tv, "请选择", { _, index ->
-                _INCOME_FROME_INDEX = index
-                personal_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
-                personal_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
-                personal_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROM_INDEX, personal_info_income_from_lin, personal_info_income_from_tv, "请选择", { _, index ->
+                _INCOME_FROM_INDEX = index
+                personal_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
+                personal_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "自营") View.VISIBLE else View.GONE
+                personal_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "其他") View.VISIBLE else View.GONE
             })
         }
         personal_info_extra_income_from_lin.setOnClickListener {

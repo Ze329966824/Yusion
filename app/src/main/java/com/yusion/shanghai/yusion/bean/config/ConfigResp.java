@@ -28,4 +28,8 @@ public class ConfigResp {
     public ArrayList<String> urg_rela_relationship_list_value = new ArrayList<>();
     public ArrayList<String> urg_other_relationship_list_key = new ArrayList<>();
     public ArrayList<String> urg_other_relationship_list_value = new ArrayList<>();
+    public ArrayList<String> drv_lic_relationship_list_key = new ArrayList<>();
+    public ArrayList<String> drv_lic_relationship_list_value = new ArrayList<>();
+    public ArrayList<String> busi_type_list_key = new ArrayList<>();
+    public ArrayList<String> busi_type_list_value = new ArrayList<>();
 }
