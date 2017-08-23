@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -9,10 +10,12 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
+import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.utils.ContactsUtil
@@ -44,11 +47,15 @@ class SpouseInfoFragment : BaseFragment() {
         var _HOUSE_OWNER_RELATION_INDEX: Int = 0
         var _URG_RELATION_INDEX1: Int = 0
         var _URG_RELATION_INDEX2: Int = 0
+        var _FROM_SELF_TYPE_INDEX: Int = 0
     }
+
+    var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.spouse_info, container, false)
     }
+
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,6 +63,7 @@ class SpouseInfoFragment : BaseFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", "id_card_back")
             intent.putExtra("role", "lender_sp")
+            intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("imgUrl", idBackImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -109,6 +117,12 @@ class SpouseInfoFragment : BaseFragment() {
                 applyActivity.mClientInfo.marriage = spouse_info_marriage_tv.text.toString()
                 if (applyActivity.mClientInfo.marriage == "已婚") {
                     applyActivity.mClientInfo.spouse.marriage = "已婚"
+                    ocrResp?.let {
+                        applyActivity.mClientInfo.spouse.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
+                        applyActivity.mClientInfo.spouse.reg_addr.province = ocrResp.province
+                        applyActivity.mClientInfo.spouse.reg_addr.city = ocrResp.city
+                        applyActivity.mClientInfo.spouse.reg_addr.district = ocrResp.town
+                    }
                     applyActivity.mClientInfo.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
                     applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
                     applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
@@ -160,7 +174,6 @@ class SpouseInfoFragment : BaseFragment() {
                             applyActivity.mClientInfo.spouse.extra_work_phone_num = spouse_info_extra_from_income_work_phone_num_edt.text.toString()
                         }
                     }
-//                    applyActivity.mClientInfo.spouse.reg_addr_details = if (regDetailAddress.isEmpty()) "" else regDetailAddress
                 }
                 nextStep()
             }
@@ -192,6 +205,24 @@ class SpouseInfoFragment : BaseFragment() {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_from_self_company_address1_lin.id
                 requestPOI(spouse_info_from_self_company_address_tv.text.toString())
             }
+        }
+        spouse_info_from_self_type_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, _FROM_SELF_TYPE_INDEX, spouse_info_from_self_type_lin, spouse_info_from_self_type_tv, "请选择", { _, index ->
+                _FROM_SELF_TYPE_INDEX = index
+                if (YusionApp.CONFIG_RESP.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
+                    val editText = EditText(mContext)
+                    AlertDialog.Builder(mContext)
+                            .setTitle("请输入业务类型")
+                            .setView(editText)
+                            .setCancelable(false)
+                            .setPositiveButton("确定") { dialog, which ->
+                                spouse_info_from_self_type_tv.text = editText.text
+                                _FROM_SELF_TYPE_INDEX = 0
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                }
+            })
         }
 
         //额外工资
@@ -282,18 +313,25 @@ class SpouseInfoFragment : BaseFragment() {
                         if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
                             spouse_info_id_back_tv.text = "已上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
-                            spouse_info_id_no_edt.setText(data.getStringExtra("idNo"))
-                            regDetailAddress = data.getStringExtra("addr")
-                            spouse_info_clt_nm_edt.setText(data.getStringExtra("name"))
-                            idBackImgUrl = data.getStringExtra("imgUrl")
+                            ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
+                        } else {
+                            spouse_info_id_back_tv.text = "请上传"
+                            spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                            ocrResp = OcrResp.ShowapiResBodyBean()
                         }
+                        idBackImgUrl = data.getStringExtra("imgUrl")
+                        spouse_info_id_no_edt.setText(ocrResp.idNo)
+                        spouse_info_clt_nm_edt.setText(ocrResp.name)
                     }
                     "id_card_front" -> {
                         if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
-                            idFrontImgUrl = data.getStringExtra("imgUrl")
                             spouse_info_id_front_tv.text = "已上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                            spouse_info_id_front_tv.text = "请上传"
+                            spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
+                        idFrontImgUrl = data.getStringExtra("imgUrl")
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

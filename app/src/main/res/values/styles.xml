@@ -65,6 +65,11 @@
         <item name="android:inputType">number</item>
     </style>
 
+    <style name="apply_info_content_type_number" parent="apply_info_content">
+        <item name="android:digits">0123456789</item>
+        <item name="android:inputType">number</item>
+    </style>
+
     <style name="MyDialogStyle" parent="Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>

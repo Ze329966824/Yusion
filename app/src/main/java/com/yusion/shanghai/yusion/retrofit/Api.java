@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.retrofit;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.retrofit.service.AuthService;
 import com.yusion.shanghai.yusion.retrofit.service.ConfigService;
@@ -58,7 +59,7 @@ public class Api {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Settings.SERVER_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
                 .build();
 
     }

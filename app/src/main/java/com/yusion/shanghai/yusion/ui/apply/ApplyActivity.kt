@@ -5,12 +5,13 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.user.ClientInfo
-import com.yusion.shanghai.yusion.bean.user.UserInfoBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -36,21 +37,13 @@ class ApplyActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
-//        if (mUserInfoBean.reg_addr_details == null) {
-//            mUserInfoBean.reg_addr_details = ""
-//        }
-//        if (mUserInfoBean.spouse != null) {
-//            if (mUserInfoBean.spouse.reg_addr_details == null) {
-//                mUserInfoBean.spouse.reg_addr_details = ""
-//            }
-//        }
-//        ProductApi.updateUserInfo(this, mUserInfoBean) {
-//            if (it != null) {
-//                Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, CommitActivity::class.java))
-        finish()
-//            }
-//        }
+        ProductApi.updateClientInfo(this, mClientInfo) {
+            if (it != null) {
+                Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, CommitActivity::class.java))
+                finish()
+            }
+        }
     }
 
     override fun onBackPressed() {

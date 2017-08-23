@@ -56,7 +56,7 @@ public class ClientInfo {
 
     public String major_income_type;
     public String major_income;
-    public String major_busi_type;
+    public String major_busi_type = "";
     public String major_company_name;
     public MajorCompanyAddrBean major_company_addr;
     public String major_work_position;
@@ -64,7 +64,7 @@ public class ClientInfo {
     public String major_remark;
     public String extra_income_type;
     public String extra_income;
-    public String extra_busi_type;
+    public String extra_busi_type = "";
     public String extra_company_name;
     public ExtraCompanyAddrBean extra_company_addr;
     public String extra_work_position;
@@ -95,6 +95,7 @@ public class ClientInfo {
     public String commited;
     public String status;
     public String created_time;
+    public String drv_lic_relationship;
     public String update_time;
     public SpouseBean spouse;
 
@@ -283,7 +284,7 @@ public class ClientInfo {
 
         public String major_income_type;
         public String major_income;
-        public String major_busi_type;
+        public String major_busi_type = "";
         public String major_company_name;
         public MajorCompanyAddrBeanX major_company_addr;
         public String major_work_position;
@@ -291,7 +292,7 @@ public class ClientInfo {
         public String major_remark;
         public String extra_income_type;
         public String extra_income;
-        public String extra_busi_type;
+        public String extra_busi_type = "";
         public String extra_company_name;
         public ExtraCompanyAddrBeanX extra_company_addr;
         public String extra_work_position;

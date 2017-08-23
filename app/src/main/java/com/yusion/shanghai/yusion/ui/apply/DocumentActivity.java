@@ -42,7 +42,7 @@ public class DocumentActivity extends BaseActivity {
     private String mImgObjectKey;
     private View view;
     private OcrResp.ShowapiResBodyBean mOcrResp;
-    private String imgUrl;
+    private String imgUrl = "";
     TitleBar titleBar;
     Intent mGetIntent;
 
@@ -305,6 +305,10 @@ public class DocumentActivity extends BaseActivity {
                                 titleBar.setRightText("编辑");
                                 takePhoto.setEnabled(true);
                                 Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+
+                                imgUrl = "";
+                                mImgObjectKey = "";
+
                                 isHasImage = false;
                             }
                         });

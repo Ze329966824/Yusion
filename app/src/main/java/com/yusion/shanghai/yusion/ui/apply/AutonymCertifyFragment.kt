@@ -69,6 +69,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.reg_addr.city = ocrResp.city
                     applyActivity.mClientInfo.reg_addr.district = ocrResp.town
                 }
+                applyActivity.mClientInfo.drv_lic_relationship = YusionApp.CONFIG_RESP.drv_lic_relationship_list_value[_DIR_REL_INDEX]
                 nextStep()
 //                uploadUrl(it.clt_id)
             }
@@ -185,24 +186,34 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                     autonym_certify_id_back_tv.text = "已上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                                     ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
-                                    autonym_certify_id_number_tv.setText(ocrResp.idNo)
-                                    autonym_certify_name_tv.setText(ocrResp.name)
-                                    idBackImgUrl = data.getStringExtra("imgUrl")
+                                } else {
+                                    autonym_certify_id_back_tv.text = "请上传"
+                                    autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    ocrResp = OcrResp.ShowapiResBodyBean()
                                 }
+                                idBackImgUrl = data.getStringExtra("imgUrl")
+                                autonym_certify_id_number_tv.setText(ocrResp.idNo)
+                                autonym_certify_name_tv.setText(ocrResp.name)
                             }
                             "id_card_front" -> {
                                 if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
-                                    idFrontImgUrl = data.getStringExtra("imgUrl")
                                     autonym_certify_id_front_tv.text = "已上传"
                                     autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                                } else {
+                                    autonym_certify_id_front_tv.text = "请上传"
+                                    autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
+                                idFrontImgUrl = data.getStringExtra("imgUrl")
                             }
                             "driving_lic" -> {
                                 if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
-                                    drivingLicImgUrl = data.getStringExtra("imgUrl")
                                     autonym_certify_driving_license_tv.text = "已上传"
                                     autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.system_color))
+                                } else {
+                                    autonym_certify_driving_license_tv.text = "请上传"
+                                    autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
+                                drivingLicImgUrl = data.getStringExtra("imgUrl")
                             }
                         }
                     }
