@@ -39,7 +39,7 @@ public class DocumentActivity extends BaseActivity {
     private File imageFile;
     private String mType;//id_card_front  id_card_back  driving_lic  auth_credit
     private String mRole;//lender lender_sp guarantor guarantor_sp
-    private String mImgObjectKey;
+    private String mImgObjectKey = "";
     private View view;
     private OcrResp.ShowapiResBodyBean mOcrResp;
     private String imgUrl = "";
@@ -226,6 +226,8 @@ public class DocumentActivity extends BaseActivity {
                 OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), "id_card", new OcrUtil.OnOcrSuccessCallBack() {
                     @Override
                     public void OnOcrSuccess(OcrResp ocrResp, String objectKey) {
+                        imgUrl = imageFile.getAbsolutePath();
+                        mImgObjectKey = objectKey;
                         if (ocrResp == null) {
                             Toast.makeText(DocumentActivity.this, "识别失败", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
@@ -236,8 +238,6 @@ public class DocumentActivity extends BaseActivity {
                             return;
                         } else {
                             Toast.makeText(DocumentActivity.this, "识别成功", Toast.LENGTH_LONG).show();
-                            imgUrl = imageFile.getAbsolutePath();
-                            mImgObjectKey = objectKey;
                             mOcrResp = ocrResp.showapi_res_body;
                             dialog.dismiss();
                         }

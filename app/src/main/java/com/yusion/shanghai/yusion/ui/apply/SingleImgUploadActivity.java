@@ -93,12 +93,12 @@ public class SingleImgUploadActivity extends BaseActivity {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
                         UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
-                        uploadFilesUrlReq.clt_id = mCltId;
+//                        uploadFilesUrlReq.clt_id = mCltId;
                         ArrayList<UploadFilesUrlReq.FileUrlBean> files = new ArrayList<>();
                         UploadFilesUrlReq.FileUrlBean fileUrlBean = new UploadFilesUrlReq.FileUrlBean();
                         fileUrlBean.file_id = objectKey;
                         fileUrlBean.label = mType;
-                        fileUrlBean.role = mRole;
+//                        fileUrlBean.role = mRole;
                         files.add(fileUrlBean);
                         uploadFilesUrlReq.files = files;
                         uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(SingleImgUploadActivity.this).getValue("region", "");

@@ -28,21 +28,21 @@ import java.util.*
 /**
  * Created by ice on 17/7/5.
  */
+/**
+ * 通过ID_BACK_FID ID_FRONT_FID DIR_FID 判断是否已上传图片至oss
+ */
 class AutonymCertifyFragment : DoubleCheckFragment() {
 
-    companion object {
-        var CURRENT_CLICKED_VIEW_FOR_PIC: Int = -1
-        var ID_BACK_FID = ""
-        var ID_FRONT_FID = ""
-        var _DIR_REL_INDEX: Int = 0
-    }
+    var _DIR_REL_INDEX: Int = 0
 
-    var hasIdFrontImg = false
-    var hasIdBackImg = false
-    var addr = ""
+    var ID_BACK_FID = ""
+    var ID_FRONT_FID = ""
+    var DIR_FID = ""
+
     var drivingLicImgUrl = ""
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
+
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,8 +70,8 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.reg_addr.district = ocrResp.town
                 }
                 applyActivity.mClientInfo.drv_lic_relationship = YusionApp.CONFIG_RESP.drv_lic_relationship_list_value[_DIR_REL_INDEX]
-                nextStep()
 //                uploadUrl(it.clt_id)
+                nextStep()
             }
         }
         autonym_certify_next_btn.setOnClickListener {
@@ -89,23 +89,23 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
         autonym_certify_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_back")
-            intent.putExtra("role", "lender")
+            intent.putExtra("type", Constants.FileLabel.ID_BACK)
+            intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idBackImgUrl)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         autonym_certify_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_front")
-            intent.putExtra("role", "lender")
+            intent.putExtra("type", Constants.FileLabel.ID_FRONT)
+            intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         autonym_certify_driving_license_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "driving_lic")
-            intent.putExtra("role", "lender")
+            intent.putExtra("type", Constants.FileLabel.DRI_LIC)
+            intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", drivingLicImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -113,13 +113,10 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
 
-
+        autonym_certify_name_tv.setText("just Test")
+        autonym_certify_id_number_tv.setText("${Date().time}")
         if (Settings.isShameData) {
-            autonym_certify_name_tv.setText("just Test")
-            autonym_certify_id_number_tv.setText("${Date().time}")
             autonym_certify_id_number_tv.setText("513001198707080231")
-            hasIdBackImg = true
-            hasIdFrontImg = true
             ID_BACK_FID = "test"
             ID_FRONT_FID = "test"
         }
@@ -127,24 +124,30 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     }
 
     fun uploadUrl(cltId: String) {
-        //上传url到服务器
-        val uploadFilesUrlReq = UploadFilesUrlReq()
-        uploadFilesUrlReq.clt_id = cltId
-        val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         val idBackBean = UploadFilesUrlReq.FileUrlBean()
         idBackBean.file_id = ID_BACK_FID
-        idBackBean.label = "id_card_back"
-        idBackBean.role = "lender"
+        idBackBean.label = Constants.FileLabel.ID_BACK
+        idBackBean.clt_id = cltId
+
         val idFrontBean = UploadFilesUrlReq.FileUrlBean()
         idFrontBean.file_id = ID_FRONT_FID
-        idFrontBean.label = "id_card_front"
-        idFrontBean.role = "lender"
+        idFrontBean.label = Constants.FileLabel.ID_FRONT
+        idFrontBean.clt_id = cltId
+
+        val driBean = UploadFilesUrlReq.FileUrlBean()
+        driBean.file_id = DIR_FID
+        driBean.label = Constants.FileLabel.DRI_LIC
+        driBean.clt_id = cltId
+
+        val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         files.add(idBackBean)
         files.add(idFrontBean)
+        files.add(driBean)
+
+        val uploadFilesUrlReq = UploadFilesUrlReq()
         uploadFilesUrlReq.files = files
         uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "")
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
-
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
                 nextStep()
@@ -154,17 +157,21 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     fun checkCanNextStep(): Boolean {
         return true
-//        if (!hasIdBackImg) {
+//        if (ID_BACK_FID.isEmpty()) {
 //            Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
-//        } else if (!hasIdFrontImg) {
+//        } else if (ID_FRONT_FID.isEmpty()) {
 //            Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
-//        } else if (autonym_certify_name_tv.text.isEmpty()) {
-//            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-//        } else if (autonym_certify_id_number_tv.text.isEmpty()) {
-//            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-//        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv.text.toString())) {
-//            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-//        } else {
+//        } else if (DIR_FID.isEmpty()) {
+//            Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
+//        }
+//// else if (autonym_certify_name_tv.text.isEmpty()) {
+////            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
+////        } else if (autonym_certify_id_number_tv.text.isEmpty()) {
+////            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
+////        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv.text.toString())) {
+////            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
+////        }
+//        else {
 //            return true
 //        }
 //        return false
@@ -181,8 +188,10 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 Constants.REQUEST_DOCUMENT -> {
                     data?.let {
                         when (data.getStringExtra("type")) {
-                            "id_card_back" -> {
-                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            Constants.FileLabel.ID_BACK -> {
+                                ID_BACK_FID = data.getStringExtra("objectKey")
+                                idBackImgUrl = data.getStringExtra("imgUrl")
+                                if (ID_BACK_FID.isNotEmpty()) {
                                     autonym_certify_id_back_tv.text = "已上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                                     ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
@@ -190,29 +199,30 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                     autonym_certify_id_back_tv.text = "请上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                idBackImgUrl = data.getStringExtra("imgUrl")
                                 autonym_certify_id_number_tv.setText(ocrResp.idNo)
                                 autonym_certify_name_tv.setText(ocrResp.name)
                             }
-                            "id_card_front" -> {
-                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            Constants.FileLabel.ID_FRONT -> {
+                                ID_FRONT_FID = data.getStringExtra("objectKey")
+                                idFrontImgUrl = data.getStringExtra("imgUrl")
+                                if (ID_FRONT_FID.isNotEmpty()) {
                                     autonym_certify_id_front_tv.text = "已上传"
                                     autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
                                 } else {
                                     autonym_certify_id_front_tv.text = "请上传"
                                     autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                idFrontImgUrl = data.getStringExtra("imgUrl")
                             }
-                            "driving_lic" -> {
-                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            Constants.FileLabel.DRI_LIC -> {
+                                DIR_FID = data.getStringExtra("objectKey")
+                                drivingLicImgUrl = data.getStringExtra("imgUrl")
+                                if (DIR_FID.isNotEmpty()) {
                                     autonym_certify_driving_license_tv.text = "已上传"
                                     autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.system_color))
                                 } else {
                                     autonym_certify_driving_license_tv.text = "请上传"
                                     autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                drivingLicImgUrl = data.getStringExtra("imgUrl")
                             }
                         }
                     }

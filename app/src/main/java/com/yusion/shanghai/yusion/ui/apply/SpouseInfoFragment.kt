@@ -16,39 +16,32 @@ import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
+import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
+import com.yusion.shanghai.yusion.ui.info.UploadListActivity
 import com.yusion.shanghai.yusion.utils.ContactsUtil
+import com.yusion.shanghai.yusion.utils.InputMethodUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 /**
  * Created by ice on 17/7/5.
  */
 class SpouseInfoFragment : BaseFragment() {
 
-    companion object {
-        var START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000
-        var _GENDER_INDEX: Int = 0
-        var _MARRIAGE_INDEX: Int = 0
-        var idBackImgUrl = ""
-        var idFrontImgUrl = ""
-        var START_FOR_SPOUSE_ID_CARD_ACTIVITY = 1001
-        var _WORK_POSITION_INDEX: Int = 0
-        var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
-        var _INCOME_FROME_INDEX: Int = 0
-        var _EXTRA_INCOME_FROME_INDEX: Int = 0
-        var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
-        var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
-        var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
-        var _FROM_SELF_TYPE_INDEX: Int = 0
-        var _EDUCATION_INDEX: Int = 0
-        var _HOUSE_TYPE_INDEX: Int = 0
-        var _HOUSE_OWNER_RELATION_INDEX: Int = 0
-        var _URG_RELATION_INDEX1: Int = 0
-        var _URG_RELATION_INDEX2: Int = 0
-    }
+    var _GENDER_INDEX: Int = 0
+    var _MARRIAGE_INDEX: Int = 0
+    var idBackImgUrl = ""
+    var idFrontImgUrl = ""
+    var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
+    var _INCOME_FROME_INDEX: Int = 0
+    var _EXTRA_INCOME_FROME_INDEX: Int = 0
+    var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
+    var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
+    var _FROM_SELF_TYPE_INDEX: Int = 0
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
@@ -61,16 +54,16 @@ class SpouseInfoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         spouse_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_back")
-            intent.putExtra("role", "lender_sp")
+            intent.putExtra("type", Constants.FileLabel.ID_BACK)
+            intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("imgUrl", idBackImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         spouse_info_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_front")
-            intent.putExtra("role", "lender_sp")
+            intent.putExtra("type", Constants.FileLabel.ID_FRONT)
+            intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -97,12 +90,18 @@ class SpouseInfoFragment : BaseFragment() {
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
-            var intent = Intent(mContext, SingleImgUploadActivity::class.java)
-            intent.putExtra("type", "divorce_proof")
-            intent.putExtra("role", "lender")
-//            intent.putExtra("clt_id", (activity as ApplyActivity).mClientInfo.clt_id)
-            intent.putExtra("imgUrl", divorceImgUrl)
-            startActivityForResult(intent, START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
+            var intent = Intent(mContext, UploadListActivity::class.java)
+            intent.putExtra("type", Constants.FileLabel.DIVORCE)
+            intent.putExtra("role", Constants.PersonType.LENDER)
+            intent.putExtra("imgsUrl", divorceImgsList)
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
+        }
+        spouse_info_register_addr_lin.setOnClickListener {
+            var intent = Intent(mContext, UploadListActivity::class.java)
+            intent.putExtra("type", Constants.FileLabel.DIVORCE)
+            intent.putExtra("role", Constants.PersonType.LENDER_SP)
+            intent.putExtra("imgsUrl", divorceImgsList)
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         spouse_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, spouse_info_gender_lin, spouse_info_gender_tv, "请选择", { _, index ->
@@ -215,12 +214,16 @@ class SpouseInfoFragment : BaseFragment() {
                             .setTitle("请输入业务类型")
                             .setView(editText)
                             .setCancelable(false)
-                            .setPositiveButton("确定") { dialog, which ->
+                            .setPositiveButton("确定") { dialog, _ ->
                                 spouse_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
                                 dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
                             }
-                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                            .setNegativeButton("取消") { dialog, _ ->
+                                dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
+                            }.show()
                 }
             })
         }
@@ -293,8 +296,8 @@ class SpouseInfoFragment : BaseFragment() {
         startActivityForResult(intent, Constants.REQUEST_ADDRESS)
     }
 
-    private var divorceImgUrl = ""
-    var regDetailAddress = ""
+    private var divorceImgsList = ArrayList<UploadImgItemBean>()
+    private var resBookList = ArrayList<UploadImgItemBean>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {

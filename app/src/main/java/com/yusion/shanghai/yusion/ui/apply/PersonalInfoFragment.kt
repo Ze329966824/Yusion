@@ -16,6 +16,7 @@ import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.utils.ContactsUtil
+import com.yusion.shanghai.yusion.utils.InputMethodUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.personal_info.*
 import org.greenrobot.eventbus.EventBus
@@ -25,24 +26,19 @@ import org.greenrobot.eventbus.EventBus
  */
 class PersonalInfoFragment : DoubleCheckFragment() {
 
-    companion object {
-        var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
-        var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
-
-        var _GENDER_INDEX: Int = 0
-        var _INCOME_FROM_INDEX: Int = 0
-        var _EDUCATION_INDEX: Int = 0
-        var _EXTRA_INCOME_FROME_INDEX: Int = 0
-
-        var _WORK_POSITION_INDEX: Int = 0
-        var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
-        var _FROM_SELF_TYPE_INDEX: Int = 0
-        var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
-        var _HOUSE_TYPE_INDEX: Int = 0
-        var _HOUSE_OWNER_RELATION_INDEX: Int = 0
-        var _URG_RELATION_INDEX1: Int = 0
-        var _URG_RELATION_INDEX2: Int = 0
-    }
+    var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
+    var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
+    var _GENDER_INDEX: Int = 0
+    var _INCOME_FROM_INDEX: Int = 0
+    var _EDUCATION_INDEX: Int = 0
+    var _EXTRA_INCOME_FROM_INDEX: Int = 0
+    var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
+    var _FROM_SELF_TYPE_INDEX: Int = 0
+    var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
+    var _HOUSE_TYPE_INDEX: Int = 0
+    var _HOUSE_OWNER_RELATION_INDEX: Int = 0
+    var _URG_RELATION_INDEX1: Int = 0
+    var _URG_RELATION_INDEX2: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.personal_info, container, false)
@@ -158,9 +154,9 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             })
         }
         personal_info_extra_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资"), _EXTRA_INCOME_FROME_INDEX, personal_info_extra_income_from_lin, personal_info_extra_income_from_tv, "请选择", { _, index ->
-                _EXTRA_INCOME_FROME_INDEX = index
-                personal_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资"), _EXTRA_INCOME_FROM_INDEX, personal_info_extra_income_from_lin, personal_info_extra_income_from_tv, "请选择", { _, index ->
+                _EXTRA_INCOME_FROM_INDEX = index
+                personal_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         personal_info_reg_lin.setOnClickListener {
@@ -210,12 +206,16 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                             .setTitle("请输入业务类型")
                             .setView(editText)
                             .setCancelable(false)
-                            .setPositiveButton("确定") { dialog, which ->
+                            .setPositiveButton("确定") { dialog, _ ->
                                 personal_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
+                                InputMethodUtil.hideInputMethod(mContext)
                                 dialog.dismiss()
                             }
-                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                            .setNegativeButton("取消") { dialog, _ ->
+                                dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
+                            }.show()
                 }
             })
         }
@@ -286,10 +286,10 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             var clientInfoBean = (activity as ApplyActivity).mClientInfo
             personal_info_clt_nm_edt.text = clientInfoBean.clt_nm
             personal_info_id_no_edt.text = clientInfoBean.id_no
-//            personal_info_gender_tv.text = clientInfoBean.gender
-//            if (clientInfoBean.reg_addr.province.isNotEmpty() && clientInfoBean.reg_addr.city.isNotEmpty() && clientInfoBean.reg_addr.district.isNotEmpty()) {
-//                personal_info_reg_tv.text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
-//            }
+            personal_info_gender_tv.text = clientInfoBean.gender
+            if (clientInfoBean.reg_addr.province.isNotEmpty() && clientInfoBean.reg_addr.city.isNotEmpty() && clientInfoBean.reg_addr.district.isNotEmpty()) {
+                personal_info_reg_tv.text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
+            }
         }
     }
 
@@ -364,7 +364,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         startActivityForResult(intent, Constants.REQUEST_CONTACTS)
     }
 
-    private var drivingLicenseImgUrl: String = ""
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
