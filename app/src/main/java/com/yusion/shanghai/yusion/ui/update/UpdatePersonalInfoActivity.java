@@ -84,7 +84,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private EditText update_personal_info_urg_contact2_edt;           //紧急联系人-姓名2
 
 
-    private ClientInfo data;
+    private ClientInfo clientInfo;
     public ImageView submit_img;
 
     @Override
@@ -97,14 +97,20 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 
 
 
-        initGetInfo();  //获取用户信息
+        getInfo();  //获取用户信息
+
+        submit();   //更新用户信息
+
+
+    }
+
+    private void submit() {
         findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 commit();
             }
         });
-
 
     }
 
@@ -156,13 +162,14 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     }
 
 
-    private void initGetInfo() {
+    private void getInfo() {
         ProductApi.getClientInfo(this, new GetClientInfoReq(), new OnItemDataCallBack<ClientInfo>() {
             @Override
             public void onItemDataCallBack(ClientInfo data) {
                 if (data != null) {
-                    mUpdatePersonalInfoFragment.getClientinfo(data);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(data.clt_id,"lender");
+                    clientInfo = data;
+                    mUpdatePersonalInfoFragment.getClientinfo(clientInfo);
+                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id,"lender");
                 }
                 return;
 
@@ -170,8 +177,8 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         });
     }
     public void commit() {
-        mUpdatePersonalInfoFragment.updateClientinfo(data);
-        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, data, new OnItemDataCallBack<ClientInfo>() {
+        mUpdatePersonalInfoFragment.updateClientinfo();
+        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
             @Override
             public void onItemDataCallBack(ClientInfo data) {
 
