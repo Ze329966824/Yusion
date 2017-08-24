@@ -39,6 +39,8 @@ public class UpdateImgsLabelFragment extends BaseFragment {
 
     private UploadLabelListAdapter mAdapter;
     private List<UploadLabelItemBean> mItems = new ArrayList<>();
+    private String mCltId;
+    private String mLender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,5 +155,10 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 mAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    public void setCltIdAndRole(String clt_id, String lender) {
+        mCltId = clt_id;
+        mLender = lender;
     }
 }
