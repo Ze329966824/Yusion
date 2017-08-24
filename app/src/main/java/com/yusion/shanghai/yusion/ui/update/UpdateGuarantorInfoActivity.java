@@ -14,6 +14,11 @@ import android.widget.ImageView;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.user.ClientInfo;
+import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
+import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -31,6 +36,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     private UpdateGuarantorInfoFragment mUpdateGuarantorInfoFragment;
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人资料", "影像件"};
+    private GuarantorInfo guarantorInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +44,46 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_update_guarantor_info);
         initTitleBar(this, "担保人资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
-        initCommit();
+
+        getInfo();  //获取担保人信息
+        submit();   //更新用户信息
     }
 
-    private void initCommit() {
+    private void submit() {
         findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UpdateGuarantorInfoActivity.this,CommitActivity.class);
+                commit();
+            }
+        });
+    }
+
+    private void getInfo() {
+        ProductApi.getGuarantorInfo(this, new GetGuarantorInfoReq(), new OnItemDataCallBack<GuarantorInfo>() {
+            @Override
+            public void onItemDataCallBack(GuarantorInfo data) {
+                if (data != null) {
+                    guarantorInfo = data;
+                    mUpdateGuarantorInfoFragment.getClientinfo(guarantorInfo);
+                    mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.clt_id, "lender");
+                }
+                return;
+            }
+        });
+
+
+    }
+
+    private void commit() {
+        mUpdateGuarantorInfoFragment.updateGuarantorinfo();
+        ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+            @Override
+            public void onItemDataCallBack(GuarantorInfo data) {
+                Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-
     }
 
     private void initView() {
@@ -113,6 +146,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         public int getCount() {
             return mFragments == null ? 0 : mFragments.size();
         }
+
     }
 
     private void showDoubleCheckForExit() {

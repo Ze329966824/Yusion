@@ -92,14 +92,16 @@ public class HomeFragment extends BaseFragment {
                 UserApi.getListCurrentTpye(mContext, new OnItemDataCallBack<ListCurrentTpye>() {
                     @Override
                     public void onItemDataCallBack(ListCurrentTpye data) {
-                        if (data.guarantor_commited) {
-                            Intent intent = new Intent(mContext, InfoListActivity.class);
-                            intent.putExtra("ishaveGuarantee", true);
-                            startActivity(intent);
-                        }else {
-                            Intent intent = new Intent(mContext, InfoListActivity.class);
-                            intent.putExtra("ishaveGuarantee", false);
-                            startActivity(intent);
+                        if (data != null) {
+                            if (data.guarantor_commited) {
+                                Intent intent = new Intent(mContext, InfoListActivity.class);
+                                intent.putExtra("ishaveGuarantee", true);
+                                startActivity(intent);
+                            }else {
+                                Intent intent = new Intent(mContext, InfoListActivity.class);
+                                intent.putExtra("ishaveGuarantee", false);
+                                startActivity(intent);
+                            }
                         }
                     }
                 });
