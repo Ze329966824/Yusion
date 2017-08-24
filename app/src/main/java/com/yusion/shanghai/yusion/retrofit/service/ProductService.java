@@ -16,13 +16,13 @@ public interface ProductService {
 
     @POST("api/client/client_info/")
     Call<BaseResult<UserInfoBean>> updateUserInfo(@Body UserInfoBean req);
-
+    //更新用户资料
     @POST("api/client/client_info/")
     Call<BaseResult<ClientInfo>> updateClientInfo(@Body ClientInfo req);
 
     @GET("api/client/client_info/")
     Call<BaseResult<UserInfoBean>> getUserInfo(@Query("id_no") String id_no, @Query("clt_nm") String clt_nm);
-
+    //获取用户信息
     @GET("api/client/client_info/")
     Call<BaseResult<ClientInfo>> getClientInfo(@Query("id_no") String id_no, @Query("clt_nm") String clt_nm);
 

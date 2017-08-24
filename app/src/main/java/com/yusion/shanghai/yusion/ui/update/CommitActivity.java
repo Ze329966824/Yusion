@@ -8,6 +8,9 @@ import android.view.View;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 
 public class CommitActivity extends BaseActivity {
 
@@ -23,10 +26,26 @@ public class CommitActivity extends BaseActivity {
         findViewById(R.id.return_list_info).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CommitActivity.this,InfoListActivity.class);
-                intent.putExtra("ishaveGuarantee",true);
-                startActivity(intent);
-                finish();
+
+
+                UserApi.getListCurrentTpye(CommitActivity.this, new OnItemDataCallBack<ListCurrentTpye>() {
+                    @Override
+                    public void onItemDataCallBack(ListCurrentTpye data) {
+                        if (data.guarantor_commited) {
+                            Intent intent = new Intent(CommitActivity.this, InfoListActivity.class);
+                            intent.putExtra("ishaveGuarantee", true);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(CommitActivity.this, InfoListActivity.class);
+                            intent.putExtra("ishaveGuarantee", false);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
+
             }
         });
     }

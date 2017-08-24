@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -33,13 +34,32 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
+
+
+    private TextView update_spouse_info_marriage_tv;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_spouse_info);
         initTitleBar(this, "配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
-        initCommit();
+        initAllData();  //初始化
+
+        initGetInfo();  //获取用户信息
+
+        initCommit();   //提交用户信息
+    }
+
+    private void initGetInfo() {
+//        update_spouse_info_marriage_tv
+    }
+
+    private void initAllData() {
+
+
     }
 
     private void initCommit() {

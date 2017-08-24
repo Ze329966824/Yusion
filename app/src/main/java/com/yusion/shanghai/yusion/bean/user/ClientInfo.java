@@ -8,6 +8,100 @@ import com.google.gson.Gson;
 
 public class ClientInfo {
 
+//
+//    {
+//        "clt_id":"5be9490a871f11e7b7f902f1f38b2f4a",
+//            "clt_nm":"xx",
+//            "commited":"1",
+//            "created_time":"2017-08-24 15:24:57",
+//            "current_addr":{
+//        "address1":"玄武湖(东北门)",
+//                "address2":"kkk",
+//                "city":"南京市",
+//                "created_time":"2017-08-23T16:27:23.810",
+//                "district":"玄武区",
+//                "province":"江苏省",
+//                "update_time":"2017-08-23T16:27:23.810"
+//    },
+//        "drv_lic_relationship":"本人",
+//            "edu":"高中以下",
+//            "extra_company_addr":{
+//        "address1":"玄武湖(东北门)",
+//                "address2":"jjj",
+//                "city":"南京市",
+//                "created_time":"2017-08-23T16:27:23.877",
+//                "district":"玄武区",
+//                "province":"江苏省",
+//                "update_time":"2017-08-23T16:27:23.877"
+//    },
+//        "extra_company_name":"nnn",
+//            "extra_income":"2225",
+//            "extra_income_type":"工资",
+//            "extra_work_phone_num":"jjjj",
+//            "extra_work_position":"高管",
+//            "gender":"男",
+//            "house_area":"9666",
+//            "house_owner_name":"mmjj",
+//            "house_owner_relation":"自己",
+//            "house_type":"商品房",
+//            "id_no":"xx",
+//            "major_company_addr":{
+//        "city":"",
+//                "created_time":"2017-08-23T16:27:23.843",
+//                "province":"",
+//                "update_time":"2017-08-23T16:27:23.843"
+//    },
+//        "major_income":"555",
+//            "major_income_type":"其他",
+//            "major_remark":"nnn",
+//            "marriage":"未婚",
+//            "mobile":"13888888888",
+//            "reg_addr":{
+//        "city":"南京市",
+//                "created_time":"2017-08-23T16:27:23.772",
+//                "district":"玄武区",
+//                "province":"江苏省",
+//                "update_time":"2017-08-23T16:27:23.772"
+//    },
+//        "reg_addr_details":"",
+//            "spouse":{
+//        "clt_id":"54c2327a889d11e79bc602f1f38b2f4a",
+//                "clt_nm":"",
+//                "commited":"0",
+//                "current_addr":{
+//            "city":"",
+//                    "province":""
+//        },
+//        "extra_company_addr":{
+//            "city":"",
+//                    "province":""
+//        },
+//        "extra_income":"0",
+//                "house_area":"0",
+//                "id_no":"",
+//                "major_company_addr":{
+//            "city":"",
+//                    "province":""
+//        },
+//        "major_income":"0",
+//                "mobile":"",
+//                "reg_addr":{
+//            "city":"",
+//                    "province":""
+//        },
+//        "status":"N"
+//    },
+//        "status":"N",
+//            "update_time":"2017-08-22 17:50:41",
+//            "urg_contact1":"mmm",
+//            "urg_contact2":"旺资",
+//            "urg_mobile1":"666",
+//            "urg_mobile2":"123",
+//            "urg_relation1":"父母",
+//            "urg_relation2":"朋友"
+//    }
+
+
     /**
      * major_income_type : null
      * major_income : 0
@@ -106,8 +200,8 @@ public class ClientInfo {
 
     public static class MajorCompanyAddrBean {
         /**
-         * province : 
-         * city : 
+         * province :
+         * city :
          * district : null
          * zip_code : null
          * address1 : null
@@ -139,8 +233,8 @@ public class ClientInfo {
 
     public static class ExtraCompanyAddrBean {
         /**
-         * province : 
-         * city : 
+         * province :
+         * city :
          * district : null
          * zip_code : null
          * address1 : null
@@ -172,8 +266,8 @@ public class ClientInfo {
 
     public static class RegAddrBean {
         /**
-         * province : 
-         * city : 
+         * province :
+         * city :
          * district : null
          * zip_code : null
          * address1 : null
@@ -205,8 +299,8 @@ public class ClientInfo {
 
     public static class CurrentAddrBean {
         /**
-         * province : 
-         * city : 
+         * province :
+         * city :
          * district : null
          * zip_code : null
          * address1 : null
@@ -262,7 +356,7 @@ public class ClientInfo {
          * age : null
          * edu : null
          * marriage : null
-         * mobile : 
+         * mobile :
          * reg_addr : {"province":"","city":"","district":null,"zip_code":null,"address1":null,"address2":null,"longitude":null,"latitude":null,"len_of_residence":null,"created_time":"2017-08-22T17:09:33.497","update_time":"2017-08-22T17:09:33.498"}
          * reg_addr_details : null
          * current_addr : {"province":"","city":"","district":null,"zip_code":null,"address1":null,"address2":null,"longitude":null,"latitude":null,"len_of_residence":null,"created_time":"2017-08-22T17:09:33.564","update_time":"2017-08-22T17:09:33.564"}
@@ -332,8 +426,8 @@ public class ClientInfo {
 
         public static class MajorCompanyAddrBeanX {
             /**
-             * province : 
-             * city : 
+             * province :
+             * city :
              * district : null
              * zip_code : null
              * address1 : null
@@ -365,8 +459,8 @@ public class ClientInfo {
 
         public static class ExtraCompanyAddrBeanX {
             /**
-             * province : 
-             * city : 
+             * province :
+             * city :
              * district : null
              * zip_code : null
              * address1 : null
@@ -398,8 +492,8 @@ public class ClientInfo {
 
         public static class RegAddrBeanX {
             /**
-             * province : 
-             * city : 
+             * province :
+             * city :
              * district : null
              * zip_code : null
              * address1 : null
@@ -431,8 +525,8 @@ public class ClientInfo {
 
         public static class CurrentAddrBeanX {
             /**
-             * province : 
-             * city : 
+             * province :
+             * city :
              * district : null
              * zip_code : null
              * address1 : null

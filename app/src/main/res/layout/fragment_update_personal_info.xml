@@ -5,6 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="center"
+        android:src="@mipmap/to_top"
+        app:backgroundTint="@color/transparent"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
+        app:rippleColor="@color/transparent" />
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -21,9 +39,9 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:background="@color/bg_color"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:background="@color/bg_color"
                     android:orientation="horizontal">
 
                     <View
@@ -70,7 +88,7 @@
                                 style="@style/apply_info_title"
                                 android:text="姓名" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/update_personal_info_clt_nm_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp" />
@@ -88,7 +106,7 @@
                                 style="@style/apply_info_title"
                                 android:text="身份证号" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/update_personal_info_id_no_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp" />
@@ -382,7 +400,7 @@
                         <LinearLayout style="@style/apply_info_item">
 
                             <TextView
-                                style="@style/apply_info_content_type_number"
+                                style="@style/apply_info_title"
                                 android:text="年收入" />
 
                             <EditText
@@ -865,7 +883,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <View
                             android:layout_width="match_parent"
@@ -1084,7 +1102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <View
                             android:layout_width="match_parent"
@@ -1204,9 +1222,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/bg_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/bg_color"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -1427,23 +1445,5 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="15dp"
-        android:scaleType="center"
-        android:src="@mipmap/to_top"
-        app:backgroundTint="@color/transparent"
-        app:borderWidth="0dp"
-        app:elevation="0dp"
-        app:layout_anchor="@id/scrollView"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
-        app:rippleColor="@color/transparent" />
 
 </android.support.design.widget.CoordinatorLayout>
