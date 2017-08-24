@@ -34,7 +34,7 @@ import java.util.List;
 public class UpdateImgsLabelFragment extends BaseFragment {
 
     private UploadLabelListAdapter mAdapter;
-    private List<UploadLabelItemBean> mItems;
+    private List<UploadLabelItemBean> mItems = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,14 +56,14 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 if (item.label_list.size() == 0) {
                     //下级目录为图片页
                     intent.setClass(mContext, UploadListActivity.class);
-//                    intent.putExtra("role", "lender");
+                    intent.putExtra("role", "lender");//.............
                 } else {
                     //下级目录为标签页
                     intent.setClass(mContext, UploadLabelListActivity.class);
                 }
                 intent.putExtra("topItem", item);
                 //clt_id取图片
-//                intent.putExtra("clt_id", ((UpdateUserInfoActivity) getActivity()).getUserInfoBean().clt_id);
+                intent.putExtra("clt_id", "5be9490a871f11e7b7f902f1f38b2f4a");//.............
                 intent.putExtra("index", index);
                 startActivityForResult(intent, 100);
             }
@@ -76,13 +76,12 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     private void initData() {
         try {
             JSONArray jsonArray = new JSONArray(YusionApp.CONFIG_RESP.client_material);
-            mItems = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 UploadLabelItemBean uploadLabelItemBean = new Gson().fromJson(jsonObject.toString(), UploadLabelItemBean.class);
                 mItems.add(uploadLabelItemBean);
-                mAdapter.notifyDataSetChanged();
             }
+            mAdapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
         }

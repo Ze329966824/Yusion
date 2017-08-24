@@ -15,8 +15,10 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.adapter.UploadImgListAdapter;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -83,28 +85,28 @@ public class UploadListActivity extends BaseActivity {
         if (mTopItem == null) {
 
         }else {
-//        if (!mTopItem.hasGetImgsFromServer) {
-//            //第一次进入
-//            ListImgsReq req = new ListImgsReq();
-//            req.role = mGetIntent.getStringExtra("role");
-//            req.label = mTopItem.value;
-//            req.clt_id = mGetIntent.getStringExtra("clt_id");
-//            UploadApi.listImgs(this, req, resp -> {
-//                mTopItem.hasGetImgsFromServer = true;
-//                if (resp.has_err) {
-//                    errorLin.setVisibility(View.VISIBLE);
-//                    errorTv.setText("您提交的资料有误：" + resp.error);
-//                    mTopItem.errorInfo = "您提交的资料有误：" + resp.error;
-//                } else {
-//                    errorLin.setVisibility(View.GONE);
-//                    mTopItem.errorInfo = "";
-//                }
-//                if (resp.list.size() != 0) {
-//                    items.addAll(resp.list);
-//                    adapter.notifyDataSetChanged();
-//                }
-//            });
-//        } else
+            if (!mTopItem.hasGetImgsFromServer) {
+                //第一次进入
+                ListImgsReq req = new ListImgsReq();
+                req.role = mRole;
+                req.label = mTopItem.value;
+                req.clt_id = mGetIntent.getStringExtra("clt_id");
+                UploadApi.listImgs(this, req, resp -> {
+                    mTopItem.hasGetImgsFromServer = true;
+                    if (resp.has_err) {
+                        errorLin.setVisibility(View.VISIBLE);
+                        errorTv.setText("您提交的资料有误：" + resp.error);
+                        mTopItem.errorInfo = "您提交的资料有误：" + resp.error;
+                    } else {
+                        errorLin.setVisibility(View.GONE);
+                        mTopItem.errorInfo = "";
+                    }
+                    if (resp.list.size() != 0) {
+                        imgList.addAll(resp.list);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            } else
             if (mTopItem.hasError) {
                 errorLin.setVisibility(View.VISIBLE);
                 errorTv.setText(mTopItem.errorInfo);
