@@ -39,6 +39,7 @@ public class UploadLabelItemBean implements Serializable {
     public List<UploadImgItemBean> img_list = new ArrayList<>();
     public List<UploadLabelItemBean> label_list = new ArrayList<>();
 
+    public boolean hasImg = false;
     public boolean hasError = false;
     public String errorInfo = "";
     public boolean hasGetImgsFromServer = false;

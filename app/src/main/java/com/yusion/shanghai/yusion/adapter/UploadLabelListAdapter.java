@@ -62,6 +62,9 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
     }
 
     private boolean hasImg(UploadLabelItemBean itemBean) {
+        if (itemBean.hasImg) {
+            return true;
+        }
         if (itemBean.label_list.size() == 0) {
             return itemBean.img_list.size() != 0;
         } else {

@@ -40,7 +40,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     private UploadLabelListAdapter mAdapter;
     private List<UploadLabelItemBean> mItems = new ArrayList<>();
     private String mCltId;
-    private String mLender;
+    private String mRole;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,14 +62,14 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 if (item.label_list.size() == 0) {
                     //下级目录为图片页
                     intent.setClass(mContext, UploadListActivity.class);
-                    intent.putExtra("role", "lender");//.............
+                    intent.putExtra("role", mRole);
                 } else {
                     //下级目录为标签页
                     intent.setClass(mContext, UploadLabelListActivity.class);
                 }
                 intent.putExtra("topItem", item);
                 //clt_id取图片
-                intent.putExtra("clt_id", "cb2ab574889b11e7a2e002f1f38b2f4a");//.............
+                intent.putExtra("clt_id", mCltId);
                 intent.putExtra("index", index);
                 startActivityForResult(intent, 100);
             }
@@ -91,20 +91,6 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        ListLabelsErrorReq req = new ListLabelsErrorReq();
-        req.clt_id = "cb2ab574889b11e7a2e002f1f38b2f4a";
-        ArrayList<String> labelsList = new ArrayList<>();
-        for (UploadLabelItemBean itemBean : mItems) {
-            labelsList.add(itemBean.value);
-        }
-        req.label_list = labelsList;
-        UploadApi.listLabelsError(mContext, req, new OnItemDataCallBack<ListLabelsErrorResp>() {
-            @Override
-            public void onItemDataCallBack(ListLabelsErrorResp resp) {
-
-            }
-        });
     }
 
     private void initShamData() {
@@ -157,8 +143,43 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         }
     }
 
-    public void setCltIdAndRole(String clt_id, String lender) {
+    public void setCltIdAndRole(String clt_id, String role) {
         mCltId = clt_id;
-        mLender = lender;
+        mRole = role;
+
+        ListLabelsErrorReq req = new ListLabelsErrorReq();
+        req.clt_id = mCltId;
+        ArrayList<String> labelsList = new ArrayList<>();
+        for (UploadLabelItemBean itemBean : mItems) {
+            labelsList.add(itemBean.value);
+        }
+        req.label_list = labelsList;
+        UploadApi.listLabelsError(mContext, req, new OnItemDataCallBack<ListLabelsErrorResp>() {
+            @Override
+            public void onItemDataCallBack(ListLabelsErrorResp resp) {
+                loop:for (UploadLabelItemBean uploadLabelItemBean : mItems) {
+                    for (String hasImgLabel : resp.has_img_labels) {
+                        if (uploadLabelItemBean.value.equals(hasImgLabel)) {
+                            uploadLabelItemBean.hasImg = true;
+                            continue loop;
+                        }else {
+                            uploadLabelItemBean.hasImg = false;
+                        }
+                    }
+                }
+
+                loop:for (UploadLabelItemBean uploadLabelItemBean : mItems) {
+                    for (String hasErrorLabel : resp.err_labels) {
+                        if (uploadLabelItemBean.value.equals(hasErrorLabel)) {
+                            uploadLabelItemBean.hasError = true;
+                            continue loop;
+                        }else {
+                            uploadLabelItemBean.hasError = false;
+                        }
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }
