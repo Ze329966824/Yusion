@@ -13,12 +13,15 @@ import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.utils.ContactsUtil
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_credit_info.*
 import org.greenrobot.eventbus.EventBus
@@ -28,7 +31,10 @@ import java.util.*
  * Created by ice on 2017/8/21.
  */
 class GuarantorCreditInfoFragment : DoubleCheckFragment() {
+
     var _GUARANTOR_REL_INDEX: Int = 0
+    var ID_BACK_FID = ""
+    var ID_FRONT_FID = ""
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
     var ocrResp = OcrResp.ShowapiResBodyBean()
@@ -87,16 +93,16 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         }
         guarantor_credit_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_back")
-            intent.putExtra("role", "lender")
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK)
+            intent.putExtra("role", Constants.PersonType.GUARANTOR)
             intent.putExtra("imgUrl", idBackImgUrl)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         guarantor_credit_info_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_front")
-            intent.putExtra("role", "lender")
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
+            intent.putExtra("role", Constants.PersonType.GUARANTOR)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -123,6 +129,32 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
 //        return false
     }
 
+    fun uploadUrl(cltId: String) {
+        val idBackBean = UploadFilesUrlReq.FileUrlBean()
+        idBackBean.file_id = ID_BACK_FID
+        idBackBean.label = Constants.FileLabelType.ID_BACK
+        idBackBean.clt_id = cltId
+
+        val idFrontBean = UploadFilesUrlReq.FileUrlBean()
+        idFrontBean.file_id = ID_FRONT_FID
+        idFrontBean.label = Constants.FileLabelType.ID_FRONT
+        idFrontBean.clt_id = cltId
+
+        val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
+        files.add(idBackBean)
+        files.add(idFrontBean)
+
+        val uploadFilesUrlReq = UploadFilesUrlReq()
+        uploadFilesUrlReq.files = files
+        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "")
+        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
+        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
+            if (code >= 0) {
+                nextStep()
+            }
+        }
+    }
+
     fun nextStep() {
         EventBus.getDefault().post(AddGuarantorActivityEvent.showGuarantorInfoFragment)
     }
@@ -134,8 +166,10 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                 Constants.REQUEST_DOCUMENT -> {
                     data?.let {
                         when (data.getStringExtra("type")) {
-                            "id_card_back" -> {
-                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            Constants.FileLabelType.ID_BACK -> {
+                                ID_BACK_FID = data.getStringExtra("objectKey")
+                                idBackImgUrl = data.getStringExtra("imgUrl")
+                                if (ID_BACK_FID.isNotEmpty()) {
                                     guarantor_credit_info_id_back_tv.text = "已上传"
                                     guarantor_credit_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                                     ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
@@ -143,24 +177,23 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                                     guarantor_credit_info_id_back_tv.text = "请上传"
                                     guarantor_credit_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                idBackImgUrl = data.getStringExtra("imgUrl")
                                 guarantor_credit_info_id_number_tv.setText(ocrResp.idNo)
                                 guarantor_credit_info_name_tv.setText(ocrResp.name)
                             }
-                            "id_card_front" -> {
-                                if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                            Constants.FileLabelType.ID_FRONT -> {
+                                ID_FRONT_FID = data.getStringExtra("objectKey")
+                                idFrontImgUrl = data.getStringExtra("imgUrl")
+                                if (ID_FRONT_FID.isNotEmpty()) {
                                     guarantor_credit_info_id_front_tv.text = "已上传"
                                     guarantor_credit_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
                                 } else {
                                     guarantor_credit_info_id_front_tv.text = "请上传"
                                     guarantor_credit_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                idFrontImgUrl = data.getStringExtra("imgUrl")
                             }
                         }
                     }
                 }
-
                 Constants.REQUEST_CONTACTS -> {
                     val uri = data.data
                     val contacts = ContactsUtil.getPhoneContacts(mContext, uri)

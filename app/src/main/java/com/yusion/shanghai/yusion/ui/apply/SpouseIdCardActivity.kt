@@ -75,16 +75,16 @@ class SpouseIdCardActivity : BaseActivity() {
         }
 
         val uploadFilesUrlReq = UploadFilesUrlReq()
-        uploadFilesUrlReq.clt_id = intent.getStringExtra("clt_id")
+//        uploadFilesUrlReq.clt_id = intent.getStringExtra("clt_id")
         val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         val idBackBean = UploadFilesUrlReq.FileUrlBean()
         idBackBean.file_id = ID_BACK_FID
         idBackBean.label = "id_card_back"
-        idBackBean.role = "lender_sp"
+//        idBackBean.role = "lender_sp"
         val idFrontBean = UploadFilesUrlReq.FileUrlBean()
         idFrontBean.file_id = ID_FRONT_FID
         idFrontBean.label = "id_card_front"
-        idFrontBean.role = "lender_sp"
+//        idFrontBean.role = "lender_sp"
         files.add(idBackBean)
         files.add(idFrontBean)
         uploadFilesUrlReq.files = files

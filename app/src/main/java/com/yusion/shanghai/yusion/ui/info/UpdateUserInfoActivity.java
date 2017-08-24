@@ -92,7 +92,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements View.OnClick
                                 }
                                 mUploadFileDialog.show();
                                 UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
-                                uploadFilesUrlReq.clt_id = mData.clt_id;
+//                                uploadFilesUrlReq.clt_id = mData.clt_id;
                                 uploadFilesUrlReq.files = uploadFileUrlBeanList;
                                 uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(UpdateUserInfoActivity.this).getValue("region", "");
                                 uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(UpdateUserInfoActivity.this).getValue("bucket", "");

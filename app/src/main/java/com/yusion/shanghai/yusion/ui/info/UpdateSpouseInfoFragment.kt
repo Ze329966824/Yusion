@@ -81,7 +81,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
             intent.putExtra("role", "lender")
             intent.putExtra("clt_id", mData.clt_id)
             intent.putExtra("imgUrl", divorceImgUrl)
-            startActivityForResult(intent, SpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
+//            startActivityForResult(intent, SpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
         }
         update_spouse_info_id_no_img.setOnClickListener {
             CURRENT_CLICKED_VIEW_FOR_PIC = update_spouse_info_id_no_img.id
@@ -132,7 +132,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
             update_spouse_info_work_phone_num_edt.setText(mData.spouse.work_phone_num)
         } else if (mData.marriage == "离异") {
             val req = ListImgsReq()
-            req.role = "lender"
+//            req.role = "lender"
             req.label = "divorce_proof"
             req.clt_id = mData.clt_id
             UploadApi.listImgs(mContext, req, { resp ->

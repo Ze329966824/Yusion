@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.ocr;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 
 /**
@@ -20,11 +22,7 @@ public class OcrResp implements Serializable {
 
     @Override
     public String toString() {
-        return "OcrResp{" +
-                "showapi_res_code=" + showapi_res_code +
-                ", showapi_res_body=" + showapi_res_body +
-                ", showapi_res_error='" + showapi_res_error + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 
     public static class ShowapiResBodyBean implements Serializable {
@@ -46,41 +44,25 @@ public class OcrResp implements Serializable {
          * name : 殷龙
          */
 
-        public String area;
-        public String idNo;
-        public String birthday;
-        public String nationality;
+        public String area = "";
+        public String idNo = "";
+        public String birthday = "";
+        public String nationality = "";
         public int ret_code;
-        public String msg;
-        public String town;
-        public String province;
-        public String city;
-        public String birth;
-        public String addr;
-        public String lastflag;
-        public String sex;
+        public String msg = "";
+        public String town = "";
+        public String province = "";
+        public String city = "";
+        public String birth = "";
+        public String addr = "";
+        public String lastflag = "";
+        public String sex = "";
         public boolean flag;
-        public String name;
+        public String name = "";
 
         @Override
         public String toString() {
-            return "ShowapiResBodyBean{" +
-                    "area='" + area + '\'' +
-                    ", idNo='" + idNo + '\'' +
-                    ", birthday='" + birthday + '\'' +
-                    ", nationality='" + nationality + '\'' +
-                    ", ret_code=" + ret_code +
-                    ", msg='" + msg + '\'' +
-                    ", town='" + town + '\'' +
-                    ", province='" + province + '\'' +
-                    ", city='" + city + '\'' +
-                    ", birth='" + birth + '\'' +
-                    ", addr='" + addr + '\'' +
-                    ", lastflag='" + lastflag + '\'' +
-                    ", sex='" + sex + '\'' +
-                    ", flag=" + flag +
-                    ", name='" + name + '\'' +
-                    '}';
+            return new Gson().toJson(this);
         }
     }
 }

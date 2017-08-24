@@ -98,7 +98,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mMineFragment.refresh(data);
             }
         });
-
-
     }
 }

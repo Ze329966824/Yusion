@@ -16,39 +16,37 @@ import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
+import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
+import com.yusion.shanghai.yusion.ui.info.UploadListActivity
 import com.yusion.shanghai.yusion.utils.ContactsUtil
+import com.yusion.shanghai.yusion.utils.InputMethodUtil
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 /**
  * Created by ice on 17/7/5.
  */
 class SpouseInfoFragment : BaseFragment() {
 
-    companion object {
-        var START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000
-        var _GENDER_INDEX: Int = 0
-        var _MARRIAGE_INDEX: Int = 0
-        var idBackImgUrl = ""
-        var idFrontImgUrl = ""
-        var START_FOR_SPOUSE_ID_CARD_ACTIVITY = 1001
-        var _WORK_POSITION_INDEX: Int = 0
-        var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
-        var _INCOME_FROME_INDEX: Int = 0
-        var _EXTRA_INCOME_FROME_INDEX: Int = 0
-        var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
-        var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
-        var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
-        var _FROM_SELF_TYPE_INDEX: Int = 0
-        var _EDUCATION_INDEX: Int = 0
-        var _HOUSE_TYPE_INDEX: Int = 0
-        var _HOUSE_OWNER_RELATION_INDEX: Int = 0
-        var _URG_RELATION_INDEX1: Int = 0
-        var _URG_RELATION_INDEX2: Int = 0
-    }
+    var _GENDER_INDEX: Int = 0
+    var _MARRIAGE_INDEX: Int = 0
+    var idBackImgUrl = ""
+    var idFrontImgUrl = ""
+    var ID_BACK_FID = ""
+    var ID_FRONT_FID = ""
+    var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
+    var _INCOME_FROME_INDEX: Int = 0
+    var _EXTRA_INCOME_FROME_INDEX: Int = 0
+    var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
+    var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
+    var _FROM_SELF_TYPE_INDEX: Int = 0
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
@@ -61,16 +59,16 @@ class SpouseInfoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         spouse_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_back")
-            intent.putExtra("role", "lender_sp")
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK)
+            intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("imgUrl", idBackImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         spouse_info_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_front")
-            intent.putExtra("role", "lender_sp")
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
+            intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -97,12 +95,20 @@ class SpouseInfoFragment : BaseFragment() {
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
-            var intent = Intent(mContext, SingleImgUploadActivity::class.java)
-            intent.putExtra("type", "divorce_proof")
-            intent.putExtra("role", "lender")
-//            intent.putExtra("clt_id", (activity as ApplyActivity).mClientInfo.clt_id)
-            intent.putExtra("imgUrl", divorceImgUrl)
-            startActivityForResult(intent, START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
+            var intent = Intent(mContext, UploadListActivity::class.java)
+            intent.putExtra("type", Constants.FileLabelType.DIVORCE)
+            intent.putExtra("role", Constants.PersonType.LENDER)
+            intent.putExtra("imgList", divorceImgsList)
+            intent.putExtra("title", "离婚证")
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
+        }
+        spouse_info_register_addr_lin.setOnClickListener {
+            var intent = Intent(mContext, UploadListActivity::class.java)
+            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
+            intent.putExtra("role", Constants.PersonType.LENDER)
+            intent.putExtra("imgList", resBookList)
+            intent.putExtra("title", "户口本")
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         spouse_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, spouse_info_gender_lin, spouse_info_gender_tv, "请选择", { _, index ->
@@ -175,7 +181,8 @@ class SpouseInfoFragment : BaseFragment() {
                         }
                     }
                 }
-                nextStep()
+                uploadUrl(applyActivity.mClientInfo.clt_id)
+//                nextStep()
             }
         }
 
@@ -215,12 +222,16 @@ class SpouseInfoFragment : BaseFragment() {
                             .setTitle("请输入业务类型")
                             .setView(editText)
                             .setCancelable(false)
-                            .setPositiveButton("确定") { dialog, which ->
+                            .setPositiveButton("确定") { dialog, _ ->
                                 spouse_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
                                 dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
                             }
-                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                            .setNegativeButton("取消") { dialog, _ ->
+                                dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
+                            }.show()
                 }
             })
         }
@@ -293,8 +304,55 @@ class SpouseInfoFragment : BaseFragment() {
         startActivityForResult(intent, Constants.REQUEST_ADDRESS)
     }
 
-    private var divorceImgUrl = ""
-    var regDetailAddress = ""
+    fun uploadUrl(cltId: String) {
+        var applyActivity = activity as ApplyActivity
+        val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
+        when (applyActivity.mClientInfo.marriage) {
+            "离异" -> {
+                for (divorceItem in divorceImgsList) {
+                    val divorceFileItem = UploadFilesUrlReq.FileUrlBean()
+                    divorceFileItem.file_id = divorceItem.objectKey
+                    divorceFileItem.label = Constants.FileLabelType.DIVORCE
+                    divorceFileItem.clt_id = cltId
+                    files.add(divorceFileItem)
+                }
+            }
+            "丧偶" -> {
+                for (resItem in resBookList) {
+                    val resBookFileItem = UploadFilesUrlReq.FileUrlBean()
+                    resBookFileItem.file_id = resItem.objectKey
+                    resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET
+                    resBookFileItem.clt_id = cltId
+                    files.add(resBookFileItem)
+                }
+            }
+            "已婚" -> {
+                val idBackBean = UploadFilesUrlReq.FileUrlBean()
+                idBackBean.file_id = ID_BACK_FID
+                idBackBean.label = Constants.FileLabelType.ID_BACK
+                idBackBean.clt_id = cltId
+                files.add(idBackBean)
+
+                val idFrontBean = UploadFilesUrlReq.FileUrlBean()
+                idFrontBean.file_id = ID_FRONT_FID
+                idFrontBean.label = Constants.FileLabelType.ID_FRONT
+                idFrontBean.clt_id = cltId
+                files.add(idFrontBean)
+            }
+        }
+        val uploadFilesUrlReq = UploadFilesUrlReq()
+        uploadFilesUrlReq.files = files
+        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "")
+        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
+        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
+            if (code >= 0) {
+                nextStep()
+            }
+        }
+    }
+
+    private var divorceImgsList = ArrayList<UploadImgItemBean>()
+    private var resBookList = ArrayList<UploadImgItemBean>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
@@ -309,8 +367,10 @@ class SpouseInfoFragment : BaseFragment() {
                 spouse_info_mobile_edt.setText(result[1])
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
-                    "id_card_back" -> {
-                        if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                    Constants.FileLabelType.ID_BACK -> {
+                        ID_BACK_FID = data.getStringExtra("objectKey")
+                        idBackImgUrl = data.getStringExtra("imgUrl")
+                        if (ID_BACK_FID.isNotEmpty()) {
                             spouse_info_id_back_tv.text = "已上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                             ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
@@ -318,19 +378,42 @@ class SpouseInfoFragment : BaseFragment() {
                             spouse_info_id_back_tv.text = "请上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
-                        idBackImgUrl = data.getStringExtra("imgUrl")
                         spouse_info_id_no_edt.setText(ocrResp.idNo)
                         spouse_info_clt_nm_edt.setText(ocrResp.name)
                     }
-                    "id_card_front" -> {
-                        if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                    Constants.FileLabelType.ID_FRONT -> {
+                        ID_FRONT_FID = data.getStringExtra("objectKey")
+                        idFrontImgUrl = data.getStringExtra("imgUrl")
+                        if (ID_FRONT_FID.isNotEmpty()) {
                             spouse_info_id_front_tv.text = "已上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
                         } else {
                             spouse_info_id_front_tv.text = "请上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
-                        idFrontImgUrl = data.getStringExtra("imgUrl")
+                    }
+                }
+            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
+                when (data.getStringExtra("type")) {
+                    Constants.FileLabelType.RES_BOOKLET -> {
+                        resBookList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
+                        if (resBookList.size > 0) {
+                            spouse_info_register_addr_tv.text = "已上传"
+                            spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                            spouse_info_register_addr_tv.text = "请上传"
+                            spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
+                    }
+                    Constants.FileLabelType.DIVORCE -> {
+                        divorceImgsList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
+                        if (divorceImgsList.size > 0) {
+                            spouse_info_divorced_tv.text = "已上传"
+                            spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                            spouse_info_divorced_tv.text = "请上传"
+                            spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.ui.apply.guarantor
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Typeface
@@ -15,39 +16,38 @@ import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
+import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
-import com.yusion.shanghai.yusion.ui.apply.SpouseInfoFragment
+import com.yusion.shanghai.yusion.ui.info.UploadListActivity
+import com.yusion.shanghai.yusion.utils.ContactsUtil
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_spouse_info.*
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 /**
  * Created by ice on 2017/8/21.
  */
 class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
 
-    var START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000
     var _GENDER_INDEX: Int = 0
     var _MARRIAGE_INDEX: Int = 0
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
-    var START_FOR_SPOUSE_ID_CARD_ACTIVITY = 1001
-    var _WORK_POSITION_INDEX: Int = 0
     var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
     var _INCOME_FROME_INDEX: Int = 0
     var _EXTRA_INCOME_FROME_INDEX: Int = 0
     var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
     var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
-    var CURRENT_CLICKED_VIEW_FOR_CONTACT: Int = -1
     var _FROM_SELF_TYPE_INDEX: Int = 0
-    var _EDUCATION_INDEX: Int = 0
-    var _HOUSE_TYPE_INDEX: Int = 0
-    var _HOUSE_OWNER_RELATION_INDEX: Int = 0
-    var _URG_RELATION_INDEX1: Int = 0
-    var _URG_RELATION_INDEX2: Int = 0
+    var ID_BACK_FID = ""
+    var ID_FRONT_FID = ""
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,52 +67,60 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
 
         guarantor_spouse_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_back")
-            intent.putExtra("role", "lender_sp")
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK)
+            intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
             intent.putExtra("ocrResp", ocrResp)
-            intent.putExtra("imgUrl", SpouseInfoFragment.idBackImgUrl)
+            intent.putExtra("imgUrl", idBackImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         guarantor_spouse_info_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", "id_card_front")
-            intent.putExtra("role", "lender_sp")
-            intent.putExtra("imgUrl", SpouseInfoFragment.idFrontImgUrl)
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
+            intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
+            intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         guarantor_spouse_info_marriage_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.marriage_key, SpouseInfoFragment._MARRIAGE_INDEX, guarantor_spouse_info_marriage_lin, guarantor_spouse_info_marriage_tv, "请选择", { _, index ->
-                SpouseInfoFragment._MARRIAGE_INDEX = index
-                guarantor_spouse_info_marriage_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[SpouseInfoFragment._MARRIAGE_INDEX] == "已婚") View.VISIBLE else View.GONE
-                guarantor_spouse_info_divorced_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[SpouseInfoFragment._MARRIAGE_INDEX] == "离异") View.VISIBLE else View.GONE
-                guarantor_spouse_info_die_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[SpouseInfoFragment._MARRIAGE_INDEX] == "丧偶") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.marriage_key, _MARRIAGE_INDEX, guarantor_spouse_info_marriage_lin, guarantor_spouse_info_marriage_tv, "请选择", { _, index ->
+                _MARRIAGE_INDEX = index
+                guarantor_spouse_info_marriage_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "已婚") View.VISIBLE else View.GONE
+                guarantor_spouse_info_divorced_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "离异") View.VISIBLE else View.GONE
+                guarantor_spouse_info_die_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "丧偶") View.VISIBLE else View.GONE
             })
         }
         guarantor_spouse_info_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), SpouseInfoFragment._INCOME_FROME_INDEX, guarantor_spouse_info_income_from_lin, guarantor_spouse_info_income_from_tv, "请选择", { _, index ->
-                SpouseInfoFragment._INCOME_FROME_INDEX = index
-                guarantor_spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[SpouseInfoFragment._INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
-                guarantor_spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[SpouseInfoFragment._INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
-                guarantor_spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[SpouseInfoFragment._INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROME_INDEX, guarantor_spouse_info_income_from_lin, guarantor_spouse_info_income_from_tv, "请选择", { _, index ->
+                _INCOME_FROME_INDEX = index
+                guarantor_spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                guarantor_spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
+                guarantor_spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
             })
         }
         guarantor_spouse_info_extra_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资"), SpouseInfoFragment._EXTRA_INCOME_FROME_INDEX, guarantor_spouse_info_extra_income_from_lin, guarantor_spouse_info_extra_income_from_tv, "请选择", { _, index ->
-                SpouseInfoFragment._EXTRA_INCOME_FROME_INDEX = index
-                guarantor_spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[SpouseInfoFragment._EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+            WheelViewUtil.showWheelView<String>(listOf("工资"), _EXTRA_INCOME_FROME_INDEX, guarantor_spouse_info_extra_income_from_lin, guarantor_spouse_info_extra_income_from_tv, "请选择", { _, index ->
+                _EXTRA_INCOME_FROME_INDEX = index
+                guarantor_spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
-//        guarantor_spouse_info_divorced_lin.setOnClickListener {
-//            var intent = Intent(mContext, SingleImgUploadActivity::class.java)
-//            intent.putExtra("type", "divorce_proof")
-//            intent.putExtra("role", "lender")
-////            intent.putExtra("clt_id", (activity as addGuarantorActivity).mGuarantorInfo.clt_id)
-//            intent.putExtra("imgUrl", divorceImgUrl)
-//            startActivityForResult(intent, SpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
-//        }
+       guarantor_spouse_info_divorced_lin.setOnClickListener {
+            var intent = Intent(mContext, UploadListActivity::class.java)
+            intent.putExtra("type", Constants.FileLabelType.DIVORCE)
+            intent.putExtra("role", Constants.PersonType.LENDER)
+            intent.putExtra("imgList", divorceImgsList)
+            intent.putExtra("title", "离婚证")
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
+        }
+       guarantor_spouse_info_register_addr_lin.setOnClickListener {
+            var intent = Intent(mContext, UploadListActivity::class.java)
+            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
+            intent.putExtra("role", Constants.PersonType.LENDER)
+            intent.putExtra("imgList", resBookList)
+            intent.putExtra("title", "户口本")
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
+        }
         guarantor_spouse_info_gender_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, SpouseInfoFragment._GENDER_INDEX, guarantor_spouse_info_gender_lin, guarantor_spouse_info_gender_tv, "请选择", { _, index ->
-                SpouseInfoFragment._GENDER_INDEX = index
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, guarantor_spouse_info_gender_lin, guarantor_spouse_info_gender_tv, "请选择", { _, index ->
+                _GENDER_INDEX = index
             })
         }
 
@@ -181,7 +189,8 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                         }
                     }
                 }
-                nextStep()
+//                nextStep()
+                uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id)
             }
         }
 
@@ -192,13 +201,13 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         }
         guarantor_spouse_info_from_income_company_address1_lin.setOnClickListener {
             if (guarantor_spouse_info_from_income_company_address_tv.text.isNotEmpty()) {
-                SpouseInfoFragment.CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_spouse_info_from_income_company_address1_lin.id
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_spouse_info_from_income_company_address1_lin.id
                 requestPOI(guarantor_spouse_info_from_income_company_address_tv.text.toString())
             }
         }
         guarantor_spouse_info_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, SpouseInfoFragment._FROM_INCOME_WORK_POSITION_INDEX, guarantor_spouse_info_from_income_work_position_lin, guarantor_spouse_info_from_income_work_position_tv, "请选择", { _, index ->
-                SpouseInfoFragment._FROM_INCOME_WORK_POSITION_INDEX = index
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, guarantor_spouse_info_from_income_work_position_lin, guarantor_spouse_info_from_income_work_position_tv, "请选择", { _, index ->
+                _FROM_INCOME_WORK_POSITION_INDEX = index
             })
         }
 
@@ -208,14 +217,14 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         }
         guarantor_spouse_info_from_self_company_address1_lin.setOnClickListener {
             if (guarantor_spouse_info_from_self_company_address_tv.text.isNotEmpty()) {
-                SpouseInfoFragment.CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_spouse_info_from_self_company_address1_lin.id
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_spouse_info_from_self_company_address1_lin.id
                 requestPOI(guarantor_spouse_info_from_self_company_address_tv.text.toString())
             }
         }
         guarantor_spouse_info_from_self_type_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, SpouseInfoFragment._FROM_SELF_TYPE_INDEX, guarantor_spouse_info_from_self_type_lin, guarantor_spouse_info_from_self_type_tv, "请选择", { _, index ->
-                SpouseInfoFragment._FROM_SELF_TYPE_INDEX = index
-                if (YusionApp.CONFIG_RESP.busi_type_list_value[SpouseInfoFragment._FROM_SELF_TYPE_INDEX] == "其他") {
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, _FROM_SELF_TYPE_INDEX, guarantor_spouse_info_from_self_type_lin, guarantor_spouse_info_from_self_type_tv, "请选择", { _, index ->
+                _FROM_SELF_TYPE_INDEX = index
+                if (YusionApp.CONFIG_RESP.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
                     val editText = EditText(mContext)
                     AlertDialog.Builder(mContext)
                             .setTitle("请输入业务类型")
@@ -223,7 +232,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                             .setCancelable(false)
                             .setPositiveButton("确定") { dialog, which ->
                                 guarantor_spouse_info_from_self_type_tv.text = editText.text
-                                SpouseInfoFragment._FROM_SELF_TYPE_INDEX = 0
+                                _FROM_SELF_TYPE_INDEX = 0
                                 dialog.dismiss()
                             }
                             .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
@@ -237,13 +246,13 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         }
         guarantor_spouse_info_extra_from_income_company_address1_lin.setOnClickListener {
             if (guarantor_spouse_info_extra_from_income_company_address_tv.text.isNotEmpty()) {
-                SpouseInfoFragment.CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_spouse_info_extra_from_income_company_address1_lin.id
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_spouse_info_extra_from_income_company_address1_lin.id
                 requestPOI(guarantor_spouse_info_extra_from_income_company_address_tv.text.toString())
             }
         }
         guarantor_spouse_info_extra_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, SpouseInfoFragment._FROM_EXTRA_WORK_POSITION_INDEX, guarantor_spouse_info_extra_from_income_work_position_lin, guarantor_spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
-                SpouseInfoFragment._FROM_EXTRA_WORK_POSITION_INDEX = index
+            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, guarantor_spouse_info_extra_from_income_work_position_lin, guarantor_spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
+                _FROM_EXTRA_WORK_POSITION_INDEX = index
             })
         }
     }
@@ -274,6 +283,53 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
 //        return false
     }
 
+    fun uploadUrl(cltId: String) {
+        var addGuarantorActivity = activity as AddGuarantorActivity
+        val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
+        when (addGuarantorActivity.mGuarantorInfo.marriage) {
+            "离异" -> {
+                for (divorceItem in divorceImgsList) {
+                    val divorceFileItem = UploadFilesUrlReq.FileUrlBean()
+                    divorceFileItem.file_id = divorceItem.objectKey
+                    divorceFileItem.label = Constants.FileLabelType.DIVORCE
+                    divorceFileItem.clt_id = cltId
+                    files.add(divorceFileItem)
+                }
+            }
+            "丧偶" -> {
+                for (resItem in resBookList) {
+                    val resBookFileItem = UploadFilesUrlReq.FileUrlBean()
+                    resBookFileItem.file_id = resItem.objectKey
+                    resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET
+                    resBookFileItem.clt_id = cltId
+                    files.add(resBookFileItem)
+                }
+            }
+            "已婚" -> {
+                val idBackBean = UploadFilesUrlReq.FileUrlBean()
+                idBackBean.file_id = ID_BACK_FID
+                idBackBean.label = Constants.FileLabelType.ID_BACK
+                idBackBean.clt_id = cltId
+                files.add(idBackBean)
+
+                val idFrontBean = UploadFilesUrlReq.FileUrlBean()
+                idFrontBean.file_id = ID_FRONT_FID
+                idFrontBean.label = Constants.FileLabelType.ID_FRONT
+                idFrontBean.clt_id = cltId
+                files.add(idFrontBean)
+            }
+        }
+        val uploadFilesUrlReq = UploadFilesUrlReq()
+        uploadFilesUrlReq.files = files
+        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "")
+        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
+        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
+            if (code >= 0) {
+                nextStep()
+            }
+        }
+    }
+
     fun nextStep() {
         (activity as AddGuarantorActivity).requestSubmit()
     }
@@ -281,6 +337,87 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     fun selectContact() {
         val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
         startActivityForResult(intent, Constants.REQUEST_CONTACTS)
+    }
+
+    private var divorceImgsList = ArrayList<UploadImgItemBean>()
+    private var resBookList = ArrayList<UploadImgItemBean>()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.REQUEST_CONTACTS) {
+                val uri = data.data
+                val contacts = ContactsUtil.getPhoneContacts(mContext, uri)
+                val result = arrayOf("", "")
+                if (contacts != null) {
+                    System.arraycopy(contacts, 0, result, 0, contacts.size)
+                }
+               guarantor_spouse_info_clt_nm_edt.setText(result[0])
+               guarantor_spouse_info_mobile_edt.setText(result[1])
+            } else if (requestCode == Constants.REQUEST_DOCUMENT) {
+                when (data.getStringExtra("type")) {
+                    Constants.FileLabelType.ID_BACK -> {
+                        ID_BACK_FID = data.getStringExtra("objectKey")
+                        idBackImgUrl = data.getStringExtra("imgUrl")
+                        if (ID_BACK_FID.isNotEmpty()) {
+                           guarantor_spouse_info_id_back_tv.text = "已上传"
+                           guarantor_spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
+                            ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
+                        } else {
+                           guarantor_spouse_info_id_back_tv.text = "请上传"
+                           guarantor_spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
+                       guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo)
+                       guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name)
+                    }
+                    Constants.FileLabelType.ID_FRONT -> {
+                        ID_FRONT_FID = data.getStringExtra("objectKey")
+                        idFrontImgUrl = data.getStringExtra("imgUrl")
+                        if (ID_FRONT_FID.isNotEmpty()) {
+                           guarantor_spouse_info_id_front_tv.text = "已上传"
+                           guarantor_spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                           guarantor_spouse_info_id_front_tv.text = "请上传"
+                           guarantor_spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
+                    }
+                }
+            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
+                when (data.getStringExtra("type")) {
+                    Constants.FileLabelType.RES_BOOKLET -> {
+                        resBookList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
+                        if (resBookList.size > 0) {
+                           guarantor_spouse_info_register_addr_tv.text = "已上传"
+                           guarantor_spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                           guarantor_spouse_info_register_addr_tv.text = "请上传"
+                           guarantor_spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
+                    }
+                    Constants.FileLabelType.DIVORCE -> {
+                        divorceImgsList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
+                        if (divorceImgsList.size > 0) {
+                           guarantor_spouse_info_divorced_tv.text = "已上传"
+                           guarantor_spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                           guarantor_spouse_info_divorced_tv.text = "请上传"
+                           guarantor_spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
+                    }
+                }
+            } else if (requestCode == Constants.REQUEST_ADDRESS) {
+                when (CURRENT_CLICKED_VIEW_FOR_ADDRESS) {
+                   guarantor_spouse_info_from_income_company_address1_lin.id -> {
+                       guarantor_spouse_info_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                   guarantor_spouse_info_from_self_company_address1_lin.id -> {
+                       guarantor_spouse_info_from_self_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                   guarantor_spouse_info_extra_from_income_company_address1_lin.id -> {
+                       guarantor_spouse_info_extra_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                }
+            }
+        }
     }
 
     fun requestPOI(city: String = "上海市/上海市/浦东新区") {
