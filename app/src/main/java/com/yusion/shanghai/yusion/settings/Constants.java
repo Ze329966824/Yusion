@@ -13,7 +13,7 @@ public class Constants {
     public static final int REQUEST_MULTI_DOCUMENT = 206;
 
 
-    public static class FileLabel{
+    public static class FileLabelType {
         public static final String ID_BACK = "id_card_back";
         public static final String ID_FRONT = "id_card_front";
         public static final String DRI_LIC = "driving_lic";

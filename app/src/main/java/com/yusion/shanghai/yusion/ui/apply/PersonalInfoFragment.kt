@@ -287,7 +287,10 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             personal_info_clt_nm_edt.text = clientInfoBean.clt_nm
             personal_info_id_no_edt.text = clientInfoBean.id_no
             personal_info_gender_tv.text = clientInfoBean.gender
-            if (clientInfoBean.reg_addr.province.isNotEmpty() && clientInfoBean.reg_addr.city.isNotEmpty() && clientInfoBean.reg_addr.district.isNotEmpty()) {
+            var empty = clientInfoBean.reg_addr.province.isNotEmpty()
+            var notEmpty = clientInfoBean.reg_addr.city.isNotEmpty()
+            var notEmpty1 = clientInfoBean.reg_addr.district.isNotEmpty()
+            if (empty && notEmpty && notEmpty1) {
                 personal_info_reg_tv.text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
             }
         }

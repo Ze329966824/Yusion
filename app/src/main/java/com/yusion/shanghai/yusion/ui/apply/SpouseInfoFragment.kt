@@ -54,7 +54,7 @@ class SpouseInfoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         spouse_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.ID_BACK)
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("imgUrl", idBackImgUrl)
@@ -62,7 +62,7 @@ class SpouseInfoFragment : BaseFragment() {
         }
         spouse_info_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.ID_FRONT)
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
@@ -91,16 +91,18 @@ class SpouseInfoFragment : BaseFragment() {
         }
         spouse_info_divorced_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.DIVORCE)
+            intent.putExtra("type", Constants.FileLabelType.DIVORCE)
             intent.putExtra("role", Constants.PersonType.LENDER)
-            intent.putExtra("imgsUrl", divorceImgsList)
+            intent.putExtra("imgList", divorceImgsList)
+            intent.putExtra("title", "离婚证")
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         spouse_info_register_addr_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.DIVORCE)
+            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
-            intent.putExtra("imgsUrl", divorceImgsList)
+            intent.putExtra("imgList", resBookList)
+            intent.putExtra("title", "户口本")
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         spouse_info_gender_lin.setOnClickListener {
@@ -173,6 +175,7 @@ class SpouseInfoFragment : BaseFragment() {
                             applyActivity.mClientInfo.spouse.extra_work_phone_num = spouse_info_extra_from_income_work_phone_num_edt.text.toString()
                         }
                     }
+
                 }
                 nextStep()
             }
@@ -312,7 +315,7 @@ class SpouseInfoFragment : BaseFragment() {
                 spouse_info_mobile_edt.setText(result[1])
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
-                    "id_card_back" -> {
+                    Constants.FileLabelType.ID_BACK -> {
                         if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
                             spouse_info_id_back_tv.text = "已上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
@@ -325,7 +328,7 @@ class SpouseInfoFragment : BaseFragment() {
                         spouse_info_id_no_edt.setText(ocrResp.idNo)
                         spouse_info_clt_nm_edt.setText(ocrResp.name)
                     }
-                    "id_card_front" -> {
+                    Constants.FileLabelType.ID_FRONT -> {
                         if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
                             spouse_info_id_front_tv.text = "已上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
@@ -334,6 +337,29 @@ class SpouseInfoFragment : BaseFragment() {
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
                         idFrontImgUrl = data.getStringExtra("imgUrl")
+                    }
+                }
+            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
+                when (data.getStringExtra("type")) {
+                    Constants.FileLabelType.RES_BOOKLET -> {
+                        resBookList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
+                        if (resBookList.size > 0) {
+                            spouse_info_register_addr_tv.text = "已上传"
+                            spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                            spouse_info_register_addr_tv.text = "请上传"
+                            spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
+                    }
+                    Constants.FileLabelType.DIVORCE -> {
+                        divorceImgsList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
+                        if (divorceImgsList.size > 0) {
+                            spouse_info_divorced_tv.text = "已上传"
+                            spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.system_color))
+                        } else {
+                            spouse_info_divorced_tv.text = "请上传"
+                            spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                        }
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

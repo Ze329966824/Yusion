@@ -81,7 +81,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
             intent.putExtra("role", "lender")
             intent.putExtra("clt_id", mData.clt_id)
             intent.putExtra("imgUrl", divorceImgUrl)
-            startActivityForResult(intent, SpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
+//            startActivityForResult(intent, SpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
         }
         update_spouse_info_id_no_img.setOnClickListener {
             CURRENT_CLICKED_VIEW_FOR_PIC = update_spouse_info_id_no_img.id

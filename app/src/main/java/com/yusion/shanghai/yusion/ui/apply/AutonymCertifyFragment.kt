@@ -89,7 +89,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
         autonym_certify_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.ID_BACK)
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idBackImgUrl)
             intent.putExtra("ocrResp", ocrResp)
@@ -97,14 +97,14 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
         autonym_certify_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.ID_FRONT)
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         autonym_certify_driving_license_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
-            intent.putExtra("type", Constants.FileLabel.DRI_LIC)
+            intent.putExtra("type", Constants.FileLabelType.DRI_LIC)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", drivingLicImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
@@ -126,17 +126,17 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     fun uploadUrl(cltId: String) {
         val idBackBean = UploadFilesUrlReq.FileUrlBean()
         idBackBean.file_id = ID_BACK_FID
-        idBackBean.label = Constants.FileLabel.ID_BACK
+        idBackBean.label = Constants.FileLabelType.ID_BACK
         idBackBean.clt_id = cltId
 
         val idFrontBean = UploadFilesUrlReq.FileUrlBean()
         idFrontBean.file_id = ID_FRONT_FID
-        idFrontBean.label = Constants.FileLabel.ID_FRONT
+        idFrontBean.label = Constants.FileLabelType.ID_FRONT
         idFrontBean.clt_id = cltId
 
         val driBean = UploadFilesUrlReq.FileUrlBean()
         driBean.file_id = DIR_FID
-        driBean.label = Constants.FileLabel.DRI_LIC
+        driBean.label = Constants.FileLabelType.DRI_LIC
         driBean.clt_id = cltId
 
         val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
@@ -188,7 +188,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 Constants.REQUEST_DOCUMENT -> {
                     data?.let {
                         when (data.getStringExtra("type")) {
-                            Constants.FileLabel.ID_BACK -> {
+                            Constants.FileLabelType.ID_BACK -> {
                                 ID_BACK_FID = data.getStringExtra("objectKey")
                                 idBackImgUrl = data.getStringExtra("imgUrl")
                                 if (ID_BACK_FID.isNotEmpty()) {
@@ -202,7 +202,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 autonym_certify_id_number_tv.setText(ocrResp.idNo)
                                 autonym_certify_name_tv.setText(ocrResp.name)
                             }
-                            Constants.FileLabel.ID_FRONT -> {
+                            Constants.FileLabelType.ID_FRONT -> {
                                 ID_FRONT_FID = data.getStringExtra("objectKey")
                                 idFrontImgUrl = data.getStringExtra("imgUrl")
                                 if (ID_FRONT_FID.isNotEmpty()) {
@@ -213,7 +213,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                     autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
                             }
-                            Constants.FileLabel.DRI_LIC -> {
+                            Constants.FileLabelType.DRI_LIC -> {
                                 DIR_FID = data.getStringExtra("objectKey")
                                 drivingLicImgUrl = data.getStringExtra("imgUrl")
                                 if (DIR_FID.isNotEmpty()) {
