@@ -818,8 +818,8 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 clientInfo.extra_income = update_personal_info_extra_from_income_year_edt.getText().toString();
                 clientInfo.extra_company_name = update_personal_info_extra_from_income_company_name_edt.getText().toString();
                 clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[0];
-                clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
-                clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
+                clientInfo.extra_company_addr.city = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
+                clientInfo.extra_company_addr.district = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
                 clientInfo.extra_company_addr.address1 = update_personal_info_extra_from_income_company_address1_tv.getText().toString();
                 clientInfo.extra_company_addr.address2 = update_personal_info_extra_from_income_company_address2_tv.getText().toString();
                 clientInfo.extra_work_position = update_personal_extra_info_work_position_tv.getText().toString();
