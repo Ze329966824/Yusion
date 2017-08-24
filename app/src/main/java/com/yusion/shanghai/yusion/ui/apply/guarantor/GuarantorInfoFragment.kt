@@ -243,6 +243,19 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
 
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (hidden.not()) {
+            var guarantorInfo = (activity as AddGuarantorActivity).mGuarantorInfo
+            guarantor_info_clt_nm_edt.text = guarantorInfo.clt_nm
+            guarantor_info_id_no_edt.text = guarantorInfo.id_no
+//            guarantor_info_gender_tv.text = clientInfoBean.gender
+//            if (clientInfoBean.reg_addr.province.isNotEmpty() && clientInfoBean.reg_addr.city.isNotEmpty() && clientInfoBean.reg_addr.district.isNotEmpty()) {
+//                guarantor_info_reg_tv.text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
+//            }
+        }
+    }
+    
     fun requestPOI(city: String = "上海市/上海市/浦东新区") {
         val intent = Intent(mContext, AMapPoiListActivity::class.java)
         val addressArray = city.split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()

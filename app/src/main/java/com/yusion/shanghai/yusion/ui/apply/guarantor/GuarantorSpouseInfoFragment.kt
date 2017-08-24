@@ -18,7 +18,6 @@ import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
-import com.yusion.shanghai.yusion.ui.apply.ApplyActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.ui.apply.SpouseInfoFragment
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -107,7 +106,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
 //            var intent = Intent(mContext, SingleImgUploadActivity::class.java)
 //            intent.putExtra("type", "divorce_proof")
 //            intent.putExtra("role", "lender")
-////            intent.putExtra("clt_id", (activity as ApplyActivity).mClientInfo.clt_id)
+////            intent.putExtra("clt_id", (activity as addGuarantorActivity).mGuarantorInfo.clt_id)
 //            intent.putExtra("imgUrl", divorceImgUrl)
 //            startActivityForResult(intent, SpouseInfoFragment.START_FOR_DRIVING_SINGLE_IMG_ACTIVITY)
 //        }
@@ -120,65 +119,65 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         guarantor_spouse_info_mobile_img.setOnClickListener { selectContact() }
         guarantor_spouse_info_submit_btn.setOnClickListener {
             if (checkCanNextStep()) {
-                var applyActivity = activity as ApplyActivity
-                applyActivity.mClientInfo.marriage = guarantor_spouse_info_marriage_tv.text.toString()
-                if (applyActivity.mClientInfo.marriage == "已婚") {
-                    applyActivity.mClientInfo.spouse.marriage = "已婚"
+                var addGuarantorActivity = activity as AddGuarantorActivity
+                addGuarantorActivity.mGuarantorInfo.marriage = guarantor_spouse_info_marriage_tv.text.toString()
+                if (addGuarantorActivity.mGuarantorInfo.marriage == "已婚") {
+                    addGuarantorActivity.mGuarantorInfo.spouse.marriage = "已婚"
                     ocrResp?.let {
-                        applyActivity.mClientInfo.spouse.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
-                        applyActivity.mClientInfo.spouse.reg_addr.province = ocrResp.province
-                        applyActivity.mClientInfo.spouse.reg_addr.city = ocrResp.city
-                        applyActivity.mClientInfo.spouse.reg_addr.district = ocrResp.town
+                        addGuarantorActivity.mGuarantorInfo.spouse.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
+                        addGuarantorActivity.mGuarantorInfo.spouse.reg_addr.province = ocrResp.province
+                        addGuarantorActivity.mGuarantorInfo.spouse.reg_addr.city = ocrResp.city
+                        addGuarantorActivity.mGuarantorInfo.spouse.reg_addr.district = ocrResp.town
                     }
-                    applyActivity.mClientInfo.spouse.clt_nm = guarantor_spouse_info_clt_nm_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.id_no = guarantor_spouse_info_id_no_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.gender = guarantor_spouse_info_gender_tv.text.toString()
-                    applyActivity.mClientInfo.spouse.mobile = guarantor_spouse_info_mobile_edt.text.toString()
+                    addGuarantorActivity.mGuarantorInfo.spouse.clt_nm = guarantor_spouse_info_clt_nm_edt.text.toString()
+                    addGuarantorActivity.mGuarantorInfo.spouse.id_no = guarantor_spouse_info_id_no_edt.text.toString()
+                    addGuarantorActivity.mGuarantorInfo.spouse.gender = guarantor_spouse_info_gender_tv.text.toString()
+                    addGuarantorActivity.mGuarantorInfo.spouse.mobile = guarantor_spouse_info_mobile_edt.text.toString()
 
                     //主要收入来源
                     when (guarantor_spouse_info_income_from_tv.text) {
                         "工资" -> {
-                            applyActivity.mClientInfo.spouse.major_income_type = "工资"
-                            applyActivity.mClientInfo.spouse.major_income = guarantor_spouse_info_from_income_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_name = guarantor_spouse_info_from_income_company_name_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.province = guarantor_spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                            applyActivity.mClientInfo.spouse.major_company_addr.city = guarantor_spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                            applyActivity.mClientInfo.spouse.major_company_addr.district = guarantor_spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                            applyActivity.mClientInfo.spouse.major_company_addr.address1 = guarantor_spouse_info_from_income_company_address1_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.address2 = guarantor_spouse_info_from_income_company_address2_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_work_position = guarantor_spouse_info_from_income_work_position_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_work_phone_num = guarantor_spouse_info_from_income_work_phone_num_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "工资"
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_income = guarantor_spouse_info_from_income_year_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_name = guarantor_spouse_info_from_income_company_name_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.province = guarantor_spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.city = guarantor_spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.district = guarantor_spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.address1 = guarantor_spouse_info_from_income_company_address1_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.address2 = guarantor_spouse_info_from_income_company_address2_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_work_position = guarantor_spouse_info_from_income_work_position_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_work_phone_num = guarantor_spouse_info_from_income_work_phone_num_edt.text.toString()
                         }
                         "自营" -> {
                             Toast.makeText(mContext, "业务类型", Toast.LENGTH_SHORT).show()
-                            applyActivity.mClientInfo.spouse.major_income_type = "自营"
-                            applyActivity.mClientInfo.spouse.major_income = guarantor_spouse_info_from_self_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_name = guarantor_spouse_info_from_self_company_name_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.province = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                            applyActivity.mClientInfo.spouse.major_company_addr.city = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                            applyActivity.mClientInfo.spouse.major_company_addr.district = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                            applyActivity.mClientInfo.spouse.major_company_addr.address1 = guarantor_spouse_info_from_self_company_address1_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.address2 = guarantor_spouse_info_from_self_company_address2_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "自营"
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_income = guarantor_spouse_info_from_self_year_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_name = guarantor_spouse_info_from_self_company_name_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.province = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.city = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.district = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.address1 = guarantor_spouse_info_from_self_company_address1_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.address2 = guarantor_spouse_info_from_self_company_address2_tv.text.toString()
                         }
                         "其他" -> {
-                            applyActivity.mClientInfo.spouse.major_income_type = "其他"
-                            applyActivity.mClientInfo.spouse.major_income = guarantor_spouse_info_from_other_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_remark = guarantor_spouse_info_from_other_remark_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "其他"
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_income = guarantor_spouse_info_from_other_year_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.major_remark = guarantor_spouse_info_from_other_remark_edt.text.toString()
                         }
                     }
                     //主要收入来源
                     when (guarantor_spouse_info_extra_income_from_tv.text) {
                         "工资" -> {
-                            applyActivity.mClientInfo.spouse.extra_income_type = "工资"
-                            applyActivity.mClientInfo.spouse.extra_income = guarantor_spouse_info_extra_from_income_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_company_name = guarantor_spouse_info_extra_from_income_company_name_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_company_addr.province = guarantor_spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                            applyActivity.mClientInfo.spouse.extra_company_addr.city = guarantor_spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                            applyActivity.mClientInfo.spouse.extra_company_addr.district = guarantor_spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                            applyActivity.mClientInfo.spouse.extra_company_addr.address1 = guarantor_spouse_info_extra_from_income_company_address1_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_company_addr.address2 = guarantor_spouse_info_extra_from_income_company_address2_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_work_position = guarantor_spouse_info_extra_from_income_work_position_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_work_phone_num = guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_income_type = "工资"
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_income = guarantor_spouse_info_extra_from_income_year_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_company_name = guarantor_spouse_info_extra_from_income_company_name_edt.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_company_addr.province = guarantor_spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_company_addr.city = guarantor_spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_company_addr.district = guarantor_spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_company_addr.address1 = guarantor_spouse_info_extra_from_income_company_address1_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_company_addr.address2 = guarantor_spouse_info_extra_from_income_company_address2_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_work_position = guarantor_spouse_info_extra_from_income_work_position_tv.text.toString()
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_work_phone_num = guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.toString()
                         }
                     }
                 }
@@ -276,7 +275,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     }
 
     fun nextStep() {
-        (activity as ApplyActivity).requestSubmit()
+        (activity as AddGuarantorActivity).requestSubmit()
     }
 
     fun selectContact() {
