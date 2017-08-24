@@ -57,7 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <View
                             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                                 style="@style/apply_info_title"
                                 android:text="姓名" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/update_guarantor_info_clt_nm_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp" />
@@ -88,7 +88,7 @@
                                 style="@style/apply_info_title"
                                 android:text="身份证号" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/update_guarantor_info_id_no_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp" />
