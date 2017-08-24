@@ -163,7 +163,7 @@ class UpdatePersonalInfoFragment : BaseFragment() {
         update_personal_info_urg_mobile2_edt.setText(mData.urg_mobile2)
         update_personal_info_urg_relation2_tv.text = mData.urg_relation2
         val req = ListImgsReq()
-        req.role = "lender"
+//        req.role = "lender"
         req.label = "driving_lic"
         req.clt_id = mData.clt_id
         UploadApi.listImgs(mContext, req, { resp ->

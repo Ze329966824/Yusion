@@ -70,8 +70,8 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.reg_addr.district = ocrResp.town
                 }
                 applyActivity.mClientInfo.drv_lic_relationship = YusionApp.CONFIG_RESP.drv_lic_relationship_list_value[_DIR_REL_INDEX]
-//                uploadUrl(it.clt_id)
-                nextStep()
+                uploadUrl(it.clt_id)
+//                nextStep()
             }
         }
         autonym_certify_next_btn.setOnClickListener {

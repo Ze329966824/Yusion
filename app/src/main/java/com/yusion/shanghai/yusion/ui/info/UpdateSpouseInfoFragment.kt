@@ -132,7 +132,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
             update_spouse_info_work_phone_num_edt.setText(mData.spouse.work_phone_num)
         } else if (mData.marriage == "离异") {
             val req = ListImgsReq()
-            req.role = "lender"
+//            req.role = "lender"
             req.label = "divorce_proof"
             req.clt_id = mData.clt_id
             UploadApi.listImgs(mContext, req, { resp ->

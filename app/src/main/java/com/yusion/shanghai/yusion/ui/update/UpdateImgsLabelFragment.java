@@ -63,7 +63,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 }
                 intent.putExtra("topItem", item);
                 //clt_id取图片
-                intent.putExtra("clt_id", "5be9490a871f11e7b7f902f1f38b2f4a");//.............
+                intent.putExtra("clt_id", "cb2ab574889b11e7a2e002f1f38b2f4a");//.............
                 intent.putExtra("index", index);
                 startActivityForResult(intent, 100);
             }

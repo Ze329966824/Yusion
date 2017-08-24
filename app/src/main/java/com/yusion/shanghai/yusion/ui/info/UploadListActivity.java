@@ -88,7 +88,6 @@ public class UploadListActivity extends BaseActivity {
             if (!mTopItem.hasGetImgsFromServer) {
                 //第一次进入
                 ListImgsReq req = new ListImgsReq();
-                req.role = mRole;
                 req.label = mTopItem.value;
                 req.clt_id = mGetIntent.getStringExtra("clt_id");
                 UploadApi.listImgs(this, req, resp -> {
