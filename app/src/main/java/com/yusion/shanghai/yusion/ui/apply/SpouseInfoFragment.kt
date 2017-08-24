@@ -16,12 +16,15 @@ import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.InputMethodUtil
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
@@ -36,6 +39,8 @@ class SpouseInfoFragment : BaseFragment() {
     var _MARRIAGE_INDEX: Int = 0
     var idBackImgUrl = ""
     var idFrontImgUrl = ""
+    var ID_BACK_FID = ""
+    var ID_FRONT_FID = ""
     var CURRENT_CLICKED_VIEW_FOR_ADDRESS: Int = -1
     var _INCOME_FROME_INDEX: Int = 0
     var _EXTRA_INCOME_FROME_INDEX: Int = 0
@@ -100,7 +105,7 @@ class SpouseInfoFragment : BaseFragment() {
         spouse_info_register_addr_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
-            intent.putExtra("role", Constants.PersonType.LENDER_SP)
+            intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", resBookList)
             intent.putExtra("title", "户口本")
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
@@ -175,9 +180,9 @@ class SpouseInfoFragment : BaseFragment() {
                             applyActivity.mClientInfo.spouse.extra_work_phone_num = spouse_info_extra_from_income_work_phone_num_edt.text.toString()
                         }
                     }
-
                 }
-                nextStep()
+                uploadUrl(applyActivity.mClientInfo.clt_id)
+//                nextStep()
             }
         }
 
@@ -299,6 +304,53 @@ class SpouseInfoFragment : BaseFragment() {
         startActivityForResult(intent, Constants.REQUEST_ADDRESS)
     }
 
+    fun uploadUrl(cltId: String) {
+        var applyActivity = activity as ApplyActivity
+        val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
+        when (applyActivity.mClientInfo.marriage) {
+            "离异" -> {
+                for (divorceItem in divorceImgsList) {
+                    val divorceFileItem = UploadFilesUrlReq.FileUrlBean()
+                    divorceFileItem.file_id = divorceItem.objectKey
+                    divorceFileItem.label = Constants.FileLabelType.DIVORCE
+                    divorceFileItem.clt_id = cltId
+                    files.add(divorceFileItem)
+                }
+            }
+            "丧偶" -> {
+                for (resItem in resBookList) {
+                    val resBookFileItem = UploadFilesUrlReq.FileUrlBean()
+                    resBookFileItem.file_id = resItem.objectKey
+                    resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET
+                    resBookFileItem.clt_id = cltId
+                    files.add(resBookFileItem)
+                }
+            }
+            "已婚" -> {
+                val idBackBean = UploadFilesUrlReq.FileUrlBean()
+                idBackBean.file_id = ID_BACK_FID
+                idBackBean.label = Constants.FileLabelType.ID_BACK
+                idBackBean.clt_id = cltId
+                files.add(idBackBean)
+
+                val idFrontBean = UploadFilesUrlReq.FileUrlBean()
+                idFrontBean.file_id = ID_FRONT_FID
+                idFrontBean.label = Constants.FileLabelType.ID_FRONT
+                idFrontBean.clt_id = cltId
+                files.add(idFrontBean)
+            }
+        }
+        val uploadFilesUrlReq = UploadFilesUrlReq()
+        uploadFilesUrlReq.files = files
+        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "")
+        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
+        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
+            if (code >= 0) {
+                nextStep()
+            }
+        }
+    }
+
     private var divorceImgsList = ArrayList<UploadImgItemBean>()
     private var resBookList = ArrayList<UploadImgItemBean>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -316,7 +368,9 @@ class SpouseInfoFragment : BaseFragment() {
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
-                        if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                        ID_BACK_FID = data.getStringExtra("objectKey")
+                        idBackImgUrl = data.getStringExtra("imgUrl")
+                        if (ID_BACK_FID.isNotEmpty()) {
                             spouse_info_id_back_tv.text = "已上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                             ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
@@ -324,19 +378,19 @@ class SpouseInfoFragment : BaseFragment() {
                             spouse_info_id_back_tv.text = "请上传"
                             spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
-                        idBackImgUrl = data.getStringExtra("imgUrl")
                         spouse_info_id_no_edt.setText(ocrResp.idNo)
                         spouse_info_clt_nm_edt.setText(ocrResp.name)
                     }
                     Constants.FileLabelType.ID_FRONT -> {
-                        if (!TextUtils.isEmpty(data.getStringExtra("objectKey"))) {
+                        ID_FRONT_FID = data.getStringExtra("objectKey")
+                        idFrontImgUrl = data.getStringExtra("imgUrl")
+                        if (ID_FRONT_FID.isNotEmpty()) {
                             spouse_info_id_front_tv.text = "已上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
                         } else {
                             spouse_info_id_front_tv.text = "请上传"
                             spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
-                        idFrontImgUrl = data.getStringExtra("imgUrl")
                     }
                 }
             } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {

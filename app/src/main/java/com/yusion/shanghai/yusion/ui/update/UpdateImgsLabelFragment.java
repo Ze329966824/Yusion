@@ -8,18 +8,22 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.adapter.UploadLabelListAdapter;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
-import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
 import com.yusion.shanghai.yusion.ui.info.UploadLabelListActivity;
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +48,6 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         view.findViewById(R.id.title_bar).setVisibility(View.GONE);
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
         rv.setLayoutManager(new LinearLayoutManager(mContext));
-        mItems = new ArrayList<>();
-        initShamData();
         mAdapter = new UploadLabelListAdapter(mContext, mItems);
         mAdapter.setOnItemClick(new UploadLabelListAdapter.OnItemClick() {
             @Override
@@ -67,9 +69,27 @@ public class UpdateImgsLabelFragment extends BaseFragment {
             }
         });
         rv.setAdapter(mAdapter);
+        //        initShamData();
+        initData();
+    }
+
+    private void initData() {
+        try {
+            JSONArray jsonArray = new JSONArray(YusionApp.CONFIG_RESP.client_material);
+            mItems = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                UploadLabelItemBean uploadLabelItemBean = new Gson().fromJson(jsonObject.toString(), UploadLabelItemBean.class);
+                mItems.add(uploadLabelItemBean);
+                mAdapter.notifyDataSetChanged();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initShamData() {
+        mItems = new ArrayList<>();
         UploadLabelItemBean itemBean1 = new UploadLabelItemBean();
         itemBean1.name = "征信授权书";
         UploadLabelItemBean itemBean2 = new UploadLabelItemBean();
