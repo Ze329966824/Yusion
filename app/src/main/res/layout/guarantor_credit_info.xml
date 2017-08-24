@@ -173,7 +173,7 @@
                     <TextView
                         android:id="@+id/guarantor_credit_info_rel_tv"
                         style="@style/apply_info_content"
-                        android:text="请选择" />
+                        android:hint="请选择" />
 
                     <FrameLayout
                         android:layout_width="20dp"

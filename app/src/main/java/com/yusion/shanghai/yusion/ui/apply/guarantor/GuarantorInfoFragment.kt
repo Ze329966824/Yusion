@@ -15,6 +15,7 @@ import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
+import com.yusion.shanghai.yusion.utils.InputMethodUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_info.*
 import org.greenrobot.eventbus.EventBus
@@ -201,8 +202,12 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                                 guarantor_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
                                 dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
                             }
-                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                            .setNegativeButton("取消") { dialog, which ->
+                                dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
+                            }.show()
                 }
             })
         }
@@ -229,7 +234,16 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             })
         }
 
-
+        //房屋地址
+        guarantor_info_house_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, guarantor_info_house_address_lin, guarantor_info_house_address_tv, "请选择所在地区") { _, _ -> guarantor_info_house_address1_tv.text = "" }
+        }
+        guarantor_info_house_address1_lin.setOnClickListener {
+            if (guarantor_info_house_address_tv.text.isNotEmpty()) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = guarantor_info_house_address1_lin.id
+                requestPOI(guarantor_info_house_address_tv.text.toString())
+            }
+        }
         guarantor_info_house_type_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_type_list_key, _HOUSE_TYPE_INDEX, guarantor_info_house_type_lin, guarantor_info_house_type_tv, "请选择", { _, index ->
                 _HOUSE_TYPE_INDEX = index
@@ -249,13 +263,13 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             var guarantorInfo = (activity as AddGuarantorActivity).mGuarantorInfo
             guarantor_info_clt_nm_edt.text = guarantorInfo.clt_nm
             guarantor_info_id_no_edt.text = guarantorInfo.id_no
-//            guarantor_info_gender_tv.text = clientInfoBean.gender
-//            if (clientInfoBean.reg_addr.province.isNotEmpty() && clientInfoBean.reg_addr.city.isNotEmpty() && clientInfoBean.reg_addr.district.isNotEmpty()) {
-//                guarantor_info_reg_tv.text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
-//            }
+            guarantor_info_gender_tv.text = guarantorInfo.gender
+            if (guarantorInfo.reg_addr.province.isNotEmpty() && guarantorInfo.reg_addr.city.isNotEmpty() && guarantorInfo.reg_addr.district.isNotEmpty()) {
+                guarantor_info_reg_tv.text = guarantorInfo.reg_addr.province + "/" + guarantorInfo.reg_addr.city + "/" + guarantorInfo.reg_addr.district
+            }
         }
     }
-    
+
     fun requestPOI(city: String = "上海市/上海市/浦东新区") {
         val intent = Intent(mContext, AMapPoiListActivity::class.java)
         val addressArray = city.split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
@@ -338,6 +352,9 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                     }
                     guarantor_info_extra_from_income_company_address1_lin.id -> {
                         guarantor_info_extra_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    }
+                    guarantor_info_house_address1_lin.id -> {
+                        guarantor_info_house_address1_tv.text = data.getStringExtra("result");
                     }
                 }
             }
