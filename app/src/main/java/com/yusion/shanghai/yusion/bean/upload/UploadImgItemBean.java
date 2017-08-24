@@ -21,6 +21,7 @@ public class UploadImgItemBean implements Serializable {
     //            "region": "oss-cn-hangzhou.aliyuncs.com",
     //            "label": "auth_credit"
     public String s_url;
+    public boolean hasChoose = false;
 
     @Override
     public String toString() {
