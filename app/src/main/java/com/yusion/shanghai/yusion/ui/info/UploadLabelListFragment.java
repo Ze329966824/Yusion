@@ -82,98 +82,98 @@ public class UploadLabelListFragment extends BaseFragment {
     }
 
     public void refresh(ListLabelsErrorResp resp) {
-        if (isPage1 && resp.lender.err_num > 0) {
-            for (UploadLabelItemBean item : mItems) {
-                for (String errLabel : resp.lender.err_labels) {
-                    if (item.value.equals(errLabel)) {
-                        item.hasError = true;
-                    }
-                }
-            }
-        } else {
-            if (resp.lender_sp.err_num > 0) {
-                for (UploadLabelItemBean mItem : mItems) {
-                    if (mItem.value.equals("lender_sp")) {
-                        mItem.hasError = true;
-                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
-                            for (String errLabel : resp.lender_sp.err_labels) {
-                                if (labelItemBean.value.equals(errLabel)) {
-                                    labelItemBean.hasError = true;
-                                } else {
-                                    labelItemBean.hasError = false;
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-            if (resp.guarantor.err_num > 0) {
-                for (UploadLabelItemBean mItem : mItems) {
-                    if (mItem.value.equals("guarantor")) {
-                        mItem.hasError = true;
-                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
-                            for (String errLabel : resp.guarantor.err_labels) {
-                                if (labelItemBean.value.equals(errLabel)) {
-                                    labelItemBean.hasError = true;
-                                } else {
-                                    labelItemBean.hasError = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (resp.guarantor_sp.err_num > 0) {
-                for (UploadLabelItemBean mItem : mItems) {
-                    if (mItem.value.equals("guarantor_sp")) {
-                        mItem.hasError = true;
-                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
-                            for (String errLabel : resp.guarantor_sp.err_labels) {
-                                if (labelItemBean.value.equals(errLabel)) {
-                                    labelItemBean.hasError = true;
-                                } else {
-                                    labelItemBean.hasError = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (resp.counter_guarantor.err_num > 0) {
-                for (UploadLabelItemBean mItem : mItems) {
-                    if (mItem.value.equals("counter_guarantor")) {
-                        mItem.hasError = true;
-                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
-                            for (String errLabel : resp.counter_guarantor.err_labels) {
-                                if (labelItemBean.value.equals(errLabel)) {
-                                    labelItemBean.hasError = true;
-                                } else {
-                                    labelItemBean.hasError = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (resp.counter_guarantor_sp.err_num > 0) {
-                for (UploadLabelItemBean mItem : mItems) {
-                    if (mItem.value.equals("counter_guarantor_sp")) {
-                        mItem.hasError = true;
-                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
-                            for (String errLabel : resp.counter_guarantor_sp.err_labels) {
-                                if (labelItemBean.value.equals(errLabel)) {
-                                    labelItemBean.hasError = true;
-                                } else {
-                                    labelItemBean.hasError = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        mAdapter.notifyDataSetChanged();
+//        if (isPage1 && resp.lender.err_num > 0) {
+//            for (UploadLabelItemBean item : mItems) {
+//                for (String errLabel : resp.lender.err_labels) {
+//                    if (item.value.equals(errLabel)) {
+//                        item.hasError = true;
+//                    }
+//                }
+//            }
+//        } else {
+//            if (resp.lender_sp.err_num > 0) {
+//                for (UploadLabelItemBean mItem : mItems) {
+//                    if (mItem.value.equals("lender_sp")) {
+//                        mItem.hasError = true;
+//                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
+//                            for (String errLabel : resp.lender_sp.err_labels) {
+//                                if (labelItemBean.value.equals(errLabel)) {
+//                                    labelItemBean.hasError = true;
+//                                } else {
+//                                    labelItemBean.hasError = false;
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//                }
+//            }
+//            if (resp.guarantor.err_num > 0) {
+//                for (UploadLabelItemBean mItem : mItems) {
+//                    if (mItem.value.equals("guarantor")) {
+//                        mItem.hasError = true;
+//                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
+//                            for (String errLabel : resp.guarantor.err_labels) {
+//                                if (labelItemBean.value.equals(errLabel)) {
+//                                    labelItemBean.hasError = true;
+//                                } else {
+//                                    labelItemBean.hasError = false;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            if (resp.guarantor_sp.err_num > 0) {
+//                for (UploadLabelItemBean mItem : mItems) {
+//                    if (mItem.value.equals("guarantor_sp")) {
+//                        mItem.hasError = true;
+//                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
+//                            for (String errLabel : resp.guarantor_sp.err_labels) {
+//                                if (labelItemBean.value.equals(errLabel)) {
+//                                    labelItemBean.hasError = true;
+//                                } else {
+//                                    labelItemBean.hasError = false;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            if (resp.counter_guarantor.err_num > 0) {
+//                for (UploadLabelItemBean mItem : mItems) {
+//                    if (mItem.value.equals("counter_guarantor")) {
+//                        mItem.hasError = true;
+//                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
+//                            for (String errLabel : resp.counter_guarantor.err_labels) {
+//                                if (labelItemBean.value.equals(errLabel)) {
+//                                    labelItemBean.hasError = true;
+//                                } else {
+//                                    labelItemBean.hasError = false;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            if (resp.counter_guarantor_sp.err_num > 0) {
+//                for (UploadLabelItemBean mItem : mItems) {
+//                    if (mItem.value.equals("counter_guarantor_sp")) {
+//                        mItem.hasError = true;
+//                        for (UploadLabelItemBean labelItemBean : mItem.label_list) {
+//                            for (String errLabel : resp.counter_guarantor_sp.err_labels) {
+//                                if (labelItemBean.value.equals(errLabel)) {
+//                                    labelItemBean.hasError = true;
+//                                } else {
+//                                    labelItemBean.hasError = false;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        mAdapter.notifyDataSetChanged();
     }
 
     @Override

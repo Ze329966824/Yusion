@@ -17,7 +17,11 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.adapter.UploadLabelListAdapter;
 import com.yusion.shanghai.yusion.base.BaseFragment;
+import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorReq;
+import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.info.UploadLabelListActivity;
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
 
@@ -69,7 +73,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
             }
         });
         rv.setAdapter(mAdapter);
-        //        initShamData();
+        //initShamData();
         initData();
     }
 
@@ -85,6 +89,20 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        ListLabelsErrorReq req = new ListLabelsErrorReq();
+        req.clt_id = "cb2ab574889b11e7a2e002f1f38b2f4a";
+        ArrayList<String> labelsList = new ArrayList<>();
+        for (UploadLabelItemBean itemBean : mItems) {
+            labelsList.add(itemBean.value);
+        }
+        req.label_list = labelsList;
+        UploadApi.listLabelsError(mContext, req, new OnItemDataCallBack<ListLabelsErrorResp>() {
+            @Override
+            public void onItemDataCallBack(ListLabelsErrorResp resp) {
+
+            }
+        });
     }
 
     private void initShamData() {

@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.upload;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
@@ -19,9 +21,6 @@ public class ListLabelsErrorReq {
 
     @Override
     public String toString() {
-        return "ListLabelsErrorReq{" +
-                "clt_id='" + clt_id + '\'' +
-                ", label_list=" + label_list +
-                '}';
+        return new Gson().toJson(this);
     }
 }
