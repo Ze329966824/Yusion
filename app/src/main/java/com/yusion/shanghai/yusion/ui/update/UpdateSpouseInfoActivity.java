@@ -16,6 +16,10 @@ import android.widget.TextView;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.user.ClientInfo;
+import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -34,10 +38,9 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
-
+    private ClientInfo clientInfo ;
 
     private TextView update_spouse_info_marriage_tv;
-
 
 
     @Override
@@ -46,18 +49,47 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_update_spouse_info);
         initTitleBar(this, "配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
-        initAllData();  //初始化
 
-        initGetInfo();  //获取用户信息
-
-        initCommit();   //提交用户信息
+        getInfo();  //获取配偶信息
+        submit();   //更新配偶信息
     }
 
-    private void initGetInfo() {
-//        update_spouse_info_marriage_tv
+    private void getInfo() {
+        ProductApi.getClientInfo(this, new GetClientInfoReq(), new OnItemDataCallBack<ClientInfo>() {
+            @Override
+            public void onItemDataCallBack(ClientInfo data) {
+                if (data != null) {
+                    clientInfo = data;
+                    mUpdateSpouseInfoFragment.getClientinfo(clientInfo.spouse);
+                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id,"lender");
+                }
+                return;
+
+            }
+        });
     }
 
-    private void initAllData() {
+    private void submit() {
+        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commit();
+            }
+        });
+    }
+
+    private void commit() {
+        mUpdateSpouseInfoFragment.updateGuarantorinfo();
+        ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+            @Override
+            public void onItemDataCallBack(ClientInfo data) {
+                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+
+        });
 
 
     }
