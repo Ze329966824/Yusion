@@ -3,14 +3,12 @@ package com.yusion.shanghai.yusion.ui.update;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.tv.TvView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -678,7 +676,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 break;
             case "离异":
                 break;
-            case "丧偶"
+            case "丧偶":
                 break;
         }
 

@@ -2,12 +2,14 @@ package com.yusion.shanghai.yusion.ui.update;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +21,16 @@ import com.yusion.shanghai.yusion.adapter.UploadLabelListAdapter;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorReq;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
+import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.ui.info.UploadLabelListActivity;
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -157,29 +164,63 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         UploadApi.listLabelsError(mContext, req, new OnItemDataCallBack<ListLabelsErrorResp>() {
             @Override
             public void onItemDataCallBack(ListLabelsErrorResp resp) {
-                loop:for (UploadLabelItemBean uploadLabelItemBean : mItems) {
+                loop:
+                for (UploadLabelItemBean uploadLabelItemBean : mItems) {
                     for (String hasImgLabel : resp.has_img_labels) {
                         if (uploadLabelItemBean.value.equals(hasImgLabel)) {
                             uploadLabelItemBean.hasImg = true;
                             continue loop;
-                        }else {
+                        } else {
                             uploadLabelItemBean.hasImg = false;
                         }
                     }
                 }
 
-                loop:for (UploadLabelItemBean uploadLabelItemBean : mItems) {
+                loop:
+                for (UploadLabelItemBean uploadLabelItemBean : mItems) {
                     for (String hasErrorLabel : resp.err_labels) {
                         if (uploadLabelItemBean.value.equals(hasErrorLabel)) {
                             uploadLabelItemBean.hasError = true;
                             continue loop;
-                        }else {
+                        } else {
                             uploadLabelItemBean.hasError = false;
                         }
                     }
                 }
                 mAdapter.notifyDataSetChanged();
             }
+        });
+    }
+
+    private Dialog mUploadFileDialog;
+
+    public void requestUpload(String clt_id, OnVoidCallBack onVoidCallBack) {
+        List<UploadFilesUrlReq.FileUrlBean> uploadFileUrlBeanList = new ArrayList<>();
+        for (UploadLabelItemBean item : mItems) {
+            for (UploadImgItemBean imgItemBean : item.img_list) {
+                UploadFilesUrlReq.FileUrlBean fileUrlBean = new UploadFilesUrlReq.FileUrlBean();
+                if (!TextUtils.isEmpty(imgItemBean.s_url)) {
+                    continue;
+                }
+                fileUrlBean.clt_id = clt_id;
+                fileUrlBean.file_id = imgItemBean.objectKey;
+                fileUrlBean.label = imgItemBean.type;
+                uploadFileUrlBeanList.add(fileUrlBean);
+            }
+        }
+
+        if (mUploadFileDialog == null) {
+            mUploadFileDialog = LoadingUtils.createLoadingDialog(mContext);
+            mUploadFileDialog.setCancelable(false);
+        }
+        mUploadFileDialog.show();
+        UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
+        uploadFilesUrlReq.files = uploadFileUrlBeanList;
+        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "");
+        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "");
+        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, (code, msg) -> {
+            mUploadFileDialog.dismiss();
+            onVoidCallBack.callBack();
         });
     }
 }

@@ -18,6 +18,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -96,11 +97,9 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         initView();
 
 
-
         getInfo();  //获取用户信息
 
         submit();   //更新用户信息
-
 
 
     }
@@ -159,7 +158,6 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         update_personal_info_urg_relation2_tv = (TextView) findViewById(R.id.update_personal_info_urg_relation2_tv);
         update_personal_info_urg_mobile2_edt = (EditText) findViewById(R.id.update_personal_info_urg_mobile2_edt);
         update_personal_info_urg_contact2_edt = (EditText) findViewById(R.id.update_personal_info_urg_contact2_edt);
-
     }
 
 
@@ -170,26 +168,28 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                 if (data != null) {
                     clientInfo = data;
                     mUpdatePersonalInfoFragment.getClientinfo(clientInfo);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id,"lender");
+                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id, "lender");
                 }
-                return;
-
             }
         });
     }
-    public void commit() {
-        mUpdatePersonalInfoFragment.updateClientinfo();
-        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
-            @Override
-            public void onItemDataCallBack(ClientInfo data) {
 
-                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-                startActivity(intent);
-                finish();
+    public void commit() {
+        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
+            @Override
+            public void callBack() {
+                mUpdatePersonalInfoFragment.updateClientinfo();
+                ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                    @Override
+                    public void onItemDataCallBack(ClientInfo data) {
+                        if (data == null) return;
+                        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
         });
-
-
     }
 
 

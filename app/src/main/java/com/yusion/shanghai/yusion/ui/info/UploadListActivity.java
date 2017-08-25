@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pbq.pickerlib.activity.PhotoMediaActivity;
 import com.pbq.pickerlib.entity.PhotoVideoDir;
@@ -17,10 +18,12 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.adapter.UploadImgListAdapter;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
+import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -102,7 +105,8 @@ public class UploadListActivity extends BaseActivity {
         uploadTv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Integer> integerList = new ArrayList<Integer>();
+                List<String> delImgIdList = new ArrayList<>();
+                List<Integer> integerList = new ArrayList<>();
                 for (int i = 0; i < imgList.size(); i++) {
                     if (imgList.get(i).hasChoose) integerList.add(i);
                 }
@@ -110,12 +114,24 @@ public class UploadListActivity extends BaseActivity {
                 int pyl = 0;
                 for (int i = 0; i < integerList.size(); i++) {
                     int delIndex = integerList.get(i) - pyl;
+                    delImgIdList.add(imgList.get(delIndex).id);
                     imgList.remove(delIndex);
                     pyl++;
                 }
                 uploadTv2.setText("删除");
                 uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
                 adapter.notifyDataSetChanged();
+                DelImgsReq req = new DelImgsReq();
+                req.clt_id = mGetIntent.getStringExtra("clt_id");
+                req.id.addAll(delImgIdList);
+                UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
+                    @Override
+                    public void callBack(int code, String msg) {
+                        if (code == 0) {
+                            Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
         mEditTv = titleBar.getRightTextTv();

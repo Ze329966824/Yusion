@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.upload;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 
 /**
@@ -22,15 +24,10 @@ public class UploadImgItemBean implements Serializable {
     //            "label": "auth_credit"
     public String s_url;
     public boolean hasChoose = false;
+    public String id;
 
     @Override
     public String toString() {
-        return "UploadImgItemBean{" +
-                "local_path='" + local_path + '\'' +
-                ", type='" + type + '\'' +
-                ", role='" + role + '\'' +
-                ", objectKey='" + objectKey + '\'' +
-                ", s_url='" + s_url + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 }

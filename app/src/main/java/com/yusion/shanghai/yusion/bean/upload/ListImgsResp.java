@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.upload;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
@@ -20,10 +22,6 @@ public class ListImgsResp {
 
     @Override
     public String toString() {
-        return "ListImgsResp{" +
-                "error='" + error + '\'' +
-                ", has_err=" + has_err +
-                ", list=" + list +
-                '}';
+        return new Gson().toJson(this);
     }
 }
