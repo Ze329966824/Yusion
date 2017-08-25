@@ -225,6 +225,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         });
 
 
+
         //选择收入来源
         income_from_lin = (LinearLayout) view.findViewById(R.id.update_personal_info_income_from_lin);
         income_from_tv = (TextView) view.findViewById(R.id.update_personal_info_income_from_tv);

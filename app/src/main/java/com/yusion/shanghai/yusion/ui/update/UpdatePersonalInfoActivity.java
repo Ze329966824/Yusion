@@ -102,6 +102,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         submit();   //更新用户信息
 
 
+
     }
 
     private void submit() {
