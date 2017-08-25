@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
 import com.yusion.shanghai.yusion.base.BaseResult;
+import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorReq;
@@ -23,6 +24,9 @@ public interface UploadService {
 
     @POST("/api/material/list_yc_client_material/")
     Call<BaseResult<ListImgsResp>> listImgs(@Body ListImgsReq req);
+
+    @POST("/api/material/del_yc_client_material/")
+    Call<BaseResult> delImgs(@Body DelImgsReq req);
 
     @POST("/api/material/list_yc_material_uw_error/")
     Call<BaseResult<ListLabelsErrorResp>> listLabelsError(@Body ListLabelsErrorReq req);
