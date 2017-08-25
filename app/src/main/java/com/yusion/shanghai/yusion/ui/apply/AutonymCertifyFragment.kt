@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
@@ -19,6 +20,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
+import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.autonym_certify.*
@@ -156,25 +158,25 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     }
 
     fun checkCanNextStep(): Boolean {
-        return true
-//        if (ID_BACK_FID.isEmpty()) {
-//            Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
-//        } else if (ID_FRONT_FID.isEmpty()) {
-//            Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
-//        } else if (DIR_FID.isEmpty()) {
-//            Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
-//        }
-//// else if (autonym_certify_name_tv.text.isEmpty()) {
-////            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-////        } else if (autonym_certify_id_number_tv.text.isEmpty()) {
-////            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-////        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv.text.toString())) {
-////            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-////        }
-//        else {
-//            return true
-//        }
-//        return false
+//        return true
+        if (ID_BACK_FID.isEmpty()) {
+            Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
+        } else if (ID_FRONT_FID.isEmpty()) {
+            Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
+        } else if (DIR_FID.isEmpty()) {
+            Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
+        } else if (autonym_certify_name_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
+        } else if (autonym_certify_id_number_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv.text.toString())) {
+            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
+        } else if (autonym_certify_driving_license_rel_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "请选择驾照证持有人与本人关系", Toast.LENGTH_SHORT).show()
+        } else {
+            return true
+        }
+        return false
     }
 
     fun nextStep() {
