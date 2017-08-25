@@ -102,15 +102,6 @@ public class UploadListActivity extends BaseActivity {
         uploadTv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (uploadTv2.getCurrentTextColor() == Color.parseColor("#d1d1d1")) {
-//                    return;
-//                }
-//                for (UploadImgItemBean itemBean : imgList) {
-//                    if (itemBean.hasChoose) {
-//                        imgList.remove(itemBean);
-//                    }
-//                }
-
                 List<Integer> integerList = new ArrayList<Integer>();
                 for (int i = 0; i < imgList.size(); i++) {
                     if (imgList.get(i).hasChoose) integerList.add(i);
