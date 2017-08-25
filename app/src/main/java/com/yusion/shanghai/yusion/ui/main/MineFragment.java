@@ -14,8 +14,12 @@ import android.widget.TextView;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
+import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
 import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
+import com.yusion.shanghai.yusion.ui.update.CommitActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 
 /**
@@ -76,9 +80,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.mine_user_info_lin:
 //                if (WangDaiApp.isLogin) {
-                Intent goInfoList = new Intent(mContext, InfoListActivity.class);
-                goInfoList.putExtra("ishaveGuarantee", false);
-                startActivity(goInfoList);
+                UserApi.getListCurrentTpye(mContext, new OnItemDataCallBack<ListCurrentTpye>() {
+                    @Override
+                    public void onItemDataCallBack(ListCurrentTpye data) {
+                        if (data.guarantor_commited) {
+                            Intent intent = new Intent(mContext, InfoListActivity.class);
+                            intent.putExtra("ishaveGuarantee", true);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(mContext, InfoListActivity.class);
+                            intent.putExtra("ishaveGuarantee", false);
+                            startActivity(intent);
+                        }
+                    }
+                });
 //                } else {
 //                    requestLogin();
 //                }

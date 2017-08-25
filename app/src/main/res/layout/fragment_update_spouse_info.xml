@@ -8,11 +8,28 @@
     android:orientation="vertical">
 
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="center"
+        android:src="@mipmap/to_top"
+        app:backgroundTint="@color/transparent"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
+        app:rippleColor="@color/transparent" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -229,7 +246,7 @@
                             android:id="@+id/update_spouse_info_id_no_edt"
                             style="@style/apply_info_content_type_id"
                             android:layout_marginRight="35dp"
-                            android:enabled="false"
+                            android:enabled="true"
                             android:hint="请拍摄身份证" />
 
                     </LinearLayout>
@@ -463,6 +480,7 @@
                             <TextView
                                 android:id="@+id/update_spouse_info_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
+                                android:enabled="false"
                                 android:hint="小区/写字楼/学校等" />
 
                             <FrameLayout
@@ -1059,7 +1077,7 @@
             <LinearLayout
                 android:id="@+id/update_spouse_info_divorced_group_lin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible">
@@ -1129,7 +1147,7 @@
             <LinearLayout
                 android:id="@+id/update_spouse_info_die_group_lin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible">
@@ -1225,22 +1243,4 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="15dp"
-        android:scaleType="center"
-        android:src="@mipmap/to_top"
-        app:backgroundTint="@color/transparent"
-        app:borderWidth="0dp"
-        app:elevation="0dp"
-        app:layout_anchor="@id/scrollView"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
-        app:rippleColor="@color/transparent" />
 </android.support.design.widget.CoordinatorLayout>

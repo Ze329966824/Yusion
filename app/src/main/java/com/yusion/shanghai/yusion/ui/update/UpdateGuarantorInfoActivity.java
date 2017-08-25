@@ -64,7 +64,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             public void onItemDataCallBack(GuarantorInfo data) {
                 if (data != null) {
                     guarantorInfo = data;
-                    mUpdateGuarantorInfoFragment.getClientinfo(guarantorInfo);
+                    mUpdateGuarantorInfoFragment.getGuarantorInfo(guarantorInfo);
                     mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.clt_id, "lender");
                 }
                 return;
@@ -79,9 +79,11 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
             @Override
             public void onItemDataCallBack(GuarantorInfo data) {
-                Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
-                startActivity(intent);
-                finish();
+                if (data != null) {
+                    Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

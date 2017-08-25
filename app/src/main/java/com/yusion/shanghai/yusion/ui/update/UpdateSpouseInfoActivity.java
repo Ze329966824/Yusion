@@ -38,7 +38,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
-    private ClientInfo clientInfo ;
+    private ClientInfo clientInfo;
 
     private TextView update_spouse_info_marriage_tv;
 
@@ -60,11 +60,9 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             public void onItemDataCallBack(ClientInfo data) {
                 if (data != null) {
                     clientInfo = data;
-                    mUpdateSpouseInfoFragment.getClientinfo(clientInfo.spouse);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id,"lender");
+                    mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
+                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id, "lender");
                 }
-                return;
-
             }
         });
     }
@@ -79,16 +77,17 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     }
 
     private void commit() {
-        mUpdateSpouseInfoFragment.updateGuarantorinfo();
+
+        mUpdateSpouseInfoFragment.updateimgUrl();
         ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
             @Override
             public void onItemDataCallBack(ClientInfo data) {
-                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                startActivity(intent);
-                finish();
+                if (data != null) {
+                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
-
-
         });
 
 

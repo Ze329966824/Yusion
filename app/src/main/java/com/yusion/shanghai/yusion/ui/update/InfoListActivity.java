@@ -54,7 +54,7 @@ public class InfoListActivity extends BaseActivity {
                 break;
 
             case R.id.list_guarantorspouse_info:
-                startActivity(new Intent(InfoListActivity.this, UpdateSecuritySpouseInfoActivity.class));
+                startActivity(new Intent(InfoListActivity.this, UpdateGuarantorSpouseInfoActivity.class));
                 finish();
                 break;
 
