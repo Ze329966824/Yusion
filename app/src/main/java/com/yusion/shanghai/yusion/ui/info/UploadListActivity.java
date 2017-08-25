@@ -2,10 +2,12 @@ package com.yusion.shanghai.yusion.ui.info;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,6 +44,15 @@ public class UploadListActivity extends BaseActivity {
     private TitleBar titleBar;
     private String mRole;
     private String mType;
+
+
+    private int currentChooseCount = 0;
+    private boolean hasImg = false;
+    private boolean isEditing = false;
+    private TextView mEditTv;
+    private LinearLayout uploadBottomLin;
+    private TextView uploadTv2;
+    private TextView uploadTv1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +71,81 @@ public class UploadListActivity extends BaseActivity {
             mType = mGetIntent.getStringExtra("type");
             titleBar = initTitleBar(this, mGetIntent.getStringExtra("title")).setLeftClickListener(v -> onBack());
         }
-        titleBar.setRightText("编辑");
+
+        uploadBottomLin = (LinearLayout) findViewById(R.id.upload_bottom_lin);
+        uploadTv1 = (TextView) findViewById(R.id.upload_bottom_tv1);
+        uploadTv2 = (TextView) findViewById(R.id.upload_bottom_tv2);
+        uploadTv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (uploadTv1.getText().toString().equals("全选")) {
+                    for (UploadImgItemBean itemBean : imgList) {
+                        itemBean.hasChoose = true;
+                    }
+                    currentChooseCount = imgList.size();
+                    uploadTv1.setText("取消全选");
+                    uploadTv2.setText(String.format("删除(%d)", imgList.size()));
+                    uploadTv2.setTextColor(Color.RED);
+                    adapter.notifyDataSetChanged();
+                } else if (uploadTv1.getText().toString().equals("取消全选")) {
+                    for (UploadImgItemBean itemBean : imgList) {
+                        itemBean.hasChoose = false;
+                    }
+                    currentChooseCount = 0;
+                    uploadTv1.setText("全选");
+                    uploadTv2.setText("删除");
+                    uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+        uploadTv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (uploadTv2.getCurrentTextColor() == Color.parseColor("#d1d1d1")) {
+//                    return;
+//                }
+//                for (UploadImgItemBean itemBean : imgList) {
+//                    if (itemBean.hasChoose) {
+//                        imgList.remove(itemBean);
+//                    }
+//                }
+
+                List<Integer> integerList = new ArrayList<Integer>();
+                for (int i = 0; i < imgList.size(); i++) {
+                    if (imgList.get(i).hasChoose) integerList.add(i);
+                }
+                Collections.sort(integerList);
+                int pyl = 0;
+                for (int i = 0; i < integerList.size(); i++) {
+                    int delIndex = integerList.get(i) - pyl;
+                    imgList.remove(delIndex);
+                    pyl++;
+                }
+                uploadTv2.setText("删除");
+                uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
+                adapter.notifyDataSetChanged();
+            }
+        });
+        mEditTv = titleBar.getRightTextTv();
+        titleBar.setRightText("编辑").setRightClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEditing) {
+                    isEditing = false;
+                    mEditTv.setText("编辑");
+                    uploadBottomLin.setVisibility(View.GONE);
+                } else {
+                    isEditing = true;
+                    mEditTv.setText("取消");
+                    uploadBottomLin.setVisibility(View.VISIBLE);
+                }
+                adapter.setIsEditing(isEditing);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        hasImg = imgList.size() > 0;
+        onImgCountChange(hasImg);
         RecyclerView rv = (RecyclerView) findViewById(R.id.upload_list_rv);
         errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
         errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
@@ -67,7 +153,29 @@ public class UploadListActivity extends BaseActivity {
         adapter = new UploadImgListAdapter(this, imgList);
         adapter.setOnItemClick(new UploadImgListAdapter.OnItemClick() {
             @Override
-            public void onItemClick(View v, UploadImgItemBean item) {
+            public void onItemClick(View v, UploadImgItemBean item, ImageView cbImg) {
+                if (isEditing) {
+                    boolean hasChoose = (Boolean) cbImg.getTag(R.id.hasChoose);
+                    if (hasChoose) {
+                        cbImg.setTag(R.id.hasChoose, false);
+                        cbImg.setImageResource(R.mipmap.choose_icon);
+                        item.hasChoose = false;
+                        currentChooseCount--;
+                    } else {
+                        cbImg.setTag(R.id.hasChoose, true);
+                        cbImg.setImageResource(R.mipmap.surechoose_icon);
+                        item.hasChoose = true;
+                        currentChooseCount++;
+
+                    }
+                    if (currentChooseCount != 0) {
+                        uploadTv2.setText(String.format("删除(%d)", currentChooseCount));
+                        uploadTv2.setTextColor(Color.RED);
+                    } else {
+                        uploadTv2.setText("删除");
+                        uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
+                    }
+                }
             }
 
             @Override
@@ -84,7 +192,7 @@ public class UploadListActivity extends BaseActivity {
     private void initData() {
         if (mTopItem == null) {
 
-        }else {
+        } else {
             if (!mTopItem.hasGetImgsFromServer) {
                 //第一次进入
                 ListImgsReq req = new ListImgsReq();
@@ -102,15 +210,27 @@ public class UploadListActivity extends BaseActivity {
                     }
                     if (resp.list.size() != 0) {
                         imgList.addAll(resp.list);
+                        hasImg = true;
+                        onImgCountChange(hasImg);
                         adapter.notifyDataSetChanged();
                     }
                 });
-            } else
-            if (mTopItem.hasError) {
+            } else if (mTopItem.hasError) {
                 errorLin.setVisibility(View.VISIBLE);
                 errorTv.setText(mTopItem.errorInfo);
             }
         }
+    }
+
+    private void onImgCountChange(boolean hasImg) {
+        if (hasImg) {
+            mEditTv.setEnabled(true);
+            mEditTv.setTextColor(Color.parseColor("#ffffff"));
+        } else {
+            mEditTv.setEnabled(false);
+            mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
+        }
+
     }
 
     @Override
