@@ -753,10 +753,10 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         idFrontImgUrl = data.getStringExtra("imgUrl");
                         if (!ID_FRONT_FID.isEmpty()) {
                             update_spouse_info_id_front_tv.setText("已上传");
-                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
                         } else {
                             update_spouse_info_id_front_tv.setText("请上传");
-                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         break;
                 }
@@ -766,20 +766,20 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         resBookList = (ArrayList) data.getSerializableExtra("imgList");
                         if (resBookList.size() > 0) {
                             update_spouse_info_register_addr_tv.setText("已上传");
-                            update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
                         } else {
                             update_spouse_info_register_addr_tv.setText("请上传");
-                            update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         break;
                     case Constants.FileLabelType.DIVORCE:
                         divorceImgsList = (ArrayList) data.getSerializableExtra("imgList");
                         if (divorceImgsList.size() > 0) {
                             update_spouse_info_divorced_tv.setText("已上传");
-                            update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
                         } else {
                             update_spouse_info_divorced_tv.setText("请上传");
-                            update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                 }
             }
