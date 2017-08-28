@@ -892,30 +892,40 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 break;
 
             case "已婚":
-                UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
-                idBackBean.file_id = ID_BACK_FID;
-                idBackBean.label = Constants.FileLabelType.ID_BACK;
-                idBackBean.clt_id = clt_id;
-                files.add(idBackBean);
-
-                UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
-                idFrontBean.file_id = ID_FRONT_FID;
-                idFrontBean.label = Constants.FileLabelType.ID_FRONT;
-                idFrontBean.clt_id = clt_id;
-                files.add(idFrontBean);
+                if (!ID_BACK_FID.isEmpty()) {
+                    UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
+                    idBackBean.file_id = ID_BACK_FID;
+                    idBackBean.label = Constants.FileLabelType.ID_BACK;
+                    idBackBean.clt_id = clt_id;
+                    files.add(idBackBean);
+                }
+                if (!ID_FRONT_FID.isEmpty()) {
+                    UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
+                    idFrontBean.file_id = ID_FRONT_FID;
+                    idFrontBean.label = Constants.FileLabelType.ID_FRONT;
+                    idFrontBean.clt_id = clt_id;
+                    files.add(idFrontBean);
+                }
                 break;
         }
         UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
         uploadFilesUrlReq.files = files;
         uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "");
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "");
-        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, new OnCodeAndMsgCallBack() {
-            @Override
-            public void callBack(int code, String msg) {
-                //更新用户资料
-                updateClientinfo(callBack);
-            }
-        });
+        if (files.size() > 0) {
+            UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, new OnCodeAndMsgCallBack() {
+                @Override
+                public void callBack(int code, String msg) {
+                    if (code < 0) {
+                        return;
+                    }
+                    //更新用户资料
+                    updateClientinfo(callBack);
+                }
+            });
+        }else {
+            updateClientinfo(callBack);
+        }
     }
 
     public void getClientinfo(ClientInfo data) {
