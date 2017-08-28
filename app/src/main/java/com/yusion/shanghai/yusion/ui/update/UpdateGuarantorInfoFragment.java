@@ -26,6 +26,7 @@ import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
+import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 
@@ -955,6 +956,12 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     private boolean checkUserInfo() {
         if (update_guarantor_info_reg_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_guarantor_info_clt_nm_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_id_no_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(update_guarantor_info_id_no_edt.getText().toString())) {
+            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_gender_tv.toString().isEmpty()) {
             Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_mobile_edt.toString().isEmpty()) {

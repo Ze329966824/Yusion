@@ -33,6 +33,7 @@ import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
@@ -937,6 +938,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_id_no_edt.toString().isEmpty()) {
                 Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show();
+            } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(update_spouse_info_id_no_edt.getText().toString())) {
+                Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
             }

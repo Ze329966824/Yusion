@@ -27,6 +27,7 @@ import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
+import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 
@@ -788,7 +789,6 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         //校验
         if (checkUserInfo()) {
             if (checkIncome()) {
-
                 //提交
                 clientInfo.clt_nm = update_personal_info_clt_nm_edt.getText().toString();
                 clientInfo.id_no = update_personal_info_id_no_edt.getText().toString();
@@ -874,6 +874,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         return false;
     }
 
+
     private boolean checkIncome() {
         //主要工资
         if (update_personal_info_income_from_tv.getText().toString().equals("工资")) {
@@ -932,6 +933,12 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
             Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_mobile_edt.toString().isEmpty()) {
             Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_clt_nm_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_id_no_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(update_personal_info_id_no_edt.getText().toString())) {
+            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_education_tv.toString().isEmpty()) {
             Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_current_address_tv.toString().isEmpty()) {
