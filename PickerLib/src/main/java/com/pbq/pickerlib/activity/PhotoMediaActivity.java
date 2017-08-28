@@ -98,6 +98,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
      * 初始化控件
      */
     private void init() {
+        maxCount = getIntent().getIntExtra("maxCount",9);
         gvPhotos = (GridView) findViewById(R.id.gv_photos);
         tvTitle = (TextView) findViewById(R.id.tv_top_bar_title);
         btnNext = (Button) findViewById(R.id.btn_next);
