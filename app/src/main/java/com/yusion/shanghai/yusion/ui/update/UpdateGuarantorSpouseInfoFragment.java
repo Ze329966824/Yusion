@@ -22,6 +22,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
@@ -678,6 +679,56 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
 
+            } else if (requestCode == Constants.REQUEST_DOCUMENT) {
+                switch (data.getStringExtra("type")) {
+                    case Constants.FileLabelType.ID_BACK:
+                        ID_BACK_FID = data.getStringExtra("objectKey");
+                        idBackImgUrl = data.getStringExtra("imgUrl");
+                        if (!idBackImgUrl.isEmpty()) {
+                            update_guarantor_spouse_info_id_back_tv.setText("已上传");
+                            update_guarantor_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
+                            ocrResp = (OcrResp.ShowapiResBodyBean) data.getSerializableExtra("ocrResp");
+                        } else {
+                            update_guarantor_spouse_info_id_back_tv.setText("请上传");
+                            update_guarantor_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
+                        }
+                        update_guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                        update_guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        break;
+                    case Constants.FileLabelType.ID_FRONT:
+                        ID_FRONT_FID = data.getStringExtra("objectKey");
+                        idFrontImgUrl = data.getStringExtra("imgUrl");
+                        if (!idFrontImgUrl.isEmpty()) {
+                            update_guarantor_spouse_info_id_front_tv.setText("已上传");
+                            update_guarantor_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
+                        } else {
+                            update_guarantor_spouse_info_id_front_tv.setText("请上传");
+                            update_guarantor_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
+                        }
+                        break;
+                }
+            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
+                switch (data.getStringExtra("type")) {
+                    case Constants.FileLabelType.RES_BOOKLET:
+                        resBookList = (ArrayList) data.getSerializableExtra("imgList");
+                        if (resBookList.size() > 0) {
+                            update_guarantor_spouse_info_register_addr_tv.setText("已上传");
+                            update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
+                        } else {
+                            update_guarantor_spouse_info_register_addr_tv.setText("请上传");
+                            update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
+                        }
+                        break;
+                    case Constants.FileLabelType.DIVORCE:
+                        divorceImgsList = (ArrayList) data.getSerializableExtra("imgList");
+                        if (divorceImgsList.size() > 0) {
+                            update_guarantor_spouse_info_divorced_tv.setText("已上传");
+                            update_guarantor_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
+                        } else {
+                            update_guarantor_spouse_info_divorced_tv.setText("请上传");
+                            update_guarantor_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
+                        }
+                }
             }
         }
     }
@@ -691,6 +742,30 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 case "未婚":
                     break;
                 case "已婚":
+                    ListImgsReq req1 = new ListImgsReq();
+                    req1.label = Constants.FileLabelType.ID_BACK;
+                    req1.clt_id = data.spouse.clt_id;
+                    UploadApi.listImgs(mContext, req1, resp -> {
+                        if (resp.list.size() != 0) {
+                            update_guarantor_spouse_info_id_back_tv.setText("已上传");
+                            update_guarantor_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
+                            idBackImgUrl = resp.list.get(0).s_url;
+                        }
+                    });
+                    ListImgsReq req2 = new ListImgsReq();
+                    req2.label = Constants.FileLabelType.ID_FRONT;
+                    req2.clt_id = data.spouse.clt_id;
+                    UploadApi.listImgs(mContext, req2, resp -> {
+                        if (resp.list.size() != 0) {
+                            update_guarantor_spouse_info_id_front_tv.setText("已上传");
+                            update_guarantor_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
+                            idFrontImgUrl = resp.list.get(0).s_url;
+                        }
+                    });
+
+
+
+
                     update_guarantor_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
                     update_guarantor_spouse_info_clt_nm_edt.setText(guarantorInfo.spouse.clt_nm);
                     update_guarantor_spouse_info_id_no_edt.setText(guarantorInfo.spouse.id_no);

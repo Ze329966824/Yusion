@@ -1237,7 +1237,6 @@
                     </FrameLayout>
                 </LinearLayout>
 
-
                 <include layout="@layout/include_line" />
             </LinearLayout>
 
