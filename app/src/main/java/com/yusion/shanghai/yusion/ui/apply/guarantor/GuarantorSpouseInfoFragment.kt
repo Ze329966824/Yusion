@@ -24,6 +24,7 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
+import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -258,29 +259,114 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     }
 
     fun checkCanNextStep(): Boolean {
-        return true
-//        if (guarantor_spouse_info_marriage_tv.text == "已婚") {
-//            if (guarantor_spouse_info_clt_nm_edt.text.isEmpty()) {
-//                Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-//            } else if (guarantor_spouse_info_id_no_edt.text.isEmpty()) {
-//                Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-//            } else if (guarantor_spouse_info_gender_tv.text.isEmpty()) {
-//                Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
-//            } else if (guarantor_spouse_info_mobile_edt.text.isEmpty()) {
-//                Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
-//            } else {
-//                return true
-//            }
-//        } else if (guarantor_spouse_info_marriage_tv.text == "离异") {
-//            if (guarantor_spouse_info_divorced_tv.text == "请上传") {
+//        return true
+        if (guarantor_spouse_info_marriage_tv.text == "已婚") {
+            if (ID_BACK_FID.isEmpty()) {
+                Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
+            } else if (ID_FRONT_FID.isEmpty()) {
+                Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_clt_nm_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_id_no_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(guarantor_spouse_info_id_no_edt.text.toString())) {
+                Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_gender_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_mobile_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资") {
+                if (guarantor_spouse_info_from_income_year_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_company_name_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_company_address_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_company_address1_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_company_address2_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营") {
+                if (guarantor_spouse_info_from_self_year_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_self_type_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_self_company_name_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_self_company_address_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
+                    Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            } else if (guarantor_spouse_info_income_from_tv.text == "其他") {
+                if (guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                } else if (guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
+                    Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            } else if (guarantor_spouse_info_extra_income_from_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+            }
+        } else if (guarantor_spouse_info_marriage_tv.text == "离异") {
+            if (guarantor_spouse_info_divorced_tv.text == "请上传") {
 //                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
 //            } else {
-//                return true
+                return true
+            }
+        } else if (guarantor_spouse_info_marriage_tv.text == "丧偶") {
+//            if (guarantor_spouse_info_register_addr_tv.text == "请上传") {
+//                Toast.makeText(mContext, "请上传 户口本", Toast.LENGTH_SHORT).show()
+//            } else {
+            return true
 //            }
-//        } else {
-//            return true
-//        }
-//        return false
+        } else {
+            return true
+        }
+        return false
     }
 
     fun uploadUrl(cltId: String) {

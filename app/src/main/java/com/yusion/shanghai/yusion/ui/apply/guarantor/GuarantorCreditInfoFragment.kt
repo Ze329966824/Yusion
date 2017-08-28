@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.DoubleCheckFragment
@@ -20,6 +21,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
+import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -112,21 +114,25 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
     }
 
     fun checkCanNextStep(): Boolean {
-        return true
-//        if (!hasIdBackImg) {
-//            Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
-//        } else if (!hasIdFrontImg) {
-//            Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
-//        } else if (autonym_certify_name_tv.text.isEmpty()) {
-//            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-//        } else if (autonym_certify_id_number_tv.text.isEmpty()) {
-//            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-//        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv.text.toString())) {
-//            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-//        } else {
-//            return true
-//        }
-//        return false
+//        return true
+        if (ID_BACK_FID.isEmpty()) {
+            Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
+        } else if (ID_FRONT_FID.isEmpty()) {
+            Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
+        } else if (guarantor_credit_info_name_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
+        } else if (guarantor_credit_info_id_number_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(guarantor_credit_info_id_number_tv.text.toString())) {
+            Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
+        } else if (guarantor_credit_info_rel_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "请选择担保人与本人关系", Toast.LENGTH_SHORT).show()
+        } else if (guarantor_credit_info_mobile_edt.text.isEmpty()) {
+            Toast.makeText(mContext, "请输入手机号码", Toast.LENGTH_SHORT).show()
+        } else {
+            return true
+        }
+        return false
     }
 
     fun uploadUrl(cltId: String) {

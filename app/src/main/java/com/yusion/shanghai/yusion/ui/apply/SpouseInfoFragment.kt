@@ -357,16 +357,16 @@ class SpouseInfoFragment : BaseFragment() {
             }
         } else if (spouse_info_marriage_tv.text == "离异") {
             if (spouse_info_divorced_tv.text == "请上传") {
-                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
-            } else {
+//                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
+//            } else {
                 return true
             }
         } else if (spouse_info_marriage_tv.text == "丧偶") {
-            if (spouse_info_register_addr_tv.text == "请上传") {
-                Toast.makeText(mContext, "请上传 户口本", Toast.LENGTH_SHORT).show()
-            } else {
-                return true
-            }
+//            if (spouse_info_register_addr_tv.text == "请上传") {
+//                Toast.makeText(mContext, "请上传 户口本", Toast.LENGTH_SHORT).show()
+//            } else {
+            return true
+//            }
         } else {
             return true
         }
