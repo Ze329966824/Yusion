@@ -12,14 +12,8 @@ import android.widget.Toast;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.order.ConfirmFinancePlanReq;
-import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-
-import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FinancePlanActivity extends BaseActivity {
 
@@ -160,13 +154,14 @@ public class FinancePlanActivity extends BaseActivity {
                 req.app_id = getIntent().getStringExtra("app_id");
                 OrderApi.confirmFinancePlan(FinancePlanActivity.this, req, new OnCodeAndMsgCallBack() {
                     @Override
-                    public void callBack(int code, String msg) {
+                    public boolean callBack(int code, String msg) {
                         if (code == 0) {
                             Toast.makeText(myApp, "确认成功", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Toast.makeText(myApp, "确认失败", Toast.LENGTH_SHORT).show();
                         }
+                        return false;
                     }
                 });
             }

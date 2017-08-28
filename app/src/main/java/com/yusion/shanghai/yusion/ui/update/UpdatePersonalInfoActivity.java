@@ -175,19 +175,25 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     }
 
     public void commit() {
+        //上传影像件
         mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
             @Override
             public void callBack() {
-                mUpdatePersonalInfoFragment.updateClientinfo();
-                ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                //上传用户资料
+                if (mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
                     @Override
-                    public void onItemDataCallBack(ClientInfo data) {
-                        if (data == null) return;
-                        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-                        startActivity(intent);
-                        finish();
+                    public void callBack() {
+                        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                            @Override
+                            public void onItemDataCallBack(ClientInfo data) {
+                                if (data == null) return;
+                                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
                     }
-                });
+                }));
             }
         });
     }

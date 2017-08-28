@@ -78,25 +78,27 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 
     private void commit() {
 //        mUpdateSpouseInfoFragment.requestUpdate();
-        mUpdateSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
+        //上传影像件
+        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
             @Override
             public void callBack() {
-                //,,,,
-                ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                //上传用户资料
+                if (mUpdateSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
                     @Override
-                    public void onItemDataCallBack(ClientInfo data) {
-                        if (data != null) {
-                            Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                    public void callBack() {
+                        ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                            @Override
+                            public void onItemDataCallBack(ClientInfo data) {
+                                if (data == null) return;
+                                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
                     }
-                });
+                }));
             }
         });
-
-
-
     }
 
     private void initCommit() {

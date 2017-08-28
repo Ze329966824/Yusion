@@ -18,6 +18,7 @@ import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -75,14 +76,19 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     }
 
     private void commit() {
-        mUpdateGuarantorInfoFragment.updateGuarantorinfo();
-        ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
             @Override
-            public void onItemDataCallBack(GuarantorInfo data) {
-                if (data != null) {
-                    Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
-                    startActivity(intent);
-                    finish();
+            public void callBack() {
+                if (mUpdateGuarantorInfoFragment.updateGuarantorinfo()) {
+                    ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+                        @Override
+                        public void onItemDataCallBack(GuarantorInfo data) {
+                            if (data == null) return;
+                            Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                 }
             }
         });
