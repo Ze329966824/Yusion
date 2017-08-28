@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.support.v4.view.ViewCompat
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +49,17 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var idFrontImgUrl = ""
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
+    private val handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                0 -> {
+//                    ViewCompat.animate(autonym_certify_warnning_lin).alpha(0f).setDuration(1000).start()
+                    ViewCompat.animate(autonym_certify_warnning_lin).translationY(-autonym_certify_warnning_lin.height * 1.0f).setDuration(1000).start()
+                }
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.autonym_certify, container, false)
@@ -58,7 +72,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
-            ProductApi.getClientInfo(mContext, GetClientInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString())) {
+            ProductApi.getClientInfo(mContext, GetClientInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString(), "1")) {
                 if (it == null) {
                     return@getClientInfo
                 }
@@ -125,6 +139,10 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             autonym_certify_id_number_tv.setText("513001198707080231")
             ID_BACK_FID = "test"
             ID_FRONT_FID = "test"
+        }
+
+        autonym_certify_warnning_lin.post {
+            handler.sendEmptyMessageDelayed(0, 2000)
         }
 
     }

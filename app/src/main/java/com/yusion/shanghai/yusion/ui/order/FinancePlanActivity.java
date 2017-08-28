@@ -12,8 +12,10 @@ import android.widget.Toast;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.order.ConfirmFinancePlanReq;
+import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 
 public class FinancePlanActivity extends BaseActivity {
 

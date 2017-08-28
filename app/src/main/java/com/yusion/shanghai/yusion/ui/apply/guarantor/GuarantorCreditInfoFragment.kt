@@ -54,7 +54,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             ProductApi.getGuarantorInfo(mContext, GetGuarantorInfoReq(guarantor_credit_info_id_number_tv.text.toString(), guarantor_credit_info_name_tv.text.toString()
-                    , guarantor_credit_info_rel_tv.text.toString(), guarantor_credit_info_mobile_edt.text.toString())) {
+                    , guarantor_credit_info_rel_tv.text.toString(), guarantor_credit_info_mobile_edt.text.toString(), "1")) {
                 if (it == null) {
                     return@getGuarantorInfo
                 }
