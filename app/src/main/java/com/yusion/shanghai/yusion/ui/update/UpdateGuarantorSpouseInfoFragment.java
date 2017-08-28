@@ -746,6 +746,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             }
                             update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText(guarantorInfo.spouse.extra_company_addr.address1);
                             update_guarantor_spouse_info_extra_from_income_company_address2_tv.setText(guarantorInfo.spouse.extra_company_addr.address2);
+                            update_guarantor_spouse_info_extra_from_income_work_position_tv.setText(guarantorInfo.spouse.extra_work_position);
                             update_guarantor_spouse_info_extra_from_income_work_phone_num_edt.setText(guarantorInfo.spouse.extra_work_phone_num);
                             break;
                     }
@@ -831,6 +832,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             guarantorInfo.spouse.extra_company_addr.address1 = update_guarantor_spouse_info_extra_from_income_company_address1_tv.getText().toString();
                         }
                         guarantorInfo.spouse.extra_company_addr.address2 = update_guarantor_spouse_info_extra_from_income_company_address2_tv.getText().toString();
+                        guarantorInfo.spouse.extra_work_position = update_guarantor_spouse_info_extra_from_income_work_position_tv.getText().toString();
                         guarantorInfo.spouse.extra_work_phone_num = update_guarantor_spouse_info_extra_from_income_work_phone_num_edt.getText().toString();
                         break;
                 }
