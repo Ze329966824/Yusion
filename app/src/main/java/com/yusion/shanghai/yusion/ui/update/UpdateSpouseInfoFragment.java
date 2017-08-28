@@ -739,11 +739,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         idBackImgUrl = data.getStringExtra("imgUrl");
                         if (!ID_BACK_FID.isEmpty()) {
                             update_spouse_info_id_back_tv.setText("已上传");
-                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color, null));
+                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
                             ocrResp = (OcrResp.ShowapiResBodyBean) data.getSerializableExtra("ocrResp");
                         } else {
                             update_spouse_info_id_back_tv.setText("请上传");
-                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color, null));
+                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         update_spouse_info_id_no_edt.setText(ocrResp.idNo);
                         update_spouse_info_clt_nm_edt.setText(ocrResp.name);
@@ -1020,6 +1020,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     UploadApi.listImgs(mContext, req1, resp -> {
                         if (resp.list.size() != 0) {
                             update_spouse_info_id_back_tv.setText("已上传");
+                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
                             idBackImgUrl = resp.list.get(0).s_url;
                         }
                     });
@@ -1029,6 +1030,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     UploadApi.listImgs(mContext, req2, resp -> {
                         if (resp.list.size() != 0) {
                             update_spouse_info_id_front_tv.setText("已上传");
+                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
                             idFrontImgUrl = resp.list.get(0).s_url;
                         }
                     });
