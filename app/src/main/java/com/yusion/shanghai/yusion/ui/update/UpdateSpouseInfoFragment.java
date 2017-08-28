@@ -923,7 +923,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     updateClientinfo(callBack);
                 }
             });
-        }else {
+        } else {
             updateClientinfo(callBack);
         }
     }
