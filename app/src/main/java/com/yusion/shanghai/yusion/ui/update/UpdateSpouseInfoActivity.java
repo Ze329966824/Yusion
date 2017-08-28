@@ -14,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
-import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -77,18 +77,24 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     }
 
     private void commit() {
-
-        mUpdateSpouseInfoFragment.updateimgUrl();
-        ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+//        mUpdateSpouseInfoFragment.requestUpdate();
+        mUpdateSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
             @Override
-            public void onItemDataCallBack(ClientInfo data) {
-                if (data != null) {
-                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+            public void callBack() {
+                //,,,,
+                ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                    @Override
+                    public void onItemDataCallBack(ClientInfo data) {
+                        if (data != null) {
+                            Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
             }
         });
+
 
 
     }

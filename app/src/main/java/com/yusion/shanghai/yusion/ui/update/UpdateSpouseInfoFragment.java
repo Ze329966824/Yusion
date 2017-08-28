@@ -22,11 +22,13 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
@@ -40,6 +42,7 @@ import java.util.List;
 
 import static com.yusion.shanghai.yusion.R.id.spouse_info_divorced_tv;
 import static com.yusion.shanghai.yusion.R.id.spouse_info_register_addr_tv;
+import static com.yusion.shanghai.yusion.R.id.update_personal_info_driving_license_tv;
 
 /**
  * Created by aa on 2017/8/21.
@@ -787,14 +790,14 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         }
     }
 
-    public void updateimgUrl() {
+    public void updateimgUrl(OnVoidCallBack callBack) {
         //更新图片
         if (clientInfo.spouse.clt_id != null) {
-            uploadUrl(clientInfo.spouse.clt_id);
+            uploadUrl(clientInfo.spouse.clt_id, callBack);
         }
     }
 
-    public void updateClientinfo() {
+    public void updateClientinfo(OnVoidCallBack callBack) {
         //提交
         clientInfo.marriage = update_spouse_info_marriage_tv.getText().toString();
         switch (update_spouse_info_marriage_tv.getText().toString()) {
@@ -864,12 +867,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 clientInfo.spouse.extra_work_phone_num = update_spouse_info_extra_from_income_work_phone_num_edt.getText().toString();
                 break;
         }
-
+        callBack.callBack();
 
     }
 
-    private void
-    uploadUrl(String clt_id) {
+    private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
         switch (clientInfo.marriage) {
             case "离异":
@@ -911,10 +913,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             @Override
             public void callBack(int code, String msg) {
                 //更新用户资料
-                updateClientinfo();
+                updateClientinfo(callBack);
             }
         });
     }
+
     public void getClientinfo(ClientInfo data) {
         if (data != null) {
             clientInfo = data;
@@ -924,6 +927,26 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 case "未婚":
                     break;
                 case "已婚":
+
+                    ListImgsReq req1 = new ListImgsReq();
+                    req1.label = Constants.FileLabelType.ID_BACK;
+                    req1.clt_id = data.spouse.clt_id;
+                    UploadApi.listImgs(mContext, req1, resp -> {
+                        if (resp.list.size() != 0) {
+                            update_spouse_info_id_back_tv.setText("已上传");
+                            idBackImgUrl = resp.list.get(0).s_url;
+                        }
+                    });
+                    ListImgsReq req2 = new ListImgsReq();
+                    req2.label = Constants.FileLabelType.ID_FRONT;
+                    req2.clt_id = data.spouse.clt_id;
+                    UploadApi.listImgs(mContext, req2, resp -> {
+                        if (resp.list.size() != 0) {
+                            update_spouse_info_id_front_tv.setText("已上传");
+                            idFrontImgUrl = resp.list.get(0).s_url;
+                        }
+                    });
+
                     update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
                     update_spouse_info_clt_nm_edt.setText(clientInfo.spouse.clt_nm);
                     update_spouse_info_id_no_edt.setText(clientInfo.spouse.id_no);
@@ -995,4 +1018,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
 
     }
+
+
 }
