@@ -31,7 +31,7 @@ import java.util.*
  * Created by ice on 17/7/5.
  */
 /**
- * 通过ID_BACK_FID ID_FRONT_FID DIR_FID 判断是否已上传图片至oss
+ * 通过ID_BACK_FID ID_FRONT_FID DRI_FID 判断是否已上传图片至oss
  */
 class AutonymCertifyFragment : DoubleCheckFragment() {
 
@@ -39,7 +39,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     var ID_BACK_FID = ""
     var ID_FRONT_FID = ""
-    var DIR_FID = ""
+    var DRI_FID = ""
 
     var drivingLicImgUrl = ""
     var idBackImgUrl = ""
@@ -94,6 +94,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -102,6 +103,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idFrontImgUrl)
+            intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         autonym_certify_driving_license_lin.setOnClickListener {
@@ -109,6 +111,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.DRI_LIC)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", drivingLicImgUrl)
+            intent.putExtra("objectKey", DRI_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
@@ -137,7 +140,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         idFrontBean.clt_id = cltId
 
         val driBean = UploadFilesUrlReq.FileUrlBean()
-        driBean.file_id = DIR_FID
+        driBean.file_id = DRI_FID
         driBean.label = Constants.FileLabelType.DRI_LIC
         driBean.clt_id = cltId
 
@@ -163,7 +166,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
         } else if (ID_FRONT_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
-        } else if (DIR_FID.isEmpty()) {
+        } else if (DRI_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
         } else if (autonym_certify_name_tv.text.isEmpty()) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
@@ -216,9 +219,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 }
                             }
                             Constants.FileLabelType.DRI_LIC -> {
-                                DIR_FID = data.getStringExtra("objectKey")
+                                DRI_FID = data.getStringExtra("objectKey")
                                 drivingLicImgUrl = data.getStringExtra("imgUrl")
-                                if (DIR_FID.isNotEmpty()) {
+                                if (DRI_FID.isNotEmpty()) {
                                     autonym_certify_driving_license_tv.text = "已上传"
                                     autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.system_color))
                                 } else {

@@ -99,6 +99,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.GUARANTOR)
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -107,6 +108,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.GUARANTOR)
             intent.putExtra("imgUrl", idFrontImgUrl)
+            intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
 
