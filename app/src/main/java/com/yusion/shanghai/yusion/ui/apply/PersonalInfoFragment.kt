@@ -344,10 +344,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
             } else if (personal_info_from_self_company_address2_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (personal_info_from_income_work_position_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (personal_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             }
         } else if (personal_info_income_from_tv.text == "其他") {
             if (personal_info_from_other_year_edt.text.isEmpty()) {
