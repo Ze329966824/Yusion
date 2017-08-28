@@ -868,7 +868,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
     }
 
-    private void uploadUrl(String clt_id) {
+    private void
+    uploadUrl(String clt_id) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
         switch (clientInfo.marriage) {
             case "离异":
@@ -913,11 +914,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 updateClientinfo();
             }
         });
-
-
     }
-
-
     public void getClientinfo(ClientInfo data) {
         if (data != null) {
             clientInfo = data;

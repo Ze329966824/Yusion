@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -33,6 +34,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yusion.shanghai.yusion.R.id.update_personal_info_company_name_edt;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_contact1_edt;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_contact2_edt;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_mobile1_edt;
@@ -782,8 +784,12 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
 
     //提交用户信息
     public void updateClientinfo() {
-        //提交
+        //校验
+        if (!checkUserInfo()) {
+            return;
+        }
 
+        //提交
         clientInfo.clt_nm = update_personal_info_clt_nm_edt.getText().toString();
         clientInfo.id_no = update_personal_info_id_no_edt.getText().toString();
         clientInfo.gender = update_personal_info_gender_tv.getText().toString();
@@ -860,6 +866,85 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         clientInfo.urg_relation2 = update_personal_info_urg_relation2_tv.getText().toString();
         clientInfo.urg_mobile2 = update_personal_info_urg_mobile2_edt.getText().toString();
         clientInfo.urg_contact2 = update_personal_info_urg_contact2_edt.getText().toString();
+
+
+    }
+
+    private boolean checkUserInfo() {
+        if (update_personal_info_reg_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_gender_tv.toString().isEmpty()) {
+            Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_mobile_edt.toString().isEmpty()) {
+            Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_education_tv.toString().isEmpty()) {
+            Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_current_address_tv.toString().isEmpty()) {
+            Toast.makeText(mContext, "现住地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_current_address1_tv.toString().isEmpty()) {
+            Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_current_address2_tv.toString().isEmpty()) {
+            Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        }
+        //主要工资
+        else if (update_personal_info_from_income_company_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_income_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_income_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_income_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_work_position_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_income_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
+        }
+        //主要自营
+        else if (update_personal_info_from_self_company_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_self_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_income_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
+        }
+        //主要其他
+        else if (update_personal_info_from_other_remark_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_from_other_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (update_personal_info_house_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_house_area_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "房屋面积不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_house_owner_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_house_owner_relation_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_urg_contact1_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "亲属联系人姓名不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_urg_mobile1_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "亲属联系人手机号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_urg_relation1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "亲属联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_urg_contact2_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "其他联系人姓名不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_urg_mobile2_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "其他联系人手机号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_urg_relation2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "其他联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        } else {
+            return true;
+        }
+        return false;
 
 
     }
