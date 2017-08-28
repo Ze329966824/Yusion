@@ -239,7 +239,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.update.UpdateSecuritySpouseInfoActivity"
+            android:name=".ui.update.UpdateGuarantorSpouseInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity

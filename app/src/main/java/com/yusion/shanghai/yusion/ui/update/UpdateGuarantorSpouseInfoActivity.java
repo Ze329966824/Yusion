@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
+import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -27,27 +31,55 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateSecuritySpouseInfoActivity extends BaseActivity {
+public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
     private UpdateGuarantorSpouseInfoFragment mUpdateGuarantorSpouseInfoFragment;
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"担保人配偶信息", "影像件"};
+    private GuarantorInfo guarantorInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_security_spouse_info);
+        setContentView(R.layout.activity_update_guarantor_spouse_info);
         initTitleBar(this, "担保人配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
-        initCommit();
+        getInfo();  //获取配偶信息
+        submit();   //更新配偶信息
     }
 
-    private void initCommit() {
+    private void getInfo() {
+        ProductApi.getGuarantorInfo(this, new GetGuarantorInfoReq(), new OnItemDataCallBack<GuarantorInfo>() {
+            @Override
+            public void onItemDataCallBack(GuarantorInfo data) {
+                if (data != null) {
+                    guarantorInfo = data;
+                    mUpdateGuarantorSpouseInfoFragment.getGuarantorinfo(guarantorInfo);
+                    mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.clt_id, "lender");
+                }
+            }
+        });
+    }
+
+    private void submit() {
         findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UpdateSecuritySpouseInfoActivity.this,CommitActivity.class);
-                startActivity(intent);
-                finish();
+                commit();
+            }
+        });
+    }
+
+
+    private void commit() {
+        mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo();
+        ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this,guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+            @Override
+            public void onItemDataCallBack(GuarantorInfo data) {
+                if (data != null) {
+                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

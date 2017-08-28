@@ -21,7 +21,7 @@ import com.yusion.shanghai.yusion.ui.apply.ApplyActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
-import com.yusion.shanghai.yusion.ui.update.UpdateSecuritySpouseInfoActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdateGuarantorSpouseInfoActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 
 /**
@@ -69,7 +69,7 @@ public class HomeFragment extends BaseFragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, UpdateSecuritySpouseInfoActivity.class);
+                Intent intent = new Intent(mContext, UpdateGuarantorSpouseInfoActivity.class);
                 startActivity(intent);
             }
         });
