@@ -74,7 +74,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
     private void commit() {
 
         //上传影像件
-        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
+        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
             @Override
             public void callBack() {
                 //上传用户资料

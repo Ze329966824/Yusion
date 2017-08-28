@@ -863,6 +863,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             clientInfo.spouse.extra_company_addr.address1 = update_spouse_info_extra_from_income_company_address1_tv.getText().toString();
                         }
                         clientInfo.spouse.extra_company_addr.address2 = update_spouse_info_extra_from_income_company_address2_tv.getText().toString();
+                        clientInfo.spouse.extra_work_position = update_spouse_info_extra_from_income_work_position_tv.getText().toString();
                         clientInfo.spouse.extra_work_phone_num = update_spouse_info_extra_from_income_work_phone_num_edt.getText().toString();
                         break;
                 }
@@ -1079,6 +1080,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     switch (clientInfo.spouse.extra_income_type) {
                         case "工资":
                             update_spouse_info_extra_from_income_group_lin.setVisibility(View.VISIBLE);
+                            update_spouse_info_extra_from_income_work_position_tv.setText(clientInfo.spouse.extra_work_position);
                             update_spouse_info_extra_from_income_year_edt.setText(clientInfo.spouse.extra_income);
                             update_spouse_info_extra_from_income_company_name_edt.setText(clientInfo.spouse.extra_company_name);
                             update_spouse_info_extra_from_income_company_address_tv.setText(clientInfo.spouse.extra_company_addr.province + "/" + clientInfo.spouse.extra_company_addr.city + "/" + clientInfo.spouse.extra_company_addr.district);
