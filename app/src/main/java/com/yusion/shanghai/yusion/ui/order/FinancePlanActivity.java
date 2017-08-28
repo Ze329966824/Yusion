@@ -17,56 +17,31 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 
 public class FinancePlanActivity extends BaseActivity {
 
-    private int b1 = 90000;
-    private int b2 = 90000;
 
     private TextView applyBillPriceTv;
     private TextView replyBillPriceTv;
 
-    private int f1 = 70000;
-    private int f2 = 60000;
     private TextView applyFirstPriceTv;
     private TextView replyFirstPriceTv;
 
-    private int L1 = 80000;
-    private int L2 = 90000;
     private TextView applyLoanPriceTv;
     private TextView replyLoanPriceTv;
 
-    private int M1 = 300;
-    private int M2 = 3000;
     private TextView applyManagementPriceTv;
     private TextView replyManagementPriceTv;
-
-    private int O1 = 4000;
-    private int O2 = 5000;
 
     private TextView applyOtherPriceTv;
     private TextView replyOtherPriceTv;
 
-    private int T1 = 78000;
-    private int T2 = 89000;
     private TextView applyTotalPriceTv;
     private TextView replyTotalPriceTv;
 
-    private String bank1 = "工商银行";
-    private String bank2 = "工商银行";
     private TextView applyBankTv;
     private TextView replyBankTv;
-
-    private String date1 = "24期";
-    private String date2 = "23期";
 
     private TextView applyReplyDateTv;
     private TextView ReplyRepayDateTv;
 
-
-    //    private TextView carLoanPriceTv;
-//    private TextView managementPriceTv;
-//    private TextView otherPriceTv;
-//    private TextView loanPriceTv;
-//    private TextView loanBankTv;
-//    private TextView periodsTv;
     private TextView percentTv;
 
     private Button confirmBtn;
@@ -120,16 +95,6 @@ public class FinancePlanActivity extends BaseActivity {
 
 //        applyBillPriceTv.setText(b1 + "");
 //        replyBillPriceTv.setText(b2 + "");
-        compare(b1, b2, applyBillPriceTv, replyBillPriceTv);
-        compare(f1, f2, applyFirstPriceTv, replyFirstPriceTv);
-        compare(L1, L2, applyLoanPriceTv, replyLoanPriceTv);
-        compare(M1, M2, applyManagementPriceTv, replyManagementPriceTv);
-        compare(O1, O2, applyOtherPriceTv, replyOtherPriceTv);
-        compare(T1, T2, applyTotalPriceTv, replyTotalPriceTv);
-
-        compare(bank1, bank2, applyBankTv, replyBankTv);
-        compare(date1, date2, applyReplyDateTv, ReplyRepayDateTv);
-
 
 //        int a = Integer.valueOf(applyBillPriceTv.getText() + "");
 //        int b = Integer.valueOf(replyBillPriceTv.getText() + "");
@@ -165,7 +130,49 @@ public class FinancePlanActivity extends BaseActivity {
                 });
             }
         });
+        //getIntent().getStringExtra("app_id")  1100002
+        String app_id = "11000002";
+        OrderApi.getFinancePlanDetail(this, getIntent().getStringExtra("app_id"), new OnItemDataCallBack<GetFinancePlanDetailResp>() {
+            @Override
+            public void onItemDataCallBack(GetFinancePlanDetailResp resp) {
+                applyBillPriceTv.setText(resp.getApp().getVehicle_price());
+                replyBillPriceTv.setText(resp.getUw().getVehicle_price());
+                //compare(resp.getApp().getVehicle_price(),resp.getUw().getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
 
+                applyFirstPriceTv.setText(resp.getApp().getVehicle_down_payment());
+                replyFirstPriceTv.setText(resp.getUw().getVehicle_down_payment());
+
+                applyLoanPriceTv.setText(resp.getApp().getVehicle_loan_amt());
+                replyLoanPriceTv.setText(resp.getUw().getVehicle_down_payment());
+
+                applyManagementPriceTv.setText(resp.getApp().getManagement_fee());
+                replyManagementPriceTv.setText(resp.getUw().getManagement_fee());
+
+                applyOtherPriceTv.setText(resp.getApp().getOther_fee());
+                replyOtherPriceTv.setText(resp.getUw().getOther_fee());
+
+                applyTotalPriceTv.setText(resp.getApp().getLoan_amt());
+                replyTotalPriceTv.setText(resp.getUw().getLoan_amt());
+
+                applyBankTv.setText(resp.getApp().getLoan_bank());
+                replyBankTv.setText(resp.getUw().getLoan_bank());
+
+                applyReplyDateTv.setText(resp.getApp().getNper() + "期");
+                ReplyRepayDateTv.setText(resp.getUw().getNper() + "期");
+
+                percentTv.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
+
+            }
+        });
+        compare(applyBillPriceTv, replyBillPriceTv);
+        compare(applyFirstPriceTv, replyFirstPriceTv);
+        compare(applyLoanPriceTv, replyLoanPriceTv);
+        compare(applyManagementPriceTv, replyManagementPriceTv);
+        compare(applyOtherPriceTv, replyOtherPriceTv);
+        compare(applyTotalPriceTv, replyTotalPriceTv);
+
+        compare(applyBankTv, replyBankTv);
+        compare(applyReplyDateTv, ReplyRepayDateTv);
 
 //        OrderApi.getFinancePlanDetail(this, getIntent().getStringExtra("app_id"), new OnItemDataCallBack<GetFinancePlanDetailResp>() {
 //            @Override
@@ -178,10 +185,22 @@ public class FinancePlanActivity extends BaseActivity {
 //                replyLoanPriceTv.setText(resp.loan_amt);
 //                replyBankTv.setText(resp.loan_bank);
 //                //periodsTv.setText(resp.nper);
-//                percentTv.setText(resp.vehicle_down_payment_percent * 100 + "%");
+//          percentTv.setText(resp.vehicle_down_payment_percent * 100 + "%");
 //            }
 //        });
     }
+
+    private void compare(TextView tv1, TextView tv2) {
+        if (tv1.getText().toString().compareTo(tv2.getText().toString()) == 0) {
+            tv1.setTextColor(Color.parseColor("#999999"));
+            tv2.setTextColor(Color.parseColor("#222a36"));
+        } else {
+            tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            tv1.setTextColor(Color.parseColor("#999999"));
+            tv2.setTextColor(Color.parseColor("#CBA053"));
+        }
+    }
+
 
     private void compare(String str1, String str2, TextView tv1, TextView tv2) {
         tv1.setText(str1);
@@ -210,14 +229,6 @@ public class FinancePlanActivity extends BaseActivity {
             tv2.setTextColor(Color.parseColor("#CBA053"));
         }
 
-//        if (a != b) {
-//            tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//            tv1.setTextColor(Color.parseColor("#999999"));
-//            tv2.setTextColor(Color.parseColor("#CBA053"));
-//        } else {
-//            tv1.setTextColor(Color.parseColor("#999999"));
-//            tv2.setTextColor(Color.parseColor("#222a36"));
-//        }
 
     }
 }

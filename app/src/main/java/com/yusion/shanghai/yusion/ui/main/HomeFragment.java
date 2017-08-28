@@ -97,7 +97,7 @@ public class HomeFragment extends BaseFragment {
                                 Intent intent = new Intent(mContext, InfoListActivity.class);
                                 intent.putExtra("ishaveGuarantee", true);
                                 startActivity(intent);
-                            }else {
+                            } else {
                                 Intent intent = new Intent(mContext, InfoListActivity.class);
                                 intent.putExtra("ishaveGuarantee", false);
                                 startActivity(intent);
@@ -105,7 +105,6 @@ public class HomeFragment extends BaseFragment {
                         }
                     }
                 });
-
 
 
             });
