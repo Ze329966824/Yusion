@@ -68,8 +68,8 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.reg_addr.district = ocrResp.town
                 }
                 addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
-                nextStep()
-//                uploadUrl(it.clt_id)
+//                nextStep()
+                uploadUrl(it.clt_id)
             }
         }
         guarantor_credit_info_next_btn.setOnClickListener {
