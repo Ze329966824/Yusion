@@ -61,7 +61,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 if (data != null) {
                     clientInfo = data;
                     mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id, "lender");
+                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
                 }
             }
         });
@@ -79,7 +79,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private void commit() {
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传影像件
-        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
+        mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
             @Override
             public void callBack() {
                 //上传用户资料

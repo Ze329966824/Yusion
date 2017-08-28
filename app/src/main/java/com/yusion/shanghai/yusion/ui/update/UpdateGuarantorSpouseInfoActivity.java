@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.yusion.shanghai.yusion.R;
-import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
@@ -55,7 +54,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                 if (data != null) {
                     guarantorInfo = data;
                     mUpdateGuarantorSpouseInfoFragment.getGuarantorinfo(guarantorInfo);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.clt_id, "lender");
+                    mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.spouse.clt_id, "lender");
                 }
             }
         });
@@ -74,7 +73,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
     private void commit() {
 
         //上传影像件
-        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
+        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
             @Override
             public void callBack() {
                 //上传用户资料
