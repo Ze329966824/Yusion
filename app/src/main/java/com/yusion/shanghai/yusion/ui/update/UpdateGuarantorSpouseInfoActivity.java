@@ -17,6 +17,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -71,18 +72,31 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 
 
     private void commit() {
-        mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo();
-        ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this,guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+
+        //上传影像件
+        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
             @Override
-            public void onItemDataCallBack(GuarantorInfo data) {
-                if (data != null) {
-                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+            public void callBack() {
+                //上传用户资料
+                if (mUpdateGuarantorSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
+                    @Override
+                    public void callBack() {
+                        ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+                            @Override
+                            public void onItemDataCallBack(GuarantorInfo data) {
+                                if (data == null) return;
+                                Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }
+                }));
             }
         });
     }
+
+
 
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);

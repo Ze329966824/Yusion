@@ -6,5 +6,5 @@ package com.yusion.shanghai.yusion.retrofit.callback;
  */
 
 public interface OnCodeAndMsgCallBack {
-    boolean callBack(int code, String msg);
+    void callBack(int code, String msg);
 }

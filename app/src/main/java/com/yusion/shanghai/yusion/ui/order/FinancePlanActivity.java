@@ -154,14 +154,13 @@ public class FinancePlanActivity extends BaseActivity {
                 req.app_id = getIntent().getStringExtra("app_id");
                 OrderApi.confirmFinancePlan(FinancePlanActivity.this, req, new OnCodeAndMsgCallBack() {
                     @Override
-                    public boolean callBack(int code, String msg) {
+                    public void callBack(int code, String msg) {
                         if (code == 0) {
                             Toast.makeText(myApp, "确认成功", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Toast.makeText(myApp, "确认失败", Toast.LENGTH_SHORT).show();
                         }
-                        return false;
                     }
                 });
             }

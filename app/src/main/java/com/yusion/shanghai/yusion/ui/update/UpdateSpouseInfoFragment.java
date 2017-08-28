@@ -889,8 +889,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_from_income_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
             }
-            return true;
         }
         //主要自营
         else if (update_spouse_info_income_from_tv.getText().toString().equals("自营")) {
@@ -906,8 +907,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_from_self_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
             }
-            return true;
         }
         //主要其他
         else if (update_spouse_info_income_from_tv.getText().toString().equals("其他")) {
@@ -915,8 +917,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_from_other_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
             }
-            return true;
         }
         return false;
 
@@ -986,16 +989,16 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         if (files.size() > 0) {
             UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, new OnCodeAndMsgCallBack() {
                 @Override
-                public boolean callBack(int code, String msg) {
+                public void callBack(int code, String msg) {
                     if (code < 0) {
-                        return false;
+                        return;
                     }
                     //更新用户资料
-                    return updateClientinfo(callBack);
+                    updateClientinfo(callBack);
                 }
             });
         } else {
-            return updateClientinfo(callBack);
+            updateClientinfo(callBack);
         }
         return false;
     }

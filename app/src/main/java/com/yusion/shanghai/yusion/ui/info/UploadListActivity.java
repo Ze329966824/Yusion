@@ -126,11 +126,10 @@ public class UploadListActivity extends BaseActivity {
                 req.id.addAll(delImgIdList);
                 UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
                     @Override
-                    public boolean callBack(int code, String msg) {
+                    public void callBack(int code, String msg) {
                         if (code == 0) {
                             Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
                         }
-                        return false;
                     }
                 });
             }

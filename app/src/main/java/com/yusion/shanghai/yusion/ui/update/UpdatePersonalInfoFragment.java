@@ -873,6 +873,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         }
         return false;
     }
+
     private boolean checkIncome() {
         //主要工资
         if (update_personal_info_income_from_tv.getText().toString().equals("工资")) {
@@ -888,8 +889,9 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_personal_info_from_income_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
             }
-            return true;
         }
         //主要自营
         else if (update_personal_info_income_from_tv.getText().toString().equals("自营")) {
@@ -905,8 +907,9 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_personal_info_from_self_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
             }
-            return true;
         }
         //主要其他
         else if (update_personal_info_income_from_tv.getText().toString().equals("其他")) {
@@ -914,8 +917,9 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_personal_info_from_other_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
             }
-            return true;
         }
         return false;
 
