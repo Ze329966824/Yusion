@@ -737,7 +737,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     case Constants.FileLabelType.ID_BACK:
                         ID_BACK_FID = data.getStringExtra("objectKey");
                         idBackImgUrl = data.getStringExtra("imgUrl");
-                        if (!ID_BACK_FID.isEmpty()) {
+                        if (!idBackImgUrl.isEmpty()) {
                             update_spouse_info_id_back_tv.setText("已上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
                             ocrResp = (OcrResp.ShowapiResBodyBean) data.getSerializableExtra("ocrResp");
@@ -751,7 +751,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     case Constants.FileLabelType.ID_FRONT:
                         ID_FRONT_FID = data.getStringExtra("objectKey");
                         idFrontImgUrl = data.getStringExtra("imgUrl");
-                        if (!ID_FRONT_FID.isEmpty()) {
+                        if (!idFrontImgUrl.isEmpty()) {
                             update_spouse_info_id_front_tv.setText("已上传");
                             update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
                         } else {

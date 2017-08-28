@@ -79,6 +79,7 @@ public class DocumentActivity extends BaseActivity {
         true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
         takePhoto = (ImageView) findViewById(R.id.camera_document);
         if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
+            imgUrl = mGetIntent.getStringExtra("imgUrl");
             Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
             isHasImage = true;
         } else {
