@@ -34,7 +34,7 @@ public class ProductApi {
 
     public static void getClientInfo(final Context context, GetClientInfoReq req, final OnItemDataCallBack<ClientInfo> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        Api.getProductService().getClientInfo(req.id_no, req.clt_nm).enqueue(
+        Api.getProductService().getClientInfo(req.id_no, req.clt_nm, req.update).enqueue(
                 new CustomCallBack<ClientInfo>(context, dialog) {
                     @Override
                     public void onCustomResponse(ClientInfo data) {
@@ -56,7 +56,7 @@ public class ProductApi {
 
     public static void getGuarantorInfo(final Context context, GetGuarantorInfoReq req, final OnItemDataCallBack<GuarantorInfo> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        Api.getProductService().getGuarantorInfo(req.id_no, req.clt_nm, req.mobile, req.social_ship).enqueue(
+        Api.getProductService().getGuarantorInfo(req.id_no, req.clt_nm, req.mobile, req.social_ship, req.update).enqueue(
                 new CustomCallBack<GuarantorInfo>(context, dialog) {
                     @Override
                     public void onCustomResponse(GuarantorInfo data) {
