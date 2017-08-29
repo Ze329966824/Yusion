@@ -122,6 +122,7 @@ public class DocumentActivity extends BaseActivity {
                 } else if (mType.equals("driving_lic") && !isClick) {
                     Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
                     i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+                    i.putExtra("maxCount", 1);//加载类型
                     startActivityForResult(i, 100);
                 } else if (isClick) {
                     if (isFlag) {

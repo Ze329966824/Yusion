@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#F5F7F9"
-              android:orientation="vertical"
-              tools:context="com.yusion.shanghai.yusion.ui.main.MineFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7F9"
+    android:orientation="vertical"
+    tools:context="com.yusion.shanghai.yusion.ui.main.MineFragment">
 
     <LinearLayout
         android:id="@+id/mine_fragment_info_lin"
@@ -24,6 +24,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginBottom="8.5dp"
+            android:alpha="0.5"
             android:src="@mipmap/mine_head_pic" />
 
         <TextView
@@ -121,7 +122,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#e1e3e6"/>
+            android:background="#e1e3e6" />
 
         <LinearLayout
             android:id="@+id/mine_user_info_lin"
@@ -137,30 +138,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/mine_icon_userinfo"/>
+                android:src="@mipmap/mine_icon_userinfo" />
 
             <TextView
                 style="@style/apply_info_title"
                 android:layout_marginLeft="20dp"
-                android:text="个人资料"/>
+                android:text="个人资料" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right"/>
+                android:src="@mipmap/mine_arrow_right" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="15dp"
-            android:background="#e1e3e6"/>
+            android:background="#e1e3e6" />
 
         <LinearLayout
             android:id="@+id/mine_setting_lin"
@@ -177,31 +178,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/mine_icon_setting"/>
+                android:src="@mipmap/mine_icon_setting" />
 
             <TextView
                 android:id="@+id/textView"
                 style="@style/apply_info_title"
                 android:layout_marginLeft="20dp"
-                android:text="设置"/>
+                android:text="设置" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right"/>
+                android:src="@mipmap/mine_arrow_right" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="15dp"
-            android:background="#e1e3e6"/>
+            android:background="#e1e3e6" />
 
         <LinearLayout
             android:id="@+id/mine_customer_service_lin"
@@ -218,29 +219,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/mine_icon_service"/>
+                android:src="@mipmap/mine_icon_service" />
 
             <TextView
                 style="@style/apply_info_title"
                 android:layout_marginLeft="20dp"
-                android:text="客服"/>
+                android:text="客服" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right"/>
+                android:src="@mipmap/mine_arrow_right" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#e1e3e6"/>
+            android:background="#e1e3e6" />
     </LinearLayout>
 </LinearLayout>
 

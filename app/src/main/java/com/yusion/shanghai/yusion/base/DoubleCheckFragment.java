@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -34,6 +36,7 @@ public class DoubleCheckFragment extends BaseFragment {
     public Dialog mDoubleCheckDialog;
     private LinearLayout mDoubleCheckGroupLin;
     private LayoutInflater mInflater;
+
 
     public static Dialog createBottomDialog(Context context, View contentView) {
         Dialog dialog = new Dialog(context, R.style.MyDialogStyle);
