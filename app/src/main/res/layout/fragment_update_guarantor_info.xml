@@ -70,7 +70,7 @@
                                 style="@style/apply_info_title"
                                 android:text="姓名" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_clt_nm_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp" />
@@ -299,15 +299,18 @@
                             android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            android:layout_height="90dp"
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_current_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -387,7 +390,7 @@
 
                             <EditText
                                 android:id="@+id/update_guarantor_info_from_income_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -413,7 +416,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位名称" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -497,15 +500,18 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            android:layout_height="90dp"
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_from_income_company_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -564,7 +570,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位座机" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -607,7 +613,7 @@
 
                             <EditText
                                 android:id="@+id/update_guarantor_info_from_self_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -661,11 +667,11 @@
                                 style="@style/apply_info_title"
                                 android:text="店铺名称" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_from_self_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入店铺名称" />
                         </LinearLayout>
 
                         <View
@@ -739,15 +745,18 @@
 
                         <include layout="@layout/include_line_left" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            android:layout_height="90dp"
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_from_self_company_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -785,7 +794,7 @@
 
                             <EditText
                                 android:id="@+id/update_guarantor_info_from_other_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -794,15 +803,17 @@
 
                         <LinearLayout
                             android:id="@+id/update_guarantor_info_from_other_remark_lin"
-                            style="@style/apply_info_item">
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="备注" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_from_other_remark_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入备注" />
 
@@ -885,7 +896,7 @@
 
                             <EditText
                                 android:id="@+id/update_guarantor_info_extra_from_income_year_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入年收入" />
                         </LinearLayout>
@@ -911,7 +922,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位名称" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_extra_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -995,15 +1006,18 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            android:layout_height="90dp"
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_extra_from_income_company_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -1062,7 +1076,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位座机" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -1135,7 +1149,7 @@
                                 android:layout_marginRight="35dp"
                                 android:text="房屋面积(平米)" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_house_area_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -1156,7 +1170,7 @@
                                 style="@style/apply_info_title"
                                 android:text="房屋所有权人" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_info_house_owner_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -1316,7 +1330,7 @@
                             style="@style/apply_info_title"
                             android:text="联系人姓名" />
 
-                        <EditText
+                        <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                             android:id="@+id/update_guarantor_info_urg_contact1_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
@@ -1410,7 +1424,7 @@
                             style="@style/apply_info_title"
                             android:text="联系人姓名" />
 
-                        <EditText
+                        <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                             android:id="@+id/update_guarantor_info_urg_contact2_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"

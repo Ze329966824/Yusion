@@ -29,6 +29,7 @@ import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
+import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     private LinearLayout update_guarantor_info_from_self_group_lin;
     private LinearLayout update_guarantor_info_from_other_group_lin;
     private LinearLayout update_guarantor_info_extra_from_income_group_lin;
-    private EditText update_guarantor_info_clt_nm_edt;                       //姓名
+    private NoEmptyEditText update_guarantor_info_clt_nm_edt;                       //姓名
     private EditText update_guarantor_info_id_no_edt;                        //身份证号
     private TextView update_guarantor_info_gender_tv;                        //性别
     private TextView update_guarantor_info_reg_tv;                           //户籍
@@ -95,41 +96,41 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     private TextView update_guarantor_info_education_tv;                     //学历
     private TextView update_guarantor_info_current_address_tv;               //现住地址
     private TextView update_guarantor_info_current_address1_tv;              //详细地址
-    private EditText update_guarantor_info_current_address2_tv;              //门牌号
+    private NoEmptyEditText update_guarantor_info_current_address2_tv;              //门牌号
     private TextView update_guarantor_info_income_from_tv;                   //主要收入来源
     private EditText update_guarantor_info_from_income_year_edt;             //主要-工资-年收入
-    private EditText update_guarantor_info_from_income_company_name_edt;     //主要-工资-单位名称
+    private NoEmptyEditText update_guarantor_info_from_income_company_name_edt;     //主要-工资-单位名称
     private TextView update_guarantor_info_from_income_company_address_tv;   //主要-工资-单位地址
     private TextView update_guarantor_info_from_income_company_address1_tv;  //主要-工资-详细地址
-    private EditText update_guarantor_info_from_income_company_address2_tv;  //主要-工资-门牌号
+    private NoEmptyEditText update_guarantor_info_from_income_company_address2_tv;  //主要-工资-门牌号
     private TextView update_guarantor_info_work_position_tv;                 //主要-工资-职务
-    private EditText update_guarantor_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
+    private NoEmptyEditText update_guarantor_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
     private EditText update_guarantor_info_from_self_year_edt;               //主要-自营-年收入
     private TextView update_guarantor_info_from_self_type_tv;                //主要-自营-业务类型
-    private EditText update_guarantor_info_from_self_company_name_edt;       //主要-自营-店铺名称
+    private NoEmptyEditText update_guarantor_info_from_self_company_name_edt;       //主要-自营-店铺名称
     private TextView update_guarantor_info_from_self_company_address_tv;     //主要-自营-单位地址
     private TextView update_guarantor_info_from_self_company_address1_tv;    //主要-自营-详细地址
-    private EditText update_guarantor_info_from_self_company_address2_tv;    //主要-自营-门牌号
+    private NoEmptyEditText update_guarantor_info_from_self_company_address2_tv;    //主要-自营-门牌号
     private EditText update_guarantor_info_from_other_year_edt;              //主要-其他-年收入
-    private EditText update_guarantor_info_from_other_remark_tv;             //主要-其他-备注
+    private NoEmptyEditText update_guarantor_info_from_other_remark_tv;             //主要-其他-备注
     private TextView update_guarantor_info_extra_income_from_tv;             //额外收入来源
     private EditText update_guarantor_info_extra_from_income_year_edt;            //额外-工资-年收入
-    private EditText update_guarantor_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
+    private NoEmptyEditText update_guarantor_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
     private TextView update_guarantor_info_extra_from_income_company_address_tv;  //额外-工资-公司地址
     private TextView update_guarantor_info_extra_from_income_company_address1_tv; //额外-工资-详细地址
-    private EditText update_guarantor_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
+    private NoEmptyEditText update_guarantor_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
     private TextView update_guarantor_extra_info_work_position_tv;                //额外-工资-职务
-    private EditText update_guarantor_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+    private NoEmptyEditText update_guarantor_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
     private TextView update_guarantor_info_house_type_tv;                     //房屋性质
-    private EditText update_guarantor_info_house_area_edt;                    //房屋面积
-    private EditText update_guarantor_info_house_owner_name_edt;              //房屋所有人
+    private NoEmptyEditText update_guarantor_info_house_area_edt;                    //房屋面积
+    private NoEmptyEditText update_guarantor_info_house_owner_name_edt;              //房屋所有人
     private TextView update_guarantor_info_house_owner_relation_tv;           //与申请人关系
     private TextView update_guarantor_info_urg_relation1_tv;           //紧急联系人-与申请人关系1
     private EditText update_guarantor_info_urg_mobile1_edt;            //紧急联系人-手机号1
-    private EditText update_guarantor_info_urg_contact1_edt;           //紧急联系人-姓名1
+    private NoEmptyEditText update_guarantor_info_urg_contact1_edt;           //紧急联系人-姓名1
     private TextView update_guarantor_info_urg_relation2_tv;           //紧急联系人-与申请人关系2
     private EditText update_guarantor_info_urg_mobile2_edt;            //紧急联系人-手机号2
-    private EditText update_guarantor_info_urg_contact2_edt;           //紧急联系人-姓名2
+    private NoEmptyEditText update_guarantor_info_urg_contact2_edt;           //紧急联系人-姓名2
     private GuarantorInfo guarantorInfo;
 
     @Override
@@ -147,7 +148,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
         });
 
         //初始化
-        update_guarantor_info_clt_nm_edt = (EditText) view.findViewById(R.id.update_guarantor_info_clt_nm_edt);
+        update_guarantor_info_clt_nm_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_clt_nm_edt);
         update_guarantor_info_id_no_edt = (EditText) view.findViewById(R.id.update_guarantor_info_id_no_edt);
         update_guarantor_info_gender_tv = (TextView) view.findViewById(R.id.update_guarantor_info_gender_tv);
         update_guarantor_info_reg_tv = (TextView) view.findViewById(R.id.update_guarantor_info_reg_tv);
@@ -155,41 +156,41 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
         update_guarantor_info_education_tv = (TextView) view.findViewById(R.id.update_guarantor_info_education_tv);
         update_guarantor_info_current_address_tv = (TextView) view.findViewById(R.id.update_guarantor_info_current_address_tv);
         update_guarantor_info_current_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_info_current_address1_tv);
-        update_guarantor_info_current_address2_tv = (EditText) view.findViewById(R.id.update_guarantor_info_current_address2_tv);
+        update_guarantor_info_current_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_current_address2_tv);
         update_guarantor_info_income_from_tv = (TextView) view.findViewById(R.id.update_guarantor_info_income_from_tv);
         update_guarantor_info_from_income_year_edt = (EditText) view.findViewById(R.id.update_guarantor_info_from_income_year_edt);
-        update_guarantor_info_from_income_company_name_edt = (EditText) view.findViewById(R.id.update_guarantor_info_from_income_company_name_edt);
+        update_guarantor_info_from_income_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_from_income_company_name_edt);
         update_guarantor_info_from_income_company_address_tv = (TextView) view.findViewById(R.id.update_guarantor_info_from_income_company_address_tv);
         update_guarantor_info_from_income_company_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_info_from_income_company_address1_tv);
-        update_guarantor_info_from_income_company_address2_tv = (EditText) view.findViewById(R.id.update_guarantor_info_from_income_company_address2_tv);
+        update_guarantor_info_from_income_company_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_from_income_company_address2_tv);
         update_guarantor_info_work_position_tv = (TextView) view.findViewById(R.id.update_guarantor_info_work_position_tv);
-        update_guarantor_info_from_income_work_phone_num_edt = (EditText) view.findViewById(R.id.update_guarantor_info_from_income_work_phone_num_edt);
+        update_guarantor_info_from_income_work_phone_num_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_from_income_work_phone_num_edt);
         update_guarantor_info_from_self_year_edt = (EditText) view.findViewById(R.id.update_guarantor_info_from_self_year_edt);
         update_guarantor_info_from_self_type_tv = (TextView) view.findViewById(R.id.update_guarantor_info_from_self_type_tv);
-        update_guarantor_info_from_self_company_name_edt = (EditText) view.findViewById(R.id.update_guarantor_info_from_self_company_name_edt);
+        update_guarantor_info_from_self_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_from_self_company_name_edt);
         update_guarantor_info_from_self_company_address_tv = (TextView) view.findViewById(R.id.update_guarantor_info_from_self_company_address_tv);
         update_guarantor_info_from_self_company_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_info_from_self_company_address1_tv);
-        update_guarantor_info_from_self_company_address2_tv = (EditText) view.findViewById(R.id.update_guarantor_info_from_self_company_address2_tv);
+        update_guarantor_info_from_self_company_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_from_self_company_address2_tv);
         update_guarantor_info_from_other_year_edt = (EditText) view.findViewById(R.id.update_guarantor_info_from_other_year_edt);
-        update_guarantor_info_from_other_remark_tv = (EditText) view.findViewById(R.id.update_guarantor_info_from_other_remark_tv);
+        update_guarantor_info_from_other_remark_tv = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_from_other_remark_tv);
         update_guarantor_info_extra_income_from_tv = (TextView) view.findViewById(R.id.update_guarantor_info_extra_income_from_tv);
         update_guarantor_info_extra_from_income_year_edt = (EditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_year_edt);
-        update_guarantor_info_extra_from_income_company_name_edt = (EditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_company_name_edt);
+        update_guarantor_info_extra_from_income_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_company_name_edt);
         update_guarantor_info_extra_from_income_company_address_tv = (TextView) view.findViewById(R.id.update_guarantor_info_extra_from_income_company_address_tv);
         update_guarantor_info_extra_from_income_company_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_info_extra_from_income_company_address1_tv);
-        update_guarantor_info_extra_from_income_company_address2_tv = (EditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_company_address2_tv);
+        update_guarantor_info_extra_from_income_company_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_company_address2_tv);
         update_guarantor_extra_info_work_position_tv = (TextView) view.findViewById(R.id.update_guarantor_extra_info_work_position_tv);
-        update_guarantor_info_extra_from_income_work_phone_num_edt = (EditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_work_phone_num_edt);
+        update_guarantor_info_extra_from_income_work_phone_num_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_extra_from_income_work_phone_num_edt);
         update_guarantor_info_house_type_tv = (TextView) view.findViewById(R.id.update_guarantor_info_house_type_tv);
-        update_guarantor_info_house_area_edt = (EditText) view.findViewById(R.id.update_guarantor_info_house_area_edt);
-        update_guarantor_info_house_owner_name_edt = (EditText) view.findViewById(R.id.update_guarantor_info_house_owner_name_edt);
+        update_guarantor_info_house_area_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_house_area_edt);
+        update_guarantor_info_house_owner_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_house_owner_name_edt);
         update_guarantor_info_house_owner_relation_tv = (TextView) view.findViewById(R.id.update_guarantor_info_house_owner_relation_tv);
         update_guarantor_info_urg_relation1_tv = (TextView) view.findViewById(R.id.update_guarantor_info_urg_relation1_tv);
         update_guarantor_info_urg_mobile1_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_mobile1_edt);
-        update_guarantor_info_urg_contact1_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_contact1_edt);
+        update_guarantor_info_urg_contact1_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_urg_contact1_edt);
         update_guarantor_info_urg_relation2_tv = (TextView) view.findViewById(R.id.update_guarantor_info_urg_relation2_tv);
         update_guarantor_info_urg_mobile2_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_mobile2_edt);
-        update_guarantor_info_urg_contact2_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_contact2_edt);
+        update_guarantor_info_urg_contact2_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_urg_contact2_edt);
         update_guarantor_info_from_income_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_info_from_income_group_lin);
         update_guarantor_info_from_self_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_info_from_self_group_lin);
         update_guarantor_info_from_other_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_info_from_other_group_lin);
@@ -638,8 +639,8 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
         });
         update_guarantor_info_urg_mobile1_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_mobile1_edt);
         update_guarantor_info_urg_mobile2_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_mobile2_edt);
-        update_guarantor_info_urg_contact1_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_contact1_edt);
-        update_guarantor_info_urg_contact2_edt = (EditText) view.findViewById(R.id.update_guarantor_info_urg_contact2_edt);
+        update_guarantor_info_urg_contact1_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_urg_contact1_edt);
+        update_guarantor_info_urg_contact2_edt = (NoEmptyEditText) view.findViewById(R.id.update_guarantor_info_urg_contact2_edt);
         return view;
     }
 
