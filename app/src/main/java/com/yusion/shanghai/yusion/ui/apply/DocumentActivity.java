@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.ui.apply;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,6 +40,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class DocumentActivity extends BaseActivity {
+    Button btn;
     ImageView choose_icon;
     ImageView true_choose_icon;
     ImageView takePhoto;
@@ -81,6 +83,7 @@ public class DocumentActivity extends BaseActivity {
 
         getTitleInfo();
         createBottomDialog();
+        btn = (Button) findViewById(R.id.btn);
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
         true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
@@ -101,7 +104,7 @@ public class DocumentActivity extends BaseActivity {
                     if (!mBottomDialog.isShowing()) {
                         mBottomDialog.show();
                     }
-                }else {
+                } else {
                     takePhoto();
                 }
             }
@@ -171,6 +174,11 @@ public class DocumentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
+                intent.putExtra("PreviewImg", imgUrl);
+
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(DocumentActivity.this, btn, "shareNames").toBundle());
+
                 if (mBottomDialog.isShowing()) {
                     mBottomDialog.dismiss();
                 }

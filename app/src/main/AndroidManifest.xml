@@ -255,7 +255,8 @@
             android:name=".ui.update.CommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.apply.UploadMultiImgActivity"></activity>
+        <activity android:name=".ui.apply.UploadMultiImgActivity" />
+        <activity android:name=".ui.apply.PreviewActivity"></activity>
     </application>
 
 </manifest>
