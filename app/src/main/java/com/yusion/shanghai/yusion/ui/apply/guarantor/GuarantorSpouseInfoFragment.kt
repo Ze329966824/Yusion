@@ -103,7 +103,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 guarantor_spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
-       guarantor_spouse_info_divorced_lin.setOnClickListener {
+        guarantor_spouse_info_divorced_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.DIVORCE)
             intent.putExtra("role", Constants.PersonType.LENDER)
@@ -111,7 +111,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             intent.putExtra("title", "离婚证")
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
-       guarantor_spouse_info_register_addr_lin.setOnClickListener {
+        guarantor_spouse_info_register_addr_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
             intent.putExtra("role", Constants.PersonType.LENDER)
@@ -277,63 +277,40 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_income_from_tv.text == "工资") {
-                if (guarantor_spouse_info_from_income_year_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_company_name_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_company_address_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_company_address1_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_company_address2_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                }
-            } else if (guarantor_spouse_info_income_from_tv.text == "自营") {
-                if (guarantor_spouse_info_from_self_year_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_self_type_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_self_company_name_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_self_company_address_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                }
-            } else if (guarantor_spouse_info_income_from_tv.text == "其他") {
-                if (guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                }
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_company_name_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_type_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_name_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_from_income_year_edt.text.isEmpty()) {
@@ -350,19 +327,10 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-            }
-        } else if (guarantor_spouse_info_marriage_tv.text == "离异") {
-            if (guarantor_spouse_info_divorced_tv.text == "请上传") {
-//                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
-//            } else {
+            } else {
                 return true
             }
-        } else if (guarantor_spouse_info_marriage_tv.text == "丧偶") {
-//            if (guarantor_spouse_info_register_addr_tv.text == "请上传") {
-//                Toast.makeText(mContext, "请上传 户口本", Toast.LENGTH_SHORT).show()
-//            } else {
-            return true
-//            }
+            return false
         } else {
             return true
         }
@@ -437,33 +405,33 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 if (contacts != null) {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
-               guarantor_spouse_info_clt_nm_edt.setText(result[0])
-               guarantor_spouse_info_mobile_edt.setText(result[1])
+                guarantor_spouse_info_clt_nm_edt.setText(result[0])
+                guarantor_spouse_info_mobile_edt.setText(result[1])
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
                         ID_BACK_FID = data.getStringExtra("objectKey")
                         idBackImgUrl = data.getStringExtra("imgUrl")
                         if (ID_BACK_FID.isNotEmpty()) {
-                           guarantor_spouse_info_id_back_tv.text = "已上传"
-                           guarantor_spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
+                            guarantor_spouse_info_id_back_tv.text = "已上传"
+                            guarantor_spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
                             ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
                         } else {
-                           guarantor_spouse_info_id_back_tv.text = "请上传"
-                           guarantor_spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                            guarantor_spouse_info_id_back_tv.text = "请上传"
+                            guarantor_spouse_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
-                       guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo)
-                       guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name)
+                        guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo)
+                        guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name)
                     }
                     Constants.FileLabelType.ID_FRONT -> {
                         ID_FRONT_FID = data.getStringExtra("objectKey")
                         idFrontImgUrl = data.getStringExtra("imgUrl")
                         if (ID_FRONT_FID.isNotEmpty()) {
-                           guarantor_spouse_info_id_front_tv.text = "已上传"
-                           guarantor_spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                            guarantor_spouse_info_id_front_tv.text = "已上传"
+                            guarantor_spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
                         } else {
-                           guarantor_spouse_info_id_front_tv.text = "请上传"
-                           guarantor_spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                            guarantor_spouse_info_id_front_tv.text = "请上传"
+                            guarantor_spouse_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
                     }
                 }
@@ -472,34 +440,34 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     Constants.FileLabelType.RES_BOOKLET -> {
                         resBookList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
                         if (resBookList.size > 0) {
-                           guarantor_spouse_info_register_addr_tv.text = "已上传"
-                           guarantor_spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.system_color))
+                            guarantor_spouse_info_register_addr_tv.text = "已上传"
+                            guarantor_spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.system_color))
                         } else {
-                           guarantor_spouse_info_register_addr_tv.text = "请上传"
-                           guarantor_spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                            guarantor_spouse_info_register_addr_tv.text = "请上传"
+                            guarantor_spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
                     }
                     Constants.FileLabelType.DIVORCE -> {
                         divorceImgsList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
                         if (divorceImgsList.size > 0) {
-                           guarantor_spouse_info_divorced_tv.text = "已上传"
-                           guarantor_spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.system_color))
+                            guarantor_spouse_info_divorced_tv.text = "已上传"
+                            guarantor_spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.system_color))
                         } else {
-                           guarantor_spouse_info_divorced_tv.text = "请上传"
-                           guarantor_spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                            guarantor_spouse_info_divorced_tv.text = "请上传"
+                            guarantor_spouse_info_divorced_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 when (CURRENT_CLICKED_VIEW_FOR_ADDRESS) {
-                   guarantor_spouse_info_from_income_company_address1_lin.id -> {
-                       guarantor_spouse_info_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    guarantor_spouse_info_from_income_company_address1_lin.id -> {
+                        guarantor_spouse_info_from_income_company_address1_tv.text = data.getStringExtra("result");
                     }
-                   guarantor_spouse_info_from_self_company_address1_lin.id -> {
-                       guarantor_spouse_info_from_self_company_address1_tv.text = data.getStringExtra("result");
+                    guarantor_spouse_info_from_self_company_address1_lin.id -> {
+                        guarantor_spouse_info_from_self_company_address1_tv.text = data.getStringExtra("result");
                     }
-                   guarantor_spouse_info_extra_from_income_company_address1_lin.id -> {
-                       guarantor_spouse_info_extra_from_income_company_address1_tv.text = data.getStringExtra("result");
+                    guarantor_spouse_info_extra_from_income_company_address1_lin.id -> {
+                        guarantor_spouse_info_extra_from_income_company_address1_tv.text = data.getStringExtra("result");
                     }
                 }
             }

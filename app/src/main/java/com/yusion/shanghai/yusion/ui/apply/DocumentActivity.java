@@ -97,8 +97,12 @@ public class DocumentActivity extends BaseActivity {
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mBottomDialog.isShowing()) {
-                    mBottomDialog.show();
+                if (isHasImage) {
+                    if (!mBottomDialog.isShowing()) {
+                        mBottomDialog.show();
+                    }
+                }else {
+                    takePhoto();
                 }
             }
         });
