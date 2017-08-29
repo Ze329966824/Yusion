@@ -779,130 +779,81 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     public boolean updateGuarantorinfo() {
         //校验
         if (checkUserInfo()) {
-            if (checkIncome()) {
-                //提交
-                guarantorInfo.clt_nm = update_guarantor_info_clt_nm_edt.getText().toString();
-                guarantorInfo.id_no = update_guarantor_info_id_no_edt.getText().toString();
-                guarantorInfo.gender = update_guarantor_info_gender_tv.getText().toString();
-                guarantorInfo.reg_addr.province = update_guarantor_info_reg_tv.getText().toString().split("/")[0];
-                guarantorInfo.reg_addr.city = update_guarantor_info_reg_tv.getText().toString().split("/")[1];
-                guarantorInfo.reg_addr.district = update_guarantor_info_reg_tv.getText().toString().split("/")[2];
-                guarantorInfo.mobile = update_guarantor_info_mobile_edt.getText().toString();
-                guarantorInfo.edu = update_guarantor_info_education_tv.getText().toString();
-                guarantorInfo.current_addr.province = update_guarantor_info_current_address_tv.getText().toString().split("/")[0];
-                guarantorInfo.current_addr.city = update_guarantor_info_current_address_tv.getText().toString().split("/")[1];
-                guarantorInfo.current_addr.district = update_guarantor_info_current_address_tv.getText().toString().split("/")[2];
-                guarantorInfo.current_addr.address1 = update_guarantor_info_current_address1_tv.getText().toString();
-                guarantorInfo.current_addr.address2 = update_guarantor_info_current_address2_tv.getText().toString();
-                guarantorInfo.major_income_type = update_guarantor_info_income_from_tv.getText().toString();
-                //判断主要收入类型
-                switch (update_guarantor_info_income_from_tv.getText().toString()) {
-                    case "工资":
-                        guarantorInfo.major_income = update_guarantor_info_from_income_year_edt.getText().toString();
-                        guarantorInfo.major_company_name = update_guarantor_info_from_income_company_name_edt.getText().toString();
-                        guarantorInfo.major_company_addr.province = update_guarantor_info_current_address_tv.getText().toString().split("/")[0];
-                        guarantorInfo.major_company_addr.city = update_guarantor_info_current_address_tv.getText().toString().split("/")[1];
-                        guarantorInfo.major_company_addr.district = update_guarantor_info_current_address_tv.getText().toString().split("/")[2];
-                        guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_income_company_address1_tv.getText().toString();
-                        guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_income_company_address2_tv.getText().toString();
-                        guarantorInfo.major_work_position = update_guarantor_info_work_position_tv.getText().toString();
-                        guarantorInfo.major_work_phone_num = update_guarantor_info_from_income_work_phone_num_edt.getText().toString();
-                        break;
-                    case "自营":
-                        guarantorInfo.major_income = update_guarantor_info_from_self_year_edt.getText().toString();
-                        guarantorInfo.major_busi_type = update_guarantor_info_from_self_type_tv.getText().toString();
-                        guarantorInfo.major_company_name = update_guarantor_info_from_self_company_name_edt.getText().toString();
-                        guarantorInfo.major_company_addr.province = update_guarantor_info_from_self_company_address_tv.getText().toString().split("/")[0];
-                        guarantorInfo.major_company_addr.city = update_guarantor_info_from_self_company_address_tv.getText().toString().split("/")[1];
-                        guarantorInfo.major_company_addr.district = update_guarantor_info_from_self_company_address_tv.getText().toString().split("/")[2];
-                        guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_self_company_address1_tv.getText().toString();
-                        guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_self_company_address2_tv.getText().toString();
-                        break;
-                    case "其他":
-                        guarantorInfo.major_income = update_guarantor_info_from_other_year_edt.getText().toString();
-                        guarantorInfo.major_remark = update_guarantor_info_from_other_remark_tv.getText().toString();
-                        break;
-                }
-                guarantorInfo.extra_income_type = update_guarantor_info_extra_income_from_tv.getText().toString();
-                //判断额外收入类型
-                switch (update_guarantor_info_extra_income_from_tv.getText().toString()) {
-                    case "工资":
-                        guarantorInfo.extra_income = update_guarantor_info_extra_from_income_year_edt.getText().toString();
-                        guarantorInfo.extra_company_name = update_guarantor_info_extra_from_income_company_name_edt.getText().toString();
-                        guarantorInfo.extra_company_addr.province = update_guarantor_info_extra_from_income_company_address_tv.getText().toString().split("/")[0];
-                        guarantorInfo.extra_company_addr.province = update_guarantor_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
-                        guarantorInfo.extra_company_addr.province = update_guarantor_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
-                        guarantorInfo.extra_company_addr.address1 = update_guarantor_info_extra_from_income_company_address1_tv.getText().toString();
-                        guarantorInfo.extra_company_addr.address2 = update_guarantor_info_extra_from_income_company_address2_tv.getText().toString();
-                        guarantorInfo.extra_work_position = update_guarantor_extra_info_work_position_tv.getText().toString();
-                        guarantorInfo.extra_work_phone_num = update_guarantor_info_extra_from_income_work_phone_num_edt.getText().toString();
-                        break;
-                }
-                guarantorInfo.house_type = update_guarantor_info_house_type_tv.getText().toString();
-                guarantorInfo.house_area = update_guarantor_info_house_area_edt.getText().toString();
-                guarantorInfo.house_owner_name = update_guarantor_info_house_owner_name_edt.getText().toString();
-                guarantorInfo.house_owner_relation = update_guarantor_info_house_owner_relation_tv.getText().toString();
-                guarantorInfo.urg_relation1 = update_guarantor_info_urg_relation1_tv.getText().toString();
-                guarantorInfo.urg_mobile1 = update_guarantor_info_urg_mobile1_edt.getText().toString();
-                guarantorInfo.urg_contact1 = update_guarantor_info_urg_contact1_edt.getText().toString();
-                guarantorInfo.urg_relation2 = update_guarantor_info_urg_relation2_tv.getText().toString();
-                guarantorInfo.urg_mobile2 = update_guarantor_info_urg_mobile2_edt.getText().toString();
-                guarantorInfo.urg_contact2 = update_guarantor_info_urg_contact2_edt.getText().toString();
-                return true;
+
+            //提交
+            guarantorInfo.clt_nm = update_guarantor_info_clt_nm_edt.getText().toString();
+            guarantorInfo.id_no = update_guarantor_info_id_no_edt.getText().toString();
+            guarantorInfo.gender = update_guarantor_info_gender_tv.getText().toString();
+            guarantorInfo.reg_addr.province = update_guarantor_info_reg_tv.getText().toString().split("/")[0];
+            guarantorInfo.reg_addr.city = update_guarantor_info_reg_tv.getText().toString().split("/")[1];
+            guarantorInfo.reg_addr.district = update_guarantor_info_reg_tv.getText().toString().split("/")[2];
+            guarantorInfo.mobile = update_guarantor_info_mobile_edt.getText().toString();
+            guarantorInfo.edu = update_guarantor_info_education_tv.getText().toString();
+            guarantorInfo.current_addr.province = update_guarantor_info_current_address_tv.getText().toString().split("/")[0];
+            guarantorInfo.current_addr.city = update_guarantor_info_current_address_tv.getText().toString().split("/")[1];
+            guarantorInfo.current_addr.district = update_guarantor_info_current_address_tv.getText().toString().split("/")[2];
+            guarantorInfo.current_addr.address1 = update_guarantor_info_current_address1_tv.getText().toString();
+            guarantorInfo.current_addr.address2 = update_guarantor_info_current_address2_tv.getText().toString();
+            guarantorInfo.major_income_type = update_guarantor_info_income_from_tv.getText().toString();
+            //判断主要收入类型
+            switch (update_guarantor_info_income_from_tv.getText().toString()) {
+                case "工资":
+                    guarantorInfo.major_income = update_guarantor_info_from_income_year_edt.getText().toString();
+                    guarantorInfo.major_company_name = update_guarantor_info_from_income_company_name_edt.getText().toString();
+                    guarantorInfo.major_company_addr.province = update_guarantor_info_current_address_tv.getText().toString().split("/")[0];
+                    guarantorInfo.major_company_addr.city = update_guarantor_info_current_address_tv.getText().toString().split("/")[1];
+                    guarantorInfo.major_company_addr.district = update_guarantor_info_current_address_tv.getText().toString().split("/")[2];
+                    guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_income_company_address1_tv.getText().toString();
+                    guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_income_company_address2_tv.getText().toString();
+                    guarantorInfo.major_work_position = update_guarantor_info_work_position_tv.getText().toString();
+                    guarantorInfo.major_work_phone_num = update_guarantor_info_from_income_work_phone_num_edt.getText().toString();
+                    break;
+                case "自营":
+                    guarantorInfo.major_income = update_guarantor_info_from_self_year_edt.getText().toString();
+                    guarantorInfo.major_busi_type = update_guarantor_info_from_self_type_tv.getText().toString();
+                    guarantorInfo.major_company_name = update_guarantor_info_from_self_company_name_edt.getText().toString();
+                    guarantorInfo.major_company_addr.province = update_guarantor_info_from_self_company_address_tv.getText().toString().split("/")[0];
+                    guarantorInfo.major_company_addr.city = update_guarantor_info_from_self_company_address_tv.getText().toString().split("/")[1];
+                    guarantorInfo.major_company_addr.district = update_guarantor_info_from_self_company_address_tv.getText().toString().split("/")[2];
+                    guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_self_company_address1_tv.getText().toString();
+                    guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_self_company_address2_tv.getText().toString();
+                    break;
+                case "其他":
+                    guarantorInfo.major_income = update_guarantor_info_from_other_year_edt.getText().toString();
+                    guarantorInfo.major_remark = update_guarantor_info_from_other_remark_tv.getText().toString();
+                    break;
             }
+            guarantorInfo.extra_income_type = update_guarantor_info_extra_income_from_tv.getText().toString();
+            //判断额外收入类型
+            switch (update_guarantor_info_extra_income_from_tv.getText().toString()) {
+                case "工资":
+                    guarantorInfo.extra_income = update_guarantor_info_extra_from_income_year_edt.getText().toString();
+                    guarantorInfo.extra_company_name = update_guarantor_info_extra_from_income_company_name_edt.getText().toString();
+                    guarantorInfo.extra_company_addr.province = update_guarantor_info_extra_from_income_company_address_tv.getText().toString().split("/")[0];
+                    guarantorInfo.extra_company_addr.province = update_guarantor_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
+                    guarantorInfo.extra_company_addr.province = update_guarantor_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
+                    guarantorInfo.extra_company_addr.address1 = update_guarantor_info_extra_from_income_company_address1_tv.getText().toString();
+                    guarantorInfo.extra_company_addr.address2 = update_guarantor_info_extra_from_income_company_address2_tv.getText().toString();
+                    guarantorInfo.extra_work_position = update_guarantor_extra_info_work_position_tv.getText().toString();
+                    guarantorInfo.extra_work_phone_num = update_guarantor_info_extra_from_income_work_phone_num_edt.getText().toString();
+                    break;
+            }
+            guarantorInfo.house_type = update_guarantor_info_house_type_tv.getText().toString();
+            guarantorInfo.house_area = update_guarantor_info_house_area_edt.getText().toString();
+            guarantorInfo.house_owner_name = update_guarantor_info_house_owner_name_edt.getText().toString();
+            guarantorInfo.house_owner_relation = update_guarantor_info_house_owner_relation_tv.getText().toString();
+            guarantorInfo.urg_relation1 = update_guarantor_info_urg_relation1_tv.getText().toString();
+            guarantorInfo.urg_mobile1 = update_guarantor_info_urg_mobile1_edt.getText().toString();
+            guarantorInfo.urg_contact1 = update_guarantor_info_urg_contact1_edt.getText().toString();
+            guarantorInfo.urg_relation2 = update_guarantor_info_urg_relation2_tv.getText().toString();
+            guarantorInfo.urg_mobile2 = update_guarantor_info_urg_mobile2_edt.getText().toString();
+            guarantorInfo.urg_contact2 = update_guarantor_info_urg_contact2_edt.getText().toString();
+            return true;
         }
+
         return false;
     }
 
-    private boolean checkIncome() {
-        //主要工资
-        if (update_guarantor_info_income_from_tv.getText().toString().equals("工资")) {
-            if (update_guarantor_info_from_income_company_name_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_income_company_address_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_income_company_address1_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_income_company_address2_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_work_position_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_income_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                return true;
-            }
-        }
-        //主要自营
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营")) {
-            if (update_guarantor_info_from_self_company_name_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_self_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                return true;
-            }
-        }
-        //主要其他
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他")) {
-            if (update_guarantor_info_from_other_remark_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private boolean checkUserInfo() {
         if (update_guarantor_info_reg_tv.getText().toString().isEmpty()) {
@@ -945,6 +896,37 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
             Toast.makeText(mContext, "其他联系人手机号不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_urg_relation2_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "其他联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        } //主要工资
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_work_position_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+        }//主要自营
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+        }//主要其他
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_remark_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
         } else {
             return true;
         }

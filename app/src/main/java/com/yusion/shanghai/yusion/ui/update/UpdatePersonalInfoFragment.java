@@ -94,7 +94,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
     private LinearLayout update_personal_info_from_self_type_lin;
     private NestedScrollView mScrollView;
     private ClientInfo data;
-    private LinearLayout  update_personal_info_from_income_group_lin;
+    private LinearLayout update_personal_info_from_income_group_lin;
     private LinearLayout update_personal_info_from_self_group_lin;
     private LinearLayout update_personal_info_from_other_group_lin;
     private LinearLayout update_personal_info_extra_from_income_group_lin;
@@ -338,7 +338,6 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
             }
         });
 
-
         //自营 单位地址
         update_personal_info_from_self_company_address_lin = (LinearLayout) view.findViewById(R.id.update_personal_info_from_self_company_address_lin);
         update_personal_info_from_self_company_address_tv = (TextView) view.findViewById(R.id.update_personal_info_from_self_company_address_tv);
@@ -394,8 +393,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 );
             }
         });
-        update_personal_info_extra_from_income_group_lin = (LinearLayout) view.findViewById(R.id.update_personal_info_extra_from_income_group_lin);
+
         //选择额外收入来源
+        update_personal_info_extra_from_income_group_lin = (LinearLayout) view.findViewById(R.id.update_personal_info_extra_from_income_group_lin);
+        //额外工资
         income_extra_from_lin = (LinearLayout) view.findViewById(R.id.update_personal_info_extra_income_from_lin);
         income_extra_from_tv = (TextView) view.findViewById(R.id.update_personal_info_extra_income_from_tv);
         income_extra_from_lin.setOnClickListener(new View.OnClickListener() {
@@ -727,132 +728,83 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
     public boolean updateClientinfo(OnVoidCallBack callBack) {
         //校验
         if (checkUserInfo()) {
-            if (checkIncome()) {
-                //提交
-                clientInfo.clt_nm = update_personal_info_clt_nm_edt.getText().toString();
-                clientInfo.id_no = update_personal_info_id_no_edt.getText().toString();
-                clientInfo.gender = update_personal_info_gender_tv.getText().toString();
-                clientInfo.reg_addr.province = update_personal_info_reg_tv.getText().toString().split("/")[0];
-                clientInfo.reg_addr.city = update_personal_info_reg_tv.getText().toString().split("/")[1];
-                clientInfo.reg_addr.district = update_personal_info_reg_tv.getText().toString().split("/")[2];
-                clientInfo.mobile = update_personal_info_mobile_edt.getText().toString();
-                clientInfo.edu = update_personal_info_education_tv.getText().toString();
-                clientInfo.current_addr.province = update_personal_info_current_address_tv.getText().toString().split("/")[0];
-                clientInfo.current_addr.city = update_personal_info_current_address_tv.getText().toString().split("/")[1];
-                clientInfo.current_addr.district = update_personal_info_current_address_tv.getText().toString().split("/")[2];
-                clientInfo.current_addr.address1 = update_personal_info_current_address1_tv.getText().toString();
-                clientInfo.current_addr.address2 = update_personal_info_current_address2_tv.getText().toString();
-                clientInfo.major_income_type = update_personal_info_income_from_tv.getText().toString();
-                //判断主要收入类型
-                Log.e("主要收入类型", "" + update_personal_info_income_from_tv.getText().toString());
-                switch (update_personal_info_income_from_tv.getText().toString()) {
-                    case "工资":
-                        clientInfo.major_income = update_personal_info_from_income_year_edt.getText().toString();
-                        clientInfo.major_company_name = update_personal_info_from_income_company_name_edt.getText().toString();
-                        clientInfo.major_company_addr.province = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[0];
-                        clientInfo.major_company_addr.city = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[1];
-                        clientInfo.major_company_addr.district = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[2];
-                        clientInfo.major_company_addr.address1 = update_personal_info_from_income_company_address1_tv.getText().toString();
-                        clientInfo.major_company_addr.address2 = update_personal_info_from_income_company_address2_tv.getText().toString();
-                        clientInfo.major_work_position = update_personal_info_work_position_tv.getText().toString();
-                        clientInfo.major_work_phone_num = update_personal_info_from_income_work_phone_num_edt.getText().toString();
-                        break;
-                    case "自营":
-                        clientInfo.major_income = update_personal_info_from_self_year_edt.getText().toString();
-                        clientInfo.major_busi_type = update_personal_info_from_self_type_tv.getText().toString();
-                        clientInfo.major_company_name = update_personal_info_from_self_company_name_edt.getText().toString();
-                        clientInfo.major_company_addr.province = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[0];
-                        clientInfo.major_company_addr.city = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[1];
-                        clientInfo.major_company_addr.district = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[2];
-                        clientInfo.major_company_addr.address1 = update_personal_info_from_self_company_address1_tv.getText().toString();
-                        clientInfo.major_company_addr.address2 = update_personal_info_from_self_company_address2_tv.getText().toString();
-                        break;
-                    case "其他":
-                        clientInfo.major_income = update_personal_info_from_other_year_edt.getText().toString();
-                        clientInfo.major_remark = update_personal_info_from_other_remark_tv.getText().toString();
-                        break;
-                }
-                clientInfo.extra_income_type = update_personal_info_extra_income_from_tv.getText().toString();
-                //判断额外收入类型
-                switch (update_personal_info_extra_income_from_tv.getText().toString()) {
-                    case "工资":
-                        clientInfo.extra_income = update_personal_info_extra_from_income_year_edt.getText().toString();
-                        clientInfo.extra_company_name = update_personal_info_extra_from_income_company_name_edt.getText().toString();
-                        clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[0];
-                        clientInfo.extra_company_addr.city = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
-                        clientInfo.extra_company_addr.district = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
-                        clientInfo.extra_company_addr.address1 = update_personal_info_extra_from_income_company_address1_tv.getText().toString();
-                        clientInfo.extra_company_addr.address2 = update_personal_info_extra_from_income_company_address2_tv.getText().toString();
-                        clientInfo.extra_work_position = update_personal_extra_info_work_position_tv.getText().toString();
-                        clientInfo.extra_work_phone_num = update_personal_info_extra_from_income_work_phone_num_edt.getText().toString();
-                        break;
-                }
-                clientInfo.house_type = update_personal_info_house_type_tv.getText().toString();
-                clientInfo.house_area = update_personal_info_house_area_edt.getText().toString();
-                clientInfo.house_owner_name = update_personal_info_house_owner_name_edt.getText().toString();
-                clientInfo.house_owner_relation = update_personal_info_house_owner_relation_tv.getText().toString();
-                clientInfo.urg_relation1 = update_personal_info_urg_relation1_tv.getText().toString();
-                clientInfo.urg_mobile1 = update_personal_info_urg_mobile1_edt.getText().toString();
-                clientInfo.urg_contact1 = update_personal_info_urg_contact1_edt.getText().toString();
-                clientInfo.urg_relation2 = update_personal_info_urg_relation2_tv.getText().toString();
-                clientInfo.urg_mobile2 = update_personal_info_urg_mobile2_edt.getText().toString();
-                clientInfo.urg_contact2 = update_personal_info_urg_contact2_edt.getText().toString();
-                callBack.callBack();
-                return true;
+
+            //提交
+            clientInfo.clt_nm = update_personal_info_clt_nm_edt.getText().toString();
+            clientInfo.id_no = update_personal_info_id_no_edt.getText().toString();
+            clientInfo.gender = update_personal_info_gender_tv.getText().toString();
+            clientInfo.reg_addr.province = update_personal_info_reg_tv.getText().toString().split("/")[0];
+            clientInfo.reg_addr.city = update_personal_info_reg_tv.getText().toString().split("/")[1];
+            clientInfo.reg_addr.district = update_personal_info_reg_tv.getText().toString().split("/")[2];
+            clientInfo.mobile = update_personal_info_mobile_edt.getText().toString();
+            clientInfo.edu = update_personal_info_education_tv.getText().toString();
+            clientInfo.current_addr.province = update_personal_info_current_address_tv.getText().toString().split("/")[0];
+            clientInfo.current_addr.city = update_personal_info_current_address_tv.getText().toString().split("/")[1];
+            clientInfo.current_addr.district = update_personal_info_current_address_tv.getText().toString().split("/")[2];
+            clientInfo.current_addr.address1 = update_personal_info_current_address1_tv.getText().toString();
+            clientInfo.current_addr.address2 = update_personal_info_current_address2_tv.getText().toString();
+            clientInfo.major_income_type = update_personal_info_income_from_tv.getText().toString();
+            //判断主要收入类型
+            Log.e("主要收入类型", "" + update_personal_info_income_from_tv.getText().toString());
+            switch (update_personal_info_income_from_tv.getText().toString()) {
+                case "工资":
+                    clientInfo.major_income = update_personal_info_from_income_year_edt.getText().toString();
+                    clientInfo.major_company_name = update_personal_info_from_income_company_name_edt.getText().toString();
+                    clientInfo.major_company_addr.province = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[0];
+                    clientInfo.major_company_addr.city = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[1];
+                    clientInfo.major_company_addr.district = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[2];
+                    clientInfo.major_company_addr.address1 = update_personal_info_from_income_company_address1_tv.getText().toString();
+                    clientInfo.major_company_addr.address2 = update_personal_info_from_income_company_address2_tv.getText().toString();
+                    clientInfo.major_work_position = update_personal_info_work_position_tv.getText().toString();
+                    clientInfo.major_work_phone_num = update_personal_info_from_income_work_phone_num_edt.getText().toString();
+                    break;
+                case "自营":
+                    clientInfo.major_income = update_personal_info_from_self_year_edt.getText().toString();
+                    clientInfo.major_busi_type = update_personal_info_from_self_type_tv.getText().toString();
+                    clientInfo.major_company_name = update_personal_info_from_self_company_name_edt.getText().toString();
+                    clientInfo.major_company_addr.province = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[0];
+                    clientInfo.major_company_addr.city = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[1];
+                    clientInfo.major_company_addr.district = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[2];
+                    clientInfo.major_company_addr.address1 = update_personal_info_from_self_company_address1_tv.getText().toString();
+                    clientInfo.major_company_addr.address2 = update_personal_info_from_self_company_address2_tv.getText().toString();
+                    break;
+                case "其他":
+                    clientInfo.major_income = update_personal_info_from_other_year_edt.getText().toString();
+                    clientInfo.major_remark = update_personal_info_from_other_remark_tv.getText().toString();
+                    break;
             }
+            clientInfo.extra_income_type = update_personal_info_extra_income_from_tv.getText().toString();
+            //判断额外收入类型
+            switch (update_personal_info_extra_income_from_tv.getText().toString()) {
+                case "工资":
+                    clientInfo.extra_income = update_personal_info_extra_from_income_year_edt.getText().toString();
+                    clientInfo.extra_company_name = update_personal_info_extra_from_income_company_name_edt.getText().toString();
+                    clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[0];
+                    clientInfo.extra_company_addr.city = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
+                    clientInfo.extra_company_addr.district = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
+                    clientInfo.extra_company_addr.address1 = update_personal_info_extra_from_income_company_address1_tv.getText().toString();
+                    clientInfo.extra_company_addr.address2 = update_personal_info_extra_from_income_company_address2_tv.getText().toString();
+                    clientInfo.extra_work_position = update_personal_extra_info_work_position_tv.getText().toString();
+                    clientInfo.extra_work_phone_num = update_personal_info_extra_from_income_work_phone_num_edt.getText().toString();
+                    break;
+            }
+            clientInfo.house_type = update_personal_info_house_type_tv.getText().toString();
+            clientInfo.house_area = update_personal_info_house_area_edt.getText().toString();
+            clientInfo.house_owner_name = update_personal_info_house_owner_name_edt.getText().toString();
+            clientInfo.house_owner_relation = update_personal_info_house_owner_relation_tv.getText().toString();
+            clientInfo.urg_relation1 = update_personal_info_urg_relation1_tv.getText().toString();
+            clientInfo.urg_mobile1 = update_personal_info_urg_mobile1_edt.getText().toString();
+            clientInfo.urg_contact1 = update_personal_info_urg_contact1_edt.getText().toString();
+            clientInfo.urg_relation2 = update_personal_info_urg_relation2_tv.getText().toString();
+            clientInfo.urg_mobile2 = update_personal_info_urg_mobile2_edt.getText().toString();
+            clientInfo.urg_contact2 = update_personal_info_urg_contact2_edt.getText().toString();
+            callBack.callBack();
+            return true;
         }
+
         return false;
     }
 
-    private boolean checkIncome() {
-        //主要工资
-        if (update_personal_info_income_from_tv.getText().toString().equals("工资")) {
-            if (update_personal_info_from_income_company_name_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_income_company_address_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_income_company_address1_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_income_company_address2_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_work_position_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_income_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                return true;
-            }
-        }
-        //主要自营
-        else if (update_personal_info_income_from_tv.getText().toString().equals("自营")) {
-            if (update_personal_info_from_self_company_name_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_self_company_address_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_self_type_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_self_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                return true;
-            }
-        }
-        //主要其他
-        else if (update_personal_info_income_from_tv.getText().toString().equals("其他")) {
-            if (update_personal_info_from_other_remark_tv.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_personal_info_from_other_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private boolean checkUserInfo() {
         if (update_personal_info_reg_tv.getText().toString().isEmpty()) {
@@ -895,6 +847,37 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
             Toast.makeText(mContext, "其他联系人手机号不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_urg_relation2_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "其他联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        }//主要工资
+        else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_from_income_company_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_from_income_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_from_income_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_from_income_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_work_position_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_from_income_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+        }//主要自营
+        else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+        }//主要其他
+        else if (update_personal_info_income_from_tv.getText().toString().equals("其他") && update_personal_info_from_other_remark_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("其他") && update_personal_info_from_other_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
         } else {
             return true;
         }
@@ -931,21 +914,26 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 String[] result = new String[]{"", ""};
                 if (contacts != null) {
                     System.arraycopy(contacts, 0, result, 0, contacts.length);
-                }if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile1_img.getId()) {
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile1_img.getId()) {
                     update_personal_info_urg_contact1_edt.setText(result[0]);
                     update_personal_info_urg_mobile1_edt.setText(result[1]);
-                }if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile2_img.getId()) {
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile2_img.getId()) {
                     update_personal_info_urg_contact2_edt.setText(result[0]);
                     update_personal_info_urg_mobile2_edt.setText(result[1]);
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_current_address1_lin.getId()) {
                     update_personal_info_current_address1_tv.setText(data.getStringExtra("result"));
-                }if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_from_income_company_address1_lin.getId()) {
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_from_income_company_address1_lin.getId()) {
                     update_personal_info_from_income_company_address1_tv.setText(data.getStringExtra("result"));
-                }if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_from_self_company_address1_lin.getId()) {
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_from_self_company_address1_lin.getId()) {
                     update_personal_info_from_self_company_address1_tv.setText(data.getStringExtra("result"));
-                }if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_extra_from_income_company_address1_lin.getId()) {
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_extra_from_income_company_address1_lin.getId()) {
                     update_personal_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
             }
