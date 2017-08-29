@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -123,15 +124,24 @@ public class UploadListActivity extends BaseActivity {
                 adapter.notifyDataSetChanged();
                 DelImgsReq req = new DelImgsReq();
                 req.clt_id = mGetIntent.getStringExtra("clt_id");
-                req.id.addAll(delImgIdList);
-                UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
-                    @Override
-                    public void callBack(int code, String msg) {
-                        if (code == 0) {
-                            Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
-                        }
+                //删除的图片中包括用户拍摄后没有上传到服务器的图片 这个时候没有id
+                List<String> relDelImgIdList = new ArrayList<>();
+                for (String s : delImgIdList) {
+                    if (!TextUtils.isEmpty(s)) {
+                        relDelImgIdList.add(s);
                     }
-                });
+                }
+                req.id.addAll(relDelImgIdList);
+                if (relDelImgIdList.size() > 0) {
+                    UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
+                        @Override
+                        public void callBack(int code, String msg) {
+                            if (code == 0) {
+                                Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
         mEditTv = titleBar.getRightTextTv();
@@ -246,6 +256,10 @@ public class UploadListActivity extends BaseActivity {
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 ArrayList<String> files = data.getStringArrayListExtra("files");
+                if (files.size() > 0) {
+                    hasImg = true;
+                    onImgCountChange(hasImg);
+                }
                 List<UploadImgItemBean> toAddList = new ArrayList<>();
                 for (String file : files) {
                     UploadImgItemBean item = new UploadImgItemBean();
