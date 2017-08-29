@@ -149,7 +149,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
         guarantor_info_extra_income_from_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(listOf("工资","无"), _EXTRA_INCOME_FROME_INDEX, guarantor_info_extra_income_from_lin, guarantor_info_extra_income_from_tv, "请选择", { _, index ->
                 _EXTRA_INCOME_FROME_INDEX = index
-                guarantor_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                guarantor_info_extra_from_income_group_lin.visibility = if (listOf("工资","无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         guarantor_info_reg_lin.setOnClickListener {
