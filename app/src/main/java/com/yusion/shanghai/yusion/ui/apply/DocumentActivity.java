@@ -243,6 +243,7 @@ public class DocumentActivity extends BaseActivity {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
             startActivityForResult(intent, 3002);
             //   }
+
         } else if (mType.equals("driving_lic") && !isClick) {
             Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
             i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
