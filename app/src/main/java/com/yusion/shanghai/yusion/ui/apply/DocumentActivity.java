@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -82,6 +84,7 @@ public class DocumentActivity extends BaseActivity {
         setContentView(view);
 
         getTitleInfo();
+
         createBottomDialog();
         btn = (Button) findViewById(R.id.btn);
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
@@ -92,6 +95,7 @@ public class DocumentActivity extends BaseActivity {
         if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
             imgUrl = mGetIntent.getStringExtra("imgUrl");
             Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
+            titleBar.setRightTextColor(Color.parseColor("#ffffff"));
             isHasImage = true;
         } else {
             isHasImage = false;
@@ -100,7 +104,7 @@ public class DocumentActivity extends BaseActivity {
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isHasImage) {
+                if (isHasImage && !isClick) {//如果有图，且不在编辑模式
                     if (!mBottomDialog.isShowing()) {
                         mBottomDialog.show();
                     }
@@ -115,6 +119,7 @@ public class DocumentActivity extends BaseActivity {
             public void onClick(View v) {
                 {
                     if (isHasImage) {//有图的情况下
+                        titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                         if (isEdit) { //编辑状态
                             isClick = true;
                             choose_icon.setImageResource(R.mipmap.choose_icon);
@@ -177,8 +182,17 @@ public class DocumentActivity extends BaseActivity {
                 Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
                 intent.putExtra("PreviewImg", imgUrl);
 
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(DocumentActivity.this, btn, "shareNames").toBundle());
+                ActivityOptionsCompat compat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(DocumentActivity.this,
+                                btn, "shareNames");
+                ActivityCompat.startActivity(DocumentActivity.this, intent, compat.toBundle());
 
+                // startActivity(intent);
+
+                // ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(btn, btn.getWidth() / 2, btn.getHeight() / 2, 0, 0);
+                //ActivityCompat.startActivity(DocumentActivity.this, new Intent(DocumentActivity.this, PreviewActivity.class), compat.toBundle());
+
+                //startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(DocumentActivity.this, btn, "shareNames").toBundle());
                 if (mBottomDialog.isShowing()) {
                     mBottomDialog.dismiss();
                 }
@@ -233,24 +247,10 @@ public class DocumentActivity extends BaseActivity {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
             startActivityForResult(intent, 3001);
         } else if (mType.equals("auth_credit") && !isClick) {
-//                    if (isClick) {//如果是编辑状态
-//                        if (isFlag) {
-//                            choose_icon.setImageResource(R.mipmap.surechoose_icon);
-//                            delete_image_btn.setEnabled(true);
-//                            delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
-//                            isFlag = false;
-//                        } else {
-//                            choose_icon.setImageResource(R.mipmap.choose_icon);
-//                            delete_image_btn.setEnabled(false);
-//                            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
-//                            isFlag = true;
-//                        }
-            // } else {
             imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
             startActivityForResult(intent, 3002);
-            //   }
 
         } else if (mType.equals("driving_lic") && !isClick) {
             Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
