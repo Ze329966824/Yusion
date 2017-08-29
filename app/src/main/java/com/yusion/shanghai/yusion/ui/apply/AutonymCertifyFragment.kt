@@ -54,7 +54,6 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             super.handleMessage(msg)
             when (msg.what) {
                 0 -> {
-//                    ViewCompat.animate(autonym_certify_warnning_lin).alpha(0f).setDuration(1000).start()
                     ViewCompat.animate(autonym_certify_warnning_lin).translationY(-autonym_certify_warnning_lin.height * 1.0f).setDuration(1000).start()
                 }
             }
@@ -223,8 +222,12 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                     autonym_certify_id_back_tv.text = "请上传"
                                     autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                autonym_certify_id_number_tv.setText(ocrResp.idNo)
-                                autonym_certify_name_tv.setText(ocrResp.name)
+                                if (ocrResp.idNo.isNotEmpty()) {
+                                    autonym_certify_id_number_tv.setText(ocrResp.idNo)
+                                }
+                                if (ocrResp.name.isNotEmpty()) {
+                                    autonym_certify_name_tv.setText(ocrResp.name)
+                                }
                             }
                             Constants.FileLabelType.ID_FRONT -> {
                                 ID_FRONT_FID = data.getStringExtra("objectKey")

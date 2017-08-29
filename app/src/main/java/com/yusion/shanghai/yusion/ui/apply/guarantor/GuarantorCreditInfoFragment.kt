@@ -69,7 +69,6 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                 }
                 addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
 //                nextStep()
-
                 uploadUrl(it.clt_id)
             }
         }
@@ -186,8 +185,12 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                                     guarantor_credit_info_id_back_tv.text = "请上传"
                                     guarantor_credit_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
-                                guarantor_credit_info_id_number_tv.setText(ocrResp.idNo)
-                                guarantor_credit_info_name_tv.setText(ocrResp.name)
+                                if (ocrResp.idNo.isNotEmpty()) {
+                                    guarantor_credit_info_id_number_tv.setText(ocrResp.idNo)
+                                }
+                                if (ocrResp.name.isNotEmpty()) {
+                                    guarantor_credit_info_name_tv.setText(ocrResp.name)
+                                }
                             }
                             Constants.FileLabelType.ID_FRONT -> {
                                 ID_FRONT_FID = data.getStringExtra("objectKey")
