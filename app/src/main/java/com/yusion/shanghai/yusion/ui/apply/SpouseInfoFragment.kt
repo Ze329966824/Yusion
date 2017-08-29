@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import com.yusion.shanghai.yusion.R
+import com.yusion.shanghai.yusion.R.id.*
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
@@ -281,63 +283,40 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "工资") {
-                if (spouse_info_from_income_year_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_company_name_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_company_address_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_company_address1_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_company_address2_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_work_position_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                }
-            } else if (spouse_info_income_from_tv.text == "自营") {
-                if (spouse_info_from_self_year_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_self_type_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_self_company_name_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_self_company_address_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_self_company_address1_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_self_company_address2_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_work_position_tv.text.isEmpty()) {
-                    Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                }
-            } else if (spouse_info_income_from_tv.text == "其他") {
-                if (spouse_info_from_other_year_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                } else if (spouse_info_from_other_remark_edt.text.isEmpty()) {
-                    Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-                    return false
-                }
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_company_name_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_work_position_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_type_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_name_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_income_work_position_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_remark_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_from_income_year_edt.text.isEmpty()) {
@@ -354,19 +333,10 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-            }
-        } else if (spouse_info_marriage_tv.text == "离异") {
-            if (spouse_info_divorced_tv.text == "请上传") {
-//                Toast.makeText(mContext, "请上传 离婚证(法院判决书)", Toast.LENGTH_SHORT).show()
-//            } else {
+            } else {
                 return true
             }
-        } else if (spouse_info_marriage_tv.text == "丧偶") {
-//            if (spouse_info_register_addr_tv.text == "请上传") {
-//                Toast.makeText(mContext, "请上传 户口本", Toast.LENGTH_SHORT).show()
-//            } else {
-            return true
-//            }
+            return false
         } else {
             return true
         }
