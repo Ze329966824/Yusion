@@ -730,74 +730,74 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         if (checkUserInfo()) {
 
             //提交
-            clientInfo.clt_nm = update_personal_info_clt_nm_edt.getText().toString();
-            clientInfo.id_no = update_personal_info_id_no_edt.getText().toString();
-            clientInfo.gender = update_personal_info_gender_tv.getText().toString();
-            clientInfo.reg_addr.province = update_personal_info_reg_tv.getText().toString().split("/")[0];
-            clientInfo.reg_addr.city = update_personal_info_reg_tv.getText().toString().split("/")[1];
-            clientInfo.reg_addr.district = update_personal_info_reg_tv.getText().toString().split("/")[2];
-            clientInfo.mobile = update_personal_info_mobile_edt.getText().toString();
-            clientInfo.edu = update_personal_info_education_tv.getText().toString();
-            clientInfo.current_addr.province = update_personal_info_current_address_tv.getText().toString().split("/")[0];
-            clientInfo.current_addr.city = update_personal_info_current_address_tv.getText().toString().split("/")[1];
-            clientInfo.current_addr.district = update_personal_info_current_address_tv.getText().toString().split("/")[2];
-            clientInfo.current_addr.address1 = update_personal_info_current_address1_tv.getText().toString();
-            clientInfo.current_addr.address2 = update_personal_info_current_address2_tv.getText().toString();
-            clientInfo.major_income_type = update_personal_info_income_from_tv.getText().toString();
+            clientInfo.clt_nm = update_personal_info_clt_nm_edt.getText().toString().trim();
+            clientInfo.id_no = update_personal_info_id_no_edt.getText().toString().trim();
+            clientInfo.gender = update_personal_info_gender_tv.getText().toString().trim();
+            clientInfo.reg_addr.province = update_personal_info_reg_tv.getText().toString().trim().split("/")[0];
+            clientInfo.reg_addr.city = update_personal_info_reg_tv.getText().toString().trim().split("/")[1];
+            clientInfo.reg_addr.district = update_personal_info_reg_tv.getText().toString().trim().split("/")[2];
+            clientInfo.mobile = update_personal_info_mobile_edt.getText().toString().trim();
+            clientInfo.edu = update_personal_info_education_tv.getText().toString().trim();
+            clientInfo.current_addr.province = update_personal_info_current_address_tv.getText().toString().trim().split("/")[0];
+            clientInfo.current_addr.city = update_personal_info_current_address_tv.getText().toString().trim().split("/")[1];
+            clientInfo.current_addr.district = update_personal_info_current_address_tv.getText().toString().trim().split("/")[2];
+            clientInfo.current_addr.address1 = update_personal_info_current_address1_tv.getText().toString().trim();
+            clientInfo.current_addr.address2 = update_personal_info_current_address2_tv.getText().toString().trim();
+            clientInfo.major_income_type = update_personal_info_income_from_tv.getText().toString().trim();
             //判断主要收入类型
-            Log.e("主要收入类型", "" + update_personal_info_income_from_tv.getText().toString());
-            switch (update_personal_info_income_from_tv.getText().toString()) {
+            Log.e("主要收入类型", "" + update_personal_info_income_from_tv.getText().toString().trim());
+            switch (update_personal_info_income_from_tv.getText().toString().trim()) {
                 case "工资":
-                    clientInfo.major_income = update_personal_info_from_income_year_edt.getText().toString();
-                    clientInfo.major_company_name = update_personal_info_from_income_company_name_edt.getText().toString();
-                    clientInfo.major_company_addr.province = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[0];
-                    clientInfo.major_company_addr.city = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[1];
-                    clientInfo.major_company_addr.district = update_personal_info_from_income_company_address_tv.getText().toString().split("/")[2];
-                    clientInfo.major_company_addr.address1 = update_personal_info_from_income_company_address1_tv.getText().toString();
-                    clientInfo.major_company_addr.address2 = update_personal_info_from_income_company_address2_tv.getText().toString();
-                    clientInfo.major_work_position = update_personal_info_work_position_tv.getText().toString();
-                    clientInfo.major_work_phone_num = update_personal_info_from_income_work_phone_num_edt.getText().toString();
+                    clientInfo.major_income = update_personal_info_from_income_year_edt.getText().toString().trim();
+                    clientInfo.major_company_name = update_personal_info_from_income_company_name_edt.getText().toString().trim();
+                    clientInfo.major_company_addr.province = update_personal_info_from_income_company_address_tv.getText().toString().trim().split("/")[0];
+                    clientInfo.major_company_addr.city = update_personal_info_from_income_company_address_tv.getText().toString().trim().split("/")[1];
+                    clientInfo.major_company_addr.district = update_personal_info_from_income_company_address_tv.getText().toString().trim().split("/")[2];
+                    clientInfo.major_company_addr.address1 = update_personal_info_from_income_company_address1_tv.getText().toString().trim();
+                    clientInfo.major_company_addr.address2 = update_personal_info_from_income_company_address2_tv.getText().toString().trim();
+                    clientInfo.major_work_position = update_personal_info_work_position_tv.getText().toString().trim();
+                    clientInfo.major_work_phone_num = update_personal_info_from_income_work_phone_num_edt.getText().toString().trim();
                     break;
                 case "自营":
-                    clientInfo.major_income = update_personal_info_from_self_year_edt.getText().toString();
-                    clientInfo.major_busi_type = update_personal_info_from_self_type_tv.getText().toString();
-                    clientInfo.major_company_name = update_personal_info_from_self_company_name_edt.getText().toString();
-                    clientInfo.major_company_addr.province = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[0];
-                    clientInfo.major_company_addr.city = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[1];
-                    clientInfo.major_company_addr.district = update_personal_info_from_self_company_address_tv.getText().toString().split("/")[2];
-                    clientInfo.major_company_addr.address1 = update_personal_info_from_self_company_address1_tv.getText().toString();
-                    clientInfo.major_company_addr.address2 = update_personal_info_from_self_company_address2_tv.getText().toString();
+                    clientInfo.major_income = update_personal_info_from_self_year_edt.getText().toString().trim();
+                    clientInfo.major_busi_type = update_personal_info_from_self_type_tv.getText().toString().trim();
+                    clientInfo.major_company_name = update_personal_info_from_self_company_name_edt.getText().toString().trim();
+                    clientInfo.major_company_addr.province = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[0];
+                    clientInfo.major_company_addr.city = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
+                    clientInfo.major_company_addr.district = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
+                    clientInfo.major_company_addr.address1 = update_personal_info_from_self_company_address1_tv.getText().toString().trim();
+                    clientInfo.major_company_addr.address2 = update_personal_info_from_self_company_address2_tv.getText().toString().trim();
                     break;
                 case "其他":
-                    clientInfo.major_income = update_personal_info_from_other_year_edt.getText().toString();
-                    clientInfo.major_remark = update_personal_info_from_other_remark_tv.getText().toString();
+                    clientInfo.major_income = update_personal_info_from_other_year_edt.getText().toString().trim();
+                    clientInfo.major_remark = update_personal_info_from_other_remark_tv.getText().toString().trim();
                     break;
             }
-            clientInfo.extra_income_type = update_personal_info_extra_income_from_tv.getText().toString();
+            clientInfo.extra_income_type = update_personal_info_extra_income_from_tv.getText().toString().trim();
             //判断额外收入类型
-            switch (update_personal_info_extra_income_from_tv.getText().toString()) {
+            switch (update_personal_info_extra_income_from_tv.getText().toString().trim()) {
                 case "工资":
-                    clientInfo.extra_income = update_personal_info_extra_from_income_year_edt.getText().toString();
-                    clientInfo.extra_company_name = update_personal_info_extra_from_income_company_name_edt.getText().toString();
-                    clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[0];
-                    clientInfo.extra_company_addr.city = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[1];
-                    clientInfo.extra_company_addr.district = update_personal_info_extra_from_income_company_address_tv.getText().toString().split("/")[2];
-                    clientInfo.extra_company_addr.address1 = update_personal_info_extra_from_income_company_address1_tv.getText().toString();
-                    clientInfo.extra_company_addr.address2 = update_personal_info_extra_from_income_company_address2_tv.getText().toString();
-                    clientInfo.extra_work_position = update_personal_extra_info_work_position_tv.getText().toString();
-                    clientInfo.extra_work_phone_num = update_personal_info_extra_from_income_work_phone_num_edt.getText().toString();
+                    clientInfo.extra_income = update_personal_info_extra_from_income_year_edt.getText().toString().trim();
+                    clientInfo.extra_company_name = update_personal_info_extra_from_income_company_name_edt.getText().toString().trim();
+                    clientInfo.extra_company_addr.province = update_personal_info_extra_from_income_company_address_tv.getText().toString().trim().split("/")[0];
+                    clientInfo.extra_company_addr.city = update_personal_info_extra_from_income_company_address_tv.getText().toString().trim().split("/")[1];
+                    clientInfo.extra_company_addr.district = update_personal_info_extra_from_income_company_address_tv.getText().toString().trim().split("/")[2];
+                    clientInfo.extra_company_addr.address1 = update_personal_info_extra_from_income_company_address1_tv.getText().toString().trim();
+                    clientInfo.extra_company_addr.address2 = update_personal_info_extra_from_income_company_address2_tv.getText().toString().trim();
+                    clientInfo.extra_work_position = update_personal_extra_info_work_position_tv.getText().toString().trim();
+                    clientInfo.extra_work_phone_num = update_personal_info_extra_from_income_work_phone_num_edt.getText().toString().trim();
                     break;
             }
-            clientInfo.house_type = update_personal_info_house_type_tv.getText().toString();
-            clientInfo.house_area = update_personal_info_house_area_edt.getText().toString();
-            clientInfo.house_owner_name = update_personal_info_house_owner_name_edt.getText().toString();
-            clientInfo.house_owner_relation = update_personal_info_house_owner_relation_tv.getText().toString();
-            clientInfo.urg_relation1 = update_personal_info_urg_relation1_tv.getText().toString();
-            clientInfo.urg_mobile1 = update_personal_info_urg_mobile1_edt.getText().toString();
-            clientInfo.urg_contact1 = update_personal_info_urg_contact1_edt.getText().toString();
-            clientInfo.urg_relation2 = update_personal_info_urg_relation2_tv.getText().toString();
-            clientInfo.urg_mobile2 = update_personal_info_urg_mobile2_edt.getText().toString();
-            clientInfo.urg_contact2 = update_personal_info_urg_contact2_edt.getText().toString();
+            clientInfo.house_type = update_personal_info_house_type_tv.getText().toString().trim();
+            clientInfo.house_area = update_personal_info_house_area_edt.getText().toString().trim();
+            clientInfo.house_owner_name = update_personal_info_house_owner_name_edt.getText().toString().trim();
+            clientInfo.house_owner_relation = update_personal_info_house_owner_relation_tv.getText().toString().trim();
+            clientInfo.urg_relation1 = update_personal_info_urg_relation1_tv.getText().toString().trim();
+            clientInfo.urg_mobile1 = update_personal_info_urg_mobile1_edt.getText().toString().trim();
+            clientInfo.urg_contact1 = update_personal_info_urg_contact1_edt.getText().toString().trim();
+            clientInfo.urg_relation2 = update_personal_info_urg_relation2_tv.getText().toString().trim();
+            clientInfo.urg_mobile2 = update_personal_info_urg_mobile2_edt.getText().toString().trim();
+            clientInfo.urg_contact2 = update_personal_info_urg_contact2_edt.getText().toString().trim();
             callBack.callBack();
             return true;
         }

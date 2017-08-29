@@ -1160,34 +1160,7 @@
 
                 <include layout="@layout/include_line" />
 
-                <LinearLayout
-                    android:id="@+id/update_guarantor_spouse_info_die_proof_lin"
-                    style="@style/apply_info_item">
 
-                    <TextView
-                        style="@style/apply_info_title"
-                        android:layout_width="wrap_content"
-                        android:text="死亡证明" />
-
-                    <TextView
-                        android:id="@+id/update_guarantor_spouse_info_die_proof_tv"
-                        style="@style/apply_info_content"
-                        android:text="请上传" />
-
-                    <FrameLayout
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left|center_vertical"
-                            android:src="@mipmap/mine_arrow_right" />
-                    </FrameLayout>
-                </LinearLayout>
-
-                <include layout="@layout/include_line_left" />
 
                 <LinearLayout
                     android:id="@+id/update_guarantor_spouse_info_register_addr_lin"
