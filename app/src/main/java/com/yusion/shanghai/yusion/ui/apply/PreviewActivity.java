@@ -20,5 +20,6 @@ public class PreviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         imageUrl = intent.getStringExtra("PreviewImg");
         Glide.with(this).load(imageUrl).into(imageView);
+        imageView.setOnClickListener(v -> finish());
     }
 }

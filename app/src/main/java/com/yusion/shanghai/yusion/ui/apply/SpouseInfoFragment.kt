@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import com.yusion.shanghai.yusion.R
-import com.yusion.shanghai.yusion.R.id.*
 import com.yusion.shanghai.yusion.YusionApp
 import com.yusion.shanghai.yusion.base.BaseFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
@@ -92,9 +90,9 @@ class SpouseInfoFragment : BaseFragment() {
             })
         }
         spouse_info_extra_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>(listOf("工资","无"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
                 _EXTRA_INCOME_FROME_INDEX = index
-                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资","无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
@@ -319,19 +317,19 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_year_edt.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_company_address_tv.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_company_address_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_company_address1_tv.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_company_address1_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_company_address2_tv.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_company_address2_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
+            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             } else {
                 return true
