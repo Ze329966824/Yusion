@@ -187,7 +187,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
         } else if (DRI_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_name_tv.text.isEmpty()) {
+        } else if (autonym_certify_name_tv.text.trim().isEmpty()) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
         } else if (autonym_certify_id_number_tv.text.isEmpty()) {
             Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()

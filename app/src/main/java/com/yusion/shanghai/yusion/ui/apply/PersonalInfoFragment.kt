@@ -287,7 +287,9 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             var clientInfoBean = (activity as ApplyActivity).mClientInfo
             personal_info_clt_nm_edt.text = clientInfoBean.clt_nm
             personal_info_id_no_edt.text = clientInfoBean.id_no
-            personal_info_gender_tv.text = clientInfoBean.gender
+            if (clientInfoBean.gender.isNotEmpty()) {
+                personal_info_gender_tv.text = clientInfoBean.gender
+            }
             var empty = clientInfoBean.reg_addr.province.isNotEmpty()
             var notEmpty = clientInfoBean.reg_addr.city.isNotEmpty()
             var notEmpty1 = clientInfoBean.reg_addr.district.isNotEmpty()
