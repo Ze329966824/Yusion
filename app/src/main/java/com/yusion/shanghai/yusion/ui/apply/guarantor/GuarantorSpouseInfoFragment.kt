@@ -311,23 +311,25 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_income_from_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_year_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_company_address_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_company_address1_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_company_address2_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+//            else if (guarantor_spouse_info_extra_income_from_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_year_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_company_address_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_company_address1_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_company_address2_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+//            }
+            else {
                 return true
             }
             return false
