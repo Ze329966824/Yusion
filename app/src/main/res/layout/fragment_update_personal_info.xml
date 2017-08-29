@@ -174,12 +174,12 @@
                                 android:text="手机号码" />
 
                             <EditText
-                                android:textColor="#999999"
                                 android:id="@+id/update_personal_info_mobile_edt"
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
                                 android:enabled="false"
-                                android:hint="请输入手机号码" />
+                                android:hint="请输入手机号码"
+                                android:textColor="#999999" />
                         </LinearLayout>
 
 
@@ -308,11 +308,11 @@
                                 style="@style/apply_info_title"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_current_address2_tv"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="例:5号楼207室"/>
 
                         </LinearLayout>
 
@@ -1430,6 +1430,7 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
