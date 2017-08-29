@@ -3,7 +3,6 @@ package com.yusion.shanghai.yusion.ui.update;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -12,34 +11,27 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
-
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
+import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
-import java.lang.reflect.Array;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.yusion.shanghai.yusion.R.id.update_personal_info_company_name_edt;
-import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_contact1_edt;
-import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_contact2_edt;
-import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_mobile1_edt;
 
 /**
  * Created by ice on 2017/8/21.
@@ -106,7 +98,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
     private TextView update_personal_info_education_tv;                     //学历
     private TextView update_personal_info_current_address_tv;               //现住地址
     private TextView update_personal_info_current_address1_tv;              //详细地址
-    private EditText update_personal_info_current_address2_tv;              //门牌号
+    private NoEmptyEditText update_personal_info_current_address2_tv;              //门牌号
     private TextView update_personal_info_income_from_tv;                   //主要收入来源
     private EditText update_personal_info_from_income_year_edt;             //主要-工资-年收入
     private EditText update_personal_info_from_income_company_name_edt;     //主要-工资-单位名称
@@ -159,7 +151,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         update_personal_info_education_tv = (TextView) view.findViewById(R.id.update_personal_info_education_tv);
         update_personal_info_current_address_tv = (TextView) view.findViewById(R.id.update_personal_info_current_address_tv);
         update_personal_info_current_address1_tv = (TextView) view.findViewById(R.id.update_personal_info_current_address1_tv);
-        update_personal_info_current_address2_tv = (EditText) view.findViewById(R.id.update_personal_info_current_address2_tv);
+        update_personal_info_current_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_personal_info_current_address2_tv);
         update_personal_info_income_from_tv = (TextView) view.findViewById(R.id.update_personal_info_income_from_tv);
         update_personal_info_from_income_year_edt = (EditText) view.findViewById(R.id.update_personal_info_from_income_year_edt);
         update_personal_info_from_income_company_name_edt = (EditText) view.findViewById(R.id.update_personal_info_from_income_company_name_edt);
