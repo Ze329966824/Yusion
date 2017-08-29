@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +29,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -73,7 +80,7 @@ public class DocumentActivity extends BaseActivity {
         setContentView(view);
 
         getTitleInfo();
-
+        createBottomDialog();
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
         true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
@@ -90,52 +97,8 @@ public class DocumentActivity extends BaseActivity {
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mType.equals("id_card_front") && !isClick) {
-                    imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-                    startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
-                } else if (mType.equals("id_card_back") && !isClick) {
-                    imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-                    startActivityForResult(intent, 3001);
-                } else if (mType.equals("auth_credit") && !isClick) {
-//                    if (isClick) {//如果是编辑状态
-//                        if (isFlag) {
-//                            choose_icon.setImageResource(R.mipmap.surechoose_icon);
-//                            delete_image_btn.setEnabled(true);
-//                            delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
-//                            isFlag = false;
-//                        } else {
-//                            choose_icon.setImageResource(R.mipmap.choose_icon);
-//                            delete_image_btn.setEnabled(false);
-//                            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
-//                            isFlag = true;
-//                        }
-                    // } else {
-                    imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-                    startActivityForResult(intent, 3002);
-                    //   }
-                } else if (mType.equals("driving_lic") && !isClick) {
-                    Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
-                    i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
-                    i.putExtra("maxCount", 1);//加载类型
-                    startActivityForResult(i, 100);
-                } else if (isClick) {
-                    if (isFlag) {
-                        choose_icon.setImageResource(R.mipmap.surechoose_icon);
-                        delete_image_btn.setEnabled(true);
-                        delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
-                        isFlag = false;
-                    } else {
-                        choose_icon.setImageResource(R.mipmap.choose_icon);
-                        delete_image_btn.setEnabled(false);
-                        delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
-                        isFlag = true;
-                    }
+                if (!mBottomDialog.isShowing()) {
+                    mBottomDialog.show();
                 }
             }
         });
@@ -191,7 +154,109 @@ public class DocumentActivity extends BaseActivity {
                 isClick = false;
             }
         });
+    }
 
+    private Dialog mBottomDialog;
+
+    private void createBottomDialog() {
+        View bottomLayout = LayoutInflater.from(this).inflate(R.layout.document_bottom_dialog, null);
+        TextView tv1 = ((TextView) bottomLayout.findViewById(R.id.tv1));
+        TextView tv2 = ((TextView) bottomLayout.findViewById(R.id.tv2));
+        TextView tv3 = ((TextView) bottomLayout.findViewById(R.id.tv3));
+        tv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
+                if (mBottomDialog.isShowing()) {
+                    mBottomDialog.dismiss();
+                }
+            }
+        });
+        tv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePhoto();
+                if (mBottomDialog.isShowing()) {
+                    mBottomDialog.dismiss();
+                }
+            }
+        });
+        tv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mBottomDialog.isShowing()) {
+                    mBottomDialog.dismiss();
+                }
+            }
+        });
+        if (mBottomDialog == null) {
+            mBottomDialog = new Dialog(this, R.style.MyDialogStyle);
+            mBottomDialog.setContentView(bottomLayout);
+            mBottomDialog.setCanceledOnTouchOutside(false);
+            mBottomDialog.getWindow().setWindowAnimations(R.style.dialogAnimationStyle);
+            mBottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+            mBottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            Window dialogWindow = mBottomDialog.getWindow();
+            dialogWindow.getDecorView().setBackgroundResource(android.R.color.transparent);
+            dialogWindow.getDecorView().setPadding(0, 0, 0, 0);
+            dialogWindow.setGravity(Gravity.BOTTOM);
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+            lp.width = (int) (metrics.widthPixels - DensityUtil.dip2px(this, 15) * 2);
+            dialogWindow.setAttributes(lp);
+        }
+    }
+
+    private void takePhoto() {
+        if (mType.equals("id_card_front") && !isClick) {
+            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+            startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
+        } else if (mType.equals("id_card_back") && !isClick) {
+            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+            startActivityForResult(intent, 3001);
+        } else if (mType.equals("auth_credit") && !isClick) {
+//                    if (isClick) {//如果是编辑状态
+//                        if (isFlag) {
+//                            choose_icon.setImageResource(R.mipmap.surechoose_icon);
+//                            delete_image_btn.setEnabled(true);
+//                            delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
+//                            isFlag = false;
+//                        } else {
+//                            choose_icon.setImageResource(R.mipmap.choose_icon);
+//                            delete_image_btn.setEnabled(false);
+//                            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+//                            isFlag = true;
+//                        }
+            // } else {
+            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+            startActivityForResult(intent, 3002);
+            //   }
+        } else if (mType.equals("driving_lic") && !isClick) {
+            Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
+            i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+            i.putExtra("maxCount", 1);//加载类型
+            startActivityForResult(i, 100);
+        } else if (isClick) {
+            if (isFlag) {
+                choose_icon.setImageResource(R.mipmap.surechoose_icon);
+                delete_image_btn.setEnabled(true);
+                delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
+                isFlag = false;
+            } else {
+                choose_icon.setImageResource(R.mipmap.choose_icon);
+                delete_image_btn.setEnabled(false);
+                delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+                isFlag = true;
+            }
+        }
     }
 
     @Override
