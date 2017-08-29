@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -85,6 +87,9 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView applyReplyDateTv2;
     private TextView ReplyRepayDateTv2;
 
+    private FloatingActionButton fab;
+    private NestedScrollView mScrollView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +108,14 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     private void initView() {
+        mScrollView = (NestedScrollView) findViewById(R.id.scrollview_fiance);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mScrollView.smoothScrollTo(0, 0);
+            }
+        });
         waitRel = (RelativeLayout) findViewById(R.id.order_detail_status_wait_layout);
         cancelRel = (RelativeLayout) findViewById(R.id.order_detail_status_cancel_layout);
         passRel = (RelativeLayout) findViewById(R.id.order_detail_status_pass_layout);
