@@ -198,6 +198,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("type", Constants.FileLabelType.ID_BACK);
                 intent.putExtra("role", Constants.PersonType.LENDER_SP);
                 intent.putExtra("ocrResp", ocrResp);
+                intent.putExtra("ocrResp", ocrResp);
                 intent.putExtra("imgUrl", idBackImgUrl);
                 startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
             }
@@ -644,8 +645,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_id_back_tv.setText("请上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
-                        update_spouse_info_id_no_edt.setText(ocrResp.idNo);
-                        update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        if (ocrResp != null) {
+                            update_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                            update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        }
+
                         break;
                     case Constants.FileLabelType.ID_FRONT:
                         ID_FRONT_FID = data.getStringExtra("objectKey");
@@ -685,29 +689,27 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         }
     }
 
-    public boolean updateimgUrl(OnVoidCallBack callBack) {
+    public void updateimgUrl(OnVoidCallBack callBack) {
         //更新图片
         if (clientInfo.spouse.clt_id == null) {
-            return false;
+            return;
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
-            return uploadUrl(clientInfo.clt_id, callBack);
+            uploadUrl(clientInfo.clt_id, callBack);
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
-            return uploadUrl(clientInfo.spouse.clt_id, callBack);
-        }if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
-            return uploadUrl(clientInfo.clt_id, callBack);
+            uploadUrl(clientInfo.spouse.clt_id, callBack);
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+            uploadUrl(clientInfo.clt_id, callBack);
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
-            return uploadUrl(clientInfo.clt_id, callBack);
+            uploadUrl(clientInfo.clt_id, callBack);
         }
-        return false;
     }
 
 
-
-
-    public boolean updateClientinfo(OnVoidCallBack callBack) {
+    public void updateClientinfo(OnVoidCallBack callBack) {
         if (checkUserInfo()) {
             //提交
             clientInfo.marriage = update_spouse_info_marriage_tv.getText().toString();
@@ -776,11 +778,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     clientInfo.spouse.extra_work_phone_num = update_spouse_info_extra_from_income_work_phone_num_edt.getText().toString().trim();
                     break;
             }
-            callBack.callBack();
-            return true;
-
+            updateimgUrl(callBack);
         }
-        return false;
     }
 
     private boolean checkUserInfo() {
@@ -866,7 +865,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         return false;
     }
 
-    private boolean uploadUrl(String clt_id, OnVoidCallBack callBack) {
+    private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
         String marriage = update_spouse_info_marriage_tv.getText().toString();
         switch (marriage) {
@@ -919,14 +918,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     if (code < 0) {
                         return;
                     }
-                    //更新用户资料
-                    updateClientinfo(callBack);
                 }
             });
-        } else {
-            updateClientinfo(callBack);
+            callBack.callBack();
         }
-        return false;
+
     }
 
     public void getClientinfo(ClientInfo data) {
@@ -1023,7 +1019,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
                         @Override
                         public void onItemDataCallBack(ListImgsResp resp) {
-                            if ( resp.list.size()!= 0) {
+                            if (resp.list.size() != 0) {
                                 update_spouse_info_divorced_tv.setText("已上传");
                                 update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
                                 divorceImgsList = (ArrayList) resp.list;
@@ -1039,7 +1035,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     UploadApi.listImgs(mContext, req4, new OnItemDataCallBack<ListImgsResp>() {
                         @Override
                         public void onItemDataCallBack(ListImgsResp resp) {
-                            if ( resp.list.size()!= 0) {
+                            if (resp.list.size() != 0) {
                                 update_spouse_info_register_addr_tv.setText("已上传");
                                 update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
                                 resBookList = (ArrayList) resp.list;

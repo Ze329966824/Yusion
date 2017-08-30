@@ -83,7 +83,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             @Override
             public void callBack() {
                 //上传用户资料
-                if (mUpdateSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
+                mUpdateSpouseInfoFragment.updateClientinfo(new OnVoidCallBack() {
                     @Override
                     public void callBack() {
                         ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
@@ -96,9 +96,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                             }
                         });
                     }
-                })){
-
-                };
+                });
             }
         });
     }

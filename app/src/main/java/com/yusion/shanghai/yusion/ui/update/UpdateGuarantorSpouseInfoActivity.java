@@ -77,20 +77,20 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
             @Override
             public void callBack() {
                 //上传用户资料
-                if (mUpdateGuarantorSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
-                    @Override
-                    public void callBack() {
-                        ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
-                            @Override
-                            public void onItemDataCallBack(GuarantorInfo data) {
-                                if (data == null) return;
-                                Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                    }
-                }));
+                mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(new OnVoidCallBack() {
+                        @Override
+                        public void callBack() {
+                            ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+                                @Override
+                                public void onItemDataCallBack(GuarantorInfo data) {
+                                    if (data == null) return;
+                                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                        }
+                });
             }
         });
     }

@@ -309,8 +309,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DocumentActivity.class);
-                intent.putExtra("type", "id_card_back");
-                intent.putExtra("role", "lender_sp");
+                intent.putExtra("type", Constants.FileLabelType.ID_BACK);
+                intent.putExtra("role", Constants.PersonType.LENDER_SP);
+                intent.putExtra("ocrResp", ocrResp);
                 intent.putExtra("imgUrl", idBackImgUrl);
                 startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
             }
@@ -322,9 +323,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DocumentActivity.class);
-                intent.putExtra("type", "id_card_back");
-                intent.putExtra("role", "lender_sp");
-                intent.putExtra("imgUrl", idBackImgUrl);
+                intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
+                intent.putExtra("role", Constants.PersonType.LENDER_SP);
+                intent.putExtra("imgUrl", idFrontImgUrl);
                 startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
             }
         });
@@ -652,8 +653,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_spouse_info_extra_from_income_company_address1_lin.getId()) {
                     update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
-            }
-            else if (requestCode == Constants.REQUEST_DOCUMENT) {
+            } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 switch (data.getStringExtra("type")) {
                     case Constants.FileLabelType.ID_BACK:
                         ID_BACK_FID = data.getStringExtra("objectKey");
@@ -666,8 +666,10 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_id_back_tv.setText("请上传");
                             update_guarantor_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
-                        update_guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo);
-                        update_guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        if (ocrResp != null) {
+                            update_guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                            update_guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        }
                         break;
                     case Constants.FileLabelType.ID_FRONT:
                         ID_FRONT_FID = data.getStringExtra("objectKey");
@@ -681,8 +683,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                         }
                         break;
                 }
-            }
-            else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
+            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
                 switch (data.getStringExtra("type")) {
                     case Constants.FileLabelType.RES_BOOKLET:
                         resBookList = (ArrayList) data.getSerializableExtra("imgList");
@@ -803,7 +804,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
                         @Override
                         public void onItemDataCallBack(ListImgsResp resp) {
-                            if ( resp.list.size()!= 0) {
+                            if (resp.list.size() != 0) {
                                 update_guarantor_spouse_info_divorced_tv.setText("已上传");
                                 update_guarantor_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
                                 divorceImgsList = (ArrayList) resp.list;
@@ -819,7 +820,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     UploadApi.listImgs(mContext, req4, new OnItemDataCallBack<ListImgsResp>() {
                         @Override
                         public void onItemDataCallBack(ListImgsResp resp) {
-                            if ( resp.list.size()!= 0) {
+                            if (resp.list.size() != 0) {
                                 update_guarantor_spouse_info_register_addr_tv.setText("已上传");
                                 update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
                                 resBookList = (ArrayList) resp.list;
@@ -832,7 +833,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         }
     }
 
-    public boolean updateGuarantorinfo(OnVoidCallBack callBack) {
+    public void updateGuarantorinfo(OnVoidCallBack callBack) {
         if (checkUserInfo()) {
 
             //提交
@@ -901,11 +902,11 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     guarantorInfo.spouse.extra_work_phone_num = update_guarantor_spouse_info_extra_from_income_work_phone_num_edt.getText().toString().trim();
                     break;
             }
-            callBack.callBack();
-            return true;
+            updateimgUrl(callBack);
+
         }
 
-        return false;
+
     }
 
 
@@ -990,36 +991,35 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         return false;
     }
 
-    public boolean updateimgUrl(OnVoidCallBack callBack) {
+    public void updateimgUrl(OnVoidCallBack callBack) {
         //更新图片
         if (guarantorInfo.spouse.clt_id == null) {
-            return false;
+            return;
         }
 
         if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
 
-            return uploadUrl(guarantorInfo.clt_id, callBack);
+            uploadUrl(guarantorInfo.clt_id, callBack);
 
         }
         if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
 
-            return uploadUrl(guarantorInfo.spouse.clt_id, callBack);
+            uploadUrl(guarantorInfo.spouse.clt_id, callBack);
 
-        }if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+        }
+        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("离异")) {
 
-            return uploadUrl(guarantorInfo.clt_id, callBack);
+            uploadUrl(guarantorInfo.clt_id, callBack);
 
         }
         if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
 
-            return uploadUrl(guarantorInfo.clt_id, callBack);
+            uploadUrl(guarantorInfo.clt_id, callBack);
 
         }
-
-        return false;
     }
 
-    private boolean uploadUrl(String clt_id, OnVoidCallBack callBack) {
+    private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
         String marriage = update_guarantor_spouse_info_marriage_tv.getText().toString();
         switch (marriage) {
@@ -1071,14 +1071,11 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     if (code < 0) {
                         return;
                     }
-                    //更新用户资料
-                    updateGuarantorinfo(callBack);
+
                 }
             });
-        } else {
-            updateGuarantorinfo(callBack);
+            callBack.callBack();
         }
-        return false;
     }
 }
 

@@ -5,6 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="center"
+        android:src="@mipmap/to_top"
+        app:backgroundTint="@color/transparent"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
+        app:rippleColor="@color/transparent" />
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -57,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <View
                             android:layout_width="match_parent"
@@ -300,8 +318,8 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
-                            style="@style/apply_info_item_wrap">
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
@@ -501,8 +519,8 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
-                            style="@style/apply_info_item_wrap">
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
@@ -746,8 +764,8 @@
                         <include layout="@layout/include_line_left" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
-                            style="@style/apply_info_item_wrap">
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
@@ -876,7 +894,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <View
                             android:layout_width="match_parent"
@@ -1007,8 +1025,8 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
-                            style="@style/apply_info_item_wrap">
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
@@ -1136,32 +1154,117 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
-                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+
+                        <LinearLayout
+                            android:id="@+id/update_guarantor_info_house_address_lin"
+                            style="@style/apply_info_item">
 
                             <TextView
+                                android:id="@+id/textView5"
                                 style="@style/apply_info_title"
-                                android:layout_marginRight="35dp"
-                                android:text="房屋面积(平米)" />
+                                android:text="房屋地址" />
 
-                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
-                                android:id="@+id/update_guarantor_info_house_area_edt"
+                            <TextView
+                                android:id="@+id/update_guarantor_info_house_address_tv"
                                 style="@style/apply_info_content"
-                                android:layout_marginRight="35dp"
-                                android:digits="0123456789"
-                                android:hint="请输入房屋面积"
-                                android:inputType="number" />
+                                android:hint="请选择 省/市/区" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
-                            android:layout_marginLeft="15dp"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            android:id="@+id/update_guarantor_info_house_address1_lin"
+                            style="@style/apply_info_item">
+
+                            <TextView
+                                style="@style/apply_info_title"
+                                android:text="详细地址" />
+
+                            <TextView
+                                android:id="@+id/update_guarantor_info_house_address1_tv"
+                                style="@style/apply_info_content"
+                                android:hint="小区/写字楼/学校等" />
+
+                            <FrameLayout
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="15dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left|center_vertical"
+                                    android:src="@mipmap/mine_arrow_right" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
+
+                            <TextView
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
+                                android:text="门牌号" />
+
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
+                                android:id="@+id/update_guarantor_info_house_address2_tv"
+                                style="@style/apply_info_content_type_wrap"
+                                android:layout_marginRight="35dp"
+                                android:hint="例:5号楼207室" />
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
+                            android:background="@color/separate_line_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/bg_color" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout style="@style/apply_info_item">
@@ -1217,247 +1320,8 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:background="@color/bg_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="11dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/fill_vertical_line" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="7.5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="18dp"
-                        android:text="紧急联系人"
-                        android:textColor="#666666"
-                        android:textSize="11.5sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/update_guarantor_info_group2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout
-                        android:id="@+id/update_guarantor_info_urg_relation1_lin"
-                        style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="与申请人关系" />
-
-                        <TextView
-                            android:id="@+id/update_guarantor_info_urg_relation1_tv"
-                            style="@style/apply_info_content"
-                            android:hint="请选择与联系人关系" />
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="手机号码" />
-
-                        <EditText
-                            android:id="@+id/update_guarantor_info_urg_mobile1_edt"
-                            style="@style/apply_info_content_type_mobile"
-                            android:hint="请选择手机号码" />
-
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:id="@+id/update_guarantor_info_urg_mobile1_img"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center"
-                                android:src="@mipmap/contact" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="联系人姓名" />
-
-                        <com.yusion.shanghai.yusion.widget.NoEmptyEditText
-                            android:id="@+id/update_guarantor_info_urg_contact1_edt"
-                            style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入亲属联系人" />
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="@color/bg_color" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout
-                        android:id="@+id/update_guarantor_info_urg_relation2_lin"
-                        style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="与申请人关系" />
-
-                        <TextView
-                            android:id="@+id/update_guarantor_info_urg_relation2_tv"
-                            style="@style/apply_info_content"
-                            android:hint="请选择与联系人关系" />
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center_vertical"
-                                android:src="@mipmap/mine_arrow_right" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="手机号码" />
-
-                        <EditText
-                            android:id="@+id/update_guarantor_info_urg_mobile2_edt"
-                            style="@style/apply_info_content_type_mobile"
-                            android:hint="请选择手机号码" />
-
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp">
-
-                            <ImageView
-                                android:id="@+id/update_guarantor_info_urg_mobile2_img"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left|center"
-                                android:src="@mipmap/contact" />
-                        </FrameLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:layout_marginLeft="15dp"
-                        android:background="@color/separate_line_color" />
-
-                    <LinearLayout style="@style/apply_info_item">
-
-                        <TextView
-                            style="@style/apply_info_title"
-                            android:text="联系人姓名" />
-
-                        <com.yusion.shanghai.yusion.widget.NoEmptyEditText
-                            android:id="@+id/update_guarantor_info_urg_contact2_edt"
-                            style="@style/apply_info_content"
-                            android:layout_marginRight="35dp"
-                            android:hint="请输入其他联系人" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
-                </LinearLayout>
-            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="15dp"
-        android:scaleType="center"
-        android:src="@mipmap/to_top"
-        app:backgroundTint="@color/transparent"
-        app:borderWidth="0dp"
-        app:elevation="0dp"
-        app:layout_anchor="@id/scrollView"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
-        app:rippleColor="@color/transparent" />
 
 </android.support.design.widget.CoordinatorLayout>
