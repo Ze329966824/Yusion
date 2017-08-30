@@ -55,6 +55,7 @@ public class SingleImgUploadActivity extends BaseActivity {
         mImg.setOnClickListener(v -> {
             Intent i = new Intent(SingleImgUploadActivity.this, PhotoMediaActivity.class);
             i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());
+            i.putExtra("maxCount", 1);
             startActivityForResult(i, 100);
         });
 

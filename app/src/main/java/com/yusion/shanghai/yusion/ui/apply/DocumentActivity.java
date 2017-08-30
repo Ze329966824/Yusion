@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.ui.apply;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +31,10 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
+import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
+import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
@@ -40,6 +44,7 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DocumentActivity extends BaseActivity {
     Button btn;
@@ -63,12 +68,23 @@ public class DocumentActivity extends BaseActivity {
     private boolean isFlag = true;
 
     private boolean isClick = false;
+    private UploadLabelItemBean mTopItem;
+    private TextView errorTv;
+    private LinearLayout errorLin;
+    private List<UploadImgItemBean> imgList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mGetIntent = getIntent();
-        mType = mGetIntent.getStringExtra("type");
+        mTopItem = (UploadLabelItemBean) mGetIntent.getSerializableExtra("topItem");
+        if (mTopItem != null) {
+            //从影像件列表点击进来
+            mType = mTopItem.value;
+            imgList = mTopItem.img_list;
+        } else {
+            mType = mGetIntent.getStringExtra("type");
+        }
         mRole = mGetIntent.getStringExtra("role");
         LayoutInflater inFlater = getLayoutInflater();
         if (mType.equals("auth_credit")) {//征信授权书
@@ -83,7 +99,6 @@ public class DocumentActivity extends BaseActivity {
         }
         setContentView(view);
 
-        getTitleInfo();
 
         createBottomDialog();
         btn = (Button) findViewById(R.id.btn);
@@ -91,15 +106,61 @@ public class DocumentActivity extends BaseActivity {
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
         true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
         takePhoto = (ImageView) findViewById(R.id.camera_document);
-        mImgObjectKey = mGetIntent.getStringExtra("objectKey");
-        if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
-            imgUrl = mGetIntent.getStringExtra("imgUrl");
-            Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
-            titleBar.setRightTextColor(Color.parseColor("#ffffff"));
-            isHasImage = true;
+
+        if (mTopItem != null) {
+            if (imgList.size() > 0) {
+                isHasImage = true;
+                UploadImgItemBean itemBean = imgList.get(0);
+                if (!TextUtils.isEmpty(itemBean.local_path)) {
+                    Glide.with(this).load(itemBean.local_path).into(takePhoto);
+                }else {
+                    Glide.with(this).load(itemBean.s_url).into(takePhoto);
+                }
+            }
+            errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
+            errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
+            if (!mTopItem.hasGetImgsFromServer) {
+                //第一次进入
+                ListImgsReq req = new ListImgsReq();
+                req.label = mTopItem.value;
+                req.clt_id = mGetIntent.getStringExtra("clt_id");
+                UploadApi.listImgs(this, req, resp -> {
+                    mTopItem.hasGetImgsFromServer = true;
+                    if (resp.has_err) {
+                        errorLin.setVisibility(View.VISIBLE);
+                        errorTv.setText("您提交的资料有误：" + resp.error);
+                        mTopItem.errorInfo = "您提交的资料有误：" + resp.error;
+                    } else {
+                        errorLin.setVisibility(View.GONE);
+                        mTopItem.errorInfo = "";
+                    }
+                    if (resp.list.size() != 0) {
+                        imgUrl = resp.list.get(0).s_url;
+                        Glide.with(this).load(resp.list.get(0).s_url).into(takePhoto);
+                        titleBar.setRightTextColor(Color.parseColor("#ffffff"));
+                        isHasImage = true;
+                        imgList.addAll(resp.list);
+                    } else {
+                        isHasImage = false;
+                    }
+                });
+            } else if (mTopItem.hasError) {
+                errorLin.setVisibility(View.VISIBLE);
+                errorTv.setText(mTopItem.errorInfo);
+            }
         } else {
-            isHasImage = false;
+            mImgObjectKey = mGetIntent.getStringExtra("objectKey");
+            if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
+                imgUrl = mGetIntent.getStringExtra("imgUrl");
+                Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
+                titleBar.setRightTextColor(Color.parseColor("#ffffff"));
+                isHasImage = true;
+            } else {
+                isHasImage = false;
+            }
         }
+
+        getTitleInfo();
 
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,11 +222,17 @@ public class DocumentActivity extends BaseActivity {
                 imgUrl = "";
                 mImgObjectKey = "";
 
+                if (mTopItem != null) {
+                    imgList.clear();
+                }
+
                 isHasImage = false;
                 takePhoto.setEnabled(true);
                 isClick = false;
             }
         });
+
+
     }
 
     private Dialog mBottomDialog;
@@ -279,6 +346,15 @@ public class DocumentActivity extends BaseActivity {
             if (requestCode == 100) {//驾驶证
                 ArrayList<String> files = data.getStringArrayListExtra("files");
                 String localUrl = files.get(0);
+
+                if (mTopItem != null) {
+                    UploadImgItemBean item = new UploadImgItemBean();
+                    item.local_path = localUrl;
+                    item.role = mRole;
+                    item.type = mType;
+                    imgList.add(item);
+                }
+
                 Glide.with(this).load(localUrl).into(takePhoto);
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
@@ -299,6 +375,15 @@ public class DocumentActivity extends BaseActivity {
                     }
                 });
             } else if (requestCode == 3001) {//id_back
+
+                if (mTopItem != null) {
+                    UploadImgItemBean item = new UploadImgItemBean();
+                    item.local_path = imageFile.getAbsolutePath();
+                    item.role = mRole;
+                    item.type = mType;
+                    imgList.add(item);
+                }
+
                 Glide.with(this).load(imageFile).into(takePhoto);
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
@@ -331,6 +416,15 @@ public class DocumentActivity extends BaseActivity {
                     }
                 });
             } else if (requestCode == 3000) {//id_front
+
+                if (mTopItem != null) {
+                    UploadImgItemBean item = new UploadImgItemBean();
+                    item.local_path = imageFile.getAbsolutePath();
+                    item.role = mRole;
+                    item.type = mType;
+                    imgList.add(item);
+                }
+
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
@@ -351,6 +445,15 @@ public class DocumentActivity extends BaseActivity {
                     }
                 });
             } else if (requestCode == 3002) {//授权书 直接拍摄上传
+
+                if (mTopItem != null) {
+                    UploadImgItemBean item = new UploadImgItemBean();
+                    item.local_path = imageFile.getAbsolutePath();
+                    item.role = mRole;
+                    item.type = mType;
+                    imgList.add(item);
+                }
+
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
@@ -380,12 +483,13 @@ public class DocumentActivity extends BaseActivity {
     }
 
     private void onBack() {
-        Intent intent = new Intent();
-        intent.putExtra("objectKey", mImgObjectKey);
-        intent.putExtra("type", mType);
-        intent.putExtra("ocrResp", mOcrResp);
-        intent.putExtra("imgUrl", imgUrl);
-        setResult(RESULT_OK, intent);
+//        Intent intent = new Intent();
+        mGetIntent.putExtra("objectKey", mImgObjectKey);
+        mGetIntent.putExtra("type", mType);
+        mGetIntent.putExtra("ocrResp", mOcrResp);
+        mGetIntent.putExtra("imgUrl", imgUrl);
+        setResult(RESULT_OK, mGetIntent);
+//        setResult(RESULT_OK, intent);
         finish();
     }
 
