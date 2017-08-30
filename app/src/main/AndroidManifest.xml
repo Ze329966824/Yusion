@@ -111,6 +111,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.update.OnlyReadUploadListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.order.OrderDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />

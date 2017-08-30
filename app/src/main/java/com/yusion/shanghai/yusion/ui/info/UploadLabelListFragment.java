@@ -16,6 +16,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.adapter.UploadLabelListAdapter;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
+import com.yusion.shanghai.yusion.ui.update.OnlyReadUploadListActivity;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
+//del
 public class UploadLabelListFragment extends BaseFragment {
 
 
@@ -66,6 +68,9 @@ public class UploadLabelListFragment extends BaseFragment {
                     //下级目录为图片页
                     intent.setClass(mContext, UploadListActivity.class);
                     intent.putExtra("role", "lender");
+                    if (item.name.contains("授权书")) {
+                        intent.setClass(mContext, OnlyReadUploadListActivity.class);
+                    }
                 } else {
                     //下级目录为标签页
                     intent.setClass(mContext, UploadLabelListActivity.class);

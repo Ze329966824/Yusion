@@ -25,7 +25,6 @@ import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.ui.info.UploadLabelListActivity;
@@ -71,6 +70,9 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                     //下级目录为图片页
                     intent.setClass(mContext, UploadListActivity.class);
                     intent.putExtra("role", mRole);
+                    if (item.name.contains("授权书")) {
+                        intent.setClass(mContext, OnlyReadUploadListActivity.class);
+                    }
                 } else {
                     //下级目录为标签页
                     intent.setClass(mContext, UploadLabelListActivity.class);

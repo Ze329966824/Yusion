@@ -53,6 +53,11 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
                 holder.status.setTextColor(mContext.getResources().getColor(R.color.system_color));
             }
         }
+
+        if (item.name.contains("授权书")) {
+            holder.status.setText("查看");
+            holder.status.setTextColor(mContext.getResources().getColor(R.color.please_upload_color));
+        }
         holder.itemView.setOnClickListener(mOnItemClick == null ? null : new View.OnClickListener() {
             @Override
             public void onClick(View v) {
