@@ -24,11 +24,13 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
@@ -574,14 +576,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         });
             }
         });
-        update_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_divorced_lin);
-        update_spouse_info_divorced_tv = (TextView) view.findViewById(R.id.update_spouse_info_divorced_tv);
-        update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         update_spouse_info_mobile_img = (ImageView) view.findViewById(R.id.update_spouse_info_mobile_img);
         update_spouse_info_mobile_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -636,8 +631,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_extra_from_income_company_address1_lin.getId()) {
                     update_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
-            }
-            else if (requestCode == Constants.REQUEST_DOCUMENT) {
+            } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 switch (data.getStringExtra("type")) {
                     case Constants.FileLabelType.ID_BACK:
                         ID_BACK_FID = data.getStringExtra("objectKey");
@@ -665,8 +659,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         }
                         break;
                 }
-            }
-            else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
+            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
                 switch (data.getStringExtra("type")) {
                     case Constants.FileLabelType.RES_BOOKLET:
                         resBookList = (ArrayList) data.getSerializableExtra("imgList");
@@ -697,8 +690,31 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         if (clientInfo.spouse.clt_id == null) {
             return false;
         }
-        return uploadUrl(clientInfo.spouse.clt_id, callBack);
+        if (update_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
+
+            return uploadUrl(clientInfo.clt_id, callBack);
+
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
+
+            return uploadUrl(clientInfo.spouse.clt_id, callBack);
+
+        }if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+
+            return uploadUrl(clientInfo.clt_id, callBack);
+
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
+
+            return uploadUrl(clientInfo.clt_id, callBack);
+
+        }
+
+        return false;
     }
+
+
+
 
     public boolean updateClientinfo(OnVoidCallBack callBack) {
         if (checkUserInfo()) {
@@ -861,20 +877,25 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
     private boolean uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
-        switch (update_spouse_info_marriage_tv.getText().toString()) {
+        String marriage = update_spouse_info_marriage_tv.getText().toString();
+        switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
                     UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
-                    divorceFileItem.file_id = divorceImgsList.get(i).toString();
+                    UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    divorceFileItem.file_id = divo.objectKey;
                     divorceFileItem.label = Constants.FileLabelType.DIVORCE;
+                    divorceFileItem.clt_id = clt_id;
                     files.add(divorceFileItem);
                 }
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
                     UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
-                    resBookFileItem.file_id = resBookList.get(i).toString();
+                    UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    resBookFileItem.file_id = resb.objectKey;
                     resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET;
+                    resBookFileItem.clt_id = clt_id;
                     files.add(resBookFileItem);
                 }
                 break;
@@ -1005,9 +1026,35 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     }
                     break;
                 case "离异":
+                    ListImgsReq req3 = new ListImgsReq();
+                    req3.label = Constants.FileLabelType.DIVORCE;
+                    req3.clt_id = data.clt_id;
+                    UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
+                        @Override
+                        public void onItemDataCallBack(ListImgsResp resp) {
+                            if ( resp.list.size()!= 0) {
+                                update_spouse_info_divorced_tv.setText("已上传");
+                                update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
+                                divorceImgsList = (ArrayList) resp.list;
+                            }
+                        }
+                    });
                     update_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
                     break;
                 case "丧偶":
+                    ListImgsReq req4 = new ListImgsReq();
+                    req4.label = Constants.FileLabelType.RES_BOOKLET;
+                    req4.clt_id = data.clt_id;
+                    UploadApi.listImgs(mContext, req4, new OnItemDataCallBack<ListImgsResp>() {
+                        @Override
+                        public void onItemDataCallBack(ListImgsResp resp) {
+                            if ( resp.list.size()!= 0) {
+                                update_spouse_info_register_addr_tv.setText("已上传");
+                                update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
+                                resBookList = (ArrayList) resp.list;
+                            }
+                        }
+                    });
                     update_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
                     break;
             }
