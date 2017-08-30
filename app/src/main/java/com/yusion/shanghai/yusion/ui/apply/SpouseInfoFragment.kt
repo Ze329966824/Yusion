@@ -90,9 +90,9 @@ class SpouseInfoFragment : BaseFragment() {
             })
         }
         spouse_info_extra_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资","无"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>(listOf("工资", "无"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
                 _EXTRA_INCOME_FROME_INDEX = index
-                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资","无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资", "无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
@@ -232,6 +232,8 @@ class SpouseInfoFragment : BaseFragment() {
                             .setNegativeButton("取消") { dialog, _ ->
                                 dialog.dismiss()
                                 InputMethodUtil.hideInputMethod(mContext)
+                                _FROM_SELF_TYPE_INDEX = 0;
+                                spouse_info_from_self_type_tv.text = null
                             }.show()
                 }
             })

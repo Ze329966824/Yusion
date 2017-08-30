@@ -427,6 +427,36 @@
                         android:layout_height="@dimen/separate_line_height"
                         android:background="@color/separate_line_color" />
 
+                    <!--子女数量-->
+                    <LinearLayout style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="配偶身份证号" />
+
+                        <EditText
+                            android:id="@+id/spouse_info_child_count_edt"
+                            style="@style/apply_info_content_type_id"
+                            android:layout_marginRight="35dp"
+                            android:hint="请输入" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
                     <!--主要收入来源-->
                     <LinearLayout
                         android:id="@+id/spouse_info_income_from_lin"

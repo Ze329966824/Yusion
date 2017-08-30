@@ -215,6 +215,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                             }
                             .setNegativeButton("取消") { dialog, _ ->
                                 dialog.dismiss()
+                                _FROM_SELF_TYPE_INDEX = 0;
+                                personal_info_from_self_type_tv.text = null
                                 InputMethodUtil.hideInputMethod(mContext)
                             }.show()
                 }
