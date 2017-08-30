@@ -57,11 +57,13 @@ public class UploadListActivity extends BaseActivity {
     private LinearLayout uploadBottomLin;
     private TextView uploadTv2;
     private TextView uploadTv1;
+    private boolean onlyRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_list);
+
         mGetIntent = getIntent();
         mRole = mGetIntent.getStringExtra("role");
         mTopItem = (UploadLabelItemBean) mGetIntent.getSerializableExtra("topItem");

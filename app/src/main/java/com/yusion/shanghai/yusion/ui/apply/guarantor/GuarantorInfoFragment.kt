@@ -121,6 +121,14 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
 
             //房屋性质
             addGuarantorActivity.mGuarantorInfo.house_owner_name = guarantor_info_house_owner_name_edt.text.toString()
+            //现住地址
+            if (guarantor_info_house_address_tv.text.isNotEmpty()) {
+                addGuarantorActivity.mGuarantorInfo.house_addr.province = guarantor_info_house_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                addGuarantorActivity.mGuarantorInfo.house_addr.city = guarantor_info_house_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                addGuarantorActivity.mGuarantorInfo.house_addr.district = guarantor_info_house_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+            }
+            addGuarantorActivity.mGuarantorInfo.house_addr.address1 = guarantor_info_house_address1_tv.text.toString()
+            addGuarantorActivity.mGuarantorInfo.house_addr.address2 = guarantor_info_house_address2_tv.text.toString()
             addGuarantorActivity.mGuarantorInfo.house_owner_relation = guarantor_info_house_owner_relation_tv.text.toString()
             addGuarantorActivity.mGuarantorInfo.house_type = guarantor_info_house_type_tv.text.toString()
             nextStep()
@@ -343,7 +351,13 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
         } else if (guarantor_info_house_type_tv.text.isEmpty()) {
             Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show()
-        } else if (guarantor_info_house_owner_name_edt.text.isEmpty()) {
+        }else if (guarantor_info_house_address_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋地址不能为空", Toast.LENGTH_SHORT).show()
+        } else if (guarantor_info_house_address1_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
+        } else if (guarantor_info_house_address2_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "房屋地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
+        }  else if (guarantor_info_house_owner_name_edt.text.isEmpty()) {
             Toast.makeText(mContext, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show()
         } else if (guarantor_info_house_owner_relation_tv.text.isEmpty()) {
             Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show()

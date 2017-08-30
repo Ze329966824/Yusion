@@ -110,7 +110,6 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
-
         }
         autonym_certify_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)

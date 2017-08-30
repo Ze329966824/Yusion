@@ -85,6 +85,7 @@ public class GuarantorInfo {
     public RegAddrBean reg_addr;
     public String reg_addr_details;
     public CurrentAddrBean current_addr;
+    public HouseAddrBean house_addr;
     public String house_owner_name;
     public String house_type;
     public String house_area;
@@ -173,6 +174,40 @@ public class GuarantorInfo {
     }
 
     public static class RegAddrBean {
+        /**
+         * province :
+         * city :
+         * district : null
+         * zip_code : null
+         * address1 : null
+         * address2 : null
+         * longitude : null
+         * latitude : null
+         * len_of_residence : null
+         * created_time : null
+         * update_time : null
+         */
+
+        public String province;
+        public String city;
+        public String district;
+        public String zip_code;
+        public String address1;
+        public String address2;
+        public String longitude;
+        public String latitude;
+        public String len_of_residence;
+        public String created_time;
+        public String update_time;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
+    }
+
+
+    public static class HouseAddrBean {
         /**
          * province :
          * city :
