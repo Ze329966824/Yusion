@@ -432,11 +432,11 @@
 
                         <TextView
                             style="@style/apply_info_title"
-                            android:text="配偶身份证号" />
+                            android:text="子女数量(人)" />
 
                         <EditText
                             android:id="@+id/spouse_info_child_count_edt"
-                            style="@style/apply_info_content_type_id"
+                            style="@style/apply_info_content_type_number"
                             android:layout_marginRight="35dp"
                             android:hint="请输入" />
 

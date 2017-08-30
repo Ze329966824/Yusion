@@ -134,6 +134,7 @@ class SpouseInfoFragment : BaseFragment() {
                     applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
                     applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
                     applyActivity.mClientInfo.spouse.mobile = spouse_info_mobile_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.child_num = spouse_info_child_count_edt.text.toString()
 
                     //主要收入来源
                     when (spouse_info_income_from_tv.text) {
@@ -281,6 +282,8 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_mobile_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_child_count_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_year_edt.text.isEmpty()) {
