@@ -148,7 +148,9 @@ public class DocumentActivity extends BaseActivity {
                 errorLin.setVisibility(View.VISIBLE);
                 errorTv.setText(mTopItem.errorInfo);
             }
+            getTitleInfo();
         } else {
+            getTitleInfo();
             mImgObjectKey = mGetIntent.getStringExtra("objectKey");
             if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
                 imgUrl = mGetIntent.getStringExtra("imgUrl");
@@ -159,8 +161,6 @@ public class DocumentActivity extends BaseActivity {
                 isHasImage = false;
             }
         }
-
-        getTitleInfo();
 
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
