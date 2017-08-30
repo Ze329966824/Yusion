@@ -253,7 +253,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                                     view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
                                 }
                                 if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("无")) {
-                                    view.findViewById(R.id.update_personal_info_extra_from_income_group_lin).setVisibility(View.GONE);
+                                    view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
 
                                 }
                             }

@@ -45,6 +45,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
+        add("无");
     }};
     public static int UPDATE_INCOME_FROME_INDEX;
     public static int UPDATE_EXTRA_INCOME_FROME_INDEX;
@@ -406,7 +407,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                                     view.findViewById(R.id.update_guarantor_info_extra_from_income_group_lin).setVisibility(View.GONE);
                                 }
                                 if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("无")) {
-                                    view.findViewById(R.id.update_personal_info_extra_from_income_group_lin).setVisibility(View.GONE);
+                                    view.findViewById(R.id.update_guarantor_info_extra_from_income_group_lin).setVisibility(View.GONE);
 
                                 }
                             }

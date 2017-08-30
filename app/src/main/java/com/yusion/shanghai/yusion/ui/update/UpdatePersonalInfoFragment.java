@@ -46,6 +46,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
+        add("无");
     }};
     public static int UPDATE_INCOME_FROME_INDEX;
     public static int UPDATE_EXTRA_INCOME_FROME_INDEX;

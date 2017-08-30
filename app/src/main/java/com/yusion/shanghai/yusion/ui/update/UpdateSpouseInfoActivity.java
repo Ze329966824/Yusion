@@ -96,7 +96,9 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                             }
                         });
                     }
-                }));
+                })){
+
+                };
             }
         });
     }

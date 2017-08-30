@@ -691,25 +691,16 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             return false;
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
-
             return uploadUrl(clientInfo.clt_id, callBack);
-
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
-
             return uploadUrl(clientInfo.spouse.clt_id, callBack);
-
         }if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
-
             return uploadUrl(clientInfo.clt_id, callBack);
-
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
-
             return uploadUrl(clientInfo.clt_id, callBack);
-
         }
-
         return false;
     }
 
