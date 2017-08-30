@@ -192,6 +192,7 @@ public class ClientInfo {
     public String drv_lic_relationship;
     public String update_time;
     public SpouseBean spouse;
+    public String is_live_with_parent;
 
     @Override
     public String toString() {
@@ -418,6 +419,7 @@ public class ClientInfo {
         public String status;
         public String created_time;
         public String update_time;
+        public String child_num;
 
         @Override
         public String toString() {

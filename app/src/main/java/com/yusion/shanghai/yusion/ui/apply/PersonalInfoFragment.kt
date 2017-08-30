@@ -33,6 +33,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
     var _INCOME_FROM_INDEX: Int = 0
     var _EDUCATION_INDEX: Int = 0
     var _EXTRA_INCOME_FROM_INDEX: Int = 0
+    var _LIVE_WITH_PARENT_INDEX: Int = 0
     var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
     var _FROM_SELF_TYPE_INDEX: Int = 0
     var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
@@ -70,6 +71,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             }
             applyActivity.mClientInfo.current_addr.address1 = personal_info_current_address1_tv.text.toString()
             applyActivity.mClientInfo.current_addr.address2 = personal_info_current_address2_tv.text.toString()
+            applyActivity.mClientInfo.is_live_with_parent = personal_info_live_with_parent_tv.text.toString()
+
 
             //主要收入来源
             when (personal_info_income_from_tv.text) {
@@ -157,9 +160,17 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         personal_info_extra_income_from_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(listOf("工资", "无"), _EXTRA_INCOME_FROM_INDEX, personal_info_extra_income_from_lin, personal_info_extra_income_from_tv, "请选择", { _, index ->
                 _EXTRA_INCOME_FROM_INDEX = index
-                personal_info_extra_from_income_group_lin.visibility = if (listOf("工资","无")[_EXTRA_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
+                personal_info_extra_from_income_group_lin.visibility = if (listOf("工资", "无")[_EXTRA_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
+
+        //是否与父母同住
+        personal_info_live_with_parent_lin.setOnClickListener {
+            WheelViewUtil.showWheelView<String>(listOf("是", "否"), _LIVE_WITH_PARENT_INDEX, personal_info_live_with_parent_lin, personal_info_live_with_parent_tv, "请选择", { _, index ->
+                _LIVE_WITH_PARENT_INDEX = index
+            })
+        }
+
         personal_info_reg_lin.setOnClickListener {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_reg_lin, personal_info_reg_tv, "请选择所在地区") { _, _ -> }
         }
@@ -215,6 +226,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                             }
                             .setNegativeButton("取消") { dialog, _ ->
                                 dialog.dismiss()
+                                _FROM_SELF_TYPE_INDEX = 0;
+                                personal_info_from_self_type_tv.text = null
                                 InputMethodUtil.hideInputMethod(mContext)
                             }.show()
                 }
@@ -315,6 +328,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_current_address2_tv.text.isEmpty()) {
             Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (personal_info_live_with_parent_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "是否与父母同住不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text.isEmpty()) {
             Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "工资" && personal_info_from_income_year_edt.text.isEmpty()) {

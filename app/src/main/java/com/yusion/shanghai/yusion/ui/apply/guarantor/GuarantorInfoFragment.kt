@@ -216,6 +216,8 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                             .setNegativeButton("取消") { dialog, which ->
                                 dialog.dismiss()
                                 InputMethodUtil.hideInputMethod(mContext)
+                                _FROM_SELF_TYPE_INDEX = 0;
+                                guarantor_info_from_self_type_tv.text = null
                             }.show()
                 }
             })
