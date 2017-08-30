@@ -54,23 +54,23 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             ProductApi.getGuarantorInfo(mContext, GetGuarantorInfoReq(guarantor_credit_info_id_number_tv.text.toString(), guarantor_credit_info_name_tv.text.toString()
-                    , guarantor_credit_info_rel_tv.text.toString(), guarantor_credit_info_mobile_edt.text.toString(),"1")) {
-                if (it == null) {
-                    return@getGuarantorInfo
-                }
-                var addGuarantorActivity = activity as AddGuarantorActivity
-                addGuarantorActivity.mGuarantorInfo = it
-                ocrResp?.let {
-                    addGuarantorActivity.mGuarantorInfo.gender = ocrResp.sex
-                    addGuarantorActivity.mGuarantorInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
-                    addGuarantorActivity.mGuarantorInfo.reg_addr.province = ocrResp.province
-                    addGuarantorActivity.mGuarantorInfo.reg_addr.city = ocrResp.city
-                    addGuarantorActivity.mGuarantorInfo.reg_addr.district = ocrResp.town
-                }
-                addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
-//                nextStep()
-                uploadUrl(it.clt_id)
+                    , guarantor_credit_info_mobile_edt.text.toString(), guarantor_credit_info_rel_tv . text . toString (), "1")) {
+            if (it == null) {
+                return@getGuarantorInfo
             }
+            var addGuarantorActivity = activity as AddGuarantorActivity
+            addGuarantorActivity.mGuarantorInfo = it
+            ocrResp?.let {
+                addGuarantorActivity.mGuarantorInfo.gender = ocrResp.sex
+                addGuarantorActivity.mGuarantorInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
+                addGuarantorActivity.mGuarantorInfo.reg_addr.province = ocrResp.province
+                addGuarantorActivity.mGuarantorInfo.reg_addr.city = ocrResp.city
+                addGuarantorActivity.mGuarantorInfo.reg_addr.district = ocrResp.town
+            }
+            addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
+//                nextStep()
+            uploadUrl(it.clt_id)
+        }
         }
         guarantor_credit_info_next_btn.setOnClickListener {
             if (checkCanNextStep()) {
@@ -111,8 +111,8 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
 
-        guarantor_credit_info_name_tv.setText("just Test")
-        guarantor_credit_info_id_number_tv.setText("${Date().time}")
+//        guarantor_credit_info_name_tv.setText("just Test")
+//        guarantor_credit_info_id_number_tv.setText("${Date().time}")
     }
 
     fun checkCanNextStep(): Boolean {
