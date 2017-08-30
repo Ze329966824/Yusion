@@ -53,7 +53,6 @@ public class LoginActivity extends BaseActivity {
                     if (data != null) {
                         if (!Settings.isOnline) {
                             mLoginCodeTV.setText(data.verify_code);
-
                         }
                     }
                 });
