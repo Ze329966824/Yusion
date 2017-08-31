@@ -1111,7 +1111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible">
 
                 <LinearLayout
@@ -1173,6 +1173,38 @@
                             android:src="@mipmap/mine_arrow_right" />
                     </FrameLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/bg_color" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+
+                <!--子女数量-->
+                <LinearLayout style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:text="子女数量(人)" />
+
+                    <EditText
+                        android:id="@+id/update_spouse_info_child_count1_edt"
+                        style="@style/apply_info_content_type_number"
+                        android:layout_marginRight="35dp"
+                        android:hint="请输入" />
+
+                </LinearLayout>
+
+
+
             </LinearLayout>
 
             <!--丧偶-->
@@ -1240,7 +1272,35 @@
                             android:src="@mipmap/mine_arrow_right" />
                     </FrameLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/bg_color" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+
+                <!--子女数量-->
+                <LinearLayout style="@style/apply_info_item">
+
+                    <TextView
+                        style="@style/apply_info_title"
+                        android:text="子女数量(人)" />
+
+                    <EditText
+                        android:id="@+id/update_spouse_info_child_count2_edt"
+                        style="@style/apply_info_content_type_number"
+                        android:layout_marginRight="35dp"
+                        android:hint="请输入" />
+
+                </LinearLayout>
                 <include layout="@layout/include_line" />
             </LinearLayout>
 

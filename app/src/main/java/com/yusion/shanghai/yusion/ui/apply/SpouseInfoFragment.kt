@@ -97,7 +97,7 @@ class SpouseInfoFragment : BaseFragment() {
         }
         spouse_info_divorced_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
-            intent.putExtra("type", Constants.FileLabelType.DIVORCE)
+            intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", divorceImgsList)
             intent.putExtra("title", "离婚证")
@@ -369,7 +369,7 @@ class SpouseInfoFragment : BaseFragment() {
                 for (divorceItem in divorceImgsList) {
                     val divorceFileItem = UploadFilesUrlReq.FileUrlBean()
                     divorceFileItem.file_id = divorceItem.objectKey
-                    divorceFileItem.label = Constants.FileLabelType.DIVORCE
+                    divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF
                     divorceFileItem.clt_id = cltId
                     files.add(divorceFileItem)
                 }
@@ -462,7 +462,7 @@ class SpouseInfoFragment : BaseFragment() {
                             spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
                     }
-                    Constants.FileLabelType.DIVORCE -> {
+                    Constants.FileLabelType.MARRIAGE_PROOF -> {
                         divorceImgsList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
                         if (divorceImgsList.size > 0) {
                             spouse_info_divorced_tv.text = "已上传"

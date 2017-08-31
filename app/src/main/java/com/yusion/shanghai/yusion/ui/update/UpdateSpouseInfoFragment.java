@@ -141,7 +141,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList resBookList = new ArrayList<UploadImgItemBean>();
-    private TextView update_spouse_info_child_count_edt;                   //子女数量
+    private EditText update_spouse_info_child_count_edt;                   //子女数量
+    private EditText update_spouse_info_child_count1_edt;                   //子女数量
+    private EditText update_spouse_info_child_count2_edt;                   //子女数量
     private ClientInfo clientInfo;
 
     @Override
@@ -180,7 +182,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         update_spouse_info_id_back_tv = (TextView) view.findViewById(R.id.update_spouse_info_id_back_tv);
         update_spouse_info_id_front_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_id_front_lin);
         update_spouse_info_id_back_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_id_back_lin);
-        update_spouse_info_child_count_edt = (TextView) view.findViewById(R.id.update_spouse_info_child_count_edt);
+        update_spouse_info_child_count_edt = (EditText) view.findViewById(R.id.update_spouse_info_child_count_edt);
+        update_spouse_info_child_count1_edt = (EditText) view.findViewById(R.id.update_spouse_info_child_count1_edt);
+        update_spouse_info_child_count2_edt = (EditText) view.findViewById(R.id.update_spouse_info_child_count2_edt);
 
         mScrollView = ((NestedScrollView) view.findViewById(R.id.scrollView));
 
@@ -223,7 +227,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 //            @Override
 //            public void onClick(View v) {
 //                Intent intent = new Intent(mContext, UploadListActivity.class);
-//                intent.putExtra("type", Constants.FileLabelType.DIVORCE);
+//                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
 //                intent.putExtra("role", Constants.PersonType.LENDER);
 //                intent.putExtra("imgList", divorceImgsList);
 //                intent.putExtra("title", "离婚证");
@@ -522,7 +526,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, UploadListActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.DIVORCE);
+                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", divorceImgsList);
                 intent.putExtra("title", "离婚证");
@@ -622,7 +626,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     System.arraycopy(contacts, 0, result, 0, contacts.length);
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_spouse_info_mobile_img.getId()) {
-                    update_spouse_info_mobile_edt.setText(result[1].replaceAll(" ",""));
+                    update_spouse_info_mobile_edt.setText(result[1].replaceAll(" ", ""));
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_from_income_company_address1_lin.getId()) {
@@ -679,7 +683,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         break;
-                    case Constants.FileLabelType.DIVORCE:
+                    case Constants.FileLabelType.MARRIAGE_PROOF:
                         divorceImgsList = (ArrayList) data.getSerializableExtra("imgList");
                         if (divorceImgsList.size() > 0) {
                             update_spouse_info_divorced_tv.setText("已上传");
@@ -725,11 +729,13 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     clientInfo.spouse.id_no = update_spouse_info_id_no_edt.getText().toString().trim();
                     clientInfo.spouse.gender = update_spouse_info_gender_tv.getText().toString().trim();
                     clientInfo.spouse.mobile = update_spouse_info_mobile_edt.getText().toString().trim();
-                    clientInfo.spouse.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
+                    clientInfo.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
                     break;
                 case "离异":
+                    clientInfo.child_num = update_spouse_info_child_count1_edt.getText().toString().trim();
                     break;
                 case "丧偶":
+                    clientInfo.child_num = update_spouse_info_child_count2_edt.getText().toString().trim();
                     break;
             }
             clientInfo.spouse.major_income_type = update_spouse_info_income_from_tv.getText().toString().trim();
@@ -861,10 +867,18 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             return true;
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
-            return true;
+            if (update_spouse_info_child_count1_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
+            }
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
-            return true;
+            if (update_spouse_info_child_count2_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
+            }
         }
         return false;
     }
@@ -878,7 +892,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
                     divorceFileItem.file_id = divo.objectKey;
-                    divorceFileItem.label = Constants.FileLabelType.DIVORCE;
+                    divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     divorceFileItem.clt_id = clt_id;
                     files.add(divorceFileItem);
                 }
@@ -966,7 +980,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     update_spouse_info_gender_tv.setText(clientInfo.spouse.gender);
                     update_spouse_info_mobile_edt.setText(clientInfo.spouse.mobile);
                     update_spouse_info_income_from_tv.setText(clientInfo.spouse.major_income_type);
-                    update_spouse_info_child_count_edt.setText(clientInfo.spouse.child_num);
+                    update_spouse_info_child_count_edt.setText(clientInfo.child_num);
                     //判断主要收入类型
                     switch (clientInfo.spouse.major_income_type) {
                         case "工资":
@@ -1026,7 +1040,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     break;
                 case "离异":
                     ListImgsReq req3 = new ListImgsReq();
-                    req3.label = Constants.FileLabelType.DIVORCE;
+                    req3.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     req3.clt_id = data.clt_id;
                     UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
                         @Override
@@ -1039,6 +1053,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         }
                     });
                     update_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
+                    update_spouse_info_child_count1_edt.setText(clientInfo.child_num);
                     break;
                 case "丧偶":
                     ListImgsReq req4 = new ListImgsReq();
@@ -1055,6 +1070,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         }
                     });
                     update_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
+                    update_spouse_info_child_count2_edt.setText(clientInfo.child_num);
                     break;
             }
         }

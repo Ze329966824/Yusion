@@ -575,7 +575,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, UploadListActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.DIVORCE);
+                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", divorceImgsList);
                 intent.putExtra("title", "离婚证");
@@ -695,7 +695,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         break;
-                    case Constants.FileLabelType.DIVORCE:
+                    case Constants.FileLabelType.MARRIAGE_PROOF:
                         divorceImgsList = (ArrayList) data.getSerializableExtra("imgList");
                         if (divorceImgsList.size() > 0) {
                             update_guarantor_spouse_info_divorced_tv.setText("已上传");
@@ -804,7 +804,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     break;
                 case "离异":
                     ListImgsReq req3 = new ListImgsReq();
-                    req3.label = Constants.FileLabelType.DIVORCE;
+                    req3.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     req3.clt_id = data.clt_id;
                     UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
                         @Override
@@ -1031,7 +1031,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
                     divorceFileItem.file_id = divo.objectKey;
-                    divorceFileItem.label = Constants.FileLabelType.DIVORCE;
+                    divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     divorceFileItem.clt_id = clt_id;
                     files.add(divorceFileItem);
                 }
