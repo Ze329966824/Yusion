@@ -263,6 +263,10 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
 
     fun checkCanNextStep(): Boolean {
 //        return true
+        if (guarantor_spouse_info_marriage_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "请选择婚姻状况", Toast.LENGTH_SHORT).show()
+            return false
+        }
         if (guarantor_spouse_info_marriage_tv.text == "已婚") {
             if (ID_BACK_FID.isEmpty()) {
                 Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
