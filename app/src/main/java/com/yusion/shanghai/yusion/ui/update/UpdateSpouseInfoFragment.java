@@ -895,14 +895,14 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 break;
 
             case "已婚":
-                if (!ID_BACK_FID.isEmpty()) {
+                if (!ID_BACK_FID.equals("")) {
                     UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
                     idBackBean.file_id = ID_BACK_FID;
                     idBackBean.label = Constants.FileLabelType.ID_BACK;
                     idBackBean.clt_id = clt_id;
                     files.add(idBackBean);
                 }
-                if (!ID_FRONT_FID.isEmpty()) {
+                if (!ID_FRONT_FID.equals("")) {
                     UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
                     idFrontBean.file_id = ID_FRONT_FID;
                     idFrontBean.label = Constants.FileLabelType.ID_FRONT;
@@ -973,8 +973,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_from_income_group_lin.setVisibility(View.VISIBLE);
                             update_spouse_info_from_income_year_edt.setText(clientInfo.spouse.major_income);
                             update_spouse_info_from_income_company_name_edt.setText(clientInfo.spouse.major_company_name);
-                            update_spouse_info_from_income_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
-                            if (clientInfo.spouse.major_company_addr.province.isEmpty() && clientInfo.spouse.major_company_addr.city.isEmpty() && clientInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!clientInfo.spouse.major_company_addr.province.equals("")) {
+                                update_spouse_info_from_income_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
+                            } else {
                                 update_spouse_info_from_income_company_address_tv.setText(null);
                             }
                             update_spouse_info_from_income_company_address1_tv.setText(clientInfo.spouse.major_company_addr.address1);
@@ -987,8 +988,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_from_self_year_edt.setText(clientInfo.spouse.major_income);
                             update_spouse_info_from_self_type_tv.setText(clientInfo.spouse.major_busi_type);
                             update_spouse_info_from_self_company_name_edt.setText(clientInfo.spouse.major_company_name);
-                            update_spouse_info_from_self_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
-                            if (clientInfo.spouse.major_company_addr.province.isEmpty() && clientInfo.spouse.major_company_addr.city.isEmpty() && clientInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!clientInfo.spouse.major_company_addr.province.equals("")) {
+                                update_spouse_info_from_self_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
+                            } else {
                                 update_spouse_info_from_self_company_address_tv.setText(null);
                             }
                             update_spouse_info_from_self_company_address1_tv.setText(clientInfo.spouse.major_company_addr.address1);
@@ -1008,8 +1010,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_extra_from_income_work_position_tv.setText(clientInfo.spouse.extra_work_position);
                             update_spouse_info_extra_from_income_year_edt.setText(clientInfo.spouse.extra_income);
                             update_spouse_info_extra_from_income_company_name_edt.setText(clientInfo.spouse.extra_company_name);
-                            update_spouse_info_extra_from_income_company_address_tv.setText(clientInfo.spouse.extra_company_addr.province + "/" + clientInfo.spouse.extra_company_addr.city + "/" + clientInfo.spouse.extra_company_addr.district);
-                            if (clientInfo.spouse.major_company_addr.province.isEmpty() && clientInfo.spouse.major_company_addr.city.isEmpty() && clientInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!clientInfo.spouse.extra_company_addr.province.equals("")) {
+                                update_spouse_info_extra_from_income_company_address_tv.setText(clientInfo.spouse.extra_company_addr.province + "/" + clientInfo.spouse.extra_company_addr.city + "/" + clientInfo.spouse.extra_company_addr.district);
+                            } else {
                                 update_spouse_info_extra_from_income_company_address_tv.setText(null);
                             }
                             update_spouse_info_extra_from_income_company_address1_tv.setText(clientInfo.spouse.extra_company_addr.address1);
