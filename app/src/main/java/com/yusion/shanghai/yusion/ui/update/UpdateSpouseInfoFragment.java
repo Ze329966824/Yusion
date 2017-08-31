@@ -530,6 +530,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", divorceImgsList);
                 intent.putExtra("title", "离婚证");
+                intent.putExtra("clt_id",clientInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -545,6 +546,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", resBookList);
                 intent.putExtra("title", "户口本");
+                intent.putExtra("clt_id",clientInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });

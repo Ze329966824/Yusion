@@ -514,9 +514,11 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
@@ -545,9 +547,11 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
@@ -1018,9 +1022,11 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
@@ -1052,6 +1058,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
