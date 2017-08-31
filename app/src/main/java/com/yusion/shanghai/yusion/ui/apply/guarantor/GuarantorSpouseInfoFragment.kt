@@ -174,7 +174,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                             addGuarantorActivity.mGuarantorInfo.spouse.major_remark = guarantor_spouse_info_from_other_remark_edt.text.toString()
                         }
                     }
-                    //主要收入来源
+                    //额外收入来源
                     when (guarantor_spouse_info_extra_income_from_tv.text) {
                         "工资" -> {
                             addGuarantorActivity.mGuarantorInfo.spouse.extra_income_type = "工资"
@@ -187,6 +187,9 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                             addGuarantorActivity.mGuarantorInfo.spouse.extra_company_addr.address2 = guarantor_spouse_info_extra_from_income_company_address2_tv.text.toString()
                             addGuarantorActivity.mGuarantorInfo.spouse.extra_work_position = guarantor_spouse_info_extra_from_income_work_position_tv.text.toString()
                             addGuarantorActivity.mGuarantorInfo.spouse.extra_work_phone_num = guarantor_spouse_info_extra_from_income_work_phone_num_edt.text.toString()
+                        }
+                        "工资" -> {
+                            addGuarantorActivity.mGuarantorInfo.spouse.extra_income_type = "无"
                         }
                     }
                 }

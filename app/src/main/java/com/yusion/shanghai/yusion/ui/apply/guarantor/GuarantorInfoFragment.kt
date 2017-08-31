@@ -117,6 +117,9 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.extra_work_position = guarantor_info_extra_from_income_work_position_tv.text.toString()
                     addGuarantorActivity.mGuarantorInfo.extra_work_phone_num = guarantor_info_extra_from_income_work_phone_num_edt.text.toString()
                 }
+                "工资" -> {
+                    addGuarantorActivity.mGuarantorInfo.extra_income_type = "无"
+                }
             }
 
             //房屋性质
