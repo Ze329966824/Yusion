@@ -304,7 +304,6 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
                             style="@style/apply_info_item_wrap">
 
                             <TextView
@@ -551,7 +550,6 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
                             style="@style/apply_info_item_wrap">
 
                             <TextView
@@ -795,8 +793,8 @@
 
                         <include layout="@layout/include_line_left" />
 
-                        <LinearLayout style="@style/apply_info_item_wrap"
-                            android:layout_height="90dp">
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
@@ -1056,7 +1054,6 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
                             style="@style/apply_info_item_wrap">
 
                             <TextView
