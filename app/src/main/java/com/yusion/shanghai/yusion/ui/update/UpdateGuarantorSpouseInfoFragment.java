@@ -209,19 +209,19 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             public void onSubmitCallBack(View clickedView, int selectedIndex) {
                                 UPDATE_INCOME_FROME_INDEX = selectedIndex;
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX) == "工资") {
+                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("工资")) {
                                     view.findViewById(R.id.update_guarantor_spouse_info_from_income_group_lin).setVisibility(View.VISIBLE);
                                 } else {
                                     view.findViewById(R.id.update_guarantor_spouse_info_from_income_group_lin).setVisibility(View.GONE);
                                 }
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX) == "自营") {
+                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("自营")) {
                                     view.findViewById(R.id.update_guarantor_spouse_info_from_self_group_lin).setVisibility(View.VISIBLE);
                                 } else {
                                     view.findViewById(R.id.update_guarantor_spouse_info_from_self_group_lin).setVisibility(View.GONE);
                                 }
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX) == "其他") {
+                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("其他")) {
                                     view.findViewById(R.id.update_guarantor_spouse_info_from_other_group_lin).setVisibility(View.VISIBLE);
                                 } else {
                                     view.findViewById(R.id.update_guarantor_spouse_info_from_other_group_lin).setVisibility(View.GONE);
@@ -1071,9 +1071,10 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     if (code < 0) {
                         return;
                     }
-
                 }
             });
+            callBack.callBack();
+        }else {
             callBack.callBack();
         }
     }
