@@ -347,8 +347,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "工资" && personal_info_from_income_work_position_tv.text.isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "工资" && personal_info_from_income_work_phone_num_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_year_edt.text.isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_type_tv.text.isEmpty()) {
@@ -379,8 +377,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_work_position_tv.text.isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_house_type_tv.text.isEmpty()) {
             Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_house_area_edt.text.isEmpty()) {
@@ -437,11 +433,11 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 when (CURRENT_CLICKED_VIEW_FOR_CONTACT) {
                     personal_info_urg_mobile1_img.id -> {
                         personal_info_urg_contact1_edt.setText(result[0])
-                        personal_info_urg_mobile1_edt.setText(result[1])
+                        personal_info_urg_mobile1_edt.setText(result[1].replace(" ",""))
                     }
                     personal_info_urg_mobile2_img.id -> {
                         personal_info_urg_contact2_edt.setText(result[0])
-                        personal_info_urg_mobile2_edt.setText(result[1])
+                        personal_info_urg_mobile2_edt.setText(result[1].replace(" ",""))
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

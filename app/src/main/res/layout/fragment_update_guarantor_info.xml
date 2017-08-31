@@ -194,7 +194,7 @@
                                 android:id="@+id/update_guarantor_info_mobile_edt"
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入手机号码" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
 
@@ -410,7 +410,7 @@
                                 android:id="@+id/update_guarantor_info_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -438,7 +438,7 @@
                                 android:id="@+id/update_guarantor_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -592,7 +592,7 @@
                                 android:id="@+id/update_guarantor_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -633,7 +633,7 @@
                                 android:id="@+id/update_guarantor_info_from_self_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -689,7 +689,7 @@
                                 android:id="@+id/update_guarantor_info_from_self_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入店铺名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -814,7 +814,7 @@
                                 android:id="@+id/update_guarantor_info_from_other_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -833,7 +833,7 @@
                                 android:id="@+id/update_guarantor_info_from_other_remark_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入备注" />
+                                android:hint="请输入" />
 
 
                         </LinearLayout>
@@ -916,7 +916,7 @@
                                 android:id="@+id/update_guarantor_info_extra_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -944,7 +944,7 @@
                                 android:id="@+id/update_guarantor_info_extra_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1098,7 +1098,7 @@
                                 android:id="@+id/update_guarantor_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1277,7 +1277,7 @@
                                 android:id="@+id/update_guarantor_info_house_owner_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入房屋所有权人" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View

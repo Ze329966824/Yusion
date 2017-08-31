@@ -302,8 +302,6 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_type_tv.text.isEmpty()) {
@@ -318,8 +316,6 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_remark_edt.text.isEmpty()) {
@@ -338,8 +334,6 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             } else {
                 return true
             }
@@ -427,7 +421,7 @@ class SpouseInfoFragment : BaseFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 spouse_info_clt_nm_edt.setText(result[0])
-                spouse_info_mobile_edt.setText(result[1])
+                spouse_info_mobile_edt.setText(result[1].replace(" ",""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
