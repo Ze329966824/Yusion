@@ -315,6 +315,7 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_current_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
+                                android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
                         </LinearLayout>

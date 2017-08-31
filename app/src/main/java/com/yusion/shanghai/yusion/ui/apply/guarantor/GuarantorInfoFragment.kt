@@ -325,7 +325,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
         } else if (guarantor_info_income_from_tv.text == "自营" && guarantor_info_from_self_type_tv.text.isEmpty()) {
             Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
         } else if (guarantor_info_income_from_tv.text == "自营" && guarantor_info_from_self_company_name_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
         } else if (guarantor_info_income_from_tv.text == "自营" && guarantor_info_from_self_company_address_tv.text.isEmpty()) {
             Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
         } else if (guarantor_info_income_from_tv.text == "自营" && guarantor_info_from_self_company_address1_tv.text.isEmpty()) {
