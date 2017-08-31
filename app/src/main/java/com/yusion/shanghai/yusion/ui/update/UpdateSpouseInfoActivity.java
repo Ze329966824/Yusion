@@ -101,16 +101,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         });
     }
 
-    private void initCommit() {
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
+
 
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
