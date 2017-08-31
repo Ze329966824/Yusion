@@ -347,8 +347,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "工资" && personal_info_from_income_work_position_tv.text.isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "工资" && personal_info_from_income_work_phone_num_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_year_edt.text.isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_type_tv.text.isEmpty()) {
@@ -379,8 +377,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_work_position_tv.text.isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_house_type_tv.text.isEmpty()) {
             Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_house_area_edt.text.isEmpty()) {

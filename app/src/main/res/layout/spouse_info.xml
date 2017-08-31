@@ -173,7 +173,7 @@
                     <TextView
                         android:id="@+id/spouse_info_marriage_tv"
                         style="@style/apply_info_content"
-                        android:text="未婚" />
+                        android:hint="请选择" />
 
                     <FrameLayout
                         android:layout_width="20dp"
@@ -323,7 +323,7 @@
                             android:id="@+id/spouse_info_clt_nm_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入姓名" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
                     <View
@@ -342,7 +342,7 @@
                             android:id="@+id/spouse_info_id_no_edt"
                             style="@style/apply_info_content_type_id"
                             android:layout_marginRight="35dp"
-                            android:hint="请拍摄身份证" />
+                            android:hint="请输入" />
 
                     </LinearLayout>
 
@@ -394,7 +394,7 @@
                         <EditText
                             android:id="@+id/spouse_info_mobile_edt"
                             style="@style/apply_info_content"
-                            android:hint="请输入手机号码" />
+                            android:hint="请输入" />
 
 
                         <FrameLayout
@@ -517,7 +517,7 @@
                                 android:id="@+id/spouse_info_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -545,7 +545,7 @@
                                 android:id="@+id/spouse_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -696,7 +696,7 @@
                                 android:id="@+id/spouse_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -727,7 +727,7 @@
                                 android:id="@+id/spouse_info_from_self_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -783,7 +783,7 @@
                                 android:id="@+id/spouse_info_from_self_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -905,7 +905,7 @@
                                 android:id="@+id/spouse_info_from_other_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -922,7 +922,7 @@
                                 android:id="@+id/spouse_info_from_other_remark_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入备注" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -1004,7 +1004,7 @@
                                 android:id="@+id/spouse_info_extra_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1032,7 +1032,7 @@
                                 android:id="@+id/spouse_info_extra_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1183,7 +1183,7 @@
                                 android:id="@+id/spouse_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View

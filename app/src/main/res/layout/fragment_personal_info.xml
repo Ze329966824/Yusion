@@ -72,7 +72,7 @@
                             android:id="@+id/update_personal_info_clt_nm_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入姓名" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
                     <View
@@ -91,7 +91,7 @@
                             android:id="@+id/update_personal_info_id_no_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入身份证号" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
                     <View
@@ -174,7 +174,7 @@
                             android:id="@+id/update_personal_info_mobile_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入手机号码" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
                     <View
@@ -342,7 +342,7 @@
                             android:id="@+id/update_personal_info_company_name_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入单位名称" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
                     <View
@@ -496,7 +496,7 @@
                         android:id="@+id/update_personal_info_monthly_income_edt"
                         style="@style/apply_info_content"
                         android:layout_marginRight="35dp"
-                        android:hint="请输入月收入" />
+                        android:hint="请输入" />
                 </LinearLayout>
 
                 <View
@@ -515,7 +515,7 @@
                         android:id="@+id/update_personal_info_work_phone_num_edt"
                         style="@style/apply_info_content"
                         android:layout_marginRight="35dp"
-                        android:hint="请输入单位电话" />
+                        android:hint="请输入" />
                 </LinearLayout>
 
                 <View
@@ -618,7 +618,7 @@
                         android:id="@+id/update_personal_info_house_area_edt"
                         style="@style/apply_info_content"
                         android:layout_marginRight="35dp"
-                        android:hint="请输入房屋面积"
+                        android:hint="请输入"
                         android:inputType="number"
                         android:digits="0123456789"/>
                 </LinearLayout>
@@ -640,7 +640,7 @@
                         android:id="@+id/update_personal_info_house_owner_name_edt"
                         style="@style/apply_info_content"
                         android:layout_marginRight="35dp"
-                        android:hint="请输入房屋所有权人" />
+                        android:hint="请输入" />
                 </LinearLayout>
 
                 <View
@@ -731,7 +731,7 @@
                     android:id="@+id/update_personal_info_urg_contact1_edt"
                     style="@style/apply_info_content"
                     android:layout_marginRight="35dp"
-                    android:hint="请输入亲属联系人" />
+                    android:hint="请输入" />
             </LinearLayout>
 
             <View
@@ -846,7 +846,7 @@
                     android:id="@+id/update_personal_info_urg_contact2_edt"
                     style="@style/apply_info_content"
                     android:layout_marginRight="35dp"
-                    android:hint="请输入其他联系人" />
+                    android:hint="请输入" />
 
             </LinearLayout>
 

@@ -179,7 +179,7 @@
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
                                 android:enabled="false"
-                                android:hint="请输入手机号码"
+                                android:hint="请输入"
                                 android:textColor="#999999" />
                         </LinearLayout>
 
@@ -397,7 +397,7 @@
                                 android:id="@+id/update_personal_info_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View

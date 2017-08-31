@@ -290,7 +290,7 @@
                                 android:id="@+id/personal_info_mobile_edt"
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入手机号码" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
 
@@ -546,7 +546,7 @@
                                 android:id="@+id/personal_info_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -574,7 +574,7 @@
                                 android:id="@+id/personal_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -725,7 +725,7 @@
                                 android:id="@+id/personal_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -761,7 +761,7 @@
                                 android:id="@+id/personal_info_from_self_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -817,7 +817,7 @@
                                 android:id="@+id/personal_info_from_self_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -939,7 +939,7 @@
                                 android:id="@+id/personal_info_from_other_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -956,7 +956,7 @@
                                 android:id="@+id/personal_info_from_other_remark_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入备注" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -1038,7 +1038,7 @@
                                 android:id="@+id/personal_info_extra_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1066,7 +1066,7 @@
                                 android:id="@+id/personal_info_extra_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1217,7 +1217,7 @@
                                 android:id="@+id/personal_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1291,7 +1291,7 @@
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
                                 android:digits="0123456789"
-                                android:hint="请输入房屋面积"
+                                android:hint="请输入"
                                 android:inputType="number" />
                         </LinearLayout>
 
@@ -1311,7 +1311,7 @@
                                 android:id="@+id/personal_info_house_owner_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入房屋所有权人" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1470,7 +1470,7 @@
                             android:id="@+id/personal_info_urg_contact1_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入亲属联系人" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
 
@@ -1564,7 +1564,7 @@
                             android:id="@+id/personal_info_urg_contact2_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入其他联系人" />
+                            android:hint="请输入" />
 
                     </LinearLayout>
 
