@@ -9,7 +9,6 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -545,6 +544,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", resBookList);
+                intent.putExtra("clt_id", clientInfo.clt_id);
                 intent.putExtra("title", "户口本");
                 intent.putExtra("clt_id",clientInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
