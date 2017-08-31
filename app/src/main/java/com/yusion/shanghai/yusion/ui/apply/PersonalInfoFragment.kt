@@ -105,7 +105,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.major_remark = personal_info_from_other_remark_edt.text.toString()
                 }
             }
-            //主要收入来源
+            //额外收入来源
             when (personal_info_extra_income_from_tv.text) {
                 "工资" -> {
                     applyActivity.mClientInfo.extra_income_type = "工资"
@@ -118,6 +118,9 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.extra_company_addr.address2 = personal_info_extra_from_income_company_address2_tv.text.toString()
                     applyActivity.mClientInfo.extra_work_position = personal_info_extra_from_income_work_position_tv.text.toString()
                     applyActivity.mClientInfo.extra_work_phone_num = personal_info_extra_from_income_work_phone_num_edt.text.toString()
+                }
+                "无" -> {
+                    applyActivity.mClientInfo.extra_income_type = "无"
                 }
             }
 
