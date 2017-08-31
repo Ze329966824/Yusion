@@ -751,8 +751,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_from_income_group_lin.setVisibility(View.VISIBLE);
                             update_guarantor_spouse_info_from_income_year_edt.setText(guarantorInfo.spouse.major_income);
                             update_guarantor_spouse_info_from_income_company_name_edt.setText(guarantorInfo.spouse.major_company_name);
-                            update_guarantor_spouse_info_from_income_company_address_tv.setText(guarantorInfo.spouse.major_company_addr.province + "/" + guarantorInfo.spouse.major_company_addr.city + "/" + guarantorInfo.spouse.major_company_addr.district);
-                            if (guarantorInfo.spouse.major_company_addr.province.isEmpty() && guarantorInfo.spouse.major_company_addr.city.isEmpty() && guarantorInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!guarantorInfo.spouse.major_company_addr.province.equals("")) {
+                                update_guarantor_spouse_info_from_income_company_address_tv.setText(guarantorInfo.spouse.major_company_addr.province + "/" + guarantorInfo.spouse.major_company_addr.city + "/" + guarantorInfo.spouse.major_company_addr.district);
+                            } else {
                                 update_guarantor_spouse_info_from_income_company_address_tv.setText(null);
                             }
                             update_guarantor_spouse_info_from_income_company_address1_tv.setText(guarantorInfo.spouse.major_company_addr.address1);
@@ -765,8 +766,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_from_self_year_edt.setText(guarantorInfo.spouse.major_income);
                             update_guarantor_spouse_info_from_self_type_tv.setText(guarantorInfo.spouse.major_busi_type);
                             update_guarantor_spouse_info_from_self_company_name_edt.setText(guarantorInfo.spouse.major_company_name);
-                            update_guarantor_spouse_info_from_self_company_address_tv.setText(guarantorInfo.spouse.major_company_addr.province + "/" + guarantorInfo.spouse.major_company_addr.city + "/" + guarantorInfo.spouse.major_company_addr.district);
-                            if (guarantorInfo.spouse.major_company_addr.province.isEmpty() && guarantorInfo.spouse.major_company_addr.city.isEmpty() && guarantorInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!guarantorInfo.spouse.major_company_addr.province.equals("")) {
+                                update_guarantor_spouse_info_from_self_company_address_tv.setText(guarantorInfo.spouse.major_company_addr.province + "/" + guarantorInfo.spouse.major_company_addr.city + "/" + guarantorInfo.spouse.major_company_addr.district);
+                            } else {
                                 update_guarantor_spouse_info_from_self_company_address_tv.setText(null);
                             }
                             update_guarantor_spouse_info_from_self_company_address1_tv.setText(guarantorInfo.spouse.major_company_addr.address1);
@@ -786,8 +788,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_extra_from_income_group_lin.setVisibility(View.VISIBLE);
                             update_guarantor_spouse_info_extra_from_income_year_edt.setText(guarantorInfo.spouse.extra_income);
                             update_guarantor_spouse_info_extra_from_income_company_name_edt.setText(guarantorInfo.spouse.extra_company_name);
-                            update_guarantor_spouse_info_extra_from_income_company_address_tv.setText(guarantorInfo.spouse.extra_company_addr.province + "/" + guarantorInfo.spouse.extra_company_addr.city + "/" + guarantorInfo.spouse.extra_company_addr.district);
-                            if (guarantorInfo.spouse.major_company_addr.province.isEmpty() && guarantorInfo.spouse.major_company_addr.city.isEmpty() && guarantorInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!guarantorInfo.spouse.extra_company_addr.province.equals("")) {
+                                update_guarantor_spouse_info_extra_from_income_company_address_tv.setText(guarantorInfo.spouse.extra_company_addr.province + "/" + guarantorInfo.spouse.extra_company_addr.city + "/" + guarantorInfo.spouse.extra_company_addr.district);
+                            } else {
                                 update_guarantor_spouse_info_extra_from_income_company_address_tv.setText(null);
                             }
                             update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText(guarantorInfo.spouse.extra_company_addr.address1);
@@ -1044,14 +1047,14 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 }
                 break;
             case "已婚":
-                if (!ID_BACK_FID.isEmpty()) {
+                if (!ID_BACK_FID.equals("")) {
                     UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
                     idBackBean.file_id = ID_BACK_FID;
                     idBackBean.label = Constants.FileLabelType.ID_BACK;
                     idBackBean.clt_id = clt_id;
                     files.add(idBackBean);
                 }
-                if (!ID_FRONT_FID.isEmpty()) {
+                if (!ID_FRONT_FID.equals("")) {
                     UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
                     idFrontBean.file_id = ID_FRONT_FID;
                     idFrontBean.label = Constants.FileLabelType.ID_FRONT;
@@ -1074,7 +1077,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 }
             });
             callBack.callBack();
-        }else {
+        } else {
             callBack.callBack();
         }
     }

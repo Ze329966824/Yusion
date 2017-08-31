@@ -682,15 +682,15 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
             update_guarantor_info_gender_tv.setText(guarantorInfo.gender);
             if (!guarantorInfo.reg_addr.province.equals("")) {
                 update_guarantor_info_reg_tv.setText(guarantorInfo.reg_addr.province + "/" + guarantorInfo.reg_addr.city + "/" + guarantorInfo.reg_addr.district);
-            }else {
-                update_guarantor_info_reg_tv.setText("");
+            } else {
+                update_guarantor_info_reg_tv.setText(null);
             }
             update_guarantor_info_mobile_edt.setText(guarantorInfo.mobile);
             update_guarantor_info_education_tv.setText(guarantorInfo.edu);
             if (!guarantorInfo.current_addr.province.equals("")) {
                 update_guarantor_info_current_address_tv.setText(guarantorInfo.current_addr.province + "/" + guarantorInfo.current_addr.city + "/" + guarantorInfo.current_addr.district);
-            }else {
-                update_guarantor_info_current_address_tv.setText("");
+            } else {
+                update_guarantor_info_current_address_tv.setText(null);
             }
             update_guarantor_info_current_address_tv.setText(guarantorInfo.current_addr.province + "/" + guarantorInfo.current_addr.city + "/" + guarantorInfo.current_addr.district);
             update_guarantor_info_current_address1_tv.setText(guarantorInfo.current_addr.address1);
@@ -702,9 +702,10 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                     update_guarantor_info_from_income_group_lin.setVisibility(View.VISIBLE);
                     update_guarantor_info_from_income_year_edt.setText(guarantorInfo.major_income);
                     update_guarantor_info_from_income_company_name_edt.setText(guarantorInfo.major_company_name);
-                    update_guarantor_info_from_income_company_address_tv.setText(guarantorInfo.major_company_addr.province + "/" + guarantorInfo.major_company_addr.city + "/" + guarantorInfo.major_company_addr.district);
-                    if (guarantorInfo.major_company_addr.province.isEmpty() && guarantorInfo.major_company_addr.city.isEmpty() && guarantorInfo.major_company_addr.district.isEmpty()) {
-                        update_guarantor_info_from_income_company_address_tv.setText("");
+                    if (!guarantorInfo.major_company_addr.province.equals("")) {
+                        update_guarantor_info_from_income_company_address_tv.setText(guarantorInfo.major_company_addr.province + "/" + guarantorInfo.major_company_addr.city + "/" + guarantorInfo.major_company_addr.district);
+                    } else {
+                        update_guarantor_info_from_income_company_address_tv.setText(null);
                     }
                     update_guarantor_info_from_income_company_address1_tv.setText(guarantorInfo.major_company_addr.address1);
                     update_guarantor_info_from_income_company_address2_tv.setText(guarantorInfo.major_company_addr.address2);
@@ -716,9 +717,10 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                     update_guarantor_info_from_self_year_edt.setText(guarantorInfo.major_income);
                     update_guarantor_info_from_self_type_tv.setText(guarantorInfo.major_busi_type);
                     update_guarantor_info_from_self_company_name_edt.setText(guarantorInfo.major_company_name);
-                    update_guarantor_info_from_self_company_address_tv.setText(guarantorInfo.major_company_addr.province + "/" + guarantorInfo.major_company_addr.city + "/" + guarantorInfo.major_company_addr.district);
-                    if (guarantorInfo.major_company_addr.province.isEmpty() && guarantorInfo.major_company_addr.city.isEmpty() && guarantorInfo.major_company_addr.district.isEmpty()) {
-                        update_guarantor_info_from_self_company_address_tv.setText("");
+                    if (!guarantorInfo.major_company_addr.province.equals("")) {
+                        update_guarantor_info_from_self_company_address_tv.setText(guarantorInfo.major_company_addr.province + "/" + guarantorInfo.major_company_addr.city + "/" + guarantorInfo.major_company_addr.district);
+                    } else {
+                        update_guarantor_info_from_self_company_address_tv.setText(null);
                     }
                     update_guarantor_info_from_self_company_address1_tv.setText(guarantorInfo.major_company_addr.address1);
                     update_guarantor_info_from_self_company_address2_tv.setText(guarantorInfo.major_company_addr.address2);
@@ -737,9 +739,10 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                     update_guarantor_info_extra_from_income_group_lin.setVisibility(View.VISIBLE);
                     update_guarantor_info_extra_from_income_year_edt.setText(guarantorInfo.extra_income);
                     update_guarantor_info_extra_from_income_company_name_edt.setText(guarantorInfo.extra_company_name);
-                    update_guarantor_info_extra_from_income_company_address_tv.setText(guarantorInfo.extra_company_addr.province + "/" + guarantorInfo.extra_company_addr.city + "/" + guarantorInfo.extra_company_addr.district);
-                    if (guarantorInfo.extra_company_addr.province.isEmpty() && guarantorInfo.extra_company_addr.city.isEmpty() && guarantorInfo.extra_company_addr.district.isEmpty()) {
-                        update_guarantor_info_extra_from_income_company_address_tv.setText("");
+                    if (!guarantorInfo.extra_company_addr.province.equals("")) {
+                        update_guarantor_info_extra_from_income_company_address_tv.setText(guarantorInfo.extra_company_addr.province + "/" + guarantorInfo.extra_company_addr.city + "/" + guarantorInfo.extra_company_addr.district);
+                    } else {
+                        update_guarantor_info_extra_from_income_company_address_tv.setText(null);
                     }
                     update_guarantor_info_extra_from_income_company_address1_tv.setText(guarantorInfo.extra_company_addr.address1);
                     update_guarantor_info_extra_from_income_company_address2_tv.setText(guarantorInfo.extra_company_addr.address2);
@@ -754,10 +757,10 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
             update_guarantor_info_house_owner_relation_tv.setText(guarantorInfo.house_owner_relation);
             update_guarantor_info_house_address2_tv.setText(guarantorInfo.house_addr.address2);
             update_guarantor_info_house_address1_tv.setText(guarantorInfo.house_addr.address1);
-            if (!guarantorInfo.house_addr.province.isEmpty()) {
+            if (!guarantorInfo.house_addr.province.equals("")) {
                 update_guarantor_info_house_address_tv.setText(guarantorInfo.house_addr.province + "/" + guarantorInfo.house_addr.city + "/" + guarantorInfo.house_addr.district);
             } else {
-                update_guarantor_info_house_address_tv.setText("");
+                update_guarantor_info_house_address_tv.setText(null);
             }
         }
 
