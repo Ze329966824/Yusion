@@ -304,7 +304,6 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
                             style="@style/apply_info_item_wrap">
 
                             <TextView
@@ -316,6 +315,7 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_current_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
+                                android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
                         </LinearLayout>
@@ -551,7 +551,6 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
                             style="@style/apply_info_item_wrap">
 
                             <TextView
@@ -795,8 +794,8 @@
 
                         <include layout="@layout/include_line_left" />
 
-                        <LinearLayout style="@style/apply_info_item_wrap"
-                            android:layout_height="90dp">
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
@@ -1056,7 +1055,6 @@
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
-                            android:layout_height="90dp"
                             style="@style/apply_info_item_wrap">
 
                             <TextView

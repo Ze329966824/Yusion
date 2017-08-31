@@ -394,10 +394,10 @@
                             android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
                                 android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
@@ -598,10 +598,10 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
                                 android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
@@ -840,10 +840,10 @@
 
                         <include layout="@layout/include_line_left" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
                                 android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
@@ -1095,10 +1095,10 @@
                             android:layout_height="@dimen/separate_line_height"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
                                 android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
@@ -1299,10 +1299,10 @@
                             android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
                                 android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
