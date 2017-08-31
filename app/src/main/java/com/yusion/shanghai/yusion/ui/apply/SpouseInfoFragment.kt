@@ -421,7 +421,7 @@ class SpouseInfoFragment : BaseFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 spouse_info_clt_nm_edt.setText(result[0])
-                spouse_info_mobile_edt.setText(result[1])
+                spouse_info_mobile_edt.setText(result[1].replace(" ",""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {

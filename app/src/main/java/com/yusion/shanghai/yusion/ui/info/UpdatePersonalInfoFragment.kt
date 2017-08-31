@@ -301,11 +301,11 @@ class UpdatePersonalInfoFragment : BaseFragment() {
                 when (UpdatePersonalInfoFragment.CURRENT_CLICKED_VIEW_FOR_CONTACT) {
                     update_personal_info_urg_mobile1_img.id -> {
                         update_personal_info_urg_contact1_edt.setText(result[0])
-                        update_personal_info_urg_mobile1_edt.setText(result[1])
+                        update_personal_info_urg_mobile1_edt.setText(result[1].replace(" ",""))
                     }
                     update_personal_info_urg_mobile2_img.id -> {
                         update_personal_info_urg_contact2_edt.setText(result[0])
-                        update_personal_info_urg_mobile2_edt.setText(result[1])
+                        update_personal_info_urg_mobile2_edt.setText(result[1].replace(" ",""))
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

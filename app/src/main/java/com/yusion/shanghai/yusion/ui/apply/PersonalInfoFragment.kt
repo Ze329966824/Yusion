@@ -433,11 +433,11 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 when (CURRENT_CLICKED_VIEW_FOR_CONTACT) {
                     personal_info_urg_mobile1_img.id -> {
                         personal_info_urg_contact1_edt.setText(result[0])
-                        personal_info_urg_mobile1_edt.setText(result[1])
+                        personal_info_urg_mobile1_edt.setText(result[1].replace(" ",""))
                     }
                     personal_info_urg_mobile2_img.id -> {
                         personal_info_urg_contact2_edt.setText(result[0])
-                        personal_info_urg_mobile2_edt.setText(result[1])
+                        personal_info_urg_mobile2_edt.setText(result[1].replace(" ",""))
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

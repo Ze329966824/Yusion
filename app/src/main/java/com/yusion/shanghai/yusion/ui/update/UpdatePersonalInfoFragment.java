@@ -935,11 +935,11 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile1_img.getId()) {
                     update_personal_info_urg_contact1_edt.setText(result[0]);
-                    update_personal_info_urg_mobile1_edt.setText(result[1]);
+                    update_personal_info_urg_mobile1_edt.setText(result[1].replaceAll(" ",""));
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile2_img.getId()) {
                     update_personal_info_urg_contact2_edt.setText(result[0]);
-                    update_personal_info_urg_mobile2_edt.setText(result[1]);
+                    update_personal_info_urg_mobile2_edt.setText(result[1].replaceAll(" ",""));
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_current_address1_lin.getId()) {

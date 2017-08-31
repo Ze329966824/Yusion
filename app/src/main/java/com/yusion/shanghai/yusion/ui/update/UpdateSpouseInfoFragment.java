@@ -620,7 +620,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     System.arraycopy(contacts, 0, result, 0, contacts.length);
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_spouse_info_mobile_img.getId()) {
-                    update_spouse_info_mobile_edt.setText(result[1]);
+                    update_spouse_info_mobile_edt.setText(result[1].replaceAll(" ",""));
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_from_income_company_address1_lin.getId()) {

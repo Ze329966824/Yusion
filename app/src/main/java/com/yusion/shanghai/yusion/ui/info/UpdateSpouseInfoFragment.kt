@@ -231,7 +231,7 @@ class UpdateSpouseInfoFragment : BaseFragment() {
                             System.arraycopy(contacts, 0, result, 0, contacts.size)
                         }
                         update_spouse_info_clt_nm_edt.setText(result[0])
-                        update_spouse_info_mobile_edt.setText(result[1])
+                        update_spouse_info_mobile_edt.setText(result[1].replace(" ",""))
                     }
                 }
                 Constants.REQUEST_ADDRESS -> {
