@@ -134,7 +134,7 @@ class SpouseInfoFragment : BaseFragment() {
                     applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
                     applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
                     applyActivity.mClientInfo.spouse.mobile = spouse_info_mobile_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.child_num = spouse_info_child_count_edt.text.toString()
+                    applyActivity.mClientInfo.child_num = spouse_info_child_count_edt.text.toString()
 
                     //主要收入来源
                     when (spouse_info_income_from_tv.text) {
@@ -186,6 +186,10 @@ class SpouseInfoFragment : BaseFragment() {
                         }
 
                     }
+                } else if (applyActivity.mClientInfo.marriage == "离异") {
+                    applyActivity.mClientInfo.child_num = spouse_info_divorced_child_count_edt.text.toString()
+                } else if (applyActivity.mClientInfo.marriage == "丧偶") {
+                    applyActivity.mClientInfo.child_num = spouse_info_die_child_count_edt.text.toString()
                 }
                 uploadUrl(applyActivity.mClientInfo.clt_id)
 //                nextStep()
@@ -336,6 +340,20 @@ class SpouseInfoFragment : BaseFragment() {
                 return true
             }
             return false
+        } else if (spouse_info_marriage_tv.text == "丧偶") {
+            if (spouse_info_die_child_count_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
+            } else {
+                return true
+            }
+            return false
+        } else if (spouse_info_marriage_tv.text == "离异") {
+            if (spouse_info_divorced_child_count_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
+            } else {
+                return true
+            }
+            return false
         } else {
             return true
         }
@@ -419,7 +437,7 @@ class SpouseInfoFragment : BaseFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 spouse_info_clt_nm_edt.setText(result[0])
-                spouse_info_mobile_edt.setText(result[1].replace(" ",""))
+                spouse_info_mobile_edt.setText(result[1].replace(" ", ""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
