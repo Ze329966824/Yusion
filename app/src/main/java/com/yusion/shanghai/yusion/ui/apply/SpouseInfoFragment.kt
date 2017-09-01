@@ -191,7 +191,7 @@ class SpouseInfoFragment : BaseFragment() {
                 } else if (applyActivity.mClientInfo.marriage == "丧偶") {
                     applyActivity.mClientInfo.child_num = spouse_info_die_child_count_edt.text.toString()
                 }
-                uploadUrl(applyActivity.mClientInfo.clt_id)
+                uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
 //                nextStep()
             }
         }
@@ -381,7 +381,7 @@ class SpouseInfoFragment : BaseFragment() {
         startActivityForResult(intent, Constants.REQUEST_ADDRESS)
     }
 
-    fun uploadUrl(cltId: String) {
+    fun uploadUrl(cltId: String, spouseCltId: String) {
         var applyActivity = activity as ApplyActivity
         val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         when (applyActivity.mClientInfo.marriage) {
@@ -407,13 +407,13 @@ class SpouseInfoFragment : BaseFragment() {
                 val idBackBean = UploadFilesUrlReq.FileUrlBean()
                 idBackBean.file_id = ID_BACK_FID
                 idBackBean.label = Constants.FileLabelType.ID_BACK
-                idBackBean.clt_id = cltId
+                idBackBean.clt_id = spouseCltId
                 files.add(idBackBean)
 
                 val idFrontBean = UploadFilesUrlReq.FileUrlBean()
                 idFrontBean.file_id = ID_FRONT_FID
                 idFrontBean.label = Constants.FileLabelType.ID_FRONT
-                idFrontBean.clt_id = cltId
+                idFrontBean.clt_id = spouseCltId
                 files.add(idFrontBean)
             }
         }
