@@ -61,6 +61,8 @@ public class OrderDetailBean {
     public String loan_bank;
     public String product_type;
     public String id_no;
+    public String monthly_payment;
+
 
     public String status_code;
     public int status_st;
@@ -88,5 +90,6 @@ public class OrderDetailBean {
         public String other_fee;
         public String comments;
         public String uw_result;
+        public String monthly_payment;
     }
 }

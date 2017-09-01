@@ -16,6 +16,7 @@ import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 
 public class FinancePlanActivity extends BaseActivity {
 
@@ -48,8 +49,12 @@ public class FinancePlanActivity extends BaseActivity {
 
     private Button confirmBtn;
 
+    private TextView applyMonthPriceTv;
+    private TextView replyMonthPriceTv;
+
 
     @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance_plan);
@@ -91,7 +96,10 @@ public class FinancePlanActivity extends BaseActivity {
 //        loanPriceTv = (TextView) findViewById(R.id.finance_plan_loan_price_tv);
 //        loanBankTv = (TextView) findViewById(R.id.finance_plan_loan_bank_tv);
         //periodsTv = (TextView) findViewById(R.id.finance_plan_periods_tv);
-        percentTv = (TextView) findViewById(R.id.finance_plan_percent_tv);
+        // percentTv = (TextView) findViewById(R.id.finance_plan_percent_tv);
+        applyMonthPriceTv = (TextView) findViewById(R.id.apply_month_price_tv);
+        replyMonthPriceTv = (TextView) findViewById(R.id.reply_month_price_tv);
+
         confirmBtn = (Button) findViewById(R.id.finance_plan_confirm_btn);
 
 
@@ -162,10 +170,14 @@ public class FinancePlanActivity extends BaseActivity {
                 applyReplyDateTv.setText(resp.getApp().getNper() + "期");
                 ReplyRepayDateTv.setText(resp.getUw().getNper() + "期");
 
-                percentTv.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
+                applyMonthPriceTv.setText(resp.getApp().getMonthly_payment());
+                replyMonthPriceTv.setText(resp.getUw().getMonthly_payment());
+
+                //percentTv.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
 
             }
         });
+        compare(applyMonthPriceTv, replyMonthPriceTv);
         compare(applyBillPriceTv, replyBillPriceTv);
         compare(applyFirstPriceTv, replyFirstPriceTv);
         compare(applyLoanPriceTv, replyLoanPriceTv);
