@@ -10,7 +10,6 @@ import com.yusion.shanghai.yusion.base.BaseActivity
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.user.ClientInfo
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
-import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -36,12 +35,8 @@ class ApplyActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
-        ProductApi.updateClientInfo(this, mClientInfo) {
-            if (it != null) {
-                startActivity(Intent(this, CommitActivity::class.java))
-                finish()
-            }
-        }
+        startActivity(Intent(this, CommitActivity::class.java))
+        finish()
     }
 
     override fun onBackPressed() {

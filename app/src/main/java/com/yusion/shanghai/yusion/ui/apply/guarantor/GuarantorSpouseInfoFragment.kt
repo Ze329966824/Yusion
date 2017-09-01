@@ -20,10 +20,12 @@ import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
+import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
@@ -194,7 +196,12 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     }
                 }
 //                nextStep()
-                uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id,addGuarantorActivity.mGuarantorInfo.spouse.clt_id)
+                ProductApi.updateGuarantorInfo(mContext, addGuarantorActivity.mGuarantorInfo) {
+                    if (it != null) {
+                        uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id,addGuarantorActivity.mGuarantorInfo.spouse.clt_id)
+                    }
+                }
+
             }
         }
 

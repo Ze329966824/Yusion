@@ -20,8 +20,10 @@ import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
+import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.InputMethodUtil
@@ -191,7 +193,12 @@ class SpouseInfoFragment : BaseFragment() {
                 } else if (applyActivity.mClientInfo.marriage == "丧偶") {
                     applyActivity.mClientInfo.child_num = spouse_info_die_child_count_edt.text.toString()
                 }
-                uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
+
+                ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
+                    if (it != null) {
+                        uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
+                    }
+                }
 //                nextStep()
             }
         }
