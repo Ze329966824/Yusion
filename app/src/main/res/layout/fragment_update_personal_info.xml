@@ -71,7 +71,7 @@
                                 style="@style/apply_info_title"
                                 android:text="姓名" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_clt_nm_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp" />
@@ -92,7 +92,8 @@
                             <EditText
                                 android:id="@+id/update_personal_info_id_no_edt"
                                 style="@style/apply_info_content"
-                                android:layout_marginRight="35dp" />
+                                android:layout_marginRight="35dp"
+                                android:inputType="" />
                         </LinearLayout>
 
                         <View
@@ -178,7 +179,7 @@
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
                                 android:enabled="false"
-                                android:hint="请输入手机号码"
+                                android:hint="请输入"
                                 android:textColor="#999999" />
                         </LinearLayout>
 
@@ -236,7 +237,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <LinearLayout
                             android:id="@+id/update_personal_info_current_address_lin"
@@ -302,17 +303,20 @@
                             android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
+                                android:gravity="top"
                                 android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_current_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室"/>
+                                android:hint="例:5号楼207室" />
 
                         </LinearLayout>
 
@@ -332,6 +336,52 @@
                             android:background="@color/separate_line_color" />
 
                     </LinearLayout>
+
+
+                    <!--是否与父母同住-->
+                    <LinearLayout
+                        android:id="@+id/update_personal_info_live_with_parent_lin"
+                        style="@style/apply_info_item">
+
+                        <TextView
+                            style="@style/apply_info_title"
+                            android:text="是否与父母同住" />
+
+                        <TextView
+                            android:id="@+id/update_personal_info_live_with_parent_tv"
+                            style="@style/apply_info_content"
+                            android:hint="请选择" />
+
+                        <FrameLayout
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left|center_vertical"
+                                android:src="@mipmap/mine_arrow_right" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_color" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+
+
                     <!--收入来源-->
                     <LinearLayout
                         android:id="@+id/update_personal_info_income_from_lin"
@@ -392,7 +442,7 @@
                                 android:id="@+id/update_personal_info_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -416,7 +466,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位名称" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -464,9 +514,11 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
@@ -495,20 +547,24 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_income_company_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -567,7 +623,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位座机" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -664,11 +720,11 @@
                                 style="@style/apply_info_title"
                                 android:text="店铺名称" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_self_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入店铺名称" />
                         </LinearLayout>
 
                         <View
@@ -742,15 +798,17 @@
 
                         <include layout="@layout/include_line_left" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_self_company_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -797,15 +855,17 @@
 
                         <LinearLayout
                             android:id="@+id/update_personal_info_from_other_remark_lin"
-                            style="@style/apply_info_item">
+                            style="@style/apply_info_item_wrap"
+                            android:layout_height="90dp">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="备注" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_other_remark_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入备注" />
 
@@ -914,7 +974,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位名称" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_extra_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -962,9 +1022,11 @@
                             </FrameLayout>
                         </LinearLayout>
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
                         <LinearLayout
@@ -996,17 +1058,20 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/separate_line_height"
+                            android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
 
-                        <LinearLayout style="@style/apply_info_item">
+                        <LinearLayout
+                            style="@style/apply_info_item_wrap">
 
                             <TextView
-                                style="@style/apply_info_title"
+                                style="@style/apply_info_title_wrap"
+                                android:layout_marginTop="10dp"
                                 android:text="门牌号" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_extra_from_income_company_address2_tv"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="例:5号楼207室" />
 
@@ -1065,7 +1130,7 @@
                                 style="@style/apply_info_title"
                                 android:text="单位座机" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -1138,7 +1203,7 @@
                                 android:layout_marginRight="35dp"
                                 android:text="房屋面积(平米)" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_house_area_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -1159,7 +1224,7 @@
                                 style="@style/apply_info_title"
                                 android:text="房屋所有权人" />
 
-                            <EditText
+                            <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_house_owner_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
@@ -1319,7 +1384,7 @@
                             style="@style/apply_info_title"
                             android:text="联系人姓名" />
 
-                        <EditText
+                        <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                             android:id="@+id/update_personal_info_urg_contact1_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
@@ -1413,7 +1478,7 @@
                             style="@style/apply_info_title"
                             android:text="联系人姓名" />
 
-                        <EditText
+                        <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                             android:id="@+id/update_personal_info_urg_contact2_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"

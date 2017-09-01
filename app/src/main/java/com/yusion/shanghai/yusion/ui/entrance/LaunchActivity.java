@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.yusion.shanghai.yusion.R;
-import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
@@ -24,6 +23,7 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
+
         String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
 
         EditText editText = new EditText(this);

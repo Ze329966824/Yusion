@@ -83,7 +83,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             @Override
             public void callBack() {
                 //上传用户资料
-                if (mUpdateSpouseInfoFragment.updateimgUrl(new OnVoidCallBack() {
+                mUpdateSpouseInfoFragment.updateClientinfo(new OnVoidCallBack() {
                     @Override
                     public void callBack() {
                         ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
@@ -96,21 +96,12 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                             }
                         });
                     }
-                }));
+                });
             }
         });
     }
 
-    private void initCommit() {
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
+
 
     private void initView() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);

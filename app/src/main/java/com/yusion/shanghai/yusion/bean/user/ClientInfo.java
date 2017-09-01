@@ -192,6 +192,8 @@ public class ClientInfo {
     public String drv_lic_relationship;
     public String update_time;
     public SpouseBean spouse;
+    public String is_live_with_parent;
+    public String child_num;
 
     @Override
     public String toString() {

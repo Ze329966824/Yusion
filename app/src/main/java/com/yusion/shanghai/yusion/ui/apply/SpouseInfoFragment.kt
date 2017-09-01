@@ -20,8 +20,10 @@ import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
+import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.InputMethodUtil
@@ -90,14 +92,14 @@ class SpouseInfoFragment : BaseFragment() {
             })
         }
         spouse_info_extra_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资","无"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>(listOf("工资", "无"), _EXTRA_INCOME_FROME_INDEX, spouse_info_extra_income_from_lin, spouse_info_extra_income_from_tv, "请选择", { _, index ->
                 _EXTRA_INCOME_FROME_INDEX = index
-                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资", "无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
             var intent = Intent(mContext, UploadListActivity::class.java)
-            intent.putExtra("type", Constants.FileLabelType.DIVORCE)
+            intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", divorceImgsList)
             intent.putExtra("title", "离婚证")
@@ -134,6 +136,7 @@ class SpouseInfoFragment : BaseFragment() {
                     applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
                     applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
                     applyActivity.mClientInfo.spouse.mobile = spouse_info_mobile_edt.text.toString()
+                    applyActivity.mClientInfo.child_num = spouse_info_child_count_edt.text.toString()
 
                     //主要收入来源
                     when (spouse_info_income_from_tv.text) {
@@ -166,7 +169,7 @@ class SpouseInfoFragment : BaseFragment() {
                             applyActivity.mClientInfo.spouse.major_remark = spouse_info_from_other_remark_edt.text.toString()
                         }
                     }
-                    //主要收入来源
+                    //额外收入来源
                     when (spouse_info_extra_income_from_tv.text) {
                         "工资" -> {
                             applyActivity.mClientInfo.spouse.extra_income_type = "工资"
@@ -180,9 +183,22 @@ class SpouseInfoFragment : BaseFragment() {
                             applyActivity.mClientInfo.spouse.extra_work_position = spouse_info_extra_from_income_work_position_tv.text.toString()
                             applyActivity.mClientInfo.spouse.extra_work_phone_num = spouse_info_extra_from_income_work_phone_num_edt.text.toString()
                         }
+                        "无" -> {
+                            applyActivity.mClientInfo.spouse.extra_income_type = "无"
+                        }
+
+                    }
+                } else if (applyActivity.mClientInfo.marriage == "离异") {
+                    applyActivity.mClientInfo.child_num = spouse_info_divorced_child_count_edt.text.toString()
+                } else if (applyActivity.mClientInfo.marriage == "丧偶") {
+                    applyActivity.mClientInfo.child_num = spouse_info_die_child_count_edt.text.toString()
+                }
+
+                ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
+                    if (it != null) {
+                        uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
                     }
                 }
-                uploadUrl(applyActivity.mClientInfo.clt_id)
 //                nextStep()
             }
         }
@@ -232,6 +248,8 @@ class SpouseInfoFragment : BaseFragment() {
                             .setNegativeButton("取消") { dialog, _ ->
                                 dialog.dismiss()
                                 InputMethodUtil.hideInputMethod(mContext)
+                                _FROM_SELF_TYPE_INDEX = 0;
+                                spouse_info_from_self_type_tv.text = null
                             }.show()
                 }
             })
@@ -264,6 +282,10 @@ class SpouseInfoFragment : BaseFragment() {
 
     fun checkCanNextStep(): Boolean {
 //        return true
+        if (spouse_info_marriage_tv.text.isEmpty()) {
+            Toast.makeText(mContext, "请选择婚姻状况", Toast.LENGTH_SHORT).show()
+            return false
+        }
         if (spouse_info_marriage_tv.text == "已婚") {
             if (ID_BACK_FID.isEmpty()) {
                 Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
@@ -279,6 +301,8 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_mobile_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_child_count_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_year_edt.text.isEmpty()) {
@@ -293,24 +317,18 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "工资" && spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_type_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_name_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address1_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address2_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_income_work_position_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_remark_edt.text.isEmpty()) {
@@ -329,8 +347,20 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_work_phone_num_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "单位座机不能为空", Toast.LENGTH_SHORT).show()
+            } else {
+                return true
+            }
+            return false
+        } else if (spouse_info_marriage_tv.text == "丧偶") {
+            if (spouse_info_die_child_count_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
+            } else {
+                return true
+            }
+            return false
+        } else if (spouse_info_marriage_tv.text == "离异") {
+            if (spouse_info_divorced_child_count_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
             } else {
                 return true
             }
@@ -358,7 +388,7 @@ class SpouseInfoFragment : BaseFragment() {
         startActivityForResult(intent, Constants.REQUEST_ADDRESS)
     }
 
-    fun uploadUrl(cltId: String) {
+    fun uploadUrl(cltId: String, spouseCltId: String) {
         var applyActivity = activity as ApplyActivity
         val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         when (applyActivity.mClientInfo.marriage) {
@@ -366,7 +396,7 @@ class SpouseInfoFragment : BaseFragment() {
                 for (divorceItem in divorceImgsList) {
                     val divorceFileItem = UploadFilesUrlReq.FileUrlBean()
                     divorceFileItem.file_id = divorceItem.objectKey
-                    divorceFileItem.label = Constants.FileLabelType.DIVORCE
+                    divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF
                     divorceFileItem.clt_id = cltId
                     files.add(divorceFileItem)
                 }
@@ -384,13 +414,13 @@ class SpouseInfoFragment : BaseFragment() {
                 val idBackBean = UploadFilesUrlReq.FileUrlBean()
                 idBackBean.file_id = ID_BACK_FID
                 idBackBean.label = Constants.FileLabelType.ID_BACK
-                idBackBean.clt_id = cltId
+                idBackBean.clt_id = spouseCltId
                 files.add(idBackBean)
 
                 val idFrontBean = UploadFilesUrlReq.FileUrlBean()
                 idFrontBean.file_id = ID_FRONT_FID
                 idFrontBean.label = Constants.FileLabelType.ID_FRONT
-                idFrontBean.clt_id = cltId
+                idFrontBean.clt_id = spouseCltId
                 files.add(idFrontBean)
             }
         }
@@ -419,7 +449,7 @@ class SpouseInfoFragment : BaseFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 spouse_info_clt_nm_edt.setText(result[0])
-                spouse_info_mobile_edt.setText(result[1])
+                spouse_info_mobile_edt.setText(result[1].replace(" ", ""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
@@ -460,7 +490,7 @@ class SpouseInfoFragment : BaseFragment() {
                             spouse_info_register_addr_tv.setTextColor(resources.getColor(R.color.please_upload_color))
                         }
                     }
-                    Constants.FileLabelType.DIVORCE -> {
+                    Constants.FileLabelType.MARRIAGE_PROOF -> {
                         divorceImgsList = data.getSerializableExtra("imgList") as ArrayList<UploadImgItemBean>
                         if (divorceImgsList.size > 0) {
                             spouse_info_divorced_tv.text = "已上传"

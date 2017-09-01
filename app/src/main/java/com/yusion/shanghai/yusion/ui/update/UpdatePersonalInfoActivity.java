@@ -87,7 +87,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             @Override
             public void callBack() {
                 //上传用户资料
-                if (mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
+                mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
                     @Override
                     public void callBack() {
                         ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
@@ -100,7 +100,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                             }
                         });
                     }
-                }));
+                });
             }
         });
     }

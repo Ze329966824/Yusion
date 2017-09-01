@@ -23,20 +23,24 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
+import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
+import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
+        add("无");
     }};
 
     public static String idBackImgUrl = "";
@@ -75,10 +80,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     private TextView income_extra_from_tv;
     private LinearLayout update_spouse_info_marriage_lin;
     private TextView update_spouse_info_marriage_tv;
-    private LinearLayout update_spouse_info_id_back_lin;
-    private TextView update_spouse_info_id_back_tv;
-    private LinearLayout update_spouse_info_id_front_lin;
-    private TextView update_spouse_info_id_front_tv;
     private LinearLayout update_spouse_info_gender_lin;
     private LinearLayout update_spouse_info_from_income_company_address_lin;
     private LinearLayout update_spouse_info_from_income_company_address1_lin;
@@ -103,36 +104,45 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     private LinearLayout update_spouse_info_from_self_group_lin;
     private LinearLayout update_spouse_info_from_other_group_lin;
     private LinearLayout update_spouse_info_extra_from_income_group_lin;
-    private EditText update_spouse_info_clt_nm_edt;                       //姓名
+    private LinearLayout update_spouse_info_id_back_lin;
+    private LinearLayout update_spouse_info_id_front_lin;
+    private TextView update_spouse_info_id_back_tv;
+    private TextView update_spouse_info_id_front_tv;
+
+
+    private NoEmptyEditText update_spouse_info_clt_nm_edt;                       //姓名
     private EditText update_spouse_info_id_no_edt;                        //身份证号
     private TextView update_spouse_info_gender_tv;                        //性别
     private EditText update_spouse_info_mobile_edt;                       //手机号
     private TextView update_spouse_info_income_from_tv;                   //主要收入来源
     private EditText update_spouse_info_from_income_year_edt;             //主要-工资-年收入
-    private EditText update_spouse_info_from_income_company_name_edt;     //主要-工资-单位名称
+    private NoEmptyEditText update_spouse_info_from_income_company_name_edt;     //主要-工资-单位名称
     private TextView update_spouse_info_from_income_company_address_tv;   //主要-工资-单位地址
     private TextView update_spouse_info_from_income_company_address1_tv;  //主要-工资-详细地址
-    private EditText update_spouse_info_from_income_company_address2_tv;  //主要-工资-门牌号
+    private NoEmptyEditText update_spouse_info_from_income_company_address2_tv;  //主要-工资-门牌号
     private TextView update_spouse_info_work_position_tv;                 //主要-工资-职务
-    private EditText update_spouse_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
+    private NoEmptyEditText update_spouse_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
     private EditText update_spouse_info_from_self_year_edt;               //主要-自营-年收入
     private TextView update_spouse_info_from_self_type_tv;                //主要-自营-业务类型
-    private EditText update_spouse_info_from_self_company_name_edt;       //主要-自营-店铺名称
+    private NoEmptyEditText update_spouse_info_from_self_company_name_edt;       //主要-自营-店铺名称
     private TextView update_spouse_info_from_self_company_address_tv;     //主要-自营-单位地址
     private TextView update_spouse_info_from_self_company_address1_tv;    //主要-自营-详细地址
-    private EditText update_spouse_info_from_self_company_address2_tv;    //主要-自营-门牌号
+    private NoEmptyEditText update_spouse_info_from_self_company_address2_tv;    //主要-自营-门牌号
     private EditText update_spouse_info_from_other_year_edt;              //主要-其他-年收入
-    private EditText update_spouse_info_from_other_remark_tv;             //主要-其他-备注
+    private NoEmptyEditText update_spouse_info_from_other_remark_tv;             //主要-其他-备注
     private TextView update_spouse_info_extra_income_from_tv;             //额外收入来源
     private EditText update_spouse_info_extra_from_income_year_edt;            //额外-工资-年收入
-    private EditText update_spouse_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
+    private NoEmptyEditText update_spouse_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
     private TextView update_spouse_info_extra_from_income_company_address_tv;  //额外-工资-公司地址
     private TextView update_spouse_info_extra_from_income_company_address1_tv; //额外-工资-详细地址
-    private EditText update_spouse_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
-    private EditText update_spouse_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+    private NoEmptyEditText update_spouse_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
+    private NoEmptyEditText update_spouse_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList resBookList = new ArrayList<UploadImgItemBean>();
+    private EditText update_spouse_info_child_count_edt;                   //子女数量
+    private EditText update_spouse_info_child_count1_edt;                   //子女数量
+    private EditText update_spouse_info_child_count2_edt;                   //子女数量
     private ClientInfo clientInfo;
 
     @Override
@@ -140,34 +150,40 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_update_spouse_info, container, false);
 
         //初始化
-        update_spouse_info_clt_nm_edt = (EditText) view.findViewById(R.id.update_spouse_info_clt_nm_edt);
+        update_spouse_info_clt_nm_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_clt_nm_edt);
         update_spouse_info_id_no_edt = (EditText) view.findViewById(R.id.update_spouse_info_id_no_edt);
         update_spouse_info_gender_tv = (TextView) view.findViewById(R.id.update_spouse_info_gender_tv);
         update_spouse_info_mobile_edt = (EditText) view.findViewById(R.id.update_spouse_info_mobile_edt);
         update_spouse_info_income_from_tv = (TextView) view.findViewById(R.id.update_spouse_info_income_from_tv);
         update_spouse_info_from_income_year_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_income_year_edt);
-        update_spouse_info_from_income_company_name_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_income_company_name_edt);
+        update_spouse_info_from_income_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_income_company_name_edt);
         update_spouse_info_from_income_company_address_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_income_company_address_tv);
         update_spouse_info_from_income_company_address1_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_income_company_address1_tv);
-        update_spouse_info_from_income_company_address2_tv = (EditText) view.findViewById(R.id.update_spouse_info_from_income_company_address2_tv);
+        update_spouse_info_from_income_company_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_income_company_address2_tv);
         update_spouse_info_work_position_tv = (TextView) view.findViewById(R.id.update_spouse_info_work_position_tv);
-        update_spouse_info_from_income_work_phone_num_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_income_work_phone_num_edt);
+        update_spouse_info_from_income_work_phone_num_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_income_work_phone_num_edt);
         update_spouse_info_from_self_year_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_self_year_edt);
         update_spouse_info_from_self_type_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_self_type_tv);
-        update_spouse_info_from_self_company_name_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_self_company_name_edt);
+        update_spouse_info_from_self_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_self_company_name_edt);
         update_spouse_info_from_self_company_address_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_self_company_address_tv);
         update_spouse_info_from_self_company_address1_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_self_company_address1_tv);
-        update_spouse_info_from_self_company_address2_tv = (EditText) view.findViewById(R.id.update_spouse_info_from_self_company_address2_tv);
+        update_spouse_info_from_self_company_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_self_company_address2_tv);
         update_spouse_info_from_other_year_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_other_year_edt);
-        update_spouse_info_from_other_remark_tv = (EditText) view.findViewById(R.id.update_spouse_info_from_other_remark_tv);
+        update_spouse_info_from_other_remark_tv = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_other_remark_tv);
         update_spouse_info_extra_income_from_tv = (TextView) view.findViewById(R.id.update_spouse_info_extra_income_from_tv);
         update_spouse_info_extra_from_income_year_edt = (EditText) view.findViewById(R.id.update_spouse_info_extra_from_income_year_edt);
-        update_spouse_info_extra_from_income_company_name_edt = (EditText) view.findViewById(R.id.update_spouse_info_extra_from_income_company_name_edt);
+        update_spouse_info_extra_from_income_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_extra_from_income_company_name_edt);
         update_spouse_info_extra_from_income_company_address_tv = (TextView) view.findViewById(R.id.update_spouse_info_extra_from_income_company_address_tv);
         update_spouse_info_extra_from_income_company_address1_tv = (TextView) view.findViewById(R.id.update_spouse_info_extra_from_income_company_address1_tv);
-        update_spouse_info_extra_from_income_company_address2_tv = (EditText) view.findViewById(R.id.update_spouse_info_extra_from_income_company_address2_tv);
-        update_spouse_info_extra_from_income_work_phone_num_edt = (EditText) view.findViewById(R.id.update_spouse_info_extra_from_income_work_phone_num_edt);
-
+        update_spouse_info_extra_from_income_company_address2_tv = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_extra_from_income_company_address2_tv);
+        update_spouse_info_extra_from_income_work_phone_num_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_extra_from_income_work_phone_num_edt);
+        update_spouse_info_id_front_tv = (TextView) view.findViewById(R.id.update_spouse_info_id_front_tv);
+        update_spouse_info_id_back_tv = (TextView) view.findViewById(R.id.update_spouse_info_id_back_tv);
+        update_spouse_info_id_front_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_id_front_lin);
+        update_spouse_info_id_back_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_id_back_lin);
+        update_spouse_info_child_count_edt = (EditText) view.findViewById(R.id.update_spouse_info_child_count_edt);
+        update_spouse_info_child_count1_edt = (EditText) view.findViewById(R.id.update_spouse_info_child_count1_edt);
+        update_spouse_info_child_count2_edt = (EditText) view.findViewById(R.id.update_spouse_info_child_count2_edt);
 
         mScrollView = ((NestedScrollView) view.findViewById(R.id.scrollView));
 
@@ -180,7 +196,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         });
 
         //身份证人像面
-        update_spouse_info_id_back_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_id_back_lin);
         update_spouse_info_id_back_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,12 +203,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("type", Constants.FileLabelType.ID_BACK);
                 intent.putExtra("role", Constants.PersonType.LENDER_SP);
                 intent.putExtra("ocrResp", ocrResp);
+                intent.putExtra("ocrResp", ocrResp);
                 intent.putExtra("imgUrl", idBackImgUrl);
                 startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
             }
         });
         //身份证国徽面
-        update_spouse_info_id_front_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_id_front_lin);
         update_spouse_info_id_front_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,26 +220,24 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             }
         });
 
-        //法院判判决书
-        update_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_divorced_lin);
-        update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, UploadListActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.DIVORCE);
-                intent.putExtra("role", Constants.PersonType.LENDER);
-                intent.putExtra("imgList", divorceImgsList);
-                intent.putExtra("title", "离婚证");
-                startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
-            }
-        });
+//        //法院判判决书
+//        update_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_divorced_lin);
+//        update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, UploadListActivity.class);
+//                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
+//                intent.putExtra("role", Constants.PersonType.LENDER);
+//                intent.putExtra("imgList", divorceImgsList);
+//                intent.putExtra("title", "离婚证");
+//                startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
+//            }
+//        });
 
         //选择收入来源
         update_spouse_info_from_income_group_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_from_income_group_lin);
         update_spouse_info_from_self_group_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_from_self_group_lin);
         update_spouse_info_from_other_group_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_from_other_group_lin);
-        update_spouse_info_id_back_tv = (TextView) view.findViewById(R.id.update_spouse_info_id_back_tv);
-        update_spouse_info_id_front_tv = (TextView) view.findViewById(R.id.update_spouse_info_id_front_tv);
         income_from_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_income_from_lin);
         income_from_tv = (TextView) view.findViewById(R.id.update_spouse_info_income_from_tv);
         income_from_lin.setOnClickListener(new View.OnClickListener() {
@@ -239,19 +252,19 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             public void onSubmitCallBack(View clickedView, int selectedIndex) {
                                 UPDATE_INCOME_FROME_INDEX = selectedIndex;
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX) == "工资") {
+                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("工资")) {
                                     view.findViewById(R.id.update_spouse_info_from_income_group_lin).setVisibility(View.VISIBLE);
                                 } else {
                                     view.findViewById(R.id.update_spouse_info_from_income_group_lin).setVisibility(View.GONE);
                                 }
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX) == "自营") {
+                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("自营")) {
                                     view.findViewById(R.id.update_spouse_info_from_self_group_lin).setVisibility(View.VISIBLE);
                                 } else {
                                     view.findViewById(R.id.update_spouse_info_from_self_group_lin).setVisibility(View.GONE);
                                 }
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX) == "其他") {
+                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("其他")) {
                                     view.findViewById(R.id.update_spouse_info_from_other_group_lin).setVisibility(View.VISIBLE);
                                 } else {
                                     view.findViewById(R.id.update_spouse_info_from_other_group_lin).setVisibility(View.GONE);
@@ -491,9 +504,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             @Override
                             public void onSubmitCallBack(View clickedView, int selectedIndex) {
                                 UPDATE_EXTRA_INCOME_FROME_INDEX = selectedIndex;
-                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX) == "工资") {
+                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("工资")) {
                                     view.findViewById(R.id.update_spouse_info_extra_from_income_group_lin).setVisibility(View.VISIBLE);
                                 } else {
+                                    view.findViewById(R.id.update_spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
+                                }
+                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("无")) {
                                     view.findViewById(R.id.update_spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
                                 }
                             }
@@ -508,9 +524,13 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), DivorcedActivity.class);
-//                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
-                Toast.makeText(mContext, "还没有创建DivorcedActivity，快去创建.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, UploadListActivity.class);
+                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
+                intent.putExtra("role", Constants.PersonType.LENDER);
+                intent.putExtra("imgList", divorceImgsList);
+                intent.putExtra("title", "离婚证");
+                intent.putExtra("clt_id",clientInfo.clt_id);
+                startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
 
@@ -520,9 +540,14 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         update_spouse_info_register_addr_lin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), RegisteredActivity.class);
-//                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
-                Toast.makeText(mContext, "还没有创建RegisteredActivity，快去创建.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, UploadListActivity.class);
+                intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
+                intent.putExtra("role", Constants.PersonType.LENDER);
+                intent.putExtra("imgList", resBookList);
+                intent.putExtra("clt_id", clientInfo.clt_id);
+                intent.putExtra("title", "户口本");
+                intent.putExtra("clt_id",clientInfo.clt_id);
+                startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
         //额外 详细地址 ????
@@ -560,14 +585,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         });
             }
         });
-        update_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_divorced_lin);
-        update_spouse_info_divorced_tv = (TextView) view.findViewById(R.id.update_spouse_info_divorced_tv);
-        update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         update_spouse_info_mobile_img = (ImageView) view.findViewById(R.id.update_spouse_info_mobile_img);
         update_spouse_info_mobile_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -576,7 +594,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 selectContact();
             }
         });
-        update_spouse_info_mobile_edt = (EditText) view.findViewById(R.id.update_spouse_info_mobile_edt);
         return view;
     }
 
@@ -611,7 +628,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     System.arraycopy(contacts, 0, result, 0, contacts.length);
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_spouse_info_mobile_img.getId()) {
-                    update_spouse_info_mobile_edt.setText(result[1]);
+                    update_spouse_info_mobile_edt.setText(result[1].replaceAll(" ", ""));
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_from_income_company_address1_lin.getId()) {
@@ -636,8 +653,13 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_id_back_tv.setText("请上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
-                        update_spouse_info_id_no_edt.setText(ocrResp.idNo);
-                        update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        if (!ocrResp.idNo.equals("")) {
+                            update_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                        }
+                        if (!ocrResp.name.equals("")) {
+                            update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        }
+
                         break;
                     case Constants.FileLabelType.ID_FRONT:
                         ID_FRONT_FID = data.getStringExtra("objectKey");
@@ -663,7 +685,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         break;
-                    case Constants.FileLabelType.DIVORCE:
+                    case Constants.FileLabelType.MARRIAGE_PROOF:
                         divorceImgsList = (ArrayList) data.getSerializableExtra("imgList");
                         if (divorceImgsList.size() > 0) {
                             update_spouse_info_divorced_tv.setText("已上传");
@@ -677,19 +699,31 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         }
     }
 
-    public boolean updateimgUrl(OnVoidCallBack callBack) {
+    public void updateimgUrl(OnVoidCallBack callBack) {
         //更新图片
         if (clientInfo.spouse.clt_id == null) {
-            return false;
+            return;
         }
-        return uploadUrl(clientInfo.spouse.clt_id, callBack);
+        if (update_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
+            uploadUrl(clientInfo.clt_id, callBack);
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
+            uploadUrl(clientInfo.spouse.clt_id, callBack);
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+            uploadUrl(clientInfo.clt_id, callBack);
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
+            uploadUrl(clientInfo.clt_id, callBack);
+        }
     }
 
-    public boolean updateClientinfo(OnVoidCallBack callBack) {
+
+    public void updateClientinfo(OnVoidCallBack callBack) {
         if (checkUserInfo()) {
             //提交
-            clientInfo.marriage = update_spouse_info_marriage_tv.getText().toString().trim();
-            switch (update_spouse_info_marriage_tv.getText().toString().trim()) {
+            clientInfo.marriage = update_spouse_info_marriage_tv.getText().toString();
+            switch (update_spouse_info_marriage_tv.getText().toString()) {
                 case "未婚":
                     break;
                 case "已婚":
@@ -697,10 +731,13 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     clientInfo.spouse.id_no = update_spouse_info_id_no_edt.getText().toString().trim();
                     clientInfo.spouse.gender = update_spouse_info_gender_tv.getText().toString().trim();
                     clientInfo.spouse.mobile = update_spouse_info_mobile_edt.getText().toString().trim();
+                    clientInfo.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
                     break;
                 case "离异":
+                    clientInfo.child_num = update_spouse_info_child_count1_edt.getText().toString().trim();
                     break;
                 case "丧偶":
+                    clientInfo.child_num = update_spouse_info_child_count2_edt.getText().toString().trim();
                     break;
             }
             clientInfo.spouse.major_income_type = update_spouse_info_income_from_tv.getText().toString().trim();
@@ -714,8 +751,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         clientInfo.spouse.major_company_addr.city = update_spouse_info_from_income_company_address_tv.getText().toString().trim().split("/")[1];
                         clientInfo.spouse.major_company_addr.district = update_spouse_info_from_income_company_address_tv.getText().toString().trim().split("/")[2];
                         clientInfo.spouse.major_company_addr.address1 = update_spouse_info_from_income_company_address1_tv.getText().toString().trim();
+                        clientInfo.spouse.major_company_addr.address2 = update_spouse_info_from_income_company_address2_tv.getText().toString().trim();
                     }
-                    clientInfo.spouse.major_company_addr.address2 = update_spouse_info_from_income_company_address2_tv.getText().toString().trim();
                     clientInfo.spouse.major_work_position = update_spouse_info_work_position_tv.getText().toString().trim();
                     clientInfo.spouse.major_work_phone_num = update_spouse_info_from_income_work_phone_num_edt.getText().toString().trim();
                     break;
@@ -728,8 +765,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         clientInfo.spouse.major_company_addr.city = update_spouse_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
                         clientInfo.spouse.major_company_addr.district = update_spouse_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
                         clientInfo.spouse.major_company_addr.address1 = update_spouse_info_from_self_company_address1_tv.getText().toString().trim();
+                        clientInfo.spouse.major_company_addr.address2 = update_spouse_info_from_self_company_address2_tv.getText().toString().trim();
                     }
-                    clientInfo.spouse.major_company_addr.address2 = update_spouse_info_from_self_company_address2_tv.getText().toString().trim();
                     break;
                 case "其他":
                     clientInfo.spouse.major_income = update_spouse_info_from_other_year_edt.getText().toString().trim();
@@ -747,31 +784,34 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         clientInfo.spouse.extra_company_addr.city = update_spouse_info_extra_from_income_company_address_tv.getText().toString().trim().split("/")[1];
                         clientInfo.spouse.extra_company_addr.district = update_spouse_info_extra_from_income_company_address_tv.getText().toString().trim().split("/")[2];
                         clientInfo.spouse.extra_company_addr.address1 = update_spouse_info_extra_from_income_company_address1_tv.getText().toString().trim();
+                        clientInfo.spouse.extra_company_addr.address2 = update_spouse_info_extra_from_income_company_address2_tv.getText().toString().trim();
                     }
-                    clientInfo.spouse.extra_company_addr.address2 = update_spouse_info_extra_from_income_company_address2_tv.getText().toString().trim();
                     clientInfo.spouse.extra_work_position = update_spouse_info_extra_from_income_work_position_tv.getText().toString().trim();
                     clientInfo.spouse.extra_work_phone_num = update_spouse_info_extra_from_income_work_phone_num_edt.getText().toString().trim();
                     break;
+                case "无":
+                    break;
             }
-            callBack.callBack();
-            return true;
-
+            updateimgUrl(callBack);
         }
-        return false;
     }
 
     private boolean checkUserInfo() {
         if (update_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
             if (update_spouse_info_clt_nm_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_gender_tv.toString().isEmpty()) {
+            } else if (update_spouse_info_gender_tv.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_mobile_edt.toString().isEmpty()) {
+            } else if (update_spouse_info_mobile_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_id_no_edt.toString().isEmpty()) {
+            } else if (!CheckMobileUtil.checkMobile(update_spouse_info_mobile_edt.getText().toString())) {
+                Toast.makeText(mContext, "手机号码有误", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_id_no_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show();
             } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(update_spouse_info_id_no_edt.getText().toString())) {
                 Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_child_count_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
             }//主要工资
             else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_company_name_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
@@ -784,8 +824,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_work_position_tv.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
-            }//主要自营
+                Toast.makeText(mContext, "工资年收入不能为空", Toast.LENGTH_SHORT).show();
+            } //主要自营
             else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_company_name_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_company_address_tv.getText().toString().isEmpty()) {
@@ -803,6 +843,41 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && update_spouse_info_from_other_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("")) {
+                Toast.makeText(mContext, "收入来源不能为空", Toast.LENGTH_SHORT).show();
+            }
+
+
+            //额外工资
+            else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_name_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_address1_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_address2_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_work_position_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
+            }
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
+            return true;
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+            if (update_spouse_info_child_count1_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
+            } else {
+                return true;
+            }
+        }
+        if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
+            if (update_spouse_info_child_count2_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
             }
@@ -810,35 +885,40 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         return false;
     }
 
-    private boolean uploadUrl(String clt_id, OnVoidCallBack callBack) {
+    private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
-        switch (update_spouse_info_marriage_tv.getText().toString()) {
+        String marriage = update_spouse_info_marriage_tv.getText().toString();
+        switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
                     UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
-                    divorceFileItem.file_id = divorceImgsList.get(i).toString();
-                    divorceFileItem.label = Constants.FileLabelType.DIVORCE;
+                    UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    divorceFileItem.file_id = divo.objectKey;
+                    divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
+                    divorceFileItem.clt_id = clt_id;
                     files.add(divorceFileItem);
                 }
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
                     UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
-                    resBookFileItem.file_id = resBookList.get(i).toString();
+                    UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    resBookFileItem.file_id = resb.objectKey;
                     resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET;
+                    resBookFileItem.clt_id = clt_id;
                     files.add(resBookFileItem);
                 }
                 break;
 
             case "已婚":
-                if (!ID_BACK_FID.isEmpty()) {
+                if (!ID_BACK_FID.equals("")) {
                     UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
                     idBackBean.file_id = ID_BACK_FID;
                     idBackBean.label = Constants.FileLabelType.ID_BACK;
                     idBackBean.clt_id = clt_id;
                     files.add(idBackBean);
                 }
-                if (!ID_FRONT_FID.isEmpty()) {
+                if (!ID_FRONT_FID.equals("")) {
                     UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
                     idFrontBean.file_id = ID_FRONT_FID;
                     idFrontBean.label = Constants.FileLabelType.ID_FRONT;
@@ -858,14 +938,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     if (code < 0) {
                         return;
                     }
-                    //更新用户资料
-                    updateClientinfo(callBack);
                 }
             });
+            callBack.callBack();
         } else {
-            updateClientinfo(callBack);
+            callBack.callBack();
         }
-        return false;
     }
 
     public void getClientinfo(ClientInfo data) {
@@ -904,14 +982,16 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     update_spouse_info_gender_tv.setText(clientInfo.spouse.gender);
                     update_spouse_info_mobile_edt.setText(clientInfo.spouse.mobile);
                     update_spouse_info_income_from_tv.setText(clientInfo.spouse.major_income_type);
+                    update_spouse_info_child_count_edt.setText(clientInfo.child_num);
                     //判断主要收入类型
                     switch (clientInfo.spouse.major_income_type) {
                         case "工资":
                             update_spouse_info_from_income_group_lin.setVisibility(View.VISIBLE);
                             update_spouse_info_from_income_year_edt.setText(clientInfo.spouse.major_income);
                             update_spouse_info_from_income_company_name_edt.setText(clientInfo.spouse.major_company_name);
-                            update_spouse_info_from_income_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
-                            if (clientInfo.spouse.major_company_addr.province.isEmpty() && clientInfo.spouse.major_company_addr.city.isEmpty() && clientInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!clientInfo.spouse.major_company_addr.province.equals("")) {
+                                update_spouse_info_from_income_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
+                            } else {
                                 update_spouse_info_from_income_company_address_tv.setText(null);
                             }
                             update_spouse_info_from_income_company_address1_tv.setText(clientInfo.spouse.major_company_addr.address1);
@@ -924,8 +1004,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_from_self_year_edt.setText(clientInfo.spouse.major_income);
                             update_spouse_info_from_self_type_tv.setText(clientInfo.spouse.major_busi_type);
                             update_spouse_info_from_self_company_name_edt.setText(clientInfo.spouse.major_company_name);
-                            update_spouse_info_from_self_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
-                            if (clientInfo.spouse.major_company_addr.province.isEmpty() && clientInfo.spouse.major_company_addr.city.isEmpty() && clientInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!clientInfo.spouse.major_company_addr.province.equals("")) {
+                                update_spouse_info_from_self_company_address_tv.setText(clientInfo.spouse.major_company_addr.province + "/" + clientInfo.spouse.major_company_addr.city + "/" + clientInfo.spouse.major_company_addr.district);
+                            } else {
                                 update_spouse_info_from_self_company_address_tv.setText(null);
                             }
                             update_spouse_info_from_self_company_address1_tv.setText(clientInfo.spouse.major_company_addr.address1);
@@ -945,21 +1026,53 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_extra_from_income_work_position_tv.setText(clientInfo.spouse.extra_work_position);
                             update_spouse_info_extra_from_income_year_edt.setText(clientInfo.spouse.extra_income);
                             update_spouse_info_extra_from_income_company_name_edt.setText(clientInfo.spouse.extra_company_name);
-                            update_spouse_info_extra_from_income_company_address_tv.setText(clientInfo.spouse.extra_company_addr.province + "/" + clientInfo.spouse.extra_company_addr.city + "/" + clientInfo.spouse.extra_company_addr.district);
-                            if (clientInfo.spouse.major_company_addr.province.isEmpty() && clientInfo.spouse.major_company_addr.city.isEmpty() && clientInfo.spouse.major_company_addr.district.isEmpty()) {
+                            if (!clientInfo.spouse.extra_company_addr.province.equals("")) {
+                                update_spouse_info_extra_from_income_company_address_tv.setText(clientInfo.spouse.extra_company_addr.province + "/" + clientInfo.spouse.extra_company_addr.city + "/" + clientInfo.spouse.extra_company_addr.district);
+                            } else {
                                 update_spouse_info_extra_from_income_company_address_tv.setText(null);
                             }
                             update_spouse_info_extra_from_income_company_address1_tv.setText(clientInfo.spouse.extra_company_addr.address1);
                             update_spouse_info_extra_from_income_company_address2_tv.setText(clientInfo.spouse.extra_company_addr.address2);
                             update_spouse_info_extra_from_income_work_phone_num_edt.setText(clientInfo.spouse.extra_work_phone_num);
                             break;
+                        case "无":
+                            update_spouse_info_extra_from_income_group_lin.setVisibility(View.GONE);
+
                     }
                     break;
                 case "离异":
+                    ListImgsReq req3 = new ListImgsReq();
+                    req3.label = Constants.FileLabelType.MARRIAGE_PROOF;
+                    req3.clt_id = data.clt_id;
+                    UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
+                        @Override
+                        public void onItemDataCallBack(ListImgsResp resp) {
+                            if (resp.list.size() != 0) {
+                                update_spouse_info_divorced_tv.setText("已上传");
+                                update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
+                                divorceImgsList = (ArrayList) resp.list;
+                            }
+                        }
+                    });
                     update_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
+                    update_spouse_info_child_count1_edt.setText(clientInfo.child_num);
                     break;
                 case "丧偶":
+                    ListImgsReq req4 = new ListImgsReq();
+                    req4.label = Constants.FileLabelType.RES_BOOKLET;
+                    req4.clt_id = data.clt_id;
+                    UploadApi.listImgs(mContext, req4, new OnItemDataCallBack<ListImgsResp>() {
+                        @Override
+                        public void onItemDataCallBack(ListImgsResp resp) {
+                            if (resp.list.size() != 0) {
+                                update_spouse_info_register_addr_tv.setText("已上传");
+                                update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
+                                resBookList = (ArrayList) resp.list;
+                            }
+                        }
+                    });
                     update_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
+                    update_spouse_info_child_count2_edt.setText(clientInfo.child_num);
                     break;
             }
         }

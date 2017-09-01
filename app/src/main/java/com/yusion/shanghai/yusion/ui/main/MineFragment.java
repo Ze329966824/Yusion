@@ -17,9 +17,7 @@ import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
 import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.ui.info.UpdateUserInfoActivity;
 import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
-import com.yusion.shanghai.yusion.ui.update.CommitActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 
 /**

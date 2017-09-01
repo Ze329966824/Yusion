@@ -21,6 +21,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.amap.PoiResp;
 import com.yusion.shanghai.yusion.retrofit.api.AMapApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
 
 public class AMapPoiListActivity extends BaseActivity implements View.OnClickListener {
 
-    private EditText mPoiKeywords;
+    private NoEmptyEditText mPoiKeywords;
     private RecyclerView mPoiList;
     private PoiListAdapter mPoiListAdapter;
     private String mAMapKey = "d7464e59edd1dbd39414d8a46cecb93c";
@@ -77,7 +78,7 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
-        mPoiKeywords = (EditText) findViewById(R.id.poi_keywords);
+        mPoiKeywords = (NoEmptyEditText) findViewById(R.id.poi_keywords);
         mPoiList = (RecyclerView) findViewById(R.id.poi_list);
         mPoiListAdapter = new PoiListAdapter(this, mHandler);
         mPoiList.setAdapter(mPoiListAdapter);
@@ -89,7 +90,6 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -151,7 +151,7 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
      * @param address
      */
     private void over(String address) {
-        mIntent.putExtra("result", address);
+        mIntent.putExtra("result", address.trim());
         setResult(RESULT_OK, mIntent);
         finish();
     }

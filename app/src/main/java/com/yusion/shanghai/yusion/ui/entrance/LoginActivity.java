@@ -34,6 +34,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        myApp.isLogin = false;
         mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
         mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
         mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
@@ -53,7 +54,6 @@ public class LoginActivity extends BaseActivity {
                     if (data != null) {
                         if (!Settings.isOnline) {
                             mLoginCodeTV.setText(data.verify_code);
-
                         }
                     }
                 });
@@ -86,7 +86,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void loginSuccess(LoginResp resp) {
-        YusionApp.isLogin = true;
         if (resp != null) {
             YusionApp.TOKEN = resp.token;
             YusionApp.MOBILE = mLoginMobileTV.getText().toString();
@@ -101,7 +100,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        YusionApp.isLogin = false;
+
         //每次回到登陆界面都需清除缓存
         myApp.clearUserData();
 
