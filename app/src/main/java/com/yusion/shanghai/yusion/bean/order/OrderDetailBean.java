@@ -90,5 +90,6 @@ public class OrderDetailBean {
         public String other_fee;
         public String comments;
         public String uw_result;
+        public String monthly_payment;
     }
 }

@@ -270,6 +270,16 @@ public class OrderDetailActivity extends BaseActivity {
                 monthPrice.setText(resp.monthly_payment);
 
                 customerNameTv.setText(resp.dlr_dfim_name + "");
+
+
+                applyTotalPriceTv2.setText(resp.loan_amt);
+                replyTotalPriceTv2.setText(resp.uw_detail.loan_amt);
+                applyMonthPrice.setText(resp.monthly_payment);
+                replyMonthPrice.setText(resp.uw_detail.monthly_payment);
+                applyReplyDateTv2.setText(resp.nper);
+                ReplyRepayDateTv2.setText(resp.uw_detail.nper);
+
+
                 findViewById(R.id.order_detail_customer_mobile_img).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -290,43 +300,43 @@ public class OrderDetailActivity extends BaseActivity {
             }
 
         });
-        OrderApi.getFinancePlanDetail(this, app_id, new OnItemDataCallBack<GetFinancePlanDetailResp>() {
-            @Override
-            public void onItemDataCallBack(GetFinancePlanDetailResp resp) {
-                if (resp != null) {
-                    applyBillPriceTv2.setText(resp.getApp().getVehicle_price());
-                    replyBillPriceTv2.setText(resp.getUw().getVehicle_price());
-                    //compare(resp.getApp().getVehicle_price(),resp.getUw().getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
 
-                    applyFirstPriceTv2.setText(resp.getApp().getVehicle_down_payment());
-                    replyFirstPriceTv2.setText(resp.getUw().getVehicle_down_payment());
 
-                    applyLoanPriceTv2.setText(resp.getApp().getVehicle_loan_amt());
-                    replyLoanPriceTv2.setText(resp.getUw().getVehicle_down_payment());
-
-                    applyManagementPriceTv2.setText(resp.getApp().getManagement_fee());
-                    replyManagementPriceTv2.setText(resp.getUw().getManagement_fee());
-
-                    applyOtherPriceTv2.setText(resp.getApp().getOther_fee());
-                    replyOtherPriceTv2.setText(resp.getUw().getOther_fee());
-
-                    applyTotalPriceTv2.setText(resp.getApp().getLoan_amt());
-                    replyTotalPriceTv2.setText(resp.getUw().getLoan_amt());
-
-                    applyBankTv2.setText(resp.getApp().getLoan_bank());
-                    replyBankTv2.setText(resp.getUw().getLoan_bank());
-
-                    applyReplyDateTv2.setText(resp.getApp().getNper() + "期");
-                    ReplyRepayDateTv2.setText(resp.getUw().getNper() + "期");
-
-                    applyFirstPercentTv2.setText(resp.getApp().getVehicle_down_payment_percent() * 100 + "%");
-                    replyFirstPercentTv2.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
-
-                    applyMonthPrice.setText(resp.getApp().getMonthly_payment());
-                    replyMonthPrice.setText(resp.getUw().getMonthly_payment());
-                }
-            }
-        });
+//        OrderApi.getFinancePlanDetail(this, app_id, new OnItemDataCallBack<GetFinancePlanDetailResp>() {
+//            @Override
+//            public void onItemDataCallBack(GetFinancePlanDetailResp resp) {
+//                applyBillPriceTv2.setText(resp.getApp().getVehicle_price());
+//                replyBillPriceTv2.setText(resp.getUw().getVehicle_price());
+//                //compare(resp.getApp().getVehicle_price(),resp.getUw().getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
+//
+//                applyFirstPriceTv2.setText(resp.getApp().getVehicle_down_payment());
+//                replyFirstPriceTv2.setText(resp.getUw().getVehicle_down_payment());
+//
+//                applyLoanPriceTv2.setText(resp.getApp().getVehicle_loan_amt());
+//                replyLoanPriceTv2.setText(resp.getUw().getVehicle_down_payment());
+//
+//                applyManagementPriceTv2.setText(resp.getApp().getManagement_fee());
+//                replyManagementPriceTv2.setText(resp.getUw().getManagement_fee());
+//
+//                applyOtherPriceTv2.setText(resp.getApp().getOther_fee());
+//                replyOtherPriceTv2.setText(resp.getUw().getOther_fee());
+//
+//                applyTotalPriceTv2.setText(resp.getApp().getLoan_amt());
+//                replyTotalPriceTv2.setText(resp.getUw().getLoan_amt());
+//
+//                applyBankTv2.setText(resp.getApp().getLoan_bank());
+//                replyBankTv2.setText(resp.getUw().getLoan_bank());
+//
+//                applyReplyDateTv2.setText(resp.getApp().getNper() + "期");
+//                ReplyRepayDateTv2.setText(resp.getUw().getNper() + "期");
+//
+//                applyFirstPercentTv2.setText(resp.getApp().getVehicle_down_payment_percent() * 100 + "%");
+//                replyFirstPercentTv2.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
+//
+//                applyMonthPrice.setText(resp.getApp().getMonthly_payment());
+//                replyMonthPrice.setText(resp.getUw().getMonthly_payment());
+//            }
+//        });
         compare(applyMonthPrice, replyMonthPrice);
         compare(applyFirstPercentTv2, replyFirstPercentTv2);
         compare(applyBillPriceTv2, replyBillPriceTv2);

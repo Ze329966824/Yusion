@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -26,6 +28,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.ui.apply.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
@@ -194,6 +197,14 @@ public class UploadListActivity extends BaseActivity {
                         uploadTv2.setText("删除");
                         uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
                     }
+                } else {
+                    String imgUrl;
+                    if (!TextUtils.isEmpty(item.local_path)) {
+                        imgUrl = item.local_path;
+                    } else {
+                        imgUrl = item.s_url;
+                    }
+                    previewImg(findViewById(R.id.preview_anchor), imgUrl);
                 }
             }
 
@@ -206,6 +217,13 @@ public class UploadListActivity extends BaseActivity {
         });
         rv.setAdapter(adapter);
         initData();
+    }
+
+    private void previewImg(View previewAnchor, String imgUrl) {
+        Intent intent = new Intent(this, PreviewActivity.class);
+        intent.putExtra("PreviewImg", imgUrl);
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, previewAnchor, "shareNames");
+        ActivityCompat.startActivity(this, intent, compat.toBundle());
     }
 
     private void initData() {
