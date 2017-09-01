@@ -406,6 +406,7 @@ class SpouseInfoFragment : BaseFragment() {
     }
 
     private var divorceImgsList = ArrayList<UploadImgItemBean>()
+
     private var resBookList = ArrayList<UploadImgItemBean>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

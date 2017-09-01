@@ -56,17 +56,17 @@
                             android:layout_marginTop="25dp"
                             android:text="首付比例"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:visibility="gone" />
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/finance_plan_percent_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:text="20%"
-                            android:textColor="@color/white"
-                            android:textSize="47sp" />
+                            android:src="@mipmap/finance_icon"
+                            android:text="20%" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -111,7 +111,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -157,7 +158,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="5dp"
@@ -187,7 +189,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -233,7 +236,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="5dp"
@@ -263,7 +267,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -308,7 +313,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="5dp"
@@ -338,7 +344,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -384,7 +391,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="5dp"
@@ -414,7 +422,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -460,7 +469,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="5dp"
@@ -566,7 +576,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -608,6 +619,54 @@
                                 android:textSize="14.5sp" />
                         </LinearLayout>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp">
+
+                            <TextView
+
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="月供"
+                                android:textColor="@color/text_grey"
+                                android:textSize="14.5sp" />
+
+                            <TextView
+                                android:id="@+id/apply_month_price_tv"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="99999元"
+                                android:textSize="14.5sp" />
+
+                            <TextView
+                                android:id="@+id/reply_month_price_tv"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:text="90000元"
+                                android:textColor="@color/text_grey"
+                                android:textSize="14.5sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"

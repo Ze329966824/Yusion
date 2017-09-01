@@ -88,6 +88,7 @@ public class MyOrderFragment extends BaseFragment {
 //                ptr.refreshComplete();
 //            }
 //        });
+        //getArguments().getString("st");
         OrderApi.getAppList(mContext, "0", new OnItemDataCallBack<List<GetAppListResp>>() {
             @Override
             public void onItemDataCallBack(List<GetAppListResp> resp) {
