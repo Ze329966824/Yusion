@@ -528,7 +528,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="99999元"
                                 android:textSize="14.5sp" />
 
                             <TextView
@@ -537,7 +536,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center|right"
-                                android:text="90000元"
                                 android:textColor="@color/text_grey"
                                 android:textSize="14.5sp" />
                         </LinearLayout>
@@ -652,7 +650,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="99999元"
                                 android:textSize="14.5sp" />
 
                             <TextView
@@ -661,7 +658,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center|right"
-                                android:text="90000元"
                                 android:textColor="@color/text_grey"
                                 android:textSize="14.5sp" />
                         </LinearLayout>
@@ -729,7 +725,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="99999元"
                                 android:textSize="14.5sp" />
 
                             <TextView
@@ -738,7 +733,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center|right"
-                                android:text="90000元"
                                 android:textColor="@color/text_grey"
                                 android:textSize="14.5sp" />
                         </LinearLayout>
