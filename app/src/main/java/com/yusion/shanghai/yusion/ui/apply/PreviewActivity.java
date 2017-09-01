@@ -1,14 +1,14 @@
 package com.yusion.shanghai.yusion.ui.apply;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.base.BaseActivity;
 
-public class PreviewActivity extends AppCompatActivity {
+public class PreviewActivity extends BaseActivity {
     private String imageUrl;
     private ImageView imageView;
 
