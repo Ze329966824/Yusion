@@ -194,7 +194,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     }
                 }
 //                nextStep()
-                uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id)
+                uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id,addGuarantorActivity.mGuarantorInfo.spouse.clt_id)
             }
         }
 
@@ -336,7 +336,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         return false
     }
 
-    fun uploadUrl(cltId: String) {
+    fun uploadUrl(cltId: String,spouseCltId: String) {
         var addGuarantorActivity = activity as AddGuarantorActivity
         val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         when (addGuarantorActivity.mGuarantorInfo.marriage) {
@@ -362,13 +362,13 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 val idBackBean = UploadFilesUrlReq.FileUrlBean()
                 idBackBean.file_id = ID_BACK_FID
                 idBackBean.label = Constants.FileLabelType.ID_BACK
-                idBackBean.clt_id = cltId
+                idBackBean.clt_id = spouseCltId
                 files.add(idBackBean)
 
                 val idFrontBean = UploadFilesUrlReq.FileUrlBean()
                 idFrontBean.file_id = ID_FRONT_FID
                 idFrontBean.label = Constants.FileLabelType.ID_FRONT
-                idFrontBean.clt_id = cltId
+                idFrontBean.clt_id = spouseCltId
                 files.add(idFrontBean)
             }
         }
