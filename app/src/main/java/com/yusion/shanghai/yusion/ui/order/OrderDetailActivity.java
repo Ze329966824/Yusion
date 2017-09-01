@@ -90,6 +90,12 @@ public class OrderDetailActivity extends BaseActivity {
     private FloatingActionButton fab;
     private NestedScrollView mScrollView;
 
+    private TextView applyMonthPrice;
+    private TextView replyMonthPrice;
+
+    private TextView monthPrice;
+
+    private LinearLayout orderDetailFianceLin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -157,6 +163,8 @@ public class OrderDetailActivity extends BaseActivity {
         salesNameTv = (TextView) findViewById(R.id.order_detail_sales_name_tv);
         customerNameTv = (TextView) findViewById(R.id.order_detail_customer_name_tv);
 
+        monthPrice = (TextView) findViewById(R.id.order_detail_month_price_tv);
+
         //批复和申请的金融方案
         applyFirstPercentTv2 = (TextView) findViewById(R.id.apply_first_percent_tv);
         replyFirstPercentTv2 = (TextView) findViewById(R.id.reply_first_percent_tv);
@@ -184,6 +192,11 @@ public class OrderDetailActivity extends BaseActivity {
         applyTotalPriceTv2 = (TextView) findViewById(R.id.apply_total_price_tv2);
         replyTotalPriceTv2 = (TextView) findViewById(R.id.reply_total_price_tv2);
 
+        applyMonthPrice = (TextView) findViewById(R.id.apply_month_price_tv2);
+        replyMonthPrice = (TextView) findViewById(R.id.reply_month_price_tv2);
+
+        orderDetailFianceLin = (LinearLayout) findViewById(R.id.order_detail_fiance_lin);
+
     }
 
     private void initData() {
@@ -199,6 +212,7 @@ public class OrderDetailActivity extends BaseActivity {
                     applyLin.setVisibility(View.VISIBLE);
                     replyLin.setVisibility(View.GONE);
                     waitReason.setText(resp.uw_detail.comments);
+                    orderDetailFianceLin.setVisibility(View.GONE);
                 } else if (resp.status_st == 4) {
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
@@ -206,6 +220,7 @@ public class OrderDetailActivity extends BaseActivity {
                     applyLin.setVisibility(View.VISIBLE);
                     replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
+                    orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 6) {
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
@@ -213,11 +228,13 @@ public class OrderDetailActivity extends BaseActivity {
                     applyLin.setVisibility(View.VISIBLE);
                     replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
+                    orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 3) {
                     waitRel.setVisibility(View.GONE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.VISIBLE);
                     rejectReason.setText(resp.uw_detail.comments);
+                    orderDetailFianceLin.setVisibility(View.GONE);
                 }
 
                 applyBillPriceTv.setText(resp.vehicle_price);
@@ -250,6 +267,8 @@ public class OrderDetailActivity extends BaseActivity {
                 salesNameTv.setText(resp.dlr_sales_name);
                 // customerNameTv.setText(resp.dlr_dfim_name);
 
+                monthPrice.setText(resp.monthly_payment);
+
                 customerNameTv.setText(resp.dlr_dfim_name + "");
                 findViewById(R.id.order_detail_customer_mobile_img).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -274,39 +293,39 @@ public class OrderDetailActivity extends BaseActivity {
         OrderApi.getFinancePlanDetail(this, app_id, new OnItemDataCallBack<GetFinancePlanDetailResp>() {
             @Override
             public void onItemDataCallBack(GetFinancePlanDetailResp resp) {
-                if (resp != null) {
+                applyBillPriceTv2.setText(resp.getApp().getVehicle_price());
+                replyBillPriceTv2.setText(resp.getUw().getVehicle_price());
+                //compare(resp.getApp().getVehicle_price(),resp.getUw().getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
 
-                    applyBillPriceTv2.setText(resp.getApp().getVehicle_price());
-                    replyBillPriceTv2.setText(resp.getUw().getVehicle_price());
-                    //compare(resp.getApp().getVehicle_price(),resp.getUw().getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
+                applyFirstPriceTv2.setText(resp.getApp().getVehicle_down_payment());
+                replyFirstPriceTv2.setText(resp.getUw().getVehicle_down_payment());
 
-                    applyFirstPriceTv2.setText(resp.getApp().getVehicle_down_payment());
-                    replyFirstPriceTv2.setText(resp.getUw().getVehicle_down_payment());
+                applyLoanPriceTv2.setText(resp.getApp().getVehicle_loan_amt());
+                replyLoanPriceTv2.setText(resp.getUw().getVehicle_down_payment());
 
-                    applyLoanPriceTv2.setText(resp.getApp().getVehicle_loan_amt());
-                    replyLoanPriceTv2.setText(resp.getUw().getVehicle_down_payment());
+                applyManagementPriceTv2.setText(resp.getApp().getManagement_fee());
+                replyManagementPriceTv2.setText(resp.getUw().getManagement_fee());
 
-                    applyManagementPriceTv2.setText(resp.getApp().getManagement_fee());
-                    replyManagementPriceTv2.setText(resp.getUw().getManagement_fee());
+                applyOtherPriceTv2.setText(resp.getApp().getOther_fee());
+                replyOtherPriceTv2.setText(resp.getUw().getOther_fee());
 
-                    applyOtherPriceTv2.setText(resp.getApp().getOther_fee());
-                    replyOtherPriceTv2.setText(resp.getUw().getOther_fee());
+                applyTotalPriceTv2.setText(resp.getApp().getLoan_amt());
+                replyTotalPriceTv2.setText(resp.getUw().getLoan_amt());
 
-                    applyTotalPriceTv2.setText(resp.getApp().getLoan_amt());
-                    replyTotalPriceTv2.setText(resp.getUw().getLoan_amt());
+                applyBankTv2.setText(resp.getApp().getLoan_bank());
+                replyBankTv2.setText(resp.getUw().getLoan_bank());
 
-                    applyBankTv2.setText(resp.getApp().getLoan_bank());
-                    replyBankTv2.setText(resp.getUw().getLoan_bank());
+                applyReplyDateTv2.setText(resp.getApp().getNper() + "期");
+                ReplyRepayDateTv2.setText(resp.getUw().getNper() + "期");
 
-                    applyReplyDateTv2.setText(resp.getApp().getNper() + "期");
-                    ReplyRepayDateTv2.setText(resp.getUw().getNper() + "期");
+                applyFirstPercentTv2.setText(resp.getApp().getVehicle_down_payment_percent() * 100 + "%");
+                replyFirstPercentTv2.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
 
-                    applyFirstPercentTv2.setText(resp.getApp().getVehicle_down_payment_percent() * 100 + "%");
-                    replyFirstPercentTv2.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
-                }
-
+                applyMonthPrice.setText(resp.getApp().getMonthly_payment());
+                replyMonthPrice.setText(resp.getUw().getMonthly_payment());
             }
         });
+        compare(applyMonthPrice, replyMonthPrice);
         compare(applyFirstPercentTv2, replyFirstPercentTv2);
         compare(applyBillPriceTv2, replyBillPriceTv2);
         compare(applyFirstPriceTv2, replyFirstPriceTv2);
