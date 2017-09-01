@@ -6,12 +6,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
 public class InfoListActivity extends BaseActivity {
 
-    private boolean ishaveGuarantee = false;
+    private boolean ishaveGuarantee ;
     private LinearLayout guarantee_info;
     private LinearLayout add_guarantee;
 
@@ -20,20 +23,38 @@ public class InfoListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_list);
         initTitleBar(this, getResources().getString(R.string.list_info));
-        ishaveguarantee();
+        guarantee_info = (LinearLayout) findViewById(R.id.guarantee_info);
+        add_guarantee = (LinearLayout) findViewById(R.id.add_guarantee);
 
     }
 
 
     private void ishaveguarantee() {
-        guarantee_info = (LinearLayout) findViewById(R.id.guarantee_info);
-        add_guarantee = (LinearLayout) findViewById(R.id.add_guarantee);
-        ishaveGuarantee = getIntent().getBooleanExtra("ishaveGuarantee", true);
-        if (ishaveGuarantee) {
-            add_guarantee.setVisibility(View.GONE);
-        } else {
-            guarantee_info.setVisibility(View.GONE);
-        }
+
+//        ishaveGuarantee = getIntent().getBooleanExtra("ishaveGuarantee",true);
+//        if (ishaveGuarantee) {
+//            add_guarantee.setVisibility(View.GONE);
+//            guarantee_info.setVisibility(View.VISIBLE);
+//        } else {
+//            guarantee_info.setVisibility(View.GONE);
+//            add_guarantee.setVisibility(View.VISIBLE);
+//        }
+
+        UserApi.getListCurrentTpye(InfoListActivity.this, new OnItemDataCallBack<ListCurrentTpye>() {
+            @Override
+            public void onItemDataCallBack(ListCurrentTpye data) {
+                if (data != null) {
+                    if (data.guarantor_commited) {
+                        add_guarantee.setVisibility(View.GONE);
+                        guarantee_info.setVisibility(View.VISIBLE);
+                    } else {
+                        guarantee_info.setVisibility(View.GONE);
+                        add_guarantee.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
     }
 
     public void onClick(View view) {
@@ -61,5 +82,11 @@ public class InfoListActivity extends BaseActivity {
                 break;
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ishaveguarantee();
     }
 }
