@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1049,14 +1050,14 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 }
                 break;
             case "已婚":
-                if (!ID_BACK_FID.equals("")) {
+                if (!TextUtils.isEmpty(ID_BACK_FID)) {
                     UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
                     idBackBean.file_id = ID_BACK_FID;
                     idBackBean.label = Constants.FileLabelType.ID_BACK;
                     idBackBean.clt_id = clt_id;
                     files.add(idBackBean);
                 }
-                if (!ID_FRONT_FID.equals("")) {
+                if (!TextUtils.isEmpty(ID_FRONT_FID)) {
                     UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
                     idFrontBean.file_id = ID_FRONT_FID;
                     idFrontBean.label = Constants.FileLabelType.ID_FRONT;
