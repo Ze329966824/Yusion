@@ -580,7 +580,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", divorceImgsList);
                 intent.putExtra("title", "离婚证");
-                intent.putExtra("clt_id",guarantorInfo.clt_id);
+                intent.putExtra("clt_id", guarantorInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -597,7 +597,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", resBookList);
                 intent.putExtra("title", "户口本");
-                intent.putExtra("clt_id",guarantorInfo.clt_id);
+                intent.putExtra("clt_id", guarantorInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -644,7 +644,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     System.arraycopy(contacts, 0, result, 0, contacts.length);
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_guarantor_spouse_info_mobile_img.getId()) {
-                    update_guarantor_spouse_info_mobile_edt.setText(result[1].replaceAll(" ",""));
+                    update_guarantor_spouse_info_mobile_edt.setText(result[1].replaceAll(" ", ""));
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_spouse_info_from_income_company_address1_lin.getId()) {
@@ -912,8 +912,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 case "无":
                     break;
             }
-            updateimgUrl(callBack);
-
+            callBack.callBack();
         }
 
 
@@ -1083,6 +1082,10 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         } else {
             callBack.callBack();
         }
+    }
+
+    public void requestUpload(String clt_id, OnVoidCallBack onVoidCallBack) {
+        uploadUrl(clt_id, onVoidCallBack);
     }
 }
 

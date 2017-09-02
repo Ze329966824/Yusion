@@ -71,28 +71,33 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 
 
     private void commit() {
-
-        //上传影像件
-        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
+        //上传用户资料
+        mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(new OnVoidCallBack() {
             @Override
             public void callBack() {
-                //上传用户资料
-                mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(new OnVoidCallBack() {
-                        @Override
-                        public void callBack() {
-                            ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
-                                @Override
-                                public void onItemDataCallBack(GuarantorInfo data) {
-                                    if (data == null) return;
-                                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                        }
+                ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+                    @Override
+                    public void onItemDataCallBack(GuarantorInfo data) {
+                        mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.spouse.clt_id,new OnVoidCallBack(){
+                            @Override
+                            public void callBack() {
+                                //上传影像件
+                                mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
+                                    @Override
+                                    public void callBack() {
+                                        if (data == null) return;
+                                        Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                            }
+                        });
+                    }
                 });
             }
         });
+
     }
 
 
