@@ -78,21 +78,26 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 
     private void commit() {
 //        mUpdateSpouseInfoFragment.requestUpdate();
-        //上传影像件
-        mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
+        //上传用户资料
+        mUpdateSpouseInfoFragment.updateClientinfo(new OnVoidCallBack() {
             @Override
             public void callBack() {
-                //上传用户资料
-                mUpdateSpouseInfoFragment.updateClientinfo(new OnVoidCallBack() {
+                ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
                     @Override
-                    public void callBack() {
-                        ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                    public void onItemDataCallBack(ClientInfo data) {
+                        mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
                             @Override
-                            public void onItemDataCallBack(ClientInfo data) {
-                                if (data == null) return;
-                                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                                startActivity(intent);
-                                finish();
+                            public void callBack() {
+                                //上传影像件
+                                mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
+                                    @Override
+                                    public void callBack() {
+                                        if (data == null) return;
+                                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
                             }
                         });
                     }
