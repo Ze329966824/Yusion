@@ -14,7 +14,6 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 
 public class InfoListActivity extends BaseActivity {
 
-    private boolean ishaveGuarantee ;
     private LinearLayout guarantee_info;
     private LinearLayout add_guarantee;
 
@@ -30,16 +29,6 @@ public class InfoListActivity extends BaseActivity {
 
 
     private void ishaveguarantee() {
-
-//        ishaveGuarantee = getIntent().getBooleanExtra("ishaveGuarantee",true);
-//        if (ishaveGuarantee) {
-//            add_guarantee.setVisibility(View.GONE);
-//            guarantee_info.setVisibility(View.VISIBLE);
-//        } else {
-//            guarantee_info.setVisibility(View.GONE);
-//            add_guarantee.setVisibility(View.VISIBLE);
-//        }
-
         UserApi.getListCurrentTpye(InfoListActivity.this, new OnItemDataCallBack<ListCurrentTpye>() {
             @Override
             public void onItemDataCallBack(ListCurrentTpye data) {
@@ -54,7 +43,6 @@ public class InfoListActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
     public void onClick(View view) {
