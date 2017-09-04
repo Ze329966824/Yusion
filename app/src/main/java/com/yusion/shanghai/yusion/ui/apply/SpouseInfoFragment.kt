@@ -24,10 +24,7 @@ import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
 import com.yusion.shanghai.yusion.ui.update.CommitActivity
-import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
-import com.yusion.shanghai.yusion.utils.ContactsUtil
-import com.yusion.shanghai.yusion.utils.InputMethodUtil
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
+import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
@@ -299,8 +296,8 @@ class SpouseInfoFragment : BaseFragment() {
                 Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_gender_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_mobile_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show()
+            } else if (CheckMobileUtil.checkMobile(spouse_info_mobile_edt.text.toString())) {
+                Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_child_count_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text.isEmpty()) {
