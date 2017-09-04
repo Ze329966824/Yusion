@@ -261,6 +261,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 requestPOI(guarantor_spouse_info_extra_from_income_company_address_tv.text.toString())
             }
         }
+
         guarantor_spouse_info_extra_from_income_work_position_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, guarantor_spouse_info_extra_from_income_work_position_lin, guarantor_spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_EXTRA_WORK_POSITION_INDEX = index
