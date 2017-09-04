@@ -58,9 +58,9 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             if (data != null) {
                 clientInfo = data;
                 mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
-                if (clientInfo.marriage.equals("已婚")){
+                if (clientInfo.marriage.equals("已婚")) {
                     ishaveImgs = true;
-                }else {
+                } else {
                     ishaveImgs = false;
                 }
                 mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
@@ -84,10 +84,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                         finish();
                     });
                 });
-            }
-
-            //其他状态：上传主贷人cltid，不上传右侧影像件
-            else {
+            } else {
+                //其他状态：上传主贷人cltid，不上传右侧影像件
                 mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
                     if (data == null) return;
                     Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();

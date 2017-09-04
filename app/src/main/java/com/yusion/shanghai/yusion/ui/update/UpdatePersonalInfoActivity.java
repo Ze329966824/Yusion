@@ -35,7 +35,6 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private UpdatePersonalInfoFragment mUpdatePersonalInfoFragment;
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"个人资料", "影像件"};
-
     private ClientInfo clientInfo;
 
     @Override
@@ -45,7 +44,6 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit());
 
         initView();
-
 
         getInfo();  //获取用户信息
 
