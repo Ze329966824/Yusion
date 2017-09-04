@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,10 +138,10 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList resBookList = new ArrayList<UploadImgItemBean>();
-    public static String idBackImgUrl = "";
-    public static String idFrontImgUrl = "";
-    public static String ID_BACK_FID = "";
-    public static String ID_FRONT_FID = "";
+    public String idBackImgUrl = "";
+    public String idFrontImgUrl = "";
+    public String ID_BACK_FID = "";
+    public String ID_FRONT_FID = "";
 
 
     @Override
@@ -579,7 +580,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", divorceImgsList);
                 intent.putExtra("title", "离婚证");
-                intent.putExtra("clt_id",guarantorInfo.clt_id);
+                intent.putExtra("clt_id", guarantorInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -596,7 +597,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", resBookList);
                 intent.putExtra("title", "户口本");
-                intent.putExtra("clt_id",guarantorInfo.clt_id);
+                intent.putExtra("clt_id", guarantorInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -643,7 +644,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     System.arraycopy(contacts, 0, result, 0, contacts.length);
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_guarantor_spouse_info_mobile_img.getId()) {
-                    update_guarantor_spouse_info_mobile_edt.setText(result[1].replaceAll(" ",""));
+                    update_guarantor_spouse_info_mobile_edt.setText(result[1].replaceAll(" ", ""));
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_spouse_info_from_income_company_address1_lin.getId()) {
@@ -911,8 +912,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 case "无":
                     break;
             }
-            updateimgUrl(callBack);
-
+            callBack.callBack();
         }
 
 
@@ -996,33 +996,33 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         return false;
     }
 
-    public void updateimgUrl(OnVoidCallBack callBack) {
-        //更新图片
-        if (guarantorInfo.spouse.clt_id == null) {
-            return;
-        }
-
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
-
-            uploadUrl(guarantorInfo.clt_id, callBack);
-
-        }
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
-
-            uploadUrl(guarantorInfo.spouse.clt_id, callBack);
-
-        }
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("离异")) {
-
-            uploadUrl(guarantorInfo.clt_id, callBack);
-
-        }
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
-
-            uploadUrl(guarantorInfo.clt_id, callBack);
-
-        }
-    }
+//    public void updateimgUrl(OnVoidCallBack callBack) {
+//        //更新图片
+//        if (guarantorInfo.spouse.clt_id == null) {
+//            return;
+//        }
+//
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
+//
+//            uploadUrl(guarantorInfo.clt_id, callBack);
+//
+//        }
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
+//
+//            uploadUrl(guarantorInfo.spouse.clt_id, callBack);
+//
+//        }
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+//
+//            uploadUrl(guarantorInfo.clt_id, callBack);
+//
+//        }
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
+//
+//            uploadUrl(guarantorInfo.clt_id, callBack);
+//
+//        }
+//    }
 
     private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
@@ -1030,8 +1030,11 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
-                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    if (TextUtils.isEmpty(divo.objectKey)) {
+                        continue;
+                    }
+                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     divorceFileItem.file_id = divo.objectKey;
                     divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     divorceFileItem.clt_id = clt_id;
@@ -1040,23 +1043,26 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
+                    UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    if (TextUtils.isEmpty(resb.objectKey)) {
+                        continue;
+                    }
                     UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
-                    UploadImgItemBean divo = (UploadImgItemBean) resBookList.get(i);
-                    resBookFileItem.file_id = divo.objectKey;
+                    resBookFileItem.file_id = resb.objectKey;
                     resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET;
                     resBookFileItem.clt_id = clt_id;
                     files.add(resBookFileItem);
                 }
                 break;
             case "已婚":
-                if (!ID_BACK_FID.equals("")) {
+                if (!TextUtils.isEmpty(ID_BACK_FID)) {
                     UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
                     idBackBean.file_id = ID_BACK_FID;
                     idBackBean.label = Constants.FileLabelType.ID_BACK;
                     idBackBean.clt_id = clt_id;
                     files.add(idBackBean);
                 }
-                if (!ID_FRONT_FID.equals("")) {
+                if (!TextUtils.isEmpty(ID_FRONT_FID)) {
                     UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
                     idFrontBean.file_id = ID_FRONT_FID;
                     idFrontBean.label = Constants.FileLabelType.ID_FRONT;
@@ -1079,9 +1085,17 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 }
             });
             callBack.callBack();
-        } else {
-            callBack.callBack();
         }
+        //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
+        else {
+            Intent intent = new Intent(mContext, CommitActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
+    public void requestUpload(String clt_id, OnVoidCallBack onVoidCallBack) {
+        uploadUrl(clt_id, onVoidCallBack);
     }
 }
 

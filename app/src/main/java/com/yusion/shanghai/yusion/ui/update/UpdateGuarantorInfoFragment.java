@@ -24,6 +24,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
@@ -767,7 +768,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
 
     }
 
-    public boolean updateGuarantorinfo() {
+    public void updateGuarantorinfo(OnVoidCallBack callBack) {
         //校验
         if (checkUserInfo()) {
 
@@ -851,10 +852,8 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                 guarantorInfo.house_addr.address1 = update_guarantor_info_house_address1_tv.getText().toString().trim();
                 guarantorInfo.house_addr.address2 = update_guarantor_info_house_address2_tv.getText().toString().trim();
             }
-            return true;
+            callBack.callBack();
         }
-
-        return false;
     }
 
 

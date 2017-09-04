@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +61,10 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         add("无");
     }};
 
-    public static String idBackImgUrl = "";
-    public static String idFrontImgUrl = "";
-    public static String ID_BACK_FID = "";
-    public static String ID_FRONT_FID = "";
+    public String idBackImgUrl = "";
+    public String idFrontImgUrl = "";
+    public String ID_BACK_FID = "";
+    public String ID_FRONT_FID = "";
     public static int START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000;
     public static int UPDATE_INCOME_FROME_INDEX;
     public static int UPDATE_EXTRA_INCOME_FROME_INDEX;
@@ -202,7 +203,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 Intent intent = new Intent(mContext, DocumentActivity.class);
                 intent.putExtra("type", Constants.FileLabelType.ID_BACK);
                 intent.putExtra("role", Constants.PersonType.LENDER_SP);
-                intent.putExtra("ocrResp", ocrResp);
                 intent.putExtra("ocrResp", ocrResp);
                 intent.putExtra("imgUrl", idBackImgUrl);
                 startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
@@ -529,7 +529,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("role", Constants.PersonType.LENDER);
                 intent.putExtra("imgList", divorceImgsList);
                 intent.putExtra("title", "离婚证");
-                intent.putExtra("clt_id",clientInfo.clt_id);
+                intent.putExtra("clt_id", clientInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -546,7 +546,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("imgList", resBookList);
                 intent.putExtra("clt_id", clientInfo.clt_id);
                 intent.putExtra("title", "户口本");
-                intent.putExtra("clt_id",clientInfo.clt_id);
+                intent.putExtra("clt_id", clientInfo.clt_id);
                 startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
             }
         });
@@ -792,56 +792,57 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 case "无":
                     break;
             }
-            updateimgUrl(callBack);
+            callBack.callBack();
+//            updateimgUrl(callBack);
         }
     }
 
     private boolean checkUserInfo() {
         if (update_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
-            if (update_spouse_info_clt_nm_edt.getText().toString().isEmpty()) {
+            if (TextUtils.isEmpty(update_spouse_info_clt_nm_edt.getText().toString())) {
                 Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_gender_tv.getText().toString().isEmpty()) {
+            } else if (TextUtils.isEmpty(update_spouse_info_gender_tv.getText().toString())) {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_mobile_edt.getText().toString().isEmpty()) {
+            } else if (TextUtils.isEmpty(update_spouse_info_mobile_edt.getText().toString())) {
                 Toast.makeText(mContext, "手机号码不能为空", Toast.LENGTH_SHORT).show();
             } else if (!CheckMobileUtil.checkMobile(update_spouse_info_mobile_edt.getText().toString())) {
                 Toast.makeText(mContext, "手机号码有误", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_id_no_edt.getText().toString().isEmpty()) {
+            } else if (TextUtils.isEmpty(update_spouse_info_id_no_edt.getText().toString())) {
                 Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show();
             } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(update_spouse_info_id_no_edt.getText().toString())) {
                 Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_child_count_edt.getText().toString().isEmpty()) {
+            } else if (TextUtils.isEmpty(update_spouse_info_child_count_edt.getText().toString())) {
                 Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
             }//主要工资
-            else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_company_name_edt.getText().toString().isEmpty()) {
+            else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_from_income_company_name_edt.getText().toString())) {
                 Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_company_address_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_from_income_company_address_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_company_address1_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_from_income_company_address1_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_company_address2_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_from_income_company_address2_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_work_position_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_work_position_tv.getText().toString())) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && update_spouse_info_from_income_year_edt.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_from_income_year_edt.getText().toString())) {
                 Toast.makeText(mContext, "工资年收入不能为空", Toast.LENGTH_SHORT).show();
             } //主要自营
-            else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_company_name_edt.getText().toString().isEmpty()) {
+            else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_name_edt.getText().toString())) {
                 Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address1_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address2_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_type_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_type_tv.getText().toString())) {
                 Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && update_spouse_info_from_self_year_edt.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_year_edt.getText().toString())) {
                 Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
             }//主要其他
-            else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && update_spouse_info_from_other_remark_tv.getText().toString().isEmpty()) {
+            else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && TextUtils.isEmpty(update_spouse_info_from_other_remark_tv.getText().toString())) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && update_spouse_info_from_other_year_edt.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && TextUtils.isEmpty(update_spouse_info_from_other_year_edt.getText().toString())) {
                 Toast.makeText(mContext, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("")) {
                 Toast.makeText(mContext, "收入来源不能为空", Toast.LENGTH_SHORT).show();
@@ -849,17 +850,17 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
 
             //额外工资
-            else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_name_edt.getText().toString().isEmpty()) {
+            else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_company_name_edt.getText().toString())) {
                 Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_company_address_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_address1_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_company_address1_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_company_address2_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_company_address2_tv.getText().toString())) {
                 Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_work_position_tv.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_work_position_tv.getText().toString())) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_spouse_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
+            } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_year_edt.getText().toString())) {
                 Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
@@ -869,14 +870,14 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             return true;
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("离异")) {
-            if (update_spouse_info_child_count1_edt.getText().toString().isEmpty()) {
+            if (TextUtils.isEmpty(update_spouse_info_child_count1_edt.getText().toString())) {
                 Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
             }
         }
         if (update_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
-            if (update_spouse_info_child_count2_edt.getText().toString().isEmpty()) {
+            if (TextUtils.isEmpty(update_spouse_info_child_count2_edt.getText().toString())) {
                 Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
@@ -891,8 +892,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
-                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    //如果没有拍照，就不添加该照片
+                    if (TextUtils.isEmpty(divo.objectKey)) {
+                        continue;
+                    }
+                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     divorceFileItem.file_id = divo.objectKey;
                     divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     divorceFileItem.clt_id = clt_id;
@@ -901,8 +906,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
-                    UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    if (TextUtils.isEmpty(resb.objectKey)) {
+                        continue;
+                    }
+                    UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
                     resBookFileItem.file_id = resb.objectKey;
                     resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET;
                     resBookFileItem.clt_id = clt_id;
@@ -911,14 +919,14 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 break;
 
             case "已婚":
-                if (!ID_BACK_FID.equals("")) {
+                if (!TextUtils.isEmpty(ID_BACK_FID)) {
                     UploadFilesUrlReq.FileUrlBean idBackBean = new UploadFilesUrlReq.FileUrlBean();
                     idBackBean.file_id = ID_BACK_FID;
                     idBackBean.label = Constants.FileLabelType.ID_BACK;
                     idBackBean.clt_id = clt_id;
                     files.add(idBackBean);
                 }
-                if (!ID_FRONT_FID.equals("")) {
+                if (!TextUtils.isEmpty(ID_FRONT_FID)) {
                     UploadFilesUrlReq.FileUrlBean idFrontBean = new UploadFilesUrlReq.FileUrlBean();
                     idFrontBean.file_id = ID_FRONT_FID;
                     idFrontBean.label = Constants.FileLabelType.ID_FRONT;
@@ -938,11 +946,14 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     if (code < 0) {
                         return;
                     }
+                    callBack.callBack();
                 }
             });
-            callBack.callBack();
-        } else {
-            callBack.callBack();
+        }
+        //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
+        else {
+            Intent intent = new Intent(mContext, CommitActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -1076,5 +1087,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     break;
             }
         }
+    }
+
+    public void requestUpload(String clt_id, OnVoidCallBack onVoidCallBack) {
+        uploadUrl(clt_id, onVoidCallBack);
     }
 }
