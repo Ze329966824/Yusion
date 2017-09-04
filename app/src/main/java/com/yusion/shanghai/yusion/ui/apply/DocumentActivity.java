@@ -64,9 +64,7 @@ public class DocumentActivity extends BaseActivity {
 
     private boolean isHasImage = false;
     private boolean isEdit = true;
-
     private boolean isFlag = true;
-
     private boolean isClick = false;
     private UploadLabelItemBean mTopItem;
     private TextView errorTv;
@@ -113,7 +111,7 @@ public class DocumentActivity extends BaseActivity {
                 UploadImgItemBean itemBean = imgList.get(0);
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
-                }else {
+                } else {
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
                 }
             }
