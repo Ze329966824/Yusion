@@ -9,17 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -41,9 +37,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 
     private ClientInfo clientInfo;
 
-    private TextView update_spouse_info_marriage_tv;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,23 +47,17 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         getInfo();  //获取配偶信息
 
 
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submit();   //更新配偶信息
-            }
+        findViewById(R.id.submit_img).setOnClickListener(v -> {
+            submit();   //更新配偶信息
         });
     }
 
     private void getInfo() {
-        ProductApi.getClientInfo(this, new GetClientInfoReq(), new OnItemDataCallBack<ClientInfo>() {
-            @Override
-            public void onItemDataCallBack(ClientInfo data) {
-                if (data != null) {
-                    clientInfo = data;
-                    mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
-                }
+        ProductApi.getClientInfo(this, new GetClientInfoReq(), data -> {
+            if (data != null) {
+                clientInfo = data;
+                mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
+                mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
             }
         });
     }
@@ -79,51 +66,33 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private void submit() {
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
-        mUpdateSpouseInfoFragment.updateClientinfo(new OnVoidCallBack() {
-            @Override
-            public void callBack() {
-                ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
-                    @Override
-                    public void onItemDataCallBack(ClientInfo data) {
-                        //已婚状态：上传配偶cltid
-                        if (clientInfo.marriage.equals("已婚")) {
-                            mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
-                                @Override
-                                public void callBack() {
-                                    //上传影像件
-                                    mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
-                                        @Override
-                                        public void callBack() {
-                                            if (data == null) return;
-                                            Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    });
-                                }
-
-                            });
-                        }
-
-                        //其他状态：上传主贷人cltid，不上传右侧影像件
-                        else {
-                            mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
-                                @Override
-                                public void callBack() {
-                                    if (data == null) return;
-                                    Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                        }
-
-
-                    }
+        mUpdateSpouseInfoFragment.updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
+            //已婚状态：上传配偶cltid
+            if (clientInfo.marriage.equals("已婚")) {
+                mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
+                    //上传影像件
+                    mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
+                        if (data == null) return;
+                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
                 });
             }
-        });
+
+            //其他状态：上传主贷人cltid，不上传右侧影像件
+            else {
+                mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
+                    if (data == null) return;
+                    Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            }
+
+
+        }));
     }
 
 
