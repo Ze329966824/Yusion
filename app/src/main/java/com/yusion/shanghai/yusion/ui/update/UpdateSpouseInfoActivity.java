@@ -17,6 +17,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
+import com.yusion.shanghai.yusion.settings.Constants;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -63,7 +64,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 } else {
                     ishaveImgs = false;
                 }
-                mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
+                mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, Constants.PersonType.LENDER_SP);
             }
         });
     }
