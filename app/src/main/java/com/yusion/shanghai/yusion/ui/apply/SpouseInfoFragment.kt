@@ -150,7 +150,6 @@ class SpouseInfoFragment : BaseFragment() {
                             applyActivity.mClientInfo.spouse.major_work_phone_num = spouse_info_from_income_work_phone_num_edt.text.toString()
                         }
                         "自营" -> {
-                            Toast.makeText(mContext, "业务类型", Toast.LENGTH_SHORT).show()
                             applyActivity.mClientInfo.spouse.major_income_type = "自营"
                             applyActivity.mClientInfo.spouse.major_income = spouse_info_from_self_year_edt.text.toString()
                             applyActivity.mClientInfo.spouse.major_busi_type = spouse_info_from_self_type_tv.text.toString()
