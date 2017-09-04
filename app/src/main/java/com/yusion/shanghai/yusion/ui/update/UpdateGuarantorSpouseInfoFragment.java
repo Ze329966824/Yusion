@@ -954,13 +954,12 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 if (code < 0) {
                     return;
                 }
+                callBack.callBack();
             });
-            callBack.callBack();
         }
         //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
         else {
-            Intent intent = new Intent(mContext, CommitActivity.class);
-            startActivity(intent);
+            callBack.callBack();
         }
     }
 

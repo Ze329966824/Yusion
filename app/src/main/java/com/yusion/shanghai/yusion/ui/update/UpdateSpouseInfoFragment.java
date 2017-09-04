@@ -154,7 +154,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         update_spouse_info_work_position_tv = (TextView) view.findViewById(R.id.update_spouse_info_work_position_tv);
         update_spouse_info_from_income_work_phone_num_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_income_work_phone_num_edt);
         update_spouse_info_from_self_year_edt = (EditText) view.findViewById(R.id.update_spouse_info_from_self_year_edt);
-        update_spouse_info_from_self_type_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_self_type_tv);
         update_spouse_info_from_self_company_name_edt = (NoEmptyEditText) view.findViewById(R.id.update_spouse_info_from_self_company_name_edt);
         update_spouse_info_from_self_company_address_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_self_company_address_tv);
         update_spouse_info_from_self_company_address1_tv = (TextView) view.findViewById(R.id.update_spouse_info_from_self_company_address1_tv);
@@ -810,8 +809,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         }
         //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
         else {
-            Intent intent = new Intent(mContext, CommitActivity.class);
-            startActivity(intent);
+            callBack.callBack();
         }
     }
 

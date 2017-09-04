@@ -153,6 +153,7 @@ class SpouseInfoFragment : BaseFragment() {
                             Toast.makeText(mContext, "业务类型", Toast.LENGTH_SHORT).show()
                             applyActivity.mClientInfo.spouse.major_income_type = "自营"
                             applyActivity.mClientInfo.spouse.major_income = spouse_info_from_self_year_edt.text.toString()
+                            applyActivity.mClientInfo.spouse.major_busi_type = spouse_info_from_self_type_tv.text.toString()
                             applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_self_company_name_edt.text.toString()
                             applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                             applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
