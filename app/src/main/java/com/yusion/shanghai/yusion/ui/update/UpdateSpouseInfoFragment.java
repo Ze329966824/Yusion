@@ -61,10 +61,10 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         add("无");
     }};
 
-    public static String idBackImgUrl = "";
-    public static String idFrontImgUrl = "";
-    public static String ID_BACK_FID = "";
-    public static String ID_FRONT_FID = "";
+    public String idBackImgUrl = "";
+    public String idFrontImgUrl = "";
+    public String ID_BACK_FID = "";
+    public String ID_FRONT_FID = "";
     public static int START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000;
     public static int UPDATE_INCOME_FROME_INDEX;
     public static int UPDATE_EXTRA_INCOME_FROME_INDEX;
