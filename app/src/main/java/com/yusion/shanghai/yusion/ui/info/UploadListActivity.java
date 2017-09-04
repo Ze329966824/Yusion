@@ -60,7 +60,6 @@ public class UploadListActivity extends BaseActivity {
     private LinearLayout uploadBottomLin;
     private TextView uploadTv2;
     private TextView uploadTv1;
-    private boolean onlyRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +125,10 @@ public class UploadListActivity extends BaseActivity {
                 }
                 uploadTv2.setText("删除");
                 uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
+                mTopItem.hasImg = imgList.size() > 0;
                 adapter.notifyDataSetChanged();
+
+
                 DelImgsReq req = new DelImgsReq();
                 req.clt_id = mGetIntent.getStringExtra("clt_id");
                 //删除的图片中包括用户拍摄后没有上传到服务器的图片 这个时候没有id
@@ -291,6 +293,7 @@ public class UploadListActivity extends BaseActivity {
 
                 imgList.addAll(toAddList);
                 adapter.notifyItemRangeInserted(adapter.getItemCount(), files.size());
+                mTopItem.hasImg = imgList.size() > 0;
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
@@ -325,7 +328,6 @@ public class UploadListActivity extends BaseActivity {
     }
 
     private void onBack() {
-        imgList = ((ArrayList<UploadImgItemBean>) mGetIntent.getSerializableExtra("imgList"));
         setResult(RESULT_OK, mGetIntent);
         finish();
     }

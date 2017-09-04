@@ -138,10 +138,10 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList resBookList = new ArrayList<UploadImgItemBean>();
-    public static String idBackImgUrl = "";
-    public static String idFrontImgUrl = "";
-    public static String ID_BACK_FID = "";
-    public static String ID_FRONT_FID = "";
+    public String idBackImgUrl = "";
+    public String idFrontImgUrl = "";
+    public String ID_BACK_FID = "";
+    public String ID_FRONT_FID = "";
 
 
     @Override

@@ -31,10 +31,12 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
+import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
@@ -113,7 +115,7 @@ public class DocumentActivity extends BaseActivity {
                 UploadImgItemBean itemBean = imgList.get(0);
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
-                }else {
+                } else {
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
                 }
             }
@@ -223,7 +225,23 @@ public class DocumentActivity extends BaseActivity {
                 mImgObjectKey = "";
 
                 if (mTopItem != null) {
-                    imgList.clear();
+                    if (!TextUtils.isEmpty(imgList.get(0).id)) {
+                        DelImgsReq req = new DelImgsReq();
+                        req.clt_id = mGetIntent.getStringExtra("clt_id");
+                        req.id.add(imgList.get(0).id);
+                        UploadApi.delImgs(DocumentActivity.this, req, new OnCodeAndMsgCallBack() {
+                            @Override
+                            public void callBack(int code, String msg) {
+                                if (code == 0) {
+                                    Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                                    mTopItem.hasImg = false;
+                                    imgList.clear();
+                                }
+                            }
+                        });
+                    }else {
+                        imgList.clear();
+                    }
                 }
 
                 isHasImage = false;
@@ -353,6 +371,7 @@ public class DocumentActivity extends BaseActivity {
                     item.role = mRole;
                     item.type = mType;
                     imgList.add(item);
+                    mTopItem.hasImg = true;
                 }
 
                 Glide.with(this).load(localUrl).into(takePhoto);
@@ -484,6 +503,9 @@ public class DocumentActivity extends BaseActivity {
 
     private void onBack() {
 //        Intent intent = new Intent();
+        if (mTopItem != null) {
+            mTopItem.img_list.get(0).objectKey = mImgObjectKey;
+        }
         mGetIntent.putExtra("objectKey", mImgObjectKey);
         mGetIntent.putExtra("type", mType);
         mGetIntent.putExtra("ocrResp", mOcrResp);
