@@ -52,7 +52,14 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         initView();
 
         getInfo();  //获取配偶信息
-        submit();   //更新配偶信息
+
+
+        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();   //更新配偶信息
+            }
+        });
     }
 
     private void getInfo() {
@@ -68,16 +75,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         });
     }
 
-    private void submit() {
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commit();
-            }
-        });
-    }
 
-    private void commit() {
+    private void submit() {
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
         mUpdateSpouseInfoFragment.updateClientinfo(new OnVoidCallBack() {
@@ -112,7 +111,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                                 @Override
                                 public void callBack() {
                                     if (data == null) return;
-                                    Toast.makeText(UpdateSpouseInfoActivity.this, "离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -134,11 +133,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         mUpdateSpouseInfoFragment = new UpdateSpouseInfoFragment();
         mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdateSpouseInfoFragment);
-
-
         mFragments.add(mUpdateImgsLabelFragment);
-
-
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);

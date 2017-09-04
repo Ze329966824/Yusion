@@ -45,7 +45,13 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
         initTitleBar(this, "担保人配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
         getInfo();  //获取配偶信息
-        submit();   //更新配偶信息
+
+        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();   //更新配偶信息
+            }
+        });
     }
 
     private void getInfo() {
@@ -61,17 +67,8 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
         });
     }
 
+
     private void submit() {
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commit();
-            }
-        });
-    }
-
-
-    private void commit() {
         //上传用户资料
         mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(new OnVoidCallBack() {
             @Override
@@ -102,7 +99,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                                 @Override
                                 public void callBack() {
                                     if (data == null) return;
-                                    Toast.makeText(UpdateGuarantorSpouseInfoActivity.this,"离婚证（户口本）请在担保人人的影像件里查看",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateGuarantorSpouseInfoActivity.this,"提交成功，离婚证（户口本）请在担保人人的影像件里查看",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                                     startActivity(intent);
                                     finish();

@@ -53,20 +53,16 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 
         getInfo();  //获取用户信息
 
-        submit();   //更新用户信息
-
-
-    }
-
-    private void submit() {
         findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commit();
+                submit();   //更新配偶信息
             }
         });
 
+
     }
+
 
     private void getInfo() {
         ProductApi.getClientInfo(this, new GetClientInfoReq(), new OnItemDataCallBack<ClientInfo>() {
@@ -81,18 +77,18 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         });
     }
 
-    public void commit() {
-        //上传影像件
-        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
+    public void submit() {
+        //提交用户资料
+        mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
             @Override
             public void callBack() {
-                //上传用户资料
-                mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
+                ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
                     @Override
-                    public void callBack() {
-                        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+                    public void onItemDataCallBack(ClientInfo data) {
+                        //上传影像件
+                        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
                             @Override
-                            public void onItemDataCallBack(ClientInfo data) {
+                            public void callBack() {
                                 if (data == null) return;
                                 Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
                                 startActivity(intent);
@@ -103,6 +99,28 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                 });
             }
         });
+
+//        //上传影像件
+//        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
+//            @Override
+//            public void callBack() {
+//                //上传用户资料
+//                mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
+//                    @Override
+//                    public void callBack() {
+//                        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
+//                            @Override
+//                            public void onItemDataCallBack(ClientInfo data) {
+//                                if (data == null) return;
+//                                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        });
+//                    }
+//                });
+//            }
+//        });
     }
 
 

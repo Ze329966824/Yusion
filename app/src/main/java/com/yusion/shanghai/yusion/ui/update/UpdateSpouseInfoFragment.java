@@ -952,28 +952,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         }
         //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
         else {
-            switch (marriage){
-                case "已婚":
-                    Intent intent = new Intent(mContext, CommitActivity.class);
-                    startActivity(intent);
-                    break;
-
-
-                case "离异":
-                    Toast.makeText(mContext, "离婚证请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(mContext, CommitActivity.class);
-                    startActivity(intent1);
-                    break;
-
-
-                case "丧偶":
-                    Toast.makeText(mContext, "户口本请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
-                    Intent intent2 = new Intent(mContext, CommitActivity.class);
-                    startActivity(intent2);
-                    break;
-            }
-
-
+            Intent intent = new Intent(mContext, CommitActivity.class);
+            startActivity(intent);
         }
     }
 

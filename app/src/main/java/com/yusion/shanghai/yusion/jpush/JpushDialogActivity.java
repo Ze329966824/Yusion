@@ -70,7 +70,7 @@ public class JpushDialogActivity extends BaseActivity {
             case "login":
                 myApp.clearUserData();
                 if (myApp.isLogin == true) {
-                    if (mobile != YusionApp.MOBILE) {
+                    if (mobile != YusionApp.MOBILE) {  //(mobile == YusionApp.MOBILE
                         new AlertDialog.Builder(JpushDialogActivity.this)
                                 .setCancelable(false)
                                 .setTitle("")
