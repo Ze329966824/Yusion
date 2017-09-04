@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.ui.update;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,13 +23,10 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
-import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
@@ -46,9 +42,8 @@ import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by aa on 2017/8/21.
- */
+import static android.view.View.*;
+
 
 public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
     private List<String> incomelist = new ArrayList<String>() {{
@@ -60,7 +55,6 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         add("工资");
         add("无");
     }};
-    public static int START_FOR_DRIVING_SINGLE_IMG_ACTIVITY = 1000;
     public static int UPDATE_INCOME_FROME_INDEX;
     public static int UPDATE_EXTRA_INCOME_FROME_INDEX;
     public static int UPDATE_MARRIAGE_INDEX;
@@ -136,8 +130,8 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
     private NoEmptyEditText update_guarantor_spouse_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
     private NoEmptyEditText update_guarantor_spouse_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
-    private ArrayList divorceImgsList = new ArrayList<UploadImgItemBean>();
-    private ArrayList resBookList = new ArrayList<UploadImgItemBean>();
+    private ArrayList<UploadImgItemBean> divorceImgsList = new ArrayList<UploadImgItemBean>();
+    private ArrayList<UploadImgItemBean> resBookList = new ArrayList<UploadImgItemBean>();
     public String idBackImgUrl = "";
     public String idFrontImgUrl = "";
     public String ID_BACK_FID = "";
@@ -189,185 +183,135 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         mScrollView = ((NestedScrollView) view.findViewById(R.id.scrollView));
 
         //回到顶部按钮
-        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mScrollView.smoothScrollTo(0, 0);
-            }
-        });
+        view.findViewById(R.id.fab).setOnClickListener(v -> mScrollView.smoothScrollTo(0, 0));
         //选择收入来源
         income_from_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_income_from_lin);
         income_from_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_income_from_tv);
-        income_from_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(incomelist, UPDATE_INCOME_FROME_INDEX,
-                        income_from_lin,
-                        income_from_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_INCOME_FROME_INDEX = selectedIndex;
+        income_from_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(incomelist, UPDATE_INCOME_FROME_INDEX,
+                income_from_lin,
+                income_from_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> {
+                    UPDATE_INCOME_FROME_INDEX = selectedIndex;
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("工资")) {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_from_income_group_lin).setVisibility(View.VISIBLE);
-                                } else {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_from_income_group_lin).setVisibility(View.GONE);
-                                }
+                    if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("工资")) {
+                        view.findViewById(R.id.update_guarantor_spouse_info_from_income_group_lin).setVisibility(VISIBLE);
+                    } else {
+                        view.findViewById(R.id.update_guarantor_spouse_info_from_income_group_lin).setVisibility(GONE);
+                    }
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("自营")) {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_from_self_group_lin).setVisibility(View.VISIBLE);
-                                } else {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_from_self_group_lin).setVisibility(View.GONE);
-                                }
+                    if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("自营")) {
+                        view.findViewById(R.id.update_guarantor_spouse_info_from_self_group_lin).setVisibility(VISIBLE);
+                    } else {
+                        view.findViewById(R.id.update_guarantor_spouse_info_from_self_group_lin).setVisibility(GONE);
+                    }
 
-                                if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("其他")) {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_from_other_group_lin).setVisibility(View.VISIBLE);
-                                } else {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_from_other_group_lin).setVisibility(View.GONE);
-                                }
-                            }
-                        });
-            }
-        });
+                    if (incomelist.get(UPDATE_INCOME_FROME_INDEX).equals("其他")) {
+                        view.findViewById(R.id.update_guarantor_spouse_info_from_other_group_lin).setVisibility(VISIBLE);
+                    } else {
+                        view.findViewById(R.id.update_guarantor_spouse_info_from_other_group_lin).setVisibility(GONE);
+                    }
+                }));
 
         //选择额外收入来源
         update_guarantor_spouse_info_extra_from_income_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin);
         income_extra_from_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_extra_income_from_lin);
         income_extra_from_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_extra_income_from_tv);
-        income_extra_from_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(incomeextarlist,
-                        UPDATE_EXTRA_INCOME_FROME_INDEX,
-                        income_extra_from_lin,
-                        income_extra_from_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_EXTRA_INCOME_FROME_INDEX = selectedIndex;
-                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("工资")) {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(View.VISIBLE);
-                                } else {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
-                                }
-                                if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("无")) {
-                                    view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(View.GONE);
+        income_extra_from_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(incomeextarlist,
+                UPDATE_EXTRA_INCOME_FROME_INDEX,
+                income_extra_from_lin,
+                income_extra_from_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> {
+                    UPDATE_EXTRA_INCOME_FROME_INDEX = selectedIndex;
+                    if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("工资")) {
+                        view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(VISIBLE);
+                    } else {
+                        view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(GONE);
+                    }
+                    if (incomeextarlist.get(UPDATE_EXTRA_INCOME_FROME_INDEX).equals("无")) {
+                        view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_group_lin).setVisibility(GONE);
 
-                                }
-                            }
-                        }
-                );
-            }
-        });
+                    }
+                }
+        ));
         update_guarantor_spouse_info_marriage_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_marriage_group_lin);
         update_guarantor_spouse_info_divorced_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_divorced_group_lin);
         update_guarantor_spouse_info_die_group_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_die_group_lin);
         //选择个人婚姻状态
         update_guarantor_spouse_info_marriage_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_marriage_lin);
         update_guarantor_spouse_info_marriage_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_marriage_tv);
-        update_guarantor_spouse_info_marriage_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.marriage_key,
-                        UPDATE_MARRIAGE_INDEX,
-                        update_guarantor_spouse_info_marriage_lin,
-                        update_guarantor_spouse_info_marriage_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_MARRIAGE_INDEX = selectedIndex;
+        update_guarantor_spouse_info_marriage_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.marriage_key,
+                UPDATE_MARRIAGE_INDEX,
+                update_guarantor_spouse_info_marriage_lin,
+                update_guarantor_spouse_info_marriage_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> {
+                    UPDATE_MARRIAGE_INDEX = selectedIndex;
 
-                                if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
-                                    update_guarantor_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
-                                } else {
-                                    update_guarantor_spouse_info_marriage_group_lin.setVisibility(View.GONE);
-                                }
+                    if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
+                        update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);
+                    } else {
+                        update_guarantor_spouse_info_marriage_group_lin.setVisibility(GONE);
+                    }
 
-                                if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("离异")) {
-                                    update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
-                                } else {
-                                    update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.GONE);
-                                }
+                    if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("离异")) {
+                        update_guarantor_spouse_info_divorced_group_lin.setVisibility(VISIBLE);
+                    } else {
+                        update_guarantor_spouse_info_divorced_group_lin.setVisibility(GONE);
+                    }
 
-                                if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("丧偶")) {
-                                    update_guarantor_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
-                                } else {
-                                    update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
-                                }
-                            }
-                        });
-            }
-        });
+                    if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("丧偶")) {
+                        update_guarantor_spouse_info_die_group_lin.setVisibility(VISIBLE);
+                    } else {
+                        update_guarantor_spouse_info_die_group_lin.setVisibility(GONE);
+                    }
+                }));
 
         //配偶身份证人像面
         update_guarantor_spouse_info_id_back_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_id_back_lin);
         update_guarantor_spouse_info_id_back_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_id_back_tv);
-        update_guarantor_spouse_info_id_back_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), DocumentActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.ID_BACK);
-                intent.putExtra("role", Constants.PersonType.LENDER_SP);
-                intent.putExtra("ocrResp", ocrResp);
-                intent.putExtra("imgUrl", idBackImgUrl);
-                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
-            }
+        update_guarantor_spouse_info_id_back_lin.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), DocumentActivity.class);
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
+            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+            intent.putExtra("ocrResp", ocrResp);
+            intent.putExtra("imgUrl", idBackImgUrl);
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
         //配偶身份证国徽面
         update_guarantor_spouse_info_id_front_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_id_front_lin);
         update_guarantor_spouse_info_id_front_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_id_front_tv);
-        update_guarantor_spouse_info_id_front_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, DocumentActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
-                intent.putExtra("role", Constants.PersonType.LENDER_SP);
-                intent.putExtra("imgUrl", idFrontImgUrl);
-                startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
-            }
+        update_guarantor_spouse_info_id_front_lin.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, DocumentActivity.class);
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
+            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+            intent.putExtra("imgUrl", idFrontImgUrl);
+            startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
 
         //选择性别
         update_guarantor_spouse_info_gender_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_gender_lin);
         update_guarantor_spouse_info_gender_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_gender_tv);
-        update_guarantor_spouse_info_gender_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.gender_list_key,
-                        UPDATE_SEX_INDEX,
-                        update_guarantor_spouse_info_gender_lin,
-                        update_guarantor_spouse_info_gender_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_SEX_INDEX = selectedIndex;
-                            }
-                        }
-                );
-            }
-        });
+        update_guarantor_spouse_info_gender_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.gender_list_key,
+                UPDATE_SEX_INDEX,
+                update_guarantor_spouse_info_gender_lin,
+                update_guarantor_spouse_info_gender_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> UPDATE_SEX_INDEX = selectedIndex
+        ));
 
         //工资 公司地址
         update_guarantor_spouse_info_from_income_company_address_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_from_income_company_address_lin);
         update_guarantor_spouse_info_from_income_company_address_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_from_income_company_address_tv);
-        update_guarantor_spouse_info_from_income_company_address_lin.setOnClickListener(new View.OnClickListener() {
+        update_guarantor_spouse_info_from_income_company_address_lin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 WheelViewUtil.showCityWheelView(getClass().getSimpleName(),
                         update_guarantor_spouse_info_from_income_company_address_lin,
                         update_guarantor_spouse_info_from_income_company_address_tv,
                         "请选择所在地区",
-                        new WheelViewUtil.OnCitySubmitCallBack() {
-                            @Override
-                            public void onCitySubmitCallBack(View clickedView, String city) {
-                                update_guarantor_spouse_info_from_income_company_address1_tv.setText("");
-                            }
-                        }
+                        (clickedView, city) -> update_guarantor_spouse_info_from_income_company_address1_tv.setText("")
                 );
             }
         });
@@ -375,98 +319,64 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         //工资 详细地址
         update_guarantor_spouse_info_from_income_company_address1_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_from_income_company_address1_lin);
         update_guarantor_spouse_info_from_income_company_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_from_income_company_address1_tv);
-        update_guarantor_spouse_info_from_income_company_address1_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (update_guarantor_spouse_info_from_income_company_address_tv != null) {
-                    update_guarantor_spouse_info_from_income_company_address1_tv.setEnabled(true);
-                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = update_guarantor_spouse_info_from_income_company_address1_lin.getId();
-                    requestPOI(update_guarantor_spouse_info_from_income_company_address_tv.getText().toString());
-                } else {
-                    update_guarantor_spouse_info_from_income_company_address1_tv.setEnabled(false);
-                }
+        update_guarantor_spouse_info_from_income_company_address1_lin.setOnClickListener(v -> {
+            if (update_guarantor_spouse_info_from_income_company_address_tv != null) {
+                update_guarantor_spouse_info_from_income_company_address1_tv.setEnabled(true);
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = update_guarantor_spouse_info_from_income_company_address1_lin.getId();
+                requestPOI(update_guarantor_spouse_info_from_income_company_address_tv.getText().toString());
+            } else {
+                update_guarantor_spouse_info_from_income_company_address1_tv.setEnabled(false);
             }
         });
 
         // 工资 选择职务
         update_guarantor_spouse_info_from_income_work_position_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_from_income_work_position_lin);
         update_guarantor_spouse_info_work_position_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_work_position_tv);
-        update_guarantor_spouse_info_from_income_work_position_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
-                        UPDATE_FROM_INCOME_WORK_POSITION_INDEX,
-                        update_guarantor_spouse_info_from_income_work_position_lin,
-                        update_guarantor_spouse_info_work_position_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_FROM_INCOME_WORK_POSITION_INDEX = selectedIndex;
-                            }
-                        });
-            }
-        });
+        update_guarantor_spouse_info_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
+                UPDATE_FROM_INCOME_WORK_POSITION_INDEX,
+                update_guarantor_spouse_info_from_income_work_position_lin,
+                update_guarantor_spouse_info_work_position_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> UPDATE_FROM_INCOME_WORK_POSITION_INDEX = selectedIndex));
 
         //自营 业务类型
         update_guarantor_spouse_info_from_self_type_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_from_self_type_lin);
         update_guarantor_spouse_info_from_self_type_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_from_self_type_tv);
-        update_guarantor_spouse_info_from_self_type_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.busi_type_list_key,
-                        UPDATE_FROM_SELF_TYPE_INDEX,
-                        update_guarantor_spouse_info_from_self_type_lin,
-                        update_guarantor_spouse_info_from_self_type_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_FROM_SELF_TYPE_INDEX = selectedIndex;
-                                if (YusionApp.CONFIG_RESP.busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
-                                    EditText editText = new EditText(mContext);
-                                    new AlertDialog.Builder(mContext)
-                                            .setTitle("请输入业务类型")
-                                            .setView(editText)
-                                            .setCancelable(false)
-                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    update_guarantor_spouse_info_from_self_type_tv.setText(editText.getText());
-                                                    UPDATE_FROM_SELF_TYPE_INDEX = 0;
-                                                    dialog.dismiss();
-                                                }
-                                            })
-                                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            }).show();
-                                }
+        update_guarantor_spouse_info_from_self_type_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.busi_type_list_key,
+                UPDATE_FROM_SELF_TYPE_INDEX,
+                update_guarantor_spouse_info_from_self_type_lin,
+                update_guarantor_spouse_info_from_self_type_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> {
+                    UPDATE_FROM_SELF_TYPE_INDEX = selectedIndex;
+                    if (YusionApp.CONFIG_RESP.busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
+                        EditText editText = new EditText(mContext);
+                        new AlertDialog.Builder(mContext)
+                                .setTitle("请输入业务类型")
+                                .setView(editText)
+                                .setCancelable(false)
+                                .setPositiveButton("确定", (dialog, which) -> {
+                                    update_guarantor_spouse_info_from_self_type_tv.setText(editText.getText());
+                                    UPDATE_FROM_SELF_TYPE_INDEX = 0;
+                                    dialog.dismiss();
+                                })
+                                .setNegativeButton("取消", (dialog, which) -> dialog.dismiss()).show();
+                    }
 
-                            }
-                        }
-                );
-            }
-        });
+                }
+        ));
 
         //自营 单位地址
         update_guarantor_spouse_info_from_self_company_address_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_from_self_company_address_lin);
         update_guarantor_spouse_info_from_self_company_address_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_from_self_company_address_tv);
-        update_guarantor_spouse_info_from_self_company_address_lin.setOnClickListener(new View.OnClickListener() {
+        update_guarantor_spouse_info_from_self_company_address_lin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 WheelViewUtil.showCityWheelView(getClass().getSimpleName(),
                         update_guarantor_spouse_info_from_self_company_address_lin,
                         update_guarantor_spouse_info_from_self_company_address_tv,
                         "请选择所在地区",
-                        new WheelViewUtil.OnCitySubmitCallBack() {
-                            @Override
-                            public void onCitySubmitCallBack(View clickedView, String city) {
-                                update_guarantor_spouse_info_from_self_company_address1_tv.setText("");
-                            }
-                        }
+                        (clickedView, city) -> update_guarantor_spouse_info_from_self_company_address1_tv.setText("")
                 );
             }
         });
@@ -474,35 +384,27 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         //自营 详细地址
         update_guarantor_spouse_info_from_self_company_address1_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_from_self_company_address1_lin);
         update_guarantor_spouse_info_from_self_company_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_from_self_company_address1_tv);
-        update_guarantor_spouse_info_from_self_company_address1_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (update_guarantor_spouse_info_from_self_company_address_tv != null) {
-                    update_guarantor_spouse_info_from_self_company_address1_tv.setEnabled(true);
-                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = update_guarantor_spouse_info_from_self_company_address1_lin.getId();
-                    requestPOI(update_guarantor_spouse_info_from_self_company_address_tv.getText().toString());
-                } else {
-                    update_guarantor_spouse_info_from_self_company_address1_tv.setEnabled(false);
-                }
+        update_guarantor_spouse_info_from_self_company_address1_lin.setOnClickListener(v -> {
+            if (update_guarantor_spouse_info_from_self_company_address_tv != null) {
+                update_guarantor_spouse_info_from_self_company_address1_tv.setEnabled(true);
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = update_guarantor_spouse_info_from_self_company_address1_lin.getId();
+                requestPOI(update_guarantor_spouse_info_from_self_company_address_tv.getText().toString());
+            } else {
+                update_guarantor_spouse_info_from_self_company_address1_tv.setEnabled(false);
             }
         });
 
         //额外 公司地址
         update_guarantor_spouse_info_extra_from_income_company_address_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_company_address_lin);
         update_guarantor_spouse_info_extra_from_income_company_address_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_company_address_tv);
-        update_guarantor_spouse_info_extra_from_income_company_address_lin.setOnClickListener(new View.OnClickListener() {
+        update_guarantor_spouse_info_extra_from_income_company_address_lin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 WheelViewUtil.showCityWheelView(getClass().getSimpleName(),
                         update_guarantor_spouse_info_extra_from_income_company_address_lin,
                         update_guarantor_spouse_info_extra_from_income_company_address_tv,
                         "请选择所在地区",
-                        new WheelViewUtil.OnCitySubmitCallBack() {
-                            @Override
-                            public void onCitySubmitCallBack(View clickedView, String city) {
-                                update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText("");
-                            }
-                        }
+                        (clickedView, city) -> update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText("")
                 );
             }
         });
@@ -536,78 +438,56 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         //额外 详细地址
         update_guarantor_spouse_info_extra_from_income_company_address1_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_company_address1_lin);
         update_guarantor_spouse_info_extra_from_income_company_address1_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_company_address1_tv);
-        update_guarantor_spouse_info_extra_from_income_company_address1_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (update_guarantor_spouse_info_extra_from_income_company_address_tv != null) {
-                    update_guarantor_spouse_info_extra_from_income_company_address1_tv.setEnabled(true);
-                    CURRENT_CLICKED_VIEW_FOR_ADDRESS = update_guarantor_spouse_info_extra_from_income_company_address1_lin.getId();
-                    requestPOI(update_guarantor_spouse_info_extra_from_income_company_address_tv.getText().toString());
-                } else {
-                    update_guarantor_spouse_info_extra_from_income_company_address1_tv.setEnabled(false);
-                }
+        update_guarantor_spouse_info_extra_from_income_company_address1_lin.setOnClickListener(v -> {
+            if (update_guarantor_spouse_info_extra_from_income_company_address_tv != null) {
+                update_guarantor_spouse_info_extra_from_income_company_address1_tv.setEnabled(true);
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = update_guarantor_spouse_info_extra_from_income_company_address1_lin.getId();
+                requestPOI(update_guarantor_spouse_info_extra_from_income_company_address_tv.getText().toString());
+            } else {
+                update_guarantor_spouse_info_extra_from_income_company_address1_tv.setEnabled(false);
             }
         });
 
         // 额外 选择职务
         update_guarantor_spouse_info_extra_from_income_work_position_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_extra_from_income_work_position_lin);
         update_guarantor_spouse_info_extra_from_income_work_position_tv = (TextView) view.findViewById(R.id.personal_extra_info_work_position_tv);
-        update_guarantor_spouse_info_extra_from_income_work_position_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
-                        UPDATE_FROM_EXTRA_WORK_POSITION_INDEX,
-                        update_guarantor_spouse_info_extra_from_income_work_position_lin,
-                        update_guarantor_spouse_info_extra_from_income_work_position_tv,
-                        "请选择",
-                        new WheelViewUtil.OnSubmitCallBack() {
-                            @Override
-                            public void onSubmitCallBack(View clickedView, int selectedIndex) {
-                                UPDATE_FROM_EXTRA_WORK_POSITION_INDEX = selectedIndex;
-                            }
-                        });
-            }
-        });
+        update_guarantor_spouse_info_extra_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
+                UPDATE_FROM_EXTRA_WORK_POSITION_INDEX,
+                update_guarantor_spouse_info_extra_from_income_work_position_lin,
+                update_guarantor_spouse_info_extra_from_income_work_position_tv,
+                "请选择",
+                (clickedView, selectedIndex) -> UPDATE_FROM_EXTRA_WORK_POSITION_INDEX = selectedIndex));
 
         //法院判决书
         update_guarantor_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_divorced_lin);
         update_guarantor_spouse_info_divorced_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_divorced_tv);
-        update_guarantor_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, UploadListActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
-                intent.putExtra("role", Constants.PersonType.LENDER);
-                intent.putExtra("imgList", divorceImgsList);
-                intent.putExtra("title", "离婚证");
-                intent.putExtra("clt_id", guarantorInfo.clt_id);
-                startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
-            }
+        update_guarantor_spouse_info_divorced_lin.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, UploadListActivity.class);
+            intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
+            intent.putExtra("role", Constants.PersonType.LENDER);
+            intent.putExtra("imgList", divorceImgsList);
+            intent.putExtra("title", "离婚证");
+            intent.putExtra("clt_id", guarantorInfo.clt_id);
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
         });
 
 
         //户口本
         update_guarantor_spouse_info_register_addr_lin = (LinearLayout) view.findViewById(R.id.update_guarantor_spouse_info_register_addr_lin);
         update_guarantor_spouse_info_register_addr_tv = (TextView) view.findViewById(R.id.update_guarantor_spouse_info_register_addr_tv);
-        update_guarantor_spouse_info_register_addr_lin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, UploadListActivity.class);
-                intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
-                intent.putExtra("role", Constants.PersonType.LENDER);
-                intent.putExtra("imgList", resBookList);
-                intent.putExtra("title", "户口本");
-                intent.putExtra("clt_id", guarantorInfo.clt_id);
-                startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
-            }
+        update_guarantor_spouse_info_register_addr_lin.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, UploadListActivity.class);
+            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
+            intent.putExtra("role", Constants.PersonType.LENDER);
+            intent.putExtra("imgList", resBookList);
+            intent.putExtra("title", "户口本");
+            intent.putExtra("clt_id", guarantorInfo.clt_id);
+            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
         });
         update_guarantor_spouse_info_mobile_img = (ImageView) view.findViewById(R.id.update_guarantor_spouse_info_mobile_img);
-        update_guarantor_spouse_info_mobile_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CURRENT_CLICKED_VIEW_FOR_CONTACT = update_guarantor_spouse_info_mobile_img.getId();
-                selectContact();
-            }
+        update_guarantor_spouse_info_mobile_img.setOnClickListener(v -> {
+            CURRENT_CLICKED_VIEW_FOR_CONTACT = update_guarantor_spouse_info_mobile_img.getId();
+            selectContact();
         });
         update_guarantor_spouse_info_mobile_edt = (EditText) view.findViewById(R.id.update_guarantor_spouse_info_mobile_edt);
         return view;
@@ -689,7 +569,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
             } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
                 switch (data.getStringExtra("type")) {
                     case Constants.FileLabelType.RES_BOOKLET:
-                        resBookList = (ArrayList) data.getSerializableExtra("imgList");
+                        resBookList = (ArrayList<UploadImgItemBean>) data.getSerializableExtra("imgList");
                         if (resBookList.size() > 0) {
                             update_guarantor_spouse_info_register_addr_tv.setText("已上传");
                             update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
@@ -699,7 +579,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                         }
                         break;
                     case Constants.FileLabelType.MARRIAGE_PROOF:
-                        divorceImgsList = (ArrayList) data.getSerializableExtra("imgList");
+                        divorceImgsList = (ArrayList<UploadImgItemBean>) data.getSerializableExtra("imgList");
                         if (divorceImgsList.size() > 0) {
                             update_guarantor_spouse_info_divorced_tv.setText("已上传");
                             update_guarantor_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
@@ -741,7 +621,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             idFrontImgUrl = resp.list.get(0).s_url;
                         }
                     });
-                    update_guarantor_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
+                    update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);
                     update_guarantor_spouse_info_clt_nm_edt.setText(guarantorInfo.spouse.clt_nm);
                     update_guarantor_spouse_info_id_no_edt.setText(guarantorInfo.spouse.id_no);
                     update_guarantor_spouse_info_gender_tv.setText(guarantorInfo.spouse.gender);
@@ -751,7 +631,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     //判断主要收入类型
                     switch (guarantorInfo.spouse.major_income_type) {
                         case "工资":
-                            update_guarantor_spouse_info_from_income_group_lin.setVisibility(View.VISIBLE);
+                            update_guarantor_spouse_info_from_income_group_lin.setVisibility(VISIBLE);
                             update_guarantor_spouse_info_from_income_year_edt.setText(guarantorInfo.spouse.major_income);
                             update_guarantor_spouse_info_from_income_company_name_edt.setText(guarantorInfo.spouse.major_company_name);
                             if (!guarantorInfo.spouse.major_company_addr.province.equals("")) {
@@ -765,7 +645,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_from_income_work_phone_num_edt.setText(guarantorInfo.spouse.major_work_phone_num);
                             break;
                         case "自营":
-                            update_guarantor_spouse_info_from_self_group_lin.setVisibility(View.VISIBLE);
+                            update_guarantor_spouse_info_from_self_group_lin.setVisibility(VISIBLE);
                             update_guarantor_spouse_info_from_self_year_edt.setText(guarantorInfo.spouse.major_income);
                             update_guarantor_spouse_info_from_self_type_tv.setText(guarantorInfo.spouse.major_busi_type);
                             update_guarantor_spouse_info_from_self_company_name_edt.setText(guarantorInfo.spouse.major_company_name);
@@ -778,7 +658,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_from_self_company_address2_tv.setText(guarantorInfo.spouse.major_company_addr.address2);
                             break;
                         case "其他":
-                            update_guarantor_spouse_info_from_other_group_lin.setVisibility(View.VISIBLE);
+                            update_guarantor_spouse_info_from_other_group_lin.setVisibility(VISIBLE);
                             update_guarantor_spouse_info_from_other_year_edt.setText(guarantorInfo.spouse.major_income);
                             update_guarantor_spouse_info_from_other_remark_tv.setText(guarantorInfo.spouse.major_remark);
                             break;
@@ -788,7 +668,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                     //判断额外收入类型
                     switch (guarantorInfo.spouse.extra_income_type) {
                         case "工资":
-                            update_guarantor_spouse_info_extra_from_income_group_lin.setVisibility(View.VISIBLE);
+                            update_guarantor_spouse_info_extra_from_income_group_lin.setVisibility(VISIBLE);
                             update_guarantor_spouse_info_extra_from_income_year_edt.setText(guarantorInfo.spouse.extra_income);
                             update_guarantor_spouse_info_extra_from_income_company_name_edt.setText(guarantorInfo.spouse.extra_company_name);
                             if (!guarantorInfo.spouse.extra_company_addr.province.equals("")) {
@@ -802,40 +682,34 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_extra_from_income_work_phone_num_edt.setText(guarantorInfo.spouse.extra_work_phone_num);
                             break;
                         case "无":
-                            update_guarantor_spouse_info_extra_from_income_group_lin.setVisibility(View.GONE);
+                            update_guarantor_spouse_info_extra_from_income_group_lin.setVisibility(GONE);
                     }
                     break;
                 case "离异":
                     ListImgsReq req3 = new ListImgsReq();
                     req3.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     req3.clt_id = data.clt_id;
-                    UploadApi.listImgs(mContext, req3, new OnItemDataCallBack<ListImgsResp>() {
-                        @Override
-                        public void onItemDataCallBack(ListImgsResp resp) {
-                            if (resp.list.size() != 0) {
-                                update_guarantor_spouse_info_divorced_tv.setText("已上传");
-                                update_guarantor_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
-                                divorceImgsList = (ArrayList) resp.list;
-                            }
+                    UploadApi.listImgs(mContext, req3, resp -> {
+                        if (resp.list.size() != 0) {
+                            update_guarantor_spouse_info_divorced_tv.setText("已上传");
+                            update_guarantor_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
+                            divorceImgsList = (ArrayList<UploadImgItemBean>) resp.list;
                         }
                     });
-                    update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
+                    update_guarantor_spouse_info_divorced_group_lin.setVisibility(VISIBLE);
                     break;
                 case "丧偶":
                     ListImgsReq req4 = new ListImgsReq();
                     req4.label = Constants.FileLabelType.RES_BOOKLET;
                     req4.clt_id = data.clt_id;
-                    UploadApi.listImgs(mContext, req4, new OnItemDataCallBack<ListImgsResp>() {
-                        @Override
-                        public void onItemDataCallBack(ListImgsResp resp) {
-                            if (resp.list.size() != 0) {
-                                update_guarantor_spouse_info_register_addr_tv.setText("已上传");
-                                update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
-                                resBookList = (ArrayList) resp.list;
-                            }
+                    UploadApi.listImgs(mContext, req4, resp -> {
+                        if (resp.list.size() != 0) {
+                            update_guarantor_spouse_info_register_addr_tv.setText("已上传");
+                            update_guarantor_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
+                            resBookList = (ArrayList<UploadImgItemBean>) resp.list;
                         }
                     });
-                    update_guarantor_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
+                    update_guarantor_spouse_info_die_group_lin.setVisibility(VISIBLE);
                     break;
             }
         }
@@ -1025,12 +899,12 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
 //    }
 
     private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
-        ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
+        ArrayList<UploadFilesUrlReq.FileUrlBean> files = new ArrayList<>();
         String marriage = update_guarantor_spouse_info_marriage_tv.getText().toString();
         switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
-                    UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    UploadImgItemBean divo = divorceImgsList.get(i);
                     if (TextUtils.isEmpty(divo.objectKey)) {
                         continue;
                     }
@@ -1043,7 +917,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
-                    UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    UploadImgItemBean resb = resBookList.get(i);
                     if (TextUtils.isEmpty(resb.objectKey)) {
                         continue;
                     }
@@ -1076,12 +950,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "");
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "");
         if (files.size() > 0) {
-            UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, new OnCodeAndMsgCallBack() {
-                @Override
-                public void callBack(int code, String msg) {
-                    if (code < 0) {
-                        return;
-                    }
+            UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, (code, msg) -> {
+                if (code < 0) {
+                    return;
                 }
             });
             callBack.callBack();

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,8 +15,6 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -46,23 +43,17 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
         initView();
         getInfo();  //获取配偶信息
 
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submit();   //更新配偶信息
-            }
+        findViewById(R.id.submit_img).setOnClickListener(v -> {
+            submit();   //更新配偶信息
         });
     }
 
     private void getInfo() {
-        ProductApi.getGuarantorInfo(this, new GetGuarantorInfoReq(), new OnItemDataCallBack<GuarantorInfo>() {
-            @Override
-            public void onItemDataCallBack(GuarantorInfo data) {
-                if (data != null) {
-                    guarantorInfo = data;
-                    mUpdateGuarantorSpouseInfoFragment.getGuarantorinfo(guarantorInfo);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.spouse.clt_id, "lender");
-                }
+        ProductApi.getGuarantorInfo(this, new GetGuarantorInfoReq(), data -> {
+            if (data != null) {
+                guarantorInfo = data;
+                mUpdateGuarantorSpouseInfoFragment.getGuarantorinfo(guarantorInfo);
+                mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.spouse.clt_id, "lender");
             }
         });
     }
@@ -70,47 +61,30 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 
     private void submit() {
         //上传用户资料
-        mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(new OnVoidCallBack() {
-            @Override
-            public void callBack() {
-                ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
-                    @Override
-                    public void onItemDataCallBack(GuarantorInfo data) {
-                        if(guarantorInfo.marriage.equals("已婚")) {
-                            mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
-                                @Override
-                                public void callBack() {
-                                    //上传影像件
-                                    mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
-                                        @Override
-                                        public void callBack() {
-                                            if (data == null) return;
-                                            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        else{
-                            mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.clt_id,new OnVoidCallBack(){
-                                @Override
-                                public void callBack() {
-                                    if (data == null) return;
-                                    Toast.makeText(UpdateGuarantorSpouseInfoActivity.this,"提交成功，离婚证（户口本）请在担保人人的影像件里查看",Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                        }
-
-                    }
+        mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, data -> {
+            if(guarantorInfo.marriage.equals("已婚")) {
+                mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.spouse.clt_id, () -> {
+                    //上传影像件
+                    mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, () -> {
+                        if (data == null) return;
+                        Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
                 });
             }
-        });
+
+            else{
+                mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.clt_id, () -> {
+                    if (data == null) return;
+                    Toast.makeText(UpdateGuarantorSpouseInfoActivity.this,"提交成功，离婚证（户口本）请在担保人人的影像件里查看",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            }
+
+        }));
 
     }
 

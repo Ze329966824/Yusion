@@ -8,17 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.EditText;
+
 import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -40,7 +37,6 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private String[] mTabTitle = {"个人资料", "影像件"};
 
     private ClientInfo clientInfo;
-    public ImageView submit_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +49,8 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 
         getInfo();  //获取用户信息
 
-        findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submit();   //更新配偶信息
-            }
+        findViewById(R.id.submit_img).setOnClickListener(v -> {
+            submit();   //更新配偶信息
         });
 
 
@@ -65,40 +58,26 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 
 
     private void getInfo() {
-        ProductApi.getClientInfo(this, new GetClientInfoReq(), new OnItemDataCallBack<ClientInfo>() {
-            @Override
-            public void onItemDataCallBack(ClientInfo data) {
-                if (data != null) {
-                    clientInfo = data;
-                    mUpdatePersonalInfoFragment.getClientinfo(clientInfo);
-                    mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id, "lender");
-                }
+        ProductApi.getClientInfo(this, new GetClientInfoReq(), data -> {
+            if (data != null) {
+                clientInfo = data;
+                mUpdatePersonalInfoFragment.getClientinfo(clientInfo);
+                mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.clt_id, "lender");
             }
         });
     }
 
     public void submit() {
         //提交用户资料
-        mUpdatePersonalInfoFragment.updateClientinfo(new OnVoidCallBack() {
-            @Override
-            public void callBack() {
-                ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
-                    @Override
-                    public void onItemDataCallBack(ClientInfo data) {
-                        //上传影像件
-                        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
-                            @Override
-                            public void callBack() {
-                                if (data == null) return;
-                                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                    }
-                });
-            }
-        });
+        mUpdatePersonalInfoFragment.updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+            //上传影像件
+            mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, () -> {
+                if (data == null) return;
+                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        }));
 
 //        //上传影像件
 //        mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, new OnVoidCallBack() {
