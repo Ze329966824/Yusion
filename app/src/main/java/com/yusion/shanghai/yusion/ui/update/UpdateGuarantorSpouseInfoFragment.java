@@ -996,33 +996,33 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         return false;
     }
 
-    public void updateimgUrl(OnVoidCallBack callBack) {
-        //更新图片
-        if (guarantorInfo.spouse.clt_id == null) {
-            return;
-        }
-
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
-
-            uploadUrl(guarantorInfo.clt_id, callBack);
-
-        }
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
-
-            uploadUrl(guarantorInfo.spouse.clt_id, callBack);
-
-        }
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("离异")) {
-
-            uploadUrl(guarantorInfo.clt_id, callBack);
-
-        }
-        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
-
-            uploadUrl(guarantorInfo.clt_id, callBack);
-
-        }
-    }
+//    public void updateimgUrl(OnVoidCallBack callBack) {
+//        //更新图片
+//        if (guarantorInfo.spouse.clt_id == null) {
+//            return;
+//        }
+//
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("未婚")) {
+//
+//            uploadUrl(guarantorInfo.clt_id, callBack);
+//
+//        }
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("已婚")) {
+//
+//            uploadUrl(guarantorInfo.spouse.clt_id, callBack);
+//
+//        }
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("离异")) {
+//
+//            uploadUrl(guarantorInfo.clt_id, callBack);
+//
+//        }
+//        if (update_guarantor_spouse_info_marriage_tv.getText().toString().equals("丧偶")) {
+//
+//            uploadUrl(guarantorInfo.clt_id, callBack);
+//
+//        }
+//    }
 
     private void uploadUrl(String clt_id, OnVoidCallBack callBack) {
         ArrayList files = new ArrayList<UploadFilesUrlReq.FileUrlBean>();
@@ -1030,8 +1030,11 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
         switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
-                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    if(TextUtils.isEmpty(divo.objectKey)){
+                        continue;
+                    }
+                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     divorceFileItem.file_id = divo.objectKey;
                     divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     divorceFileItem.clt_id = clt_id;
@@ -1040,9 +1043,12 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
+                    UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    if (TextUtils.isEmpty(resb.objectKey)) {
+                        continue;
+                    }
                     UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
-                    UploadImgItemBean divo = (UploadImgItemBean) resBookList.get(i);
-                    resBookFileItem.file_id = divo.objectKey;
+                    resBookFileItem.file_id = resb.objectKey;
                     resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET;
                     resBookFileItem.clt_id = clt_id;
                     files.add(resBookFileItem);
@@ -1080,7 +1086,9 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
             });
             callBack.callBack();
         } else {
-            callBack.callBack();
+//            Toast.makeText(mContext, "离婚证（户口本）请在担保人的影像件里查看", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext, CommitActivity.class);
+            startActivity(intent);
         }
     }
 

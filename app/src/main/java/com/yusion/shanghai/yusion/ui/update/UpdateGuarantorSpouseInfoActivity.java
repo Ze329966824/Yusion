@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
@@ -78,21 +79,37 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                 ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
                     @Override
                     public void onItemDataCallBack(GuarantorInfo data) {
-                        mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.spouse.clt_id,new OnVoidCallBack(){
-                            @Override
-                            public void callBack() {
-                                //上传影像件
-                                mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
-                                    @Override
-                                    public void callBack() {
-                                        if (data == null) return;
-                                        Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                });
-                            }
-                        });
+                        if(guarantorInfo.marriage.equals("已婚")) {
+                            mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
+                                @Override
+                                public void callBack() {
+                                    //上传影像件
+                                    mUpdateImgsLabelFragment.requestUpload(guarantorInfo.spouse.clt_id, new OnVoidCallBack() {
+                                        @Override
+                                        public void callBack() {
+                                            if (data == null) return;
+                                            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        else{
+                            mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.clt_id,new OnVoidCallBack(){
+                                @Override
+                                public void callBack() {
+                                    if (data == null) return;
+                                    Toast.makeText(UpdateGuarantorSpouseInfoActivity.this,"离婚证（户口本）请在担保人人的影像件里查看",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                        }
+
                     }
                 });
             }

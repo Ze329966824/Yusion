@@ -204,7 +204,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 intent.putExtra("type", Constants.FileLabelType.ID_BACK);
                 intent.putExtra("role", Constants.PersonType.LENDER_SP);
                 intent.putExtra("ocrResp", ocrResp);
-                intent.putExtra("ocrResp", ocrResp);
                 intent.putExtra("imgUrl", idBackImgUrl);
                 startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
             }
@@ -893,8 +892,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         switch (marriage) {
             case "离异":
                 for (int i = 0; i < divorceImgsList.size(); i++) {
-                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean divo = (UploadImgItemBean) divorceImgsList.get(i);
+                    //如果没有拍照，就不添加该照片
+                    if (TextUtils.isEmpty(divo.objectKey)) {
+                        continue;
+                    }
+                    UploadFilesUrlReq.FileUrlBean divorceFileItem = new UploadFilesUrlReq.FileUrlBean();
                     divorceFileItem.file_id = divo.objectKey;
                     divorceFileItem.label = Constants.FileLabelType.MARRIAGE_PROOF;
                     divorceFileItem.clt_id = clt_id;
@@ -903,8 +906,11 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 break;
             case "丧偶":
                 for (int i = 0; i < resBookList.size(); i++) {
-                    UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
                     UploadImgItemBean resb = (UploadImgItemBean) resBookList.get(i);
+                    if (TextUtils.isEmpty(resb.objectKey)) {
+                        continue;
+                    }
+                    UploadFilesUrlReq.FileUrlBean resBookFileItem = new UploadFilesUrlReq.FileUrlBean();
                     resBookFileItem.file_id = resb.objectKey;
                     resBookFileItem.label = Constants.FileLabelType.RES_BOOKLET;
                     resBookFileItem.clt_id = clt_id;
@@ -943,8 +949,31 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     callBack.callBack();
                 }
             });
-        } else {
-            callBack.callBack();
+        }
+        //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
+        else {
+            switch (marriage){
+                case "已婚":
+                    Intent intent = new Intent(mContext, CommitActivity.class);
+                    startActivity(intent);
+                    break;
+
+
+                case "离异":
+                    Toast.makeText(mContext, "离婚证请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(mContext, CommitActivity.class);
+                    startActivity(intent1);
+                    break;
+
+
+                case "丧偶":
+                    Toast.makeText(mContext, "户口本请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+                    Intent intent2 = new Intent(mContext, CommitActivity.class);
+                    startActivity(intent2);
+                    break;
+            }
+
+
         }
     }
 
@@ -1081,6 +1110,6 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     }
 
     public void requestUpload(String clt_id, OnVoidCallBack onVoidCallBack) {
-        uploadUrl(clt_id,onVoidCallBack);
+        uploadUrl(clt_id, onVoidCallBack);
     }
 }

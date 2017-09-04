@@ -87,7 +87,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                     @Override
                     public void onItemDataCallBack(ClientInfo data) {
                         //已婚状态：上传配偶cltid
-                        if (data.marriage.equals("已婚")) {
+                        if (clientInfo.marriage.equals("已婚")) {
                             mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, new OnVoidCallBack() {
                                 @Override
                                 public void callBack() {
@@ -102,6 +102,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                                         }
                                     });
                                 }
+
                             });
                         }
 
@@ -133,7 +134,12 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         mUpdateSpouseInfoFragment = new UpdateSpouseInfoFragment();
         mUpdateImgsLabelFragment = new UpdateImgsLabelFragment();
         mFragments.add(mUpdateSpouseInfoFragment);
-        mFragments.add(mUpdateImgsLabelFragment);
+
+
+        if (clientInfo.marriage.equals("已婚")) {
+            mFragments.add(mUpdateImgsLabelFragment);
+        }
+
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);
