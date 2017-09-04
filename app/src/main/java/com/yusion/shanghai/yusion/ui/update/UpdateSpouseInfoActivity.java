@@ -112,7 +112,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                                 @Override
                                 public void callBack() {
                                     if (data == null) return;
-                                    Toast.makeText(UpdateSpouseInfoActivity.this,"离婚证（户口本）请在主贷人的影像件里查看",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateSpouseInfoActivity.this, "离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -136,9 +136,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         mFragments.add(mUpdateSpouseInfoFragment);
 
 
-        if (clientInfo.marriage.equals("已婚")) {
-            mFragments.add(mUpdateImgsLabelFragment);
-        }
+        mFragments.add(mUpdateImgsLabelFragment);
+
 
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
