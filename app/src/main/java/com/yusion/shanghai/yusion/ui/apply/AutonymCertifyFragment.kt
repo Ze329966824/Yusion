@@ -253,42 +253,6 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                         }
                     }
                 }
-//                Constants.REQUEST_IDCARD_1_CAPTURE -> {
-//                    hasIdBackImg = true
-//                    Glide.with(mContext).load(idBackFile).into(autonym_certify_id_back_img)
-//
-//                    var dialog = LoadingUtils.createLoadingDialog(mContext)
-//                    dialog.show()
-//                    OcrUtil.requestOcr(mContext, idBackFile.absolutePath, OSSObjectKeyBean("lender", "id_card_back", ".png"), "id_card", OcrUtil.OnOcrSuccessCallBack { ocrResp, objectKey ->
-//                        ID_BACK_FID = objectKey
-//                        if (ocrResp == null) {
-//                            dialog.dismiss()
-//                            Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
-//                            return@OnOcrSuccessCallBack
-//                        }
-//                        if (ocrResp.showapi_res_code != 0 && ocrResp.showapi_res_body.idNo.isNullOrEmpty() || ocrResp.showapi_res_body.name.isNullOrEmpty()) {
-//                            Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
-//                        } else {
-//                            Toast.makeText(mContext, "识别成功", Toast.LENGTH_SHORT).show()
-//                            autonym_certify_id_number_tv.setText(ocrResp.showapi_res_body.idNo)
-//                            autonym_certify_name_tv.setText(ocrResp.showapi_res_body.name)
-//                            (activity as ApplyActivity).mOcrRespByAutonymCertify = ocrResp
-//                        }
-//                        dialog.dismiss()
-//                    }, OnItemDataCallBack<Throwable> {
-//                        Toast.makeText(mContext, "识别失败", Toast.LENGTH_SHORT).show()
-//                        dialog.dismiss()
-//                    })
-//
-//                }
-//                Constants.REQUEST_IDCARD_2_CAPTURE -> {
-//                    hasIdFrontImg = true
-//                    Glide.with(mContext).load(idFrontFile).into(autonym_certify_id_front_img)
-//
-//                    OssUtil.uploadOss(mContext, true, idFrontFile.absolutePath, OSSObjectKeyBean("lender", "id_card_front", ".png"), OnItemDataCallBack<String> {
-//                        ID_FRONT_FID = it
-//                    }, null)
-//                }
             }
         }
     }
