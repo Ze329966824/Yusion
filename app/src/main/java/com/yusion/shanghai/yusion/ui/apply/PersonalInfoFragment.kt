@@ -322,7 +322,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_gender_tv.text.isEmpty()) {
             Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
-        } else if (CheckMobileUtil.checkMobile(personal_info_mobile_edt.text.toString())) {
+        } else if (!CheckMobileUtil.checkMobile(personal_info_mobile_edt.text.toString())) {
             Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
         } else if (personal_info_education_tv.text.isEmpty()) {
             Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show()

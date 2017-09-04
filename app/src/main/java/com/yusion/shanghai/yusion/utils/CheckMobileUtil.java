@@ -1,11 +1,10 @@
 package com.yusion.shanghai.yusion.utils;
 
-import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class CheckMobileUtil {
     public static boolean checkMobile(String str) {
-        if (TextUtils.isEmpty(str)) {
+        if (str == null || str.length() == 0) {
             return false;
         }
 

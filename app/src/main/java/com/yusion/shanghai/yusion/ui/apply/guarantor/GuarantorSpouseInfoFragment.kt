@@ -288,7 +288,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_gender_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
-            } else if (CheckMobileUtil.checkMobile(guarantor_spouse_info_mobile_edt.text.toString())) {
+            } else if (!CheckMobileUtil.checkMobile(guarantor_spouse_info_mobile_edt.text.toString())) {
                 Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
