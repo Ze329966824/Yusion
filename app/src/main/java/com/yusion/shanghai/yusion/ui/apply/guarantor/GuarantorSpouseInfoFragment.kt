@@ -25,7 +25,6 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
-import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
@@ -262,6 +261,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 requestPOI(guarantor_spouse_info_extra_from_income_company_address_tv.text.toString())
             }
         }
+
         guarantor_spouse_info_extra_from_income_work_position_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, guarantor_spouse_info_extra_from_income_work_position_lin, guarantor_spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_EXTRA_WORK_POSITION_INDEX = index

@@ -22,6 +22,7 @@ import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
+import com.yusion.shanghai.yusion.utils.CheckMobileUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -54,23 +55,23 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             ProductApi.getGuarantorInfo(mContext, GetGuarantorInfoReq(guarantor_credit_info_id_number_tv.text.toString(), guarantor_credit_info_name_tv.text.toString()
-                    , guarantor_credit_info_mobile_edt.text.toString(), guarantor_credit_info_rel_tv . text . toString (), "1")) {
-            if (it == null) {
-                return@getGuarantorInfo
-            }
-            var addGuarantorActivity = activity as AddGuarantorActivity
-            addGuarantorActivity.mGuarantorInfo = it
-            ocrResp?.let {
-                addGuarantorActivity.mGuarantorInfo.gender = ocrResp.sex
-                addGuarantorActivity.mGuarantorInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
-                addGuarantorActivity.mGuarantorInfo.reg_addr.province = ocrResp.province
-                addGuarantorActivity.mGuarantorInfo.reg_addr.city = ocrResp.city
-                addGuarantorActivity.mGuarantorInfo.reg_addr.district = ocrResp.town
-            }
-            addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
+                    , guarantor_credit_info_mobile_edt.text.toString(), guarantor_credit_info_rel_tv.text.toString(), "1")) {
+                if (it == null) {
+                    return@getGuarantorInfo
+                }
+                var addGuarantorActivity = activity as AddGuarantorActivity
+                addGuarantorActivity.mGuarantorInfo = it
+                ocrResp?.let {
+                    addGuarantorActivity.mGuarantorInfo.gender = ocrResp.sex
+                    addGuarantorActivity.mGuarantorInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
+                    addGuarantorActivity.mGuarantorInfo.reg_addr.province = ocrResp.province
+                    addGuarantorActivity.mGuarantorInfo.reg_addr.city = ocrResp.city
+                    addGuarantorActivity.mGuarantorInfo.reg_addr.district = ocrResp.town
+                }
+                addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
 //                nextStep()
-            uploadUrl(it.clt_id)
-        }
+                uploadUrl(it.clt_id)
+            }
         }
         guarantor_credit_info_next_btn.setOnClickListener {
             if (checkCanNextStep()) {
@@ -129,8 +130,8 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
         } else if (guarantor_credit_info_rel_tv.text.isEmpty()) {
             Toast.makeText(mContext, "请选择担保人与本人关系", Toast.LENGTH_SHORT).show()
-        } else if (guarantor_credit_info_mobile_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "请输入手机号码", Toast.LENGTH_SHORT).show()
+        } else if (!CheckMobileUtil.checkMobile(guarantor_credit_info_mobile_edt.text.toString())) {
+            Toast.makeText(mContext, "手机号格式错误", Toast.LENGTH_SHORT).show()
         } else {
             return true
         }
@@ -213,7 +214,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                     if (contacts != null) {
                         System.arraycopy(contacts, 0, result, 0, contacts.size)
                     }
-                    guarantor_credit_info_mobile_edt.setText(result[1].replace(" ",""))
+                    guarantor_credit_info_mobile_edt.setText(result[1].replace(" ", ""))
                 }
             }
         }
