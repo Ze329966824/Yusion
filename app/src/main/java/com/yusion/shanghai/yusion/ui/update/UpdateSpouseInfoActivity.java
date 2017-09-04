@@ -36,6 +36,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
     private ClientInfo clientInfo;
+    public boolean ishaveImgs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,11 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             if (data != null) {
                 clientInfo = data;
                 mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
+                if (clientInfo.marriage.equals("已婚")){
+                    ishaveImgs = true;
+                }else {
+                    ishaveImgs = false;
+                }
                 mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
             }
         });

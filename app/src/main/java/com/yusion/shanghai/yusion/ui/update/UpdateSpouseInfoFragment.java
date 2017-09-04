@@ -261,6 +261,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 (clickedView, selectedIndex) -> {
                     UPDATE_MARRIAGE_INDEX = selectedIndex;
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
+                        UpdateSpouseInfoActivity usia = new UpdateSpouseInfoActivity();
+                        usia.ishaveImgs = true;
                         update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
                     } else {
                         update_spouse_info_marriage_group_lin.setVisibility(View.GONE);

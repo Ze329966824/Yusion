@@ -61,38 +61,51 @@ public class UpdateImgsLabelFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.title_bar).setVisibility(View.GONE);
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
-        rv.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter = new UploadLabelListAdapter(mContext, mItems);
-        mAdapter.setOnItemClick(new UploadLabelListAdapter.OnItemClick() {
-            @Override
-            public void onItemClick(View v, UploadLabelItemBean item, int index) {
-                Intent intent = new Intent();
-                if (item.label_list.size() == 0) {
-                    //下级目录为图片页
-                    intent.setClass(mContext, UploadListActivity.class);
-                    intent.putExtra("role", mRole);
-                    if (item.name.contains("授权书")) {
-                        intent.setClass(mContext, OnlyReadUploadListActivity.class);
+        UpdateSpouseInfoActivity usia = new UpdateSpouseInfoActivity();
+
+            rv.setLayoutManager(new LinearLayoutManager(mContext));
+            mAdapter = new UploadLabelListAdapter(mContext, mItems);
+            mAdapter.setOnItemClick(new UploadLabelListAdapter.OnItemClick() {
+                @Override
+                public void onItemClick(View v, UploadLabelItemBean item, int index) {
+                    Intent intent = new Intent();
+                    if (item.label_list.size() == 0) {
+                        //下级目录为图片页
+                        intent.setClass(mContext, UploadListActivity.class);
+                        intent.putExtra("role", mRole);
+                        if (item.name.contains("授权书")) {
+                            intent.setClass(mContext, OnlyReadUploadListActivity.class);
+                        }
+                        if (item.name.contains("人像面")) {
+                            intent.setClass(mContext, DocumentActivity.class);
+                        }else if (item.name.contains("国徽面")){
+                            intent.setClass(mContext, DocumentActivity.class);
+                        }
+                    } else {
+                        //下级目录为标签页
+                        intent.setClass(mContext, UploadLabelListActivity.class);
                     }
-                    if (item.name.contains("人像面")) {
-                        intent.setClass(mContext, DocumentActivity.class);
-                    }else if (item.name.contains("国徽面")){
-                        intent.setClass(mContext, DocumentActivity.class);
-                    }
-                } else {
-                    //下级目录为标签页
-                    intent.setClass(mContext, UploadLabelListActivity.class);
+                    intent.putExtra("topItem", item);
+                    //clt_id取图片
+                    intent.putExtra("clt_id", mCltId);
+                    intent.putExtra("index", index);
+                    startActivityForResult(intent, 100);
                 }
-                intent.putExtra("topItem", item);
-                //clt_id取图片
-                intent.putExtra("clt_id", mCltId);
-                intent.putExtra("index", index);
-                startActivityForResult(intent, 100);
-            }
-        });
-        rv.setAdapter(mAdapter);
-        //initShamData();
-        initData();
+            });
+            rv.setAdapter(mAdapter);
+//
+//        if (!usia.ishaveImgs){
+//            rv.removeAllViews();
+//        }else {
+//            //initShamData();
+            initData();
+//        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
     }
 
     private void initData() {
