@@ -2,20 +2,15 @@ package com.yusion.shanghai.yusion.jpush;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
-import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.Objects;
 
 public class JpushDialogActivity extends BaseActivity {
     private String mobile = null;
@@ -24,7 +19,6 @@ public class JpushDialogActivity extends BaseActivity {
     private String app_st = null;
     private String app_id = null;
     private String category = null;
-    private String stringExtra = null;
 
 /*    "reg_id":xxxx,
             "mobile": 138xxx,
@@ -50,17 +44,15 @@ public class JpushDialogActivity extends BaseActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            stringExtra = intent.getStringExtra("jsonObject");
+            String stringExtra = intent.getStringExtra("jsonObject");
             JSONObject jo = new JSONObject(stringExtra);
-            if (jo != null) {
-                mobile = jo.optString("mobile");
-                title = jo.optString("title");
-                content = jo.optString("content");
-                app_st = jo.optString("app_st");
-                app_id = jo.optString("app_id");
-                category = jo.optString("category");
-                JpushDialog();
-            }
+            mobile = jo.optString("mobile");
+            title = jo.optString("title");
+            content = jo.optString("content");
+            app_st = jo.optString("app_st");
+            app_id = jo.optString("app_id");
+            category = jo.optString("category");
+            JpushDialog();
         }
 
     }
@@ -69,18 +61,15 @@ public class JpushDialogActivity extends BaseActivity {
         switch (category) {
             case "login":
                 myApp.clearUserData();
-                if (myApp.isLogin == true) {
-                    if (mobile != YusionApp.MOBILE) {
+                if (myApp.isLogin) {
+                    if (!Objects.equals(mobile, YusionApp.MOBILE)) {
                         new AlertDialog.Builder(JpushDialogActivity.this)
                                 .setCancelable(false)
                                 .setTitle("")
                                 .setMessage(content)
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
-                                        finish();
-                                    }
+                                .setPositiveButton("确定", (dialog, which) -> {
+                                    startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+                                    finish();
                                 })
 
                                 .show();

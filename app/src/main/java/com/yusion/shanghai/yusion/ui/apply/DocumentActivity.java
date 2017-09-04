@@ -66,9 +66,7 @@ public class DocumentActivity extends BaseActivity {
 
     private boolean isHasImage = false;
     private boolean isEdit = true;
-
     private boolean isFlag = true;
-
     private boolean isClick = false;
     private UploadLabelItemBean mTopItem;
     private TextView errorTv;

@@ -47,17 +47,14 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         initView();
 
         getInfo();  //获取担保人信息
-        submit();   //更新用户信息
-    }
-
-    private void submit() {
         findViewById(R.id.submit_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commit();
+                submit();   //更新用户信息
             }
         });
     }
+
 
     private void getInfo() {
         ProductApi.getGuarantorInfo(this, new GetGuarantorInfoReq(), new OnItemDataCallBack<GuarantorInfo>() {
@@ -75,23 +72,48 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
 
     }
 
-    private void commit() {
-        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
+    private void submit() {
+        //提交用户资料
+        mUpdateGuarantorInfoFragment.updateGuarantorinfo(new OnVoidCallBack() {
             @Override
             public void callBack() {
-                if (mUpdateGuarantorInfoFragment.updateGuarantorinfo()) {
-                    ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
-                        @Override
-                        public void onItemDataCallBack(GuarantorInfo data) {
-                            if (data == null) return;
-                            Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                }
+                ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+                    @Override
+                    public void onItemDataCallBack(GuarantorInfo data) {
+                        //上传影像件
+                        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
+                            @Override
+                            public void callBack() {
+                                if (data == null) return;
+                                Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }
+
+                });
             }
         });
+
+
+
+//        mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, new OnVoidCallBack() {
+//            @Override
+//            public void callBack() {
+//                if (mUpdateGuarantorInfoFragment.updateGuarantorinfo()) {
+//                    ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
+//                        @Override
+//                        public void onItemDataCallBack(GuarantorInfo data) {
+//                            if (data == null) return;
+//                            Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    });
+//                }
+//            }
+//        });
     }
 
     private void initView() {

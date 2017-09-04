@@ -1085,12 +1085,14 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 }
             });
             callBack.callBack();
-        } else {
-//            Toast.makeText(mContext, "离婚证（户口本）请在担保人的影像件里查看", Toast.LENGTH_SHORT).show();
+        }
+        //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
+        else {
             Intent intent = new Intent(mContext, CommitActivity.class);
             startActivity(intent);
         }
     }
+
 
     public void requestUpload(String clt_id, OnVoidCallBack onVoidCallBack) {
         uploadUrl(clt_id, onVoidCallBack);
