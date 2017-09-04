@@ -806,9 +806,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                 }
                 callBack.callBack();
             });
-        }
-        //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
-        else {
+        } else {
+            //如果没有拍照，则不调用上传图片接口，直接跳转到CommitActivity
             callBack.callBack();
         }
     }

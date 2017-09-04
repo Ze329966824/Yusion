@@ -23,7 +23,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.info.UploadListActivity
-import com.yusion.shanghai.yusion.ui.update.CommitActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.spouse_info.*
