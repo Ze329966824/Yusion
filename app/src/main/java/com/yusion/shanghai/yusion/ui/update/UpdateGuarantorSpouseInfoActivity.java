@@ -16,6 +16,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
+import com.yusion.shanghai.yusion.settings.Constants;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -53,7 +54,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
             if (data != null) {
                 guarantorInfo = data;
                 mUpdateGuarantorSpouseInfoFragment.getGuarantorinfo(guarantorInfo);
-                mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.spouse.clt_id, "lender");
+                mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.spouse.clt_id, Constants.PersonType.GUARANTOR_SP);
             }
         });
     }

@@ -17,6 +17,7 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
+import com.yusion.shanghai.yusion.settings.Constants;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -36,6 +37,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
     private ClientInfo clientInfo;
+    public boolean ishaveImgs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,12 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             if (data != null) {
                 clientInfo = data;
                 mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
-                mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, "lender");
+                if (clientInfo.marriage.equals("已婚")) {
+                    ishaveImgs = true;
+                } else {
+                    ishaveImgs = false;
+                }
+                mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, Constants.PersonType.LENDER_SP);
             }
         });
     }
@@ -78,10 +85,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                         finish();
                     });
                 });
-            }
-
-            //其他状态：上传主贷人cltid，不上传右侧影像件
-            else {
+            } else {
+                //其他状态：上传主贷人cltid，不上传右侧影像件
                 mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
                     if (data == null) return;
                     Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
