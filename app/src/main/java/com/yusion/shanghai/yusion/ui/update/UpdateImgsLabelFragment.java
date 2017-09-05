@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.yusion.shanghai.yusion.R;
@@ -50,9 +49,6 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     private List<UploadLabelItemBean> mItems = new ArrayList<>();
     private String mCltId;
     private String mRole;
-    private UpdateSpouseInfoActivity usia;
-    private LinearLayout imgs;
-    private RecyclerView rv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +60,9 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.title_bar).setVisibility(View.GONE);
-        rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
-        imgs = (LinearLayout) view.findViewById(R.id.imgs);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
+        UpdateSpouseInfoActivity usia = new UpdateSpouseInfoActivity();
+
         rv.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new UploadLabelListAdapter(mContext, mItems);
         mAdapter.setOnItemClick(new UploadLabelListAdapter.OnItemClick() {
@@ -82,6 +79,8 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                     if (item.name.contains("人像面")) {
                         intent.setClass(mContext, DocumentActivity.class);
                     } else if (item.name.contains("国徽面")) {
+                        intent.setClass(mContext, DocumentActivity.class);
+                    } else if (item.name.contains("驾驶证")) {
                         intent.setClass(mContext, DocumentActivity.class);
                     }
                 } else {
@@ -107,14 +106,8 @@ public class UpdateImgsLabelFragment extends BaseFragment {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        usia = new UpdateSpouseInfoActivity();
-        if (!hidden) {
-            if (!usia.ishaveImgs){
-                imgs.removeView(rv);
-            }else {
-                imgs.addView(rv);
-            }
-        }
+        super.onHiddenChanged(hidden);
+
     }
 
     private void initData() {

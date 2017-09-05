@@ -38,6 +38,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
@@ -425,9 +426,12 @@ public class DocumentActivity extends BaseActivity {
                             dialog.dismiss();
                         }
                     }
-                }, new OnItemDataCallBack<Throwable>() {
+                }, new OnMultiDataCallBack<Throwable, String>() {
                     @Override
-                    public void onItemDataCallBack(Throwable data) {
+                    public void onMultiDataCallBack(Throwable throwable, String objectKey) {
+                        if (!TextUtils.isEmpty(objectKey)) {
+                            mImgObjectKey = objectKey;
+                        }
                         Toast.makeText(DocumentActivity.this, "识别失败", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
@@ -501,7 +505,7 @@ public class DocumentActivity extends BaseActivity {
 
     private void onBack() {
 //        Intent intent = new Intent();
-        if (mTopItem != null) {
+        if (mTopItem != null && mTopItem.img_list.size() > 0) {
             mTopItem.img_list.get(0).objectKey = mImgObjectKey;
         }
         mGetIntent.putExtra("objectKey", mImgObjectKey);

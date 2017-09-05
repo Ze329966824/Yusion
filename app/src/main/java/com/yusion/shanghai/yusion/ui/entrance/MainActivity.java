@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
@@ -29,8 +30,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myApp.isBack2Home = false;
-        myApp.isLogin = true;
+        YusionApp.isBack2Home = false;
+        YusionApp.isLogin = true;
 
 //        Log.e("TAG", "token: " + WangDaiApp.mToken);
 
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myApp.isBack2Home = true;
+        YusionApp.isBack2Home = true;
     }
 
     @Override

@@ -16,7 +16,6 @@ import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 
 public class FinancePlanActivity extends BaseActivity {
 
@@ -54,7 +53,6 @@ public class FinancePlanActivity extends BaseActivity {
 
 
     @Override
-
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance_plan);

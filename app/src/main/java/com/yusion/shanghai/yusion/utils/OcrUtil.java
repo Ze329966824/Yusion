@@ -20,6 +20,7 @@ import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.retrofit.api.OcrApi;
 import com.yusion.shanghai.yusion.retrofit.api.OssApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.OssService;
 
 import java.util.Date;
@@ -39,7 +40,7 @@ import static com.yusion.shanghai.yusion.utils.OssUtil.getSignature;
 
 public class OcrUtil {
     public static void requestOcr(final Context context, final String localPath, @NonNull OSSObjectKeyBean objectKeyBean, String type,
-                                  @NonNull final OnOcrSuccessCallBack onSuccessCallBack, @NonNull final OnItemDataCallBack<Throwable> onFailureCallBack) {
+                                  @NonNull final OnOcrSuccessCallBack onSuccessCallBack, @NonNull final OnMultiDataCallBack<Throwable, String> onFailureCallBack) {
 
         Map<String, String> body = new LinkedHashMap<>();
         body.put("duration_second", "1800");
@@ -75,7 +76,7 @@ public class OcrUtil {
                         }, new OnItemDataCallBack<Throwable>() {
                             @Override
                             public void onItemDataCallBack(Throwable resp) {
-                                onFailureCallBack.onItemDataCallBack(resp);
+                                onFailureCallBack.onMultiDataCallBack(resp, objectKey);
                             }
                         });
                     }
@@ -87,14 +88,14 @@ public class OcrUtil {
                             // 本地异常如网络异常等
                             clientExcepion.printStackTrace();
                             if (onFailureCallBack != null) {
-                                onFailureCallBack.onItemDataCallBack(clientExcepion);
+                                onFailureCallBack.onMultiDataCallBack(clientExcepion, objectKey);
                             }
                         }
                         if (serviceException != null) {
                             // 服务异常
                             serviceException.printStackTrace();
                             if (onFailureCallBack != null) {
-                                onFailureCallBack.onItemDataCallBack(serviceException);
+                                onFailureCallBack.onMultiDataCallBack(serviceException, objectKey);
                             }
                         }
                     }
@@ -105,7 +106,7 @@ public class OcrUtil {
             public void onFailure(Call<GetOssTokenBean> call, Throwable t) {
                 Log.e("API", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 if (onFailureCallBack != null) {
-                    onFailureCallBack.onItemDataCallBack(t);
+                    onFailureCallBack.onMultiDataCallBack(t, null);
                 }
 
             }
