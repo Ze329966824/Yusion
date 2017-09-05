@@ -9,6 +9,8 @@ import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import cn.jpush.android.api.JPushInterface;
+import io.sentry.Sentry;
+import io.sentry.android.AndroidSentryClientFactory;
 
 import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
 
@@ -35,6 +37,8 @@ public class YusionApp extends Application {
     public void onCreate() {
         super.onCreate();
         PgyCrashManager.register(this);
+        Sentry.init("http://6f7b892c19314579936f5c8c6903b64a:50f288ab49d546269f1957df37db6b85@116.62.161.180:9002/5", new AndroidSentryClientFactory(this));
+        Sentry.capture("xxx");
         jpush();
         TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
         MOBILE = SharedPrefsUtil.getInstance(this).getValue("mobile", "");

@@ -368,6 +368,7 @@ public class DocumentActivity extends BaseActivity {
                     item.local_path = localUrl;
                     item.role = mRole;
                     item.type = mType;
+                    imgList.clear();
                     imgList.add(item);
                     mTopItem.hasImg = true;
                 }
@@ -398,6 +399,7 @@ public class DocumentActivity extends BaseActivity {
                     item.local_path = imageFile.getAbsolutePath();
                     item.role = mRole;
                     item.type = mType;
+                    imgList.clear();
                     imgList.add(item);
                 }
 
@@ -442,6 +444,7 @@ public class DocumentActivity extends BaseActivity {
                     item.local_path = imageFile.getAbsolutePath();
                     item.role = mRole;
                     item.type = mType;
+                    imgList.clear();
                     imgList.add(item);
                 }
 
@@ -471,6 +474,7 @@ public class DocumentActivity extends BaseActivity {
                     item.local_path = imageFile.getAbsolutePath();
                     item.role = mRole;
                     item.type = mType;
+                    imgList.clear();
                     imgList.add(item);
                 }
 
