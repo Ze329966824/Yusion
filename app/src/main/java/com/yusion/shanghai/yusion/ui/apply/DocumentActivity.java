@@ -38,6 +38,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
@@ -113,8 +114,7 @@ public class DocumentActivity extends BaseActivity {
                 isHasImage = true;
                 UploadImgItemBean itemBean = imgList.get(0);
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
-
-
+                    imgUrl = itemBean.local_path;
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
                 } else {
                     imgUrl = itemBean.s_url;
@@ -244,7 +244,7 @@ public class DocumentActivity extends BaseActivity {
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         imgList.clear();
                     }
                 }
