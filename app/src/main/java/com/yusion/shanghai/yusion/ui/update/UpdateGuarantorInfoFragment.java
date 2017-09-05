@@ -93,7 +93,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
     private TextView update_guarantor_info_from_income_company_address1_tv;  //主要-工资-详细地址
     private NoEmptyEditText update_guarantor_info_from_income_company_address2_tv;  //主要-工资-门牌号
     private TextView update_guarantor_info_work_position_tv;                 //主要-工资-职务
-    private NoEmptyEditText update_guarantor_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
+    private NoEmptyEditText update_guarantor_info_from_income_work_phone_num_edt;   //主要-工资-单位座机(选填)
     private EditText update_guarantor_info_from_self_year_edt;               //主要-自营-年收入
     private TextView update_guarantor_info_from_self_type_tv;                //主要-自营-业务类型
     private NoEmptyEditText update_guarantor_info_from_self_company_name_edt;       //主要-自营-店铺名称
