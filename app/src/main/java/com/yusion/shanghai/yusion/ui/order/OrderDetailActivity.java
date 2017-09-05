@@ -215,7 +215,7 @@ public class OrderDetailActivity extends BaseActivity {
                     waitRel.setVisibility(View.VISIBLE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.GONE);//visiable
+                    applyLin.setVisibility(View.VISIBLE);//visiable
                     replyLin.setVisibility(View.GONE);
                     waitReason.setText(resp.uw_detail.comments);
                     //   orderDetailFianceLin.setVisibility(View.VISIBLE);
