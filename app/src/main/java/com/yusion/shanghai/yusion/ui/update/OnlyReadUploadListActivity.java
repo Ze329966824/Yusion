@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -30,6 +32,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.ui.apply.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
@@ -75,11 +78,24 @@ public class OnlyReadUploadListActivity extends BaseActivity {
         adapter.setOnItemClick(new OnlyReadUploadImgListAdapter.OnItemClick() {
             @Override
             public void onItemClick(View v, UploadImgItemBean item) {
-
+                String imgUrl;
+                if (!TextUtils.isEmpty(item.local_path)) {
+                    imgUrl = item.local_path;
+                } else {
+                    imgUrl = item.s_url;
+                }
+                previewImg(findViewById(R.id.preview_anchor), imgUrl);
             }
         });
         rv.setAdapter(adapter);
         initData();
+    }
+
+    private void previewImg(View previewAnchor, String imgUrl) {
+        Intent intent = new Intent(this, PreviewActivity.class);
+        intent.putExtra("PreviewImg", imgUrl);
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, previewAnchor, "shareNames");
+        ActivityCompat.startActivity(this, intent, compat.toBundle());
     }
 
     private void initData() {
