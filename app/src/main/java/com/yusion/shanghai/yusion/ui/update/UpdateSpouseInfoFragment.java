@@ -625,13 +625,17 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     clientInfo.spouse.major_income = update_spouse_info_from_self_year_edt.getText().toString().trim();
                     clientInfo.spouse.major_busi_type = update_spouse_info_from_self_type_tv.getText().toString().trim();
                     clientInfo.spouse.major_company_name = update_spouse_info_from_self_company_name_edt.getText().toString().trim();
-                    if (update_spouse_info_from_self_company_address_tv.getText().toString().trim().split("/").length == 3) {
+                    if (TextUtils.isEmpty(update_spouse_info_from_self_company_address_tv.getText())) {
+                        clientInfo.spouse.major_company_addr.province = "";
+                        clientInfo.spouse.major_company_addr.city = "";
+                        clientInfo.spouse.major_company_addr.district = "";
+                    } else {
                         clientInfo.spouse.major_company_addr.province = update_spouse_info_from_self_company_address_tv.getText().toString().trim().split("/")[0];
                         clientInfo.spouse.major_company_addr.city = update_spouse_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
                         clientInfo.spouse.major_company_addr.district = update_spouse_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
-                        clientInfo.spouse.major_company_addr.address1 = update_spouse_info_from_self_company_address1_tv.getText().toString().trim();
-                        clientInfo.spouse.major_company_addr.address2 = update_spouse_info_from_self_company_address2_tv.getText().toString().trim();
                     }
+                    clientInfo.spouse.major_company_addr.address1 = update_spouse_info_from_self_company_address1_tv.getText().toString().trim();
+                    clientInfo.spouse.major_company_addr.address2 = update_spouse_info_from_self_company_address2_tv.getText().toString().trim();
                     break;
                 case "其他":
                     clientInfo.spouse.major_income = update_spouse_info_from_other_year_edt.getText().toString().trim();

@@ -251,9 +251,15 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.spouse.major_income = spouse_info_from_self_year_edt.text.toString()
                     applyActivity.mClientInfo.spouse.major_busi_type = spouse_info_from_self_type_tv.text.toString()
                     applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_self_company_name_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    if (TextUtils.isEmpty(spouse_info_from_self_company_address_tv.text)) {
+                        applyActivity.mClientInfo.spouse.major_company_addr.province = ""
+                        applyActivity.mClientInfo.spouse.major_company_addr.city = ""
+                        applyActivity.mClientInfo.spouse.major_company_addr.district = ""
+                    } else {
+                        applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                        applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    }
                     applyActivity.mClientInfo.spouse.major_company_addr.address1 = spouse_info_from_self_company_address1_tv.text.toString()
                     applyActivity.mClientInfo.spouse.major_company_addr.address2 = spouse_info_from_self_company_address2_tv.text.toString()
                 }

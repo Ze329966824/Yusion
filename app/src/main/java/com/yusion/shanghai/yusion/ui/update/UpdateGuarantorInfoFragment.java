@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -658,13 +659,17 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                     guarantorInfo.major_income = update_guarantor_info_from_self_year_edt.getText().toString().trim();
                     guarantorInfo.major_busi_type = update_guarantor_info_from_self_type_tv.getText().toString().trim();
                     guarantorInfo.major_company_name = update_guarantor_info_from_self_company_name_edt.getText().toString().trim();
-                    if (update_guarantor_info_extra_from_income_company_address_tv.getText().toString().trim().split("/").length == 3) {
+                    if (TextUtils.isEmpty(update_guarantor_info_extra_from_income_company_address_tv.getText())) {
+                        guarantorInfo.major_company_addr.province = "";
+                        guarantorInfo.major_company_addr.city = "";
+                        guarantorInfo.major_company_addr.district = "";
+                    } else {
                         guarantorInfo.major_company_addr.province = update_guarantor_info_from_self_company_address_tv.getText().toString().trim().split("/")[0];
                         guarantorInfo.major_company_addr.city = update_guarantor_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
                         guarantorInfo.major_company_addr.district = update_guarantor_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
-                        guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_self_company_address1_tv.getText().toString().trim();
-                        guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_self_company_address2_tv.getText().toString().trim();
                     }
+                    guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_self_company_address1_tv.getText().toString().trim();
+                    guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_self_company_address2_tv.getText().toString().trim();
                     break;
                 case "其他":
                     guarantorInfo.major_income = update_guarantor_info_from_other_year_edt.getText().toString().trim();

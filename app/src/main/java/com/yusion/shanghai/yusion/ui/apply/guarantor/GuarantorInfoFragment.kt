@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,9 +92,15 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.major_income = guarantor_info_from_self_year_edt.text.toString()
                     addGuarantorActivity.mGuarantorInfo.major_busi_type = guarantor_info_from_self_type_tv.text.toString()
                     addGuarantorActivity.mGuarantorInfo.major_company_name = guarantor_info_from_self_company_name_edt.text.toString()
-                    addGuarantorActivity.mGuarantorInfo.major_company_addr.province = guarantor_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    addGuarantorActivity.mGuarantorInfo.major_company_addr.city = guarantor_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    addGuarantorActivity.mGuarantorInfo.major_company_addr.district = guarantor_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    if (TextUtils.isEmpty(guarantor_info_from_self_company_address_tv.text)) {
+                        addGuarantorActivity.mGuarantorInfo.major_company_addr.province = ""
+                        addGuarantorActivity.mGuarantorInfo.major_company_addr.city = ""
+                        addGuarantorActivity.mGuarantorInfo.major_company_addr.district = ""
+                    } else {
+                        addGuarantorActivity.mGuarantorInfo.major_company_addr.province = guarantor_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                        addGuarantorActivity.mGuarantorInfo.major_company_addr.city = guarantor_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        addGuarantorActivity.mGuarantorInfo.major_company_addr.district = guarantor_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    }
                     addGuarantorActivity.mGuarantorInfo.major_company_addr.address1 = guarantor_info_from_self_company_address1_tv.text.toString()
                     addGuarantorActivity.mGuarantorInfo.major_company_addr.address2 = guarantor_info_from_self_company_address2_tv.text.toString()
                 }

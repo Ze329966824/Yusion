@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -645,9 +646,15 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
                     clientInfo.major_income = update_personal_info_from_self_year_edt.getText().toString().trim();
                     clientInfo.major_busi_type = update_personal_info_from_self_type_tv.getText().toString().trim();
                     clientInfo.major_company_name = update_personal_info_from_self_company_name_edt.getText().toString().trim();
-                    clientInfo.major_company_addr.province = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[0];
-                    clientInfo.major_company_addr.city = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
-                    clientInfo.major_company_addr.district = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
+                    if (TextUtils.isEmpty(update_personal_info_from_self_company_address_tv.getText())) {
+                        clientInfo.major_company_addr.province = "";
+                        clientInfo.major_company_addr.city = "";
+                        clientInfo.major_company_addr.district = "";
+                    } else {
+                        clientInfo.major_company_addr.province = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[0];
+                        clientInfo.major_company_addr.city = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
+                        clientInfo.major_company_addr.district = update_personal_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
+                    }
                     clientInfo.major_company_addr.address1 = update_personal_info_from_self_company_address1_tv.getText().toString().trim();
                     clientInfo.major_company_addr.address2 = update_personal_info_from_self_company_address2_tv.getText().toString().trim();
                     break;
