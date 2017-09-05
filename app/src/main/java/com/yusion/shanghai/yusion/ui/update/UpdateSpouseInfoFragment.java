@@ -533,11 +533,16 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_id_back_tv.setText("请上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
-                        if (!ocrResp.idNo.equals("")) {
-                            update_spouse_info_id_no_edt.setText(ocrResp.idNo);
-                        }
-                        if (!ocrResp.name.equals("")) {
-                            update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                        if (ocrResp != null) {
+                            if (!TextUtils.isEmpty(ocrResp.idNo)) {
+                                update_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                            }
+                            if (!TextUtils.isEmpty(ocrResp.name)) {
+                                update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                            }
+                            if (!TextUtils.isEmpty(ocrResp.sex)) {
+                                update_spouse_info_gender_tv.setText(ocrResp.sex);
+                            }
                         }
 
                         break;

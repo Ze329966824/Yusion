@@ -42,7 +42,9 @@ import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.view.View.*;
+import static android.view.View.GONE;
+import static android.view.View.OnClickListener;
+import static android.view.View.VISIBLE;
 
 
 public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
@@ -550,8 +552,15 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                             update_guarantor_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
                         }
                         if (ocrResp != null) {
-                            update_guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo);
-                            update_guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                            if (!TextUtils.isEmpty(ocrResp.idNo)) {
+                                update_guarantor_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                            }
+                            if (!TextUtils.isEmpty(ocrResp.name)) {
+                                update_guarantor_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                            }
+                            if (!TextUtils.isEmpty(ocrResp.sex)) {
+                                update_guarantor_spouse_info_gender_tv.setText(ocrResp.sex);
+                            }
                         }
                         break;
                     case Constants.FileLabelType.ID_FRONT:

@@ -215,31 +215,36 @@ public class OrderDetailActivity extends BaseActivity {
                     waitRel.setVisibility(View.VISIBLE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.VISIBLE);
+                    applyLin.setVisibility(View.GONE);//visiable
                     replyLin.setVisibility(View.GONE);
                     waitReason.setText(resp.uw_detail.comments);
-                    orderDetailFianceLin.setVisibility(View.GONE);
-                } else if (resp.status_st == 4) {
+                    //   orderDetailFianceLin.setVisibility(View.VISIBLE);
+                } else if (resp.status_st == 4) {//待确认金融方案 //有批复的
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.VISIBLE);
+                    applyLin.setVisibility(View.GONE);
                     replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
-                    orderDetailFianceLin.setVisibility(View.VISIBLE);
-                } else if (resp.status_st == 6) {
+                    // orderDetailFianceLin.setVisibility(View.VISIBLE);
+                } else if (resp.status_st == 6) {//放款中      //有批复的
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.VISIBLE);
+                    applyLin.setVisibility(View.GONE);
                     replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
-                    orderDetailFianceLin.setVisibility(View.VISIBLE);
+                    // orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 3) {
                     waitRel.setVisibility(View.GONE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.VISIBLE);
                     rejectReason.setText(resp.uw_detail.comments);
+                    //orderDetailFianceLin.setVisibility(View.GONE);
+                }
+                if (resp.uw) {
+                    orderDetailFianceLin.setVisibility(View.VISIBLE);
+                } else {
                     orderDetailFianceLin.setVisibility(View.GONE);
                 }
 
