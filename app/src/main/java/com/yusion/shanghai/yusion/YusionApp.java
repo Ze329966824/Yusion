@@ -38,7 +38,6 @@ public class YusionApp extends Application {
         super.onCreate();
         PgyCrashManager.register(this);
         Sentry.init("http://6f7b892c19314579936f5c8c6903b64a:50f288ab49d546269f1957df37db6b85@116.62.161.180:9002/5", new AndroidSentryClientFactory(this));
-        Sentry.capture("xxx");
         jpush();
         TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
         MOBILE = SharedPrefsUtil.getInstance(this).getValue("mobile", "");

@@ -293,7 +293,9 @@ public class UploadListActivity extends BaseActivity {
 
                 imgList.addAll(toAddList);
                 adapter.notifyItemRangeInserted(adapter.getItemCount(), files.size());
-                mTopItem.hasImg = imgList.size() > 0;
+                if (mTopItem != null) {
+                    mTopItem.hasImg = imgList.size() > 0;
+                }
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
