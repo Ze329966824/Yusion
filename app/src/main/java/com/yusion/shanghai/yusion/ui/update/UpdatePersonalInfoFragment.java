@@ -755,13 +755,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         } else if (update_personal_info_income_from_tv.getText().toString().equals("工资") && update_personal_info_from_income_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "工资年收入不能为空", Toast.LENGTH_SHORT).show();
         } //主要自营
-        else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "店铺地址不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "店铺地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "店铺地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_type_tv.getText().toString().isEmpty()) {
+       else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_type_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
