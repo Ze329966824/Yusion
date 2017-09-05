@@ -17,26 +17,18 @@ public class CommitActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit);
         initTitleBar(this, getResources().getString(R.string.commit));
-        findViewById(R.id.return_list_info).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserApi.getListCurrentTpye(CommitActivity.this, new OnItemDataCallBack<ListCurrentTpye>() {
-                    @Override
-                    public void onItemDataCallBack(ListCurrentTpye data) {
-                        if (data.guarantor_commited) {
-                            Intent intent = new Intent(CommitActivity.this, InfoListActivity.class);
-                            intent.putExtra("ishaveGuarantee", true);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Intent intent = new Intent(CommitActivity.this, InfoListActivity.class);
-                            intent.putExtra("ishaveGuarantee", false);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                });
+        findViewById(R.id.return_list_info).setOnClickListener(v -> UserApi.getListCurrentTpye(CommitActivity.this, data -> {
+            if (data.guarantor_commited) {
+                Intent intent = new Intent(CommitActivity.this, InfoListActivity.class);
+                intent.putExtra("ishaveGuarantee", true);
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(CommitActivity.this, InfoListActivity.class);
+                intent.putExtra("ishaveGuarantee", false);
+                startActivity(intent);
+                finish();
             }
-        });
+        }));
     }
 }

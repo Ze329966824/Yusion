@@ -29,17 +29,14 @@ public class InfoListActivity extends BaseActivity {
 
 
     private void updateHaveGuaranteeStatus() {
-        UserApi.getListCurrentTpye(InfoListActivity.this, new OnItemDataCallBack<ListCurrentTpye>() {
-            @Override
-            public void onItemDataCallBack(ListCurrentTpye data) {
-                if (data != null) {
-                    if (data.guarantor_commited) {
-                        add_guarantee.setVisibility(View.GONE);
-                        guarantee_info.setVisibility(View.VISIBLE);
-                    } else {
-                        guarantee_info.setVisibility(View.GONE);
-                        add_guarantee.setVisibility(View.VISIBLE);
-                    }
+        UserApi.getListCurrentTpye(InfoListActivity.this, data -> {
+            if (data != null) {
+                if (data.guarantor_commited) {
+                    add_guarantee.setVisibility(View.GONE);
+                    guarantee_info.setVisibility(View.VISIBLE);
+                } else {
+                    guarantee_info.setVisibility(View.GONE);
+                    add_guarantee.setVisibility(View.VISIBLE);
                 }
             }
         });

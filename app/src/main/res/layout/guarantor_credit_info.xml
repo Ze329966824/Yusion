@@ -281,7 +281,7 @@
                     <EditText
                         android:id="@+id/guarantor_credit_info_name_tv"
                         style="@style/apply_info_content"
-                        android:hint="请填写姓名" />
+                        android:hint="请输入" />
                 </LinearLayout>
 
                 <include layout="@layout/include_line_left" />
@@ -299,7 +299,7 @@
                     <EditText
                         android:id="@+id/guarantor_credit_info_id_number_tv"
                         style="@style/apply_info_content_type_id"
-                        android:hint="请填写身份证号码" />
+                        android:hint="请输入" />
 
                 </LinearLayout>
 
@@ -321,7 +321,7 @@
                 <EditText
                     android:id="@+id/guarantor_credit_info_mobile_edt"
                     style="@style/apply_info_content_type_mobile"
-                    android:hint="请选择手机号码" />
+                    android:hint="请输入" />
 
 
                 <FrameLayout

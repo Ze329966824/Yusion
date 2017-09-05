@@ -366,9 +366,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "其他" && personal_info_from_other_remark_edt.text.isEmpty()) {
             Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_extra_income_from_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_year_edt.text.isEmpty()) {
+        }  else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_year_edt.text.isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_company_name_edt.text.isEmpty()) {
             Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
