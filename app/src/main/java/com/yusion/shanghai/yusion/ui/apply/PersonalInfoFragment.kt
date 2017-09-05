@@ -352,15 +352,17 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_type_tv.text.isEmpty()) {
             Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_name_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_address_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_address1_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_address2_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_income_from_tv.text == "其他" && personal_info_from_other_year_edt.text.isEmpty()) {
+        }
+//        else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_name_edt.text.isEmpty()) {
+//            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
+//        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_address_tv.text.isEmpty()) {
+//            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+//        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_address1_tv.text.isEmpty()) {
+//            Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+//        } else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_address2_tv.text.isEmpty()) {
+//            Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+//        }
+        else if (personal_info_income_from_tv.text == "其他" && personal_info_from_other_year_edt.text.isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "其他" && personal_info_from_other_remark_edt.text.isEmpty()) {
             Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()

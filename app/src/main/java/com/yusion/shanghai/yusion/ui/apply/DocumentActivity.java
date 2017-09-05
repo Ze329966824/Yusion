@@ -83,6 +83,7 @@ public class DocumentActivity extends BaseActivity {
             //从影像件列表点击进来
             mType = mTopItem.value;
             imgList = mTopItem.img_list;
+
         } else {
             mType = mGetIntent.getStringExtra("type");
         }
@@ -113,8 +114,10 @@ public class DocumentActivity extends BaseActivity {
                 isHasImage = true;
                 UploadImgItemBean itemBean = imgList.get(0);
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
+                    imgUrl = itemBean.local_path;
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
                 } else {
+                    imgUrl = itemBean.s_url;
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
                 }
             }
@@ -153,6 +156,9 @@ public class DocumentActivity extends BaseActivity {
         } else {
             getTitleInfo();
             mImgObjectKey = mGetIntent.getStringExtra("objectKey");
+            if (mImgObjectKey == null) {
+                mImgObjectKey = "";
+            }
             if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
                 imgUrl = mGetIntent.getStringExtra("imgUrl");
                 Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
@@ -162,7 +168,7 @@ public class DocumentActivity extends BaseActivity {
                 isHasImage = false;
             }
         }
-
+        createBottomDialog();
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,7 +244,7 @@ public class DocumentActivity extends BaseActivity {
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         imgList.clear();
                     }
                 }
@@ -262,6 +268,7 @@ public class DocumentActivity extends BaseActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
                 intent.putExtra("PreviewImg", imgUrl);
 

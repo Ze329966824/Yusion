@@ -66,9 +66,9 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         //提交用户资料
         mUpdateGuarantorInfoFragment.updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, data -> {
             if (data == null) return;
+            guarantorInfo = data;
             //上传影像件
             mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
-                if (data == null) return;
                 Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
                 startActivity(intent);
                 finish();
