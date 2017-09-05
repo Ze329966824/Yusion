@@ -262,7 +262,6 @@ public class DocumentActivity extends BaseActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
                 intent.putExtra("PreviewImg", imgUrl);
 
