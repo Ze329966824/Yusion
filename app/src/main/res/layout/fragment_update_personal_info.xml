@@ -621,7 +621,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="单位座机" />
+                                android:text="单位座机(选填)" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_income_work_phone_num_edt"
@@ -718,7 +718,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="店铺名称" />
+                                android:text="店铺名称(选填)" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_self_company_name_edt"
@@ -748,7 +748,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="单位地址" />
+                                android:text="经营项目地址(选填)" />
 
                             <TextView
                                 android:id="@+id/update_personal_info_from_self_company_address_tv"
@@ -776,7 +776,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="详细地址" />
+                                android:text="详细地址(选填)" />
 
                             <TextView
                                 android:id="@+id/update_personal_info_from_self_company_address1_tv"
@@ -804,7 +804,7 @@
                             <TextView
                                 style="@style/apply_info_title_wrap"
                                 android:layout_marginTop="10dp"
-                                android:text="门牌号" />
+                                android:text="门牌号(选填)" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_from_self_company_address2_tv"
@@ -896,7 +896,7 @@
 
                         <TextView
                             style="@style/apply_info_title"
-                            android:text="额外收入来源" />
+                            android:text="额外收入来源(选填)" />
 
                         <TextView
                             android:id="@+id/update_personal_info_extra_income_from_tv"
@@ -1128,7 +1128,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="单位座机" />
+                                android:text="单位座机(选填)" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_extra_from_income_work_phone_num_edt"
