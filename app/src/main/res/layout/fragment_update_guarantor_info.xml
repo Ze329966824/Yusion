@@ -5,26 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="15dp"
-        android:scaleType="center"
-        android:src="@mipmap/to_top"
-        app:backgroundTint="@color/transparent"
-        app:borderWidth="0dp"
-        app:elevation="0dp"
-        app:layout_anchor="@id/scrollView"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
-        app:rippleColor="@color/transparent" />
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
+        android:layout_marginBottom="60dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -129,7 +113,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_gender_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择性别" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -162,7 +146,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_reg_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -215,7 +199,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_education_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择学历" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -264,7 +248,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_current_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -296,7 +280,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_current_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -329,7 +313,7 @@
                                 android:id="@+id/update_guarantor_info_current_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -466,7 +450,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_from_income_company_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -497,7 +481,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -529,7 +513,7 @@
                                 android:id="@+id/update_guarantor_info_from_income_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -559,7 +543,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_work_position_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择职务" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -647,7 +631,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_from_self_type_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择业务类型" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -716,7 +700,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_from_self_company_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -744,7 +728,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_from_self_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -773,7 +757,7 @@
                                 android:id="@+id/update_guarantor_info_from_self_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -970,7 +954,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_extra_from_income_company_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1001,7 +985,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_extra_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1033,7 +1017,7 @@
                                 android:id="@+id/update_guarantor_info_extra_from_income_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -1063,7 +1047,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_extra_info_work_position_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择职务" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1135,7 +1119,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_house_type_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择房屋性质" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1179,7 +1163,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_house_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1210,7 +1194,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_house_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1242,7 +1226,7 @@
                                 android:id="@+id/update_guarantor_info_house_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -1292,7 +1276,7 @@
                             <TextView
                                 android:id="@+id/update_guarantor_info_house_owner_relation_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择与申请人关系" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1318,5 +1302,23 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="center"
+        android:src="@mipmap/to_top"
+        app:backgroundTint="@color/transparent"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
+        app:rippleColor="@color/transparent" />
 
 </android.support.design.widget.CoordinatorLayout>
