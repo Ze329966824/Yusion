@@ -484,7 +484,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_from_income_year_edt"
@@ -704,7 +704,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_from_self_year_edt"
@@ -882,7 +882,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_from_other_year_edt"
@@ -981,7 +981,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_extra_from_income_year_edt"
