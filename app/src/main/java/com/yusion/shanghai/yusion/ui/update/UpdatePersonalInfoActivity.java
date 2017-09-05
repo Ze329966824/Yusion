@@ -51,10 +51,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         findViewById(R.id.submit_img).setOnClickListener(v -> {
             submit();   //更新配偶信息
         });
-
-
     }
-
 
     private void getInfo() {
         ProductApi.getClientInfo(this, new GetClientInfoReq(), data -> {

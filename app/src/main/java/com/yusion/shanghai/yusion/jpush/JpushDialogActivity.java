@@ -3,14 +3,13 @@ package com.yusion.shanghai.yusion.jpush;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.Objects;
 
 public class JpushDialogActivity extends BaseActivity {
     private String mobile = null;
