@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        myApp.isLogin = false;
+        YusionApp.isLogin = false;
         mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
         mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
         mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);

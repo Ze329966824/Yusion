@@ -8,6 +8,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
+        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -58,7 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <View
                             android:layout_width="match_parent"
@@ -113,7 +114,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_gender_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择性别" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -146,7 +147,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_reg_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -201,7 +202,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_education_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择学历" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -250,7 +251,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_current_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -282,7 +283,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_current_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -315,8 +316,7 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_current_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
-                                android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -436,7 +436,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/update_personal_info_from_income_year_edt"
@@ -470,7 +470,7 @@
                                 android:id="@+id/update_personal_info_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -499,7 +499,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_from_income_company_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -532,7 +532,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -566,7 +566,7 @@
                                 android:id="@+id/update_personal_info_from_income_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -596,7 +596,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_work_position_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择职务" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -627,7 +627,7 @@
                                 android:id="@+id/update_personal_info_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -662,13 +662,13 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/update_personal_info_from_self_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -684,7 +684,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_from_self_type_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择业务类型" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -724,7 +724,7 @@
                                 android:id="@+id/update_personal_info_from_self_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入店铺名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -753,7 +753,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_from_self_company_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -781,7 +781,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_from_self_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -810,7 +810,7 @@
                                 android:id="@+id/update_personal_info_from_self_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -842,13 +842,13 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/update_personal_info_from_other_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <include layout="@layout/include_line_left" />
@@ -867,7 +867,7 @@
                                 android:id="@+id/update_personal_info_from_other_remark_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入备注" />
+                                android:hint="请输入" />
 
 
                         </LinearLayout>
@@ -944,13 +944,13 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/update_personal_info_extra_from_income_year_edt"
                                 style="@style/apply_info_content_type_number"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入年收入" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -978,7 +978,7 @@
                                 android:id="@+id/update_personal_info_extra_from_income_company_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位名称" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1007,7 +1007,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_extra_from_income_company_address_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择 省/市/区" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1040,7 +1040,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_extra_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1073,7 +1073,7 @@
                                 android:id="@+id/update_personal_info_extra_from_income_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:hint="例:5号楼207室" />
+                                android:hint="请输入" />
 
                         </LinearLayout>
 
@@ -1103,7 +1103,7 @@
                             <TextView
                                 android:id="@+id/update_personal_extra_info_work_position_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择职务" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1134,7 +1134,7 @@
                                 android:id="@+id/update_personal_info_extra_from_income_work_phone_num_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入单位电话" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1175,7 +1175,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_house_type_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择房屋性质" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1208,7 +1208,7 @@
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
                                 android:digits="0123456789"
-                                android:hint="请输入房屋面积"
+                                android:hint="请输入"
                                 android:inputType="number" />
                         </LinearLayout>
 
@@ -1222,13 +1222,13 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="房屋所有权人" />
+                                android:text="房屋所有权(人)" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_house_owner_name_edt"
                                 style="@style/apply_info_content"
                                 android:layout_marginRight="35dp"
-                                android:hint="请输入房屋所有权人" />
+                                android:hint="请输入" />
                         </LinearLayout>
 
                         <View
@@ -1248,7 +1248,7 @@
                             <TextView
                                 android:id="@+id/update_personal_info_house_owner_relation_tv"
                                 style="@style/apply_info_content"
-                                android:hint="请选择与申请人关系" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1325,7 +1325,7 @@
                         <TextView
                             android:id="@+id/update_personal_info_urg_relation1_tv"
                             style="@style/apply_info_content"
-                            android:hint="请选择与联系人关系" />
+                            android:hint="请选择" />
 
                         <FrameLayout
                             android:layout_width="20dp"
@@ -1355,7 +1355,7 @@
                         <EditText
                             android:id="@+id/update_personal_info_urg_mobile1_edt"
                             style="@style/apply_info_content_type_mobile"
-                            android:hint="请选择手机号码" />
+                            android:hint="请输入" />
 
 
                         <FrameLayout
@@ -1388,7 +1388,7 @@
                             android:id="@+id/update_personal_info_urg_contact1_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入亲属联系人" />
+                            android:hint="请输入" />
                     </LinearLayout>
 
 
@@ -1418,7 +1418,7 @@
                         <TextView
                             android:id="@+id/update_personal_info_urg_relation2_tv"
                             style="@style/apply_info_content"
-                            android:hint="请选择与联系人关系" />
+                            android:hint="请选择" />
 
                         <FrameLayout
                             android:layout_width="20dp"
@@ -1449,7 +1449,7 @@
                         <EditText
                             android:id="@+id/update_personal_info_urg_mobile2_edt"
                             style="@style/apply_info_content_type_mobile"
-                            android:hint="请选择手机号码" />
+                            android:hint="请输入" />
 
                         <FrameLayout
                             android:layout_width="20dp"
@@ -1482,7 +1482,7 @@
                             android:id="@+id/update_personal_info_urg_contact2_edt"
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
-                            android:hint="请输入其他联系人" />
+                            android:hint="请输入" />
 
                     </LinearLayout>
 

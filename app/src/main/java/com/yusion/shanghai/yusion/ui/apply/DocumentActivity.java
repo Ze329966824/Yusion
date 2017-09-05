@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,6 +100,8 @@ public class DocumentActivity extends BaseActivity {
         }
         setContentView(view);
 
+
+        createBottomDialog();
         btn = (Button) findViewById(R.id.btn);
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
@@ -139,7 +140,6 @@ public class DocumentActivity extends BaseActivity {
                     }
                     if (resp.list.size() != 0) {
                         imgUrl = resp.list.get(0).s_url;
-                        Log.e("----first---", imgUrl);
                         Glide.with(this).load(resp.list.get(0).s_url).into(takePhoto);
                         titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                         isHasImage = true;
@@ -156,9 +156,11 @@ public class DocumentActivity extends BaseActivity {
         } else {
             getTitleInfo();
             mImgObjectKey = mGetIntent.getStringExtra("objectKey");
+            if (mImgObjectKey == null) {
+                mImgObjectKey = "";
+            }
             if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
                 imgUrl = mGetIntent.getStringExtra("imgUrl");
-                Log.e("----second---", imgUrl);
                 Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 isHasImage = true;
@@ -174,7 +176,6 @@ public class DocumentActivity extends BaseActivity {
                     if (!mBottomDialog.isShowing()) {
                         mBottomDialog.show();
                     }
-                    // createBottomDialog();
                 } else {
                     takePhoto();
                 }
@@ -243,7 +244,7 @@ public class DocumentActivity extends BaseActivity {
                                 }
                             }
                         });
-                    } else {
+                    }else {
                         imgList.clear();
                     }
                 }
@@ -267,9 +268,8 @@ public class DocumentActivity extends BaseActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
+                Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
-                Log.e("---third---", imgUrl);
                 intent.putExtra("PreviewImg", imgUrl);
 
                 ActivityOptionsCompat compat =
@@ -312,7 +312,6 @@ public class DocumentActivity extends BaseActivity {
             mBottomDialog.getWindow().setWindowAnimations(R.style.dialogAnimationStyle);
             mBottomDialog.getWindow().setGravity(Gravity.BOTTOM);
             mBottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            //mBottomDialog.show();
 
             Window dialogWindow = mBottomDialog.getWindow();
             dialogWindow.getDecorView().setBackgroundResource(android.R.color.transparent);
@@ -433,9 +432,12 @@ public class DocumentActivity extends BaseActivity {
                             dialog.dismiss();
                         }
                     }
-                }, new OnItemDataCallBack<Throwable>() {
+                }, new OnMultiDataCallBack<Throwable, String>() {
                     @Override
-                    public void onItemDataCallBack(Throwable data) {
+                    public void onMultiDataCallBack(Throwable throwable, String objectKey) {
+                        if (!TextUtils.isEmpty(objectKey)) {
+                            mImgObjectKey = objectKey;
+                        }
                         Toast.makeText(DocumentActivity.this, "识别失败", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
@@ -509,7 +511,7 @@ public class DocumentActivity extends BaseActivity {
 
     private void onBack() {
 //        Intent intent = new Intent();
-        if (mTopItem != null) {
+        if (mTopItem != null && mTopItem.img_list.size() > 0) {
             mTopItem.img_list.get(0).objectKey = mImgObjectKey;
         }
         mGetIntent.putExtra("objectKey", mImgObjectKey);
