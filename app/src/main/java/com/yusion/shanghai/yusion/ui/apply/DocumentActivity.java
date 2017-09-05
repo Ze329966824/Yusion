@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +83,7 @@ public class DocumentActivity extends BaseActivity {
             //从影像件列表点击进来
             mType = mTopItem.value;
             imgList = mTopItem.img_list;
+
         } else {
             mType = mGetIntent.getStringExtra("type");
         }
@@ -99,8 +101,6 @@ public class DocumentActivity extends BaseActivity {
         }
         setContentView(view);
 
-
-        createBottomDialog();
         btn = (Button) findViewById(R.id.btn);
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
@@ -112,8 +112,11 @@ public class DocumentActivity extends BaseActivity {
                 isHasImage = true;
                 UploadImgItemBean itemBean = imgList.get(0);
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
+
+
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
                 } else {
+                    imgUrl = itemBean.s_url;
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
                 }
             }
@@ -136,6 +139,7 @@ public class DocumentActivity extends BaseActivity {
                     }
                     if (resp.list.size() != 0) {
                         imgUrl = resp.list.get(0).s_url;
+                        Log.e("----first---", imgUrl);
                         Glide.with(this).load(resp.list.get(0).s_url).into(takePhoto);
                         titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                         isHasImage = true;
@@ -154,6 +158,7 @@ public class DocumentActivity extends BaseActivity {
             mImgObjectKey = mGetIntent.getStringExtra("objectKey");
             if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
                 imgUrl = mGetIntent.getStringExtra("imgUrl");
+                Log.e("----second---", imgUrl);
                 Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 isHasImage = true;
@@ -161,7 +166,7 @@ public class DocumentActivity extends BaseActivity {
                 isHasImage = false;
             }
         }
-
+        createBottomDialog();
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,6 +174,7 @@ public class DocumentActivity extends BaseActivity {
                     if (!mBottomDialog.isShowing()) {
                         mBottomDialog.show();
                     }
+                    // createBottomDialog();
                 } else {
                     takePhoto();
                 }
@@ -237,7 +243,7 @@ public class DocumentActivity extends BaseActivity {
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         imgList.clear();
                     }
                 }
@@ -261,8 +267,9 @@ public class DocumentActivity extends BaseActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
+                Log.e("---third---", imgUrl);
                 intent.putExtra("PreviewImg", imgUrl);
 
                 ActivityOptionsCompat compat =
@@ -305,6 +312,7 @@ public class DocumentActivity extends BaseActivity {
             mBottomDialog.getWindow().setWindowAnimations(R.style.dialogAnimationStyle);
             mBottomDialog.getWindow().setGravity(Gravity.BOTTOM);
             mBottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //mBottomDialog.show();
 
             Window dialogWindow = mBottomDialog.getWindow();
             dialogWindow.getDecorView().setBackgroundResource(android.R.color.transparent);
