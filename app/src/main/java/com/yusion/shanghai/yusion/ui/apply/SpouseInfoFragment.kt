@@ -14,7 +14,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
-import com.yusion.shanghai.yusion.base.BaseFragment
+import com.yusion.shanghai.yusion.base.DoubleCheckFragment
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
@@ -32,7 +32,7 @@ import java.util.*
 /**
  * Created by ice on 17/7/5.
  */
-class SpouseInfoFragment : BaseFragment() {
+class SpouseInfoFragment : DoubleCheckFragment() {
 
     var _GENDER_INDEX: Int = 0
     var _MARRIAGE_INDEX: Int = 0
@@ -53,9 +53,16 @@ class SpouseInfoFragment : BaseFragment() {
         return inflater?.inflate(R.layout.spouse_info, container, false)
     }
 
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mDoubleCheckChangeBtn.setOnClickListener {
+            mDoubleCheckDialog.dismiss()
+        }
+        mDoubleCheckSubmitBtn.setOnClickListener {
+            mDoubleCheckDialog.dismiss()
+            submit()
+        }
+
         spouse_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
@@ -118,82 +125,14 @@ class SpouseInfoFragment : BaseFragment() {
         spouse_info_mobile_img.setOnClickListener { selectContact() }
         spouse_info_submit_btn.setOnClickListener {
             if (checkCanNextStep()) {
-                var applyActivity = activity as ApplyActivity
-                applyActivity.mClientInfo.marriage = spouse_info_marriage_tv.text.toString()
-                if (applyActivity.mClientInfo.marriage == "已婚") {
-                    applyActivity.mClientInfo.spouse.marriage = "已婚"
-                    ocrResp?.let {
-                        applyActivity.mClientInfo.spouse.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
-                        applyActivity.mClientInfo.spouse.reg_addr.province = ocrResp.province
-                        applyActivity.mClientInfo.spouse.reg_addr.city = ocrResp.city
-                        applyActivity.mClientInfo.spouse.reg_addr.district = ocrResp.town
-                    }
-                    applyActivity.mClientInfo.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
-                    applyActivity.mClientInfo.spouse.mobile = spouse_info_mobile_edt.text.toString()
-                    applyActivity.mClientInfo.child_num = spouse_info_child_count_edt.text.toString()
-
-                    //主要收入来源
-                    when (spouse_info_income_from_tv.text) {
-                        "工资" -> {
-                            applyActivity.mClientInfo.spouse.major_income_type = "工资"
-                            applyActivity.mClientInfo.spouse.major_income = spouse_info_from_income_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_income_company_name_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                            applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                            applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                            applyActivity.mClientInfo.spouse.major_company_addr.address1 = spouse_info_from_income_company_address1_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.address2 = spouse_info_from_income_company_address2_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_work_position = spouse_info_from_income_work_position_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_work_phone_num = spouse_info_from_income_work_phone_num_edt.text.toString()
-                        }
-                        "自营" -> {
-                            applyActivity.mClientInfo.spouse.major_income_type = "自营"
-                            applyActivity.mClientInfo.spouse.major_income = spouse_info_from_self_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_busi_type = spouse_info_from_self_type_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_self_company_name_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                            applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                            applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                            applyActivity.mClientInfo.spouse.major_company_addr.address1 = spouse_info_from_self_company_address1_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.major_company_addr.address2 = spouse_info_from_self_company_address2_tv.text.toString()
-                        }
-                        "其他" -> {
-                            applyActivity.mClientInfo.spouse.major_income_type = "其他"
-                            applyActivity.mClientInfo.spouse.major_income = spouse_info_from_other_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.major_remark = spouse_info_from_other_remark_edt.text.toString()
-                        }
-                    }
-                    //额外收入来源
-                    when (spouse_info_extra_income_from_tv.text) {
-                        "工资" -> {
-                            applyActivity.mClientInfo.spouse.extra_income_type = "工资"
-                            applyActivity.mClientInfo.spouse.extra_income = spouse_info_extra_from_income_year_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_company_name = spouse_info_extra_from_income_company_name_edt.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_company_addr.province = spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                            applyActivity.mClientInfo.spouse.extra_company_addr.city = spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                            applyActivity.mClientInfo.spouse.extra_company_addr.district = spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                            applyActivity.mClientInfo.spouse.extra_company_addr.address1 = spouse_info_extra_from_income_company_address1_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_company_addr.address2 = spouse_info_extra_from_income_company_address2_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_work_position = spouse_info_extra_from_income_work_position_tv.text.toString()
-                            applyActivity.mClientInfo.spouse.extra_work_phone_num = spouse_info_extra_from_income_work_phone_num_edt.text.toString()
-                        }
-                        "无" -> {
-                            applyActivity.mClientInfo.spouse.extra_income_type = "无"
-                        }
-
-                    }
-                } else if (applyActivity.mClientInfo.marriage == "离异") {
-                    applyActivity.mClientInfo.child_num = spouse_info_divorced_child_count_edt.text.toString()
-                } else if (applyActivity.mClientInfo.marriage == "丧偶") {
-                    applyActivity.mClientInfo.child_num = spouse_info_die_child_count_edt.text.toString()
-                }
-
-                ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
-                    if (it != null) {
-                        uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
-                    }
+                if (spouse_info_marriage_tv.text.toString() == "已婚") {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", spouse_info_clt_nm_edt.text.toString())
+                    addDoubleCheckItem("身份证号", spouse_info_id_no_edt.text.toString())
+                    addDoubleCheckItem("手机号", spouse_info_mobile_edt.text.toString())
+                    mDoubleCheckDialog.show()
+                } else {
+                    submit()
                 }
 //                nextStep()
             }
@@ -274,6 +213,86 @@ class SpouseInfoFragment : BaseFragment() {
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
+    }
+
+    private fun submit() {
+        var applyActivity = activity as ApplyActivity
+        applyActivity.mClientInfo.marriage = spouse_info_marriage_tv.text.toString()
+        if (applyActivity.mClientInfo.marriage == "已婚") {
+            applyActivity.mClientInfo.spouse.marriage = "已婚"
+            ocrResp?.let {
+                applyActivity.mClientInfo.spouse.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr
+                applyActivity.mClientInfo.spouse.reg_addr.province = ocrResp.province
+                applyActivity.mClientInfo.spouse.reg_addr.city = ocrResp.city
+                applyActivity.mClientInfo.spouse.reg_addr.district = ocrResp.town
+            }
+            applyActivity.mClientInfo.spouse.clt_nm = spouse_info_clt_nm_edt.text.toString()
+            applyActivity.mClientInfo.spouse.id_no = spouse_info_id_no_edt.text.toString()
+            applyActivity.mClientInfo.spouse.gender = spouse_info_gender_tv.text.toString()
+            applyActivity.mClientInfo.spouse.mobile = spouse_info_mobile_edt.text.toString()
+            applyActivity.mClientInfo.child_num = spouse_info_child_count_edt.text.toString()
+
+            //主要收入来源
+            when (spouse_info_income_from_tv.text) {
+                "工资" -> {
+                    applyActivity.mClientInfo.spouse.major_income_type = "工资"
+                    applyActivity.mClientInfo.spouse.major_income = spouse_info_from_income_year_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_income_company_name_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                    applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    applyActivity.mClientInfo.spouse.major_company_addr.address1 = spouse_info_from_income_company_address1_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.major_company_addr.address2 = spouse_info_from_income_company_address2_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.major_work_position = spouse_info_from_income_work_position_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.major_work_phone_num = spouse_info_from_income_work_phone_num_edt.text.toString()
+                }
+                "自营" -> {
+                    applyActivity.mClientInfo.spouse.major_income_type = "自营"
+                    applyActivity.mClientInfo.spouse.major_income = spouse_info_from_self_year_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.major_busi_type = spouse_info_from_self_type_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_self_company_name_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                    applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    applyActivity.mClientInfo.spouse.major_company_addr.address1 = spouse_info_from_self_company_address1_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.major_company_addr.address2 = spouse_info_from_self_company_address2_tv.text.toString()
+                }
+                "其他" -> {
+                    applyActivity.mClientInfo.spouse.major_income_type = "其他"
+                    applyActivity.mClientInfo.spouse.major_income = spouse_info_from_other_year_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.major_remark = spouse_info_from_other_remark_edt.text.toString()
+                }
+            }
+            //额外收入来源
+            when (spouse_info_extra_income_from_tv.text) {
+                "工资" -> {
+                    applyActivity.mClientInfo.spouse.extra_income_type = "工资"
+                    applyActivity.mClientInfo.spouse.extra_income = spouse_info_extra_from_income_year_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.extra_company_name = spouse_info_extra_from_income_company_name_edt.text.toString()
+                    applyActivity.mClientInfo.spouse.extra_company_addr.province = spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    applyActivity.mClientInfo.spouse.extra_company_addr.city = spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                    applyActivity.mClientInfo.spouse.extra_company_addr.district = spouse_info_extra_from_income_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    applyActivity.mClientInfo.spouse.extra_company_addr.address1 = spouse_info_extra_from_income_company_address1_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.extra_company_addr.address2 = spouse_info_extra_from_income_company_address2_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.extra_work_position = spouse_info_extra_from_income_work_position_tv.text.toString()
+                    applyActivity.mClientInfo.spouse.extra_work_phone_num = spouse_info_extra_from_income_work_phone_num_edt.text.toString()
+                }
+                "无" -> {
+                    applyActivity.mClientInfo.spouse.extra_income_type = "无"
+                }
+
+            }
+        } else if (applyActivity.mClientInfo.marriage == "离异") {
+            applyActivity.mClientInfo.child_num = spouse_info_divorced_child_count_edt.text.toString()
+        } else if (applyActivity.mClientInfo.marriage == "丧偶") {
+            applyActivity.mClientInfo.child_num = spouse_info_die_child_count_edt.text.toString()
+        }
+
+        ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
+            if (it != null) {
+                uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
+            }
+        }
     }
 
     fun checkCanNextStep(): Boolean {

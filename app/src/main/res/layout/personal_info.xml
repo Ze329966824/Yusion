@@ -1576,15 +1576,6 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:text="请填写详细的工作信息,确保真实、完整、有效"
-                android:textColor="#FFFFA400"
-                android:textSize="11.5dp" />
-
-            <TextView
                 android:id="@+id/personal_info_next_btn"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"

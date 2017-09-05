@@ -389,17 +389,17 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         } else if (personal_info_house_owner_relation_tv.text.isEmpty()) {
             Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_contact1_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "亲属联系人姓名不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show()
         } else if (!CheckMobileUtil.checkMobile(personal_info_urg_mobile1_edt.text.toString())) {
-            Toast.makeText(mContext, "亲属联系人手机号格式错误", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_relation1_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "亲属联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_contact2_edt.text.isEmpty()) {
-            Toast.makeText(mContext, "其他联系人姓名不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "紧急联系人姓名不能为空", Toast.LENGTH_SHORT).show()
         } else if (!CheckMobileUtil.checkMobile(personal_info_urg_mobile2_edt.text.toString())) {
-            Toast.makeText(mContext, "其他联系人手机号格式错误", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show()
         } else if (personal_info_urg_relation2_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "其他联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else {
             return true
         }
