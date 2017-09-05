@@ -74,6 +74,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
         mUpdateSpouseInfoFragment.updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
+            if (data == null){return;}
             //已婚状态：上传配偶cltid
 //            if (data != null) {
                 if (clientInfo.marriage.equals("已婚")) {
@@ -89,7 +90,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 } else {
                     //其他状态：上传主贷人cltid，不上传右侧影像件
                     mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
-                        if (clientInfo == null) return;
+                        if (data == null) return;
                         Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
                         startActivity(intent);

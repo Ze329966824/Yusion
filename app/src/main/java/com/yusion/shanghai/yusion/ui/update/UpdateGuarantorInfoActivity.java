@@ -65,6 +65,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     private void submit() {
         //提交用户资料
         mUpdateGuarantorInfoFragment.updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, data -> {
+            if (data == null) return;
             //上传影像件
             mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
                 if (data == null) return;

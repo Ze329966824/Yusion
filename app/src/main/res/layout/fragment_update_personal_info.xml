@@ -8,6 +8,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
+        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -315,7 +316,6 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_personal_info_current_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
-                                android:layout_marginRight="35dp"
                                 android:hint="请输入" />
 
                         </LinearLayout>
