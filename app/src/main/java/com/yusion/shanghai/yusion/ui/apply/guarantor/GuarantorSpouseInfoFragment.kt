@@ -345,8 +345,6 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_income_from_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_income_from_tv.text == "工资" && guarantor_spouse_info_extra_from_income_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_income_from_tv.text == "工资" && guarantor_spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
