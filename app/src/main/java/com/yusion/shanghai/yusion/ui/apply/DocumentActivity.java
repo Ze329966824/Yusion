@@ -153,6 +153,9 @@ public class DocumentActivity extends BaseActivity {
         } else {
             getTitleInfo();
             mImgObjectKey = mGetIntent.getStringExtra("objectKey");
+            if (mImgObjectKey == null) {
+                mImgObjectKey = "";
+            }
             if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
                 imgUrl = mGetIntent.getStringExtra("imgUrl");
                 Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);

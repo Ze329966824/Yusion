@@ -75,13 +75,13 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         //上传用户资料
         mUpdateSpouseInfoFragment.updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
             if (data == null){return;}
+            clientInfo = data;
             //已婚状态：上传配偶cltid
 //            if (data != null) {
                 if (clientInfo.marriage.equals("已婚")) {
                     mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
                         //上传影像件
                         mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
-                            if (data == null) return;
                             Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
                             startActivity(intent);
                             finish();
@@ -90,7 +90,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 } else {
                     //其他状态：上传主贷人cltid，不上传右侧影像件
                     mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
-                        if (data == null) return;
                         Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
                         startActivity(intent);

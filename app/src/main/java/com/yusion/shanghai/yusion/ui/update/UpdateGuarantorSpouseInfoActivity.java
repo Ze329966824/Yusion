@@ -64,6 +64,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
         //上传用户资料
         mUpdateGuarantorSpouseInfoFragment.updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, data -> {
             if (data == null) return;
+            guarantorInfo = data;
             if(guarantorInfo.marriage.equals("已婚")) {
                 mUpdateGuarantorSpouseInfoFragment.requestUpload(guarantorInfo.spouse.clt_id, () -> {
                     //上传影像件

@@ -67,9 +67,9 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         //提交用户资料
         mUpdatePersonalInfoFragment.updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
             if (data == null) return;
+            clientInfo = data;
             //上传影像件
             mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, () -> {
-                if (data == null) return;
                 Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
                 startActivity(intent);
                 finish();
