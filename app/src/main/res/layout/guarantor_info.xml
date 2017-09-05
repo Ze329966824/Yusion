@@ -259,7 +259,7 @@
                             <TextView
                                 android:id="@+id/guarantor_info_reg_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
