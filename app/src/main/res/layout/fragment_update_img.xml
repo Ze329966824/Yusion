@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
+    android:id="@+id/imgs"
     android:orientation="vertical">
 
     <com.yusion.shanghai.yusion.widget.TitleBar
