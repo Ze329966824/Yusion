@@ -69,6 +69,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("objectKey", ID_BACK_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         spouse_info_id_front_lin.setOnClickListener {
@@ -76,6 +77,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("imgUrl", idFrontImgUrl)
+            intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         spouse_info_marriage_lin.setOnClickListener {
@@ -459,7 +461,6 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 if (contacts != null) {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
-                spouse_info_clt_nm_edt.setText(result[0])
                 spouse_info_mobile_edt.setText(result[1].replace(" ", ""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {

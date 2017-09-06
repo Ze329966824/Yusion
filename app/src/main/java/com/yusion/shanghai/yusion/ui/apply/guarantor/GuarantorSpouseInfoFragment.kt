@@ -438,7 +438,6 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 if (contacts != null) {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
-                guarantor_spouse_info_clt_nm_edt.setText(result[0])
                 guarantor_spouse_info_mobile_edt.setText(result[1].replace(" ", ""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
