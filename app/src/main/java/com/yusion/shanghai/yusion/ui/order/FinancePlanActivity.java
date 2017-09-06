@@ -116,19 +116,18 @@ public class FinancePlanActivity extends BaseActivity {
                 replyMonthPriceTv.setText(resp.getUw().getMonthly_payment());
 
                 //percentTv.setText(resp.getUw().getVehicle_down_payment_percent() * 100 + "%");
-
+                compare(applyMonthPriceTv, replyMonthPriceTv);
+                compare(applyBillPriceTv, replyBillPriceTv);
+                compare(applyFirstPriceTv, replyFirstPriceTv);
+                compare(applyLoanPriceTv, replyLoanPriceTv);
+                compare(applyManagementPriceTv, replyManagementPriceTv);
+                compare(applyOtherPriceTv, replyOtherPriceTv);
+                compare(applyTotalPriceTv, replyTotalPriceTv);
+                compare(applyBankTv, replyBankTv);
+                compare(applyReplyDateTv, ReplyRepayDateTv);
             }
         });
-        compare(applyMonthPriceTv, replyMonthPriceTv);
-        compare(applyBillPriceTv, replyBillPriceTv);
-        compare(applyFirstPriceTv, replyFirstPriceTv);
-        compare(applyLoanPriceTv, replyLoanPriceTv);
-        compare(applyManagementPriceTv, replyManagementPriceTv);
-        compare(applyOtherPriceTv, replyOtherPriceTv);
-        compare(applyTotalPriceTv, replyTotalPriceTv);
 
-        compare(applyBankTv, replyBankTv);
-        compare(applyReplyDateTv, ReplyRepayDateTv);
     }
 
     private void initView() {

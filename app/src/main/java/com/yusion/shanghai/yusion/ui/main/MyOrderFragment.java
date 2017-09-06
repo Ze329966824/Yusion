@@ -69,25 +69,21 @@ public class MyOrderFragment extends BaseFragment {
         ptr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                items.clear();
+//                items.clear();
                 refreshData();
             }
         });
         refreshData();
-        // Log.e("sss",getArguments().getString("st"));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
     }
 
     //getArguments().getString("st")
     private void refreshData() {
-//        OrderApi.getAppList(mContext, "0", new OnDataCallBack<List<GetAppListResp>>() {
-//            @Override
-//            public void callBack(List<GetAppListResp> resp) {
-//                items.clear();
-//                items.addAll(resp);
-//                adapter.notifyDataSetChanged();
-//                ptr.refreshComplete();
-//            }
-//        });
         //getArguments().getString("st");
         OrderApi.getAppList(mContext, "0", new OnItemDataCallBack<List<GetAppListResp>>() {
             @Override
