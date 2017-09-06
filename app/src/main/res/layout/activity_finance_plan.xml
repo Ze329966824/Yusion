@@ -83,7 +83,7 @@
                                 android:gravity="center_vertical"
                                 android:text="名称"
                                 android:textColor="#ffffff"
-                                android:textSize="14.5sp" />
+                                android:textSize="11.5sp" />
 
                             <TextView
                                 android:id="@+id/textView3"
@@ -93,7 +93,7 @@
                                 android:gravity="center"
                                 android:text="申请信息"
                                 android:textColor="#ffffff"
-                                android:textSize="14.5sp" />
+                                android:textSize="11.5sp" />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -102,7 +102,7 @@
                                 android:gravity="right|center_vertical"
                                 android:text="批复信息"
                                 android:textColor="#ffffff"
-                                android:textSize="14.5sp" />
+                                android:textSize="11.5sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -132,7 +132,7 @@
                                 android:paddingTop="10dp"
                                 android:text="车辆开票价"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_bill_price_tv"
@@ -141,7 +141,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="99999元"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_bill_price_tv"
@@ -151,7 +151,7 @@
                                 android:gravity="center|right"
                                 android:text="90000元"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -210,7 +210,7 @@
                                 android:paddingTop="10dp"
                                 android:text="车辆首付款"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_first_price_tv"
@@ -219,7 +219,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="99999元"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_first_price_tv"
@@ -229,7 +229,7 @@
                                 android:gravity="center|right"
                                 android:text="90000元"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -287,7 +287,7 @@
                                 android:paddingTop="10dp"
                                 android:text="车辆贷款金额"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_loan_price_tv"
@@ -296,7 +296,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="99999元"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_loan_price_tv"
@@ -306,7 +306,7 @@
                                 android:gravity="center|right"
                                 android:text="90000元"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -365,7 +365,7 @@
                                 android:paddingTop="10dp"
                                 android:text="档案管理费"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_management_price_tv"
@@ -374,7 +374,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="99999元"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_management_price_tv"
@@ -384,7 +384,7 @@
                                 android:gravity="center|right"
                                 android:text="90000元"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -443,7 +443,7 @@
                                 android:paddingTop="10dp"
                                 android:text="其他费用"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_other_price_tv"
@@ -452,7 +452,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="99999元"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_other_price_tv"
@@ -462,7 +462,7 @@
                                 android:gravity="center|right"
                                 android:text="90000元"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -513,6 +513,7 @@
 
                             <TextView
 
+                                android:id="@+id/textView6"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -520,7 +521,7 @@
                                 android:paddingTop="10dp"
                                 android:text="总贷款额"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_total_price_tv"
@@ -528,7 +529,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_total_price_tv"
@@ -537,7 +538,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center|right"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -595,7 +596,7 @@
                                 android:paddingTop="10dp"
                                 android:text="贷款银行"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_bank_tv"
@@ -604,7 +605,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="99999元"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_bank_tv"
@@ -614,7 +615,7 @@
                                 android:gravity="center|right"
                                 android:text="90000元"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -642,7 +643,7 @@
                                 android:paddingTop="10dp"
                                 android:text="月供"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_month_price_tv"
@@ -650,7 +651,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_month_price_tv"
@@ -659,7 +660,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center|right"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -717,7 +718,7 @@
                                 android:paddingTop="10dp"
                                 android:text="还款期限"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/apply_repay_date_tv"
@@ -725,7 +726,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
 
                             <TextView
                                 android:id="@+id/reply_repay_data_tv"
@@ -734,7 +735,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center|right"
                                 android:textColor="@color/text_grey"
-                                android:textSize="14.5sp" />
+                                android:textSize="13.5sp" />
                         </LinearLayout>
                     </LinearLayout>
 

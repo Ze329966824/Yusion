@@ -36,7 +36,7 @@
                 android:padding="15dp"
                 android:text="征信审核中"
                 android:textColor="@color/text_normal"
-                android:textSize="14.5sp" />
+                android:textSize="13.5sp" />
 
             <View
                 android:id="@+id/order_detail_status_wait_line"
@@ -83,7 +83,7 @@
                 android:padding="15dp"
                 android:text="征信通过"
                 android:textColor="@color/text_normal"
-                android:textSize="14.5sp" />
+                android:textSize="13.5sp" />
 
             <View
                 android:id="@+id/order_detail_status_pass_line"
@@ -131,7 +131,7 @@
                 android:padding="15dp"
                 android:text="征信审核拒绝"
                 android:textColor="@color/text_normal"
-                android:textSize="14.5sp" />
+                android:textSize="13.5sp" />
 
             <View
                 android:id="@+id/order_detail_status_reject_line"
@@ -180,7 +180,7 @@
                 android:padding="15dp"
                 android:text="已取消"
                 android:textColor="@color/text_normal"
-                android:textSize="14.5sp" />
+                android:textSize="13.5sp" />
 
             <View
                 android:id="@+id/order_detail_status_cancel_line"
@@ -254,7 +254,7 @@
                         android:padding="15dp"
                         android:text="金融方案批复信息"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -530,7 +530,7 @@
                         android:padding="15dp"
                         android:text="金融方案申请信息"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:id="@+id/order_detail_plan_reply_info_line"
@@ -840,7 +840,7 @@
                         android:padding="15dp"
                         android:text="金融方案"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:id="@+id/order_detail_plan_reply_info_line9"
@@ -863,7 +863,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="名称"
-                            android:textSize="14.5sp" />
+                            android:textSize="11.5sp" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -872,7 +872,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="申请信息"
-                            android:textSize="14.5sp" />
+                            android:textSize="11.5sp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -880,7 +880,7 @@
                             android:layout_weight="1"
                             android:gravity="right|center_vertical"
                             android:text="批复信息"
-                            android:textSize="14.5sp" />
+                            android:textSize="11.5sp" />
 
                     </LinearLayout>
 
@@ -903,7 +903,7 @@
                             android:paddingTop="10dp"
                             android:text="车辆开票价"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_bill_price_tv2"
@@ -912,7 +912,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="99999元"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_bill_price_tv2"
@@ -922,7 +922,7 @@
                             android:gravity="center|right"
                             android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -943,7 +943,7 @@
                             android:paddingTop="10dp"
                             android:text="车辆首付款"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_first_price_tv2"
@@ -952,7 +952,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="99999元"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_first_price_tv2"
@@ -962,7 +962,7 @@
                             android:gravity="center|right"
                             android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -984,7 +984,7 @@
                             android:paddingTop="10dp"
                             android:text="首付比例"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_first_percent_tv"
@@ -993,7 +993,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="99999元"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_first_percent_tv"
@@ -1003,7 +1003,7 @@
                             android:gravity="center|right"
                             android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1024,7 +1024,7 @@
                             android:paddingTop="10dp"
                             android:text="车辆贷款金额"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_loan_price_tv2"
@@ -1033,7 +1033,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="99999元"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_loan_price_tv2"
@@ -1043,7 +1043,7 @@
                             android:gravity="center|right"
                             android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1065,7 +1065,7 @@
                             android:paddingTop="10dp"
                             android:text="档案管理费"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_management_price_tv2"
@@ -1074,7 +1074,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="99999元"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_management_price_tv2"
@@ -1084,7 +1084,7 @@
                             android:gravity="center|right"
                             android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1106,7 +1106,7 @@
                             android:paddingTop="10dp"
                             android:text="其他费用"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_other_price_tv2"
@@ -1115,7 +1115,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="99999元"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_other_price_tv2"
@@ -1125,7 +1125,7 @@
                             android:gravity="center|right"
                             android:text="90000元"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1146,7 +1146,7 @@
                             android:paddingTop="10dp"
                             android:text="总贷款额"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_total_price_tv2"
@@ -1154,7 +1154,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_total_price_tv2"
@@ -1163,7 +1163,7 @@
                             android:layout_weight="1"
                             android:gravity="center|right"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1184,7 +1184,7 @@
                             android:paddingTop="10dp"
                             android:text="月供"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_month_price_tv2"
@@ -1192,7 +1192,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_month_price_tv2"
@@ -1201,7 +1201,7 @@
                             android:layout_weight="1"
                             android:gravity="center|right"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
 
@@ -1224,7 +1224,7 @@
                             android:paddingTop="10dp"
                             android:text="贷款银行"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_bank_tv2"
@@ -1232,7 +1232,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_bank_tv2"
@@ -1241,7 +1241,7 @@
                             android:layout_weight="1"
                             android:gravity="center|right"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1263,7 +1263,7 @@
                             android:paddingTop="10dp"
                             android:text="产品类型"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_repay_date_tv66"
@@ -1271,7 +1271,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_repay_data_tv55"
@@ -1280,7 +1280,7 @@
                             android:layout_weight="1"
                             android:gravity="center|right"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1301,7 +1301,7 @@
                             android:paddingTop="10dp"
                             android:text="还款期限"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/apply_repay_date_tv2"
@@ -1309,7 +1309,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                         <TextView
                             android:id="@+id/reply_repay_data_tv2"
@@ -1318,7 +1318,7 @@
                             android:layout_weight="1"
                             android:gravity="center|right"
                             android:textColor="@color/text_grey"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
                     </LinearLayout>
 
 
@@ -1343,7 +1343,7 @@
                         android:padding="15dp"
                         android:text="车辆信息"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:id="@+id/order_detail_car_info_line"
@@ -1483,7 +1483,7 @@
                         android:padding="15dp"
                         android:text="门店信息"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:id="@+id/order_detail_store_line"
@@ -1539,7 +1539,7 @@
                         android:padding="15dp"
                         android:text="报单人员信息"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:id="@+id/order_detail_sale_info_line"
@@ -1578,7 +1578,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_toLeftOf="@id/order_detail_sales_mobile_img"
                             android:textColor="@color/text_normal"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                     </RelativeLayout>
 
@@ -1602,7 +1602,7 @@
                         android:padding="15dp"
                         android:text="金融专员信息"
                         android:textColor="@color/text_normal"
-                        android:textSize="14.5sp" />
+                        android:textSize="13.5sp" />
 
                     <View
                         android:id="@+id/order_detail_customer_info_line"
@@ -1641,7 +1641,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_toLeftOf="@id/order_detail_customer_mobile_img"
                             android:textColor="@color/text_normal"
-                            android:textSize="14.5sp" />
+                            android:textSize="13.5sp" />
 
                     </RelativeLayout>
                 </LinearLayout>
