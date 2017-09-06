@@ -59,7 +59,6 @@ public class JpushDialogActivity extends BaseActivity {
     private void JpushDialog() {
         switch (category) {
             case "login":
-
                 if (YusionApp.isLogin) {
                     if (mobile.equals(YusionApp.MOBILE)) {
                         new AlertDialog.Builder(JpushDialogActivity.this)
@@ -72,7 +71,8 @@ public class JpushDialogActivity extends BaseActivity {
                                     finish();
                                 })
                                 .show();
-
+                    } else {
+                        finish();
                     }
                 }
                 break;
