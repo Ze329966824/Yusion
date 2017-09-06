@@ -49,6 +49,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     private List<UploadLabelItemBean> mItems = new ArrayList<>();
     private String mCltId;
     private String mRole;
+    private RecyclerView rv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +61,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.title_bar).setVisibility(View.GONE);
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
+        rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
         UpdateSpouseInfoActivity usia = new UpdateSpouseInfoActivity();
 
         rv.setLayoutManager(new LinearLayoutManager(mContext));
@@ -107,7 +108,15 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-
+        if (!hidden) {
+            if (getActivity() instanceof UpdateSpouseInfoActivity) {
+                if (((UpdateSpouseInfoActivity) getActivity()).clientInfo.marriage.equals("已婚")) {
+                    rv.setEnabled(true);
+                } else {
+                    rv.setEnabled(false);
+                }
+            }
+        }
     }
 
     private void initData() {

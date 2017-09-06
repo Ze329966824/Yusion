@@ -36,7 +36,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
-    private ClientInfo clientInfo;
+    public ClientInfo clientInfo;
     public boolean ishaveImgs;
 
     @Override
