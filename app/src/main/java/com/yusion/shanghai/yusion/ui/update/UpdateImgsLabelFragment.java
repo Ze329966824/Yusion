@@ -234,15 +234,19 @@ public class UpdateImgsLabelFragment extends BaseFragment {
             mUploadFileDialog = LoadingUtils.createLoadingDialog(mContext);
             mUploadFileDialog.setCancelable(false);
         }
-        mUploadFileDialog.show();
-        UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
-        uploadFilesUrlReq.files = uploadFileUrlBeanList;
-        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "");
-        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "");
-        UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, (code, msg) -> {
-            mUploadFileDialog.dismiss();
+        if (uploadFileUrlBeanList.size() > 0) {
+            mUploadFileDialog.show();
+            UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
+            uploadFilesUrlReq.files = uploadFileUrlBeanList;
+            uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(mContext).getValue("region", "");
+            uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "");
+            UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq, (code, msg) -> {
+                mUploadFileDialog.dismiss();
+                onVoidCallBack.callBack();
+            });
+        } else {
             onVoidCallBack.callBack();
-        });
+        }
     }
 
     public void setVisibility(int visibility) {
