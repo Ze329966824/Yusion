@@ -25,7 +25,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:src="@mipmap/single_img_add" />
+            android:src="@mipmap/camera_document" />
 
     </LinearLayout>
 </LinearLayout>
