@@ -521,10 +521,10 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
             update_personal_info_clt_nm_edt.setText(clientInfo.clt_nm);
             update_personal_info_id_no_edt.setText(clientInfo.id_no);
             update_personal_info_gender_tv.setText(clientInfo.gender);
-            if (!clientInfo.reg_addr.province.equals("")) {
-                update_personal_info_reg_tv.setText(clientInfo.reg_addr.province + "/" + clientInfo.reg_addr.city + "/" + clientInfo.reg_addr.district);
-            } else {
+            if (clientInfo.reg_addr.province.equals("") &&clientInfo.reg_addr.city.equals("") &&clientInfo.reg_addr.district.equals("")) {
                 update_personal_info_reg_tv.setText(null);
+            } else {
+                update_personal_info_reg_tv.setText(clientInfo.reg_addr.province + "/" + clientInfo.reg_addr.city + "/" + clientInfo.reg_addr.district);
             }
             update_personal_info_mobile_edt.setText(clientInfo.mobile);
             update_personal_info_education_tv.setText(clientInfo.edu);
