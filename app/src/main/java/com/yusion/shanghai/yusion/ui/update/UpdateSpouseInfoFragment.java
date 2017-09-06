@@ -54,6 +54,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     }};
 
     public String idBackImgUrl = "";
+    public String idBackImgId = "";
+    public String idFrontImgId = "";
     public String idFrontImgUrl = "";
     public String ID_BACK_FID = "";
     public String ID_FRONT_FID = "";
@@ -187,6 +189,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             intent.putExtra("role", Constants.PersonType.LENDER_SP);
             intent.putExtra("ocrResp", ocrResp);
             intent.putExtra("imgUrl", idBackImgUrl);
+            intent.putExtra("clt_id", clientInfo.spouse.clt_id);
+            intent.putExtra("imgUrlId", idBackImgId);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
         //身份证国徽面
@@ -195,6 +199,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
             intent.putExtra("role", Constants.PersonType.LENDER_SP);
             intent.putExtra("imgUrl", idFrontImgUrl);
+            intent.putExtra("clt_id", clientInfo.spouse.clt_id);
+            intent.putExtra("imgUrlId", idFrontImgId);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
 
@@ -830,6 +836,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_id_back_tv.setText("已上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
                             idBackImgUrl = resp.list.get(0).s_url;
+                            idBackImgId = resp.list.get(0).id;
                         }
                     });
                     ListImgsReq req2 = new ListImgsReq();
@@ -840,6 +847,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             update_spouse_info_id_front_tv.setText("已上传");
                             update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
                             idFrontImgUrl = resp.list.get(0).s_url;
+                            idFrontImgId = resp.list.get(0).id;
                         }
                     });
                     update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);

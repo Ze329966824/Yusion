@@ -125,7 +125,9 @@ public class UploadListActivity extends BaseActivity {
                 }
                 uploadTv2.setText("删除");
                 uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
-                mTopItem.hasImg = imgList.size() > 0;
+                if (mTopItem != null) {
+                    mTopItem.hasImg = imgList.size() > 0;
+                }
                 adapter.notifyDataSetChanged();
 
 

@@ -247,6 +247,22 @@ public class DocumentActivity extends BaseActivity {
                     } else {
                         imgList.clear();
                     }
+                } else {//13946466464
+                    if (!TextUtils.isEmpty(getIntent().getStringExtra("imgUrlId"))) {
+                        DelImgsReq req = new DelImgsReq();
+                        req.clt_id = mGetIntent.getStringExtra("clt_id");
+                        req.id.add(imgList.get(0).id);
+                        UploadApi.delImgs(DocumentActivity.this, req, new OnCodeAndMsgCallBack() {
+                            @Override
+                            public void callBack(int code, String msg) {
+                                if (code == 0) {
+                                    Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                                    mTopItem.hasImg = false;
+                                    imgList.clear();
+                                }
+                            }
+                        });
+                    }
                 }
 
                 isHasImage = false;

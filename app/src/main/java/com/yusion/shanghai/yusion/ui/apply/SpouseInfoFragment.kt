@@ -286,7 +286,6 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 "无" -> {
                     applyActivity.mClientInfo.spouse.extra_income_type = "无"
                 }
-
             }
         } else if (applyActivity.mClientInfo.marriage == "离异") {
             applyActivity.mClientInfo.child_num = spouse_info_divorced_child_count_edt.text.toString()
