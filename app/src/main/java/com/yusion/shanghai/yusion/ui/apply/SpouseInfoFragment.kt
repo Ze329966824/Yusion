@@ -296,6 +296,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
 
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
+                applyActivity.mClientInfo = it
                 uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
             }
         }

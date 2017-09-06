@@ -286,9 +286,10 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 }
             }
         }
-        //                nextStep()
+        //nextStep()
         ProductApi.updateGuarantorInfo(mContext, addGuarantorActivity.mGuarantorInfo) {
             if (it != null) {
+                addGuarantorActivity.mGuarantorInfo = it
                 uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id, addGuarantorActivity.mGuarantorInfo.spouse.clt_id)
             }
         }
