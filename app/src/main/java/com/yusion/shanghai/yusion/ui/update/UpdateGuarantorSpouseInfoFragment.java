@@ -858,7 +858,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
             } else if (update_guarantor_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_spouse_info_extra_from_income_work_position_tv.getText().toString().isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_guarantor_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_spouse_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
             }

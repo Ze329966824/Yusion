@@ -722,7 +722,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_work_position_tv.getText().toString())) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_year_edt.getText().toString())) {
-                Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true;
             }

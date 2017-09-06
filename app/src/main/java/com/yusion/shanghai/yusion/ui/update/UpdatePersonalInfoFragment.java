@@ -768,7 +768,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
             Toast.makeText(mContext, "收入来源不能为空", Toast.LENGTH_SHORT).show();
         }
 
-        //主要工资
+        //额外工资
         else if (update_personal_info_extra_income_from_tv.getText().toString().equals("工资") && update_personal_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_extra_income_from_tv.getText().toString().equals("工资") && update_personal_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
@@ -780,7 +780,7 @@ public class UpdatePersonalInfoFragment extends BaseFragment {
         } else if (update_personal_info_extra_income_from_tv.getText().toString().equals("工资") && update_personal_extra_info_work_position_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_extra_income_from_tv.getText().toString().equals("工资") && update_personal_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
         } else {
             return true;
         }
