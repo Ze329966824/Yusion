@@ -110,7 +110,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.major_remark = guarantor_info_from_other_remark_edt.text.toString()
                 }
             }
-            //主要收入来源
+            //额外收入来源
             when (guarantor_info_extra_income_from_tv.text) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.extra_income_type = "工资"
