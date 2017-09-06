@@ -299,6 +299,17 @@ public class OrderDetailActivity extends BaseActivity {
                 applyReplyDateTv2.setText(resp.nper);
                 ReplyRepayDateTv2.setText(resp.uw_detail.nper);
 
+                compare(applyMonthPrice, replyMonthPrice);
+                compare(applyFirstPercentTv2, replyFirstPercentTv2);
+                compare(applyBillPriceTv2, replyBillPriceTv2);
+                compare(applyFirstPriceTv2, replyFirstPriceTv2);
+                compare(applyLoanPriceTv2, replyLoanPriceTv2);
+                compare(applyManagementPriceTv2, replyManagementPriceTv2);
+                compare(applyOtherPriceTv2, replyOtherPriceTv2);
+                compare(applyTotalPriceTv2, replyTotalPriceTv2);
+                compare(applyBankTv2, replyBankTv2);
+                compare(applyReplyDateTv2, ReplyRepayDateTv2);
+
                 //金融专员信息
                 findViewById(R.id.order_detail_customer_mobile_img).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -322,20 +333,11 @@ public class OrderDetailActivity extends BaseActivity {
 
         });
 
-        compare(applyMonthPrice, replyMonthPrice);
-        compare(applyFirstPercentTv2, replyFirstPercentTv2);
-        compare(applyBillPriceTv2, replyBillPriceTv2);
-        compare(applyFirstPriceTv2, replyFirstPriceTv2);
-        compare(applyLoanPriceTv2, replyLoanPriceTv2);
-        compare(applyManagementPriceTv2, replyManagementPriceTv2);
-        compare(applyOtherPriceTv2, replyOtherPriceTv2);
-        compare(applyTotalPriceTv2, replyTotalPriceTv2);
-        compare(applyBankTv2, replyBankTv2);
-        compare(applyReplyDateTv2, ReplyRepayDateTv2);
+
     }
 
     private void compare(TextView tv1, TextView tv2) {
-        if (tv1.getText().toString().compareTo(tv2.getText().toString()) == 0) {
+        if (tv1.getText().toString().equals(tv2.getText().toString())) {
             tv1.setTextColor(Color.parseColor("#999999"));
             tv2.setTextColor(Color.parseColor("#222a36"));
         } else {
