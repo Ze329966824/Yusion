@@ -114,8 +114,8 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 UploadLabelItemBean uploadLabelItemBean = new Gson().fromJson(jsonObject.toString(), UploadLabelItemBean.class);
                 mItems.add(uploadLabelItemBean);
+                mAdapter.notifyDataSetChanged();
             }
-            mAdapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
         }

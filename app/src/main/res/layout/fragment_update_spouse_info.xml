@@ -502,7 +502,7 @@
                                 android:id="@+id/update_spouse_info_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
                                 android:enabled="false"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
