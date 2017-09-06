@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,7 +38,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
     private String[] mTabTitle = {"配偶信息", "影像件"};
 
     public ClientInfo clientInfo;
-    public boolean ishaveImgs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 clientInfo = data;
                 mUpdateSpouseInfoFragment.getClientinfo(clientInfo);
                 if (clientInfo.marriage.equals("已婚")) {
-                    ishaveImgs = true;
+                    mUpdateImgsLabelFragment.setVisibility(View.VISIBLE);
                 } else {
-                    ishaveImgs = false;
+                    mUpdateImgsLabelFragment.setVisibility(View.GONE);
                 }
                 mUpdateImgsLabelFragment.setCltIdAndRole(clientInfo.spouse.clt_id, Constants.PersonType.LENDER_SP);
             }
@@ -74,32 +74,30 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
         mUpdateSpouseInfoFragment.updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
-            if (data == null){return;}
+            if (data == null) {
+                return;
+            }
             clientInfo = data;
             //已婚状态：上传配偶cltid
 //            if (data != null) {
-                if (clientInfo.marriage.equals("已婚")) {
-                    mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
-                        //上传影像件
-                        mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
-                            Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                            startActivity(intent);
-                            finish();
-                        });
-                    });
-                } else {
-                    //其他状态：上传主贷人cltid，不上传右侧影像件
-                    mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
-                        Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+            if (clientInfo.marriage.equals("已婚")) {
+                mUpdateSpouseInfoFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
+                    //上传影像件
+                    mUpdateImgsLabelFragment.requestUpload(clientInfo.spouse.clt_id, () -> {
                         Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
                         startActivity(intent);
                         finish();
                     });
-                }
-
-
-
-
+                });
+            } else {
+                //其他状态：上传主贷人cltid，不上传右侧影像件
+                mUpdateSpouseInfoFragment.requestUpload(clientInfo.clt_id, () -> {
+                    Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            }
         }));
     }
 
@@ -112,6 +110,28 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         mFragments.add(mUpdateSpouseInfoFragment);
         mFragments.add(mUpdateImgsLabelFragment);
         viewPager.setOffscreenPageLimit(2);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    if (!clientInfo.marriage.equals("已婚")) {
+                        mUpdateImgsLabelFragment.setVisibility(View.GONE);
+                    } else {
+                        mUpdateImgsLabelFragment.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);
         ImageView mSubmitImg = (ImageView) findViewById(R.id.submit_img);

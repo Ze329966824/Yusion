@@ -50,6 +50,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     private String mCltId;
     private String mRole;
     private RecyclerView rv;
+    private View contentView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +61,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        contentView = view;
         view.findViewById(R.id.title_bar).setVisibility(View.GONE);
         rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
         UpdateSpouseInfoActivity usia = new UpdateSpouseInfoActivity();
@@ -103,20 +105,6 @@ public class UpdateImgsLabelFragment extends BaseFragment {
 //            //initShamData();
         initData();
 //        }
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            if (getActivity() instanceof UpdateSpouseInfoActivity) {
-                if (((UpdateSpouseInfoActivity) getActivity()).clientInfo.marriage.equals("已婚")) {
-                    rv.setEnabled(true);
-                } else {
-                    rv.setEnabled(false);
-                }
-            }
-        }
     }
 
     private void initData() {
@@ -255,5 +243,9 @@ public class UpdateImgsLabelFragment extends BaseFragment {
             mUploadFileDialog.dismiss();
             onVoidCallBack.callBack();
         });
+    }
+
+    public void setVisibility(int visibility) {
+        contentView.setVisibility(visibility);
     }
 }
