@@ -259,7 +259,7 @@
                             <TextView
                                 android:id="@+id/guarantor_info_reg_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -484,7 +484,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_from_income_year_edt"
@@ -704,7 +704,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_from_self_year_edt"
@@ -849,6 +849,7 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/guarantor_info_from_self_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
+                                android:layout_marginLeft="15dp"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入" />
 
@@ -882,7 +883,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_from_other_year_edt"
@@ -899,7 +900,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="备注" />
+                                android:text="备注   " />
 
                             <EditText
                                 android:layout_marginRight="35dp"
@@ -981,7 +982,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="年收入" />
+                                android:text="年收入(万)" />
 
                             <EditText
                                 android:id="@+id/guarantor_info_extra_from_income_year_edt"

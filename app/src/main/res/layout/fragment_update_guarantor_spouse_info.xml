@@ -9,7 +9,6 @@
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
-        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -726,6 +725,7 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_spouse_info_from_self_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
+                                android:layout_marginLeft="15dp"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入" />
 
@@ -778,7 +778,7 @@
                             <TextView
                                 style="@style/apply_info_title_wrap"
                                 android:layout_marginTop="10dp"
-                                android:text="备注" />
+                                android:text="备注   " />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/update_guarantor_spouse_info_from_other_remark_tv"
@@ -1202,6 +1202,10 @@
                 <include layout="@layout/include_line" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/bg_color" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

@@ -101,7 +101,7 @@
         android:layout_marginTop="15dp"
         android:background="#FFFFFF"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/list_guarantor_info"
@@ -187,19 +187,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-
             android:descendantFocusability="blocksDescendants">
 
 
             <ImageView
-
                 android:id="@+id/icon_add_guarantee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -211,18 +209,23 @@
 
 
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/list_info_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="8dp"
                 android:layout_alignLeft="@id/icon_add_guarantee"
                 android:layout_below="@id/icon_add_guarantee"
                 android:paddingLeft="2dp"
-                android:text="添加担保人信息，可为您" />
+                android:text="温馨提示 : 添加担保人信息，可为您" />
 
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/list_info_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:layout_below="@id/icon_add_guarantee"
                 android:layout_toRightOf="@id/list_info_text1"
                 android:text="提高个人征信和融资额度"

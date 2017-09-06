@@ -251,9 +251,15 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.spouse.major_income = spouse_info_from_self_year_edt.text.toString()
                     applyActivity.mClientInfo.spouse.major_busi_type = spouse_info_from_self_type_tv.text.toString()
                     applyActivity.mClientInfo.spouse.major_company_name = spouse_info_from_self_company_name_edt.text.toString()
-                    applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    if (TextUtils.isEmpty(spouse_info_from_self_company_address_tv.text)) {
+                        applyActivity.mClientInfo.spouse.major_company_addr.province = ""
+                        applyActivity.mClientInfo.spouse.major_company_addr.city = ""
+                        applyActivity.mClientInfo.spouse.major_company_addr.district = ""
+                    } else {
+                        applyActivity.mClientInfo.spouse.major_company_addr.province = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                        applyActivity.mClientInfo.spouse.major_company_addr.city = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        applyActivity.mClientInfo.spouse.major_company_addr.district = spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    }
                     applyActivity.mClientInfo.spouse.major_company_addr.address1 = spouse_info_from_self_company_address1_tv.text.toString()
                     applyActivity.mClientInfo.spouse.major_company_addr.address2 = spouse_info_from_self_company_address2_tv.text.toString()
                 }
@@ -290,6 +296,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
 
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
+                applyActivity.mClientInfo = it
                 uploadUrl(applyActivity.mClientInfo.clt_id, applyActivity.mClientInfo.spouse.clt_id)
             }
         }
@@ -336,20 +343,10 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_type_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_name_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address1_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address2_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_remark_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_extra_income_from_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_extra_income_from_tv.text == "工资" && spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {

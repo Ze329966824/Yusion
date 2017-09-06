@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,9 +95,15 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.major_income = personal_info_from_self_year_edt.text.toString()
                     applyActivity.mClientInfo.major_busi_type = personal_info_from_self_type_tv.text.toString()
                     applyActivity.mClientInfo.major_company_name = personal_info_from_self_company_name_edt.text.toString()
-                    applyActivity.mClientInfo.major_company_addr.province = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    applyActivity.mClientInfo.major_company_addr.city = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    applyActivity.mClientInfo.major_company_addr.district = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    if (TextUtils.isEmpty(personal_info_from_self_company_address_tv.text)) {
+                        applyActivity.mClientInfo.major_company_addr.province = ""
+                        applyActivity.mClientInfo.major_company_addr.city = ""
+                        applyActivity.mClientInfo.major_company_addr.district = ""
+                    } else {
+                        applyActivity.mClientInfo.major_company_addr.province = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                        applyActivity.mClientInfo.major_company_addr.city = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        applyActivity.mClientInfo.major_company_addr.district = personal_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    }
                     applyActivity.mClientInfo.major_company_addr.address1 = personal_info_from_self_company_address1_tv.text.toString()
                     applyActivity.mClientInfo.major_company_addr.address2 = personal_info_from_self_company_address2_tv.text.toString()
                 }
@@ -366,8 +373,6 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_income_from_tv.text == "其他" && personal_info_from_other_remark_edt.text.isEmpty()) {
             Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-        } else if (personal_info_extra_income_from_tv.text.isEmpty()) {
-            Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_year_edt.text.isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
         } else if (personal_info_extra_income_from_tv.text == "工资" && personal_info_extra_from_income_company_name_edt.text.isEmpty()) {

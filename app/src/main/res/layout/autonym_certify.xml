@@ -248,7 +248,7 @@
 
                         <EditText
                             android:id="@+id/autonym_certify_name_tv"
-                            style="@style/apply_info_content_type_id"
+                            style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
                             android:hint="请输入" />
                     </LinearLayout>
@@ -274,7 +274,7 @@
                             style="@style/apply_info_content"
                             android:layout_marginRight="35dp"
                             android:hint="请输入"
-                            android:textColor="#999999" />
+                             />
 
                     </LinearLayout>
 

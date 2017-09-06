@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -529,10 +530,10 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
             update_guarantor_info_clt_nm_edt.setText(guarantorInfo.clt_nm);
             update_guarantor_info_id_no_edt.setText(guarantorInfo.id_no);
             update_guarantor_info_gender_tv.setText(guarantorInfo.gender);
-            if (!guarantorInfo.reg_addr.province.equals("")) {
-                update_guarantor_info_reg_tv.setText(guarantorInfo.reg_addr.province + "/" + guarantorInfo.reg_addr.city + "/" + guarantorInfo.reg_addr.district);
-            } else {
+            if (guarantorInfo.reg_addr.province.equals("") && guarantorInfo.reg_addr.city.equals("") &&guarantorInfo.reg_addr.district.equals("")) {
                 update_guarantor_info_reg_tv.setText(null);
+            } else {
+                update_guarantor_info_reg_tv.setText(guarantorInfo.reg_addr.province + "/" + guarantorInfo.reg_addr.city + "/" + guarantorInfo.reg_addr.district);
             }
             update_guarantor_info_mobile_edt.setText(guarantorInfo.mobile);
             update_guarantor_info_education_tv.setText(guarantorInfo.edu);
@@ -644,10 +645,10 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                 case "工资":
                     guarantorInfo.major_income = update_guarantor_info_from_income_year_edt.getText().toString().trim();
                     guarantorInfo.major_company_name = update_guarantor_info_from_income_company_name_edt.getText().toString().trim();
-                    if (update_guarantor_info_extra_from_income_company_address_tv.getText().toString().trim().split("/").length == 3) {
-                        guarantorInfo.major_company_addr.province = update_guarantor_info_from_income_company_address1_tv.getText().toString().trim().split("/")[0];
-                        guarantorInfo.major_company_addr.city = update_guarantor_info_from_income_company_address1_tv.getText().toString().trim().split("/")[1];
-                        guarantorInfo.major_company_addr.district = update_guarantor_info_from_income_company_address1_tv.getText().toString().trim().split("/")[2];
+                    if (update_guarantor_info_from_income_company_address_tv.getText().toString().trim().split("/").length == 3) {
+                        guarantorInfo.major_company_addr.province = update_guarantor_info_from_income_company_address_tv.getText().toString().trim().split("/")[0];
+                        guarantorInfo.major_company_addr.city = update_guarantor_info_from_income_company_address_tv.getText().toString().trim().split("/")[1];
+                        guarantorInfo.major_company_addr.district = update_guarantor_info_from_income_company_address_tv.getText().toString().trim().split("/")[2];
                         guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_income_company_address1_tv.getText().toString().trim();
                         guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_income_company_address2_tv.getText().toString().trim();
                     }
@@ -658,13 +659,17 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
                     guarantorInfo.major_income = update_guarantor_info_from_self_year_edt.getText().toString().trim();
                     guarantorInfo.major_busi_type = update_guarantor_info_from_self_type_tv.getText().toString().trim();
                     guarantorInfo.major_company_name = update_guarantor_info_from_self_company_name_edt.getText().toString().trim();
-                    if (update_guarantor_info_extra_from_income_company_address_tv.getText().toString().trim().split("/").length == 3) {
+                    if (TextUtils.isEmpty(update_guarantor_info_from_self_company_address_tv.getText())) {
+                        guarantorInfo.major_company_addr.province = "";
+                        guarantorInfo.major_company_addr.city = "";
+                        guarantorInfo.major_company_addr.district = "";
+                    } else {
                         guarantorInfo.major_company_addr.province = update_guarantor_info_from_self_company_address_tv.getText().toString().trim().split("/")[0];
                         guarantorInfo.major_company_addr.city = update_guarantor_info_from_self_company_address_tv.getText().toString().trim().split("/")[1];
                         guarantorInfo.major_company_addr.district = update_guarantor_info_from_self_company_address_tv.getText().toString().trim().split("/")[2];
-                        guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_self_company_address1_tv.getText().toString().trim();
-                        guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_self_company_address2_tv.getText().toString().trim();
                     }
+                    guarantorInfo.major_company_addr.address1 = update_guarantor_info_from_self_company_address1_tv.getText().toString().trim();
+                    guarantorInfo.major_company_addr.address2 = update_guarantor_info_from_self_company_address2_tv.getText().toString().trim();
                     break;
                 case "其他":
                     guarantorInfo.major_income = update_guarantor_info_from_other_year_edt.getText().toString().trim();
@@ -757,16 +762,8 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "工资年收入不能为空", Toast.LENGTH_SHORT).show();
         }//主要自营
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_name_edt.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "单位地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "不能为空", Toast.LENGTH_SHORT).show();
+       else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
         }//主要其他
@@ -780,7 +777,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
 
 
         //额外工资
-        else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
+        else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_company_name_edt.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show();
@@ -791,7 +788,7 @@ public class UpdateGuarantorInfoFragment extends BaseFragment {
         } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_extra_info_work_position_tv.getText().toString().isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show();
         } else {
             return true;
         }

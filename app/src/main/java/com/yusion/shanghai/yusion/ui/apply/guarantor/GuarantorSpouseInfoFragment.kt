@@ -110,7 +110,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         guarantor_spouse_info_extra_income_from_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(listOf("工资", "无"), _EXTRA_INCOME_FROME_INDEX, guarantor_spouse_info_extra_income_from_lin, guarantor_spouse_info_extra_income_from_tv, "请选择", { _, index ->
                 _EXTRA_INCOME_FROME_INDEX = index
-                guarantor_spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资","无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                guarantor_spouse_info_extra_from_income_group_lin.visibility = if (listOf("工资", "无")[_EXTRA_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
             })
         }
         guarantor_spouse_info_divorced_lin.setOnClickListener {
@@ -249,9 +249,15 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "自营"
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income = guarantor_spouse_info_from_self_year_edt.text.toString()
                     addGuarantorActivity.mGuarantorInfo.spouse.major_company_name = guarantor_spouse_info_from_self_company_name_edt.text.toString()
-                    addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.province = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.city = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.district = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    if (TextUtils.isEmpty(guarantor_spouse_info_from_self_company_address_tv.text)) {
+                        addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.province = ""
+                        addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.city = ""
+                        addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.district = ""
+                    } else {
+                        addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.province = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                        addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.city = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.district = guarantor_spouse_info_from_self_company_address_tv.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    }
                     addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.address1 = guarantor_spouse_info_from_self_company_address1_tv.text.toString()
                     addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.address2 = guarantor_spouse_info_from_self_company_address2_tv.text.toString()
                 }
@@ -280,9 +286,10 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 }
             }
         }
-        //                nextStep()
+        //nextStep()
         ProductApi.updateGuarantorInfo(mContext, addGuarantorActivity.mGuarantorInfo) {
             if (it != null) {
+                addGuarantorActivity.mGuarantorInfo = it
                 uploadUrl(addGuarantorActivity.mGuarantorInfo.clt_id, addGuarantorActivity.mGuarantorInfo.spouse.clt_id)
             }
         }
@@ -323,24 +330,24 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text == "工资" && guarantor_spouse_info_from_income_work_position_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-            }  else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_year_edt.text.isEmpty()) {
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_type_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_name_edt.text.isEmpty()) {
-                Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
+            }
+//            else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_name_edt.text.isEmpty()) {
+//                Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
+//            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+//                Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
+//            }
+            else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
-            } else if (guarantor_spouse_info_extra_income_from_tv.text.isEmpty()) {
-                Toast.makeText(mContext, "额外来源不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_income_from_tv.text == "工资" && guarantor_spouse_info_extra_from_income_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_extra_income_from_tv.text == "工资" && guarantor_spouse_info_extra_from_income_company_name_edt.text.isEmpty()) {
@@ -363,7 +370,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         return false
     }
 
-    fun uploadUrl(cltId: String,spouseCltId: String) {
+    fun uploadUrl(cltId: String, spouseCltId: String) {
         var addGuarantorActivity = activity as AddGuarantorActivity
         val files = ArrayList<UploadFilesUrlReq.FileUrlBean>()
         when (addGuarantorActivity.mGuarantorInfo.marriage) {
@@ -432,7 +439,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 guarantor_spouse_info_clt_nm_edt.setText(result[0])
-                guarantor_spouse_info_mobile_edt.setText(result[1].replace(" ",""))
+                guarantor_spouse_info_mobile_edt.setText(result[1].replace(" ", ""))
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {

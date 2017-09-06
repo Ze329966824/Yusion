@@ -56,7 +56,11 @@ public class UploadLabelListAdapter extends RecyclerView.Adapter<UploadLabelList
 
         if (item.name.contains("授权书")) {
             holder.status.setText("查看");
-            holder.status.setTextColor(mContext.getResources().getColor(R.color.please_upload_color));
+            if (!hasImg(item)) {
+                holder.status.setTextColor(mContext.getResources().getColor(R.color.please_upload_color));
+            } else {
+                holder.status.setTextColor(mContext.getResources().getColor(R.color.system_color));
+            }
         }
         holder.itemView.setOnClickListener(mOnItemClick == null ? null : new View.OnClickListener() {
             @Override
