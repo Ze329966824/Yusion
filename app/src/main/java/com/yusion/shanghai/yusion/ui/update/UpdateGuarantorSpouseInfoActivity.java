@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -54,6 +55,11 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
             if (data != null) {
                 guarantorInfo = data;
                 mUpdateGuarantorSpouseInfoFragment.getGuarantorinfo(guarantorInfo);
+                if (guarantorInfo.marriage.equals("已婚")) {
+                    mUpdateImgsLabelFragment.setVisibility(View.VISIBLE);
+                } else {
+                    mUpdateImgsLabelFragment.setVisibility(View.GONE);
+                }
                 mUpdateImgsLabelFragment.setCltIdAndRole(guarantorInfo.spouse.clt_id, Constants.PersonType.GUARANTOR_SP);
             }
         });
@@ -101,6 +107,28 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(2);
         //viewPager.setAdapter(new UpdatePersonalInfoActivity.InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
         viewPager.setAdapter(new InfoViewPagerAdapter(getSupportFragmentManager(), mFragments));
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    if (!guarantorInfo.marriage.equals("已婚")) {
+                        mUpdateImgsLabelFragment.setVisibility(View.GONE);
+                    } else {
+                        mUpdateImgsLabelFragment.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         MagicIndicator mMagicIndicator = (MagicIndicator) findViewById(R.id.tab_layout);
         ImageView mSubmitImg = (ImageView) findViewById(R.id.submit_img);
         mSubmitImg.setOnClickListener(v -> finish());

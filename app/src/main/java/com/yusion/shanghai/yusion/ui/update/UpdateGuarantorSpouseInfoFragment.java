@@ -250,6 +250,7 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
                 "请选择",
                 (clickedView, selectedIndex) -> {
                     UPDATE_MARRIAGE_INDEX = selectedIndex;
+                    guarantorInfo.marriage = YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX);
 
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
                         update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);

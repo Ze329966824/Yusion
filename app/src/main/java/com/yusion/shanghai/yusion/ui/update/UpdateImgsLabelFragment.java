@@ -49,6 +49,8 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     private List<UploadLabelItemBean> mItems = new ArrayList<>();
     private String mCltId;
     private String mRole;
+    private RecyclerView rv;
+    private View contentView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +61,9 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        contentView = view;
         view.findViewById(R.id.title_bar).setVisibility(View.GONE);
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
+        rv = (RecyclerView) view.findViewById(R.id.update_img_rv);
         UpdateSpouseInfoActivity usia = new UpdateSpouseInfoActivity();
 
         rv.setLayoutManager(new LinearLayoutManager(mContext));
@@ -102,12 +105,6 @@ public class UpdateImgsLabelFragment extends BaseFragment {
 //            //initShamData();
         initData();
 //        }
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-
     }
 
     private void initData() {
@@ -246,5 +243,9 @@ public class UpdateImgsLabelFragment extends BaseFragment {
             mUploadFileDialog.dismiss();
             onVoidCallBack.callBack();
         });
+    }
+
+    public void setVisibility(int visibility) {
+        contentView.setVisibility(visibility);
     }
 }
