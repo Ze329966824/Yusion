@@ -192,12 +192,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         //身份证人像面
         update_spouse_info_id_back_lin.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DocumentActivity.class);
-//            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
-//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
-//            intent.putExtra("imgUrl", idBackImgUrl);
-//            intent.putExtra("imgUrlId", idBackImgId);
-            intent.putExtra("title",backTitle);
-            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
+            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
+            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+            intent.putExtra("imgUrl", idBackImgUrl);
+            intent.putExtra("imgUrlId", idBackImgId);
+//            intent.putExtra("title",backTitle);
+//            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
             intent.putExtra("ocrResp", ocrResp);
             intent.putExtra("clt_id", clientInfo.spouse.clt_id);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
@@ -209,12 +209,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         //身份证国徽面
         update_spouse_info_id_front_lin.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DocumentActivity.class);
-//            intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
-//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
-//            intent.putExtra("imgUrl", idFrontImgUrl);
-//            intent.putExtra("imgUrld", idFrontImgId);
-            intent.putExtra("title",frontTitle);
-            intent.putExtra("imgBean",frontImg);
+            intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
+            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+            intent.putExtra("imgUrl", idFrontImgUrl);
+            intent.putExtra("imgUrld", idFrontImgId);
+//            intent.putExtra("title",frontTitle);
+//            intent.putExtra("imgBean",frontImg);
             intent.putExtra("clt_id", clientInfo.spouse.clt_id);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
@@ -901,9 +901,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         if (resp.list.size() != 0) {
                             update_spouse_info_id_front_tv.setText("已上传");
                             update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
-//                            idFrontImgUrl = resp.list.get(0).s_url;
-//                            idFrontImgId = resp.list.get(0).id;
-                            frontImg = resp.list.get(0);
+                            idFrontImgUrl = resp.list.get(0).s_url;
+                            idFrontImgId = resp.list.get(0).id;
+//                            frontImg = resp.list.get(0);
                         }
                     });
                     update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
