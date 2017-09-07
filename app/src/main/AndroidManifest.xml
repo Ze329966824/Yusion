@@ -83,15 +83,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.info.UploadLabelListActivity"
+            android:name=".ui.upload.UploadLabelListActivityToDel"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.info.UploadListActivity"
+            android:name=".ui.upload.UploadListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.update.OnlyReadUploadListActivity"
+            android:name=".ui.upload.OnlyReadUploadListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -238,7 +238,7 @@
             android:name=".ui.update.CommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.apply.PreviewActivity"></activity>
+        <activity android:name=".ui.upload.PreviewActivity"></activity>
     </application>
 
 </manifest>

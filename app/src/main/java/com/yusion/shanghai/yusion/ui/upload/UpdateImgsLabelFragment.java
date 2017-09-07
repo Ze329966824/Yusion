@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.update;
+package com.yusion.shanghai.yusion.ui.upload;
 
 
 import android.app.Activity;
@@ -28,8 +28,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadLabelListActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
@@ -88,7 +87,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                     }
                 } else {
                     //下级目录为标签页
-                    intent.setClass(mContext, UploadLabelListActivity.class);
+                    intent.setClass(mContext, UploadLabelListActivityToDel.class);
                 }
                 intent.putExtra("topItem", item);
                 //clt_id取图片
