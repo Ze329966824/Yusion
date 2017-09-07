@@ -12,7 +12,7 @@ android {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 9
+        versionCode 19
         versionName "V1.5.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

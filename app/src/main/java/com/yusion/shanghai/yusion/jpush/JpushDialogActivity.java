@@ -52,6 +52,8 @@ public class JpushDialogActivity extends BaseActivity {
             app_id = jo.optString("app_id");
             category = jo.optString("category");
             JpushDialog();
+        }else {
+            finish();
         }
 
     }

@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.text.TextUtils;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
@@ -24,32 +24,61 @@ public class LaunchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
 
-        EditText editText = new EditText(this);
-        editText.setText(str);
-        if (!str.isEmpty()) {
-            new AlertDialog.Builder(this)
-                    .setTitle("请再次确认服务器地址！")
-                    .setView(editText)
-                    .setCancelable(false)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Settings.SERVER_URL = editText.getText().toString();
-                            getConfigJson();
-                            dialog.dismiss();
-                        }
-                    })
-                    .setNegativeButton("还原", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            getConfigJson();
-                        }
-                    }).show();
-        } else {
+////        if (!isOnline) {
+//            String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+//
+//            EditText editText = new EditText(this);
+//            editText.setText(str);
+//            if (!str.isEmpty()) {
+//                new AlertDialog.Builder(this)
+//                        .setTitle("请再次确认服务器地址！")
+//                        .setView(editText)
+//                        .setCancelable(false)
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Settings.SERVER_URL = editText.getText().toString();
+//                                getConfigJson();
+//                                dialog.dismiss();
+//                            }
+//                        })
+//                        .setNegativeButton("还原", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                getConfigJson();
+//                            }
+//                        }).show();
+////            }
+//        } else {
+//            getConfigJson();
+//        }
+
+
+        String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+        if (!TextUtils.isEmpty(str)){
+            //包含alpha
+            if (TextUtils.equals(str,"http://api.alpha.yusiontech.com:8000/") || !Settings.isOnline){
+                new AlertDialog.Builder(this)
+                        .setMessage("即将进入测试环境")
+                        .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Settings.SERVER_URL = str;
+                                getConfigJson();
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+            //不包含alpha
+            else {
+                getConfigJson();
+            }
+        }else {
             getConfigJson();
         }
+
     }
 
 

@@ -2,7 +2,6 @@ package com.yusion.shanghai.yusion.ui.main.mine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -16,7 +15,6 @@ import com.pgyersdk.update.UpdateManagerListener;
 import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
@@ -58,6 +56,16 @@ public class SettingsActivity extends BaseActivity {
                                     Settings.SERVER_URL = editText.getText().toString();
                                     SharedPrefsUtil.getInstance(SettingsActivity.this).putValue("SERVER_URL", editText.getText().toString());
                                     dialog.dismiss();
+
+                                    new AlertDialog.Builder(SettingsActivity.this)
+                                            .setMessage("请自行重启app")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .show();
                                 }
                             }).show();
 
