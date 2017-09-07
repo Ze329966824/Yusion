@@ -58,7 +58,7 @@ public class LaunchActivity extends BaseActivity {
             if (!TextUtils.isEmpty(str)) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("即将进入测试环境")
+                        .setTitle("请确认服务器地址")
                         .setMessage(str)
                         .setPositiveButton("是", (dialog, which) -> {
                             Settings.SERVER_URL = str;
@@ -67,9 +67,12 @@ public class LaunchActivity extends BaseActivity {
                         })
                         .setNegativeButton("否", (dialog, which) -> {
                             getConfigJson();
+                            dialog.dismiss();
                         })
                         .show();
 
+            } else {
+                getConfigJson();
             }
         } else {
             getConfigJson();

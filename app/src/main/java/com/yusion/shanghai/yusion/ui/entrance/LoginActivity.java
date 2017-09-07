@@ -1,8 +1,11 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +37,21 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ApplicationInfo applicationInfo = null;
+        try {
+            applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            String pgyer_appid = applicationInfo.metaData.getString("PGYER_APPID");
+            Log.e("TAG", "onCreate: pgyer_appid = " + pgyer_appid);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("TAG", "onCreate: " + e);
+            e.printStackTrace();
+        }
+        Log.e("TAG", "onCreate: Settings.isOnline = " + Settings.isOnline);
+        Log.e("TAG", "onCreate: Settings.SERVER_URL = " + Settings.SERVER_URL);
+        Log.e("TAG", "onCreate: Settings.OSS_SERVER_URL = " + Settings.OSS_SERVER_URL);
+
+
         YusionApp.isLogin = false;
         mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
         mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
