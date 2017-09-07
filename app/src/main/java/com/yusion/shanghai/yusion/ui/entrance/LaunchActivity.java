@@ -58,7 +58,7 @@ public class LaunchActivity extends BaseActivity {
             if (!TextUtils.isEmpty(str)) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("请确认服务器地址")
+                        .setTitle("请确认服务器地址：")
                         .setMessage(str)
                         .setPositiveButton("是", (dialog, which) -> {
                             Settings.SERVER_URL = str;
@@ -71,7 +71,8 @@ public class LaunchActivity extends BaseActivity {
                         })
                         .show();
 
-            } else {
+            }
+            else {
                 getConfigJson();
             }
         } else {
