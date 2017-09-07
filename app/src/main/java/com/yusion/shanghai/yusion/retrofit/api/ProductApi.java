@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.retrofit.service;
+package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
 import android.content.Context;
