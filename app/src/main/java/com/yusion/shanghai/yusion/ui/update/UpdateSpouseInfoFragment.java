@@ -133,6 +133,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList<UploadImgItemBean> divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList<UploadImgItemBean> resBookList = new ArrayList<UploadImgItemBean>();
+    private UploadImgItemBean backImg;
+    private UploadImgItemBean frontImg;
     private EditText update_spouse_info_child_count_edt;                   //子女数量
     private EditText update_spouse_info_child_count1_edt;                   //子女数量
     private EditText update_spouse_info_child_count2_edt;                   //子女数量
@@ -182,25 +184,38 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         //回到顶部按钮
         view.findViewById(R.id.fab).setOnClickListener(v -> mScrollView.smoothScrollTo(0, 0));
 
+
+
+        backImg.type = Constants.FileLabelType.ID_BACK;
+        backImg.role = Constants.PersonType.LENDER_SP;
+        String backTitle = "身份证人像面";
         //身份证人像面
         update_spouse_info_id_back_lin.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DocumentActivity.class);
-            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
-            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+//            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
+//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+//            intent.putExtra("imgUrl", idBackImgUrl);
+//            intent.putExtra("imgUrlId", idBackImgId);
+            intent.putExtra("title",backTitle);
+            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
             intent.putExtra("ocrResp", ocrResp);
-            intent.putExtra("imgUrl", idBackImgUrl);
             intent.putExtra("clt_id", clientInfo.spouse.clt_id);
-            intent.putExtra("imgUrlId", idBackImgId);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
+
+        frontImg.type =  Constants.FileLabelType.ID_FRONT;
+        frontImg.role = Constants.PersonType.LENDER_SP;
+        String frontTitle = "身份证国徽面";
         //身份证国徽面
         update_spouse_info_id_front_lin.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DocumentActivity.class);
-            intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
-            intent.putExtra("role", Constants.PersonType.LENDER_SP);
-            intent.putExtra("imgUrl", idFrontImgUrl);
+//            intent.putExtra("type", Constants.FileLabelType.ID_FRONT);
+//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+//            intent.putExtra("imgUrl", idFrontImgUrl);
+//            intent.putExtra("imgUrld", idFrontImgId);
+            intent.putExtra("title",frontTitle);
+            intent.putExtra("imgBean",frontImg);
             intent.putExtra("clt_id", clientInfo.spouse.clt_id);
-            intent.putExtra("imgUrlId", idFrontImgId);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
 
@@ -526,6 +541,44 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                     update_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
+                /*
+
+                backImg = (UploadImgItemBean) data.getSerializableExtra("backImg");
+                switch (backImg.type){
+                    case Constants.FileLabelType.ID_BACK:
+                        if (data.getBooleanExtra("ishaveImg",false)){
+                            update_spouse_info_id_back_tv.setText("已上传");
+                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
+                            ocrResp = (OcrResp.ShowapiResBodyBean) data.getSerializableExtra("ocrResp");
+                        }else{
+                             update_spouse_info_id_back_tv.setText("请上传");
+                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
+                        }
+                        if(ocResp != null){
+                            if (!TextUtils.isEmpty(ocrResp.idNo)) {
+                                update_spouse_info_id_no_edt.setText(ocrResp.idNo);
+                            }
+                            if (!TextUtils.isEmpty(ocrResp.name)) {
+                                update_spouse_info_clt_nm_edt.setText(ocrResp.name);
+                            }
+                            if (!TextUtils.isEmpty(ocrResp.sex)) {
+                                update_spouse_info_gender_tv.setText(ocrResp.sex);
+                            }
+                        }
+                        break;
+
+                   case Constants.FileLabelType.ID_FRONT:
+                         if (data.getBooleanExtra("ishaveImg",false)){
+                            update_spouse_info_id_front_tv.setText("已上传");
+                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
+                        } else {
+                            update_spouse_info_id_front_tv.setText("请上传");
+                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
+                        }
+                        break;
+                }
+*/
+
                 switch (data.getStringExtra("type")) {
                     case Constants.FileLabelType.ID_BACK:
                         ID_BACK_FID = data.getStringExtra("objectKey");
@@ -835,8 +888,10 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         if (resp.list.size() != 0) {
                             update_spouse_info_id_back_tv.setText("已上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
-                            idBackImgUrl = resp.list.get(0).s_url;
-                            idBackImgId = resp.list.get(0).id;
+//                            idBackImgUrl = resp.list.get(0).s_url;
+//                            idBackImgId = resp.list.get(0).id;
+                            backImg = resp.list.get(0);
+
                         }
                     });
                     ListImgsReq req2 = new ListImgsReq();
@@ -846,8 +901,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         if (resp.list.size() != 0) {
                             update_spouse_info_id_front_tv.setText("已上传");
                             update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
-                            idFrontImgUrl = resp.list.get(0).s_url;
-                            idFrontImgId = resp.list.get(0).id;
+//                            idFrontImgUrl = resp.list.get(0).s_url;
+//                            idFrontImgId = resp.list.get(0).id;
+                            frontImg = resp.list.get(0);
                         }
                     });
                     update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
