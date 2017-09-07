@@ -12,14 +12,24 @@ android {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 3
-        versionName "V1.0.2"
+        versionCode 9
+        versionName "V1.5.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        prod {
+            resValue "string", "app_name", "正式环境"
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        alpha {
+            resValue "string", "app_name", "测试环境"
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]
         }
     }
     signingConfigs {
@@ -32,7 +42,7 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-//projectDir是app目录
+            //projectDir是app目录
             output.outputFile = new File(projectDir.getAbsolutePath() + "/keystore/apks", "yusion-" + defaultConfig.versionName + "-" + buildTime() + ".apk")
         }
     }
