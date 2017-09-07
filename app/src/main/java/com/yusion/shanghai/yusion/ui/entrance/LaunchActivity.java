@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -54,31 +53,27 @@ public class LaunchActivity extends BaseActivity {
 //            getConfigJson();
 //        }
 
+        if (!Settings.isOnline) {
+            String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+            if (!TextUtils.isEmpty(str)) {
 
-        String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
-        if (!TextUtils.isEmpty(str)){
-            //包含alpha
-            if (TextUtils.equals(str,"http://api.alpha.yusiontech.com:8000/") || !Settings.isOnline){
                 new AlertDialog.Builder(this)
-                        .setMessage("即将进入测试环境")
-                        .setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Settings.SERVER_URL = str;
-                                getConfigJson();
-                                dialog.dismiss();
-                            }
+                        .setTitle("即将进入测试环境")
+                        .setMessage(str)
+                        .setPositiveButton("是", (dialog, which) -> {
+                            Settings.SERVER_URL = str;
+                            getConfigJson();
+                            dialog.dismiss();
+                        })
+                        .setNegativeButton("否", (dialog, which) -> {
+                            getConfigJson();
                         })
                         .show();
+
             }
-            //不包含alpha
-            else {
-                getConfigJson();
-            }
-        }else {
+        } else {
             getConfigJson();
         }
-
     }
 
 
