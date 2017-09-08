@@ -126,13 +126,7 @@ public class DocmtActivity extends BaseActivity {
         delete_image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete_image_btn.setVisibility(View.GONE);
-                imgUrl = "";
-                imageBean = null;
-                // onImgCountChange(!TextUtils.isEmpty(imgUrl));
-                onImgCountChange(imageBean);
-                choose_icon.setImageResource(R.mipmap.choose_icon);
-                choose_icon.setVisibility(View.GONE);
+
                 List<String> relDelImgIdList = new ArrayList<>();
                 relDelImgIdList.add(imageBean.id);
                 DelImgsReq req = new DelImgsReq();
@@ -145,6 +139,10 @@ public class DocmtActivity extends BaseActivity {
                             Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
                             imageBean = null;
                             setImageResourse(imageBean);
+                            onImgCountChange(imageBean);
+                            delete_image_btn.setVisibility(View.GONE);
+                            choose_icon.setImageResource(R.mipmap.choose_icon);
+                            choose_icon.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -200,7 +198,6 @@ public class DocmtActivity extends BaseActivity {
             mEditTv.setText("编辑");
         }
     }
-
 
 
     private void createBottomDialog() {
@@ -288,6 +285,14 @@ public class DocmtActivity extends BaseActivity {
             //显示icon布局
             choose_icon.setVisibility(View.VISIBLE);
             imageBean.hasChoose = false;
+            mEditTv.setText("取消");
+            delete_image_btn.setVisibility(View.VISIBLE);
+            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+        } else {
+            mEditTv.setText("编辑");
+            delete_image_btn.setVisibility(View.GONE);
+            choose_icon.setVisibility(View.GONE);
+            choose_icon.setImageResource(R.mipmap.choose_icon);
         }
     }
 
