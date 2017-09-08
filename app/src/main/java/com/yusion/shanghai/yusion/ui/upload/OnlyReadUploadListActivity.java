@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.update;
+package com.yusion.shanghai.yusion.ui.upload;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -32,7 +32,6 @@ import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.ui.apply.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;

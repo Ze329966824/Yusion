@@ -17,8 +17,9 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
-import com.yusion.shanghai.yusion.retrofit.service.ProductApi;
+import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
 import com.yusion.shanghai.yusion.settings.Constants;
+import com.yusion.shanghai.yusion.ui.upload.UpdateImgsLabelFragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
