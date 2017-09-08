@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
@@ -25,6 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.pbq.pickerlib.activity.PhotoMediaActivity;
 import com.pbq.pickerlib.entity.PhotoVideoDir;
 import com.yusion.shanghai.yusion.R;
@@ -38,6 +44,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
+import com.yusion.shanghai.yusion.ui.upload.UploadListActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -310,14 +317,18 @@ public class DocumentFromLabelListActivity extends BaseActivity {
     }
 
     public void setImageResourse(UploadImgItemBean imageBean) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(this);
+        dialog.show();
         if (imageBean == null) {
             Glide.with(this).load(R.mipmap.camera_document).into(takePhoto);
         } else {
             if (TextUtils.isEmpty(imageBean.local_path)) {
-                Glide.with(this).load(imageBean.s_url).into(takePhoto);
+                //Glide.with(mContext).load(new File(item.local_path)).listener(new UploadListActivity.RvAdapter.GlideRequestListener(dialog)).into(holder.img);
+                Glide.with(this).load(imageBean.s_url).listener(new GlideRequestListener(dialog)).into(takePhoto);
                 imgUrl = imageBean.s_url;
             } else if (TextUtils.isEmpty(imageBean.s_url)) {
-                Glide.with(this).load(imageBean.local_path).into(takePhoto);
+                //Glide.with(this).load(imageBean.local_path).into(takePhoto);
+                Glide.with(this).load(imageBean.local_path).listener(new GlideRequestListener(dialog)).into(takePhoto);
                 imgUrl = imageBean.local_path;
             }
 
@@ -425,5 +436,26 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    private class GlideRequestListener implements RequestListener<Drawable> {
+        private Dialog dialog;
+
+        public GlideRequestListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+            Toast.makeText(DocumentFromLabelListActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+            dialog.dismiss();
+            return false;
+        }
     }
 }
