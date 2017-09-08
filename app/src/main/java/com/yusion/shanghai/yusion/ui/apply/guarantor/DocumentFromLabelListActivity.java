@@ -29,22 +29,17 @@ import com.pbq.pickerlib.activity.PhotoMediaActivity;
 import com.pbq.pickerlib.entity.PhotoVideoDir;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
-import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
-import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
-import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
@@ -53,7 +48,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentFromabelListActivity extends BaseActivity {
+public class DocumentFromLabelListActivity extends BaseActivity {
     private Button btn;
     private boolean isEditing = false;
     private String title;
@@ -63,15 +58,11 @@ public class DocumentFromabelListActivity extends BaseActivity {
     private File imageFile;
     private String mType;//id_card_front  id_card_back  driving_lic  auth_credit
     private String mRole;//lender lender_sp guarantor guarantor_sp
-    private String mImgObjectKey = "";
-
     private String imgUrl = "";
     private TitleBar titleBar;
     private Intent mGetIntent;
     private TextView mEditTv;
-
     private boolean isHasImage = false;
-    private UploadLabelItemBean mTopItem;
     private TextView errorTv;
     private LinearLayout errorLin;
     private UploadImgItemBean imageBean;
@@ -124,7 +115,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
                 DelImgsReq req = new DelImgsReq();
                 req.id = relDelImgIdList;
                 req.clt_id = clt_id;
-                UploadApi.delImgs(DocumentFromabelListActivity.this, req, new OnCodeAndMsgCallBack() {
+                UploadApi.delImgs(DocumentFromLabelListActivity.this, req, new OnCodeAndMsgCallBack() {
                     @Override
                     public void callBack(int code, String msg) {
                         if (code == 0) {
@@ -180,6 +171,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
         req.clt_id = clt_id;
         req.label = mType;
         UploadApi.listImgs(this, req, resp -> {
+            imageBean = new UploadImgItemBean();
             if (resp != null) {
                 if (resp.has_err) {
                     errorLin.setVisibility(View.VISIBLE);
@@ -188,6 +180,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
                     errorLin.setVisibility(View.GONE);
                 }
                 if (resp.list.size() > 0) {
+                    imageBean = resp.list.get(0);
                     setImageResourse(resp.list.get(0));
                 }
                 onImgCountChange(resp.list.size() > 0);
@@ -219,13 +212,13 @@ public class DocumentFromabelListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(myApp, "预览", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(DocumentFromabelListActivity.this, PreviewActivity.class);
+                Intent intent = new Intent(DocumentFromLabelListActivity.this, PreviewActivity.class);
                 intent.putExtra("PreviewImg", imgUrl);
 
                 ActivityOptionsCompat compat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(DocumentFromabelListActivity.this,
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(DocumentFromLabelListActivity.this,
                                 btn, "shareNamess");
-                ActivityCompat.startActivity(DocumentFromabelListActivity.this, intent, compat.toBundle());
+                ActivityCompat.startActivity(DocumentFromLabelListActivity.this, intent, compat.toBundle());
 
                 if (mBottomDialog.isShowing()) {
                     mBottomDialog.dismiss();
@@ -343,7 +336,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
             startActivityForResult(intent, 3001);
         } else if (mType.equals("driving_lic")) {
-            Intent i = new Intent(DocumentFromabelListActivity.this, PhotoMediaActivity.class);
+            Intent i = new Intent(DocumentFromLabelListActivity.this, PhotoMediaActivity.class);
             i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
             i.putExtra("maxCount", 1);//加载类型
             startActivityForResult(i, 100);
@@ -375,7 +368,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(DocumentFromabelListActivity.this).load(imageFile).into(takePhoto);
+                Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
                 imageBean = new UploadImgItemBean();
                 imageBean.type = mType;
                 imageBean.role = mRole;
@@ -386,7 +379,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
             } else if (requestCode == 3000) {//id_front
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(DocumentFromabelListActivity.this).load(imageFile).into(takePhoto);
+                Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
 
                 imageBean = new UploadImgItemBean();
                 imageBean.type = mType;
@@ -401,7 +394,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
     }
 
     private void upLoadImg(final Dialog dialog, String imagePath) {
-        OssUtil.uploadOss(DocumentFromabelListActivity.this, false, imagePath, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
+        OssUtil.uploadOss(DocumentFromLabelListActivity.this, false, imagePath, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
             @Override
             public void onItemDataCallBack(String objectKey) {
 
@@ -415,9 +408,9 @@ public class DocumentFromabelListActivity extends BaseActivity {
                 uploadFileUrlBeanList.add(fileUrlBean);
                 UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
                 uploadFilesUrlReq.files = uploadFileUrlBeanList;
-                uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(DocumentFromabelListActivity.this).getValue("region", "");
-                uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(DocumentFromabelListActivity.this).getValue("bucket", "");
-                UploadApi.uploadFileUrl(DocumentFromabelListActivity.this, uploadFilesUrlReq, new OnItemDataCallBack<List<String>>() {
+                uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(DocumentFromLabelListActivity.this).getValue("region", "");
+                uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(DocumentFromLabelListActivity.this).getValue("bucket", "");
+                UploadApi.uploadFileUrl(DocumentFromLabelListActivity.this, uploadFilesUrlReq, new OnItemDataCallBack<List<String>>() {
                     @Override
                     public void onItemDataCallBack(List<String> data) {
                         imageBean.id = data.get(0);
@@ -428,7 +421,7 @@ public class DocumentFromabelListActivity extends BaseActivity {
         }, new OnItemDataCallBack<Throwable>() {
             @Override
             public void onItemDataCallBack(Throwable data) {
-                Toast.makeText(DocumentFromabelListActivity.this, "上传图片异常", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DocumentFromLabelListActivity.this, "上传图片异常", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
