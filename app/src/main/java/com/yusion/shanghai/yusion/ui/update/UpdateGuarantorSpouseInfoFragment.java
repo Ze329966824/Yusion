@@ -138,6 +138,8 @@ public class UpdateGuarantorSpouseInfoFragment extends BaseFragment {
     public String idFrontImgUrl = "";
     public String ID_BACK_FID = "";
     public String ID_FRONT_FID = "";
+    private UploadImgItemBean backImg;
+    private UploadImgItemBean frontImg;
 
 
     @Override
