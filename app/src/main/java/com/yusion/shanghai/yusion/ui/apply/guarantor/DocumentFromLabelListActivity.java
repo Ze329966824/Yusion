@@ -44,7 +44,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
-import com.yusion.shanghai.yusion.ui.upload.UploadListActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -75,6 +74,10 @@ public class DocumentFromLabelListActivity extends BaseActivity {
     private UploadImgItemBean imageBean;
     private Dialog mBottomDialog;
     private String clt_id;
+    private boolean hasImg = false;
+    private String imgId;
+    private boolean hasChoose = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +120,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+
                 List<String> relDelImgIdList = new ArrayList<>();
                 relDelImgIdList.add(imageBean.id);
                 DelImgsReq req = new DelImgsReq();
@@ -127,9 +131,13 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                     public void callBack(int code, String msg) {
                         if (code == 0) {
                             Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
-                            imageBean = null;
-                            setImageResourse(imageBean);
-                            onImgCountChange(false);
+//                            imageBean = null;
+
+                            hasImg = false;
+                            onImgCountChange(hasImg);
+
+                            setImageResourse(null);
+
                             delete_image_btn.setVisibility(View.GONE);
                             choose_icon.setImageResource(R.mipmap.choose_icon);
                             choose_icon.setVisibility(View.GONE);
@@ -178,7 +186,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         req.clt_id = clt_id;
         req.label = mType;
         UploadApi.listImgs(this, req, resp -> {
-            imageBean = new UploadImgItemBean();
+//            imageBean = new UploadImgItemBean();
             if (resp != null) {
                 if (resp.has_err) {
                     errorLin.setVisibility(View.VISIBLE);
@@ -187,11 +195,14 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                     errorLin.setVisibility(View.GONE);
                 }
                 if (resp.list.size() > 0) {
-                    imageBean = resp.list.get(0);
+                    hasImg = true;
+//                    imageBean = resp.list.get(0);
                     setImageResourse(resp.list.get(0));
+
+                    imgId = resp.list.get(0).id;
                 }
-                onImgCountChange(resp.list.size() > 0);
             }
+            onImgCountChange(hasImg);
         });
 
     }
@@ -200,9 +211,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         if (hasImg) {
             mEditTv.setEnabled(true);
             mEditTv.setTextColor(Color.parseColor("#ffffff"));
-            isHasImage = true;
         } else {
-            isHasImage = false;
             mEditTv.setEnabled(false);
             mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
             mEditTv.setText("编辑");
@@ -371,7 +380,10 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 imageBean.local_path = imgUrl;
                 imageBean.type = mType;
                 imageBean.role = mRole;
-                onImgCountChange(true);
+
+                hasImg = true;
+                onImgCountChange(hasImg);
+
                 //onImgCountChange(imageBean);
                 upLoadImg(dialog, imageBean.local_path);
 
@@ -384,7 +396,10 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 imageBean.type = mType;
                 imageBean.role = mRole;
                 imageBean.local_path = imageFile.getAbsolutePath();
-                onImgCountChange(true);
+
+                hasImg = true;
+                onImgCountChange(hasImg);
+
                 upLoadImg(dialog, imageBean.local_path);
 
             } else if (requestCode == 3000) {//id_front
@@ -397,7 +412,10 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 imageBean.role = mRole;
                 imageBean.local_path = imageFile.getAbsolutePath();
                 // onImgCountChange(!TextUtils.isEmpty(imageFile.getAbsolutePath()));
-                onImgCountChange(true);
+
+                hasImg = true;
+                onImgCountChange(hasImg);
+
                 upLoadImg(dialog, imageBean.local_path);
             }
         }
@@ -424,7 +442,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 UploadApi.uploadFileUrl(DocumentFromLabelListActivity.this, uploadFilesUrlReq, new OnItemDataCallBack<List<String>>() {
                     @Override
                     public void onItemDataCallBack(List<String> data) {
-                        imageBean.id = data.get(0);
+                        imgId = data.get(0);
                         dialog.dismiss();
                     }
                 });
