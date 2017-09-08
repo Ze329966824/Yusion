@@ -32,13 +32,16 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
-import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
+import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 import java.io.File;
@@ -53,18 +56,13 @@ import java.util.List;
 public class UploadListActivity extends BaseActivity {
     private RvAdapter adapter;
     private Intent mGetIntent;
-    private UploadLabelItemBean mTopItem;//上级页面传过来的bean
     private TextView errorTv;
     private LinearLayout errorLin;
-    private List<UploadImgItemBean> imgList;
-    private int currentChooseCount = 0;
-    private boolean hasImg = false;
     private boolean isEditing = false;
     private TextView mEditTv;
     private LinearLayout uploadBottomLin;
     private TextView uploadTv2;
     private TextView uploadTv1;
-
     private List<UploadImgItemBean> lists = new ArrayList<>();
     private String role;
     private String type;
@@ -87,7 +85,7 @@ public class UploadListActivity extends BaseActivity {
     }
 
     private void initView() {
-        TitleBar titleBar = initTitleBar(this, mGetIntent.getStringExtra("title")).setLeftClickListener(v -> onBack());
+        TitleBar titleBar = initTitleBar(this, title).setLeftClickListener(v -> onBack());
         mEditTv = titleBar.getRightTextTv();
         titleBar.setRightText("编辑").setRightClickListener(new View.OnClickListener() {
             @Override
@@ -274,53 +272,107 @@ public class UploadListActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            if (resultCode == RESULT_OK) {
-                ArrayList<String> files = data.getStringArrayListExtra("files");
-                if (files.size() > 0) {
-                    hasImg = true;
-                    onImgCountChange(hasImg);
-                }
-                List<UploadImgItemBean> toAddList = new ArrayList<>();
-                for (String file : files) {
-                    UploadImgItemBean item = new UploadImgItemBean();
-                    item.local_path = file;
-                    item.role = role;
-                    item.type = type;
-                    toAddList.add(item);
-                }
+        if (resultCode == RESULT_OK) {
+            ArrayList<String> files = data.getStringArrayListExtra("files");
 
-                imgList.addAll(toAddList);
-                adapter.notifyItemRangeInserted(adapter.getItemCount(), files.size());
-                if (mTopItem != null) {
-                    mTopItem.hasImg = imgList.size() > 0;
-                }
+            List<UploadImgItemBean> toAddList = new ArrayList<>();
+            for (String file : files) {
+                UploadImgItemBean item = new UploadImgItemBean();
+                item.local_path = file;
+                item.role = role;
+                item.type = type;
+                toAddList.add(item);
+            }
 
-                Dialog dialog = LoadingUtils.createLoadingDialog(this);
-                dialog.show();
-                int account = 0;
-                for (UploadImgItemBean imgItemBean : toAddList) {
-                    account++;
-                    int finalAccount = account;
-                    OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
+            Dialog dialog = LoadingUtils.createLoadingDialog(this);
+            dialog.show();
+            int account = 0;
+            for (UploadImgItemBean imgItemBean : toAddList) {
+                account++;
+                int finalAccount = account;
+                String suffix = ".png";
+                OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(Constants.PersonType.LENDER, type, suffix), new OnItemDataCallBack<String>() {
+                    @Override
+                    public void onItemDataCallBack(String objectKey) {
+                        imgItemBean.objectKey = objectKey;
+                        onUploadOssFinish(finalAccount, files, dialog, toAddList);
+                    }
+                }, new OnItemDataCallBack<Throwable>() {
+                    @Override
+                    public void onItemDataCallBack(Throwable data) {
+                        onUploadOssFinish(finalAccount, files, dialog, toAddList);
+                    }
+                });
+            }
+        }
+    }
+
+    private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
+        if (finalAccount == files.size()) {
+            dialog.dismiss();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    calculateRelToAddList(toAddList, new OnItemDataCallBack<List<UploadImgItemBean>>() {
                         @Override
-                        public void onItemDataCallBack(String objectKey) {
-                            imgItemBean.objectKey = objectKey;
-                            if (finalAccount == files.size()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    }, new OnItemDataCallBack<Throwable>() {
-                        @Override
-                        public void onItemDataCallBack(Throwable data) {
-                            if (finalAccount == files.size()) {
-                                dialog.dismiss();
-                            }
+                        public void onItemDataCallBack(List<UploadImgItemBean> relToAddList) {
+                            uploadImgs(clt_id, relToAddList, new OnVoidCallBack() {
+                                @Override
+                                public void callBack() {
+                                    lists.addAll(relToAddList);
+                                    adapter.notifyItemRangeInserted(adapter.getItemCount(), relToAddList.size());
+                                    onImgCountChange(lists.size() > 0);
+                                }
+                            });
                         }
                     });
                 }
+            });
+        }
+    }
+
+    private void calculateRelToAddList(List<UploadImgItemBean> toAddList, OnItemDataCallBack<List<UploadImgItemBean>> onRelToAddListCallBack) {
+        List<UploadImgItemBean> relToAddList = new ArrayList<>();
+        for (UploadImgItemBean itemBean : toAddList) {
+            if (!TextUtils.isEmpty(itemBean.objectKey)) {
+                relToAddList.add(itemBean);
             }
         }
+        onRelToAddListCallBack.onItemDataCallBack(relToAddList);
+    }
+
+    private Dialog mUploadFileDialog;
+
+    public void uploadImgs(String clt_id, List<UploadImgItemBean> lists, OnVoidCallBack onSuccessCallBack) {
+        List<UploadFilesUrlReq.FileUrlBean> uploadFileUrlBeanList = new ArrayList<>();
+        for (UploadImgItemBean imgItemBean : lists) {
+            UploadFilesUrlReq.FileUrlBean fileUrlBean = new UploadFilesUrlReq.FileUrlBean();
+            fileUrlBean.clt_id = clt_id;
+            fileUrlBean.file_id = imgItemBean.objectKey;
+            fileUrlBean.label = imgItemBean.type;
+            uploadFileUrlBeanList.add(fileUrlBean);
+        }
+
+        if (mUploadFileDialog == null) {
+            mUploadFileDialog = LoadingUtils.createLoadingDialog(this);
+            mUploadFileDialog.setCancelable(false);
+        }
+        mUploadFileDialog.show();
+        UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
+        uploadFilesUrlReq.files = uploadFileUrlBeanList;
+        uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(this).getValue("region", "");
+        uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(this).getValue("bucket", "");
+        UploadApi.uploadFileUrl(this, uploadFilesUrlReq, new OnItemDataCallBack<List<String>>() {
+            @Override
+            public void onItemDataCallBack(List<String> data) {
+                for (int i = 0; i < lists.size(); i++) {
+                    lists.get(i).id = data.get(i);
+                }
+                mUploadFileDialog.dismiss();
+                onSuccessCallBack.callBack();
+                Toast.makeText(UploadListActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -55,6 +55,9 @@ public class UploadLabelListActivity extends BaseActivity {
             public void onItemClick(View v, UploadLabelItemBean item, int index) {
                 Intent intent = new Intent();
                 intent.setClass(UploadLabelListActivity.this, UploadListActivity.class);
+                if (item.name.equals("授权书")) {
+                    intent.setClass(UploadLabelListActivity.this, OnlyReadUploadListActivity.class);
+                }
                 intent.putExtra("type", item.value);//id_card_back
                 intent.putExtra("title", item.name);//身份证人像面
                 intent.putExtra("role", role);
