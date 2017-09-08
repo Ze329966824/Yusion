@@ -39,8 +39,8 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
-import com.yusion.shanghai.yusion.ui.apply.PreviewActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+
+import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
@@ -94,20 +94,18 @@ public class DocmtActivity extends BaseActivity {
         mRole = mGetIntent.getStringExtra("role");
         mType = mGetIntent.getStringExtra("type");
 
-        LayoutInflater inFlater = getLayoutInflater();
         if (mType.equals("id_card_front")) {//身份证国徽面
-            view = inFlater.inflate(R.layout.activity_document, null);
+            setContentView(R.layout.activity_document);
         } else if (mType.equals("id_card_back")) {//身份证人像面
-            view = inFlater.inflate(R.layout.activity_shengfz, null);
             mOcrResp = ((OcrResp.ShowapiResBodyBean) mGetIntent.getSerializableExtra("ocrResp"));
+            setContentView(R.layout.activity_shengfz);
         } else if (mType.equals("driving_lic")) {//驾驶证
-            view = inFlater.inflate(R.layout.activity_drive, null);
+            setContentView(R.layout.activity_drive);
         }
-        setContentView(view);
 
         initView();
-        initDate();
-        checkImageExit(imageBean);
+        initData();
+        setImageResourse(imageBean);
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +143,7 @@ public class DocmtActivity extends BaseActivity {
                         if (code == 0) {
                             Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
                             imageBean = null;
-                            checkImageExit(imageBean);
+                            setImageResourse(imageBean);
                         }
                     }
                 });
@@ -167,17 +165,16 @@ public class DocmtActivity extends BaseActivity {
             public void onClick(View v) {
                 if (isEditing) {
                     isEditing = false;
-                    mEditTv.setText("编辑");
-                    delete_image_btn.setVisibility(View.GONE);
-                    choose_icon.setVisibility(View.GONE);
-                    choose_icon.setImageResource(R.mipmap.choose_icon);
+//                    mEditTv.setText("编辑");
+//                    delete_image_btn.setVisibility(View.GONE);
+//                    choose_icon.setVisibility(View.GONE);
+//                    choose_icon.setImageResource(R.mipmap.choose_icon);
                 } else {
                     isEditing = true;
-                    mEditTv.setText("取消");
-                    delete_image_btn.setVisibility(View.VISIBLE);
-                    delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
-                    setIsEditing(isEditing);
-
+//                    mEditTv.setText("取消");
+//                    delete_image_btn.setVisibility(View.VISIBLE);
+//                    delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+//                    setIsEditing(isEditing);
                 }
                 //如果是编辑状态，设置图片 haschoose 为false
                 setIsEditing(isEditing);
@@ -185,7 +182,7 @@ public class DocmtActivity extends BaseActivity {
         });
     }
 
-    private void initDate() {
+    private void initData() {
 
         onImgCountChange(imageBean);
     }
@@ -301,6 +298,14 @@ public class DocmtActivity extends BaseActivity {
             //显示icon布局
             choose_icon.setVisibility(View.VISIBLE);
             imageBean.hasChoose = false;
+            mEditTv.setText("取消");
+            delete_image_btn.setVisibility(View.VISIBLE);
+            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
+        } else {
+            mEditTv.setText("编辑");
+            delete_image_btn.setVisibility(View.GONE);
+            choose_icon.setVisibility(View.GONE);
+            choose_icon.setImageResource(R.mipmap.choose_icon);
         }
     }
 
@@ -324,7 +329,7 @@ public class DocmtActivity extends BaseActivity {
         }
     }
 
-    public void checkImageExit(UploadImgItemBean imageBean) {
+    public void setImageResourse(UploadImgItemBean imageBean) {
         if (imageBean == null) {
             Glide.with(this).load(R.mipmap.camera_document).into(takePhoto);
         } else {
