@@ -183,7 +183,7 @@ public class DocmtActivity extends BaseActivity {
         });
     }
 
-    private void initDate() {
+    private void initData() {
 
         onImgCountChange(imageBean);
     }
@@ -201,18 +201,7 @@ public class DocmtActivity extends BaseActivity {
         }
     }
 
-//    private void onImgCountChange(boolean hasImg) {
-//        if (hasImg) {
-//            mEditTv.setEnabled(true);
-//            mEditTv.setTextColor(Color.parseColor("#ffffff"));
-//            isHasImage = true;
-//        } else {
-//            isHasImage = false;
-//            mEditTv.setEnabled(false);
-//            mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
-//            mEditTv.setText("编辑");
-//        }
-//    }
+
 
     private void createBottomDialog() {
         View bottomLayout = LayoutInflater.from(this).inflate(R.layout.document_bottom_dialog, null);
@@ -378,17 +367,6 @@ public class DocmtActivity extends BaseActivity {
 
             } else if (requestCode == 3001) {//id_back
 
-//                Dialog dialog = LoadingUtils.createLoadingDialog(this);
-//                dialog.show();
-//                Glide.with(DocmtActivity.this).load(imageFile).into(takePhoto);
-//
-//                imageBean = new UploadImgItemBean();
-//                imageBean.type = mType;
-//                imageBean.role = mRole;
-//                imageBean.local_path = imageFile.getAbsolutePath();
-//                // onImgCountChange(!TextUtils.isEmpty(imageFile.getAbsolutePath()));
-//                onImgCountChange(imageBean);
-//                upLoadImg(dialog, imageBean.local_path);
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
