@@ -51,6 +51,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -129,6 +130,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
+
                 <category android:name="com.yusion.shanghai.yusion" />
             </intent-filter>
         </service>
@@ -242,9 +244,10 @@
             android:name=".ui.update.CommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.apply.guarantor.DocmtActivity"
+        <activity
+            android:name=".ui.apply.guarantor.DocmtActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.upload.UploadLabelListActivity"
             android:screenOrientation="portrait"
@@ -253,6 +256,7 @@
             android:name=".ui.upload.PreviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".ui.apply.guarantor.DocumentFromabelListActivity"></activity>
     </application>
 
 </manifest>
