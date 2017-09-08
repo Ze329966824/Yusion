@@ -39,8 +39,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
-
-import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
@@ -68,7 +66,7 @@ public class DocmtActivity extends BaseActivity {
     private OcrResp.ShowapiResBodyBean mOcrResp;
     private String imgUrl = "";
     private TitleBar titleBar;
-    Intent mGetIntent;
+    private Intent mGetIntent;
     private TextView mEditTv;
 
     private boolean isHasImage = false;
