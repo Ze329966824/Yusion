@@ -304,6 +304,7 @@ public class DocumentActivity extends BaseActivity {
                 }
             }
         });
+
         tv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -522,6 +523,7 @@ public class DocumentActivity extends BaseActivity {
                 });
             }
         }
+
     }
 
     @Override

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:transitionName="shareNames"
-    tools:context="com.yusion.shanghai.yusion.ui.upload.PreviewActivity">
+    android:transitionName="shareNamess"
+    tools:context="com.yusion.shanghai.yusion.ui.apply.PreviewActivity">
 
     <ImageView
         android:id="@+id/image_preview"

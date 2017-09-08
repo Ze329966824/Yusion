@@ -242,6 +242,9 @@
             android:name=".ui.update.CommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".ui.apply.guarantor.DocmtActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".ui.upload.UploadLabelListActivity"
             android:screenOrientation="portrait"

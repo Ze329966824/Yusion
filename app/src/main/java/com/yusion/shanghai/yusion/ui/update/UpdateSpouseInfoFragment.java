@@ -31,7 +31,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
-import com.yusion.shanghai.yusion.ui.upload.UploadListActivity2;
+import com.yusion.shanghai.yusion.ui.upload.UploadListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
@@ -192,12 +192,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         //身份证人像面
         update_spouse_info_id_back_lin.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DocumentActivity.class);
-            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
-            intent.putExtra("role", Constants.PersonType.LENDER_SP);
-            intent.putExtra("imgUrl", idBackImgUrl);
-            intent.putExtra("imgUrlId", idBackImgId);
-//            intent.putExtra("title",backTitle);
-//            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
+//            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
+//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+//            intent.putExtra("imgUrl", idBackImgUrl);
+//            intent.putExtra("imgUrlId", idBackImgId);
+            intent.putExtra("title",backTitle);
+            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
             intent.putExtra("ocrResp", ocrResp);
             intent.putExtra("clt_id", clientInfo.spouse.clt_id);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
