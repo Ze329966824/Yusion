@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -173,7 +174,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     public void setCltIdAndRole(String clt_id, String role) {
         mCltId = clt_id;
         mRole = role;
-
+        Log.e("TAG", "setCltIdAndRole() called with: clt_id = [" + clt_id + "], role = [" + role + "]");
         ListLabelsErrorReq req = new ListLabelsErrorReq();
         req.clt_id = mCltId;
         ArrayList<String> labelsList = new ArrayList<>();
