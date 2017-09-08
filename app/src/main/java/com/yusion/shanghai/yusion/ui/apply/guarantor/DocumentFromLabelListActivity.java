@@ -105,7 +105,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             public void onClick(View v) {
                 if (isHasImage) {
                     if (isEditing) {//如果是编辑状态
-                        setIconAnddelBtn(imageBean.hasChoose);
+                        setIconAnddelBtn(hasChoose);
                     } else {
                         if (!mBottomDialog.isShowing()) {
                             mBottomDialog.show();
@@ -122,7 +122,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
 
 
                 List<String> relDelImgIdList = new ArrayList<>();
-                relDelImgIdList.add(imageBean.id);
+                relDelImgIdList.add(imgId);
                 DelImgsReq req = new DelImgsReq();
                 req.id = relDelImgIdList;
                 req.clt_id = clt_id;
@@ -293,7 +293,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         if (isEditing) {
             //显示icon布局
             choose_icon.setVisibility(View.VISIBLE);
-            imageBean.hasChoose = false;
+            hasChoose = false;
             mEditTv.setText("取消");
             delete_image_btn.setVisibility(View.VISIBLE);
             delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
@@ -310,7 +310,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             //显示虚勾
             choose_icon.setImageResource(R.mipmap.choose_icon);
             //imgList.get(0).hasChoose = false;
-            imageBean.hasChoose = false;
+            hasChoose = false;
             delete_image_btn.setEnabled(false);
             delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
 
@@ -318,7 +318,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             choose_icon.setImageResource(R.mipmap.surechoose_icon);
             delete_image_btn.setEnabled(true);
             //imgList.get(0).hasChoose = true;
-            imageBean.hasChoose = true;
+            hasChoose = true;
             delete_image_btn.setEnabled(true);
             delete_image_btn.setTextColor(Color.parseColor("#ff3f00"));
             //显示实勾
@@ -384,7 +384,6 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 hasImg = true;
                 onImgCountChange(hasImg);
 
-                //onImgCountChange(imageBean);
                 upLoadImg(dialog, imageBean.local_path);
 
             } else if (requestCode == 3001) {//id_back
@@ -411,7 +410,6 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 imageBean.type = mType;
                 imageBean.role = mRole;
                 imageBean.local_path = imageFile.getAbsolutePath();
-                // onImgCountChange(!TextUtils.isEmpty(imageFile.getAbsolutePath()));
 
                 hasImg = true;
                 onImgCountChange(hasImg);
