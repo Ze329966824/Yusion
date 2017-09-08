@@ -41,6 +41,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
+import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
@@ -182,7 +183,7 @@ public class DocmtActivity extends BaseActivity {
         });
     }
 
-    private void initData() {
+    private void initDate() {
 
         onImgCountChange(imageBean);
     }
@@ -298,14 +299,6 @@ public class DocmtActivity extends BaseActivity {
             //显示icon布局
             choose_icon.setVisibility(View.VISIBLE);
             imageBean.hasChoose = false;
-            mEditTv.setText("取消");
-            delete_image_btn.setVisibility(View.VISIBLE);
-            delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
-        } else {
-            mEditTv.setText("编辑");
-            delete_image_btn.setVisibility(View.GONE);
-            choose_icon.setVisibility(View.GONE);
-            choose_icon.setImageResource(R.mipmap.choose_icon);
         }
     }
 

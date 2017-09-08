@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
         mLoginSubmitBtn.setOnClickListener(v -> {
+//            startActivity(new Intent(this, UploadLabelListActivity.class));
             if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yusion.shanghai.yusion"
-    android:versionCode="303"
-    android:versionName="3.0.3">
-
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="23" />
+    package="com.yusion.shanghai.yusion">
 
     <!-- Jpush -->
     <permission
@@ -41,16 +35,15 @@
     <application
         android:name=".YusionApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="${APP_ICON}"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <!-- pgy -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="604da92c9c0503afa90ea5591df7d217" />
+            android:value="${PGYER_APPID}" />
 
         <activity
             android:name=".ui.entrance.LaunchActivity"
@@ -90,15 +83,19 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.info.UploadLabelListActivity"
+            android:name=".ui.upload.UploadLabelListActivityToDel"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.info.UploadListActivity"
+            android:name=".ui.upload.UploadListActivity2"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.update.OnlyReadUploadListActivity"
+            android:name=".ui.upload.UploadListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ui.upload.OnlyReadUploadListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -132,7 +129,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-
                 <category android:name="com.yusion.shanghai.yusion" />
             </intent-filter>
         </service>
@@ -246,8 +242,17 @@
             android:name=".ui.update.CommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.apply.PreviewActivity" />
-        <activity android:name=".ui.apply.guarantor.DocmtActivity"></activity>
+        <activity android:name=".ui.apply.guarantor.DocmtActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".ui.upload.UploadLabelListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ui.upload.PreviewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
 
 </manifest>

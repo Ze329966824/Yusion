@@ -5,25 +5,23 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
-import com.yusion.shanghai.yusion.glide.GlideApp;
-import com.yusion.shanghai.yusion.glide.GlideRequests;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -65,69 +63,11 @@ public class UploadImgListAdapter extends RecyclerView.Adapter<UploadImgListAdap
             UploadImgItemBean item = mItems.get(position);
             Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
             dialog.show();
-            GlideRequests glideRequests = GlideApp.with(mContext);
-            glideRequests.load(item.s_url).fallback(R.mipmap.ic_launcher).into(new Target<Drawable>() {
-                @Override
-                public void onLoadStarted(@Nullable Drawable placeholder) {
-
-                }
-
-                @Override
-                public void onLoadFailed(@Nullable Drawable errorDrawable) {
-
-                }
-
-                @Override
-                public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-
-                }
-
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                }
-
-                @Override
-                public void getSize(SizeReadyCallback cb) {
-
-                }
-
-                @Override
-                public void removeCallback(SizeReadyCallback cb) {
-
-                }
-
-                @Override
-                public void setRequest(@Nullable Request request) {
-
-                }
-
-                @Nullable
-                @Override
-                public Request getRequest() {
-                    return null;
-                }
-
-                @Override
-                public void onStart() {
-
-                }
-
-                @Override
-                public void onStop() {
-
-                }
-
-                @Override
-                public void onDestroy() {
-
-                }
-            }).into(holder.img);
-//            if (!TextUtils.isEmpty(item.local_path)) {
-//                Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
-//            } else {
-//                Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
-//            }
+            if (!TextUtils.isEmpty(item.local_path)) {
+                Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
+            } else {
+                Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
+            }
             holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, holder.cbImg));
             if (isEditing) {
                 holder.cbImg.setVisibility(View.VISIBLE);
