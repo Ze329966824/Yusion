@@ -36,7 +36,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
@@ -486,31 +485,31 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         ));
 
         //法院判决书
-        LinearLayout update_spouse_info_divorced_lin = (LinearLayout) findViewById(R.id.update_spouse_info_divorced_lin);
-        update_spouse_info_divorced_tv = (TextView) findViewById(R.id.update_spouse_info_divorced_tv);
-        update_spouse_info_divorced_lin.setOnClickListener(v -> {
-            Intent intent = new Intent(this, UploadListActivity.class);
-            intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
-            intent.putExtra("role", Constants.PersonType.LENDER);
-            intent.putExtra("imgList", divorceImgsList);
-            intent.putExtra("title", "离婚证");
-            intent.putExtra("clt_id", clientInfo.clt_id);
-            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
-        });
+//        LinearLayout update_spouse_info_divorced_lin = (LinearLayout) findViewById(R.id.update_spouse_info_divorced_lin);
+//        update_spouse_info_divorced_tv = (TextView) findViewById(R.id.update_spouse_info_divorced_tv);
+//        update_spouse_info_divorced_lin.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, UploadListActivity.class);
+//            intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
+//            intent.putExtra("role", Constants.PersonType.LENDER);
+//            intent.putExtra("imgList", divorceImgsList);
+//            intent.putExtra("title", "离婚证");
+//            intent.putExtra("clt_id", clientInfo.clt_id);
+//            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
+//        });
 
         //户口本
-        update_spouse_info_register_addr_lin = (LinearLayout) findViewById(R.id.update_spouse_info_register_addr_lin);
-        update_spouse_info_register_addr_tv = (TextView) findViewById(R.id.update_spouse_info_register_addr_tv);
-        update_spouse_info_register_addr_lin.setOnClickListener(v -> {
-            Intent intent = new Intent(this, UploadListActivity.class);
-            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
-            intent.putExtra("role", Constants.PersonType.LENDER);
-            intent.putExtra("imgList", resBookList);
-            intent.putExtra("clt_id", clientInfo.clt_id);
-            intent.putExtra("title", "户口本");
-            intent.putExtra("clt_id", clientInfo.clt_id);
-            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
-        });
+//        update_spouse_info_register_addr_lin = (LinearLayout) findViewById(R.id.update_spouse_info_register_addr_lin);
+//        update_spouse_info_register_addr_tv = (TextView) findViewById(R.id.update_spouse_info_register_addr_tv);
+//        update_spouse_info_register_addr_lin.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, UploadListActivity.class);
+//            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
+//            intent.putExtra("role", Constants.PersonType.LENDER);
+//            intent.putExtra("imgList", resBookList);
+//            intent.putExtra("clt_id", clientInfo.clt_id);
+//            intent.putExtra("title", "户口本");
+//            intent.putExtra("clt_id", clientInfo.clt_id);
+//            startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT);
+//        });
         //额外 详细地址 ????
         update_spouse_info_extra_from_income_company_address1_lin = (LinearLayout) findViewById(R.id.update_spouse_info_extra_from_income_company_address1_lin);
         update_spouse_info_extra_from_income_company_address1_tv = (TextView) findViewById(R.id.update_spouse_info_extra_from_income_company_address1_tv);
