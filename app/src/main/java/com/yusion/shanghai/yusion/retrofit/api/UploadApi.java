@@ -16,6 +16,8 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
+import java.util.List;
+
 /**
  * 类描述：
  * 伟大的创建人：ice
@@ -60,6 +62,15 @@ public class UploadApi {
             @Override
             public void onCustomResponse(int code, String msg) {
                 onCodeAndMsgCallBack.callBack(code,msg);
+            }
+        });
+    }
+    public static void uploadFileUrl(final Context context, UploadFilesUrlReq req, final OnItemDataCallBack<List<String>> onItemDataCallBack) {
+//       Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getUploadService().uploadFileUrlWithIdsResp(req).enqueue(new CustomCallBack<List<String>>(context) {
+            @Override
+            public void onCustomResponse(List<String> data) {
+                onItemDataCallBack.onItemDataCallBack(data);
             }
         });
     }

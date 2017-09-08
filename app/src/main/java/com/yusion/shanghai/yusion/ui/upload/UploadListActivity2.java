@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.info;
+package com.yusion.shanghai.yusion.ui.upload;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -28,7 +28,6 @@ import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.ui.apply.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
@@ -40,7 +39,8 @@ import java.util.List;
 /**
  * 如果mTopItem为null则该界面是上传户口本离婚证等界面
  */
-public class UploadListActivity extends BaseActivity {
+//可删除
+public class UploadListActivity2 extends BaseActivity {
 
     private UploadImgListAdapter adapter;
     private Intent mGetIntent;
@@ -51,8 +51,6 @@ public class UploadListActivity extends BaseActivity {
     private TitleBar titleBar;
     private String mRole;
     private String mType;
-
-
     private int currentChooseCount = 0;
     private boolean hasImg = false;
     private boolean isEditing = false;
@@ -142,7 +140,7 @@ public class UploadListActivity extends BaseActivity {
                 }
                 req.id.addAll(relDelImgIdList);
                 if (relDelImgIdList.size() > 0) {
-                    UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
+                    UploadApi.delImgs(UploadListActivity2.this, req, new OnCodeAndMsgCallBack() {
                         @Override
                         public void callBack(int code, String msg) {
                             if (code == 0) {
@@ -214,7 +212,7 @@ public class UploadListActivity extends BaseActivity {
 
             @Override
             public void onFooterClick(View v) {
-                Intent i = new Intent(UploadListActivity.this, PhotoMediaActivity.class);
+                Intent i = new Intent(UploadListActivity2.this, PhotoMediaActivity.class);
                 i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());
                 startActivityForResult(i, 100);
             }

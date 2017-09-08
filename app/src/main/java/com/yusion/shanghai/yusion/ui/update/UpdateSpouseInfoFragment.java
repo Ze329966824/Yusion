@@ -31,7 +31,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+import com.yusion.shanghai.yusion.ui.upload.UploadListActivity2;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
@@ -192,12 +192,12 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         //身份证人像面
         update_spouse_info_id_back_lin.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DocumentActivity.class);
-            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
-            intent.putExtra("role", Constants.PersonType.LENDER_SP);
-            intent.putExtra("imgUrl", idBackImgUrl);
-            intent.putExtra("imgUrlId", idBackImgId);
-//            intent.putExtra("title",backTitle);
-//            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
+//            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
+//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
+//            intent.putExtra("imgUrl", idBackImgUrl);
+//            intent.putExtra("imgUrlId", idBackImgId);
+            intent.putExtra("title",backTitle);
+            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
             intent.putExtra("ocrResp", ocrResp);
             intent.putExtra("clt_id", clientInfo.spouse.clt_id);
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
@@ -223,7 +223,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 //        update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, UploadListActivity.class);
+//                Intent intent = new Intent(mContext, UploadListActivity2.class);
 //                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
 //                intent.putExtra("role", Constants.PersonType.LENDER);
 //                intent.putExtra("imgList", divorceImgsList);
@@ -443,7 +443,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         LinearLayout update_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_divorced_lin);
         update_spouse_info_divorced_tv = (TextView) view.findViewById(R.id.update_spouse_info_divorced_tv);
         update_spouse_info_divorced_lin.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, UploadListActivity.class);
+            Intent intent = new Intent(mContext, UploadListActivity2.class);
             intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
             intent.putExtra("role", Constants.PersonType.LENDER);
             intent.putExtra("imgList", divorceImgsList);
@@ -456,7 +456,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         update_spouse_info_register_addr_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_register_addr_lin);
         update_spouse_info_register_addr_tv = (TextView) view.findViewById(R.id.update_spouse_info_register_addr_tv);
         update_spouse_info_register_addr_lin.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, UploadListActivity.class);
+            Intent intent = new Intent(mContext, UploadListActivity2.class);
             intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
             intent.putExtra("role", Constants.PersonType.LENDER);
             intent.putExtra("imgList", resBookList);

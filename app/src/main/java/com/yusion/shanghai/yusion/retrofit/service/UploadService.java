@@ -8,6 +8,8 @@ import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorReq;
 import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -30,4 +32,7 @@ public interface UploadService {
 
     @POST("/api/material/list_yc_material_uw_error/")
     Call<BaseResult<ListLabelsErrorResp>> listLabelsError(@Body ListLabelsErrorReq req);
+
+    @POST("/api/material/upload_yc_client_material/")
+    Call<BaseResult<List<String>>> uploadFileUrlWithIdsResp(@Body UploadFilesUrlReq req);
 }

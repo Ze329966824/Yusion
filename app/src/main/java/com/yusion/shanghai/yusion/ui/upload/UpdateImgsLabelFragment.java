@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.update;
+package com.yusion.shanghai.yusion.ui.upload;
 
 
 import android.app.Activity;
@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadLabelListActivity;
-import com.yusion.shanghai.yusion.ui.info.UploadListActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
@@ -74,7 +74,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 Intent intent = new Intent();
                 if (item.label_list.size() == 0) {
                     //下级目录为图片页
-                    intent.setClass(mContext, UploadListActivity.class);
+                    intent.setClass(mContext, UploadListActivity2.class);
                     intent.putExtra("role", mRole);
                     if (item.name.contains("授权书")) {
                         intent.setClass(mContext, OnlyReadUploadListActivity.class);
@@ -88,7 +88,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                     }
                 } else {
                     //下级目录为标签页
-                    intent.setClass(mContext, UploadLabelListActivity.class);
+                    intent.setClass(mContext, UploadLabelListActivityToDel.class);
                 }
                 intent.putExtra("topItem", item);
                 //clt_id取图片
@@ -174,7 +174,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
     public void setCltIdAndRole(String clt_id, String role) {
         mCltId = clt_id;
         mRole = role;
-
+        Log.e("TAG", "setCltIdAndRole() called with: clt_id = [" + clt_id + "], role = [" + role + "]");
         ListLabelsErrorReq req = new ListLabelsErrorReq();
         req.clt_id = mCltId;
         ArrayList<String> labelsList = new ArrayList<>();

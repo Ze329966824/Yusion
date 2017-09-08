@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.info;
+package com.yusion.shanghai.yusion.ui.upload;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 
 import java.util.List;
 
-public class UploadLabelListActivity extends BaseActivity {
+public class UploadLabelListActivityToDel extends BaseActivity {
 
     private Intent mGetIntent;
     private List<UploadLabelItemBean> labelList;
@@ -39,10 +39,10 @@ public class UploadLabelListActivity extends BaseActivity {
                 Intent intent = new Intent();
                 if (item.label_list.size() == 0) {
                     //下级目录为图片页
-                    intent.setClass(UploadLabelListActivity.this, UploadListActivity.class);
+                    intent.setClass(UploadLabelListActivityToDel.this, UploadListActivity2.class);
                 } else {
                     //下级目录为标签页
-                    intent.setClass(UploadLabelListActivity.this, UploadLabelListActivity.class);
+                    intent.setClass(UploadLabelListActivityToDel.this, UploadLabelListActivityToDel.class);
                 }
                 intent.putExtra("topItem", item);
                 //clt_id取图片

@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.update;
+package com.yusion.shanghai.yusion.ui.upload;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -26,16 +24,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
-import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.ui.apply.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
-import com.yusion.shanghai.yusion.utils.OssUtil;
-import com.yusion.shanghai.yusion.widget.TitleBar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,13 +41,10 @@ public class OnlyReadUploadListActivity extends BaseActivity {
 
     private OnlyReadUploadImgListAdapter adapter;
     private Intent mGetIntent;
-    private UploadLabelItemBean mTopItem;//上级页面传过来的bean
-    private TextView errorTv;
-    private LinearLayout errorLin;
-    private List<UploadImgItemBean> imgList;
-    private String mRole;
-    private String mType;
-    private TitleBar titleBar;
+    private String type;
+    private String title;
+    private String clt_id;
+    private List<UploadImgItemBean> imgList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +52,16 @@ public class OnlyReadUploadListActivity extends BaseActivity {
         setContentView(R.layout.activity_upload_list);
 
         mGetIntent = getIntent();
-        mRole = mGetIntent.getStringExtra("role");
-        mTopItem = (UploadLabelItemBean) mGetIntent.getSerializableExtra("topItem");
-        if (mTopItem != null) {
-            imgList = mTopItem.img_list;
-            mType = mTopItem.value;
-            titleBar = initTitleBar(this, mTopItem.name).setLeftClickListener(v -> onBack());
-        }
+        type = mGetIntent.getStringExtra("type");
+        title = mGetIntent.getStringExtra("title");
+        clt_id = mGetIntent.getStringExtra("clt_id");
+        initView();
+        initData();
+    }
+
+    private void initView() {
+        initTitleBar(this, title).setLeftClickListener(v -> onBack());
         RecyclerView rv = (RecyclerView) findViewById(R.id.upload_list_rv);
-        errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
-        errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
         adapter = new OnlyReadUploadImgListAdapter(this, imgList);
         adapter.setOnItemClick(new OnlyReadUploadImgListAdapter.OnItemClick() {
@@ -88,7 +77,6 @@ public class OnlyReadUploadListActivity extends BaseActivity {
             }
         });
         rv.setAdapter(adapter);
-        initData();
     }
 
     private void previewImg(View previewAnchor, String imgUrl) {
@@ -99,79 +87,17 @@ public class OnlyReadUploadListActivity extends BaseActivity {
     }
 
     private void initData() {
-        if (mTopItem == null) {
-
-        } else {
-            if (!mTopItem.hasGetImgsFromServer) {
-                //第一次进入
-                ListImgsReq req = new ListImgsReq();
-                req.label = mTopItem.value;
-                req.clt_id = mGetIntent.getStringExtra("clt_id");
-                UploadApi.listImgs(this, req, resp -> {
-                    mTopItem.hasGetImgsFromServer = true;
-                    if (resp.has_err) {
-                        errorLin.setVisibility(View.VISIBLE);
-                        errorTv.setText("您提交的资料有误：" + resp.error);
-                        mTopItem.errorInfo = "您提交的资料有误：" + resp.error;
-                    } else {
-                        errorLin.setVisibility(View.GONE);
-                        mTopItem.errorInfo = "";
-                    }
-                    if (resp.list.size() != 0) {
-                        imgList.addAll(resp.list);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            } else if (mTopItem.hasError) {
-                errorLin.setVisibility(View.VISIBLE);
-                errorTv.setText(mTopItem.errorInfo);
+        ListImgsReq req = new ListImgsReq();
+        req.label = type;
+        req.clt_id = clt_id;
+        UploadApi.listImgs(this, req, resp -> {
+            if (resp.list.size() > 0) {
+                imgList.addAll(resp.list);
+                adapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(OnlyReadUploadListActivity.this, "暂无图片", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            if (resultCode == RESULT_OK) {
-                ArrayList<String> files = data.getStringArrayListExtra("files");
-                List<UploadImgItemBean> toAddList = new ArrayList<>();
-                for (String file : files) {
-                    UploadImgItemBean item = new UploadImgItemBean();
-                    item.local_path = file;
-                    item.role = mRole;
-                    item.type = mType;
-                    toAddList.add(item);
-                }
-
-                imgList.addAll(toAddList);
-                adapter.notifyItemRangeInserted(adapter.getItemCount(), files.size());
-
-                Dialog dialog = LoadingUtils.createLoadingDialog(this);
-                dialog.show();
-                int account = 0;
-                for (UploadImgItemBean imgItemBean : toAddList) {
-                    account++;
-                    int finalAccount = account;
-                    OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
-                        @Override
-                        public void onItemDataCallBack(String objectKey) {
-                            imgItemBean.objectKey = objectKey;
-                            if (finalAccount == files.size()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    }, new OnItemDataCallBack<Throwable>() {
-                        @Override
-                        public void onItemDataCallBack(Throwable data) {
-                            if (finalAccount == files.size()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    });
-                }
-            }
-        }
+        });
     }
 
     @Override
@@ -180,12 +106,10 @@ public class OnlyReadUploadListActivity extends BaseActivity {
     }
 
     private void onBack() {
-        imgList = ((ArrayList<UploadImgItemBean>) mGetIntent.getSerializableExtra("imgList"));
-        setResult(RESULT_OK, mGetIntent);
         finish();
     }
 
-    public static class OnlyReadUploadImgListAdapter extends RecyclerView.Adapter<OnlyReadUploadImgListAdapter.VH> {
+    static class OnlyReadUploadImgListAdapter extends RecyclerView.Adapter<OnlyReadUploadImgListAdapter.VH> {
 
         private LayoutInflater mLayoutInflater;
         private List<UploadImgItemBean> mItems;

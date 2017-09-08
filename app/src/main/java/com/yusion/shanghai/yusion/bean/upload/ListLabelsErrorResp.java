@@ -10,7 +10,6 @@ import java.util.List;
 
 public class ListLabelsErrorResp {
 
-    public int err_num;
     public List<String> err_labels;
     public List<String> has_img_labels;
 

@@ -1,6 +1,7 @@
-package com.yusion.shanghai.yusion.ui.apply;
+package com.yusion.shanghai.yusion.ui.upload;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -9,7 +10,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 
 public class PreviewActivity extends BaseActivity {
-    private String imageUrl = "";
+    private String imageUrl;
     private ImageView imageView;
 
     @Override
@@ -17,7 +18,8 @@ public class PreviewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         imageView = (ImageView) findViewById(R.id.image_preview);
-        imageUrl = getIntent().getStringExtra("PreviewImg");
+        Intent intent = getIntent();
+        imageUrl = intent.getStringExtra("PreviewImg");
         Glide.with(this).load(imageUrl).into(imageView);
         imageView.setOnClickListener(v -> finish());
     }
