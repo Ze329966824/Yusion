@@ -133,8 +133,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList<UploadImgItemBean> divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList<UploadImgItemBean> resBookList = new ArrayList<UploadImgItemBean>();
-    private UploadImgItemBean backImg;
-    private UploadImgItemBean frontImg;
+    private UploadImgItemBean backImg = new UploadImgItemBean();
+    private UploadImgItemBean frontImg = new UploadImgItemBean();
     private EditText update_spouse_info_child_count_edt;                   //子女数量
     private EditText update_spouse_info_child_count1_edt;                   //子女数量
     private EditText update_spouse_info_child_count2_edt;                   //子女数量
@@ -186,8 +186,8 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 
 
 
-        backImg.type = Constants.FileLabelType.ID_BACK;
-        backImg.role = Constants.PersonType.LENDER_SP;
+//        backImg.type = Constants.FileLabelType.ID_BACK;
+//        backImg.role = Constants.PersonType.LENDER_SP;
         String backTitle = "身份证人像面";
         //身份证人像面
         update_spouse_info_id_back_lin.setOnClickListener(v -> {
@@ -203,8 +203,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
         });
 
-        frontImg.type =  Constants.FileLabelType.ID_FRONT;
-        frontImg.role = Constants.PersonType.LENDER_SP;
+
         String frontTitle = "身份证国徽面";
         //身份证国徽面
         update_spouse_info_id_front_lin.setOnClickListener(v -> {
@@ -888,9 +887,9 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                         if (resp.list.size() != 0) {
                             update_spouse_info_id_back_tv.setText("已上传");
                             update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
-//                            idBackImgUrl = resp.list.get(0).s_url;
-//                            idBackImgId = resp.list.get(0).id;
-                            backImg = resp.list.get(0);
+                            idBackImgUrl = resp.list.get(0).s_url;
+                            idBackImgId = resp.list.get(0).id;
+//                            backImg = resp.list.get(0);
 
                         }
                     });
@@ -904,6 +903,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
                             idFrontImgUrl = resp.list.get(0).s_url;
                             idFrontImgId = resp.list.get(0).id;
 //                            frontImg = resp.list.get(0);
+//                            Log.e("TAG", "getClientinfo: "+frontImg);
                         }
                     });
                     update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
