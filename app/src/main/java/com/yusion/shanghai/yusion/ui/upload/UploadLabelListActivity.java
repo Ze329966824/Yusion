@@ -55,7 +55,7 @@ public class UploadLabelListActivity extends BaseActivity {
             public void onItemClick(View v, UploadLabelItemBean item, int index) {
                 Intent intent = new Intent();
                 intent.setClass(UploadLabelListActivity.this, UploadListActivity.class);
-                if (item.name.equals("授权书")) {
+                if (item.name.contains("授权书")) {
                     intent.setClass(UploadLabelListActivity.this, OnlyReadUploadListActivity.class);
                 }
                 intent.putExtra("type", item.value);//id_card_back
@@ -183,6 +183,19 @@ public class UploadLabelListActivity extends BaseActivity {
                 holder.status.setVisibility(View.GONE);
                 holder.icon.setVisibility(View.VISIBLE);
             }
+
+            //用户端授权书只允许查看且不显示错误
+            if (item.name.contains("授权书")) {
+                holder.status.setVisibility(View.VISIBLE);
+                holder.icon.setVisibility(View.GONE);
+                holder.status.setText("查看");
+                if (item.hasImg) {
+                    holder.status.setTextColor(mContext.getResources().getColor(R.color.system_color));
+                } else {
+                    holder.status.setTextColor(mContext.getResources().getColor(R.color.please_upload_color));
+                }
+            }
+
             holder.itemView.setOnClickListener(mOnItemClick == null ? null : new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
