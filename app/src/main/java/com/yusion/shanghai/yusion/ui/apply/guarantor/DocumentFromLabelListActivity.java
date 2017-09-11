@@ -68,7 +68,6 @@ public class DocumentFromLabelListActivity extends BaseActivity {
     private TitleBar titleBar;
     private Intent mGetIntent;
     private TextView mEditTv;
-    private boolean isHasImage = false;
     private TextView errorTv;
     private LinearLayout errorLin;
     private UploadImgItemBean imageBean;
@@ -103,7 +102,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isHasImage) {
+                if (hasImg) {
                     if (isEditing) {//如果是编辑状态
                         setIconAnddelBtn(hasChoose);
                     } else {
@@ -329,7 +328,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         Dialog dialog = LoadingUtils.createLoadingDialog(this);
         dialog.show();
         if (imageBean == null) {
-            Glide.with(this).load(R.mipmap.camera_document).into(takePhoto);
+            Glide.with(this).load(R.mipmap.camera_document).listener(new GlideRequestListener(dialog)).into(takePhoto);
         } else {
             if (TextUtils.isEmpty(imageBean.local_path)) {
                 //Glide.with(mContext).load(new File(item.local_path)).listener(new UploadListActivity.RvAdapter.GlideRequestListener(dialog)).into(holder.img);

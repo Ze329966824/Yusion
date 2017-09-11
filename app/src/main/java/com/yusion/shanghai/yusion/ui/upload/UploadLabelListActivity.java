@@ -58,7 +58,7 @@ public class UploadLabelListActivity extends BaseActivity {
                 intent.setClass(UploadLabelListActivity.this, UploadListActivity.class);
                 if (item.name.contains("授权书")) {
                     intent.setClass(UploadLabelListActivity.this, OnlyReadUploadListActivity.class);
-                } else if (item.name.contains("人像面")) {
+                } else if (item.name.contains("人像面") || item.name.contains("国徽面") || item.name.contains("驾驶证")) {
                     intent.setClass(UploadLabelListActivity.this, DocumentFromLabelListActivity.class);
                 }
                 intent.putExtra("type", item.value);//id_card_back
