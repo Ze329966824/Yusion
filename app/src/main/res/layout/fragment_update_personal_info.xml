@@ -1519,4 +1519,18 @@
         app:rippleColor="@color/transparent" />
 
 
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/submit_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@mipmap/submit_info" />
+
 </android.support.design.widget.CoordinatorLayout>

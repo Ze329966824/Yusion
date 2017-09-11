@@ -1,236 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.yusion.shanghai.yusion.ui.update.InfoListActivity">
-
+    android:orientation="vertical">
 
     <com.yusion.shanghai.yusion.widget.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:layout_height="40dp"
+        android:background="#ffffff" />
 
-        <RelativeLayout
-            android:id="@+id/list_personal_info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separate_line_height"
-                android:background="@color/separate_line_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:text="个人资料"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:layout_marginLeft="15dp"
-            android:background="@color/separate_line_color" />
-
-        <RelativeLayout
-            android:id="@+id/list_personalspouse_info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#FFFFFF"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="配偶信息"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:background="@color/separate_line_color" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/guarantee_info"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="@dimen/separate_line_height"
+        android:background="@color/separate_line_color" />
 
-        <RelativeLayout
-            android:id="@+id/list_guarantor_info"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separate_line_height"
-                android:background="@color/separate_line_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:text="担保人资料"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
-
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:layout_marginLeft="15dp"
-            android:background="@color/separate_line_color" />
-
-        <RelativeLayout
-            android:id="@+id/list_guarantorspouse_info"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#FFFFFF"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="担保人配偶信息"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
-
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:background="@color/separate_line_color" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/add_guarantee"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent">
 
-        android:visibility="gone">
-
-
-        <RelativeLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:descendantFocusability="blocksDescendants">
+            android:layout_height="match_parent"
+            android:background="#ffffff" />
 
-
-            <ImageView
-                android:id="@+id/icon_add_guarantee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:clickable="true"
-                android:onClick="onClick"
-                android:paddingBottom="10dp"
-                android:src="@mipmap/add_guarantee" />
-
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/list_info_text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginLeft="8dp"
-                android:layout_alignLeft="@id/icon_add_guarantee"
-                android:layout_below="@id/icon_add_guarantee"
-                android:paddingLeft="2dp"
-                android:text="温馨提示 : 添加担保人信息，可为您" />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/list_info_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_below="@id/icon_add_guarantee"
-                android:layout_toRightOf="@id/list_info_text1"
-                android:text="提高个人征信和融资额度"
-                android:textColor="#f9c700" />
-
-        </RelativeLayout>
-    </LinearLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/submit_img"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_margin="15dp"-->
+            <!--android:clickable="true"-->
+            <!--android:src="@mipmap/submit_info" />-->
+    </RelativeLayout>
 </LinearLayout>
