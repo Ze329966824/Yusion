@@ -64,10 +64,11 @@ public class LoginActivity extends BaseActivity {
         mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
         mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
         mLoginCodeBtn.setOnClickListener(v -> {
-            mCountDownBtnWrap.start();
+
             if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else {
+                mCountDownBtnWrap.start();
                 AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
                     if (data != null) {
                         if (!Settings.isOnline) {
