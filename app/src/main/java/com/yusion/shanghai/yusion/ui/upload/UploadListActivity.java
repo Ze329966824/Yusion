@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.pbq.pickerlib.activity.PhotoMediaActivity;
 import com.pbq.pickerlib.entity.PhotoVideoDir;
 import com.yusion.shanghai.yusion.R;
@@ -442,8 +443,8 @@ public class UploadListActivity extends BaseActivity {
 //                    })).load(item.s_url).into(((StatusImageView) holder.itemView).getSourceImg());
 
 //                    String s_url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505125096416&di=77af33c77f8119e97f12348aa64f901d&imgtype=0&src=http%3A%2F%2Fwww.dyedz.gov.cn%2Fd%2Ffile%2Fguihuagongshi%2F2017-07-25%2Fcbb2a42956a7826108d8395d6c76f827.jpg";
-                    String url = "http://192.168.199.215:8000/IMG20170911154016.jpg";
-                    Glide.with(mContext).using(new ProgressModelLoader(((StatusImageView) holder.itemView))).load(url).into(((StatusImageView) holder.itemView).getSourceImg());
+//                    String url = "http://192.168.199.215:8000/IMG20170911154016.jpg";
+                    Glide.with(mContext).using(new ProgressModelLoader(((StatusImageView) holder.itemView))).load(item.s_url).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((StatusImageView) holder.itemView).getSourceImg());
                 }
 //
 //                holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, position));

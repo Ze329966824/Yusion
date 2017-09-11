@@ -76,10 +76,11 @@ public class ProgressResponseBody extends ResponseBody {
                     @Override
                     public void run() {
                         float v = totalBytesRead * 100f / contentLength;
-                        Log.e("TAG", "progress() called with: bytesRead = [" + totalBytesRead + "], contentLength = [" + contentLength + "], done = [" + (bytesRead == -1) + "]");
+                        Log.e("TAG", "progress1 called with: bytesRead = [" + totalBytesRead + "], contentLength = [" + contentLength + "], done = [" + (bytesRead == -1) + "]");
                         statusImageView.getProgressTv().setText(String.format(Locale.CHINA, "%.2f%%", v));
                     }
                 });
+                Log.e("TAG", "progress2 called with: bytesRead = [" + totalBytesRead + "], contentLength = [" + contentLength + "], done = [" + (bytesRead == -1) + "]");
                 if (progressListener != null)
                     progressListener.progress(totalBytesRead, contentLength, bytesRead == -1);
                 return bytesRead;
