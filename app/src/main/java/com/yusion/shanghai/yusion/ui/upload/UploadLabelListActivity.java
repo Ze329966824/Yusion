@@ -75,7 +75,6 @@ public class UploadLabelListActivity extends BaseActivity {
         clt_id = mGetIntent.getStringExtra("clt_id");
         role = mGetIntent.getStringExtra("role");
         title = mGetIntent.getStringExtra("title");
-        clt_id = mGetIntent.getStringExtra("clt_id");
 
         initTitleBar(this,title ).setRightTextColor(Color.WHITE).setLeftClickListener(v -> onBack());
 

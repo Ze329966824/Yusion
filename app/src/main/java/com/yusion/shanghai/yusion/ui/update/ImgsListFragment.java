@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.yusion.shanghai.yusion.R;
@@ -31,6 +32,7 @@ public class ImgsListFragment extends BaseFragment {
     private RelativeLayout personalspouse_imgs;
     private RelativeLayout guarantor_imgs;
     private RelativeLayout guarantorspouse_imgs;
+    private LinearLayout guarantee_info;
 
     public ImgsListFragment() {
         // Required empty public constructor
@@ -53,6 +55,7 @@ public class ImgsListFragment extends BaseFragment {
         personalspouse_imgs = (RelativeLayout) view.findViewById(R.id.list_personalspouse_imgs_layout);
         guarantor_imgs = (RelativeLayout) view.findViewById(R.id.list_guarantor_imgs_layout);
         guarantorspouse_imgs = (RelativeLayout) view.findViewById(R.id.list_guarantorspouse_imgs_layout);
+        guarantee_info = (LinearLayout) view.findViewById(R.id.guarantee_info);
     }
 
     @Override
@@ -105,7 +108,11 @@ public class ImgsListFragment extends BaseFragment {
             guarantor_sp_clt_id = data.guarantor_sp;
 
 
-
+            if (TextUtils.isEmpty(data.lender_sp)) {
+                    personalspouse_imgs.setVisibility(View.GONE);
+                }else {
+                    personalspouse_imgs.setVisibility(View.VISIBLE);
+                }
             if (data.guarantor_commited){
                 guarantor_imgs.setVisibility(View.VISIBLE);
                 if (TextUtils.isEmpty(data.guarantor_sp)) {
@@ -114,6 +121,10 @@ public class ImgsListFragment extends BaseFragment {
                     guarantorspouse_imgs.setVisibility(View.VISIBLE);
                 }
             }
+            else {
+                guarantee_info.setVisibility(View.GONE);
+            }
+
 
 
 //

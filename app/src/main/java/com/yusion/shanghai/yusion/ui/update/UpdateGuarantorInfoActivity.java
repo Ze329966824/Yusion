@@ -138,8 +138,6 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         });
 
 
-
-
     }
 
     private void initView() {
@@ -515,7 +513,6 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     }
 
 
-
     private void submit() {
         //提交用户资料
         updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, data -> {
@@ -524,7 +521,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             //上传影像件
 //            mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
 
-            toUploadLabelListDialog(guarantorInfo.clt_id,"guarantor","担保人影像件资料");
+            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料","影像件");
 
 //            });
         }));
@@ -745,9 +742,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
 
 
     private boolean checkUserInfo() {
-        if (update_guarantor_info_reg_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "户籍地不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_clt_nm_edt.getText().toString().isEmpty()) {
+        if (update_guarantor_info_clt_nm_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "姓名不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_id_no_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "身份证号不能为空", Toast.LENGTH_SHORT).show();
@@ -755,6 +750,8 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "身份证号有误", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_gender_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "性别不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_reg_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "户籍地不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_mobile_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "手机号码不能为空", Toast.LENGTH_SHORT).show();
         } else if (!CheckMobileUtil.checkMobile(update_guarantor_info_mobile_edt.getText().toString())) {
@@ -767,23 +764,13 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_current_address2_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_house_type_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋性质不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_house_owner_name_edt.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_house_owner_relation_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_house_address_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋地址不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_house_address1_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_house_address2_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("")) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "收入来源不能为空", Toast.LENGTH_SHORT).show();
         }
-
-
         //主要工资
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_name_edt.getText().toString().isEmpty()) {
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "工资年收入不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_name_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "单位名称不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "单位地址不能为空", Toast.LENGTH_SHORT).show();
@@ -793,25 +780,23 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_work_position_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "职务不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_from_income_year_edt.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "工资年收入不能为空", Toast.LENGTH_SHORT).show();
         }//主要自营
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_year_edt.getText().toString().isEmpty()) {
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
         }//主要其他
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_remark_tv.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "备注不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("")) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "收入来源不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_remark_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "备注不能为空", Toast.LENGTH_SHORT).show();
         }
 
 
         //额外工资
-        else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_company_name_edt.getText().toString().isEmpty()) {
+        else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "年收入不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_company_name_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "单位名称不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "单位地址不能为空", Toast.LENGTH_SHORT).show();
@@ -821,8 +806,18 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_extra_info_work_position_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "职务不能为空", Toast.LENGTH_SHORT).show();
-        } else if (update_guarantor_info_extra_income_from_tv.getText().toString().equals("工资") && update_guarantor_info_extra_from_income_year_edt.getText().toString().isEmpty()) {
-            Toast.makeText(UpdateGuarantorInfoActivity.this, "年收入不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_house_type_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋性质不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_house_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_house_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_house_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_house_owner_name_edt.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show();
+        } else if (update_guarantor_info_house_owner_relation_tv.getText().toString().isEmpty()) {
+            Toast.makeText(UpdateGuarantorInfoActivity.this, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
         } else {
             return true;
         }

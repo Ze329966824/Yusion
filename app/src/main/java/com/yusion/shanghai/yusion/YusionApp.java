@@ -4,6 +4,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.pgyersdk.crash.PgyCrashManager;
+import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -45,7 +46,14 @@ public class YusionApp extends Application {
             Sentry.init("http://309b4e6a4dc648c9a662e791dbd57cdb:b5ad052a9a154e06aa884ff6781b0f84@116.62.161.180:9002/7", new AndroidSentryClientFactory(this));
         }
         jpush();
+        umeng();
+    }
 
+    private void umeng() {
+        //禁止默认的页面统计方式
+        MobclickAgent.openActivityDurationTrack(false);
+        //捕获程序崩溃日志
+        MobclickAgent.setCatchUncaughtExceptions(true);
     }
 
     public void clearUserData() {

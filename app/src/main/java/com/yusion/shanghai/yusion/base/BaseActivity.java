@@ -10,10 +10,10 @@ import android.view.View;
 
 import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.feedback.PgyFeedbackShakeManager;
+import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.ui.update.CommitActivity;
-import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 /**
@@ -63,7 +63,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         PgyFeedbackShakeManager.unregister();
-
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -73,28 +73,54 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void toUploadLabelListDialog(String clt_id,String role,String title){
-        new AlertDialog.Builder(this)
-                .setMessage("资料上传成功,请继续上传影像件")
-                .setPositiveButton("立即上传", (dialog, which) -> {
-                    dialog.dismiss();
-                    toUploadLabelListActivity(clt_id,role,title);
-                })
-                .setNegativeButton("稍后上传", (dialog, which) -> {
-                    Intent intent = new Intent(this, CommitActivity.class);
-                    dialog.dismiss();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
 
-                    startActivity(intent);
+    public void toCommitActivity(String clt_id, String role, String title, String imgsMessage) {
+//        if (TextUtils.isEmpty(imgsMessage)) {
+//            Intent intent = new Intent(this, CommitActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }else {
+//            new AlertDialog.Builder(this)
+//                    .setMessage("资料上传成功,请继续上传" + imgsMessage)
+//                    .setPositiveButton("立即上传", (dialog, which) -> {
+//                        dialog.dismiss();
+//                        toUploadLabelListActivity(clt_id, role, title);
+//                    })
+//                    .setNegativeButton("稍后上传", (dialog, which) -> {
+//                        Intent intent = new Intent(this, CommitActivity.class);
+//                        dialog.dismiss();
+//
+//                        startActivity(intent);
+//                        finish();
+//                    }).show();
+//        }
+
+        new AlertDialog.Builder(this)
+                .setMessage("您确认要更改您的配偶信息？")
+                .setCancelable(false)
+                .setPositiveButton("确认更改", (dialog, which) -> {
+                    Intent intent1 = new Intent(BaseActivity.this, CommitActivity.class);
+                    intent1.putExtra("clt_id", clt_id);
+                    intent1.putExtra("role", role);
+                    intent1.putExtra("title", title);
+                    startActivity(intent1);
                     finish();
-                }).show();
+                })
+                .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
 
-    public void toUploadLabelListActivity(String clt_id,String role,String title){
-        Intent intent = new Intent(this,UploadLabelListActivity.class);
+    public void toUploadLabelListActivity(String clt_id, String role, String title) {
+        Intent intent = new Intent(this, CommitActivity.class);
         intent.putExtra("clt_id", clt_id);
         intent.putExtra("role", role);
-        intent.putExtra("title",title);
+        intent.putExtra("title", title);
         startActivity(intent);
         finish();
     }

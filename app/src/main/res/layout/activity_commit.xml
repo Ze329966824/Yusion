@@ -28,23 +28,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/icon_commit_success"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="提交成功"
         android:textSize="19dp" />
 
     <TextView
+        android:id="@+id/text_commit_imgs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您还需补充婚姻材料影像件"
+        android:gravity="center"
+        android:textSize="17dp"
+        android:clickable="true"
+        android:layout_below="@id/text_commit_success"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:id="@+id/return_list_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/icon_commit_success"
+        android:layout_below="@id/text_commit_imgs"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/commit_success"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/commit_return"
         android:clickable="true"
         android:gravity="center"
-        android:text="返回资料列表"
-        android:textColor="#FF06B7A3"
+        android:text="立刻上传"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/continue_imgs_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/return_list_info"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/commit_continue"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="稍后上传"
+        android:textColor="#999999"
         android:textSize="17dp" />
 </RelativeLayout>
