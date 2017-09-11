@@ -140,8 +140,6 @@ public class InfoListActivity extends BaseActivity {
                 if (data != null) {
                     mInfoListFragment.refresh(data);
                     mImgsListFragment.refresh(data);
-
-
                 }
             }
         });

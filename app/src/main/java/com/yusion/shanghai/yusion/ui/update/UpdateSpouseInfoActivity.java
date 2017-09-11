@@ -26,7 +26,6 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
-import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
@@ -214,17 +213,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         findViewById(R.id.fab).setOnClickListener(v -> mScrollView.smoothScrollTo(0, 0));
 
         update_spouse_info_id_no_img.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, DocumentActivity.class);
-//            intent.putExtra("type", Constants.FileLabelType.ID_BACK);
-//            intent.putExtra("role", Constants.PersonType.LENDER_SP);
-//            intent.putExtra("imgUrl", idBackImgUrl);
-//            intent.putExtra("imgUrlId", idBackImgId);
-////            intent.putExtra("title",backTitle);
-////            intent.putExtra("imgBean",backImg);  // s_url,id,type,role
-//            intent.putExtra("ocrResp", ocrResp);
-//            intent.putExtra("clt_id", clientInfo.spouse.clt_id);
-//            startActivityForResult(intent, Constants.REQUEST_DOCUMENT);
-
             imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
@@ -580,7 +568,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 }
             }
         } else if (requestCode == 3001) {
-            OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (OcrUtil.OnOcrSuccessCallBack) (ocrResp1, objectKey) -> {
+            OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
                 if (ocrResp1 == null) {
                     Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
                 } else if (ocrResp1.showapi_res_code != 0 && TextUtils.isEmpty(ocrResp1.showapi_res_body.idNo) || TextUtils.isEmpty(ocrResp1.showapi_res_body.name)) {
@@ -746,20 +734,36 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 requestUpload(clientInfo.spouse.clt_id, () -> {
                     //上传影像件
                     requestUpload(clientInfo.spouse.clt_id, () -> {
-                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                        startActivity(intent);
-                        finish();
+                        toUploadLabelListDialog(clientInfo.spouse.clt_id, "lender_sp", "个人配偶影像件资料");
+
+//                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+//                        startActivity(intent);
+//                        finish();
                     });
                 });
             } else {
                 //其他状态：上传主贷人cltid，不上传右侧影像件
                 requestUpload(clientInfo.clt_id, () -> {
-                    Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                    startActivity(intent);
-                    finish();
+                    toUploadLabelListDialog(clientInfo.clt_id, "lender_sp", "个人配偶影像件资料");
+
+//                    new AlertDialog.Builder(this)
+//                            .setMessage("资料上传成功，请前往影像件界面上传影像件")
+//                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            }).show();
+
+
+//                    Toast.makeText(UpdateSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在主贷人的影像件里查看", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 });
             }
+
+
         }));
     }
 
@@ -1095,6 +1099,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                     }
                     break;
                 case "离异":
+                    update_spouse_info_marriage_group_lin.setVisibility(View.GONE);
 //                    ListImgsReq req3 = new ListImgsReq();
 //                    req3.label = Constants.FileLabelType.MARRIAGE_PROOF;
 //                    req3.clt_id = data.clt_id;
@@ -1111,7 +1116,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                     update_spouse_info_child_count1_edt.setText(clientInfo.child_num);
                     break;
                 case "丧偶":
-                    ListImgsReq req4 = new ListImgsReq();
+//                    ListImgsReq req4 = new ListImgsReq();
 //                    req4.label = Constants.FileLabelType.RES_BOOKLET;
 //                    req4.clt_id = data.clt_id;
 //                    UploadApi.listImgs(this, req4, resp -> {
@@ -1121,7 +1126,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 //                            resBookList = (ArrayList<UploadImgItemBean>) resp.list;
 //                        }
 //                    });
-                    update_spouse_info_marriage_group_lin.setVisibility(View.GONE);
                     update_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     update_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
                     update_spouse_info_child_count2_edt.setText(clientInfo.child_num);

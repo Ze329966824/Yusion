@@ -40,13 +40,13 @@ public class UploadLabelListActivity extends BaseActivity {
     private Intent mGetIntent;
     private String clt_id;
     private String role;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_label_list);
         mGetIntent = getIntent();
-        initTitleBar(this, "个人影像件").setRightTextColor(Color.WHITE).setLeftClickListener(v -> onBack());
         RecyclerView rv = (RecyclerView) findViewById(R.id.upload_label_list_rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new UploadLabelListActivity.RvAdapter(this, mItems);
@@ -74,9 +74,10 @@ public class UploadLabelListActivity extends BaseActivity {
     private void initData() {
         clt_id = mGetIntent.getStringExtra("clt_id");
         role = mGetIntent.getStringExtra("role");
+        title = mGetIntent.getStringExtra("title");
+        clt_id = mGetIntent.getStringExtra("clt_id");
 
-        clt_id = "2ce3b4ee7be711e7a7560242ac110003";
-        role = "lender";
+        initTitleBar(this,title ).setRightTextColor(Color.WHITE).setLeftClickListener(v -> onBack());
 
         try {
             JSONArray jsonArray = new JSONArray(YusionApp.CONFIG_RESP.client_material);

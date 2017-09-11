@@ -95,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     tools:visibility="visible">
 
                     <LinearLayout
@@ -253,7 +253,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="left|center_vertical"
-                                    android:src="@mipmap/mine_arrow_right" />
+                                    android:src="@mipmap/update_info_id_no_img" />
                             </FrameLayout>
 
                         </LinearLayout>

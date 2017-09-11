@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -145,7 +142,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private NoEmptyEditText update_personal_info_urg_contact2_edt;           //紧急联系人-姓名2
     private LinearLayout update_personal_info_live_with_parent_lin;       //是否与父母同住
     private TextView update_personal_info_live_with_parent_tv;
-    
+
     private ClientInfo clientInfo;
 
     @Override
@@ -154,7 +151,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_update_personal_info);
         initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit());
 //        initTitleBar(this,"个人资料");
-        
+
         initView();
 
         getInfo();  //获取用户信息
@@ -884,10 +881,13 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             if (data == null) return;
             clientInfo = data;
             //上传影像件
+            toUploadLabelListDialog(clientInfo.clt_id,"lender","个人影像件资料");
+
+
 //            mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, () -> {
-                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+//                startActivity(intent);
+//                finish();
 //            });
         }));
 
@@ -914,7 +914,14 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 //        });
     }
 
-
+    private void showDoubleCheckForExit() {
+        new AlertDialog.Builder(this).setMessage("退出时未提交的更新将会被舍弃")
+                .setPositiveButton("确定该操作", (dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
+                })
+                .setNegativeButton("取消该操作", (dialog, which) -> dialog.dismiss()).show();
+    }
 //    private void initView() {
 //        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 //        ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -958,35 +965,28 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 //        ViewPagerHelper.bind(mMagicIndicator, viewPager);
 //    }
 
-    private class InfoViewPagerAdapter extends FragmentPagerAdapter {
+//    private class InfoViewPagerAdapter extends FragmentPagerAdapter {
+//
+//        private final List<Fragment> mFragments;
+//
+//        InfoViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+//            super(fm);
+//            mFragments = fragments;
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragments.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragments == null ? 0 : mFragments.size();
+//        }
+//
+//    }
 
-        private final List<Fragment> mFragments;
-
-        InfoViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
-            super(fm);
-            mFragments = fragments;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments == null ? 0 : mFragments.size();
-        }
-
-    }
 
 
-    private void showDoubleCheckForExit() {
-        new AlertDialog.Builder(this).setMessage("退出时未提交的更新将会被舍弃")
-                .setPositiveButton("确定该操作", (dialog, which) -> {
-                    dialog.dismiss();
-                    finish();
-                })
-                .setNegativeButton("取消该操作", (dialog, which) -> dialog.dismiss()).show();
-    }
 
 }

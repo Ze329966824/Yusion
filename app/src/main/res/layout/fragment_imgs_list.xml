@@ -15,11 +15,6 @@
         android:orientation="vertical"
         tools:visibility="visible">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:layout_marginLeft="15dp"
-            android:background="@color/separate_line_color" />
 
         <RelativeLayout
             android:id="@+id/list_personal_imgs_layout"
@@ -55,6 +50,7 @@
                 android:src="@mipmap/mine_arrow_right" />
         </RelativeLayout>
 
+
         <RelativeLayout
             android:id="@+id/list_personalspouse_imgs_layout"
             android:layout_width="match_parent"
@@ -63,8 +59,14 @@
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
             android:onClick="onClick"
-            tools:visibility="visible"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:layout_marginLeft="15dp"
+                android:background="@color/separate_line_color" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,6 +85,7 @@
                 android:background="@android:color/transparent"
                 android:src="@mipmap/mine_arrow_right" />
         </RelativeLayout>
+
 
         <View
             android:layout_width="match_parent"
@@ -140,11 +143,6 @@
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:layout_marginLeft="15dp"
-            android:background="@color/separate_line_color" />
 
         <RelativeLayout
             android:id="@+id/list_guarantorspouse_imgs_layout"
@@ -154,10 +152,14 @@
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
             android:onClick="onClick"
-            tools:visibility="visible"
             android:visibility="gone"
-            >
+            tools:visibility="visible">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separate_line_height"
+                android:layout_marginLeft="15dp"
+                android:background="@color/separate_line_color" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -176,8 +178,8 @@
                 android:background="@android:color/transparent"
                 android:src="@mipmap/mine_arrow_right" />
 
-
         </RelativeLayout>
+
 
         <View
             android:layout_width="match_parent"

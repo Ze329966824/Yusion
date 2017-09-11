@@ -62,37 +62,37 @@ public class ImgsListFragment extends BaseFragment {
         FragmentActivity activity = getActivity();
         //个人
         activity.findViewById(R.id.list_personal_imgs_layout).setOnClickListener(v -> {
-            Intent intent = new Intent();
+            Intent intent = new Intent(mContext, UploadLabelListActivity.class);
             intent.putExtra("clt_id", lender_clt_id);
             intent.putExtra("role", "lender");
             intent.putExtra("title", "个人影像件资料");
-            startActivity(new Intent(mContext, UploadLabelListActivity.class));
+            startActivity(intent);
         });
 
         //配偶
         activity.findViewById(R.id.list_personalspouse_imgs_layout).setOnClickListener(v -> {
-            Intent intent = new Intent();
+            Intent intent = new Intent(mContext, UploadLabelListActivity.class);
             intent.putExtra("clt_id", lender_sp_clt_id);
             intent.putExtra("role", "lender_sp");
             intent.putExtra("title", "个人配偶影像件资料");
-            startActivity(new Intent(mContext, UploadLabelListActivity.class));
+            startActivity(intent);
         });
         //担保人
         activity.findViewById(R.id.list_guarantor_imgs_layout).setOnClickListener(v -> {
-            Intent intent = new Intent();
+            Intent intent = new Intent(mContext, UploadLabelListActivity.class);
             intent.putExtra("clt_id", guarantor_clt_id);
             intent.putExtra("role", "guarantor");
             intent.putExtra("title", "担保人影像件资料");
-            startActivity(new Intent(mContext, UploadLabelListActivity.class));
+            startActivity(intent);
         });
 
         //担保人配偶
         activity.findViewById(R.id.list_guarantorspouse_imgs_layout).setOnClickListener(v -> {
-            Intent intent = new Intent();
+            Intent intent = new Intent(mContext, UploadLabelListActivity.class);
             intent.putExtra("clt_id", guarantor_sp_clt_id);
-            intent.putExtra("role", "guarantor");
+            intent.putExtra("role", "guarantor_sp");
             intent.putExtra("title", "担保人配偶影像件资料");
-            startActivity(new Intent(mContext, UploadLabelListActivity.class));
+            startActivity(new Intent());
         });
     }
 
@@ -106,8 +106,7 @@ public class ImgsListFragment extends BaseFragment {
 
 
 
-
-            if (!TextUtils.isEmpty(data.guarantor)) {
+            if (data.guarantor_commited){
                 guarantor_imgs.setVisibility(View.VISIBLE);
                 if (TextUtils.isEmpty(data.guarantor_sp)) {
                     guarantorspouse_imgs.setVisibility(View.GONE);
@@ -116,16 +115,27 @@ public class ImgsListFragment extends BaseFragment {
                 }
             }
 
-            if (!TextUtils.isEmpty(data.lender)) {
-                personal_imgs.setVisibility(View.VISIBLE);
 
-                if (TextUtils.isEmpty(data.lender_sp)) {
-                    personalspouse_imgs.setVisibility(View.GONE);
-                }else {
-                    personalspouse_imgs.setVisibility(View.VISIBLE);
-
-                }
-            }
+//
+//            if (!TextUtils.isEmpty(data.guarantor)) {
+//                guarantor_imgs.setVisibility(View.VISIBLE);
+//                if (TextUtils.isEmpty(data.guarantor_sp)) {
+//                    guarantorspouse_imgs.setVisibility(View.GONE);
+//                }else {
+//                    guarantorspouse_imgs.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//            if (!TextUtils.isEmpty(data.lender)) {
+//                personal_imgs.setVisibility(View.VISIBLE);
+//
+//                if (TextUtils.isEmpty(data.lender_sp)) {
+//                    personalspouse_imgs.setVisibility(View.GONE);
+//                }else {
+//                    personalspouse_imgs.setVisibility(View.VISIBLE);
+//
+//                }
+//            }
 
 
         }
