@@ -88,7 +88,7 @@ dependencies {
     compile project(path: ':PickerLib')
     compile files('libs/jcore-android-1.1.6.jar')
     compile files('libs/jpush-android-3.0.8.jar')
-    compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.pgyersdk:sdk:2.7.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
@@ -102,7 +102,7 @@ dependencies {
     compile 'io.sentry:sentry-android:1.5.2'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
 }
 repositories {
     mavenCentral()

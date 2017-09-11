@@ -4,9 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,10 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.pbq.pickerlib.activity.PhotoMediaActivity;
 import com.pbq.pickerlib.entity.PhotoVideoDir;
 import com.yusion.shanghai.yusion.R;
@@ -34,6 +29,8 @@ import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
+import com.yusion.shanghai.yusion.glide.ProgressModelLoader;
+import com.yusion.shanghai.yusion.glide.StatusImageView;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
@@ -406,7 +403,8 @@ public class UploadListActivity extends BaseActivity {
             if (viewType == TYPE_ADD_IMG) {
                 view = mLayoutInflater.inflate(R.layout.upload_list_add_img_item, parent, false);
             } else if (viewType == TYPE_IMG) {
-                view = mLayoutInflater.inflate(R.layout.upload_list_img_item, parent, false);
+//                view = mLayoutInflater.inflate(R.layout.upload_list_img_item_new, parent, false);
+                view = new StatusImageView(mContext);
             }
             return new VH(view);
         }
@@ -417,24 +415,47 @@ public class UploadListActivity extends BaseActivity {
                 holder.itemView.setOnClickListener(v -> mOnItemClick.onFooterClick(v));
             } else {
                 UploadImgItemBean item = mItems.get(position);
-                Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
-                dialog.show();
+//                Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
+//                dialog.show();
+
+//                if (!TextUtils.isEmpty(item.local_path)) {
+//                    Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
+//                } else {
+//                    Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
+//                }
+
                 if (!TextUtils.isEmpty(item.local_path)) {
-                    Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
+                    Glide.with(mContext).load(new File(item.local_path)).into(((StatusImageView) holder.itemView).getSourceImg());
                 } else {
-                    Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
+//                    Glide.with(mContext).using(new ProgressModelLoader(new ProgressListener() {
+//                        @Override
+//                        public void progress(long bytesRead, long contentLength, boolean done) {
+//                            StatusImageView statusImageView = (StatusImageView) holder.itemView;
+//
+//                            statusImageView.getProgressTv().post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Log.e("TAG", "progress() called with: bytesRead = [" + bytesRead + "], contentLength = [" + contentLength + "], done = [" + done + "]");
+//                                    statusImageView.getProgressTv().setText(String.format(Locale.CHINA, "%.2f%%", bytesRead * 100f / contentLength));
+//                                }
+//                            });
+//                        }
+//                    })).load(item.s_url).into(((StatusImageView) holder.itemView).getSourceImg());
+
+                    Glide.with(mContext).using(new ProgressModelLoader(((StatusImageView) holder.itemView))).load(item.s_url).diskCacheStrategy(DiskCacheStrategy.NONE).into(((StatusImageView) holder.itemView).getSourceImg());
                 }
-                holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, position));
-                if (isEditing) {
-                    holder.cbImg.setVisibility(View.VISIBLE);
-                    if (item.hasChoose) {
-                        holder.cbImg.setImageResource(R.mipmap.surechoose_icon);
-                    } else {
-                        holder.cbImg.setImageResource(R.mipmap.choose_icon);
-                    }
-                } else {
-                    holder.cbImg.setVisibility(View.GONE);
-                }
+//
+//                holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, position));
+//                if (isEditing) {
+//                    holder.cbImg.setVisibility(View.VISIBLE);
+//                    if (item.hasChoose) {
+//                        holder.cbImg.setImageResource(R.mipmap.surechoose_icon);
+//                    } else {
+//                        holder.cbImg.setImageResource(R.mipmap.choose_icon);
+//                    }
+//                } else {
+//                    holder.cbImg.setVisibility(View.GONE);
+//                }
             }
         }
 
@@ -448,26 +469,26 @@ public class UploadListActivity extends BaseActivity {
             notifyDataSetChanged();
         }
 
-        private class GlideRequestListener implements RequestListener<Drawable> {
-            private Dialog dialog;
-
-            public GlideRequestListener(Dialog dialog) {
-                this.dialog = dialog;
-            }
-
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                Toast.makeText(mContext, "图片加载失败", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                dialog.dismiss();
-                return false;
-            }
-        }
+//        private class GlideRequestListener implements RequestListener<Drawable> {
+//            private Dialog dialog;
+//
+//            public GlideRequestListener(Dialog dialog) {
+//                this.dialog = dialog;
+//            }
+//
+//            @Override
+//            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                Toast.makeText(mContext, "图片加载失败", Toast.LENGTH_SHORT).show();
+//                dialog.dismiss();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                dialog.dismiss();
+//                return false;
+//            }
+//        }
 
 
         @Override
