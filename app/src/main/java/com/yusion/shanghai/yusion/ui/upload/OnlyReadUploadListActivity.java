@@ -1,11 +1,8 @@
 package com.yusion.shanghai.yusion.ui.upload;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,19 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
-import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,36 +122,36 @@ public class OnlyReadUploadListActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(VH holder, int position) {
             UploadImgItemBean item = mItems.get(position);
-            Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
-            dialog.show();
-            if (!TextUtils.isEmpty(item.local_path)) {
-                Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
-            } else {
-                Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
-            }
+//            Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
+//            dialog.show();
+//            if (!TextUtils.isEmpty(item.local_path)) {
+//                Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
+//            } else {
+//                Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
+//            }
             holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item));
         }
 
-        private class GlideRequestListener implements RequestListener<Drawable> {
-            private Dialog dialog;
-
-            public GlideRequestListener(Dialog dialog) {
-                this.dialog = dialog;
-            }
-
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                Toast.makeText(mContext, "图片加载失败", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                dialog.dismiss();
-                return false;
-            }
-        }
+//        private class GlideRequestListener implements RequestListener<Drawable> {
+//            private Dialog dialog;
+//
+//            public GlideRequestListener(Dialog dialog) {
+//                this.dialog = dialog;
+//            }
+//
+//            @Override
+//            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                Toast.makeText(mContext, "图片加载失败", Toast.LENGTH_SHORT).show();
+//                dialog.dismiss();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                dialog.dismiss();
+//                return false;
+//            }
+//        }
 
         //size+1是因为有 添加图片的item
         @Override
