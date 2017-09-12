@@ -251,6 +251,7 @@ public class UploadListActivity extends BaseActivity {
         return totalCount;
     }
 
+    //图片数量每次改变都需要清除编辑状态
     private void onImgCountChange(boolean hasImg) {
         if (hasImg) {
             mEditTv.setEnabled(true);
@@ -258,9 +259,11 @@ public class UploadListActivity extends BaseActivity {
         } else {
             mEditTv.setEnabled(false);
             mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
-            mEditTv.setText("编辑");
-            uploadBottomLin.setVisibility(View.GONE);
         }
+        isEditing = false;
+        adapter.setIsEditing(false);
+        mEditTv.setText("编辑");
+        uploadBottomLin.setVisibility(View.GONE);
     }
 
     @Override
@@ -315,7 +318,6 @@ public class UploadListActivity extends BaseActivity {
                                 @Override
                                 public void callBack() {
                                     lists.addAll(relToAddList);
-                                    adapter.notifyItemRangeInserted(adapter.getItemCount(), relToAddList.size());
                                     onImgCountChange(lists.size() > 0);
                                 }
                             });
