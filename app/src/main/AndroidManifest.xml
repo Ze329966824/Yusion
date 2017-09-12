@@ -267,8 +267,8 @@
         <activity android:name=".ui.apply.guarantor.DocumentFromLabelListActivity"></activity>
 
 
-        <meta-data android:value="YOUR_APP_KEY" android:name="59b67145a40fa318e600084f"/>
-        <meta-data android:value="Channel ID" android:name="Yusion"/>
+        <meta-data android:value="59b67145a40fa318e600084f" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Yusion" android:name="UMENG_CHANNEL"/>
 
     </application>
 

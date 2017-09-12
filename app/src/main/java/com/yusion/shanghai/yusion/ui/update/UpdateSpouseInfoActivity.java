@@ -739,27 +739,36 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
             //已婚状态：上传配偶cltid
 //            if (data != null) {
             if (clientInfo.marriage.equals("已婚")) {
-                requestUpload(clientInfo.spouse.clt_id, () -> {
-                    //上传影像件
-                    requestUpload(clientInfo.spouse.clt_id, () -> {
-                        toCommitActivity(clientInfo.spouse.clt_id, "lender_sp", "个人配偶影像件资料","");
+//                requestUpload(clientInfo.spouse.clt_id, () -> {
+                //上传影像件
+//                    requestUpload(clientInfo.spouse.clt_id, () -> {
+                toCommitActivity(clientInfo.spouse.clt_id, "lender_sp", "个人配偶影像件资料", "continue");
 
 //                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                    });
-                });
+//                    });
+//                });
             } else {
                 //其他状态：上传主贷人cltid，不上传右侧影像件
-                requestUpload(clientInfo.clt_id, () -> {
-                    if (TextUtils.equals(old_marriage,now_marriage)) {
-                        toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料","");
-                    }else {
+//                requestUpload(clientInfo.clt_id, () -> {
+
+                if (!TextUtils.equals(now_marriage, "未婚")) {
+                    //状态没变：一个按钮
+                    if (TextUtils.equals(old_marriage, now_marriage)) {
+                        toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "return");
+                    }//状态改变：两个按钮
+                    else {
                         if (TextUtils.equals(now_marriage, "丧偶")) {
-                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "户口本");
+                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "continue");
                         } else if (TextUtils.equals(now_marriage, "离异")) {
-                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "离婚证明");
+                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "continue");
                         }
+                    }
+                }//未婚：一个按钮
+                else {
+                    toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "return");
+                }
 //                    new AlertDialog.Builder(this)
 //                            .setMessage("资料上传成功，请前往影像件界面上传影像件")
 //                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -774,8 +783,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 //                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
 //                    startActivity(intent);
 //                    finish();
-                    }
-                });
+
+//                });
             }
 
 

@@ -881,7 +881,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             if (data == null) return;
             clientInfo = data;
             //上传影像件
-            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料","影像件");
+            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料","continue");
 
 
 //            mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, () -> {

@@ -1513,7 +1513,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="60dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="20dp"
             android:scaleType="center"
             android:src="@mipmap/to_top"
             app:backgroundTint="@color/transparent"
@@ -1526,6 +1526,7 @@
 
 
         <ImageView
+            android:layout_marginRight="10dp"
             android:id="@+id/submit_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

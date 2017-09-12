@@ -79,27 +79,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         MobclickAgent.onResume(this);
     }
 
-    public void toCommitActivity(String clt_id, String role, String title, String imgsMessage) {
-//        if (TextUtils.isEmpty(imgsMessage)) {
-//            Intent intent = new Intent(this, CommitActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }else {
-//            new AlertDialog.Builder(this)
-//                    .setMessage("资料上传成功,请继续上传" + imgsMessage)
-//                    .setPositiveButton("立即上传", (dialog, which) -> {
-//                        dialog.dismiss();
-//                        toUploadLabelListActivity(clt_id, role, title);
-//                    })
-//                    .setNegativeButton("稍后上传", (dialog, which) -> {
-//                        Intent intent = new Intent(this, CommitActivity.class);
-//                        dialog.dismiss();
-//
-//                        startActivity(intent);
-//                        finish();
-//                    }).show();
-//        }
-
+    public void toCommitActivity(String clt_id, String role, String title, String state) {
         new AlertDialog.Builder(this)
                 .setMessage("您确认要更改您的配偶信息？")
                 .setCancelable(false)
@@ -108,20 +88,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     intent1.putExtra("clt_id", clt_id);
                     intent1.putExtra("role", role);
                     intent1.putExtra("title", title);
+                    intent1.putExtra("commit_state", state);
                     startActivity(intent1);
                     finish();
                 })
                 .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
                 .show();
-    }
-
-
-    public void toUploadLabelListActivity(String clt_id, String role, String title) {
-        Intent intent = new Intent(this, CommitActivity.class);
-        intent.putExtra("clt_id", clt_id);
-        intent.putExtra("role", role);
-        intent.putExtra("title", title);
-        startActivity(intent);
-        finish();
     }
 }
