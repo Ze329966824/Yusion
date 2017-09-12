@@ -12,13 +12,13 @@ import java.io.InputStream;
 public class ProgressModelLoader implements StreamModelLoader<String> {
 
     private ProgressListener listener;
-    private StatusImageView imageView;
+    private StatusImageRel imageView;
 
     public ProgressModelLoader(ProgressListener listener) {
         this.listener = listener;
     }
 
-    public ProgressModelLoader(StatusImageView imageView) {
+    public ProgressModelLoader(StatusImageRel imageView) {
         this.imageView = imageView;
     }
 

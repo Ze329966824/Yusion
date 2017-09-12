@@ -1,13 +1,12 @@
 package com.yusion.shanghai.yusion.glide;
 
 
-import android.util.Log;
+import android.view.View;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import okio.Buffer;
 import okio.BufferedSource;
@@ -24,14 +23,14 @@ public class ProgressResponseBody extends ResponseBody {
     private ResponseBody responseBody;
     private ProgressListener progressListener;
     private BufferedSource bufferedSource;
-    private StatusImageView imageView;
+    private StatusImageRel imageView;
 
     public ProgressResponseBody(ResponseBody responseBody, ProgressListener progressListener) {
         this.responseBody = responseBody;
         this.progressListener = progressListener;
     }
 
-    public ProgressResponseBody(ResponseBody body, StatusImageView imageView) {
+    public ProgressResponseBody(ResponseBody body, StatusImageRel imageView) {
         this.responseBody = body;
         this.imageView = imageView;
     }
@@ -66,21 +65,26 @@ public class ProgressResponseBody extends ResponseBody {
     private Source source(Source source) {
         return new ForwardingSource(source) {
             long totalBytesRead = 0;
+
             @Override
             public long read(Buffer sink, long byteCount) throws IOException {
                 long bytesRead = super.read(sink, byteCount);
                 totalBytesRead += bytesRead != -1 ? bytesRead : 0;
                 final long contentLength = responseBody.contentLength();
-                StatusImageView statusImageView = (StatusImageView) imageView;
-                statusImageView.getProgressTv().post(new Runnable() {
+                StatusImageRel statusImageRel = (StatusImageRel) imageView;
+
+                statusImageRel.getProgressPro().post(new Runnable() {
                     @Override
                     public void run() {
                         float v = totalBytesRead * 100f / contentLength;
-                        Log.e("TAG", "progress1 called with: bytesRead = [" + totalBytesRead + "], contentLength = [" + contentLength + "], done = [" + (bytesRead == -1) + "]");
-                        statusImageView.getProgressTv().setText(String.format(Locale.CHINA, "%.2f%%", v));
+                        statusImageRel.getProgressPro().setProgress(v);
+                        if (v == 100) {
+                            statusImageRel.getProgressPro().setVisibility(View.GONE);
+                        } else {
+                            statusImageRel.getProgressPro().setVisibility(View.VISIBLE);
+                        }
                     }
                 });
-                Log.e("TAG", "progress2 called with: bytesRead = [" + totalBytesRead + "], contentLength = [" + contentLength + "], done = [" + (bytesRead == -1) + "]");
                 if (progressListener != null)
                     progressListener.progress(totalBytesRead, contentLength, bytesRead == -1);
                 return bytesRead;

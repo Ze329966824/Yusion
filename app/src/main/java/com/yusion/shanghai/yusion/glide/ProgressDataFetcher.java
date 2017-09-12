@@ -21,14 +21,14 @@ public class ProgressDataFetcher implements DataFetcher<InputStream> {
     private InputStream stream;
     private boolean isCancelled;
     private ProgressListener listener;
-    private StatusImageView imageView;
+    private StatusImageRel imageView;
 
     public ProgressDataFetcher(String url, ProgressListener listener) {
         this.url = url;
         this.listener = listener;
     }
 
-    public ProgressDataFetcher(String model, StatusImageView imageView) {
+    public ProgressDataFetcher(String model, StatusImageRel imageView) {
         this.url = model;
         this.imageView = imageView;
     }

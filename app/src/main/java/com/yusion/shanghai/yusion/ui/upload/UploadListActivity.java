@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.glide.ProgressModelLoader;
-import com.yusion.shanghai.yusion.glide.StatusImageView;
+import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
@@ -297,6 +298,7 @@ public class UploadListActivity extends BaseActivity {
                 }, new OnItemDataCallBack<Throwable>() {
                     @Override
                     public void onItemDataCallBack(Throwable data) {
+                        Log.e("TAG", "onItemDataCallBack() called with: data = [" + data + "]");
                         onUploadOssFinish(finalAccount, files, dialog, toAddList);
                     }
                 });
@@ -404,7 +406,7 @@ public class UploadListActivity extends BaseActivity {
                 view = mLayoutInflater.inflate(R.layout.upload_list_add_img_item, parent, false);
             } else if (viewType == TYPE_IMG) {
 //                view = mLayoutInflater.inflate(R.layout.upload_list_img_item_new, parent, false);
-                view = new StatusImageView(mContext);
+                view = new StatusImageRel(mContext);
             }
             return new VH(view);
         }
@@ -424,8 +426,9 @@ public class UploadListActivity extends BaseActivity {
 //                    Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
 //                }
 
+                StatusImageRel statusImageRel = (StatusImageRel) holder.itemView;
                 if (!TextUtils.isEmpty(item.local_path)) {
-                    Glide.with(mContext).load(new File(item.local_path)).into(((StatusImageView) holder.itemView).getSourceImg());
+                    Glide.with(mContext).load(new File(item.local_path)).into(statusImageRel.getSourceImg());
                 } else {
 //                    Glide.with(mContext).using(new ProgressModelLoader(new ProgressListener() {
 //                        @Override
@@ -444,7 +447,8 @@ public class UploadListActivity extends BaseActivity {
 
 //                    String s_url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505125096416&di=77af33c77f8119e97f12348aa64f901d&imgtype=0&src=http%3A%2F%2Fwww.dyedz.gov.cn%2Fd%2Ffile%2Fguihuagongshi%2F2017-07-25%2Fcbb2a42956a7826108d8395d6c76f827.jpg";
 //                    String url = "http://192.168.199.215:8000/IMG20170911154016.jpg";
-                    Glide.with(mContext).using(new ProgressModelLoader(((StatusImageView) holder.itemView))).load(item.s_url).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((StatusImageView) holder.itemView).getSourceImg());
+                    //加载缩略图也会读取流 bug
+                    Glide.with(mContext).using(new ProgressModelLoader(statusImageRel)).load(item.s_url).placeholder(R.mipmap.place_holder_img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(statusImageRel.getSourceImg());
                 }
 //
 //                holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, position));
@@ -458,6 +462,17 @@ public class UploadListActivity extends BaseActivity {
 //                } else {
 //                    holder.cbImg.setVisibility(View.GONE);
 //                }
+                holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, position));
+                if (isEditing) {
+                    statusImageRel.cbImg.setVisibility(View.VISIBLE);
+                    if (item.hasChoose) {
+                        statusImageRel.cbImg.setImageResource(R.mipmap.surechoose_icon);
+                    } else {
+                        statusImageRel.cbImg.setImageResource(R.mipmap.choose_icon);
+                    }
+                } else {
+                    statusImageRel.cbImg.setVisibility(View.GONE);
+                }
             }
         }
 

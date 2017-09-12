@@ -13,13 +13,13 @@ import java.io.IOException;
 public class ProgressInterceptor implements Interceptor {
 
     private ProgressListener progressListener;
-    private StatusImageView imageView;
+    private StatusImageRel imageView;
 
     public ProgressInterceptor(ProgressListener progressListener) {
         this.progressListener = progressListener;
     }
 
-    public ProgressInterceptor(StatusImageView imageView) {
+    public ProgressInterceptor(StatusImageRel imageView) {
         this.imageView = imageView;
     }
 

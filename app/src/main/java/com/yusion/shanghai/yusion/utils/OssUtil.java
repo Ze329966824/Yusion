@@ -91,6 +91,7 @@ public class OssUtil {
                                 onFailureCallBack.onItemDataCallBack(serviceException);
                             }
                         }
+                        Log.e("TAG", "onFailure() called with: request = [" + request + "], clientExcepion = [" + clientExcepion + "], serviceException = [" + serviceException + "]");
                     }
                 });
             }
@@ -104,6 +105,7 @@ public class OssUtil {
                 if (onFailureCallBack != null) {
                     onFailureCallBack.onItemDataCallBack(t);
                 }
+                Log.e("TAG", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
             }
         });
     }

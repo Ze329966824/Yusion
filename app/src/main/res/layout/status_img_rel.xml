@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="150dp"
     android:layout_height="150dp"
     android:orientation="vertical">
@@ -17,15 +19,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:src="@mipmap/choose_icon" />
+        android:layout_margin="10dp"
+        android:src="@mipmap/choose_icon"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/status_img_progress_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.yusion.shanghai.yusion.widget.DonutProgress
+        android:id="@+id/status_img_loading_progress"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerInParent="true"
-        android:text="10%"
-        android:textColor="#000"
-        android:textSize="15sp" />
+        android:visibility="gone"
+        app:donut_circle_starting_degree="-90"
+        app:donut_finished_color="@color/white"
+        app:donut_finished_stroke_width="4.5dp"
+        app:donut_show_text="false"
+        app:donut_unfinished_color="#33ffffff"
+        app:donut_unfinished_stroke_width="4.5dp"
+        tools:visibility="visible" />
 </RelativeLayout>
