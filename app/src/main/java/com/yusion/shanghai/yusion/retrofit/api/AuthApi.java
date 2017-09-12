@@ -2,13 +2,12 @@ package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 
-import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
+import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
@@ -59,6 +58,16 @@ public class AuthApi {
         Api.getAuthService().checkToken().enqueue(new CustomCallBack<CheckTokenResp>(context, dialog) {
             @Override
             public void onCustomResponse(CheckTokenResp data) {
+                onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
+    public static void update(Context context, String frontend, final OnItemDataCallBack<UpdateResp> onItemDataCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getAuthService().update(frontend).enqueue(new CustomCallBack<UpdateResp>(context,dialog) {
+            @Override
+            public void onCustomResponse(UpdateResp data) {
                 onItemDataCallBack.onItemDataCallBack(data);
             }
         });

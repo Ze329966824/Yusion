@@ -334,6 +334,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                         findViewById(R.id.fab).setVisibility(View.GONE);
                     } else {
                         update_spouse_info_die_group_lin.setVisibility(View.GONE);
+                        findViewById(R.id.fab).setVisibility(View.GONE);
                     }
                 }));
 
@@ -1061,6 +1062,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
 ////                            Log.e("TAG", "getClientinfo: "+frontImg);
 //                        }
 //                    });
+                    findViewById(R.id.fab).setVisibility(View.VISIBLE);
                     update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
                     update_spouse_info_clt_nm_edt.setText(clientInfo.spouse.clt_nm);
                     update_spouse_info_id_no_edt.setText(clientInfo.spouse.id_no);

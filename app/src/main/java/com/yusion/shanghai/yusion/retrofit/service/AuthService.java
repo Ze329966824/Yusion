@@ -5,6 +5,7 @@ import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
+import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 
 import retrofit2.Call;
@@ -29,5 +30,8 @@ public interface AuthService {
 
     @POST("/api/auth/check_token/")
     Call<BaseResult<CheckTokenResp>> checkToken();
+
+    @GET("/api/check_new_app/")
+    Call<BaseResult<UpdateResp>> update(@Query("frontend") String frontend);
 
 }

@@ -99,7 +99,6 @@
             android:id="@+id/return_list_info1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/return_list_info"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:background="@drawable/commit_return1"

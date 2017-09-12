@@ -555,10 +555,10 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             }
             update_personal_info_mobile_edt.setText(clientInfo.mobile);
             update_personal_info_education_tv.setText(clientInfo.edu);
-            if (!clientInfo.current_addr.province.equals("")) {
-                update_personal_info_current_address_tv.setText(clientInfo.current_addr.province + "/" + clientInfo.current_addr.city + "/" + clientInfo.current_addr.district);
-            } else {
+            if (clientInfo.current_addr.province.equals("") && clientInfo.current_addr.city.equals("") && clientInfo.current_addr.district.equals("")) {
                 update_personal_info_current_address_tv.setText(null);
+            } else {
+                update_personal_info_current_address_tv.setText(clientInfo.current_addr.province + "/" + clientInfo.current_addr.city + "/" + clientInfo.current_addr.district);
             }
             update_personal_info_current_address1_tv.setText(clientInfo.current_addr.address1);
             update_personal_info_current_address2_tv.setText(clientInfo.current_addr.address2);
@@ -569,10 +569,10 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                     update_personal_info_from_income_group_lin.setVisibility(View.VISIBLE);
                     update_personal_info_from_income_year_edt.setText(clientInfo.major_income);
                     update_personal_info_from_income_company_name_edt.setText(clientInfo.major_company_name);
-                    if (!clientInfo.major_company_addr.province.equals("")) {
-                        update_personal_info_from_income_company_address_tv.setText(clientInfo.major_company_addr.province + "/" + clientInfo.major_company_addr.city + "/" + clientInfo.major_company_addr.district);
-                    } else {
+                    if (clientInfo.major_company_addr.province.equals("") && clientInfo.major_company_addr.city.equals("") && clientInfo.major_company_addr.district.equals("")) {
                         update_personal_info_from_income_company_address_tv.setText(null);
+                    } else {
+                        update_personal_info_from_income_company_address_tv.setText(clientInfo.major_company_addr.province + "/" + clientInfo.major_company_addr.city + "/" + clientInfo.major_company_addr.district);
                     }
                     update_personal_info_from_income_company_address1_tv.setText(clientInfo.major_company_addr.address1);
                     update_personal_info_from_income_company_address2_tv.setText(clientInfo.major_company_addr.address2);
@@ -584,10 +584,10 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                     update_personal_info_from_self_year_edt.setText(clientInfo.major_income);
                     update_personal_info_from_self_type_tv.setText(clientInfo.major_busi_type);
                     update_personal_info_from_self_company_name_edt.setText(clientInfo.major_company_name);
-                    if (!clientInfo.major_company_addr.province.equals("")) {
-                        update_personal_info_from_self_company_address_tv.setText(clientInfo.major_company_addr.province + "/" + clientInfo.major_company_addr.city + "/" + clientInfo.major_company_addr.district);
-                    } else {
+                    if (clientInfo.major_company_addr.province.equals("") && clientInfo.major_company_addr.city.equals("") && clientInfo.major_company_addr.district.equals("")) {
                         update_personal_info_from_self_company_address_tv.setText(null);
+                    } else {
+                        update_personal_info_from_self_company_address_tv.setText(clientInfo.major_company_addr.province + "/" + clientInfo.major_company_addr.city + "/" + clientInfo.major_company_addr.district);
                     }
                     update_personal_info_from_self_company_address1_tv.setText(clientInfo.major_company_addr.address1);
                     update_personal_info_from_self_company_address2_tv.setText(clientInfo.major_company_addr.address2);
@@ -605,10 +605,10 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                     update_personal_info_extra_from_income_group_lin.setVisibility(View.VISIBLE);
                     update_personal_info_extra_from_income_year_edt.setText(clientInfo.extra_income);
                     update_personal_info_extra_from_income_company_name_edt.setText(clientInfo.extra_company_name);
-                    if (!clientInfo.extra_company_addr.province.equals("")) {
-                        update_personal_info_extra_from_income_company_address_tv.setText(clientInfo.extra_company_addr.province + "/" + clientInfo.extra_company_addr.city + "/" + clientInfo.extra_company_addr.district);
-                    } else {
+                    if (clientInfo.extra_company_addr.province.equals("") && clientInfo.extra_company_addr.city.equals("") && clientInfo.extra_company_addr.district.equals("")) {
                         update_personal_info_extra_from_income_company_address_tv.setText(null);
+                    } else {
+                        update_personal_info_extra_from_income_company_address_tv.setText(clientInfo.extra_company_addr.province + "/" + clientInfo.extra_company_addr.city + "/" + clientInfo.extra_company_addr.district);
                     }
                     update_personal_info_extra_from_income_company_address1_tv.setText(clientInfo.extra_company_addr.address1);
                     update_personal_info_extra_from_income_company_address2_tv.setText(clientInfo.extra_company_addr.address2);

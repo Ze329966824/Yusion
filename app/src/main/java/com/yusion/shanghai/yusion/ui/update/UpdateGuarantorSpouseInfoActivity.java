@@ -282,16 +282,17 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("离异")) {
                         findViewById(R.id.fab).setVisibility(View.GONE);
-                        update_guarantor_spouse_info_divorced_group_lin.setVisibility(VISIBLE);
+                        update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     } else {
                         update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     }
 
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("丧偶")) {
                         findViewById(R.id.fab).setVisibility(View.GONE);
-                        update_guarantor_spouse_info_die_group_lin.setVisibility(VISIBLE);
+                        update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
                     } else {
                         update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
+                        findViewById(R.id.fab).setVisibility(View.GONE);
                     }
                 }));
 
@@ -821,6 +822,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 //                            idFrontImgUrl = resp.list.get(0).s_url;
 //                        }
 //                    });
+                    findViewById(R.id.fab).setVisibility(View.VISIBLE);
                     update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);
                     update_guarantor_spouse_info_clt_nm_edt.setText(guarantorInfo.spouse.clt_nm);
                     update_guarantor_spouse_info_id_no_edt.setText(guarantorInfo.spouse.id_no);
