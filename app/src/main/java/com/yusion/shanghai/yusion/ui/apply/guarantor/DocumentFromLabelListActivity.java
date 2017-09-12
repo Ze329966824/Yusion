@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,11 +34,13 @@ import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
+import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
+import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -51,8 +54,9 @@ public class DocumentFromLabelListActivity extends BaseActivity {
     private Button btn;
     private boolean isEditing = false;
     private String title;
-    private ImageView choose_icon;
-    private ImageView takePhoto;
+    //private ImageView choose_icon;
+    private StatusImageRel statusImageRel;
+    // private ImageView takePhoto;
     private Button delete_image_btn;
     private File imageFile;
     private String mType;//id_card_front  id_card_back  driving_lic  auth_credit
@@ -88,11 +92,13 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         } else if (mType.equals("driving_lic")) {//驾驶证
             setContentView(R.layout.activity_drive);
         }
+        statusImageRel = (StatusImageRel) findViewById(R.id.statusImageRel);
 
         initView();
         initData();
 
-        takePhoto.setOnClickListener(new View.OnClickListener() {
+        //takePhoto
+        statusImageRel.sourceImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (hasImg) {
@@ -131,8 +137,10 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                             setImageResourse(null);
 
                             delete_image_btn.setVisibility(View.GONE);
-                            choose_icon.setImageResource(R.mipmap.choose_icon);
-                            choose_icon.setVisibility(View.GONE);
+                            statusImageRel.cbImg.setImageResource(R.mipmap.choose_icon);
+                            statusImageRel.cbImg.setVisibility(View.GONE);
+//                            choose_icon.setImageResource(R.mipmap.choose_icon);
+//                            choose_icon.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -143,13 +151,14 @@ public class DocumentFromLabelListActivity extends BaseActivity {
 
     private void initView() {
         createBottomDialog();
+        statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
         errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
         errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
         btn = (Button) findViewById(R.id.btn);
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         titleBar = initTitleBar(this, title).setLeftClickListener(v -> onBack());
-        takePhoto = (ImageView) findViewById(R.id.camera_document);
-        choose_icon = (ImageView) findViewById(R.id.choose_icon);
+        // takePhoto = (ImageView) findViewById(R.id.camera_document);
+        //choose_icon = (ImageView) findViewById(R.id.choose_icon);
         mEditTv = titleBar.getRightTextTv();
         titleBar.setRightText("编辑").setRightClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +187,6 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         req.clt_id = clt_id;
         req.label = mType;
         UploadApi.listImgs(this, req, resp -> {
-//            imageBean = new UploadImgItemBean();
             if (resp != null) {
                 if (resp.has_err) {
                     errorLin.setVisibility(View.VISIBLE);
@@ -188,7 +196,6 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 }
                 if (resp.list.size() > 0) {
                     hasImg = true;
-//                    imageBean = resp.list.get(0);
                     setImageResourse(resp.list.get(0));
 
                     imgId = resp.list.get(0).id;
@@ -206,8 +213,9 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         } else {
             mEditTv.setEnabled(false);
             mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
-            mEditTv.setText("编辑");
         }
+        mEditTv.setText("编辑");
+        isEditing = false;
     }
 
 
@@ -284,7 +292,9 @@ public class DocumentFromLabelListActivity extends BaseActivity {
     public void setIsEditing(boolean isEditing) {
         if (isEditing) {
             //显示icon布局
-            choose_icon.setVisibility(View.VISIBLE);
+            statusImageRel.cbImg.setVisibility(View.VISIBLE);
+            //choose_icon.setVisibility(View.VISIBLE);
+
             hasChoose = false;
             mEditTv.setText("取消");
             delete_image_btn.setVisibility(View.VISIBLE);
@@ -292,22 +302,26 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         } else {
             mEditTv.setText("编辑");
             delete_image_btn.setVisibility(View.GONE);
-            choose_icon.setVisibility(View.GONE);
-            choose_icon.setImageResource(R.mipmap.choose_icon);
+            statusImageRel.cbImg.setVisibility(View.GONE);
+            statusImageRel.cbImg.setImageResource(R.mipmap.choose_icon);
+//            choose_icon.setVisibility(View.GONE);
+//            choose_icon.setImageResource(R.mipmap.choose_icon);
         }
     }
 
     public void setIconAnddelBtn(boolean isHasChoose) {
         if (isHasChoose) {
             //显示虚勾
-            choose_icon.setImageResource(R.mipmap.choose_icon);
+            statusImageRel.cbImg.setImageResource(R.mipmap.choose_icon);
+            //choose_icon.setImageResource(R.mipmap.choose_icon);
             //imgList.get(0).hasChoose = false;
             hasChoose = false;
             delete_image_btn.setEnabled(false);
             delete_image_btn.setTextColor(Color.parseColor("#d1d1d1"));
 
         } else {
-            choose_icon.setImageResource(R.mipmap.surechoose_icon);
+            statusImageRel.cbImg.setImageResource(R.mipmap.surechoose_icon);
+            //choose_icon.setImageResource(R.mipmap.surechoose_icon);
             delete_image_btn.setEnabled(true);
             //imgList.get(0).hasChoose = true;
             hasChoose = true;
@@ -317,7 +331,28 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         }
     }
 
+    //        if (!TextUtils.isEmpty(item.local_path)) {
+//            GlideUtil.loadImg(mContext, statusImageRel, new File(item.local_path));
+//        } else {
+//            //加载缩略图也会读取流 会存在bug 所以禁止加载缩略图
+//            GlideUtil.loadImg(mContext, statusImageRel, item.s_url);
+////                    Glide.with(mContext).using(new ProgressModelLoader(statusImageRel)).load(item.s_url).placeholder(R.mipmap.place_holder_img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(statusImageRel.getSourceImg());
+//        }
     public void setImageResourse(UploadImgItemBean imageBean) {
+        if (imageBean == null) {
+            //Glide.with(this).load(R.mipmap.camera_document).into(takePhoto);
+            Glide.with(this).load(R.mipmap.camera_document).into(statusImageRel.sourceImg);
+            statusImageRel.progressPro.setVisibility(View.GONE);
+        } else {
+            if (!TextUtils.isEmpty(imageBean.local_path)) {
+                GlideUtil.loadImg(this, statusImageRel, new File(imageBean.local_path));
+                imgUrl = imageBean.local_path;
+            } else {
+                GlideUtil.loadImg(this, statusImageRel, imageBean.s_url);
+                imgUrl = imageBean.s_url;
+            }
+        }
+
 //        Dialog dialog = LoadingUtils.createLoadingDialog(this);
 //        dialog.show();
 //        if (imageBean == null) {
@@ -367,7 +402,12 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 imgUrl = files.get(0);
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(this).load(imgUrl).into(takePhoto);
+
+                //Glide.with(this).load(imgUrl).into(takePhoto);
+                GlideUtil.loadImg(this, statusImageRel, new File(imgUrl));
+                //GlideUtil.loadImg(this, statusImageRel, imgUrl);
+
+
                 imageBean = new UploadImgItemBean();
                 imageBean.local_path = imgUrl;
                 imageBean.type = mType;
@@ -382,7 +422,8 @@ public class DocumentFromLabelListActivity extends BaseActivity {
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
+                // Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
+                GlideUtil.loadImg(this, statusImageRel, imageFile);
                 imageBean = new UploadImgItemBean();
                 imageBean.type = mType;
                 imageBean.role = mRole;
@@ -396,8 +437,8 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             } else if (requestCode == 3000) {//id_front
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
-
+                // Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
+                GlideUtil.loadImg(this, statusImageRel, imageFile);
                 imageBean = new UploadImgItemBean();
                 imageBean.type = mType;
                 imageBean.role = mRole;

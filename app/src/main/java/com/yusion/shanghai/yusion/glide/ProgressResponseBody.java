@@ -60,6 +60,7 @@ public class ProgressResponseBody extends ResponseBody {
     private Source source(Source source) {
         return new ForwardingSource(source) {
             long totalBytesRead = 0;
+
             @Override
             public long read(Buffer sink, long byteCount) throws IOException {
                 long bytesRead = super.read(sink, byteCount);

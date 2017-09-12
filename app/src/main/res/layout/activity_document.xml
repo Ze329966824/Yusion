@@ -57,32 +57,34 @@
             android:layout_width="match_parent"
             android:layout_height="136dp">
 
-            <ImageView
-                android:id="@+id/camera_document"
+            <com.yusion.shanghai.yusion.glide.StatusImageRel
+                android:id="@+id/statusImageRel"
                 android:layout_width="98dp"
                 android:layout_height="98dp"
                 android:layout_marginLeft="14.5dp"
                 android:layout_marginTop="20dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/camera_document" />
+                >
 
-            <ImageView
-                android:id="@+id/choose_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="76dp"
-                android:layout_marginTop="30dp"
-                android:src="@mipmap/choose_icon"
-                android:visibility="gone" />
+            </com.yusion.shanghai.yusion.glide.StatusImageRel>
 
-            <ImageView
-                android:id="@+id/true_choose_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="76dp"
-                android:layout_marginTop="30dp"
-                android:src="@mipmap/surechoose_icon"
-                android:visibility="gone" />
+            <!--<ImageView-->
+            <!--android:id="@+id/camera_document"-->
+            <!--android:layout_width="98dp"-->
+            <!--android:layout_height="98dp"-->
+            <!--android:layout_marginLeft="14.5dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/camera_document" />-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/choose_icon"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="76dp"-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--android:src="@mipmap/choose_icon"-->
+            <!--android:visibility="gone" />-->
+
         </FrameLayout>
 
         <View
@@ -112,11 +114,10 @@
             android:orientation="horizontal">
 
 
-
             <TextView
-                android:layout_marginLeft="14.5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dp"
                 android:text="有效"
                 android:textColor="#ffa400"
                 android:textSize="11.5dp" />
