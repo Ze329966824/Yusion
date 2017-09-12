@@ -32,7 +32,6 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
-import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -50,7 +49,6 @@ import java.util.List;
 
 public class UploadListActivity extends BaseActivity {
     private RvAdapter adapter;
-    private Intent mGetIntent;
     private TextView errorTv;
     private LinearLayout errorLin;
     private boolean isEditing = false;
@@ -59,6 +57,7 @@ public class UploadListActivity extends BaseActivity {
     private TextView uploadTv2;
     private TextView uploadTv1;
     private List<UploadImgItemBean> lists = new ArrayList<>();
+    private List<UploadImgItemBean> hasUploadLists = new ArrayList<>();
     private String role;
     private String type;
     private String clt_id;
@@ -69,7 +68,7 @@ public class UploadListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_list);
 
-        mGetIntent = getIntent();
+        Intent mGetIntent = getIntent();
         role = mGetIntent.getStringExtra("role");
         type = mGetIntent.getStringExtra("type");
         clt_id = mGetIntent.getStringExtra("clt_id");
@@ -252,6 +251,7 @@ public class UploadListActivity extends BaseActivity {
         return totalCount;
     }
 
+    //图片数量每次改变都需要清除编辑状态
     private void onImgCountChange(boolean hasImg) {
         if (hasImg) {
             mEditTv.setEnabled(true);
@@ -259,9 +259,11 @@ public class UploadListActivity extends BaseActivity {
         } else {
             mEditTv.setEnabled(false);
             mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
-            mEditTv.setText("编辑");
-            uploadBottomLin.setVisibility(View.GONE);
         }
+        isEditing = false;
+        adapter.setIsEditing(false);
+        mEditTv.setText("编辑");
+        uploadBottomLin.setVisibility(View.GONE);
     }
 
     @Override
@@ -279,27 +281,28 @@ public class UploadListActivity extends BaseActivity {
                 toAddList.add(item);
             }
 
+            hasUploadLists.clear();
+
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
-            int account = 0;
             for (UploadImgItemBean imgItemBean : toAddList) {
-                account++;
-                int finalAccount = account;
-                String suffix = ".png";
-                OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(Constants.PersonType.LENDER, type, suffix), new OnItemDataCallBack<String>() {
+                OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
+                        hasUploadLists.add(imgItemBean);
                         imgItemBean.objectKey = objectKey;
-                        onUploadOssFinish(finalAccount, files, dialog, toAddList);
+                        onUploadOssFinish(hasUploadLists.size(), files, dialog, toAddList);
                     }
                 }, new OnItemDataCallBack<Throwable>() {
                     @Override
                     public void onItemDataCallBack(Throwable data) {
-                        onUploadOssFinish(finalAccount, files, dialog, toAddList);
+                        hasUploadLists.add(imgItemBean);
+                        onUploadOssFinish(hasUploadLists.size(), files, dialog, toAddList);
                     }
                 });
             }
         }
+
     }
 
     private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
@@ -315,7 +318,6 @@ public class UploadListActivity extends BaseActivity {
                                 @Override
                                 public void callBack() {
                                     lists.addAll(relToAddList);
-                                    adapter.notifyItemRangeInserted(adapter.getItemCount(), relToAddList.size());
                                     onImgCountChange(lists.size() > 0);
                                 }
                             });
