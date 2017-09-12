@@ -23,6 +23,7 @@ import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
+import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
 
 public class SettingsActivity extends BaseActivity {
@@ -99,7 +100,9 @@ public class SettingsActivity extends BaseActivity {
                 AuthApi.update(this, "yusion", new OnItemDataCallBack<UpdateResp>() {
                     @Override
                     public void onItemDataCallBack(UpdateResp data) {
-                        Log.e("urllllllllllllllll:",data.download_url);
+//                        Log.e("urllllllllllllllll:",data.download_url);
+                        Log.e("versionnnnn:",data.version);
+                        UpdateUtil.showUpdateDialog(SettingsActivity.this,data.change_log,false,data.download_url);
                     }
                 });
 
