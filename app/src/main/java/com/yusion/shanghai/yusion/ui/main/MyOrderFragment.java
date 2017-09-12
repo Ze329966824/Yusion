@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
@@ -39,6 +40,8 @@ public class MyOrderFragment extends BaseFragment {
     private RecyclerAdapterWithHF adapter;
     private List<GetAppListResp> items;
     private PtrClassicFrameLayout ptr;
+    private RecyclerView rv;
+    private LinearLayout llyt;
 
     public static MyOrderFragment newInstance() {
         Bundle args = new Bundle();
@@ -58,7 +61,8 @@ public class MyOrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initTitleBar(view, "我的申请");
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.my_order_rv);
+        rv = (RecyclerView) view.findViewById(R.id.my_order_rv);
+        llyt = (LinearLayout) view.findViewById(R.id.my_order_llyt);
         rv.setLayoutManager(new LinearLayoutManager(mContext));
         items = new ArrayList<>();
         MyOrderListAdapter myOrderListAdapter = new MyOrderListAdapter(mContext, items);
@@ -88,10 +92,24 @@ public class MyOrderFragment extends BaseFragment {
         OrderApi.getAppList(mContext, "0", new OnItemDataCallBack<List<GetAppListResp>>() {
             @Override
             public void onItemDataCallBack(List<GetAppListResp> resp) {
-                items.clear();
-                items.addAll(resp);
-                adapter.notifyDataSetChanged();
-                ptr.refreshComplete();
+                if (resp != null && resp.size() > 0) {
+                    ptr.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.VISIBLE);
+                    llyt.setVisibility(View.GONE);
+                    items.clear();
+                    items.addAll(resp);
+                    adapter.notifyDataSetChanged();
+                    ptr.refreshComplete();
+                } else {
+                    ptr.refreshComplete();
+                    rv.setVisibility(View.GONE);
+                    llyt.setVisibility(View.VISIBLE);
+                    ptr.setVisibility(View.VISIBLE);
+                }
+//                items.clear();
+//                items.addAll(resp);
+//                adapter.notifyDataSetChanged();
+//                ptr.refreshComplete();
             }
         });
     }

@@ -179,6 +179,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
         update_spouse_info_clt_nm_edt = (NoEmptyEditText) findViewById(R.id.update_spouse_info_clt_nm_edt);
         update_spouse_info_id_no_edt = (EditText) findViewById(R.id.update_spouse_info_id_no_edt);
         update_spouse_info_id_no_img = (ImageView) findViewById(R.id.update_spouse_info_id_no_img);
+
         update_spouse_info_gender_tv = (TextView) findViewById(R.id.update_spouse_info_gender_tv);
         update_spouse_info_mobile_edt = (EditText) findViewById(R.id.update_spouse_info_mobile_edt);
         update_spouse_info_income_from_tv = (TextView) findViewById(R.id.update_spouse_info_income_from_tv);
@@ -582,6 +583,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 } else {
                     Toast.makeText(UpdateSpouseInfoActivity.this, "识别成功", Toast.LENGTH_LONG).show();
                     mOcrResp = ocrResp1.showapi_res_body;
+
 
                     if (mOcrResp != null) {
                         if (!TextUtils.isEmpty(mOcrResp.idNo)) {

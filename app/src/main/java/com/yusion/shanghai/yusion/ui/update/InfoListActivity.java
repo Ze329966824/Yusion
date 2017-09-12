@@ -33,8 +33,6 @@ public class InfoListActivity extends BaseActivity {
     private String[] mTabTitle = {"关联人资料", "关联人影像件"};
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
