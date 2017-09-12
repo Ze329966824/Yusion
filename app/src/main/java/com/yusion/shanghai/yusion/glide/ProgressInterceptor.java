@@ -12,12 +12,7 @@ import java.io.IOException;
 
 public class ProgressInterceptor implements Interceptor {
 
-    private ProgressListener progressListener;
     private StatusImageRel imageView;
-
-    public ProgressInterceptor(ProgressListener progressListener) {
-        this.progressListener = progressListener;
-    }
 
     public ProgressInterceptor(StatusImageRel imageView) {
         this.imageView = imageView;

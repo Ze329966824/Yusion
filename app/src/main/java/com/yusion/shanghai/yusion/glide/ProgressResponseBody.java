@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.glide;
 
 
+import android.util.Log;
 import android.view.View;
 
 import com.squareup.okhttp.MediaType;
@@ -21,14 +22,8 @@ import okio.Source;
 public class ProgressResponseBody extends ResponseBody {
 
     private ResponseBody responseBody;
-    private ProgressListener progressListener;
     private BufferedSource bufferedSource;
     private StatusImageRel imageView;
-
-    public ProgressResponseBody(ResponseBody responseBody, ProgressListener progressListener) {
-        this.responseBody = responseBody;
-        this.progressListener = progressListener;
-    }
 
     public ProgressResponseBody(ResponseBody body, StatusImageRel imageView) {
         this.responseBody = body;
@@ -65,7 +60,6 @@ public class ProgressResponseBody extends ResponseBody {
     private Source source(Source source) {
         return new ForwardingSource(source) {
             long totalBytesRead = 0;
-
             @Override
             public long read(Buffer sink, long byteCount) throws IOException {
                 long bytesRead = super.read(sink, byteCount);
@@ -83,10 +77,9 @@ public class ProgressResponseBody extends ResponseBody {
                         } else {
                             statusImageRel.getProgressPro().setVisibility(View.VISIBLE);
                         }
+                        Log.e("TAG", "totalBytesRead: " + totalBytesRead + "......." + "contentLength" + contentLength);
                     }
                 });
-                if (progressListener != null)
-                    progressListener.progress(totalBytesRead, contentLength, bytesRead == -1);
                 return bytesRead;
             }
         };
