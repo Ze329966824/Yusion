@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,10 +16,14 @@ import com.pgyersdk.update.UpdateManagerListener;
 import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
+import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
+import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
 
 public class SettingsActivity extends BaseActivity {
@@ -88,14 +93,24 @@ public class SettingsActivity extends BaseActivity {
                 showLogoutDialog();
                 break;
             case R.id.main_setting_version_name_layout:   //版本信息
-                PgyUpdateManager.setIsForced(true); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
-                PgyUpdateManager.register(this, null);
+//                PgyUpdateManager.setIsForced(true); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
+//                PgyUpdateManager.register(this, null);
 //                initUpdate();
+
+                AuthApi.update(this, "yusion", new OnItemDataCallBack<UpdateResp>() {
+                    @Override
+                    public void onItemDataCallBack(UpdateResp data) {
+//                        Log.e("urllllllllllllllll:",data.download_url);
+                        Log.e("versionnnnn:",data.version);
+                        UpdateUtil.showUpdateDialog(SettingsActivity.this,data.change_log,false,data.download_url);
+                    }
+                });
+
                 break;
         }
     }
 
-    private void initUpdate() {
+    private void initUpdate(String download_url) {
 
         PgyUpdateManager.register(SettingsActivity.this, null, new UpdateManagerListener() {
             @Override
@@ -107,7 +122,7 @@ public class SettingsActivity extends BaseActivity {
                 //                Log.e("result:           ", s);
                 final AppBean appBean = getAppBeanFromString(s);
                 desc = appBean.getReleaseNote();
-                url = appBean.getDownloadURL();
+                url = download_url;
 //                Log.e("desc=           ", desc);
 //                Log.e("url=           ", url);
 //                UpdateUtil.showUpdateDialog(SettingActivity.this, desc, false, url);

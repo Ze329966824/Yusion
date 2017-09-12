@@ -282,16 +282,17 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("离异")) {
                         findViewById(R.id.fab).setVisibility(View.GONE);
-                        update_guarantor_spouse_info_divorced_group_lin.setVisibility(VISIBLE);
+                        update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     } else {
                         update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     }
 
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("丧偶")) {
                         findViewById(R.id.fab).setVisibility(View.GONE);
-                        update_guarantor_spouse_info_die_group_lin.setVisibility(VISIBLE);
+                        update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
                     } else {
                         update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
+                        findViewById(R.id.fab).setVisibility(View.GONE);
                     }
                 }));
 
@@ -550,35 +551,38 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
             if (data == null) return;
             guarantorInfo = data;
             if (guarantorInfo.marriage.equals("已婚")) {
-                requestUpload(guarantorInfo.spouse.clt_id, () -> {
-                    //上传影像件
-                    requestUpload(guarantorInfo.spouse.clt_id, () -> {
+//                requestUpload(guarantorInfo.spouse.clt_id, () -> {
+                //上传影像件
+//                    requestUpload(guarantorInfo.spouse.clt_id, () -> {
 //                        Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                        toCommitActivity(guarantorInfo.spouse.clt_id, "guarantor_sp", "担保人配偶影像件资料","");
+                toCommitActivity(guarantorInfo.spouse.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
 
-                    });
-                });
+//                    });
+//                });
             } else {
-                requestUpload(guarantorInfo.clt_id, () -> {
+//                requestUpload(guarantorInfo.clt_id, () -> {
 //                    Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "提交成功，离婚证（户口本）请在担保人人的影像件里查看", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
 //                    startActivity(intent);
 //                    finish();
-                    if (TextUtils.equals(old_marriage,now_marriage)){
-                        toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料","");
-                    }else {
-                        if(TextUtils.equals(now_marriage,"丧偶")){
-                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料","户口本");
-                        }else if (TextUtils.equals(now_marriage,"离异")){
-                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料","离婚证明");
+                if (!TextUtils.equals(now_marriage, "未婚")) {
+                    if (TextUtils.equals(old_marriage, now_marriage)) {
+                        toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "return");
+                    } else {
+                        if (TextUtils.equals(now_marriage, "丧偶")) {
+                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "continue");
+                        } else if (TextUtils.equals(now_marriage, "离异")) {
+                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "continue");
                         }
                     }
+                } else {
+                    toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "return");
+                }
 
-
-                });
             }
+//                });
 
         }));
 
@@ -818,6 +822,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 //                            idFrontImgUrl = resp.list.get(0).s_url;
 //                        }
 //                    });
+                    findViewById(R.id.fab).setVisibility(View.VISIBLE);
                     update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);
                     update_guarantor_spouse_info_clt_nm_edt.setText(guarantorInfo.spouse.clt_nm);
                     update_guarantor_spouse_info_id_no_edt.setText(guarantorInfo.spouse.id_no);

@@ -9,10 +9,8 @@ import android.view.View;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
@@ -92,12 +90,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         ConfigApi.getConfigJson(this, resp -> {});
-        AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
-            @Override
-            public void onItemDataCallBack(CheckUserInfoResp data) {
-                mHomeFragment.refresh(data);
-                mMineFragment.refresh(data);
-            }
+        AuthApi.checkUserInfo(this, data -> {
+            mHomeFragment.refresh(data);
+            mMineFragment.refresh(data);
         });
     }
 }

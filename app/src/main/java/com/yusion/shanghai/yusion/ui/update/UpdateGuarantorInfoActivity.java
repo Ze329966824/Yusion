@@ -521,7 +521,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             //上传影像件
 //            mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
 
-            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料","影像件");
+            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料","continue");
 
 //            });
         }));

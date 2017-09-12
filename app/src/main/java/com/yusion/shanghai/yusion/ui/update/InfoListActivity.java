@@ -9,9 +9,7 @@ import android.support.v4.view.ViewPager;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
 import com.yusion.shanghai.yusion.retrofit.api.UserApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -132,13 +130,10 @@ public class InfoListActivity extends BaseActivity {
         super.onResume();
 //        updateHaveGuaranteeStatus();
 
-        UserApi.getListCurrentTpye(InfoListActivity.this, new OnItemDataCallBack<ListCurrentTpye>() {
-            @Override
-            public void onItemDataCallBack(ListCurrentTpye data) {
-                if (data != null) {
-                    mInfoListFragment.refresh(data);
-                    mImgsListFragment.refresh(data);
-                }
+        UserApi.getListCurrentTpye(InfoListActivity.this, data -> {
+            if (data != null) {
+                mInfoListFragment.refresh(data,data.guarantor_commited);
+                mImgsListFragment.refresh(data);
             }
         });
     }

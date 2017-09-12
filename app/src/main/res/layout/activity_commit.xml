@@ -9,70 +9,105 @@
 
 
     <com.yusion.shanghai.yusion.widget.TitleBar
-        android:layout_alignParentTop="true"
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
     <ImageView
-        android:layout_below="@id/title_bar"
         android:id="@+id/icon_commit_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
         android:src="@mipmap/commit_success" />
-
     <TextView
+        android:layout_below="@+id/icon_commit_success"
         android:id="@+id/text_commit_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/icon_commit_success"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:text="提交成功"
         android:textSize="19dp" />
 
-    <TextView
-        android:id="@+id/text_commit_imgs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="您还需补充婚姻材料影像件"
-        android:gravity="center"
-        android:textSize="17dp"
-        android:clickable="true"
+    <RelativeLayout
+        android:id="@+id/commit_continue_layout"
+        android:visibility="gone"
+        tools:visibility="gone"
         android:layout_below="@id/text_commit_success"
-        android:layout_marginTop="20dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/return_list_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_commit_imgs"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/commit_return"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="立刻上传"
-        android:textColor="#FFFFFF"
-        android:textSize="17dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/continue_imgs_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/return_list_info"
+
+
+        <TextView
+            android:id="@+id/text_commit_imgs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="您还需补充婚姻材料影像件"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/return_list_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_commit_imgs"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/commit_return"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="立刻上传"
+            android:textColor="#FFFFFF"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/continue_imgs_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/return_list_info"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/commit_continue"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="稍后上传"
+            android:textColor="#999999"
+            android:textSize="17dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/commit_return_layout"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_below="@id/text_commit_success"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/commit_continue"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="稍后上传"
-        android:textColor="#999999"
-        android:textSize="17dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:id="@+id/return_list_info1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/commit_return1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="返回资料列表"
+            android:textColor="#FF06B7A3"
+            android:textSize="17dp" />
+
+
+    </RelativeLayout>
 </RelativeLayout>

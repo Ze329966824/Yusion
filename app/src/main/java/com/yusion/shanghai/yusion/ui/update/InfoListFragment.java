@@ -23,7 +23,6 @@ public class InfoListFragment extends BaseFragment {
 
     private LinearLayout guarantee_info;
     private LinearLayout add_guarantee;
-
     public InfoListFragment() {
         // Required empty public constructor
     }
@@ -69,15 +68,20 @@ public class InfoListFragment extends BaseFragment {
 
 
 
-    public void refresh(ListCurrentTpye data) {
+    public void refresh(ListCurrentTpye data,boolean guarantor_commited) {
         if (data != null) {
-            if (data.guarantor_commited) {
-                add_guarantee.setVisibility(View.GONE);
-                guarantee_info.setVisibility(View.VISIBLE);
+            if (data.guarantor_commited){
+                getView().findViewById(R.id.add_guarantee).setVisibility(View.GONE);
+                getView().findViewById(R.id.guarantee_info).setVisibility(View.VISIBLE);
             } else {
-                guarantee_info.setVisibility(View.GONE);
-                add_guarantee.setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.add_guarantee).setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.guarantee_info).setVisibility(View.GONE);
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

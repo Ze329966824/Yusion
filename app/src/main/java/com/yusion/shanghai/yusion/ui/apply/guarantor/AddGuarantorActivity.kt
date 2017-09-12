@@ -51,7 +51,10 @@ class AddGuarantorActivity : BaseActivity() {
     }
 
     fun requestSubmit() {
-        startActivity(Intent(this, CommitActivity::class.java))
+        var intent = Intent(this, CommitActivity::class.java)
+        intent.putExtra("commit_state", "return")
+        startActivity(Intent(intent))
+        finish()
     }
 
     override fun onDestroy() {
