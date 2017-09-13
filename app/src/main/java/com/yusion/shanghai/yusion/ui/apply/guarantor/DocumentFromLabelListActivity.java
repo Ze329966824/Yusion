@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -345,7 +344,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             statusImageRel.progressPro.setVisibility(View.GONE);
         } else {
             if (!TextUtils.isEmpty(imageBean.local_path)) {
-                GlideUtil.loadImg(this, statusImageRel, new File(imageBean.local_path));
+                GlideUtil.loadLocalImg(this, statusImageRel, new File(imageBean.local_path));
                 imgUrl = imageBean.local_path;
             } else {
                 GlideUtil.loadImg(this, statusImageRel, imageBean.s_url);
@@ -404,7 +403,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 dialog.show();
 
                 //Glide.with(this).load(imgUrl).into(takePhoto);
-                GlideUtil.loadImg(this, statusImageRel, new File(imgUrl));
+                GlideUtil.loadLocalImg(this, statusImageRel, new File(imgUrl));
                 //GlideUtil.loadImg(this, statusImageRel, imgUrl);
 
 
@@ -423,7 +422,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 // Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
-                GlideUtil.loadImg(this, statusImageRel, imageFile);
+                GlideUtil.loadLocalImg(this, statusImageRel, imageFile);
                 imageBean = new UploadImgItemBean();
                 imageBean.type = mType;
                 imageBean.role = mRole;
@@ -438,7 +437,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 // Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
-                GlideUtil.loadImg(this, statusImageRel, imageFile);
+                GlideUtil.loadLocalImg(this, statusImageRel, imageFile);
                 imageBean = new UploadImgItemBean();
                 imageBean.type = mType;
                 imageBean.role = mRole;
