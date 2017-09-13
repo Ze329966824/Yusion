@@ -319,6 +319,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                     UPDATE_MARRIAGE_INDEX = selectedIndex;
                     clientInfo.marriage = YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX);
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
+                        findViewById(R.id.fab).setVisibility(View.VISIBLE);
                         update_spouse_info_marriage_group_lin.setVisibility(View.VISIBLE);
                     } else {
                         update_spouse_info_marriage_group_lin.setVisibility(View.GONE);
@@ -334,7 +335,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                         findViewById(R.id.fab).setVisibility(View.GONE);
                     } else {
                         update_spouse_info_die_group_lin.setVisibility(View.GONE);
-                        findViewById(R.id.fab).setVisibility(View.GONE);
                     }
                 }));
 

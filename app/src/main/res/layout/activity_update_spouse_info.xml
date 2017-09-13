@@ -324,20 +324,13 @@
 
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/separate_line_height"
-                            android:background="@color/separate_line_color" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:background="@color/bg_color" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/separate_line_height"
-                            android:background="@color/separate_line_color" />
+
 
 
                         <!--子女数量-->
@@ -1149,7 +1142,7 @@
                             android:layout_marginBottom="7.5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="18dp"
-                            android:text="婚姻材料(选填)"
+                            android:text="子女数量"
                             android:textColor="#666666"
                             android:textSize="11.5sp" />
 
@@ -1243,7 +1236,7 @@
                             android:layout_marginBottom="7.5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="18dp"
-                            android:text="婚姻材料(选填)"
+                            android:text="子女数量"
                             android:textColor="#666666"
                             android:textSize="11.5sp" />
 
@@ -1280,10 +1273,6 @@
                         </FrameLayout>
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separate_line_height"
-                        android:background="@color/separate_line_color" />
 
 
 

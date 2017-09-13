@@ -276,6 +276,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 
                     if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
                         update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);
+                        findViewById(R.id.fab).setVisibility(View.VISIBLE);
                     } else {
                         update_guarantor_spouse_info_marriage_group_lin.setVisibility(View.GONE);
                     }
@@ -292,7 +293,6 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                         update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
                     } else {
                         update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
-                        findViewById(R.id.fab).setVisibility(View.GONE);
                     }
                 }));
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -93,21 +92,25 @@ public class SettingsActivity extends BaseActivity {
                 showLogoutDialog();
                 break;
             case R.id.main_setting_version_name_layout:   //版本信息
-//                PgyUpdateManager.setIsForced(true); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
-//                PgyUpdateManager.register(this, null);
-//                initUpdate();
 
-                AuthApi.update(this, "yusion", new OnItemDataCallBack<UpdateResp>() {
-                    @Override
-                    public void onItemDataCallBack(UpdateResp data) {
-//                        Log.e("urllllllllllllllll:",data.download_url);
-                        Log.e("versionnnnn:",data.version);
-                        UpdateUtil.showUpdateDialog(SettingsActivity.this,data.change_log,false,data.download_url);
-                    }
-                });
-
+                if (true) {
+                    //product：调用oss接口更新
+                    AuthApi.update(this, "yusion", new OnItemDataCallBack<UpdateResp>() {
+                        @Override
+                        public void onItemDataCallBack(UpdateResp data) {
+//                            Log.e("versionnnnn:", data.version);
+                            UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
+                        }
+                    });
+                } else {
+                    //alpha：蒲公英更新
+                    PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
+                    PgyUpdateManager.register(this, null);
+                    //initUpdate();
+                }
                 break;
         }
+
     }
 
     private void initUpdate(String download_url) {

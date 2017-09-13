@@ -52,7 +52,7 @@ public class JpushDialogActivity extends BaseActivity {
             app_id = jo.optString("app_id");
             category = jo.optString("category");
             JpushDialog();
-        }else {
+        } else {
             finish();
         }
 
@@ -61,21 +61,19 @@ public class JpushDialogActivity extends BaseActivity {
     private void JpushDialog() {
         switch (category) {
             case "login":
-                if (YusionApp.isLogin) {
-                    if (mobile.equals(YusionApp.MOBILE)) {
-                        new AlertDialog.Builder(JpushDialogActivity.this)
-                                .setCancelable(false)
-                                .setTitle("")
-                                .setMessage(content)
-                                .setPositiveButton("确定", (dialog, which) -> {
-                                    myApp.clearUserData();
-                                    startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
-                                    finish();
-                                })
-                                .show();
-                    } else {
-                        finish();
-                    }
+                if (YusionApp.isLogin || mobile.equals(YusionApp.MOBILE)) {
+                    new AlertDialog.Builder(JpushDialogActivity.this)
+                            .setCancelable(false)
+                            .setTitle("")
+                            .setMessage(content)
+                            .setPositiveButton("确定", (dialog, which) -> {
+                                myApp.clearUserData();
+                                startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+                                finish();
+                            })
+                            .show();
+                } else {
+                    finish();
                 }
                 break;
             default:
