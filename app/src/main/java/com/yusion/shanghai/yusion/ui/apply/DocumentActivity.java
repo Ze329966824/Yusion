@@ -35,12 +35,14 @@ import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
+import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
+import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -51,6 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DocumentActivity extends BaseActivity {
+    //private StatusImageRel statusImageRel;
     Button btn;
     ImageView choose_icon;
     ImageView true_choose_icon;
@@ -104,11 +107,13 @@ public class DocumentActivity extends BaseActivity {
 
 
         createBottomDialog();
+        // statusImageRel = (StatusImageRel) findViewById(R.id.statusImageRel);
+        //statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
         btn = (Button) findViewById(R.id.btn);
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
         true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
-        takePhoto = (ImageView) findViewById(R.id.camera_document);
+        //takePhoto = (ImageView) findViewById(R.id.camera_document);
 
         if (mTopItem != null) {
             if (imgList.size() > 0) {
@@ -117,9 +122,11 @@ public class DocumentActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
                     imgUrl = itemBean.local_path;
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
+                    //GlideUtil.loadImg(this, statusImageRel, new File(itemBean.local_path));
                 } else {
                     imgUrl = itemBean.s_url;
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
+                    //GlideUtil.loadImg(this, statusImageRel, itemBean.s_url);
                 }
             }
             errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
@@ -142,6 +149,7 @@ public class DocumentActivity extends BaseActivity {
                     if (resp.list.size() != 0) {
                         imgUrl = resp.list.get(0).s_url;
                         Glide.with(this).load(resp.list.get(0).s_url).into(takePhoto);
+                        //GlideUtil.loadImg(this, statusImageRel, resp.list.get(0).s_url);
                         titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                         isHasImage = true;
                         imgList.addAll(resp.list);
@@ -163,6 +171,7 @@ public class DocumentActivity extends BaseActivity {
             if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
                 imgUrl = mGetIntent.getStringExtra("imgUrl");
                 Glide.with(this).load(mGetIntent.getStringExtra("imgUrl")).into(takePhoto);
+                //GlideUtil.loadImg(this, statusImageRel, new File(mGetIntent.getStringExtra("imgUrl")));
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 isHasImage = true;
             } else {
@@ -204,6 +213,7 @@ public class DocumentActivity extends BaseActivity {
                             true_choose_icon.setVisibility(View.GONE);
                             titleBar.setRightText("编辑");
                             takePhoto.setEnabled(true);
+                            //statusImageRel.sourceImg.setEnabled(true);
                             delete_image_btn.setVisibility(View.GONE);
                             isEdit = true;
                             isClick = false;
@@ -220,13 +230,13 @@ public class DocumentActivity extends BaseActivity {
         delete_image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete_image_btn.setVisibility(View.GONE);
-                choose_icon.setVisibility(View.GONE);
-                true_choose_icon.setVisibility(View.GONE);
-                choose_icon.setImageResource(R.mipmap.choose_icon);
-                titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
-
-                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+//                delete_image_btn.setVisibility(View.GONE);
+//                choose_icon.setVisibility(View.GONE);
+//                true_choose_icon.setVisibility(View.GONE);
+//                choose_icon.setImageResource(R.mipmap.choose_icon);
+//                titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+//
+//                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
                 imgUrl = "";
                 mImgObjectKey = "";
 
@@ -242,6 +252,17 @@ public class DocumentActivity extends BaseActivity {
                                     Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
                                     mTopItem.hasImg = false;
                                     imgList.clear();
+                                    //statusImageRel.progressPro.setVisibility(View.GONE);
+
+                                    delete_image_btn.setVisibility(View.GONE);
+
+                                    choose_icon.setVisibility(View.GONE);
+                                    true_choose_icon.setVisibility(View.GONE);
+                                    choose_icon.setImageResource(R.mipmap.choose_icon);
+                                    titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+
+                                    Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+                                    //Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(statusImageRel.sourceImg);
                                 }
                             }
                         });
@@ -260,6 +281,18 @@ public class DocumentActivity extends BaseActivity {
                                     Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
                                     mTopItem.hasImg = false;
                                     imgList.clear();
+                                    //statusImageRel.progressPro.setVisibility(View.GONE);
+
+                                    delete_image_btn.setVisibility(View.GONE);
+
+                                    choose_icon.setVisibility(View.GONE);
+                                    true_choose_icon.setVisibility(View.GONE);
+                                    choose_icon.setImageResource(R.mipmap.choose_icon);
+                                    titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+
+                                    Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+                                    //Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(statusImageRel.sourceImg);
+
                                 }
                             }
                         });
@@ -268,6 +301,7 @@ public class DocumentActivity extends BaseActivity {
 
                 isHasImage = false;
                 takePhoto.setEnabled(true);
+                //statusImageRel.sourceImg.setEnabled(true);
                 isClick = false;
             }
         });
@@ -398,6 +432,7 @@ public class DocumentActivity extends BaseActivity {
                 }
 
                 Glide.with(this).load(localUrl).into(takePhoto);
+                //GlideUtil.loadImg(this, statusImageRel, new File(localUrl));
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
@@ -427,7 +462,9 @@ public class DocumentActivity extends BaseActivity {
                     imgList.add(item);
                 }
 
-                Glide.with(this).load(imageFile).into(takePhoto);
+                //Glide.with(this).load(imageFile).into(takePhoto);
+
+
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
@@ -475,6 +512,7 @@ public class DocumentActivity extends BaseActivity {
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
+                //GlideUtil.loadImg(this, statusImageRel, imageFile);
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 OssUtil.uploadOss(DocumentActivity.this, false, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
@@ -505,6 +543,7 @@ public class DocumentActivity extends BaseActivity {
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
                 Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
+                //GlideUtil.loadImg(this, statusImageRel, imageFile);
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 OssUtil.uploadOss(DocumentActivity.this, false, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {

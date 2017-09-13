@@ -138,6 +138,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                             delete_image_btn.setVisibility(View.GONE);
                             statusImageRel.cbImg.setImageResource(R.mipmap.choose_icon);
                             statusImageRel.cbImg.setVisibility(View.GONE);
+                            statusImageRel.progressPro.setVisibility(View.GONE);
 //                            choose_icon.setImageResource(R.mipmap.choose_icon);
 //                            choose_icon.setVisibility(View.GONE);
                         }
