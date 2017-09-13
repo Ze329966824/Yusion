@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JpushDialogActivity extends BaseActivity {
+
     private String mobile = null;
     private String title = null;
     private String content = null;
