@@ -18,6 +18,8 @@ android {
         versionName "V1.5.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        multiDexEnabled true
+
         buildConfigField("boolean", "isOnline", isOnline.toString())
         def pgyer_appid = "604da92c9c0503afa90ea5591df7d217"
         def app_icon = "@mipmap/test_ic_launcher"
@@ -88,9 +90,11 @@ dependencies {
     compile project(path: ':PickerLib')
     compile files('libs/jcore-android-1.1.6.jar')
     compile files('libs/jpush-android-3.0.8.jar')
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'com.github.bumptech.glide:compiler:4.0.0'
+    compile "com.github.bumptech.glide:okhttp3-integration:4.0.0"
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.pgyersdk:sdk:2.7.0'
+//    compile 'com.pgyersdk:sdk:2.7.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
@@ -103,7 +107,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     testCompile 'junit:junit:4.12'
-    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
 }
 repositories {
     mavenCentral()

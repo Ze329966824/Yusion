@@ -419,7 +419,7 @@ public class UploadListActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(item.local_path)) {
 //                    Glide.with(mContext).load(new File(item.local_path)).into(statusImageRel.getSourceImg());
 //                    Glide.with(mContext).load(new File(item.local_path)).into(statusImageRel.getSourceImg());
-                    GlideUtil.loadImg(mContext, statusImageRel, new File(item.local_path));
+                    GlideUtil.loadLocalImg(mContext, statusImageRel, new File(item.local_path));
                 } else {
                     //加载缩略图也会读取流 会存在bug 所以禁止加载缩略图
                     GlideUtil.loadImg(mContext, statusImageRel, item.s_url);
