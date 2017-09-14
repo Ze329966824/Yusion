@@ -96,12 +96,12 @@ public class DocumentActivity extends BaseActivity {
         if (mType.equals("auth_credit")) {//征信授权书
             view = inFlater.inflate(R.layout.activity_authorize, null);
         } else if (mType.equals("id_card_front")) {//身份证国徽面
-            view = inFlater.inflate(R.layout.activity_document, null);
+            view = inFlater.inflate(R.layout.activity_document2, null);
         } else if (mType.equals("id_card_back")) {//身份证人像面
-            view = inFlater.inflate(R.layout.activity_shengfz, null);
+            view = inFlater.inflate(R.layout.activity_shengfz2, null);
             mOcrResp = ((OcrResp.ShowapiResBodyBean) mGetIntent.getSerializableExtra("ocrResp"));
         } else if (mType.equals("driving_lic")) {//驾驶证
-            view = inFlater.inflate(R.layout.activity_drive, null);
+            view = inFlater.inflate(R.layout.activity_drive2, null);
         }
         setContentView(view);
 
@@ -110,10 +110,10 @@ public class DocumentActivity extends BaseActivity {
         // statusImageRel = (StatusImageRel) findViewById(R.id.statusImageRel);
         //statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
         btn = (Button) findViewById(R.id.btn);
-        delete_image_btn = (Button) findViewById(R.id.image_update_btn);
-        choose_icon = (ImageView) findViewById(R.id.choose_icon);
-        true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
-        //takePhoto = (ImageView) findViewById(R.id.camera_document);
+        delete_image_btn = (Button) findViewById(R.id.image_update_btn1);
+        choose_icon = (ImageView) findViewById(R.id.choose_icon1);
+        true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon1);
+        takePhoto = (ImageView) findViewById(R.id.camera_document1);
 
         if (mTopItem != null) {
             if (imgList.size() > 0) {
@@ -230,13 +230,13 @@ public class DocumentActivity extends BaseActivity {
         delete_image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                delete_image_btn.setVisibility(View.GONE);
-//                choose_icon.setVisibility(View.GONE);
-//                true_choose_icon.setVisibility(View.GONE);
-//                choose_icon.setImageResource(R.mipmap.choose_icon);
-//                titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
-//
-//                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+
+                delete_image_btn.setVisibility(View.GONE);
+                choose_icon.setVisibility(View.GONE);
+                true_choose_icon.setVisibility(View.GONE);
+                choose_icon.setImageResource(R.mipmap.choose_icon);
+                titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+                Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
                 imgUrl = "";
                 mImgObjectKey = "";
 
@@ -254,14 +254,15 @@ public class DocumentActivity extends BaseActivity {
                                     imgList.clear();
                                     //statusImageRel.progressPro.setVisibility(View.GONE);
 
-                                    delete_image_btn.setVisibility(View.GONE);
 
-                                    choose_icon.setVisibility(View.GONE);
-                                    true_choose_icon.setVisibility(View.GONE);
-                                    choose_icon.setImageResource(R.mipmap.choose_icon);
-                                    titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
-
-                                    Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+//                                    delete_image_btn.setVisibility(View.GONE);
+//
+//                                    choose_icon.setVisibility(View.GONE);
+//                                    true_choose_icon.setVisibility(View.GONE);
+//                                    choose_icon.setImageResource(R.mipmap.choose_icon);
+//                                    titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+//
+//                                    Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
                                     //Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(statusImageRel.sourceImg);
                                 }
                             }
@@ -283,14 +284,14 @@ public class DocumentActivity extends BaseActivity {
                                     imgList.clear();
                                     //statusImageRel.progressPro.setVisibility(View.GONE);
 
-                                    delete_image_btn.setVisibility(View.GONE);
-
-                                    choose_icon.setVisibility(View.GONE);
-                                    true_choose_icon.setVisibility(View.GONE);
-                                    choose_icon.setImageResource(R.mipmap.choose_icon);
-                                    titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
-
-                                    Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
+//                                    delete_image_btn.setVisibility(View.GONE);
+//
+//                                    choose_icon.setVisibility(View.GONE);
+//                                    true_choose_icon.setVisibility(View.GONE);
+//                                    choose_icon.setImageResource(R.mipmap.choose_icon);
+//                                    titleBar.setRightText("编辑").setRightTextColor(Color.parseColor("#80ffffff"));
+//
+//                                    Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(takePhoto);
                                     //Glide.with(DocumentActivity.this).load(R.mipmap.camera_document).into(statusImageRel.sourceImg);
 
                                 }
@@ -462,7 +463,7 @@ public class DocumentActivity extends BaseActivity {
                     imgList.add(item);
                 }
 
-                //Glide.with(this).load(imageFile).into(takePhoto);
+                Glide.with(this).load(imageFile).into(takePhoto);
 
 
                 isHasImage = true;
