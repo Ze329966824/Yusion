@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="14.5dp"
-                android:text="征信授权书"
+                android:text="身份证国徽面"
                 android:textColor="#999999"
                 android:textSize="12sp" />
 
@@ -58,7 +58,7 @@
             android:layout_height="136dp">
 
             <ImageView
-                android:id="@+id/camera_document1"
+                android:id="@+id/camera_document"
                 android:layout_width="98dp"
                 android:layout_height="98dp"
                 android:layout_marginLeft="14.5dp"
@@ -67,7 +67,7 @@
                 android:src="@mipmap/camera_document" />
 
             <ImageView
-                android:id="@+id/choose_icon1"
+                android:id="@+id/choose_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="76dp"
@@ -76,7 +76,7 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/true_choose_icon1"
+                android:id="@+id/true_choose_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="76dp"
@@ -91,12 +91,11 @@
             android:background="@color/bg_color" />
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginLeft="14.5dp"
             android:gravity="center_vertical"
-            android:text="征信授权书要求"
+            android:text="身份证国徽面照片要求"
             android:textSize="14.5dp" />
 
         <View
@@ -112,16 +111,11 @@
             android:layout_marginTop="12.5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14.5dp"
-                android:text="本人持有的"
-                android:textSize="11.5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dp"
                 android:text="有效"
                 android:textColor="#ffa400"
                 android:textSize="11.5dp" />
@@ -129,7 +123,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="征信授权书"
+                android:text="二代身份证"
                 android:textSize="11.5dp"
 
                 />
@@ -145,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14.5dp"
-                android:text="拍摄时确保征信授权书"
+                android:text="拍摄时确保身份证"
                 android:textSize="11.5dp" />
 
             <TextView
@@ -161,18 +155,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="14.5dp"
             android:layout_marginTop="14.5dp"
-            android:text="征信授权书实例"
+            android:text="身份证国徽面实例"
             android:textSize="11.5dp" />
 
         <ImageView
-            android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12.5dp"
-            android:src="@mipmap/shouquanshu" />
+            android:src="@mipmap/guohui_document" />
     </LinearLayout>
-
 
     <View
         android:id="@+id/view_line"
@@ -182,7 +174,7 @@
         android:background="@mipmap/shadow_h_line" />
 
     <Button
-        android:id="@+id/image_update_btn1"
+        android:id="@+id/image_update_btn"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
