@@ -5,10 +5,11 @@
 
     <!--umeng-->
     <uses-sdk android:minSdkVersion="8"></uses-sdk>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- Jpush -->
     <permission
@@ -59,7 +60,6 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -149,7 +149,6 @@
             android:enabled="true">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-
                 <category android:name="com.yusion.shanghai.yusion" />
             </intent-filter>
             <intent-filter>
@@ -173,7 +172,6 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.yusion.shanghai.yusion" />
             </intent-filter>
@@ -194,7 +192,6 @@
             android:name=".jpush.YusionReceiver"
             android:enabled="true">
             <intent-filter>
-
                 <!-- Required 用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
                 <!-- Required 用户接收SDK消息的intent -->
@@ -205,7 +202,6 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
-
                 <category android:name="com.yusion.shanghai.yusion" />
             </intent-filter>
         </receiver>
@@ -264,11 +260,18 @@
             android:name=".ui.upload.PreviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.apply.guarantor.DocumentFromLabelListActivity"></activity>
+        <activity
+            android:name=".ui.apply.guarantor.DocumentFromLabelListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
 
-        <meta-data android:value="59b67145a40fa318e600084f" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="Yusion" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59b67145a40fa318e600084f" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Yusion" />
 
     </application>
 
