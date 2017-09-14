@@ -3,6 +3,8 @@ package com.yusion.shanghai.yusion;
 import android.app.Application;
 import android.text.TextUtils;
 
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
@@ -47,6 +49,14 @@ public class YusionApp extends Application {
         }
         jpush();
         umeng();
+        instabug();
+    }
+
+
+    private void instabug() {
+        new Instabug.Builder(this, "41759404bd869009a8eb4ba00967e1f5")
+                .setInvocationEvent(InstabugInvocationEvent.SHAKE)
+                .build();
     }
 
     private void umeng() {

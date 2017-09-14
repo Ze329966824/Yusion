@@ -30,14 +30,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         ActivityManager.addActivity(this);
         myApp = ((YusionApp) getApplication());
 //        PgyCrashManager.register(this);
-        instabug();
     }
 
-    private void instabug() {
-        new Instabug.Builder(myApp, "41759404bd869009a8eb4ba00967e1f5")
-                .setInvocationEvent(InstabugInvocationEvent.SHAKE)
-                .build();
-    }
 
     public TitleBar initTitleBar(final Activity activity, String title) {
         TitleBar titleBar = (TitleBar) activity.findViewById(R.id.title_bar);
