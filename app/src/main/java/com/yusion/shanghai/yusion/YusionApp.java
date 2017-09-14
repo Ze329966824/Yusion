@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 import com.instabug.library.Instabug;
@@ -20,7 +20,7 @@ import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
 /**
  * Created by ice on 2017/8/3.
  */
-public class YusionApp extends Application {
+public class YusionApp extends MultiDexApplication {
 
     public static boolean ishaveGuarantee = false;
 
