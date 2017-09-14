@@ -179,8 +179,8 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                             .setPositiveButton("确定") { dialog, _ ->
                                 spouse_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
-                                dialog.dismiss()
                                 InputMethodUtil.hideInputMethod(mContext)
+                                dialog.dismiss()
                             }
                             .setNegativeButton("取消") { dialog, _ ->
                                 dialog.dismiss()

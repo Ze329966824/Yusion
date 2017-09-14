@@ -95,7 +95,7 @@ public class ImgsListFragment extends BaseFragment {
             intent.putExtra("clt_id", guarantor_sp_clt_id);
             intent.putExtra("role", "guarantor_sp");
             intent.putExtra("title", "担保人配偶影像件资料");
-            startActivity(new Intent());
+            startActivity(intent);
         });
     }
 

@@ -25,10 +25,7 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.ui.upload.UploadListActivity2
-import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
-import com.yusion.shanghai.yusion.utils.CheckMobileUtil
-import com.yusion.shanghai.yusion.utils.ContactsUtil
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
+import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_spouse_info.*
 import org.greenrobot.eventbus.EventBus
@@ -189,9 +186,15 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                             .setPositiveButton("确定") { dialog, which ->
                                 guarantor_spouse_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
+                                InputMethodUtil.hideInputMethod(mContext)
                                 dialog.dismiss()
                             }
-                            .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.show()
+                            .setNegativeButton("取消") { dialog, _ ->
+                                dialog.dismiss()
+                                InputMethodUtil.hideInputMethod(mContext)
+                                _FROM_SELF_TYPE_INDEX = 0;
+                                guarantor_spouse_info_from_self_type_tv.text = null
+                            }.show()
                 }
             })
         }
