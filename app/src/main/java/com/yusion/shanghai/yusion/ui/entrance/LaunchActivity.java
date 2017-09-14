@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
@@ -13,6 +14,7 @@ import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
+import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
 import java.util.Date;
 
@@ -52,7 +54,24 @@ public class LaunchActivity extends BaseActivity {
 //        } else {
 //            getConfigJson();
 //        }
+        checkVersion();
+        checkServerUrl();
 
+    }
+
+    private void checkVersion() {
+        String versionCode = Settings.SERVER_URL.contains("alpha") ? "测试环境" : BuildConfig.VERSION_NAME;
+        if (Settings.isOnline) {
+            //product：调用oss接口更新
+            AuthApi.update(this, "yusion", data -> {
+                if (!versionCode.contains(data.version)) {
+                    UpdateUtil.showUpdateDialog(LaunchActivity.this, data.change_log, true, data.download_url);
+                }
+            });
+        }
+    }
+
+    private void checkServerUrl() {
         if (!Settings.isOnline) {
             String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
             if (!TextUtils.isEmpty(str)) {
