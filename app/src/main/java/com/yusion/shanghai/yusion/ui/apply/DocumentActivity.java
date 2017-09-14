@@ -35,14 +35,12 @@ import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
-import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
-import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -113,7 +111,7 @@ public class DocumentActivity extends BaseActivity {
         delete_image_btn = (Button) findViewById(R.id.image_update_btn);
         choose_icon = (ImageView) findViewById(R.id.choose_icon);
         true_choose_icon = (ImageView) findViewById(R.id.true_choose_icon);
-        //takePhoto = (ImageView) findViewById(R.id.camera_document);
+        takePhoto = (ImageView) findViewById(R.id.camera_document);
 
         if (mTopItem != null) {
             if (imgList.size() > 0) {
