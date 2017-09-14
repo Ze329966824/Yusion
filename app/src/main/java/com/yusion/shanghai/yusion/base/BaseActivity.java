@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.pgyersdk.crash.PgyCrashManager;
-import com.pgyersdk.feedback.PgyFeedbackShakeManager;
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -29,8 +29,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         ActivityManager.addActivity(this);
         myApp = ((YusionApp) getApplication());
-        PgyCrashManager.register(this);
+//        PgyCrashManager.register(this);
+        instabug();
+    }
 
+    private void instabug() {
+        new Instabug.Builder(myApp, "f501f761142981d54b1fdea93963a934")
+                .setInvocationEvent(InstabugInvocationEvent.SHAKE)
+                .build();
     }
 
     public TitleBar initTitleBar(final Activity activity, String title) {
@@ -54,15 +60,15 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPostResume() {
         super.onPostResume();
         // 自定义摇一摇的灵敏度，默认为950，数值越小灵敏度越高。
-        PgyFeedbackShakeManager.setShakingThreshold(1000);
+//        PgyFeedbackShakeManager.setShakingThreshold(1000);
         // 以对话框的形式弹出
-        PgyFeedbackShakeManager.register(this);
+//        PgyFeedbackShakeManager.register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        PgyFeedbackShakeManager.unregister();
+//        PgyFeedbackShakeManager.unregister();
         MobclickAgent.onPause(this);
     }
 

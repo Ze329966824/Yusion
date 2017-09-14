@@ -115,6 +115,8 @@ public class UpdateUtil {
             int i = v.getId();
             if (i == R.id.update_ok) {
                 update();
+            }else {
+                mUpdateDialog = null;
             }
         }
 

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -15,9 +17,7 @@ import com.pgyersdk.update.UpdateManagerListener;
 import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
@@ -28,6 +28,7 @@ import com.yusion.shanghai.yusion.utils.UpdateUtil;
 public class SettingsActivity extends BaseActivity {
     private String desc;
     private String url;
+    private String versionCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class SettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_settings);
         initTitleBar(this, getResources().getString(R.string.main_setting_title));
         TextView versionCodeTv = (TextView) findViewById(R.id.settings_version_code_tv);
-        String versionCode = Settings.SERVER_URL.contains("alpha") ? "测试环境" : BuildConfig.VERSION_NAME;
+        versionCode = Settings.SERVER_URL.contains("alpha") ? "测试环境" : BuildConfig.VERSION_NAME;
         versionCodeTv.setText(versionCode);
 
         initSetURL();
@@ -93,13 +94,19 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.main_setting_version_name_layout:   //版本信息
 
-                if (true) {
+                if (Settings.isOnline) {
                     //product：调用oss接口更新
-                    AuthApi.update(this, "yusion", new OnItemDataCallBack<UpdateResp>() {
-                        @Override
-                        public void onItemDataCallBack(UpdateResp data) {
-//                            Log.e("versionnnnn:", data.version);
+                    AuthApi.update(this, "yusion", data -> {
+                        Log.e("ossupdateeeeeeeee","   本机版本号="+versionCode+"           服务器版本号="+data.version);
+
+                        if (!versionCode.contains(data.version)) {
+                            Log.e("ossupdateeeeeeeee","更新了");
+
                             UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
+
+                        }else {
+                            Toast.makeText(this,"已经是最新的版本啦！",Toast.LENGTH_SHORT).show();
+                            Log.e("ossupdateeeeeeeee","没有更新");
                         }
                     });
                 } else {
