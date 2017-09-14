@@ -32,7 +32,7 @@ public class LaunchActivity extends BaseActivity {
     }
 
     private void checkVersion() {
-        String versionCode = Settings.SERVER_URL.contains("alpha") ? "测试环境" : BuildConfig.VERSION_NAME;
+        String versionCode =  BuildConfig.VERSION_NAME;
         //product：调用oss接口更新
         AuthApi.update(this, "yusion", data -> {
             if (!versionCode.contains(data.version)) {
