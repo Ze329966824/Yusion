@@ -15,7 +15,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 20
-        versionName "V1.5.2"
+        versionName "V1.6.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -94,7 +94,6 @@ dependencies {
     compile 'com.github.bumptech.glide:compiler:4.0.0'
     compile "com.github.bumptech.glide:okhttp3-integration:4.0.0"
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-//    compile 'com.pgyersdk:sdk:2.7.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
@@ -106,6 +105,7 @@ dependencies {
     compile 'io.sentry:sentry-android:1.5.2'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.instabug.library:instabug:4.2.10'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
 }
