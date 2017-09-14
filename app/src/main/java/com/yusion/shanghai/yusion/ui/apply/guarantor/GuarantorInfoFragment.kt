@@ -20,7 +20,6 @@ import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.utils.InputMethodUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_info.*
-import kotlinx.android.synthetic.main.guarantor_info.*
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -221,8 +220,8 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                             .setPositiveButton("确定") { dialog, which ->
                                 guarantor_info_from_self_type_tv.text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
-                                dialog.dismiss()
                                 InputMethodUtil.hideInputMethod(mContext)
+                                dialog.dismiss()
                             }
                             .setNegativeButton("取消") { dialog, which ->
                                 dialog.dismiss()
