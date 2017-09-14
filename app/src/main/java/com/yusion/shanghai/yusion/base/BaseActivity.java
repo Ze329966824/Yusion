@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void instabug() {
-        new Instabug.Builder(myApp, "f501f761142981d54b1fdea93963a934")
+        new Instabug.Builder(myApp, "41759404bd869009a8eb4ba00967e1f5")
                 .setInvocationEvent(InstabugInvocationEvent.SHAKE)
                 .build();
     }
