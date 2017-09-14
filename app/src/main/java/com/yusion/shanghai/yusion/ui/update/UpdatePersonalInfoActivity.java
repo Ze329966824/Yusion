@@ -808,12 +808,16 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             Toast.makeText(this, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_urg_relation1_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(update_personal_info_urg_mobile1_edt.getText().toString())) {
+            Toast.makeText(this, "紧急联系人手机号不能为空", Toast.LENGTH_SHORT).show();
         } else if (!CheckMobileUtil.checkMobile(update_personal_info_urg_mobile1_edt.getText().toString())) {
             Toast.makeText(this, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_urg_contact1_edt.getText().toString().isEmpty()) {
             Toast.makeText(this, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_urg_relation2_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(update_personal_info_urg_mobile2_edt.getText().toString())) {
+            Toast.makeText(this, "紧急联系人手机号不能为空", Toast.LENGTH_SHORT).show();
         } else if (!CheckMobileUtil.checkMobile(update_personal_info_urg_mobile2_edt.getText().toString())) {
             Toast.makeText(this, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_urg_contact2_edt.getText().toString().isEmpty()) {
@@ -881,7 +885,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             if (data == null) return;
             clientInfo = data;
             //上传影像件
-            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料","continue");
+            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");
 
 
 //            mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, () -> {

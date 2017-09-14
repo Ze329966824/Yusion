@@ -19,8 +19,8 @@ import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
-import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.upload.UploadListActivity2
 import com.yusion.shanghai.yusion.utils.*
@@ -322,6 +322,8 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_gender_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+            }else if (spouse_info_mobile_edt.text.isEmpty()) {
+                Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
             } else if (!CheckMobileUtil.checkMobile(spouse_info_mobile_edt.text.toString())) {
                 Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_child_count_edt.text.isEmpty()) {
