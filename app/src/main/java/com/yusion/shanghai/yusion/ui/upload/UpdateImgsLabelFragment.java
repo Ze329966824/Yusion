@@ -74,7 +74,7 @@ public class UpdateImgsLabelFragment extends BaseFragment {
                 Intent intent = new Intent();
                 if (item.label_list.size() == 0) {
                     //下级目录为图片页
-                    intent.setClass(mContext, UploadListActivity2.class);
+                    intent.setClass(mContext, UploadListNotFromLabelLIstActivity.class);
                     intent.putExtra("role", mRole);
                     if (item.name.contains("授权书")) {
                         intent.setClass(mContext, OnlyReadUploadListActivity.class);
