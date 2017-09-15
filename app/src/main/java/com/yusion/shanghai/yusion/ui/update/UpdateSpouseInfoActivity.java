@@ -591,9 +591,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                     dialog.dismiss();
                 } else {
                     Toast.makeText(UpdateSpouseInfoActivity.this, "识别成功", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                     mOcrResp = ocrResp1.showapi_res_body;
-
-
                     if (mOcrResp != null) {
                         if (!TextUtils.isEmpty(mOcrResp.idNo)) {
                             update_spouse_info_id_no_edt.setText(mOcrResp.idNo);
@@ -608,7 +607,6 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 }
             }, (throwable, s) ->
             Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
-            dialog.dismiss();
         }
 
 //            else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
