@@ -39,7 +39,7 @@ public class UploadLabelListActivityToDel extends BaseActivity {
                 Intent intent = new Intent();
                 if (item.label_list.size() == 0) {
                     //下级目录为图片页
-                    intent.setClass(UploadLabelListActivityToDel.this, UploadListActivity2.class);
+                    intent.setClass(UploadLabelListActivityToDel.this, UploadListNotFromLabelLIstActivity.class);
                 } else {
                     //下级目录为标签页
                     intent.setClass(UploadLabelListActivityToDel.this, UploadLabelListActivityToDel.class);

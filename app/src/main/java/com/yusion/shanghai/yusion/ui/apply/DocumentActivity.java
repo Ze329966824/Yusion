@@ -124,7 +124,7 @@ public class DocumentActivity extends BaseActivity {
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
                     //GlideUtil.loadImg(this, statusImageRel, new File(itemBean.local_path));
                 } else {
-                    imgUrl = itemBean.s_url;
+                    imgUrl = itemBean.raw_url;
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
                     //GlideUtil.loadImg(this, statusImageRel, itemBean.s_url);
                 }

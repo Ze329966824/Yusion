@@ -31,7 +31,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
-import com.yusion.shanghai.yusion.ui.upload.UploadListActivity2;
+import com.yusion.shanghai.yusion.ui.upload.UploadListNotFromLabelLIstActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
@@ -223,7 +223,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
 //        update_spouse_info_divorced_lin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, UploadListActivity2.class);
+//                Intent intent = new Intent(mContext, UploadListNotFromLabelLIstActivity.class);
 //                intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
 //                intent.putExtra("role", Constants.PersonType.LENDER);
 //                intent.putExtra("imgList", divorceImgsList);
@@ -443,7 +443,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         LinearLayout update_spouse_info_divorced_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_divorced_lin);
         update_spouse_info_divorced_tv = (TextView) view.findViewById(R.id.update_spouse_info_divorced_tv);
         update_spouse_info_divorced_lin.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, UploadListActivity2.class);
+            Intent intent = new Intent(mContext, UploadListNotFromLabelLIstActivity.class);
             intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
             intent.putExtra("role", Constants.PersonType.LENDER);
             intent.putExtra("imgList", divorceImgsList);
@@ -456,7 +456,7 @@ public class UpdateSpouseInfoFragment extends BaseFragment {
         update_spouse_info_register_addr_lin = (LinearLayout) view.findViewById(R.id.update_spouse_info_register_addr_lin);
         update_spouse_info_register_addr_tv = (TextView) view.findViewById(R.id.update_spouse_info_register_addr_tv);
         update_spouse_info_register_addr_lin.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, UploadListActivity2.class);
+            Intent intent = new Intent(mContext, UploadListNotFromLabelLIstActivity.class);
             intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
             intent.putExtra("role", Constants.PersonType.LENDER);
             intent.putExtra("imgList", resBookList);

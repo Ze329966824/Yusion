@@ -320,7 +320,7 @@ public class DocmtActivity extends BaseActivity {
         } else {
             if (TextUtils.isEmpty(imageBean.local_path)) {
                 Glide.with(this).load(imageBean.s_url).into(takePhoto);
-                imgUrl = imageBean.s_url;
+                imgUrl = imageBean.raw_url;
             } else if (TextUtils.isEmpty(imageBean.s_url)) {
                 Glide.with(this).load(imageBean.local_path).into(takePhoto);
                 imgUrl = imageBean.local_path;

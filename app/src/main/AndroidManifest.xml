@@ -96,7 +96,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".ui.upload.UploadListActivity2"
+            android:name=".ui.upload.UploadListNotFromLabelLIstActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity

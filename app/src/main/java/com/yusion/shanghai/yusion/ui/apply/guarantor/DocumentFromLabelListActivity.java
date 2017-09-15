@@ -349,7 +349,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 imgUrl = imageBean.local_path;
             } else {
                 GlideUtil.loadImg(this, statusImageRel, imageBean.s_url);
-                imgUrl = imageBean.s_url;
+                imgUrl = imageBean.raw_url;
             }
         }
 

@@ -22,7 +22,7 @@ import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
-import com.yusion.shanghai.yusion.ui.upload.UploadListActivity2
+import com.yusion.shanghai.yusion.ui.upload.UploadListNotFromLabelLIstActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.spouse_info.*
@@ -103,7 +103,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             })
         }
         spouse_info_divorced_lin.setOnClickListener {
-            var intent = Intent(mContext, UploadListActivity2::class.java)
+            var intent = Intent(mContext, UploadListNotFromLabelLIstActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", divorceImgsList)
@@ -111,7 +111,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         spouse_info_register_addr_lin.setOnClickListener {
-            var intent = Intent(mContext, UploadListActivity2::class.java)
+            var intent = Intent(mContext, UploadListNotFromLabelLIstActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", resBookList)

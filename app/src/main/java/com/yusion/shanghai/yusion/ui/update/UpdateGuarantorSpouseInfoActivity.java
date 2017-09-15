@@ -501,7 +501,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 //        update_guarantor_spouse_info_divorced_lin = (LinearLayout) findViewById(R.id.update_guarantor_spouse_info_divorced_lin);
 //        update_guarantor_spouse_info_divorced_tv = (TextView) findViewById(R.id.update_guarantor_spouse_info_divorced_tv);
 //        update_guarantor_spouse_info_divorced_lin.setOnClickListener(v -> {
-//            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, UploadListActivity2.class);
+//            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, UploadListNotFromLabelLIstActivity.class);
 //            intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF);
 //            intent.putExtra("role", Constants.PersonType.LENDER);
 //            intent.putExtra("imgList", divorceImgsList);
@@ -515,7 +515,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 //        update_guarantor_spouse_info_register_addr_lin = (LinearLayout) findViewById(R.id.update_guarantor_spouse_info_register_addr_lin);
 //        update_guarantor_spouse_info_register_addr_tv = (TextView) findViewById(R.id.update_guarantor_spouse_info_register_addr_tv);
 //        update_guarantor_spouse_info_register_addr_lin.setOnClickListener(v -> {
-//            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, UploadListActivity2.class);
+//            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, UploadListNotFromLabelLIstActivity.class);
 //            intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET);
 //            intent.putExtra("role", Constants.PersonType.LENDER);
 //            intent.putExtra("imgList", resBookList);
