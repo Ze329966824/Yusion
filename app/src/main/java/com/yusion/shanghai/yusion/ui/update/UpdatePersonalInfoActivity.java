@@ -28,6 +28,7 @@ import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
+import com.yusion.shanghai.yusion.utils.InputMethodUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
@@ -300,6 +301,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                                 .setPositiveButton("确定", (dialog, which) -> {
                                     update_personal_info_from_self_type_tv.setText(editText.getText().toString());
                                     UPDATE_FROM_SELF_TYPE_INDEX = 0;
+                                    InputMethodUtil.hideInputMethod(this);
                                     dialog.dismiss();
                                 })
                                 .setNegativeButton("取消", (dialog, which) -> dialog.dismiss()).show();
