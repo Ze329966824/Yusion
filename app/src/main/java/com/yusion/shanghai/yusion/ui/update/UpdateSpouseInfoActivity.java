@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.ui.update;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.InputMethodUtil;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
@@ -578,11 +580,15 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 }
             }
         } else if (requestCode == 3001) {
+            Dialog dialog = LoadingUtils.createLoadingDialog(this);
+            dialog.show();
             OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
                 if (ocrResp1 == null) {
                     Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                 } else if (ocrResp1.showapi_res_code != 0 && TextUtils.isEmpty(ocrResp1.showapi_res_body.idNo) || TextUtils.isEmpty(ocrResp1.showapi_res_body.name)) {
                     Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                 } else {
                     Toast.makeText(UpdateSpouseInfoActivity.this, "识别成功", Toast.LENGTH_LONG).show();
                     mOcrResp = ocrResp1.showapi_res_body;
@@ -600,7 +606,9 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                         }
                     }
                 }
-            }, (throwable, s) -> Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
+            }, (throwable, s) ->
+            Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
+            dialog.dismiss();
         }
 
 //            else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
