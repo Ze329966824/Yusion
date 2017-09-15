@@ -78,6 +78,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
             intent.putExtra("ocrResp", ocrResp)
+            intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("imgUrl", idBackImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -85,6 +86,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
+            intent.putExtra("objectKey", ID_FRONT_FID)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
