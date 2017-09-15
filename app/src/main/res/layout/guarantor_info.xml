@@ -205,7 +205,7 @@
 
                             <TextView
                                 android:id="@+id/guarantor_info_id_no_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_id"
                                 android:layout_marginRight="35dp" />
                         </LinearLayout>
 
