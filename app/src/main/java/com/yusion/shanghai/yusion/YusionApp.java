@@ -9,6 +9,7 @@ import com.pgyersdk.crash.PgyCrashManager;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.bean.user.UserInfoBean;
+import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import cn.jpush.android.api.JPushInterface;
@@ -50,6 +51,7 @@ public class YusionApp extends MultiDexApplication {
         jpush();
         umeng();
         instabug();
+        SqlLiteUtil.init(this);
     }
 
 

@@ -831,8 +831,14 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     }
 
     private void selectContact() {
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        Intent intent = new Intent();
+        Uri uri = Uri.parse("content://contacts");
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setData(uri);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(intent, Constants.REQUEST_CONTACTS);
+//        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+//        startActivityForResult(intent, Constants.REQUEST_CONTACTS);
     }
 
     private void getInfo() {

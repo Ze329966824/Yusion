@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 public abstract class BaseFragment extends Fragment {
@@ -23,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        UBT.addPageEvent(getContext(), "onPause", "fragment", getClass().getSimpleName());
         MobclickAgent.onPageEnd(this.getClass().getSimpleName());
     }
 
@@ -30,6 +32,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        UBT.addPageEvent(getContext(), "onResume", "fragment", getClass().getSimpleName());
         MobclickAgent.onPageStart(this.getClass().getSimpleName());
     }
 

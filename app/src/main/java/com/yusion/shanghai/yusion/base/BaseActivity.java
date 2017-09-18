@@ -8,11 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.instabug.library.Instabug;
-import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.update.CommitActivity;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
@@ -62,6 +61,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
+        UBT.addPageEvent(this, "onPause", "activity", getClass().getSimpleName());
 //        PgyFeedbackShakeManager.unregister();
         MobclickAgent.onPause(this);
     }
@@ -76,6 +76,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        UBT.addPageEvent(this, "onResume", "activity", getClass().getSimpleName());
         MobclickAgent.onResume(this);
     }
 
