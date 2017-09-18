@@ -8,8 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.instabug.library.Instabug;
-import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -23,6 +21,7 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected YusionApp myApp;
+    private String dialogMsg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,8 +79,22 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void toCommitActivity(String clt_id, String role, String title, String state) {
+        switch (title) {
+            case "个人影像件资料":
+                dialogMsg = "个人";
+                break;
+            case "个人配偶影像件资料":
+                dialogMsg = "配偶";
+                break;
+            case "担保人影像件资料":
+                dialogMsg = "担保人";
+                break;
+            case "担保人配偶影像件资料":
+                dialogMsg = "担保人配偶";
+                break;
+        }
         new AlertDialog.Builder(this)
-                .setMessage("您确认要更改您的配偶信息？")
+                .setMessage("确认要更改" + dialogMsg + "信息？")
                 .setCancelable(false)
                 .setPositiveButton("确认更改", (dialog, which) -> {
                     Intent intent1 = new Intent(BaseActivity.this, CommitActivity.class);
@@ -96,3 +109,4 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
     }
 }
+

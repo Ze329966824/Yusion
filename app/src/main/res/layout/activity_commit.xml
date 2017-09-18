@@ -51,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:clickable="true"
             android:gravity="center"
-            android:text="您还需补充婚姻材料影像件"
+            android:text="您还需补充影像件"
             android:textSize="17dp" />
 
         <TextView

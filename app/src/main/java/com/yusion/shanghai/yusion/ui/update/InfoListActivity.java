@@ -132,6 +132,9 @@ public class InfoListActivity extends BaseActivity {
 
         UserApi.getListCurrentTpye(InfoListActivity.this, data -> {
             if (data != null) {
+
+
+
                 mInfoListFragment.refresh(data);
                 mImgsListFragment.refresh(data);
             }
