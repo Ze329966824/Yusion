@@ -68,7 +68,7 @@ public class InfoListFragment extends BaseFragment {
 
 
 
-    public void refresh(ListCurrentTpye data,boolean guarantor_commited) {
+    public void refresh(ListCurrentTpye data) {
         if (data != null) {
             if (data.guarantor_commited){
                 getView().findViewById(R.id.add_guarantee).setVisibility(View.GONE);
