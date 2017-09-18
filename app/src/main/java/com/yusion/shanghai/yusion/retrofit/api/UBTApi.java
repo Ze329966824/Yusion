@@ -44,7 +44,7 @@ public class UBTApi {
                 return response;
             }).build();
     public static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.0.203:5141/")
+            .baseUrl("http://ubt.yusiontech.com:5141/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build();

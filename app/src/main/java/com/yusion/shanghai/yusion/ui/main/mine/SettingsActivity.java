@@ -97,16 +97,20 @@ public class SettingsActivity extends BaseActivity {
                 if (Settings.isOnline) {
                     //product：调用oss接口更新
                     AuthApi.update(this, "yusion", data -> {
-                        Log.e("ossupdateeeeeeeee","   本机版本号="+versionCode+"           服务器版本号="+data.version);
+                        if (data != null) {
+                            Log.e("ossupdateeeeeeeee", "   本机版本号=" + versionCode + "           服务器版本号=" + data.version);
 
-                        if (!versionCode.contains(data.version)) {
-                            Log.e("ossupdateeeeeeeee","更新了");
+                            if (!versionCode.contains(data.version)) {
+                                Log.e("ossupdateeeeeeeee", "更新了");
 
-                            UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
+                                UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
 
+                            } else {
+                                Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
+                                Log.e("ossupdateeeeeeeee", "没有更新");
+                            }
                         }else {
-                            Toast.makeText(this,"已经是最新的版本啦！",Toast.LENGTH_SHORT).show();
-                            Log.e("ossupdateeeeeeeee","没有更新");
+                            Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
