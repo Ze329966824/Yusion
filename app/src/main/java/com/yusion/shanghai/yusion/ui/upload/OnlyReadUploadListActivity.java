@@ -11,14 +11,15 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
+import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
+import com.yusion.shanghai.yusion.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,44 +115,17 @@ public class OnlyReadUploadListActivity extends BaseActivity {
 
         @Override
         public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = null;
-            view = mLayoutInflater.inflate(R.layout.upload_list_img_item, parent, false);
+            View view = new StatusImageRel(mContext);
             return new VH(view);
         }
 
         @Override
         public void onBindViewHolder(VH holder, int position) {
             UploadImgItemBean item = mItems.get(position);
-//            Dialog dialog = LoadingUtils.createLoadingDialog(mContext);
-//            dialog.show();
-//            if (!TextUtils.isEmpty(item.local_path)) {
-//                Glide.with(mContext).load(new File(item.local_path)).listener(new GlideRequestListener(dialog)).into(holder.img);
-//            } else {
-//                Glide.with(mContext).load(item.s_url).listener(new GlideRequestListener(dialog)).into(holder.img);
-//            }
+            StatusImageRel statusImageRel = (StatusImageRel) holder.itemView;
+            GlideUtil.loadImg(mContext, statusImageRel, item.s_url);
             holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item));
         }
-
-//        private class GlideRequestListener implements RequestListener<Drawable> {
-//            private Dialog dialog;
-//
-//            public GlideRequestListener(Dialog dialog) {
-//                this.dialog = dialog;
-//            }
-//
-//            @Override
-//            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                Toast.makeText(mContext, "图片加载失败", Toast.LENGTH_SHORT).show();
-//                dialog.dismiss();
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                dialog.dismiss();
-//                return false;
-//            }
-//        }
 
         //size+1是因为有 添加图片的item
         @Override
@@ -160,11 +134,9 @@ public class OnlyReadUploadListActivity extends BaseActivity {
         }
 
         protected class VH extends RecyclerView.ViewHolder {
-            public ImageView img;
 
             public VH(View itemView) {
                 super(itemView);
-                img = ((ImageView) itemView.findViewById(R.id.upload_list_img_item_img));
             }
         }
 
