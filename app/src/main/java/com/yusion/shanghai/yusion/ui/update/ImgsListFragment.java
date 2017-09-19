@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
 
 /**
@@ -56,6 +57,18 @@ public class ImgsListFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            UserApi.getListCurrentTpye(mContext, data -> {
+                if (data != null) {
+                    refresh(data);
+                }
+            });
+        }
     }
 
     private void initView(View view) {
