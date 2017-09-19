@@ -17,7 +17,9 @@ android {
         versionCode 20
         versionName "V1.7.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            abiFilters "armeabi"
+        }
         multiDexEnabled true
 
         buildConfigField("boolean", "isOnline", isOnline.toString())
