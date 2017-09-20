@@ -1,10 +1,21 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
-import android.app.AlertDialog;
+
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
+import com.google.common.base.CaseFormat;
+import com.joker.annotation.PermissionsDenied;
+import com.joker.annotation.PermissionsGranted;
+import com.joker.annotation.PermissionsRationale;
+import com.joker.annotation.PermissionsRequestSync;
+import com.joker.api.Permissions4M;
 import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
@@ -13,26 +24,53 @@ import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
+import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
-import java.util.Date;
+import org.json.JSONArray;
 
+import java.util.Date;
+import java.util.IllegalFormatCodePointException;
+
+import static com.yusion.shanghai.yusion.ui.entrance.LaunchActivity.READ_CONTACTS_CODE;
+import static com.yusion.shanghai.yusion.ui.entrance.LaunchActivity.READ_PHONESTATE_CODE;
+
+@PermissionsRequestSync(permission = {Manifest.permission.READ_CONTACTS,
+        Manifest.permission.READ_PHONE_STATE},
+        value = {READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
 public class LaunchActivity extends BaseActivity {
+    public static final int READ_CONTACTS_CODE = 10;
+    public static final int READ_PHONESTATE_CODE = 9;
+
+    private boolean isRead;
+    private boolean isPhoneState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        if (Settings.isOnline) {
-            checkVersion();
-        } else {
-            checkServerUrl();
-        }
+        getPermisson();
+//        Permissions4M
+//                .get(LaunchActivity.this)
+//                .requestSync();
+
+//        if (Settings.isOnline) {
+//            checkVersion();
+//        } else {
+//            checkServerUrl();
+//        }
     }
 
+    public void getPermisson() {
+        Permissions4M
+                .get(LaunchActivity.this)
+                .requestSync();
+    }
+
+
     private void checkVersion() {
-        String versionCode =  BuildConfig.VERSION_NAME;
+        String versionCode = BuildConfig.VERSION_NAME;
         //product：调用oss接口更新
         AuthApi.update(this, "yusion", data -> {
             if (data != null) {
@@ -41,7 +79,7 @@ public class LaunchActivity extends BaseActivity {
                 } else {
                     getConfigJson();
                 }
-            }else {
+            } else {
                 getConfigJson();
             }
 
@@ -123,5 +161,52 @@ public class LaunchActivity extends BaseActivity {
                 lastClickBackTime = currentClickBackTime;
             }
         }
+    }
+
+    @PermissionsGranted({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
+    public void syncGranted(int code) {
+
+        if (code == READ_CONTACTS_CODE) {
+            isRead = true;
+        }
+        if (code == READ_PHONESTATE_CODE) {
+            isPhoneState = true;
+        }
+        if (isRead && isPhoneState) {
+            JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
+            if (jsonArray.length() > 0 && !jsonArray.toString().equals("")) {
+                if (Settings.isOnline) {
+                    checkVersion();
+                } else {
+                    checkServerUrl();
+                }
+            }
+        }
+
+    }
+
+    @PermissionsDenied({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
+    public void syncDenied(int code) {
+        switch (code) {
+            case READ_CONTACTS_CODE:
+                finish();
+                break;
+            case READ_PHONESTATE_CODE:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
+
+//    @PermissionsRationale(READ_CONTACTS_CODE)
+//    public void storageAndCallNonRationale() {
+//        Toast.makeText(this, "请开启相关权限", Toast.LENGTH_LONG).show();
+//    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Permissions4M.onRequestPermissionsResult(LaunchActivity.this, requestCode, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

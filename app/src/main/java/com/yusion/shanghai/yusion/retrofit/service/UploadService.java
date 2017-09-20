@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
 import com.yusion.shanghai.yusion.base.BaseResult;
+import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
 import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
@@ -21,6 +22,7 @@ import retrofit2.http.POST;
  */
 
 public interface UploadService {
+
     @POST("/api/material/upload_yc_client_material/")
     Call<BaseResult> uploadFileUrl(@Body UploadFilesUrlReq req);
 
@@ -35,4 +37,6 @@ public interface UploadService {
 
     @POST("/api/material/upload_yc_client_material/")
     Call<BaseResult<List<String>>> uploadFileUrlWithIdsResp(@Body UploadFilesUrlReq req);
+
+
 }

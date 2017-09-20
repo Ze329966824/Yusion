@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 
+import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
 import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
@@ -25,6 +26,8 @@ import java.util.List;
  */
 
 public class UploadApi {
+
+
 
     public static void uploadFileUrl(final Context context, UploadFilesUrlReq req, final OnCodeAndMsgCallBack onCodeAndMsgCallBack) {
 //        Dialog dialog = LoadingUtils.createLoadingDialog(context);
@@ -74,4 +77,14 @@ public class UploadApi {
             }
         });
     }
+
+//    public static void uploadPersonAndDeviceInfo(final Context context, ContactPersonInfoReq req, OnCodeAndMsgCallBack onCodeAndMsgCallBack) {
+//        Api.getUploadService().uploadPersonAndDeviceInfo(req).enqueue(new CustomCodeAndMsgCallBack(context) {
+//            @Override
+//            public void onCustomResponse(int code, String msg) {
+//                onCodeAndMsgCallBack.callBack(code, msg);
+//            }
+//        });
+//    }
+
 }

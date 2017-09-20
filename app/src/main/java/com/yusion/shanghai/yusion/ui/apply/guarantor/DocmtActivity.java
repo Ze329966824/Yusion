@@ -275,6 +275,7 @@ public class DocmtActivity extends BaseActivity {
 
 
         setResult(RESULT_OK, mGetIntent);
+
         finish();
     }
 

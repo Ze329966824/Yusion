@@ -1,5 +1,8 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +17,7 @@ import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
+import com.yusion.shanghai.yusion.widget.SelfDialog;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -22,12 +26,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private MineFragment mMineFragment;
     private Fragment mCurrentFragment;
     private FragmentManager mFragmentManager;
+    private boolean isNeedAgreement;
+    private boolean isNoAccept;
+    private SelfDialog selfDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        isNeedAgreement = getIntent().getBooleanExtra("isNeedAgreement", false);
         YusionApp.isBack2Home = false;
         YusionApp.isLogin = true;
 
@@ -58,6 +65,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .show(mHomeFragment)
                 .commit();
         mCurrentFragment = mHomeFragment;
+
+        if (isNeedAgreement) {
+            Intent intent = new Intent(MainActivity.this, AgreeMentActivity.class);
+            //startActivity(intent);
+            startActivityForResult(intent, 101);
+            // 一个是新启动的activity进入时的动画，另一个是当前activity消失时的动画
+            overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
+            isNeedAgreement = false;
+        }
+
     }
 
     @Override
@@ -89,10 +106,46 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        ConfigApi.getConfigJson(this, resp -> {});
+        ConfigApi.getConfigJson(this, resp -> {
+        });
         AuthApi.checkUserInfo(this, data -> {
             mHomeFragment.refresh(data);
             mMineFragment.refresh(data);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 101) {
+            isNoAccept = data.getBooleanExtra("noAccept", false);
+            selfDialog = new SelfDialog(this);
+            selfDialog.setYesOnclickListener("我知道了", new SelfDialog.onYesOnclickListener() {
+                @Override
+                public void onYesClick() {
+                    Intent intent = new Intent(MainActivity.this, AgreeMentActivity.class);
+                    startActivityForResult(intent, 101);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
+                    selfDialog.dismiss();
+                }
+            });
+            selfDialog.show();
+
+
+//            if (isNoAccept) {
+//                new AlertDialog.Builder(this)
+//                        .setMessage("当您同意\n《客户信息获取、保密政策》\n方可使用予见汽车")
+//                        .setNeutralButton("我知道了", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Intent intent = new Intent(MainActivity.this, AgreeMentActivity.class);
+//                                //startActivity(intent);
+//                                startActivityForResult(intent, 101);
+//                                overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
+//                            }
+//                        })
+//                        .show();
+//            }
+        }
     }
 }
