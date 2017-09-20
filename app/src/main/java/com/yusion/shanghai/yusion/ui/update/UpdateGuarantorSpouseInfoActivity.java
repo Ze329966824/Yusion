@@ -573,16 +573,16 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
 //                    finish();
                 if (!TextUtils.equals(now_marriage, "未婚")) {
                     if (TextUtils.equals(old_marriage, now_marriage)) {
-                        toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "return");
+                        toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "return");
                     } else {
                         if (TextUtils.equals(now_marriage, "丧偶")) {
-                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "continue");
+                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
                         } else if (TextUtils.equals(now_marriage, "离异")) {
-                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "continue");
+                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
                         }
                     }
                 } else {
-                    toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人影像件资料", "return");
+                    toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "return");
                 }
 
             }

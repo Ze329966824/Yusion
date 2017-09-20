@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
 import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
 
 /**
@@ -34,6 +35,8 @@ public class ImgsListFragment extends BaseFragment {
     private RelativeLayout guarantorspouse_imgs;
     private LinearLayout guarantee_info;
 
+    private View view;
+
     public ImgsListFragment() {
         // Required empty public constructor
     }
@@ -43,11 +46,29 @@ public class ImgsListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_imgs_list, container, false);
+        view = inflater.inflate(R.layout.fragment_imgs_list, container, false);
         initView(view);
 
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            UserApi.getListCurrentTpye(mContext, data -> {
+                if (data != null) {
+                    refresh(data);
+                }
+            });
+        }
     }
 
     private void initView(View view) {
@@ -61,7 +82,7 @@ public class ImgsListFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        initView(view);
         FragmentActivity activity = getActivity();
         //个人
         activity.findViewById(R.id.list_personal_imgs_layout).setOnClickListener(v -> {
@@ -99,7 +120,14 @@ public class ImgsListFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView(view);
+    }
+
     public void refresh(ListCurrentTpye data) {
+        initView(view);
         if (data != null) {
             //这个时候 我们需要时刻刷新四个人的clt_id
             lender_clt_id = data.lender;
@@ -108,23 +136,21 @@ public class ImgsListFragment extends BaseFragment {
             guarantor_sp_clt_id = data.guarantor_sp;
 
 
-            if (TextUtils.isEmpty(data.lender_sp)) {
-                    personalspouse_imgs.setVisibility(View.GONE);
-                }else {
-                    personalspouse_imgs.setVisibility(View.VISIBLE);
-                }
-            if (data.guarantor_commited){
+            if (TextUtils.isEmpty(lender_sp_clt_id)) {
+                personalspouse_imgs.setVisibility(View.GONE);
+            } else {
+                personalspouse_imgs.setVisibility(View.VISIBLE);
+            }
+            if (data.guarantor_commited) {
                 guarantor_imgs.setVisibility(View.VISIBLE);
                 if (TextUtils.isEmpty(data.guarantor_sp)) {
                     guarantorspouse_imgs.setVisibility(View.GONE);
-                }else {
+                } else {
                     guarantorspouse_imgs.setVisibility(View.VISIBLE);
                 }
-            }
-            else {
+            } else {
                 guarantee_info.setVisibility(View.GONE);
             }
-
 
 
 //

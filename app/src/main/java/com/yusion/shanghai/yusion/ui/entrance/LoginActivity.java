@@ -124,8 +124,8 @@ public class LoginActivity extends BaseActivity {
         });
 
         if (Settings.isShameData) {
-            mLoginMobileTV.setText("17621066549");
-            mLoginCodeTV.setText("6666");
+//            mLoginMobileTV.setText("17621066549");
+//            mLoginCodeTV.setText("6666");
         }
 
     }

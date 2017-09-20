@@ -78,6 +78,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
             intent.putExtra("ocrResp", ocrResp)
+            intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("imgUrl", idBackImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -85,6 +86,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
+            intent.putExtra("objectKey", ID_FRONT_FID)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -248,7 +250,6 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.spouse.major_work_phone_num = guarantor_spouse_info_from_income_work_phone_num_edt.text.toString()
                 }
                 "自营" -> {
-                    Toast.makeText(mContext, "业务类型", Toast.LENGTH_SHORT).show()
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "自营"
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income = guarantor_spouse_info_from_self_year_edt.text.toString()
                     addGuarantorActivity.mGuarantorInfo.spouse.major_company_name = guarantor_spouse_info_from_self_company_name_edt.text.toString()

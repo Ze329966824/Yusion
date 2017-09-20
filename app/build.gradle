@@ -15,9 +15,11 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 20
-        versionName "V1.6.2"
+        versionName "V1.7.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            abiFilters "armeabi"
+        }
         multiDexEnabled true
 
         buildConfigField("boolean", "isOnline", isOnline.toString())

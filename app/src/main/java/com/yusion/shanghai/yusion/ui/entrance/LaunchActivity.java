@@ -91,11 +91,16 @@ public class LaunchActivity extends BaseActivity {
         String versionCode = BuildConfig.VERSION_NAME;
         //product：调用oss接口更新
         AuthApi.update(this, "yusion", data -> {
-            if (!versionCode.contains(data.version)) {
-                UpdateUtil.showUpdateDialog(LaunchActivity.this, data.change_log, true, data.download_url);
-            } else {
+            if (data != null) {
+                if (!versionCode.contains(data.version)) {
+                    UpdateUtil.showUpdateDialog(LaunchActivity.this, data.change_log, true, data.download_url);
+                } else {
+                    getConfigJson();
+                }
+            }else {
                 getConfigJson();
             }
+
         });
     }
 

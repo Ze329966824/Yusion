@@ -363,7 +363,7 @@
                         <TextView
                             android:id="@+id/spouse_info_gender_tv"
                             style="@style/apply_info_content"
-                            android:hint="请选择性别" />
+                            android:hint="请选择" />
 
                         <FrameLayout
                             android:layout_width="20dp"
