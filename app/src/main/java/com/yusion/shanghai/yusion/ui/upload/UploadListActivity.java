@@ -404,8 +404,8 @@ public class UploadListActivity extends BaseActivity {
             if (viewType == TYPE_ADD_IMG) {
                 view = mLayoutInflater.inflate(R.layout.upload_list_add_img_item, parent, false);
             } else if (viewType == TYPE_IMG) {
-//                view = mLayoutInflater.inflate(R.layout.upload_list_img_item_new, parent, false);
-                view = new StatusImageRel(mContext);
+                view = mLayoutInflater.inflate(R.layout.upload_list_img_item, parent, false);
+//                view = new StatusImageRel(mContext);
             }
             return new VH(view);
         }

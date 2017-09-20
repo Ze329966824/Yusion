@@ -115,7 +115,8 @@ public class OnlyReadUploadListActivity extends BaseActivity {
 
         @Override
         public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = new StatusImageRel(mContext);
+//            View view = new StatusImageRel(mContext);
+            View view = mLayoutInflater.inflate(R.layout.upload_list_img_item, parent, false);
             return new VH(view);
         }
 
