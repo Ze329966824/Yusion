@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 20
         versionName "V1.6.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -86,10 +86,13 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile project(path: ':PickerLib')
     compile files('libs/jcore-android-1.1.6.jar')
     compile files('libs/jpush-android-3.0.8.jar')
+    compile 'com.github.jokermonn:permissions4m:2.1.1-lib'
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.github.bumptech.glide:compiler:4.0.0'
     compile "com.github.bumptech.glide:okhttp3-integration:4.0.0"
@@ -106,9 +109,10 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.instabug.library:instabug:4.2.10'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
-    compile 'com.android.support:multidex:1.0.1'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.1-processor'
 }
 repositories {
     mavenCentral()

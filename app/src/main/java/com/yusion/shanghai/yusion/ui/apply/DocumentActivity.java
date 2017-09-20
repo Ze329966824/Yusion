@@ -122,11 +122,9 @@ public class DocumentActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(itemBean.local_path)) {
                     imgUrl = itemBean.local_path;
                     Glide.with(this).load(itemBean.local_path).into(takePhoto);
-                    //GlideUtil.loadImg(this, statusImageRel, new File(itemBean.local_path));
                 } else {
                     imgUrl = itemBean.raw_url;
                     Glide.with(this).load(itemBean.s_url).into(takePhoto);
-                    //GlideUtil.loadImg(this, statusImageRel, itemBean.s_url);
                 }
             }
             errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
@@ -379,20 +377,36 @@ public class DocumentActivity extends BaseActivity {
 
     private void takePhoto() {
         if (mType.equals("id_card_front") && !isClick) {
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
+//            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+//            startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
+
+            Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
+            i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+            i.putExtra("maxCount", 1);//加载类型
+            startActivityForResult(i, 3000);
+
         } else if (mType.equals("id_card_back") && !isClick) {
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3001);
+//            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+//            startActivityForResult(intent, 3001);
+
+            Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
+            i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+            i.putExtra("maxCount", 1);//加载类型
+            startActivityForResult(i, 3001);
         } else if (mType.equals("auth_credit") && !isClick) {
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3002);
+//            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+//            startActivityForResult(intent, 3002);
+
+            Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
+            i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+            i.putExtra("maxCount", 1);//加载类型
+            startActivityForResult(i, 3002);
 
         } else if (mType.equals("driving_lic") && !isClick) {
             Intent i = new Intent(DocumentActivity.this, PhotoMediaActivity.class);
@@ -419,7 +433,10 @@ public class DocumentActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 100) {//驾驶证
-                ArrayList<String> files = data.getStringArrayListExtra("files");
+                List<String> files = new ArrayList<>();
+                files.clear();
+                files = data.getStringArrayListExtra("files");
+
                 String localUrl = files.get(0);
 
                 if (mTopItem != null) {
@@ -433,7 +450,6 @@ public class DocumentActivity extends BaseActivity {
                 }
 
                 Glide.with(this).load(localUrl).into(takePhoto);
-                //GlideUtil.loadImg(this, statusImageRel, new File(localUrl));
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
@@ -453,7 +469,11 @@ public class DocumentActivity extends BaseActivity {
                     }
                 });
             } else if (requestCode == 3001) {//id_back
+                List<String> files = new ArrayList<>();
+                files.clear();
+                files = data.getStringArrayListExtra("files");
 
+                String localUrl = files.get(0);
                 if (mTopItem != null) {
                     UploadImgItemBean item = new UploadImgItemBean();
                     item.local_path = imageFile.getAbsolutePath();
@@ -461,19 +481,20 @@ public class DocumentActivity extends BaseActivity {
                     item.type = mType;
                     imgList.clear();
                     imgList.add(item);
+                    mTopItem.hasImg = true;
                 }
 
-                Glide.with(this).load(imageFile).into(takePhoto);
+                Glide.with(this).load(localUrl).into(takePhoto);
 
 
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), "id_card", new OcrUtil.OnOcrSuccessCallBack() {
+                OcrUtil.requestOcr(this, localUrl, new OSSObjectKeyBean(mRole, mType, ".png"), "id_card", new OcrUtil.OnOcrSuccessCallBack() {
                     @Override
                     public void OnOcrSuccess(OcrResp ocrResp, String objectKey) {
-                        imgUrl = imageFile.getAbsolutePath();
+                        imgUrl = localUrl;
                         mImgObjectKey = objectKey;
                         if (ocrResp == null) {
                             Toast.makeText(DocumentActivity.this, "识别失败", Toast.LENGTH_LONG).show();
@@ -501,6 +522,12 @@ public class DocumentActivity extends BaseActivity {
                 });
             } else if (requestCode == 3000) {//id_front
 
+                List<String> files = new ArrayList<>();
+                files.clear();
+                files = data.getStringArrayListExtra("files");
+
+                String localUrl = files.get(0);
+
                 if (mTopItem != null) {
                     UploadImgItemBean item = new UploadImgItemBean();
                     item.local_path = imageFile.getAbsolutePath();
@@ -508,18 +535,18 @@ public class DocumentActivity extends BaseActivity {
                     item.type = mType;
                     imgList.clear();
                     imgList.add(item);
+                    mTopItem.hasImg = true;
                 }
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
-                //GlideUtil.loadImg(this, statusImageRel, imageFile);
+                Glide.with(DocumentActivity.this).load(localUrl).into(takePhoto);
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
-                OssUtil.uploadOss(DocumentActivity.this, false, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
+                OssUtil.uploadOss(DocumentActivity.this, false, localUrl, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
-                        imgUrl = imageFile.getAbsolutePath();
+                        imgUrl = localUrl;
                         mImgObjectKey = objectKey;
                         dialog.dismiss();
                     }
@@ -531,7 +558,11 @@ public class DocumentActivity extends BaseActivity {
                     }
                 });
             } else if (requestCode == 3002) {//授权书 直接拍摄上传
+                List<String> files = new ArrayList<>();
+                files.clear();
+                files = data.getStringArrayListExtra("files");
 
+                String localUrl = files.get(0);
                 if (mTopItem != null) {
                     UploadImgItemBean item = new UploadImgItemBean();
                     item.local_path = imageFile.getAbsolutePath();
@@ -539,18 +570,19 @@ public class DocumentActivity extends BaseActivity {
                     item.type = mType;
                     imgList.clear();
                     imgList.add(item);
+                    mTopItem.hasImg = true;
                 }
 
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                Glide.with(DocumentActivity.this).load(imageFile).into(takePhoto);
+                Glide.with(DocumentActivity.this).load(localUrl).into(takePhoto);
                 //GlideUtil.loadImg(this, statusImageRel, imageFile);
                 isHasImage = true;
                 titleBar.setRightTextColor(Color.parseColor("#ffffff"));
-                OssUtil.uploadOss(DocumentActivity.this, false, imageFile.getAbsolutePath(), new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
+                OssUtil.uploadOss(DocumentActivity.this, false, localUrl, new OSSObjectKeyBean(mRole, mType, ".png"), new OnItemDataCallBack<String>() {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
-                        imgUrl = imageFile.getAbsolutePath();
+                        imgUrl = localUrl;
                         mImgObjectKey = objectKey;
                         dialog.dismiss();
                     }

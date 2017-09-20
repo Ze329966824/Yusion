@@ -373,15 +373,28 @@ public class DocumentFromLabelListActivity extends BaseActivity {
 
     private void takePhoto() {
         if (mType.equals("id_card_front")) {
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
+//            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+//            startActivityForResult(intent, 3000);//正面3000，反面3001，授权书3002
+
+            Intent i = new Intent(DocumentFromLabelListActivity.this, PhotoMediaActivity.class);
+            i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+            i.putExtra("maxCount", 1);//加载类型
+            startActivityForResult(i, 3000);
+
+
         } else if (mType.equals("id_card_back")) {
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3001);
+//            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+//            startActivityForResult(intent, 3001);
+
+            Intent i = new Intent(DocumentFromLabelListActivity.this, PhotoMediaActivity.class);
+            i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
+            i.putExtra("maxCount", 1);//加载类型
+            startActivityForResult(i, 3001);
+
         } else if (mType.equals("driving_lic")) {
             Intent i = new Intent(DocumentFromLabelListActivity.this, PhotoMediaActivity.class);
             i.putExtra("loadType", PhotoVideoDir.Type.IMAGE.toString());//加载类型
@@ -403,9 +416,7 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
 
-                //Glide.with(this).load(imgUrl).into(takePhoto);
                 GlideUtil.loadLocalImg(this, statusImageRel, new File(imgUrl));
-                //GlideUtil.loadImg(this, statusImageRel, imgUrl);
 
 
                 imageBean = new UploadImgItemBean();
@@ -419,35 +430,69 @@ public class DocumentFromLabelListActivity extends BaseActivity {
                 upLoadImg(dialog, imageBean.local_path);
 
             } else if (requestCode == 3001) {//id_back
-
+                List<String> files = new ArrayList<>();
+                files.clear();
+                files = data.getStringArrayListExtra("files");
+                imgUrl = files.get(0);
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                // Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
-                GlideUtil.loadLocalImg(this, statusImageRel, imageFile);
+
+                GlideUtil.loadLocalImg(this, statusImageRel, new File(imgUrl));
+
                 imageBean = new UploadImgItemBean();
+                imageBean.local_path = imgUrl;
                 imageBean.type = mType;
                 imageBean.role = mRole;
-                imageBean.local_path = imageFile.getAbsolutePath();
 
                 hasImg = true;
                 onImgCountChange(hasImg);
 
                 upLoadImg(dialog, imageBean.local_path);
+
+//                Dialog dialog = LoadingUtils.createLoadingDialog(this);
+//                dialog.show();
+//                GlideUtil.loadLocalImg(this, statusImageRel, imageFile);
+//                imageBean = new UploadImgItemBean();
+//                imageBean.type = mType;
+//                imageBean.role = mRole;
+//                imageBean.local_path = imageFile.getAbsolutePath();
+//
+//                hasImg = true;
+//                onImgCountChange(hasImg);
+//
+//                upLoadImg(dialog, imageBean.local_path);
 
             } else if (requestCode == 3000) {//id_front
+                List<String> files = new ArrayList<>();
+                files.clear();
+                files = data.getStringArrayListExtra("files");
+                imgUrl = files.get(0);
                 Dialog dialog = LoadingUtils.createLoadingDialog(this);
                 dialog.show();
-                // Glide.with(DocumentFromLabelListActivity.this).load(imageFile).into(takePhoto);
-                GlideUtil.loadLocalImg(this, statusImageRel, imageFile);
+
+                GlideUtil.loadLocalImg(this, statusImageRel, new File(imgUrl));
+
                 imageBean = new UploadImgItemBean();
+                imageBean.local_path = imgUrl;
                 imageBean.type = mType;
                 imageBean.role = mRole;
-                imageBean.local_path = imageFile.getAbsolutePath();
 
                 hasImg = true;
                 onImgCountChange(hasImg);
 
                 upLoadImg(dialog, imageBean.local_path);
+//                Dialog dialog = LoadingUtils.createLoadingDialog(this);
+//                dialog.show();
+//                GlideUtil.loadLocalImg(this, statusImageRel, imageFile);
+//                imageBean = new UploadImgItemBean();
+//                imageBean.type = mType;
+//                imageBean.role = mRole;
+//                imageBean.local_path = imageFile.getAbsolutePath();
+//
+//                hasImg = true;
+//                onImgCountChange(hasImg);
+//
+//                upLoadImg(dialog, imageBean.local_path);
             }
         }
 
@@ -486,25 +531,4 @@ public class DocumentFromLabelListActivity extends BaseActivity {
             }
         });
     }
-
-//    private class GlideRequestListener implements RequestListener<Drawable> {
-//        private Dialog dialog;
-//
-//        public GlideRequestListener(Dialog dialog) {
-//            this.dialog = dialog;
-//        }
-//
-//        @Override
-//        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//            Toast.makeText(DocumentFromLabelListActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
-//            dialog.dismiss();
-//            return false;
-//        }
-//
-//        @Override
-//        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//            dialog.dismiss();
-//            return false;
-//        }
-//    }
 }
