@@ -50,27 +50,10 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
+        getPermisson();
 //        Permissions4M
 //                .get(LaunchActivity.this)
 //                .requestSync();
-
-//        new AlertDialog.Builder(LaunchActivity.this).setMessage("为了您的使用，请开启相关权限").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int i) {
-//                //执行开启权限的方法
-//                Permissions4M
-//                        .get(LaunchActivity.this)
-//                        .requestSync();
-//            }
-//        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int i) {
-//                //dialog.dismiss();
-//                finish();
-//            }
-//        }).create().show();
-
 
 //        if (Settings.isOnline) {
 //            checkVersion();
@@ -79,13 +62,12 @@ public class LaunchActivity extends BaseActivity {
 //        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void getPermisson() {
         Permissions4M
                 .get(LaunchActivity.this)
                 .requestSync();
     }
+
 
     private void checkVersion() {
         String versionCode = BuildConfig.VERSION_NAME;
@@ -97,7 +79,7 @@ public class LaunchActivity extends BaseActivity {
                 } else {
                     getConfigJson();
                 }
-            }else {
+            } else {
                 getConfigJson();
             }
 
