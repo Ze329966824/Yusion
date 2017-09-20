@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.ActivityManager;
@@ -37,6 +38,44 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        findViewById(R.id.btn).setOnClickListener(v -> {
+            if (!api.isWXAppInstalled()) {
+                Toast.makeText(this, "您还未安装微信客户端！", Toast.LENGTH_SHORT).show();
+                return;
+            }
+//        SendAuth.Req req = new SendAuth.Req();
+//        // 应用的作用域，获取个人信息
+//        req.scope = "snsapi_userinfo";
+//        /**   * 用于保持请求和回调的状态，授权请求后原样带回给第三方  * 为了防止csrf攻击（跨站请求伪造攻击），后期改为随机数加session来校验   */
+//        req.state = "app_wechat";
+//        Log.e("sendreq:","okkkkkkkkkkkkkkkkkk");
+//        api.sendReq(req);
+//        Log.e("sendreq:","koooooooooooooooooo");
+
+            SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "diandi_wx_login";
+            api.sendReq(req);
+
+
+
+//            String text = "wxlogin";
+//
+//            WXTextObject textObject = new WXTextObject();
+//            textObject.text = text;
+//
+//            WXMediaMessage msg = new WXMediaMessage();
+//            msg.mediaObject = textObject;
+//            msg.description = text;
+//
+//            SendMessageToWX.Req req = new SendMessageToWX.Req();
+//            req.transaction = String.valueOf(System.currentTimeMillis());
+//            req.message = msg;
+//
+//            api.sendReq(req);
+        });
+
 
         ApplicationInfo applicationInfo = null;
         try {
