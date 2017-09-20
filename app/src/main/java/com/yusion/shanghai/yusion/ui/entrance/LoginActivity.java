@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,7 +28,6 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.UploadService;
 import com.yusion.shanghai.yusion.settings.Settings;
-import com.yusion.shanghai.yusion.ui.apply.VerificationCodeActivity;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -217,8 +215,6 @@ public class LoginActivity extends BaseActivity {
         });
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("isNeedAgreement", true);
-
-        //startActivity(new Intent(LoginActivity.this, MainActivity.class));
         startActivity(intent);
         finish();
         Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
