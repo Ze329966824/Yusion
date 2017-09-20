@@ -199,9 +199,12 @@ public class LaunchActivity extends BaseActivity {
         }
     }
 
-//    @PermissionsRationale(READ_CONTACTS_CODE)
-//    public void storageAndCallNonRationale() {
-//        Toast.makeText(this, "请开启相关权限", Toast.LENGTH_LONG).show();
+    //    @PermissionsRationale
+//
+//    二次授权时回调，用于解释为何需要此权限
+//    @PermissionsRationale({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
+//    public void rationale(int code) {
+//
 //    }
 
     @Override
