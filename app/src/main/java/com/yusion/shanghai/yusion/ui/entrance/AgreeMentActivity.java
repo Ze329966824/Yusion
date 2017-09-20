@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 public class AgreeMentActivity extends BaseActivity {
@@ -26,6 +27,9 @@ public class AgreeMentActivity extends BaseActivity {
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPrefsUtil.getInstance(AgreeMentActivity.this).putValue("hasaccept", true);
+
                 finish();
             }
         });

@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.google.common.base.CaseFormat;
+import com.joker.annotation.PermissionsCustomRationale;
 import com.joker.annotation.PermissionsDenied;
 import com.joker.annotation.PermissionsGranted;
 import com.joker.annotation.PermissionsRationale;
@@ -50,16 +51,13 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        getPermisson();
-//        Permissions4M
-//                .get(LaunchActivity.this)
-//                .requestSync();
+        //getPermisson();
 
-//        if (Settings.isOnline) {
-//            checkVersion();
-//        } else {
-//            checkServerUrl();
-//        }
+        if (Settings.isOnline) {
+            checkVersion();
+        } else {
+            checkServerUrl();
+        }
     }
 
     public void getPermisson() {
@@ -130,13 +128,13 @@ public class LaunchActivity extends BaseActivity {
         });
     }
 
-    private void onTokenInvalid() {
+    private void onTokenInvalid() {//无token
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
 
-    private void onTokenValid() {
+    private void onTokenValid() {//有token
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -200,12 +198,45 @@ public class LaunchActivity extends BaseActivity {
     }
 
     //    @PermissionsRationale
-//
-//    二次授权时回调，用于解释为何需要此权限
-//    @PermissionsRationale({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
-//    public void rationale(int code) {
-//
-//    }
+//二次授权时回调，用于解释为何需要此权限
+    /*
+    @PermissionsCustomRationale({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
+    public void rationale(int code) {
+        switch (code) {
+            case READ_CONTACTS_CODE:
+                new AlertDialog.Builder(this)
+                        .setMessage("通讯录权限申请:\n需要您打开相应权限")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Permissions4M.get(LaunchActivity.this)
+                                        .requestOnRationale()
+                                        .requestPermissions(Manifest.permission.READ_CONTACTS)
+                                        .requestCodes(READ_CONTACTS_CODE)
+                                        .request();
+
+                            }
+                        })
+                        .show();
+                break;
+            case READ_PHONESTATE_CODE:
+                new AlertDialog.Builder(this)
+                        .setMessage("手机状态权限申请:\n需要您打开相应权限")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Permissions4M.get(LaunchActivity.this)
+                                        .requestOnRationale()
+                                        .requestPermissions(Manifest.permission.READ_PHONE_STATE)
+                                        .requestCodes(READ_PHONESTATE_CODE)
+                                        .request();
+                            }
+                        })
+                        .show();
+                break;
+        }
+    }
+    */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
