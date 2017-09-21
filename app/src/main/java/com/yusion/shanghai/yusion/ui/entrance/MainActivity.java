@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
@@ -131,6 +132,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             isNoAccept = data.getBooleanExtra("noAccept", false);
             if (isNoAccept) {
                 selfDialog = new SelfDialog(this);
+                selfDialog.setCancelable(false);
+                selfDialog.setCanceledOnTouchOutside(false);
                 selfDialog.setYesOnclickListener("我知道了", new SelfDialog.onYesOnclickListener() {
                     @Override
                     public void onYesClick() {
@@ -145,4 +148,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+            return true;//不执行父类点击事件
+        return super.onKeyDown(keyCode, event);//继续执行父类其他点击事件
+    }
 }
