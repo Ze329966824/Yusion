@@ -2,19 +2,15 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
+import android.text.TextUtils;
 
-import com.google.common.base.CaseFormat;
-import com.joker.annotation.PermissionsCustomRationale;
 import com.joker.annotation.PermissionsDenied;
 import com.joker.annotation.PermissionsGranted;
-import com.joker.annotation.PermissionsRationale;
 import com.joker.annotation.PermissionsRequestSync;
 import com.joker.api.Permissions4M;
 import com.yusion.shanghai.yusion.BuildConfig;
@@ -32,7 +28,6 @@ import com.yusion.shanghai.yusion.utils.UpdateUtil;
 import org.json.JSONArray;
 
 import java.util.Date;
-import java.util.IllegalFormatCodePointException;
 
 import static com.yusion.shanghai.yusion.ui.entrance.LaunchActivity.READ_CONTACTS_CODE;
 import static com.yusion.shanghai.yusion.ui.entrance.LaunchActivity.READ_PHONESTATE_CODE;
@@ -51,7 +46,11 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        getPermisson();
+        if (Build.MANUFACTURER.toUpperCase().equals("MEIZU")) {
+            onAllPermissionGranted();
+        } else {
+            getPermisson();
+        }
 
 //        if (Settings.isOnline) {
 //            checkVersion();
@@ -171,16 +170,21 @@ public class LaunchActivity extends BaseActivity {
             isPhoneState = true;
         }
         if (isRead && isPhoneState) {
-            JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
-            if (jsonArray.length() > 0 && !jsonArray.toString().equals("")) {
-                if (Settings.isOnline) {
-                    checkVersion();
-                } else {
-                    checkServerUrl();
-                }
+            onAllPermissionGranted();
+        }
+    }
+
+    private void onAllPermissionGranted() {
+        JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
+        if (jsonArray.length() > 0 && !jsonArray.toString().equals("")) {
+            if (Settings.isOnline) {
+                checkVersion();
+            } else {
+                checkServerUrl();
             }
         }
     }
+
     @PermissionsDenied({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
     public void syncDenied(int code) {
         switch (code) {
