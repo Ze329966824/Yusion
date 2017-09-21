@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.jpush;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -51,6 +52,7 @@ public class JpushDialogActivity extends BaseActivity {
             app_st = jo.optString("app_st");
             app_id = jo.optString("app_id");
             category = jo.optString("category");
+            Log.e("jpush","category:"+category);
             JpushDialog();
         } else {
             finish();
@@ -64,7 +66,6 @@ public class JpushDialogActivity extends BaseActivity {
                 if (YusionApp.isLogin || mobile.equals(YusionApp.MOBILE)) {
                     new AlertDialog.Builder(JpushDialogActivity.this)
                             .setCancelable(false)
-                            .setTitle("")
                             .setMessage(content)
                             .setPositiveButton("确定", (dialog, which) -> {
                                 myApp.clearUserData();
@@ -76,15 +77,30 @@ public class JpushDialogActivity extends BaseActivity {
                     finish();
                 }
                 break;
+
+            case "application":
+
+                new AlertDialog.Builder(JpushDialogActivity.this)
+                        .setCancelable(false)
+                        .setTitle(title)
+                        .setMessage(content)
+                        .setPositiveButton("知道啦", (dialog, which) -> {
+                            dialog.dismiss();
+                            finish();
+                        })
+                        .show();
+                break;
+
             default:
                 new AlertDialog.Builder(JpushDialogActivity.this)
                         .setTitle(title)
                         .setMessage(content)
                         .setCancelable(false)
-                        .setPositiveButton("知道啦", (dialog, which) -> {
+                        .setPositiveButton("呵呵", (dialog, which) -> {
                             dialog.dismiss();
                             finish();
-                        });
+                        })
+                        .show();
                 break;
         }
     }
