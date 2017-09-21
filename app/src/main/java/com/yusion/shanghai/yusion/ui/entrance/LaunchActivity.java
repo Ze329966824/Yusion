@@ -51,13 +51,13 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        //getPermisson();
+        getPermisson();
 
-        if (Settings.isOnline) {
-            checkVersion();
-        } else {
-            checkServerUrl();
-        }
+//        if (Settings.isOnline) {
+//            checkVersion();
+//        } else {
+//            checkServerUrl();
+//        }
     }
 
     public void getPermisson() {
@@ -180,9 +180,7 @@ public class LaunchActivity extends BaseActivity {
                 }
             }
         }
-
     }
-
     @PermissionsDenied({READ_CONTACTS_CODE, READ_PHONESTATE_CODE})
     public void syncDenied(int code) {
         switch (code) {

@@ -76,7 +76,13 @@ public class MyOrderFragment extends BaseFragment {
 //                items.clear();
                 refreshData();
             }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rv, header);
+            }
         });
+
         refreshData();
     }
 

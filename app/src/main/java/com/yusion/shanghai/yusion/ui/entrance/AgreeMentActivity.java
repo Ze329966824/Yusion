@@ -2,19 +2,28 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.auth.CheckIsAgreeReq;
+import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AgreeMentActivity extends BaseActivity {
     private TitleBar titleBar;
     private Button acceptBtn;
     private Button noAcceptBtn;
+    private CheckIsAgreeReq req;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +36,17 @@ public class AgreeMentActivity extends BaseActivity {
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                req = new CheckIsAgreeReq();
+                req.is_agree = true;
 
-                SharedPrefsUtil.getInstance(AgreeMentActivity.this).putValue("hasaccept", true);
-
-                finish();
+                AuthApi.isAgree(AgreeMentActivity.this, req, new OnCodeAndMsgCallBack() {
+                    @Override
+                    public void callBack(int code, String msg) {
+                        if (code == 0) {
+                            finish();
+                        }
+                    }
+                });
             }
         });
         //一个是新启动的activity进入时的动画，另一个是当前activity消失时的动画

@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.auth;
 
+import com.google.gson.Gson;
+
 /**
  * Created by ice on 2017/8/4.
  */
@@ -16,6 +18,7 @@ public class CheckUserInfoResp {
     public String mobile;
     public String role;
     public boolean commited;
+    public boolean is_agree;
 
     @Override
     public String toString() {
@@ -24,6 +27,7 @@ public class CheckUserInfoResp {
                 ", mobile='" + mobile + '\'' +
                 ", role='" + role + '\'' +
                 ", commited=" + commited +
+                ", is_agree=" + is_agree +
                 '}';
     }
 }

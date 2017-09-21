@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
@@ -31,13 +32,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private boolean isNoAccept;
     private boolean hasaccept;
     private SelfDialog selfDialog;
+    private boolean is_agree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //isNeedAgreement = getIntent().getBooleanExtra("isNeedAgreement", false);
-        hasaccept = SharedPrefsUtil.getInstance(this).getValue("hasaccept", false);
         YusionApp.isBack2Home = false;
         YusionApp.isLogin = true;
 
@@ -69,15 +69,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .commit();
         mCurrentFragment = mHomeFragment;
 
-//        if (!hasaccept) {
-//            Intent intent = new Intent(MainActivity.this, AgreeMentActivity.class);
-//            //startActivity(intent);
-//            startActivityForResult(intent, 101);
-//            // 一个是新启动的activity进入时的动画，另一个是当前activity消失时的动画
-//            overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
-//
-//        }
 
+        AuthApi.checkUserInfo(this, data -> {
+
+            Log.e("sss", String.valueOf(data.is_agree));
+            is_agree = data.is_agree;
+            if (!is_agree) {
+                Log.e("sssss", String.valueOf(is_agree));
+                Intent intent = new Intent(MainActivity.this, AgreeMentActivity.class);
+                startActivityForResult(intent, 101);
+                // 一个是新启动的activity进入时的动画，另一个是当前activity消失时的动画
+                overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
+            }
+        });
     }
 
     @Override
@@ -111,13 +115,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onResume();
         ConfigApi.getConfigJson(this, resp -> {
         });
+
         AuthApi.checkUserInfo(this, data -> {
             mHomeFragment.refresh(data);
             mMineFragment.refresh(data);
         });
+
     }
 
-    /*
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -138,5 +144,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
-    */
+
 }

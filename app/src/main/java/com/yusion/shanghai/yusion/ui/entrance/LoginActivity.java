@@ -136,10 +136,10 @@ public class LoginActivity extends BaseActivity {
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             //上传设备信息
-           // uploadPersonAndDeviceInfo();
+            uploadPersonAndDeviceInfo();
 
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            finish();
         }
     }
 
@@ -165,7 +165,6 @@ public class LoginActivity extends BaseActivity {
 
     private void uploadPersonAndDeviceInfo() {
         ContactPersonInfoReq req = new ContactPersonInfoReq();
-        //TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         String imei = telephonyManager.getDeviceId();
         String imsi = telephonyManager.getSubscriberId();
         req.imei = imei;
@@ -213,14 +212,10 @@ public class LoginActivity extends BaseActivity {
                 PersonApi.uploadPersonAndDeviceInfo(req);
             }
         });
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-        //intent.putExtra("isNeedAgreement", true);
-        //intent.putExtra("isNeedAgreement", SharedPrefsUtil.getInstance(this).getValue("accept", false));
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
-        Toast.makeText(this, "成功", Toast.LENGTH_LONG).show();
-
     }
 
 }
