@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.Tencent;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -22,8 +23,10 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
  */
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String APP_ID = "wxf2c47c30395cfb84";
+    public static final String WX_APP_ID = "wxf2c47c30395cfb84";
+    public static final String QQ_APP_ID = "wxf2c47c30395cfb84";
     public IWXAPI api;
+    public Tencent tencent;
     protected YusionApp myApp;
     private String dialogMsg;
 
@@ -34,8 +37,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         myApp = ((YusionApp) getApplication());
 //        PgyCrashManager.register(this);
 
-        api = WXAPIFactory.createWXAPI(this,APP_ID,false);
-        api.registerApp(APP_ID);
+        api = WXAPIFactory.createWXAPI(this,WX_APP_ID,false);
+        api.registerApp(WX_APP_ID);
     }
 
 
