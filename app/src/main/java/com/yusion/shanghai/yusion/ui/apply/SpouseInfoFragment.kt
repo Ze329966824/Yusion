@@ -348,6 +348,10 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "项目经营地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show()
             }else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_remark_edt.text.isEmpty()) {
