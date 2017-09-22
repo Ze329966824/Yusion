@@ -793,6 +793,10 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         }
         else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
         }
         //主要其他
         else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {

@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.YusionApp;
@@ -51,6 +52,8 @@ public class ConfigApi {
         ConfigResp configResp = new ConfigResp();
 
         String agreement_url = jsonObject.optString("agreement_url");
+        String confident_policy_url = jsonObject.optString("confident_policy_url");
+        configResp.confident_policy_url = confident_policy_url;
         configResp.agreement_url = agreement_url;
 
         JSONArray education_list = jsonObject.optJSONArray("education_list");
@@ -148,8 +151,6 @@ public class ConfigApi {
             configResp.guarantor_relationship_list_key.add(key);
             configResp.guarantor_relationship_list_value.add(value);
         }
-
-
 
 
         JSONArray client_material = jsonObject.optJSONArray("client_material");

@@ -922,6 +922,10 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 Toast.makeText(this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address_tv.getText().toString())) {
                 Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address1_tv.getText().toString())) {
+                Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
+            }else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address2_tv.getText().toString())) {
+                Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
             }//主要其他
             else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && TextUtils.isEmpty(update_spouse_info_from_other_year_edt.getText().toString())) {
                 Toast.makeText(this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
@@ -1098,6 +1102,7 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                             break;
                         case "自营":
                             update_spouse_info_from_self_group_lin.setVisibility(View.VISIBLE);
+                            update_spouse_info_from_self_type_tv.setText(clientInfo.spouse.major_busi_type);
                             update_spouse_info_from_self_year_edt.setText(clientInfo.spouse.major_income);
                             update_spouse_info_from_self_type_tv.setText(clientInfo.spouse.major_busi_type);
                             update_spouse_info_from_self_company_name_edt.setText(clientInfo.spouse.major_company_name);

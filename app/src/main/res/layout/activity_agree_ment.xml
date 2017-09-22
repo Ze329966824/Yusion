@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.entrance.AgreeMentActivity">
 
     <LinearLayout
@@ -15,282 +16,289 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <ScrollView
+        <WebView
+            android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="13.5sp" />
+        <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="为切实保护用户隐私权，优化用户体验，上海予见信息科技有限公司（以下简称 予见、予见科技、或予见汽车）根据现行法规及政策，制定本《客户信息获取、保密政策》（以下简称“政策”）。 本《政策》将详细说明予见汽车在获取、管理及保护用户个人信息方面的政策及措施。本《政策》适用于予见汽车的所有终端平台（包括但不限于：移动端、PC端等）。"
-                    android:textSize="13.5sp" />
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13.5dp"
-                    android:text=""
-                    android:textSize="13.5sp" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=""-->
+        <!--android:textSize="13.5sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="您使用我们的产品与服务，即意味着您同意本《政策》(含更新版本)内容，并且同意我们按照本《政策》收集、使用和保存您的相关信息。"
-                    android:textSize="13.5sp" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="为切实保护用户隐私权，优化用户体验，上海予见信息科技有限公司（以下简称 予见、予见科技、或予见汽车）根据现行法规及政策，制定本《客户信息获取、保密政策》（以下简称“政策”）。 本《政策》将详细说明予见汽车在获取、管理及保护用户个人信息方面的政策及措施。本《政策》适用于予见汽车的所有终端平台（包括但不限于：移动端、PC端等）。"-->
+        <!--android:textSize="13.5sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:text="一、信息获取" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="13.5dp"-->
+        <!--android:text=""-->
+        <!--android:textSize="13.5sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="(一)征信信息" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="您使用我们的产品与服务，即意味着您同意本《政策》(含更新版本)内容，并且同意我们按照本《政策》收集、使用和保存您的相关信息。"-->
+        <!--android:textSize="13.5sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:text="一、信息获取" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="征信信息主要用于申请银行贷款，因此需要您按步骤如实填写。征信信息主要包括以下两项：" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="(一)征信信息" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="征信信息主要用于申请银行贷款，因此需要您按步骤如实填写。征信信息主要包括以下两项：" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1.基本信息（包括但不限于个人姓名、生日、性别、住址、个人电话号码等）；" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--android:text="" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="1.基本信息（包括但不限于个人姓名、生日、性别、住址、个人电话号码等）；" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="2.个人身份信息（包括但不限于身份证、驾驶证、相关身份证明等）；" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="(二)个人位置信息" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="2.个人身份信息（包括但不限于身份证、驾驶证、相关身份证明等）；" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="(二)个人位置信息" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="位置信息（如GPS，LBS等信息）主要用于匹配您所在的经销商门店，或便于向您推荐就近的经销商门店。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="(三)通讯录" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="位置信息（如GPS，LBS等信息）主要用于匹配您所在的经销商门店，或便于向您推荐就近的经销商门店。" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="(三)通讯录" />-->
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="为增强您的用户体检，提交申请过程中，凡涉及到联系人方式信息填写，均可直接从通讯录选择并自动填充，而此操作需要您的通讯类读取权限。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="(四)设备信息" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:id="@+id/textView7"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="为增强您的用户体检，提交申请过程中，凡涉及到联系人方式信息填写，均可直接从通讯录选择并自动填充，而此操作需要您的通讯类读取权限。" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="我们将在您的使用过程中获取您的设备信息，通过验证是否为真实设备，从而进行反欺诈校验。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="(四)设备信息" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:text="(五)第三方登录信息" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="我们将在您的使用过程中获取您的设备信息，通过验证是否为真实设备，从而进行反欺诈校验。" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="(五)第三方登录信息" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="若您以第三方账号登陆予见汽车，我们会向关联第三方请求您的个人信息，对于我们要求但第三方无法提供的个人信息，我们仍可以要求您提供。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="另，如在上述场景之外获得您的个人信息，将重新征得您的明示同意，并在获得您明示同意前向您充分说明应用场景与获取您相关信息的内容与范围。" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:text="二、予见对用户资料的披露" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="若您以第三方账号登陆予见汽车，我们会向关联第三方请求您的个人信息，对于我们要求但第三方无法提供的个人信息，我们仍可以要求您提供。" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="另，如在上述场景之外获得您的个人信息，将重新征得您的明示同意，并在获得您明示同意前向您充分说明应用场景与获取您相关信息的内容与范围。" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:text="二、予见对用户资料的披露" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="虽然予见采用行业标准惯例以保护予见用户的个人资料,鉴于技术限制，予见不能确保予见用户的全部私人通讯及其他个人资料不会通过本隐私规则中未列明的途径泄露出去。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--android:text="" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="虽然予见采用行业标准惯例以保护予见用户的个人资料,鉴于技术限制，予见不能确保予见用户的全部私人通讯及其他个人资料不会通过本隐私规则中未列明的途径泄露出去。" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="予见有义务根据有关法律要求向司法机关和政府部门提供予见用户的个人资料。在予见用户未能按照与予见签订的用户注册协议或者与予见其他予见用户签订的借款协议等其他法律文本的约定履行自己应尽的义务时，予见有权根据自己的判断或者与该笔交易有关的其他予见用户的请求披露予见用户的个人资料，并做出评论。 予见用户的借款逾期超过30天的，予见有权对予见用户提供的及予见自行收集的予见用户的个人信息和资料编辑入网站黑名单，并将该黑名单对第三方披露，且予见有权将予见用户提交的资料或予见在公开领域了解的予见用户的情况与任何第三方进行数据共享，以便网站和第三方催收逾期借款及对予见用户的其他申请进行审核之用，由此因第三方的行为造成予见用户损失，予见不承担法律责任。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="三、予见对其他予见用户资料的使用" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="予见有义务根据有关法律要求向司法机关和政府部门提供予见用户的个人资料。在予见用户未能按照与予见签订的用户注册协议或者与予见其他予见用户签订的借款协议等其他法律文本的约定履行自己应尽的义务时，予见有权根据自己的判断或者与该笔交易有关的其他予见用户的请求披露予见用户的个人资料，并做出评论。 予见用户的借款逾期超过30天的，予见有权对予见用户提供的及予见自行收集的予见用户的个人信息和资料编辑入网站黑名单，并将该黑名单对第三方披露，且予见有权将予见用户提交的资料或予见在公开领域了解的予见用户的情况与任何第三方进行数据共享，以便网站和第三方催收逾期借款及对予见用户的其他申请进行审核之用，由此因第三方的行为造成予见用户损失，予见不承担法律责任。" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="三、予见对其他予见用户资料的使用" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="在予见提供的交易活动中，予见用户无权要求予见提供其他予见用户的个人资料，除非符合以下条件：" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="（一）予见用户已向法院起诉其他予见用户的在予见活动中的违约行为；" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="（二）接受予见用户融资的借款人逾期未归还借款本息；" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="在予见提供的交易活动中，予见用户无权要求予见提供其他予见用户的个人资料，除非符合以下条件：" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="（三）予见被吊销营业执照、解散、清算、宣告破产或者其他有碍于予见用户收回借款本息的情形。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="（一）予见用户已向法院起诉其他予见用户的在予见活动中的违约行为；" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="四、电子邮件和群组" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="（二）接受予见用户融资的借款人逾期未归还借款本息；" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="（三）予见被吊销营业执照、解散、清算、宣告破产或者其他有碍于予见用户收回借款本息的情形。" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="四、电子邮件和群组" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="予见用户不得使用予见提供的站内信服务、群组服务或其他电子邮件转发服务发出垃圾邮件、信息或其他可能违反予见的用户注册协议的内容。予见除了利用该电子邮件地址发出予见用户的电子邮件之外将不作任何其他用途。予见不会出租或出售这些电子邮件地址。予见不会永久储存电子邮件信息或电子邮件地址。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="五、密码的安全性" />
+        <!--android:text="" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="予见用户不得使用予见提供的站内信服务、群组服务或其他电子邮件转发服务发出垃圾邮件、信息或其他可能违反予见的用户注册协议的内容。予见除了利用该电子邮件地址发出予见用户的电子邮件之外将不作任何其他用途。予见不会出租或出售这些电子邮件地址。予见不会永久储存电子邮件信息或电子邮件地址。" />-->
 
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="五、密码的安全性" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="予见用户须对使用予见用户的予见用户名和密码所采取的一切行为负责。因此，予见用户不应向任何第三方披露予见用户在予见的予见用户名和密码，否则由此造成的损失由予见用户自行承担。" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+        <!--android:text="" />-->
 
-                    android:layout_marginTop="10dp"
-                    android:text="" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="予见用户须对使用予见用户的予见用户名和密码所采取的一切行为负责。因此，予见用户不应向任何第三方披露予见用户在予见的予见用户名和密码，否则由此造成的损失由予见用户自行承担。" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="80dp"
-                    android:text="如果您对本个人信息保护政策有任何疑问，请你联系予见科技咨询，我们会及时解决你的问题。" />
-            </LinearLayout>
-        </ScrollView>
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="80dp"-->
+        <!--android:text="如果您对本个人信息保护政策有任何疑问，请你联系予见科技咨询，我们会及时解决你的问题。" />-->
+        <!--</LinearLayout>-->
+        <!--</ScrollView>-->
     </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/acceptlin_background"
+        android:background="@mipmap/accept_bg"
         android:gravity="center_horizontal">
 
         <Button
