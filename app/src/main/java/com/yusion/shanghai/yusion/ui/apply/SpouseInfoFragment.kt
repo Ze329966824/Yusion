@@ -89,11 +89,11 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             })
         }
         spouse_info_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROME_INDEX, spouse_info_income_from_lin, spouse_info_income_from_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营"), _INCOME_FROME_INDEX, spouse_info_income_from_lin, spouse_info_income_from_tv, "请选择", { _, index ->
                 _INCOME_FROME_INDEX = index
-                spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
-                spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
-                spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
+                spouse_info_from_income_group_lin.visibility = if (listOf("工资", "自营")[_INCOME_FROME_INDEX] == "工资") View.VISIBLE else View.GONE
+                spouse_info_from_self_group_lin.visibility = if (listOf("工资", "自营")[_INCOME_FROME_INDEX] == "自营") View.VISIBLE else View.GONE
+//                spouse_info_from_other_group_lin.visibility = if (listOf("工资", "自营")[_INCOME_FROME_INDEX] == "其他") View.VISIBLE else View.GONE
             })
         }
         spouse_info_extra_income_from_lin.setOnClickListener {
@@ -346,7 +346,13 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_type_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "项目经营地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_income_from_tv.text == "自营" && spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+                Toast.makeText(mContext, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show()
+            }else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_income_from_tv.text == "其他" && spouse_info_from_other_remark_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()

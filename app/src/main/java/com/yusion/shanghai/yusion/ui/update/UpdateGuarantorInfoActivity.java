@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
@@ -27,6 +28,7 @@ import com.yusion.shanghai.yusion.utils.InputMethodUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +127,8 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     private LinearLayout update_guarantor_info_house_owner_relation_lin;    //与担保人关系
 
     private GuarantorInfo guarantorInfo;
+    private File imageFile;
+    private OcrResp.ShowapiResBodyBean mOcrResp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +194,6 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         update_guarantor_info_house_address_tv = (TextView) findViewById(R.id.update_guarantor_info_house_address_tv);
         update_guarantor_info_house_address1_tv = (TextView) findViewById(R.id.update_guarantor_info_house_address1_tv);
         update_guarantor_info_house_address2_tv = (TextView) findViewById(R.id.update_guarantor_info_house_address2_tv);
-
 
         //选择收入来源
         income_from_lin = (LinearLayout) findViewById(R.id.update_guarantor_info_income_from_lin);
@@ -787,7 +790,15 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
-        }//主要其他
+        }
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        }
+        //主要其他
         else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_remark_tv.getText().toString().isEmpty()) {

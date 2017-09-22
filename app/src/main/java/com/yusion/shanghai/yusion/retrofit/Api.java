@@ -89,13 +89,30 @@ public class Api {
     }
 
     private static void logRequestInfo(Request request) {
-        Log.e("API", "\n");
-        Log.e("API", "\n******** log request start ******** ");
-        Log.e("API", "url: " + request.url());
-        Log.e("API", "method: " + request.method());
+        StringBuilder tagBuilder = new StringBuilder("API");
+        if (request.url().toString().contains("ubt")) {
+            tagBuilder.append("-UBT");
+        } else if (request.url().toString().contains("application")) {
+            tagBuilder.append("-APPLICATION");
+        } else if (request.url().toString().contains("client")) {
+            tagBuilder.append("-CLIENT");
+        } else if (request.url().toString().contains("auth")) {
+            tagBuilder.append("-UBT");
+        } else if (request.url().toString().contains("material")) {
+            tagBuilder.append("-MATERIAL");
+        } else {
+            tagBuilder.append("-OTHER");
+        }
+        tagBuilder.append("-").append(request.method().toUpperCase());
+        String tag = tagBuilder.toString();
+
+        Log.e(tag, "\n");
+        Log.e(tag, "\n******** log request start ******** ");
+        Log.e(tag, "url: " + request.url());
+        Log.e(tag, "method: " + request.method());
         Headers headers = request.headers();
         for (int i = 0; i < headers.size(); i++) {
-            Log.e("API", headers.name(i) + " : " + headers.value(i));
+            Log.e(tag, headers.name(i) + " : " + headers.value(i));
         }
 
         //如果是post请求还需打印参数
@@ -109,21 +126,15 @@ public class Api {
                 e.printStackTrace();
             }
             String paramsStr = buffer.readString(Charset.forName("UTF-8")).replaceAll("\"", "\\\"");
-            Log.e("API", "requestParameters: " + paramsStr);
+            Log.e(tag, "requestParameters: " + paramsStr);
         }
 
-        Log.e("API", "******** log request end ********\n");
-        Log.e("API", "\n");
+        Log.e(tag, "******** log request end ********\n");
+        Log.e(tag, "\n");
     }
 
     private static void logResponseInfo(Response response) {
         logRequestInfo(response.request());
-//        try {
-//            // TODO: 2017/8/3 需要解决
-//            Log.e("API", "responseBody: " + response.body().string());//流文件只能取一次
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public static ProductService getProductService() {
@@ -156,6 +167,7 @@ public class Api {
             }
             return reader.nextString();
         }
+
         public void write(JsonWriter writer, String value) throws IOException {
             if (value == null) {
                 writer.nullValue();

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
@@ -32,19 +33,19 @@ import com.yusion.shanghai.yusion.utils.InputMethodUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UpdatePersonalInfoActivity extends BaseActivity {
 
-    private UpdatePersonalInfoFragment mUpdatePersonalInfoFragment;
 //    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
 //    private String[] mTabTitle = {"个人资料", "影像件"};
 
     private List<String> incomelist = new ArrayList<String>() {{
         add("工资");
         add("自营");
-        add("其他");
+//        add("其他");
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
@@ -143,7 +144,8 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private NoEmptyEditText update_personal_info_urg_contact2_edt;           //紧急联系人-姓名2
     private LinearLayout update_personal_info_live_with_parent_lin;       //是否与父母同住
     private TextView update_personal_info_live_with_parent_tv;
-
+    private File imageFile;
+    private OcrResp.ShowapiResBodyBean mOcrResp;
     private ClientInfo clientInfo;
 
     @Override
@@ -163,7 +165,6 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     }
 
     private void initView() {
-        mUpdatePersonalInfoFragment = new UpdatePersonalInfoFragment();
         clientInfo = new ClientInfo();
         //初始化
         update_personal_info_clt_nm_edt = (NoEmptyEditText) findViewById(R.id.update_personal_info_clt_nm_edt);
@@ -211,13 +212,15 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         update_personal_info_urg_contact2_edt = (NoEmptyEditText) findViewById(R.id.update_personal_info_urg_contact2_edt);
         update_personal_info_live_with_parent_lin = (LinearLayout) findViewById(R.id.update_personal_info_live_with_parent_lin);
         update_personal_info_live_with_parent_tv = (TextView) findViewById(R.id.update_personal_info_live_with_parent_tv);
-
         mScrollView = ((NestedScrollView) findViewById(R.id.scrollView));
+
+
         //回到顶部按钮
         findViewById(R.id.fab).setOnClickListener(v -> mScrollView.smoothScrollTo(0, 0));
         update_personal_info_from_income_group_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_income_group_lin);
         update_personal_info_from_self_group_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_self_group_lin);
         update_personal_info_from_other_group_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_other_group_lin);
+
 
         //选择收入来源
         income_from_lin = (LinearLayout) findViewById(R.id.update_personal_info_income_from_lin);
@@ -780,7 +783,15 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
             Toast.makeText(this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_type_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
-        } //主要其他
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
+        }else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
+        }
+
+        //主要其他
         else if (update_personal_info_income_from_tv.getText().toString().equals("其他") && update_personal_info_from_other_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_income_from_tv.getText().toString().equals("其他") && update_personal_info_from_other_remark_tv.getText().toString().isEmpty()) {

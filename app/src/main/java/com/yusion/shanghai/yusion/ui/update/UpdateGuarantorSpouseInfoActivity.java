@@ -58,7 +58,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
     private List<String> incomelist = new ArrayList<String>() {{
         add("工资");
         add("自营");
-        add("其他");
+//        add("其他");
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
@@ -687,7 +687,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                     update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
             }
-        } else if (requestCode == 3001) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 3001) {
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
             OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
@@ -1047,6 +1047,12 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                 Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_guarantor_spouse_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_spouse_info_from_self_type_tv.getText().toString().isEmpty()) {
                 Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_guarantor_spouse_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_spouse_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+                Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_guarantor_spouse_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_spouse_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+                Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
+            }else if (update_guarantor_spouse_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_spouse_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+                Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
             }//主要其他
             else if (update_guarantor_spouse_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_spouse_info_from_other_year_edt.getText().toString().isEmpty()) {
                 Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();

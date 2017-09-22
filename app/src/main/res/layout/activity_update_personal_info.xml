@@ -69,7 +69,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            tools:visibility="gone">
+                            tools:visibility="visible">
 
                             <View
                                 android:layout_width="match_parent"
@@ -103,8 +103,8 @@
                                 <EditText
                                     android:id="@+id/update_personal_info_id_no_edt"
                                     style="@style/apply_info_content_type_id"
-                                    android:layout_marginRight="35dp"
-                                    android:inputType="" />
+                                    android:layout_marginRight="35dp"/>
+
                             </LinearLayout>
 
                             <View
@@ -755,7 +755,7 @@
 
                                 <TextView
                                     style="@style/apply_info_title"
-                                    android:text="经营项目地址(选填)" />
+                                    android:text="经营项目地址" />
 
                                 <TextView
                                     android:id="@+id/update_personal_info_from_self_company_address_tv"
@@ -783,7 +783,7 @@
 
                                 <TextView
                                     style="@style/apply_info_title"
-                                    android:text="详细地址(选填)" />
+                                    android:text="详细地址" />
 
                                 <TextView
                                     android:id="@+id/update_personal_info_from_self_company_address1_tv"
@@ -810,7 +810,7 @@
                                 <TextView
                                     style="@style/apply_info_title_wrap"
                                     android:layout_marginTop="10dp"
-                                    android:text="门牌号(选填)" />
+                                    android:text="门牌号" />
 
                                 <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                     android:id="@+id/update_personal_info_from_self_company_address2_tv"
@@ -1526,13 +1526,13 @@
 
 
         <ImageView
-            android:layout_marginRight="10dp"
             android:id="@+id/submit_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
             android:clickable="true"
             android:src="@mipmap/submit_info"
             app:borderWidth="0dp"

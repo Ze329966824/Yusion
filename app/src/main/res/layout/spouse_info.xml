@@ -807,7 +807,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="经营项目地址(选填)" />
+                                android:text="经营项目地址" />
 
                             <TextView
                                 android:id="@+id/spouse_info_from_self_company_address_tv"
@@ -835,7 +835,7 @@
 
                             <TextView
                                 style="@style/apply_info_title"
-                                android:text="详细地址(选填)" />
+                                android:text="详细地址" />
 
                             <TextView
                                 android:id="@+id/spouse_info_from_self_company_address1_tv"
@@ -861,7 +861,7 @@
 
                             <TextView
                                 style="@style/apply_info_title_wrap"
-                                android:text="门牌号(选填)" />
+                                android:text="门牌号" />
 
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/spouse_info_from_self_company_address2_tv"
