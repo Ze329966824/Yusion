@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -89,22 +90,7 @@ public class Api {
     }
 
     private static void logRequestInfo(Request request) {
-        StringBuilder tagBuilder = new StringBuilder("API");
-        if (request.url().toString().contains("ubt")) {
-            tagBuilder.append("-UBT");
-        } else if (request.url().toString().contains("application")) {
-            tagBuilder.append("-APPLICATION");
-        } else if (request.url().toString().contains("client")) {
-            tagBuilder.append("-CLIENT");
-        } else if (request.url().toString().contains("auth")) {
-            tagBuilder.append("-UBT");
-        } else if (request.url().toString().contains("material")) {
-            tagBuilder.append("-MATERIAL");
-        } else {
-            tagBuilder.append("-OTHER");
-        }
-        tagBuilder.append("-").append(request.method().toUpperCase());
-        String tag = tagBuilder.toString();
+        String tag = getTag(request);
 
         Log.e(tag, "\n");
         Log.e(tag, "\n******** log request start ******** ");
@@ -131,6 +117,26 @@ public class Api {
 
         Log.e(tag, "******** log request end ********\n");
         Log.e(tag, "\n");
+    }
+
+    @NonNull
+    public static String getTag(Request request) {
+        StringBuilder tagBuilder = new StringBuilder("API");
+        if (request.url().toString().contains("ubt")) {
+            tagBuilder.append("-UBT");
+        } else if (request.url().toString().contains("application")) {
+            tagBuilder.append("-APPLICATION");
+        } else if (request.url().toString().contains("client")) {
+            tagBuilder.append("-CLIENT");
+        } else if (request.url().toString().contains("auth")) {
+            tagBuilder.append("-UBT");
+        } else if (request.url().toString().contains("material")) {
+            tagBuilder.append("-MATERIAL");
+        } else {
+            tagBuilder.append("-OTHER");
+        }
+        tagBuilder.append("-").append(request.method().toUpperCase());
+        return tagBuilder.toString();
     }
 
     private static void logResponseInfo(Response response) {

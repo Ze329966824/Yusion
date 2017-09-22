@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.pgyersdk.crash.PgyCrashManager;
 import com.yusion.shanghai.yusion.base.BaseResult;
+import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 
@@ -46,7 +47,8 @@ public abstract class CustomCallBack<T> implements Callback<BaseResult<T>> {
             Toast.makeText(context, "调用接口返回数据为空,请稍后再试", Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.e("API", "onResponse: " + body);
+
+        Log.e(Api.getTag(call.request()), "onResponse: " + body);
         if (body.code < 0) {
             if (Settings.isOnline) {
                 Toast.makeText(context, body.msg, Toast.LENGTH_SHORT).show();
