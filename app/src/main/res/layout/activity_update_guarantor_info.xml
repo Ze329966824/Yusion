@@ -104,20 +104,9 @@
 
                                 <EditText
                                     android:id="@+id/update_guarantor_info_id_no_edt"
+                                    android:layout_marginRight="35dp"
                                     style="@style/apply_info_content_type_id" />
 
-                                <FrameLayout
-                                    android:layout_width="20dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="15dp">
-
-                                    <ImageView
-                                        android:id="@+id/update_guarantor_info_id_no_img"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="left|center_vertical"
-                                        android:src="@mipmap/update_info_id_no_img" />
-                                </FrameLayout>
                             </LinearLayout>
 
                             <View

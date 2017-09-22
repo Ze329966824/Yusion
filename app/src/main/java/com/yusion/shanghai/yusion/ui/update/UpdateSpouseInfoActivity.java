@@ -597,12 +597,12 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(mOcrResp.idNo)) {
                             update_spouse_info_id_no_edt.setText(mOcrResp.idNo);
                         }
-//                        if (!TextUtils.isEmpty(mOcrResp.name)) {
-//                            update_spouse_info_clt_nm_edt.setText(mOcrResp.name);
-//                        }
-//                        if (!TextUtils.isEmpty(mOcrResp.sex)) {
-//                            update_spouse_info_gender_tv.setText(mOcrResp.sex);
-//                        }
+                        if (!TextUtils.isEmpty(mOcrResp.name)) {
+                            update_spouse_info_clt_nm_edt.setText(mOcrResp.name);
+                        }
+                        if (!TextUtils.isEmpty(mOcrResp.sex)) {
+                            update_spouse_info_gender_tv.setText(mOcrResp.sex);
+                        }
                     }
                 }
             }, (throwable, s) ->

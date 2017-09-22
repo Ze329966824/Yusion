@@ -2,17 +2,12 @@ package com.yusion.shanghai.yusion.ui.update;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +16,6 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
-import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
@@ -31,8 +25,6 @@ import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.InputMethodUtil;
-import com.yusion.shanghai.yusion.utils.LoadingUtils;
-import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
@@ -95,7 +87,6 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
     private TextView update_guarantor_info_gender_tv;                        //性别
     private TextView update_guarantor_info_reg_tv;                           //户籍
     private EditText update_guarantor_info_mobile_edt;                       //手机号
-    private ImageView update_guarantor_info_id_no_img;                       //手机号
     private TextView update_guarantor_info_education_tv;                     //学历
     private TextView update_guarantor_info_current_address_tv;               //现住地址
     private TextView update_guarantor_info_current_address1_tv;              //详细地址
@@ -203,15 +194,7 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
         update_guarantor_info_house_address_tv = (TextView) findViewById(R.id.update_guarantor_info_house_address_tv);
         update_guarantor_info_house_address1_tv = (TextView) findViewById(R.id.update_guarantor_info_house_address1_tv);
         update_guarantor_info_house_address2_tv = (TextView) findViewById(R.id.update_guarantor_info_house_address2_tv);
-        update_guarantor_info_id_no_img = (ImageView) findViewById(R.id.update_guarantor_info_id_no_img);
 
-        //拍摄身份证
-        update_guarantor_info_id_no_img.setOnClickListener(v ->{
-            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-            startActivityForResult(intent, 3001);
-        });
         //选择收入来源
         income_from_lin = (LinearLayout) findViewById(R.id.update_guarantor_info_income_from_lin);
         income_from_tv = (TextView) findViewById(R.id.update_guarantor_info_income_from_tv);
@@ -573,34 +556,6 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
                 }
 
             }
-        }else if (resultCode == Activity.RESULT_OK &&requestCode == 3001) {
-            Dialog dialog = LoadingUtils.createLoadingDialog(this);
-            dialog.show();
-            OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
-                if (ocrResp1 == null) {
-                    Toast.makeText(UpdateGuarantorInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
-                } else if (ocrResp1.showapi_res_code != 0 && TextUtils.isEmpty(ocrResp1.showapi_res_body.idNo) || TextUtils.isEmpty(ocrResp1.showapi_res_body.name)) {
-                    Toast.makeText(UpdateGuarantorInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(UpdateGuarantorInfoActivity.this, "识别成功", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
-                    mOcrResp = ocrResp1.showapi_res_body;
-                    if (mOcrResp != null) {
-                        if (!TextUtils.isEmpty(mOcrResp.idNo)) {
-                            update_guarantor_info_id_no_edt.setText(mOcrResp.idNo);
-                        }
-//                        if (!TextUtils.isEmpty(mOcrResp.name)) {
-//                            update_guarantor_info_clt_nm_edt.setText(mOcrResp.name);
-//                        }
-//                        if (!TextUtils.isEmpty(mOcrResp.sex)) {
-//                            update_guarantor_info_gender_tv.setText(mOcrResp.sex);
-//                        }
-                    }
-                }
-            }, (throwable, s) ->
-                    Toast.makeText(UpdateGuarantorInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
         }
     }
 

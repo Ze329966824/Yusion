@@ -103,19 +103,8 @@
                                 <EditText
                                     android:id="@+id/update_personal_info_id_no_edt"
                                     style="@style/apply_info_content_type_id"
-                                    android:inputType="" />
-                                <FrameLayout
-                                    android:layout_width="20dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="15dp">
+                                    android:layout_marginRight="35dp"/>
 
-                                    <ImageView
-                                        android:id="@+id/update_personal_info_id_no_img"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="left|center_vertical"
-                                        android:src="@mipmap/update_info_id_no_img" />
-                                </FrameLayout>
                             </LinearLayout>
 
                             <View
@@ -1537,13 +1526,13 @@
 
 
         <ImageView
-            android:layout_marginRight="10dp"
             android:id="@+id/submit_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
             android:clickable="true"
             android:src="@mipmap/submit_info"
             app:borderWidth="0dp"
