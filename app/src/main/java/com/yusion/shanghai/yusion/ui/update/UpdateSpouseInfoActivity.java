@@ -920,6 +920,8 @@ public class UpdateSpouseInfoActivity extends BaseActivity {
                 Toast.makeText(this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_type_tv.getText().toString())) {
                 Toast.makeText(this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address_tv.getText().toString())) {
+                Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
             }//主要其他
             else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && TextUtils.isEmpty(update_spouse_info_from_other_year_edt.getText().toString())) {
                 Toast.makeText(this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();

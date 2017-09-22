@@ -790,7 +790,11 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
-        }//主要其他
+        }
+        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+            Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
+        }
+        //主要其他
         else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_year_edt.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "其他年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("其他") && update_guarantor_info_from_other_remark_tv.getText().toString().isEmpty()) {
