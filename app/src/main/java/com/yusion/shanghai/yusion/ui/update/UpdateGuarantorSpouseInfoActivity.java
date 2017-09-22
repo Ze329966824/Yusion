@@ -687,7 +687,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                     update_guarantor_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
             }
-        } else if (requestCode == 3001) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 3001) {
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
             OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
@@ -706,12 +706,12 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(mOcrResp.idNo)) {
                             update_guarantor_spouse_info_id_no_edt.setText(mOcrResp.idNo);
                         }
-                        if (!TextUtils.isEmpty(mOcrResp.name)) {
-                            update_guarantor_spouse_info_clt_nm_edt.setText(mOcrResp.name);
-                        }
-                        if (!TextUtils.isEmpty(mOcrResp.sex)) {
-                            update_guarantor_spouse_info_gender_tv.setText(mOcrResp.sex);
-                        }
+//                        if (!TextUtils.isEmpty(mOcrResp.name)) {
+//                            update_guarantor_spouse_info_clt_nm_edt.setText(mOcrResp.name);
+//                        }
+//                        if (!TextUtils.isEmpty(mOcrResp.sex)) {
+//                            update_guarantor_spouse_info_gender_tv.setText(mOcrResp.sex);
+//                        }
                     }
                 }
             }, (throwable, s) -> Toast.makeText(UpdateGuarantorSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());

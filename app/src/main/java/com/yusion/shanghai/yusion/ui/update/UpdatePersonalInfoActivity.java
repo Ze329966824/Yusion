@@ -2,10 +2,13 @@ package com.yusion.shanghai.yusion.ui.update;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +22,8 @@ import android.widget.Toast;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
+import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
@@ -29,9 +34,12 @@ import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.InputMethodUtil;
+import com.yusion.shanghai.yusion.utils.LoadingUtils;
+import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +108,7 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private LinearLayout update_personal_info_extra_from_income_group_lin;
     private NoEmptyEditText update_personal_info_clt_nm_edt;                       //姓名
     private EditText update_personal_info_id_no_edt;                        //身份证号
+    private ImageView update_personal_info_id_no_img;                       //拍摄身份证
     private TextView update_personal_info_gender_tv;                        //性别
     private TextView update_personal_info_reg_tv;                           //户籍
     private EditText update_personal_info_mobile_edt;                       //手机号
@@ -143,7 +152,8 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     private NoEmptyEditText update_personal_info_urg_contact2_edt;           //紧急联系人-姓名2
     private LinearLayout update_personal_info_live_with_parent_lin;       //是否与父母同住
     private TextView update_personal_info_live_with_parent_tv;
-
+    private File imageFile;
+    private OcrResp.ShowapiResBodyBean mOcrResp;
     private ClientInfo clientInfo;
 
     @Override
@@ -211,13 +221,23 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
         update_personal_info_urg_contact2_edt = (NoEmptyEditText) findViewById(R.id.update_personal_info_urg_contact2_edt);
         update_personal_info_live_with_parent_lin = (LinearLayout) findViewById(R.id.update_personal_info_live_with_parent_lin);
         update_personal_info_live_with_parent_tv = (TextView) findViewById(R.id.update_personal_info_live_with_parent_tv);
-
+        update_personal_info_id_no_img = (ImageView) findViewById(R.id.update_personal_info_id_no_img);
         mScrollView = ((NestedScrollView) findViewById(R.id.scrollView));
+
+
         //回到顶部按钮
         findViewById(R.id.fab).setOnClickListener(v -> mScrollView.smoothScrollTo(0, 0));
         update_personal_info_from_income_group_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_income_group_lin);
         update_personal_info_from_self_group_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_self_group_lin);
         update_personal_info_from_other_group_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_other_group_lin);
+
+        //拍摄身份证
+        update_personal_info_id_no_img.setOnClickListener(v ->{
+            imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+            startActivityForResult(intent, 3001);
+        });
 
         //选择收入来源
         income_from_lin = (LinearLayout) findViewById(R.id.update_personal_info_income_from_lin);
@@ -878,6 +898,34 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
                     update_personal_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
             }
+        }else if (resultCode == Activity.RESULT_OK &&requestCode == 3001) {
+            Dialog dialog = LoadingUtils.createLoadingDialog(this);
+            dialog.show();
+            OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
+                if (ocrResp1 == null) {
+                    Toast.makeText(UpdatePersonalInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                } else if (ocrResp1.showapi_res_code != 0 && TextUtils.isEmpty(ocrResp1.showapi_res_body.idNo) || TextUtils.isEmpty(ocrResp1.showapi_res_body.name)) {
+                    Toast.makeText(UpdatePersonalInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(UpdatePersonalInfoActivity.this, "识别成功", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                    mOcrResp = ocrResp1.showapi_res_body;
+                    if (mOcrResp != null) {
+                        if (!TextUtils.isEmpty(mOcrResp.idNo)) {
+                            update_personal_info_id_no_edt.setText(mOcrResp.idNo);
+                        }
+//                        if (!TextUtils.isEmpty(mOcrResp.name)) {
+//                            update_personal_info_clt_nm_edt.setText(mOcrResp.name);
+//                        }
+//                        if (!TextUtils.isEmpty(mOcrResp.sex)) {
+//                            update_personal_info_gender_tv.setText(mOcrResp.sex);
+//                        }
+                    }
+                }
+            }, (throwable, s) ->
+                    Toast.makeText(UpdatePersonalInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
         }
     }
 
