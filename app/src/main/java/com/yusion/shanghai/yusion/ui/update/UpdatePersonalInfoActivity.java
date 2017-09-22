@@ -39,14 +39,13 @@ import java.util.List;
 
 public class UpdatePersonalInfoActivity extends BaseActivity {
 
-    private UpdatePersonalInfoFragment mUpdatePersonalInfoFragment;
 //    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
 //    private String[] mTabTitle = {"个人资料", "影像件"};
 
     private List<String> incomelist = new ArrayList<String>() {{
         add("工资");
         add("自营");
-        add("其他");
+//        add("其他");
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
@@ -166,7 +165,6 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
     }
 
     private void initView() {
-        mUpdatePersonalInfoFragment = new UpdatePersonalInfoFragment();
         clientInfo = new ClientInfo();
         //初始化
         update_personal_info_clt_nm_edt = (NoEmptyEditText) findViewById(R.id.update_personal_info_clt_nm_edt);
