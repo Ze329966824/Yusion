@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.wxapi;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -112,15 +113,23 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     String openid = jsonObject.optString("openid");
                     Log.e("openid","====="+openid);
 
-//                    Toast.makeText(WXEntryActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(WXEntryActivity.this,"登录成功"+"\nopenid:"+openid,Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
 //                    startActivity(intent);
-                    finish();
+                            finish();
+                        }
+                    });
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
 

@@ -132,20 +132,25 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-        <Button
+        <ImageView
+            android:src="@mipmap/wx"
             android:id="@+id/btn_wx"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="微信登录" />
 
-        <Button
+        <ImageView
+            android:src="@mipmap/qq"
             android:id="@+id/btn_qq"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="QQ登录" />
