@@ -157,11 +157,11 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             })
         }
         guarantor_info_income_from_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(listOf("工资", "自营", "其他"), _INCOME_FROM_INDEX, guarantor_info_income_from_lin, guarantor_info_income_from_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>(listOf("工资", "自营"), _INCOME_FROM_INDEX, guarantor_info_income_from_lin, guarantor_info_income_from_tv, "请选择", { _, index ->
                 _INCOME_FROM_INDEX = index
-                guarantor_info_from_income_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
-                guarantor_info_from_self_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "自营") View.VISIBLE else View.GONE
-                guarantor_info_from_other_group_lin.visibility = if (listOf("工资", "自营", "其他")[_INCOME_FROM_INDEX] == "其他") View.VISIBLE else View.GONE
+                guarantor_info_from_income_group_lin.visibility = if (listOf("工资", "自营")[_INCOME_FROM_INDEX] == "工资") View.VISIBLE else View.GONE
+                guarantor_info_from_self_group_lin.visibility = if (listOf("工资", "自营")[_INCOME_FROM_INDEX] == "自营") View.VISIBLE else View.GONE
+//                guarantor_info_from_other_group_lin.visibility = if (listOf("工资", "自营")[_INCOME_FROM_INDEX] == "其他") View.VISIBLE else View.GONE
             })
         }
         guarantor_info_extra_income_from_lin.setOnClickListener {

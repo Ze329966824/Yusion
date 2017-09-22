@@ -58,7 +58,7 @@ public class UpdateGuarantorSpouseInfoActivity extends BaseActivity {
     private List<String> incomelist = new ArrayList<String>() {{
         add("工资");
         add("自营");
-        add("其他");
+//        add("其他");
     }};
     private List<String> incomeextarlist = new ArrayList<String>() {{
         add("工资");
