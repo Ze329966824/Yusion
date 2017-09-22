@@ -284,7 +284,9 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             var guarantorInfo = (activity as AddGuarantorActivity).mGuarantorInfo
             guarantor_info_clt_nm_edt.text = guarantorInfo.clt_nm
             guarantor_info_id_no_edt.text = guarantorInfo.id_no
-            guarantor_info_gender_tv.text = guarantorInfo.gender
+            if (guarantorInfo.gender.isNotEmpty()) {
+                guarantor_info_gender_tv.text = guarantorInfo.gender
+            }
             if (guarantorInfo.reg_addr.province.isNotEmpty() && guarantorInfo.reg_addr.city.isNotEmpty() && guarantorInfo.reg_addr.district.isNotEmpty()) {
                 guarantor_info_reg_tv.text = guarantorInfo.reg_addr.province + "/" + guarantorInfo.reg_addr.city + "/" + guarantorInfo.reg_addr.district
             }
