@@ -252,6 +252,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 "自营" -> {
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "自营"
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income = guarantor_spouse_info_from_self_year_edt.text.toString()
+                    addGuarantorActivity.mGuarantorInfo.spouse.major_busi_type = guarantor_spouse_info_from_self_type_tv.text.toString()
                     addGuarantorActivity.mGuarantorInfo.spouse.major_company_name = guarantor_spouse_info_from_self_company_name_edt.text.toString()
                     if (TextUtils.isEmpty(guarantor_spouse_info_from_self_company_address_tv.text)) {
                         addGuarantorActivity.mGuarantorInfo.spouse.major_company_addr.province = ""
