@@ -24,7 +24,7 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String WX_APP_ID = "wxf2c47c30395cfb84";
-    public static final String QQ_APP_ID = "wxf2c47c30395cfb84";
+    public static final String QQ_APP_ID = "101425795";
     public IWXAPI api;
     public Tencent tencent;
     protected YusionApp myApp;

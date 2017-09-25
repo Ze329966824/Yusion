@@ -11,21 +11,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.auth.QQToken;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
-import com.yusion.shanghai.yusion.qqapi.QQLoginListener;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity {
 
@@ -41,7 +47,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        //微信登录
         findViewById(R.id.btn_wx).setOnClickListener(v -> {
             if (!api.isWXAppInstalled()) {
                 Toast.makeText(this, "您还未安装微信客户端！", Toast.LENGTH_SHORT).show();
@@ -54,8 +60,9 @@ public class LoginActivity extends BaseActivity {
             req.state = "diandi_wx_login";
             api.sendReq(req);
         });
-
+        //qq登录
         tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
+        mListener = new QQLoginListener();
         findViewById(R.id.btn_qq).setOnClickListener(v -> {
             //如果session不可用，则登录，否则说明已经登录
             if (!tencent.isSessionValid()) {
@@ -160,6 +167,84 @@ public class LoginActivity extends BaseActivity {
         super.onBackPressed();
         //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
         ActivityManager.finishOtherActivityEx(LoginActivity.class);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        tencent.onActivityResultData(requestCode, resultCode, data, mListener);
+    }
+    private class QQLoginListener extends BaseActivity implements IUiListener {
+        private UserInfo mInfo;
+        @Override
+        public void onComplete(Object o) {
+            //TODO  同样都有QQ登录和分享的回调，这个可以分开写。
+            //QQ登录先初始化openId 和 Token
+            initOpenidAndToken(o);
+            //再获取用户信息
+//        getUserInfo();
+
+        }
+
+
+        private void getUserInfo() {
+            QQToken token = tencent.getQQToken();
+            mInfo = new UserInfo(QQLoginListener.this, token);
+            mInfo.getUserInfo(new IUiListener() {
+                @Override
+                public void onComplete(Object object) {
+                    JSONObject jb = (JSONObject) object;
+                    try {
+//                    name = jb.getString("nickname");
+//                    figureurl = jb.getString("figureurl_qq_2");  //头像图片的url
+//                    nickName.setText(name);
+//                    Picasso.with(QQLoginListener.this).load(figureurl).into(figure);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(UiError uiError) {
+                }
+
+                @Override
+                public void onCancel() {
+                }
+            });
+        }
+
+        private void initOpenidAndToken(Object object) {
+            JSONObject jb = (JSONObject) object;
+            try {
+                String openID = jb.getString("openid"); //openid用户唯一标识
+                String access_token = jb.getString("access_token");
+                String expires = jb.getString("expires_in");
+                Log.e("qqlogin    ","openid："+openID);
+                Log.e("qqlogin    ","access_token："+access_token);
+                Log.e("qqlogin    ","expires："+expires);
+                tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
+
+                tencent.setOpenId(openID);
+                tencent.setAccessToken(access_token, expires);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
     }
 
 }
