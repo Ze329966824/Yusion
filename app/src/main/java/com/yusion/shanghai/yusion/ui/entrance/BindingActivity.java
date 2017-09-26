@@ -1,6 +1,7 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
 
 public class BindingActivity extends BaseActivity {
@@ -79,7 +81,10 @@ public class BindingActivity extends BaseActivity {
                 AuthApi.binding(this, req, new OnItemDataCallBack<BindingResp>() {
                     @Override
                     public void onItemDataCallBack(BindingResp data) {
-
+                        YusionApp.TOKEN = data.token;
+                        SharedPrefsUtil.getInstance(BindingActivity.this).putValue("token", YusionApp.TOKEN);
+                        startActivity(new Intent(BindingActivity.this, BindingActivity.class));
+                        finish();
                     }
                 });
 

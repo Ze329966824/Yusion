@@ -25,10 +25,8 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
-import com.yusion.shanghai.yusion.bean.auth.OpenIdResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -54,6 +52,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context = this;
+        req = new OpenIdReq();
         //微信登录
         findViewById(R.id.btn_wx).setOnClickListener(v -> {
             if (!api.isWXAppInstalled()) {
@@ -69,9 +68,7 @@ public class LoginActivity extends BaseActivity {
 
         });
 
-        req = new OpenIdReq();
-        req.source = "qq";
-        req.open_id = "这是一个open_id";
+
         //qq登录
         tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
         mListener = new QQLoginListener();
@@ -242,23 +239,15 @@ public class LoginActivity extends BaseActivity {
                 tencent.setOpenId(openID);
                 tencent.setAccessToken(access_token, expires);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        AuthApi.thirdLogin(context, req, new OnItemDataCallBack<OpenIdResp>() {
-                            @Override
-                            public void onItemDataCallBack(OpenIdResp data) {
-                                YusionApp.TOKEN = data.token;
-                                SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+                req.open_id = openID;
+                req.source = "qq";
+                runOnUiThread(() -> AuthApi.thirdLogin(context, req, data -> {
+                    YusionApp.TOKEN = data.token;
+                    SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
 
-                                startActivity(new Intent(context, BindingActivity.class));
-                                finish();
-                            }
-                        });
-
-
-                    }
-                });
+                    startActivity(new Intent(context, BindingActivity.class));
+                    finish();
+                }));
 
             } catch (JSONException e) {
                 e.printStackTrace();

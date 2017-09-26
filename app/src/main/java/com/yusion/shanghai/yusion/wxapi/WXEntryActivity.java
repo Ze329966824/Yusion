@@ -115,13 +115,11 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     String openid = jsonObject.optString("openid");
                     Log.e("openid","====="+openid);
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(WXEntryActivity.this,"登录成功"+"\nopenid:"+openid,Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(WXEntryActivity.this, BindingActivity.class));
-                            finish();
-                        }
+                    runOnUiThread(() -> {
+
+                        Toast.makeText(WXEntryActivity.this,"登录成功"+"\nopenid:"+openid,Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(WXEntryActivity.this, BindingActivity.class));
+                        finish();
                     });
 
 
