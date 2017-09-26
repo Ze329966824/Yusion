@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -98,7 +99,7 @@ public class PhotoMediaActivity extends AppCompatActivity {
      * 初始化控件
      */
     private void init() {
-        maxCount = getIntent().getIntExtra("maxCount",9);
+        maxCount = getIntent().getIntExtra("maxCount", 9);
         gvPhotos = (GridView) findViewById(R.id.gv_photos);
         tvTitle = (TextView) findViewById(R.id.tv_top_bar_title);
         btnNext = (Button) findViewById(R.id.btn_next);
@@ -193,6 +194,9 @@ public class PhotoMediaActivity extends AppCompatActivity {
                     public void run() {
                         //加载图片列表
                         if (currentDir == null) {
+                            currentDir = new PhotoVideoDir(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath());
+                            currentDir.dirName = "Pictures";
+                            loadImages(currentDir);
                             Toast.makeText(PhotoMediaActivity.this, "图片列表为空", Toast.LENGTH_SHORT).show();
                         } else {
                             loadImages(currentDir);

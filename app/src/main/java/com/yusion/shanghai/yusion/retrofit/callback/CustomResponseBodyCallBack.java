@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.pgyersdk.crash.PgyCrashManager;
+import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.settings.Settings;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public abstract class CustomResponseBodyCallBack implements Callback<ResponseBod
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         try {
             String body = response.body().string();
-            Log.e("API", "onResponse: " + body);
+            Log.e(Api.getTag(call.request()), "onResponse: " + body);
             onCustomResponse(body);
         } catch (IOException e) {
             e.printStackTrace();
