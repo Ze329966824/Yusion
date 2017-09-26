@@ -1,8 +1,15 @@
 package com.yusion.shanghai.yusion;
 
+import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+import android.util.Log;
 
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -37,6 +44,11 @@ public class YusionApp extends MultiDexApplication {
 
     public static boolean isLogin;
 
+    //定位服务类
+    public static AMapLocationClient aMapLocationClient;
+    //定位参数设置
+    public AMapLocationClientOption aMapLocationClientOption;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -48,6 +60,7 @@ public class YusionApp extends MultiDexApplication {
         } else {
             Sentry.init("http://309b4e6a4dc648c9a662e791dbd57cdb:b5ad052a9a154e06aa884ff6781b0f84@116.62.161.180:9002/7", new AndroidSentryClientFactory(this));
         }
+        initAMap();
         jpush();
         umeng();
         instabug();
@@ -85,5 +98,45 @@ public class YusionApp extends MultiDexApplication {
             reg_id = JPushInterface.getRegistrationID(YusionApp.this);
             getInstance(this).putValue("reg_id", reg_id);
         }
+    }
+
+    private void initAMap() {
+        aMapLocationClient = new AMapLocationClient(this);
+        aMapLocationClientOption = new AMapLocationClientOption();
+        aMapLocationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//高精准模式
+        aMapLocationClientOption.setOnceLocation(true);
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        aMapLocationClientOption.setOnceLocationLatest(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        aMapLocationClientOption.setNeedAddress(true);
+        //设置是否强制刷新WIFI，默认为true，强制刷新。
+        aMapLocationClientOption.setWifiScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        aMapLocationClientOption.setMockEnable(false);
+        //设置定位请求超时时间,默认是30000毫秒，建议不低于8000毫秒
+        aMapLocationClientOption.setHttpTimeOut(10000);
+        //关闭缓存机制
+        aMapLocationClientOption.setLocationCacheEnable(false);
+        aMapLocationClient.setLocationOption(aMapLocationClientOption);
+    }
+
+    public void requestLocation() {
+        aMapLocationClient.startLocation();
+        aMapLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                if (aMapLocation != null) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        getInstance(YusionApp.this).putValue("longitude", String.valueOf(aMapLocation.getLongitude()));
+                        getInstance(YusionApp.this).putValue("latitude", String.valueOf(aMapLocation.getLatitude()));
+                    }
+                } else {
+                    Log.e("Tomato", "location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+                }
+            }
+        });
     }
 }

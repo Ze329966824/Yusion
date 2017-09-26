@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
+import android.app.SharedElementCallback;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.ActivityManager;
@@ -58,8 +62,10 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        YusionApp yusionApp = (YusionApp) getApplication();
+        yusionApp.requestLocation();
 
+        telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         ApplicationInfo applicationInfo = null;
         try {
             applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
@@ -125,7 +131,6 @@ public class LoginActivity extends BaseActivity {
 //            mLoginMobileTV.setText("17621066549");
 //            mLoginCodeTV.setText("6666");
         }
-
     }
 
     private void loginSuccess(LoginResp resp) {
@@ -137,7 +142,6 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             //上传设备信息
             uploadPersonAndDeviceInfo();
-
 //            startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //            finish();
         }
@@ -195,7 +199,10 @@ public class LoginActivity extends BaseActivity {
         } else {
             req.data.raw_data = raw_list;
         }
-
+        req.gps.latitude = SharedPrefsUtil.getInstance(this).getValue("latitude", "");
+        req.gps.longitude = SharedPrefsUtil.getInstance(this).getValue("longitude", "");
+        Log.e("sssss", req.gps.latitude);
+        Log.e("ssssss", req.gps.longitude);
         req.data.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
         req.system = "android";
         JSONObject jsonArray1 = MobileDataUtil.getDeviceData(this);
