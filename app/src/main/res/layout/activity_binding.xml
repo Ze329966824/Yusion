@@ -87,7 +87,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/submit_button"
             android:onClick="onClick"
-            android:text="登录"
+            android:text="绑定手机"
             android:textColor="#FFF"
             android:textSize="19sp" />
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.wxapi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.ui.entrance.BindingActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,8 +119,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                         @Override
                         public void run() {
                             Toast.makeText(WXEntryActivity.this,"登录成功"+"\nopenid:"+openid,Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
-//                    startActivity(intent);
+                            startActivity(new Intent(WXEntryActivity.this, BindingActivity.class));
                             finish();
                         }
                     });

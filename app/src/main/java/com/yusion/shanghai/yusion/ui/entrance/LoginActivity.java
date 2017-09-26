@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -23,8 +24,11 @@ import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -42,11 +46,14 @@ public class LoginActivity extends BaseActivity {
     private TextView mLoginAgreement;
     private CountDownButtonWrap mCountDownBtnWrap;
     private QQLoginListener mListener;
+    private Context context;
+    private OpenIdReq req;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        context = this;
         //微信登录
         findViewById(R.id.btn_wx).setOnClickListener(v -> {
             if (!api.isWXAppInstalled()) {
@@ -59,15 +66,23 @@ public class LoginActivity extends BaseActivity {
             req.scope = "snsapi_userinfo";
             req.state = "diandi_wx_login";
             api.sendReq(req);
+
         });
+
+        req = new OpenIdReq();
+        req.source = "qq";
+        req.open_id = "这是一个open_id";
         //qq登录
         tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
         mListener = new QQLoginListener();
         findViewById(R.id.btn_qq).setOnClickListener(v -> {
+
             //如果session不可用，则登录，否则说明已经登录
             if (!tencent.isSessionValid()) {
                 tencent.login(this, "all", mListener);
             }
+
+
         });
 
 
@@ -173,7 +188,7 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         tencent.onActivityResultData(requestCode, resultCode, data, mListener);
     }
-    private class QQLoginListener extends BaseActivity implements IUiListener {
+    private class QQLoginListener  implements IUiListener {
         private UserInfo mInfo;
         @Override
         public void onComplete(Object o) {
@@ -188,7 +203,7 @@ public class LoginActivity extends BaseActivity {
 
         private void getUserInfo() {
             QQToken token = tencent.getQQToken();
-            mInfo = new UserInfo(QQLoginListener.this, token);
+            mInfo = new UserInfo(context, token);
             mInfo.getUserInfo(new IUiListener() {
                 @Override
                 public void onComplete(Object object) {
@@ -222,11 +237,28 @@ public class LoginActivity extends BaseActivity {
                 Log.e("qqlogin    ","openid："+openID);
                 Log.e("qqlogin    ","access_token："+access_token);
                 Log.e("qqlogin    ","expires："+expires);
-                tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
 
+                tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
                 tencent.setOpenId(openID);
                 tencent.setAccessToken(access_token, expires);
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AuthApi.thirdLogin(context, req, new OnItemDataCallBack<OpenIdResp>() {
+                            @Override
+                            public void onItemDataCallBack(OpenIdResp data) {
+                                YusionApp.TOKEN = data.token;
+                                SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+
+                                startActivity(new Intent(context, BindingActivity.class));
+                                finish();
+                            }
+                        });
+
+
+                    }
+                });
 
             } catch (JSONException e) {
                 e.printStackTrace();

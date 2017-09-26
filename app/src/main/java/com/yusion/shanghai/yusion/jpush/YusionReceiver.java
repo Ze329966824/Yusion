@@ -5,16 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-
-import com.yusion.shanghai.yusion.base.BaseActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import cn.jpush.android.api.JPushInterface;
 

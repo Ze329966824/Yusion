@@ -33,7 +33,7 @@ public class YusionApp extends MultiDexApplication {
     public static ConfigResp CONFIG_RESP;
 
     public static UserInfoBean USERINFOBEAN;
-    private static String reg_id;
+    public static String reg_id;
 
     public static boolean isLogin;
 
