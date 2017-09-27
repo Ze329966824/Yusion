@@ -28,6 +28,7 @@ public class YusionApp extends MultiDexApplication {
     //是否使用back健退出程序
     public static boolean isBack2Home = false;
 
+    public static String OPEN_ID;
     public static String TOKEN;
     public static String MOBILE;
     public static ConfigResp CONFIG_RESP;
@@ -71,10 +72,12 @@ public class YusionApp extends MultiDexApplication {
     public void clearUserData() {
         TOKEN = "";
         MOBILE = "";
+        OPEN_ID = "";
         USERINFOBEAN = null;
 
         getInstance(this).putValue("token", TOKEN);
         getInstance(this).putValue("mobile", MOBILE);
+        getInstance(this).putValue("open_id", OPEN_ID);
     }
 
     private void jpush() {

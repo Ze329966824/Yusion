@@ -35,6 +35,8 @@ import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
+
 public class LoginActivity extends BaseActivity {
 
     private EditText mLoginMobileTV;
@@ -73,6 +75,8 @@ public class LoginActivity extends BaseActivity {
         tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
         mListener = new QQLoginListener();
         findViewById(R.id.btn_qq).setOnClickListener(v -> {
+
+
 
             //如果session不可用，则登录，否则说明已经登录
             if (!tencent.isSessionValid()) {
@@ -154,8 +158,8 @@ public class LoginActivity extends BaseActivity {
         if (resp != null) {
             YusionApp.TOKEN = resp.token;
             YusionApp.MOBILE = mLoginMobileTV.getText().toString();
-            SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
-            SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
+            getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+            getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
@@ -185,8 +189,10 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         tencent.onActivityResultData(requestCode, resultCode, data, mListener);
     }
-    private class QQLoginListener  implements IUiListener {
+
+    private class QQLoginListener implements IUiListener {
         private UserInfo mInfo;
+
         @Override
         public void onComplete(Object o) {
             //TODO  同样都有QQ登录和分享的回调，这个可以分开写。
@@ -231,22 +237,32 @@ public class LoginActivity extends BaseActivity {
                 String openID = jb.getString("openid"); //openid用户唯一标识
                 String access_token = jb.getString("access_token");
                 String expires = jb.getString("expires_in");
-                Log.e("qqlogin    ","openid："+openID);
-                Log.e("qqlogin    ","access_token："+access_token);
-                Log.e("qqlogin    ","expires："+expires);
+                Log.e("qqlogin    ", "openid：" + openID);
+                Log.e("qqlogin    ", "access_token：" + access_token);
+                Log.e("qqlogin    ", "expires：" + expires);
 
                 tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
                 tencent.setOpenId(openID);
                 tencent.setAccessToken(access_token, expires);
 
+
+
+
+                YusionApp.OPEN_ID = openID;
+                SharedPrefsUtil.getInstance(LoginActivity.this).putValue("open_id", YusionApp.OPEN_ID);
+
                 req.open_id = openID;
                 req.source = "qq";
                 runOnUiThread(() -> AuthApi.thirdLogin(context, req, data -> {
-                    YusionApp.TOKEN = data.token;
-                    SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
-
-                    startActivity(new Intent(context, BindingActivity.class));
-                    finish();
+                    if (data != null) {
+                        YusionApp.TOKEN = data.token;
+                        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        finish();
+                    } else {
+                        startActivity(new Intent(context, BindingActivity.class));
+                        finish();
+                    }
                 }));
 
             } catch (JSONException e) {

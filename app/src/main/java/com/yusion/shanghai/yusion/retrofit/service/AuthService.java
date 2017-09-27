@@ -41,6 +41,6 @@ public interface AuthService {
     @POST("/api/auth/auth_open_id/")
     Call<BaseResult<OpenIdResp>> openId(@Body OpenIdReq req);
 
-    @POST("/api/auth/user_login/")
+    @POST("/api/auth/auth_user_login/")
     Call<BaseResult<BindingResp>> binding(@Body BindingReq req);
 }

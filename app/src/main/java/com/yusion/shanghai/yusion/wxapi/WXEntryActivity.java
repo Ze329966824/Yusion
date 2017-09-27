@@ -11,8 +11,12 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
+import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.ui.entrance.BindingActivity;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +36,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     public static final String APP_ID = "wxf2c47c30395cfb84";
     public static final String APP_SECRET = "1ec792a6c092d7803672c5fe8e99cfd4";
     private final OkHttpClient client = new OkHttpClient();
+    private OpenIdReq req;
     // IWXAPI 是第三方app和微信通信的openapi接口
 
 
@@ -43,6 +48,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, APP_ID, false);
         api.handleIntent(getIntent(), this);
+
+        req = new OpenIdReq();
     }
 
     private String getAppInfo() {
@@ -52,25 +59,25 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     pkName, 0).versionName;
             int versionCode = this.getPackageManager()
                     .getPackageInfo(pkName, 0).versionCode;
-            return pkName ;
+            return pkName;
         } catch (Exception e) {
         }
         return null;
     }
+
     @Override
     public void onReq(BaseReq baseReq) {
-        Log.e("TAG","OnReqqqqqqqqqq");
+
     }
 
     @Override
     public void onResp(BaseResp baseResp) {
         Bundle bundle = new Bundle();
-        Log.e("TAG","OnResppppppppppppppp");
-        switch (baseResp.errCode){
+        switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                String code = ((SendAuth.Resp)baseResp).code;
-                String state = ((SendAuth.Resp)baseResp).state;
-                Log.e("TAG","code = "+code);
+                String code = ((SendAuth.Resp) baseResp).code;
+                String state = ((SendAuth.Resp) baseResp).state;
+                Log.e("TAG", "code = " + code);
 
                 try {
                     getAccess_token(code);
@@ -84,14 +91,14 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     private void getAccess_token(String code) throws Exception {
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
                 "appid=" + APP_ID +
-                "&secret=" + APP_SECRET+
+                "&secret=" + APP_SECRET +
                 "&code=" + code +
                 "&grant_type=authorization_code";
         run(url);
 
     }
 
-    private void run(String url) throws Exception{
+    private void run(String url) throws Exception {
         final Request request = new Request.Builder()
                 //.url("http://publicobject.com/helloworld.txt")
                 .url(url)
@@ -108,18 +115,29 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
             public void onResponse(okhttp3.Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
                 try {
-                    String responseStr=response.body().string();
+                    String responseStr = response.body().string();
                     JSONObject jsonObject = new JSONObject(responseStr);
-                    Log.e("TAG","access_token = "+jsonObject.getString("access_token"));//在回调中获取access_token
+                    Log.e("TAG", "access_token = " + jsonObject.getString("access_token"));//在回调中获取access_token
                     String access_token = jsonObject.optString("access_token");
                     String openid = jsonObject.optString("openid");
-                    Log.e("openid","====="+openid);
-
+                    Log.e("openid", "=====" + openid);
+                    req.open_id = openid;
+                    req.source = "wechat";
                     runOnUiThread(() -> {
+                        AuthApi.thirdLogin(WXEntryActivity.this, req, data -> {
+                            if (data != null) {
 
-                        Toast.makeText(WXEntryActivity.this,"登录成功"+"\nopenid:"+openid,Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(WXEntryActivity.this, BindingActivity.class));
-                        finish();
+                                data.token = YusionApp.TOKEN;
+                                SharedPrefsUtil.getInstance(WXEntryActivity.this).putValue("token", YusionApp.TOKEN);
+                                Toast.makeText(WXEntryActivity.this, "登录成功" + "\nopenid:" + openid, Toast.LENGTH_SHORT).show();
+
+
+                            }else {
+                                startActivity(new Intent(WXEntryActivity.this, BindingActivity.class));
+                                finish();
+                            }
+                        });
+
                     });
 
 

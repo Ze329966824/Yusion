@@ -50,7 +50,7 @@ public class BindingActivity extends BaseActivity {
         } else {
             mCountDownBtnWrap = new CountDownButtonWrap(mBindingCodeBtn, "重试", 5, 1);
         }
-        mBindingCodeBtn.setOnClickListener(v ->{
+        mBindingCodeBtn.setOnClickListener(v -> {
             if (!CheckMobileUtil.checkMobile(mBindingMobileTV.getText().toString())) {
                 Toast.makeText(BindingActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else {
@@ -71,20 +71,22 @@ public class BindingActivity extends BaseActivity {
 
         req.reg_id = YusionApp.reg_id;
         req.source = "qq";
-        req.open_id = "open_id";
-        mBindingSubmitBtn.setOnClickListener(v ->{
+        req.open_id = YusionApp.OPEN_ID;
+        mBindingSubmitBtn.setOnClickListener(v -> {
             if (!CheckMobileUtil.checkMobile(mBindingMobileTV.getText().toString())) {
                 Toast.makeText(BindingActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(mBindingCodeTV.getText())) {
                 Toast.makeText(BindingActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 AuthApi.binding(this, req, new OnItemDataCallBack<BindingResp>() {
                     @Override
                     public void onItemDataCallBack(BindingResp data) {
-                        YusionApp.TOKEN = data.token;
-                        SharedPrefsUtil.getInstance(BindingActivity.this).putValue("token", YusionApp.TOKEN);
-                        startActivity(new Intent(BindingActivity.this, BindingActivity.class));
-                        finish();
+                        if (data != null) {
+                            YusionApp.TOKEN = data.token;
+                            SharedPrefsUtil.getInstance(BindingActivity.this).putValue("token", YusionApp.TOKEN);
+                            startActivity(new Intent(BindingActivity.this, MainActivity.class));
+                            finish();
+                        }
                     }
                 });
 
