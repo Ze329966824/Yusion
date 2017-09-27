@@ -31,7 +31,7 @@ public class ContactPersonInfoReq {
     public String imsi;
     public String mac;
     public String app;
-    public String gps;
+
     public String token;
     public String mobile;
     public String fingerprint;
@@ -41,11 +41,22 @@ public class ContactPersonInfoReq {
     public String brand;
     public String os_version;
     public DataBean data = new DataBean();
+    public Gps gps = new Gps();
 
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
+    }
+
+    public static class Gps {
+        public String longitude;
+        public String latitude;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 
     public static class DataBean {
