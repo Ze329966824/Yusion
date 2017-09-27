@@ -62,7 +62,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        UBT.addPageEvent(this, "onPause", "activity", getClass().getSimpleName());
+        UBT.addPageEvent(this, "page_hidden", "activity", getClass().getSimpleName());
 //        PgyFeedbackShakeManager.unregister();
         MobclickAgent.onPause(this);
     }
@@ -77,7 +77,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        UBT.addPageEvent(this, "onResume", "activity", getClass().getSimpleName());
+        UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
         MobclickAgent.onResume(this);
     }
 

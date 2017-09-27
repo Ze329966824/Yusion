@@ -10,6 +10,7 @@ public class UBTEvent {
     public String action;
     public long ts;
     public String page; //eg:LoginActivity
+    public String page_cn;
 
     @Override
     public String toString() {
@@ -18,6 +19,7 @@ public class UBTEvent {
                 ", action='" + action + '\'' +
                 ", ts=" + ts +
                 ", page='" + page + '\'' +
+                ", page_cn='" + page_cn + '\'' +
                 '}';
     }
 }
