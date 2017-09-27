@@ -46,17 +46,17 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        if (Build.MANUFACTURER.toUpperCase().equals("MEIZU")) {
-            onAllPermissionGranted();
-        } else {
-            getPermisson();
-        }
-
-//        if (Settings.isOnline) {
-//            checkVersion();
+//        if (Build.MANUFACTURER.toUpperCase().equals("MEIZU")) {
+//            onAllPermissionGranted();
 //        } else {
-//            checkServerUrl();
+//            getPermisson();
 //        }
+
+        if (Settings.isOnline) {
+            checkVersion();
+        } else {
+            checkServerUrl();
+        }
     }
 
     public void getPermisson() {
