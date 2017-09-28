@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.ui.main.mine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -22,7 +23,6 @@ import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
-import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
 
 public class SettingsActivity extends BaseActivity {
@@ -101,13 +101,15 @@ public class SettingsActivity extends BaseActivity {
                             Log.e("ossupdateeeeeeeee", "   本机版本号=" + versionCode + "           服务器版本号=" + data.version);
 
                             if (!versionCode.contains(data.version)) {
-                                Log.e("ossupdateeeeeeeee", "更新了");
 
-                                UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
+                                Intent i=new Intent();
+                                i.setAction(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(data.download_url));
+                                startActivity(i);
+//                                UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
 
                             } else {
                                 Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
-                                Log.e("ossupdateeeeeeeee", "没有更新");
                             }
                         }else {
                             Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
