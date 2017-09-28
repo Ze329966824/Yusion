@@ -65,8 +65,6 @@ public class LaunchActivity extends BaseActivity {
                 .requestSync();
     }
 
-
-
     private void checkVersion() {
         String versionCode = BuildConfig.VERSION_NAME;
         //product：调用oss接口更新
