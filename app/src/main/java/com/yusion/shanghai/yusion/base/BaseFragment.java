@@ -24,7 +24,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        UBT.addPageEvent(getContext(), "onPause", "fragment", getClass().getSimpleName());
+        UBT.addPageEvent(getContext(), "page_hidden", "fragment", getClass().getSimpleName());
         MobclickAgent.onPageEnd(this.getClass().getSimpleName());
     }
 
@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        UBT.addPageEvent(getContext(), "onResume", "fragment", getClass().getSimpleName());
+        UBT.addPageEvent(getContext(), "page_show", "fragment", getClass().getSimpleName());
         MobclickAgent.onPageStart(this.getClass().getSimpleName());
     }
 

@@ -56,7 +56,8 @@ public class AddEventThread implements Runnable {
             values.put("object", view.getClass().getSimpleName());
         }
         values.put("action", action);
-        values.put("page", pageName);
+        values.put("page", UBTCollections.getPageNm(pageName));
+        values.put("page_cn", UBTCollections.getPageNmCn(pageName));
         values.put("ts", new Date().getTime());
         SqlLiteUtil.insert(values);
         Log.e("TAG", "run: 插入成功");
@@ -76,6 +77,7 @@ public class AddEventThread implements Runnable {
                 ubtEvent.object = query.getString(query.getColumnIndex("object"));
                 ubtEvent.action = query.getString(query.getColumnIndex("action"));
                 ubtEvent.page = query.getString(query.getColumnIndex("page"));
+                ubtEvent.page_cn = query.getString(query.getColumnIndex("page_cn"));
                 ubtEvent.ts = query.getLong(query.getColumnIndex("ts"));
                 data.add(ubtEvent);
             }
