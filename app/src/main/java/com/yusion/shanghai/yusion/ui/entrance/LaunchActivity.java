@@ -42,7 +42,6 @@ public class LaunchActivity extends BaseActivity {
     private boolean isRead;
     private boolean isPhoneState;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +64,7 @@ public class LaunchActivity extends BaseActivity {
                 .get(LaunchActivity.this)
                 .requestSync();
     }
+
 
 
     private void checkVersion() {
