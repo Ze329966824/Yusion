@@ -115,7 +115,7 @@ public class UpdateUtil {
             int i = v.getId();
             if (i == R.id.update_ok) {
                 update();
-            }else {
+            } else {
                 mUpdateDialog = null;
             }
         }
@@ -131,7 +131,7 @@ public class UpdateUtil {
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
-                final String apkName = String.format(Locale.CHINA, "WangDai%s.apk", getVersion(mContext));
+                final String apkName = String.format(Locale.CHINA, "%s%s.apk", content.getResources().getString(R.string.app_name), getVersion(mContext));
 
                 new Thread(new Runnable() {
                     @Override

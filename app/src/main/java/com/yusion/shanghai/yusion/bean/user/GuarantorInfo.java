@@ -72,7 +72,6 @@ public class GuarantorInfo {
     public String extra_work_position;
     public String extra_work_phone_num;
     public String extra_remark;
-    public String drv_lic_relationship;
     public String clt_id;
     public String clt_nm;
     public String id_no;
@@ -101,6 +100,7 @@ public class GuarantorInfo {
     public String created_time;
     public String update_time;
     public SpouseBean spouse;
+    public String drv_lic_relationship;
 
     @Override
     public String toString() {
@@ -336,7 +336,6 @@ public class GuarantorInfo {
         public String extra_work_position;
         public String extra_work_phone_num;
         public String extra_remark;
-        public String drv_lic_relationship;
         public String clt_id;
         public String clt_nm;
         public String id_no;
@@ -361,6 +360,7 @@ public class GuarantorInfo {
         public String urg_relation2;
         public String commited;
         public String status;
+        public String drv_lic_relationship;
         public String created_time;
         public String update_time;
 
