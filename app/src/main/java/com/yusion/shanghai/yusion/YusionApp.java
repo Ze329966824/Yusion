@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion;
 
+import android.net.SSLSessionCache;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
@@ -115,7 +116,7 @@ public class YusionApp extends MultiDexApplication {
         aMapLocationClient.setLocationOption(aMapLocationClientOption);
     }
 
-    public void requestLocation() {
+    public void requestLocation(AMapLocationListener listener) {
         aMapLocationClient.startLocation();
         aMapLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
@@ -130,6 +131,7 @@ public class YusionApp extends MultiDexApplication {
                             + aMapLocation.getErrorCode() + ", errInfo:"
                             + aMapLocation.getErrorInfo());
                 }
+               listener.onLocationChanged(aMapLocation);
             }
         });
     }
