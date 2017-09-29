@@ -211,6 +211,8 @@ public class LoginActivity extends BaseActivity {
         Log.e("ssssss", req.gps.longitude);
         req.data.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
         req.system = "android";
+
+
         JSONObject jsonArray1 = MobileDataUtil.getDeviceData(this);
         req.brand = SharedPrefsUtil.getInstance(this).getValue("brand", "");
         req.os_version = SharedPrefsUtil.getInstance(this).getValue("release", "");
