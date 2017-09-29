@@ -36,19 +36,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         YusionApp.isLogin = true;
-
-//        Log.e("TAG", "token: " + WangDaiApp.mToken);
-
-//        WangDaiApp.isBack2Home = false;
-
-        setContentView(R.layout.activity_main);
-
-//        if (getIntent().getBooleanExtra("toJPushDialogActivity", false)) {
-//            Intent intent = getIntent();
-//            intent.setClass(this, JPushDialogActivity.class);
-//            startActivity(getIntent());
-//        }
-
         mHomeFragment = new HomeFragment();
         mOrderFragment = new MyOrderFragment();
         mMineFragment = new MineFragment();
