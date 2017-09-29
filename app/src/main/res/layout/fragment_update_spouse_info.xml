@@ -768,7 +768,6 @@
                                 android:id="@+id/update_spouse_info_from_self_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
-                                android:layout_marginLeft="15dp"
                                 android:hint="请输入" />
 
                         </LinearLayout>

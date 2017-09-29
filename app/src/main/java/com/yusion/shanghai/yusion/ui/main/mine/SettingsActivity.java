@@ -95,7 +95,7 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.main_setting_version_name_layout:   //版本信息
 
-                if (!Settings.isOnline) {
+                if (Settings.isOnline) {
                     //product：调用oss接口更新
                     AuthApi.update(this, "yusion", data -> {
                         if (data != null) {

@@ -524,6 +524,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        tools:visibility="visible"
                         android:visibility="gone">
 
                         <View
@@ -739,6 +740,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        tools:visibility="visible"
                         android:visibility="gone">
 
                         <View
@@ -900,7 +902,6 @@
                             <com.yusion.shanghai.yusion.widget.NoEmptyEditText
                                 android:id="@+id/personal_info_from_self_company_address2_tv"
                                 style="@style/apply_info_content_type_wrap"
-                                android:layout_marginLeft="15dp"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入" />
 
@@ -955,7 +956,7 @@
 
                             <EditText
                                 android:id="@+id/personal_info_from_other_remark_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入" />
 

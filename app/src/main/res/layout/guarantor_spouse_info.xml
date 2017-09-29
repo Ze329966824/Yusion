@@ -890,7 +890,7 @@
 
                             <EditText
                                 android:id="@+id/guarantor_spouse_info_from_other_remark_edt"
-                                style="@style/apply_info_content"
+                                style="@style/apply_info_content_type_wrap"
                                 android:layout_marginRight="35dp"
                                 android:hint="请输入" />
 
