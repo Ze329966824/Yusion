@@ -176,7 +176,7 @@ public class LaunchActivity extends BaseActivity {
     private void onAllPermissionGranted() {
         JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
         if (jsonArray.length() > 0 && !jsonArray.toString().equals("")) {
-            if (Settings.isOnline) {
+            if (!Settings.isOnline) {
                 checkVersion();
             } else {
                 checkServerUrl();

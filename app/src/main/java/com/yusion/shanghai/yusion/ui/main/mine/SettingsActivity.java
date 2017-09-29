@@ -75,6 +75,7 @@ public class SettingsActivity extends BaseActivity {
                             }).show();
 
                 }
+
                 return true;
             }
         });
@@ -94,20 +95,18 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.main_setting_version_name_layout:   //版本信息
 
-                if (Settings.isOnline) {
+                if (!Settings.isOnline) {
                     //product：调用oss接口更新
                     AuthApi.update(this, "yusion", data -> {
                         if (data != null) {
                             Log.e("ossupdateeeeeeeee", "   本机版本号=" + versionCode + "           服务器版本号=" + data.version);
+                            if (!BuildConfig.VERSION_NAME.contains(data.version)) {
 
-                            if (!versionCode.contains(data.version)) {
-                                Log.e("ossupdateeeeeeeee", "更新了");
 
                                 UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
 
                             } else {
                                 Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
-                                Log.e("ossupdateeeeeeeee", "没有更新");
                             }
                         }else {
                             Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
