@@ -114,13 +114,22 @@ public class UpdateUtil {
             dismiss();
             int i = v.getId();
             if (i == R.id.update_ok) {
-                update();
-            } else {
+
+//                toLocalUpdate();
+                toWebUpdate();
+            }else {
                 mUpdateDialog = null;
             }
         }
 
-        private void update() {
+        private void toWebUpdate() {
+            Intent intent =new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(mUrl));
+            mContext.startActivity(intent);
+        }
+
+        private void toLocalUpdate() {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 final ProgressDialog progressDialog = new ProgressDialog(mContext);    //进度条，在下载的时候实时更新进度，提高用户友好度
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -131,7 +140,7 @@ public class UpdateUtil {
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
-                final String apkName = String.format(Locale.CHINA, "%s%s.apk", content.getResources().getString(R.string.app_name), getVersion(mContext));
+                final String apkName = String.format(Locale.CHINA, "WangDai%s.apk", getVersion(mContext));
 
                 new Thread(new Runnable() {
                     @Override
