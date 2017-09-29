@@ -1,14 +1,11 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
@@ -19,7 +16,6 @@ import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.SelfDialog;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -39,7 +35,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        YusionApp.isBack2Home = false;
         YusionApp.isLogin = true;
 
 //        Log.e("TAG", "token: " + WangDaiApp.mToken);
@@ -105,11 +100,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         transaction.commit();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        YusionApp.isBack2Home = true;
-    }
 
     @Override
     protected void onResume() {
@@ -148,10 +138,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-            return true;//不执行父类点击事件
-        return super.onKeyDown(keyCode, event);//继续执行父类其他点击事件
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK)
+//            return true;//不执行父类点击事件
+//        return super.onKeyDown(keyCode, event);//继续执行父类其他点击事件
+//    }
 }

@@ -1,10 +1,8 @@
 package com.yusion.shanghai.yusion;
 
-import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
-
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -31,9 +29,6 @@ import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
 public class YusionApp extends MultiDexApplication {
 
     public static boolean ishaveGuarantee = false;
-
-    //是否使用back健退出程序
-    public static boolean isBack2Home = false;
 
     public static String TOKEN;
     public static String MOBILE;
@@ -66,7 +61,6 @@ public class YusionApp extends MultiDexApplication {
         instabug();
         SqlLiteUtil.init(this);
     }
-
 
     private void instabug() {
         new Instabug.Builder(this, "41759404bd869009a8eb4ba00967e1f5")
