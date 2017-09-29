@@ -20,7 +20,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     // 通过构造方法创建数据库，其中name为数据库名称
     public MyDatabaseHelper(Context context, String name) {
-        super(context, name, null, 1);
+        super(context, name, null, 2);
     }
 
     @Override
@@ -31,7 +31,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        for (int i = oldVersion; i < newVersion; ++i) {
+            switch (i) {
+                case 1:
+                    db.execSQL("ALTER TABLE " + TABLE + " ADD COLUMN page_cn TEXT");
+                    break;
+            }
+        }
     }
 
 }

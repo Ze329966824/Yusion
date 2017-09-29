@@ -420,6 +420,7 @@ public class ClientInfo {
         public String status;
         public String created_time;
         public String update_time;
+        public String drv_lic_relationship;
 
         @Override
         public String toString() {

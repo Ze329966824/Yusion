@@ -140,7 +140,7 @@ public class UpdateUtil {
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
-                final String apkName = String.format(Locale.CHINA, "%s%s.apk", mContext.getResources().getString(R.string.app_name),getVersion(mContext));
+                final String apkName = String.format(Locale.CHINA, "WangDai%s.apk", getVersion(mContext));
 
                 new Thread(new Runnable() {
                     @Override
