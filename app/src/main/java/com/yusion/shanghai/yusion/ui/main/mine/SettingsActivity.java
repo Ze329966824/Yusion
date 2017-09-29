@@ -75,6 +75,7 @@ public class SettingsActivity extends BaseActivity {
                             }).show();
 
                 }
+
                 return true;
             }
         });
