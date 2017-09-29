@@ -90,10 +90,7 @@
             android:name=".ui.apply.AMapPoiListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name=".ui.upload.UploadLabelListActivityToDel"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+
         <activity
             android:name=".ui.upload.UploadListNotFromLabelLIstActivity"
             android:screenOrientation="portrait"
@@ -275,7 +272,6 @@
             android:name="UMENG_CHANNEL"
             android:value="Yusion" />
 
-        <activity android:name=".ui.apply.VerificationCodeActivity" />
         <activity android:name=".ui.entrance.AgreeMentActivity"></activity>
     </application>
 

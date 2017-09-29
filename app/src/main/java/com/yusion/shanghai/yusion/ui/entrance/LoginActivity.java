@@ -63,7 +63,13 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         YusionApp yusionApp = (YusionApp) getApplication();
-        yusionApp.requestLocation();
+
+        yusionApp.requestLocation(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+
+            }
+        });
 
         telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         ApplicationInfo applicationInfo = null;
