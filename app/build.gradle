@@ -14,8 +14,8 @@ android {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 25
-        versionName "V2.1.5"
+        versionCode 30
+        versionName "V1.8.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi"
