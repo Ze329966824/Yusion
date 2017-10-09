@@ -88,8 +88,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile project(path: ':PickerLib')
     compile files('libs/jcore-android-1.1.6.jar')
@@ -107,7 +105,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'io.sentry:sentry-android:1.2.2'
+    compile 'io.sentry:sentry-android:1.5.4'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.instabug.library:instabug:4.2.10'

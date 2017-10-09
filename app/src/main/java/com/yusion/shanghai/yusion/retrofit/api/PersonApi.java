@@ -1,15 +1,10 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
-import com.yusion.shanghai.yusion.retrofit.callback.CustomCodeAndMsgCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
-import com.yusion.shanghai.yusion.retrofit.service.AuthService;
 import com.yusion.shanghai.yusion.retrofit.service.PersonInfoService;
 import com.yusion.shanghai.yusion.settings.Settings;
 
@@ -44,7 +39,6 @@ public class PersonApi {
                         .method(request.method(), request.body())
                         .addHeader("authentication", String.format(Locale.CHINA, "token %s", TextUtils.isEmpty(YusionApp.TOKEN) ? Settings.TEST_TOKEN : YusionApp.TOKEN))
                         .build();
-//                        logRequestInfo(realRequest);
                 Response response = chain.proceed(realRequest);
                 logResponseInfo(response);
                 return response;
@@ -91,12 +85,6 @@ public class PersonApi {
 
     private static void logResponseInfo(Response response) {
         logRequestInfo(response.request());
-//        try {
-//            // TODO: 2017/8/3 需要解决
-//            Log.e("API", "responseBody: " + response.body().string());//流文件只能取一次
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public static void uploadPersonAndDeviceInfo(ContactPersonInfoReq req) {

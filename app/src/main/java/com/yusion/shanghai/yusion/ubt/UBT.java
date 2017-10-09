@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 
 import java.lang.annotation.Annotation;
@@ -30,7 +31,16 @@ import java.util.concurrent.Executors;
 
 public class UBT {
 
-    public static int LIMIT = 30;
+    public static int LIMIT;
+
+    static {
+        if (Settings.isOnline) {
+            LIMIT = 50;
+        } else {
+            LIMIT = 10;
+        }
+    }
+
     private static ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
 
     public static void bind(final Object object, View sourceView, String pageName) {

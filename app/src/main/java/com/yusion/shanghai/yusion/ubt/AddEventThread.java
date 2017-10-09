@@ -30,6 +30,7 @@ public class AddEventThread implements Runnable {
     private boolean isPageEvent;
     private String object;
     private Context context;
+    private String TAG = "UBT";
 
     public AddEventThread(Context context, String action, View view, String pageName, String action_value) {
         this.context = context;
@@ -60,14 +61,14 @@ public class AddEventThread implements Runnable {
         values.put("page_cn", UBTCollections.getPageNmCn(pageName));
         values.put("ts", new Date().getTime());
         SqlLiteUtil.insert(values);
-        Log.e("TAG", "run: 插入成功");
+        Log.e(TAG, "run: 插入成功");
 
         Cursor cursor = SqlLiteUtil.query(null, null, null, null);
         int count = cursor.getCount();
         if (count > UBT.LIMIT) {
-            Log.e("TAG", "run:共有 " + count);
+            Log.e(TAG, "run:共有 " + count);
             Cursor query = SqlLiteUtil.query(null, null, null, String.valueOf(UBT.LIMIT));
-            Log.e("TAG", "run:要删除的 " + query.getCount());
+            Log.e(TAG, "run:要删除的 " + query.getCount());
             query.moveToFirst();
             List<Long> tss = new ArrayList<>();
             List<UBTEvent> data = new ArrayList<>();
@@ -81,7 +82,7 @@ public class AddEventThread implements Runnable {
                 ubtEvent.ts = query.getLong(query.getColumnIndex("ts"));
                 data.add(ubtEvent);
             }
-            Log.e("TAG", "run: " + tss);
+            Log.e(TAG, "run: " + tss);
 
             //发送
             UBTData req = new UBTData();
@@ -90,18 +91,20 @@ public class AddEventThread implements Runnable {
             req.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", "");
             TelephonyManager tm = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
             req.imei = tm.getDeviceId();
+            req.gps.latitude = SharedPrefsUtil.getInstance(context).getValue("latitude", "");
+            req.gps.longitude = SharedPrefsUtil.getInstance(context).getValue("longitude", "");
 
-            Log.e("TAG", "run: 发送");
+            Log.e(TAG, "run: 正在发送");
             try {
                 if (UBTApi.getUBTService().postUBTData(req).execute().isSuccessful()) {
-                    Log.e("TAG", "run: 发送成功");
+                    Log.e(TAG, "run: 发送成功");
 
                     for (Long aLong : tss) {
                         SqlLiteUtil.delete("ts = ?", new String[]{String.valueOf(aLong)});
                     }
                 }
             } catch (IOException e) {
-                Log.e("TAG", "run: " + e);
+                Log.e(TAG, "run: " + e);
                 e.printStackTrace();
             }
 

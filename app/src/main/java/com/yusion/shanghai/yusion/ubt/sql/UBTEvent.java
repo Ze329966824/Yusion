@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.ubt.sql;
 
+import com.google.gson.Gson;
+
 /**
  * Created by ice on 2017/9/15.
  */
@@ -14,12 +16,6 @@ public class UBTEvent {
 
     @Override
     public String toString() {
-        return "UBTEvent{" +
-                "object='" + object + '\'' +
-                ", action='" + action + '\'' +
-                ", ts=" + ts +
-                ", page='" + page + '\'' +
-                ", page_cn='" + page_cn + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 }

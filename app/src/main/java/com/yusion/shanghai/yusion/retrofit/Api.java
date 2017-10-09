@@ -58,7 +58,6 @@ public class Api {
                                 .method(request.method(), request.body())
                                 .addHeader("authentication", String.format(Locale.CHINA, "token %s", TextUtils.isEmpty(YusionApp.TOKEN) ? Settings.TEST_TOKEN : YusionApp.TOKEN))
                                 .build();
-//                        logRequestInfo(realRequest);
                         Response response = chain.proceed(realRequest);
                         logResponseInfo(response);
                         return response;
@@ -122,9 +121,7 @@ public class Api {
     @NonNull
     public static String getTag(Request request) {
         StringBuilder tagBuilder = new StringBuilder("API");
-        if (request.url().toString().contains("ubt")) {
-            tagBuilder.append("-UBT");
-        } else if (request.url().toString().contains("application")) {
+        if (request.url().toString().contains("application")) {
             tagBuilder.append("-APPLICATION");
         } else if (request.url().toString().contains("client")) {
             tagBuilder.append("-CLIENT");

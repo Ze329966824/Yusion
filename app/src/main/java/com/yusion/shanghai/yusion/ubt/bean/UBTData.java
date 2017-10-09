@@ -14,9 +14,15 @@ public class UBTData {
     public String token;
     public List<UBTEvent> data;
     public String imei;
+    public Gps gps = new Gps();
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
+    public static class Gps {
+        public String longitude;
+        public String latitude;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 }

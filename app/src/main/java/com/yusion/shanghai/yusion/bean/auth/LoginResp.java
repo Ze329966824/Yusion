@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.auth;
 
+import com.google.gson.Gson;
+
 /**
  * 类描述：
  * 伟大的创建人：ice
@@ -8,4 +10,9 @@ package com.yusion.shanghai.yusion.bean.auth;
 
 public class LoginResp {
     public String token;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

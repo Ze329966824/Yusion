@@ -38,7 +38,6 @@ public class UBTApi {
                         .method(request.method(), request.body())
                         .addHeader("authentication", String.format(Locale.CHINA, "token %s", TextUtils.isEmpty(YusionApp.TOKEN) ? Settings.TEST_TOKEN : YusionApp.TOKEN))
                         .build();
-//                        logRequestInfo(realRequest);
                 Response response = chain.proceed(realRequest);
                 logResponseInfo(response);
                 return response;
@@ -50,16 +49,16 @@ public class UBTApi {
             .build();
 
     private static void logRequestInfo(Request request) {
-        Log.e("API", "\n");
-        Log.e("API", "\n******** log request start ******** ");
-        Log.e("API", "url: " + request.url());
-        Log.e("API", "method: " + request.method());
+        String TAG = getTag(request);
+        Log.e(TAG, "\n");
+        Log.e(TAG, "\n******** log request start ******** ");
+        Log.e(TAG, "url: " + request.url());
+        Log.e(TAG, "method: " + request.method());
         Headers headers = request.headers();
         for (int i = 0; i < headers.size(); i++) {
-            Log.e("API", headers.name(i) + " : " + headers.value(i));
+            Log.e(TAG, headers.name(i) + " : " + headers.value(i));
         }
 
-        //如果是post请求还需打印参数
         String method = request.method();
         if ("POST".equals(method)) {
             RequestBody requestBody = request.body();
@@ -70,11 +69,20 @@ public class UBTApi {
                 e.printStackTrace();
             }
             String paramsStr = buffer.readString(Charset.forName("UTF-8")).replaceAll("\"", "\\\"");
-            Log.e("API", "requestParameters: " + paramsStr);
+            Log.e(TAG, "requestParameters: " + paramsStr);
         }
 
-        Log.e("API", "******** log request end ******** \n");
-        Log.e("API", "\n");
+        Log.e(TAG, "******** log request end ******** \n");
+        Log.e(TAG, "\n");
+    }
+
+    private static String getTag(Request request) {
+        StringBuilder tagBuilder = new StringBuilder("API");
+        if (request.url().toString().contains("ubt")) {
+            tagBuilder.append("-UBT");
+        }
+        tagBuilder.append("-").append(request.method().toUpperCase());
+        return tagBuilder.toString();
     }
 
     private static void logResponseInfo(Response response) {

@@ -78,12 +78,6 @@ public class OssApi {
 
     private static void logResponseInfo(Response response) {
         logRequestInfo(response.request());
-//        try {
-//            // TODO: 2017/8/3 需要解决
-//            Log.e("API", "responseBody: " + response.body().string());//流文件只能取一次
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
 }
