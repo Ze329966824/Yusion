@@ -52,7 +52,7 @@ public class UBTCollections {
         pageNameMaps.put(LoginActivity.class.getSimpleName(), new Pair<>("login", "登陆页面"));
         pageNameMaps.put(WebViewActivity.class.getSimpleName(), new Pair<>("webview", "H5页面"));
         pageNameMaps.put(AgreeMentActivity.class.getSimpleName(), new Pair<>("agreement", "协议页面"));
-        pageNameMaps.put(MainActivity.class.getSimpleName(), new Pair<>("", ""));
+        pageNameMaps.put(MainActivity.class.getSimpleName(), new Pair<>("home_order_mine", "首页-订单-我的页面"));
 
         pageNameMaps.put(HomeFragment.class.getSimpleName(), new Pair<>("home", "首页"));
         pageNameMaps.put(MyOrderFragment.class.getSimpleName(), new Pair<>("order_list", "订单列表页面"));
