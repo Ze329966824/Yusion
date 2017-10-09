@@ -1,6 +1,5 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,7 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
+import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
@@ -132,4 +132,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            return true;//不执行父类点击事件
 //        return super.onKeyDown(keyCode, event);//继续执行父类其他点击事件
 //    }
+
+
+    @Override
+    public void onBackPressed() {
+        UBT.addAppEvent(this, "app_end");
+        super.onBackPressed();
+    }
 }

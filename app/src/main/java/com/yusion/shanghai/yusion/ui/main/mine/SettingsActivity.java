@@ -25,7 +25,7 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends BaseActivity implements View.OnClickListener {
     private String desc;
     private String url;
     private String versionCode;
@@ -83,7 +83,6 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.main_setting_agreement_layout:  //用户协议
                 Intent intent = new Intent(SettingsActivity.this, WebViewActivity.class);
@@ -108,7 +107,7 @@ public class SettingsActivity extends BaseActivity {
                             } else {
                                 Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
                         }
                     });
