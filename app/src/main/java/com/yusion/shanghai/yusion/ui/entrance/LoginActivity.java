@@ -68,6 +68,8 @@ public class LoginActivity extends BaseActivity {
             req.state = "diandi_wx_login";
             api.sendReq(req);
 
+            finish();
+
         });
 
 
@@ -77,12 +79,12 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.btn_qq).setOnClickListener(v -> {
 
 
-
             //如果session不可用，则登录，否则说明已经登录
             if (!tencent.isSessionValid()) {
                 tencent.login(this, "all", mListener);
+            }else {
+                tencent.logout(this);
             }
-
 
         });
 
@@ -175,6 +177,18 @@ public class LoginActivity extends BaseActivity {
 
         ConfigApi.getConfigJson(LoginActivity.this, resp -> {
         });
+
+        wxLoginSuccess();
+    }
+
+    private void wxLoginSuccess() {
+        String mtoken = getIntent().getStringExtra("token");
+        if (mtoken != null) {
+            YusionApp.TOKEN = mtoken;
+            SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
 
@@ -245,22 +259,25 @@ public class LoginActivity extends BaseActivity {
                 tencent.setOpenId(openID);
                 tencent.setAccessToken(access_token, expires);
 
-
-
-
-                YusionApp.OPEN_ID = openID;
-                SharedPrefsUtil.getInstance(LoginActivity.this).putValue("open_id", YusionApp.OPEN_ID);
-
                 req.open_id = openID;
                 req.source = "qq";
+
+//                YusionApp.OPEN_ID = req.open_id;
+//                SharedPrefsUtil.getInstance(LoginActivity.this).putValue("open_id", YusionApp.OPEN_ID);
+
                 runOnUiThread(() -> AuthApi.thirdLogin(context, req, data -> {
                     if (data != null) {
                         YusionApp.TOKEN = data.token;
                         SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
+
                     } else {
-                        startActivity(new Intent(context, BindingActivity.class));
+                        Intent intent = new Intent(context, BindingActivity.class);
+                        intent.putExtra("source", "qq");
+                        intent.putExtra("open_id", req.open_id);
+                        startActivity(intent);
                         finish();
                     }
                 }));

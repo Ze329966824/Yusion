@@ -68,6 +68,8 @@ public class JpushDialogActivity extends BaseActivity {
                             .setMessage(content)
                             .setPositiveButton("确定", (dialog, which) -> {
                                 myApp.clearUserData();
+                                tencent.logout(this);
+                                api.unregisterApp();
                                 startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
                                 finish();
                             })

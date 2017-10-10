@@ -175,7 +175,6 @@ public class SettingsActivity extends BaseActivity {
 
     private void logout() {
         myApp.clearUserData();
-
         startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
         finish();
     }

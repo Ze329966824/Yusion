@@ -70,8 +70,8 @@ public class BindingActivity extends BaseActivity {
 
 
         req.reg_id = YusionApp.reg_id;
-        req.source = "qq";
-        req.open_id = YusionApp.OPEN_ID;
+        req.source = getIntent().getStringExtra("source");
+        req.open_id = getIntent().getStringExtra("open_id");
         mBindingSubmitBtn.setOnClickListener(v -> {
             if (!CheckMobileUtil.checkMobile(mBindingMobileTV.getText().toString())) {
                 Toast.makeText(BindingActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();

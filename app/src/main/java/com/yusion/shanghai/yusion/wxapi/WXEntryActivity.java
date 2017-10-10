@@ -11,14 +11,12 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yusion.shanghai.yusion.R;
-import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.ui.entrance.BindingActivity;
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
+import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -121,19 +119,27 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     String access_token = jsonObject.optString("access_token");
                     String openid = jsonObject.optString("openid");
                     Log.e("openid", "=====" + openid);
+//                    YusionApp.OPEN_ID = openid;
+//                    SharedPrefsUtil.getInstance(WXEntryActivity.this).putValue("open_id", YusionApp.OPEN_ID);
                     req.open_id = openid;
                     req.source = "wechat";
                     runOnUiThread(() -> {
                         AuthApi.thirdLogin(WXEntryActivity.this, req, data -> {
                             if (data != null) {
 
-                                data.token = YusionApp.TOKEN;
-                                SharedPrefsUtil.getInstance(WXEntryActivity.this).putValue("token", YusionApp.TOKEN);
-                                Toast.makeText(WXEntryActivity.this, "登录成功" + "\nopenid:" + openid, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(WXEntryActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(WXEntryActivity.this, LoginActivity.class);
+                                intent.putExtra("token", data.token);
+                                startActivity(intent);
+                                finish();
 
 
-                            }else {
-                                startActivity(new Intent(WXEntryActivity.this, BindingActivity.class));
+                            } else {
+                                Intent intent = new Intent(WXEntryActivity.this, BindingActivity.class);
+                                intent.putExtra("source", "wechat");
+                                intent.putExtra("open_id", req.open_id);
+                                startActivity(intent);
                                 finish();
                             }
                         });
@@ -141,8 +147,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     });
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
