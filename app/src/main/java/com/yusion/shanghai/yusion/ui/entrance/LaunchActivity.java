@@ -50,7 +50,6 @@ public class LaunchActivity extends BaseActivity {
 //        } else {
 //            getPermisson();
 //        }
-
         if (Settings.isOnline) {
             checkVersion();
         } else {

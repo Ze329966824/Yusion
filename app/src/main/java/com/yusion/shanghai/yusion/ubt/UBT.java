@@ -8,22 +8,35 @@ package com.yusion.shanghai.yusion.ubt;
  */
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.retrofit.api.UBTApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ubt.annotate.BindView;
+import com.yusion.shanghai.yusion.ubt.bean.UBTData;
+import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
+import com.yusion.shanghai.yusion.ubt.sql.UBTEvent;
+import com.yusion.shanghai.yusion.utils.MobileDataUtil;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,6 +55,85 @@ public class UBT {
     }
 
     private static ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
+
+
+    public static void sendAllUBTEvents(Context context) {
+        sendUBTEvents(context, 0, null);
+    }
+
+    public static void sendAllUBTEvents(Context context, OnVoidCallBack callBack) {
+        sendUBTEvents(context, 0, callBack);
+    }
+
+    public static void sendUBTEvents(Context context, int limit) {
+        sendUBTEvents(context, limit, null);
+    }
+
+    /**
+     * @param context
+     * @param limit   limit为0时发送所有数据 不为0时若数据数量大于limit条则发送limit条
+     */
+    public static void sendUBTEvents(Context context, int limit, OnVoidCallBack callBack) {
+        singleThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                String TAG = "UBT";
+                Cursor cursor = SqlLiteUtil.query(null, null, null, null);
+                int count = cursor.getCount();
+                if (count > limit) {
+                    Log.e(TAG, "run:共有 " + count);
+                    Cursor query;
+                    if (limit == 0) {
+                        query = SqlLiteUtil.query(null, null, null, null);
+                    } else {
+                        query = SqlLiteUtil.query(null, null, null, String.valueOf(UBT.LIMIT));
+                    }
+                    Log.e(TAG, "run:要删除的 " + query.getCount());
+                    query.moveToFirst();
+                    List<Long> tss = new ArrayList<>();
+                    List<UBTEvent> data = new ArrayList<>();
+                    while (query.moveToNext()) {
+                        tss.add(query.getLong(query.getColumnIndex("ts")));
+                        UBTEvent ubtEvent = new UBTEvent();
+                        ubtEvent.object = query.getString(query.getColumnIndex("object"));
+                        ubtEvent.action = query.getString(query.getColumnIndex("action"));
+                        ubtEvent.page = query.getString(query.getColumnIndex("page"));
+                        ubtEvent.page_cn = query.getString(query.getColumnIndex("page_cn"));
+                        ubtEvent.ts = query.getLong(query.getColumnIndex("ts"));
+                        data.add(ubtEvent);
+                    }
+                    Log.e(TAG, "run: " + tss);
+
+                    //发送
+                    UBTData req = new UBTData();
+                    req.data = data;
+                    req.token = SharedPrefsUtil.getInstance(context).getValue("token", "");
+                    req.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", "");
+                    TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    req.imei = tm.getDeviceId();
+                    req.rooted = MobileDataUtil.hasRoot();
+                    req.gps.latitude = SharedPrefsUtil.getInstance(context).getValue("latitude", "");
+                    req.gps.longitude = SharedPrefsUtil.getInstance(context).getValue("longitude", "");
+
+                    Log.e(TAG, "run: 正在发送");
+                    try {
+                        if (UBTApi.getUBTService().postUBTData(req).execute().isSuccessful()) {
+                            Log.e(TAG, "run: 发送成功");
+                            for (Long aLong : tss) {
+                                SqlLiteUtil.delete("ts = ?", new String[]{String.valueOf(aLong)});
+                            }
+                            if (callBack != null) {
+                                callBack.callBack();
+                            }
+                        }
+                    } catch (IOException e) {
+                        Log.e(TAG, "run: " + e);
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 
     public static void bind(final Object object, View sourceView, String pageName) {
         for (Field field : object.getClass().getDeclaredFields()) {
@@ -211,6 +303,10 @@ public class UBT {
 
     public static void addPageEvent(Context context, String action, String object, final String pageName) {
         singleThreadPool.execute(new AddEventThread(context, action, object, pageName));
+    }
+
+    public static void addAppEvent(Context context, String action) {
+        singleThreadPool.execute(new AddEventThread(context, action));
     }
 }
 
