@@ -69,7 +69,7 @@ public class LaunchActivity extends BaseActivity {
         //product：调用oss接口更新
         AuthApi.update(this, "yusion", data -> {
             if (data != null) {
-                if (!versionCode.contains(data.version)) {
+                if (versionCode.contains(data.version)) {
                     UpdateUtil.showUpdateDialog(LaunchActivity.this, data.change_log, true, data.download_url);
                 } else {
                     getConfigJson();
