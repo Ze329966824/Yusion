@@ -15,6 +15,7 @@ public class UBTData {
     public List<UBTEvent> data;
     public String imei;
     public Gps gps = new Gps();
+    public boolean rooted;
 
     public static class Gps {
         public String longitude;
@@ -24,5 +25,10 @@ public class UBTData {
         public String toString() {
             return new Gson().toJson(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

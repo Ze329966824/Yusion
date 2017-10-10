@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -28,6 +29,16 @@ import java.util.List;
  */
 
 public class MobileDataUtil {
+
+    public static boolean hasRoot() {
+        boolean root = false;
+        try {
+            root = !((!new File("/system/bin/su").exists()) && (!new File("/system/xbin/su").exists()));
+        } catch (Exception ignored) {
+        }
+        return root;
+    }
+
     /**
      * 获取用户手机数据
      *

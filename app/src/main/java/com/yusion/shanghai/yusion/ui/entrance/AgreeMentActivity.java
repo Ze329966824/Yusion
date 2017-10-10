@@ -2,7 +2,6 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -19,12 +18,7 @@ import com.yusion.shanghai.yusion.bean.auth.CheckIsAgreeReq;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AgreeMentActivity extends BaseActivity implements View.OnClickListener {
     private TitleBar titleBar;
@@ -108,5 +102,10 @@ public class AgreeMentActivity extends BaseActivity implements View.OnClickListe
                 LoadingUtils.createLoadingDialog(AgreeMentActivity.this);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

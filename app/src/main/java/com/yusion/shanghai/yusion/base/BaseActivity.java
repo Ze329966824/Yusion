@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
@@ -19,7 +18,7 @@ import com.yusion.shanghai.yusion.widget.TitleBar;
  * Created by ice on 2017/8/3.
  */
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public class BaseActivity extends AppCompatActivity {
 
     protected YusionApp myApp;
     private String dialogMsg;
@@ -29,7 +28,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         ActivityManager.addActivity(this);
         myApp = ((YusionApp) getApplication());
-//        PgyCrashManager.register(this);
+
+//        if (getClass().getSimpleName().equals(LaunchActivity.class.getSimpleName())) {
+//            UBT.sendAllUBTEvents(this);
+//            UBT.addAppEvent(BaseActivity.this, "app_start");
+//        }
     }
 
 
@@ -46,24 +49,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        // 自定义摇一摇的灵敏度，默认为950，数值越小灵敏度越高。
-//        PgyFeedbackShakeManager.setShakingThreshold(1000);
-        // 以对话框的形式弹出
-//        PgyFeedbackShakeManager.register(this);
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         UBT.addPageEvent(this, "page_hidden", "activity", getClass().getSimpleName());
-//        PgyFeedbackShakeManager.unregister();
         MobclickAgent.onPause(this);
     }
 
@@ -72,7 +60,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         ActivityManager.removeActivity(this);
     }
-
 
     @Override
     protected void onResume() {
@@ -110,6 +97,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 })
                 .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        UBT.addAppEvent(this, "app_end");
     }
 }
 
