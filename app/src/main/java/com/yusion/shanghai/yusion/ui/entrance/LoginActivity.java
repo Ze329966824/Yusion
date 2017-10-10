@@ -25,7 +25,6 @@ import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.api.PersonApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
-import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -151,7 +150,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        UBT.addAppEvent(this, "app_end");
         super.onBackPressed();
         //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
         ActivityManager.finishOtherActivityEx(LoginActivity.class);

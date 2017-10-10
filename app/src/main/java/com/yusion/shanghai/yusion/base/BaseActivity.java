@@ -11,7 +11,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.ubt.UBT;
-import com.yusion.shanghai.yusion.ui.entrance.LaunchActivity;
 import com.yusion.shanghai.yusion.ui.update.CommitActivity;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
@@ -30,10 +29,10 @@ public class BaseActivity extends AppCompatActivity {
         ActivityManager.addActivity(this);
         myApp = ((YusionApp) getApplication());
 
-        if (getClass().getSimpleName().equals(LaunchActivity.class.getSimpleName())) {
-            UBT.sendAllUBTEvents(this);
-            UBT.addAppEvent(BaseActivity.this, "app_start");
-        }
+//        if (getClass().getSimpleName().equals(LaunchActivity.class.getSimpleName())) {
+//            UBT.sendAllUBTEvents(this);
+//            UBT.addAppEvent(BaseActivity.this, "app_start");
+//        }
     }
 
 
@@ -98,6 +97,12 @@ public class BaseActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        UBT.addAppEvent(this, "app_end");
     }
 }
 

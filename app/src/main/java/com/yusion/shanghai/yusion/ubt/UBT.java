@@ -27,6 +27,7 @@ import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.ubt.sql.UBTEvent;
+import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import java.io.IOException;
@@ -110,6 +111,7 @@ public class UBT {
                     req.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", "");
                     TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     req.imei = tm.getDeviceId();
+                    req.rooted = MobileDataUtil.hasRoot();
                     req.gps.latitude = SharedPrefsUtil.getInstance(context).getValue("latitude", "");
                     req.gps.longitude = SharedPrefsUtil.getInstance(context).getValue("longitude", "");
 
