@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
@@ -15,6 +16,7 @@ import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
+import java.util.FormatFlagsConversionMismatchException;
 import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;

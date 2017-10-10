@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.upload;
 
+import android.icu.lang.UCharacter;
+
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -41,6 +43,7 @@ public class ContactPersonInfoReq {
     public String brand;
     public String os_version;
     public DataBean data = new DataBean();
+    public SmsBean sms = new SmsBean();
     public Gps gps = new Gps();
 
 
@@ -93,4 +96,30 @@ public class ContactPersonInfoReq {
 
         }
     }
+
+    public static class SmsBean {
+        public String clt_nm;
+        public String mobile;
+        public List<SmsListBean> sms_list;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
+
+        public static class SmsListBean {
+            public String to;
+            public String from;
+            public String content;
+            public String type;
+            public String ts;
+
+            @Override
+            public String toString() {
+                return new Gson().toJson(this);
+            }
+        }
+    }
+
+
 }
