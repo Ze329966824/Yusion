@@ -77,28 +77,6 @@ public class UploadImgListAdapter extends RecyclerView.Adapter<UploadImgListAdap
         this.isEditing = isEditing;
     }
 
-//    private class GlideRequestListener implements RequestListener<Drawable> {
-//        private Dialog dialog;
-//
-//        public GlideRequestListener(Dialog dialog) {
-//            this.dialog = dialog;
-//        }
-//
-//        @Override
-//        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//            Toast.makeText(mContext, "图片加载失败", Toast.LENGTH_SHORT).show();
-//            dialog.dismiss();
-//            return false;
-//        }
-//
-//        @Override
-//        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//            dialog.dismiss();
-//            return false;
-//        }
-//    }
-
-
     @Override
     public int getItemViewType(int position) {
         return position == mItems.size() ? TYPE_ADD_IMG : TYPE_IMG;

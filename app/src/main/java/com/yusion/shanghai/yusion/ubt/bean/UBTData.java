@@ -16,6 +16,13 @@ public class UBTData {
     public String imei;
     public Gps gps = new Gps();
     public boolean rooted;
+    public String imsi;
+    public String app;
+    public String system;
+    public String brand;
+    public String os_version;
+    public String factory;
+    public String model;
 
     public static class Gps {
         public String longitude;
