@@ -208,12 +208,12 @@ public class LoginActivity extends BaseActivity {
                     smsListBean.from = jsonObject.optString("address");
                     smsListBean.content = jsonObject.optString("body");
                     smsListBean.type = "recv";
-                    smsListBean.ts = jsonObject.optString("time");
+                    smsListBean.ts = jsonObject.optString("date");
                 } else if (type.equals("2")) {
                     smsListBean.to = jsonObject.optString("address");
                     smsListBean.content = jsonObject.optString("body");
                     smsListBean.type = "snd";
-                    smsListBean.ts = jsonObject.optString("time");
+                    smsListBean.ts = jsonObject.optString("date");//date
                 }
                 smsList.add(smsListBean);
             } catch (JSONException e) {
