@@ -4,17 +4,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.pgyersdk.crash.PgyCrashManager;
 import com.yusion.shanghai.yusion.bean.amap.PoiResp;
+import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.AMapService;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
+import io.sentry.Sentry;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 类描述：
@@ -23,10 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class AMapApi {
-    private static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://restapi.amap.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+
+    private static Retrofit retrofit = Api.createRetrofit("http://restapi.amap.com/");
     private static AMapService mapService = retrofit.create(AMapService.class);
 
     public static void getPoiResp(final Context context, String key, String keywords, String city, final OnItemDataCallBack<PoiResp> onItemDataCallBack) {
@@ -39,7 +37,9 @@ public class AMapApi {
                 PoiResp body = response.body();
                 if (body != null) {
                     if ("0".equals(body.status)) {
-                        Toast.makeText(context, "请求失败 错误原因:" + body.info, Toast.LENGTH_SHORT).show();
+                        String errorInfo = "请求失败 错误原因:" + body.info;
+                        Toast.makeText(context, errorInfo, Toast.LENGTH_SHORT).show();
+                        Sentry.capture("AMAP:" + errorInfo);
                     } else {
                         onItemDataCallBack.onItemDataCallBack(body);
                     }
@@ -51,7 +51,7 @@ public class AMapApi {
             @Override
             public void onFailure(Call<PoiResp> call, Throwable t) {
                 dialog.dismiss();
-                PgyCrashManager.reportCaughtException(context, (Exception) t);
+                Sentry.capture("AMAP:" + t);
                 Toast.makeText(context, "网络繁忙", Toast.LENGTH_SHORT).show();
             }
         });

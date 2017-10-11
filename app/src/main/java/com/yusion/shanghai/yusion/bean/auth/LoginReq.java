@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.auth;
 
+import com.google.gson.Gson;
+
 /**
  * 类描述：
  * 伟大的创建人：ice
@@ -13,10 +15,6 @@ public class LoginReq {
 
     @Override
     public String toString() {
-        return "LoginReq{" +
-                "mobile='" + mobile + '\'' +
-                ", verify_code='" + verify_code + '\'' +
-                ", reg_id='" + reg_id + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 }

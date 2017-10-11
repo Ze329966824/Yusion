@@ -13,7 +13,7 @@ import io.sentry.Sentry;
  * Created by LX on 2017/8/14.
  */
 
-public class YusionReceiver extends BroadcastReceiver {
+public class JpushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();

@@ -1,4 +1,7 @@
 package com.yusion.shanghai.yusion.bean.order;
+
+import com.google.gson.Gson;
+
 public class GetAppDetailResp {
     /**
      * uw : true
@@ -53,6 +56,11 @@ public class GetAppDetailResp {
     public String product_type;
     public String id_no;
 
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
+
     public static class UwDetailBean {
         /**
          * vehicle_price : 8888.00
@@ -75,5 +83,10 @@ public class GetAppDetailResp {
         public String other_fee;
         public String comments;
         public String uw_result;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 }

@@ -11,30 +11,27 @@ import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.ubt.UBT;
+import com.yusion.shanghai.yusion.ui.entrance.LaunchActivity;
 import com.yusion.shanghai.yusion.ui.update.CommitActivity;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 /**
  * Created by ice on 2017/8/3.
  */
-
 public class BaseActivity extends AppCompatActivity {
 
     protected YusionApp myApp;
-    private String dialogMsg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.addActivity(this);
-        myApp = ((YusionApp) getApplication());
-
-//        if (getClass().getSimpleName().equals(LaunchActivity.class.getSimpleName())) {
-//            UBT.sendAllUBTEvents(this);
-//            UBT.addAppEvent(BaseActivity.this, "app_start");
-//        }
+        initData();
     }
 
+    private void initData() {
+        myApp = ((YusionApp) getApplication());
+    }
 
     public TitleBar initTitleBar(final Activity activity, String title) {
         TitleBar titleBar = (TitleBar) activity.findViewById(R.id.title_bar);
@@ -48,27 +45,8 @@ public class BaseActivity extends AppCompatActivity {
         return titleBar;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        UBT.addPageEvent(this, "page_hidden", "activity", getClass().getSimpleName());
-        MobclickAgent.onPause(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityManager.removeActivity(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
-        MobclickAgent.onResume(this);
-    }
-
     public void toCommitActivity(String clt_id, String role, String title, String state) {
+        String dialogMsg = "";
         switch (title) {
             case "个人影像件资料":
                 dialogMsg = "个人";
@@ -87,12 +65,12 @@ public class BaseActivity extends AppCompatActivity {
                 .setMessage("确认要更改" + dialogMsg + "信息？")
                 .setCancelable(false)
                 .setPositiveButton("确认更改", (dialog, which) -> {
-                    Intent intent1 = new Intent(BaseActivity.this, CommitActivity.class);
-                    intent1.putExtra("clt_id", clt_id);
-                    intent1.putExtra("role", role);
-                    intent1.putExtra("title", title);
-                    intent1.putExtra("commit_state", state);
-                    startActivity(intent1);
+                    Intent intent = new Intent(BaseActivity.this, CommitActivity.class);
+                    intent.putExtra("clt_id", clt_id);
+                    intent.putExtra("role", role);
+                    intent.putExtra("title", title);
+                    intent.putExtra("commit_state", state);
+                    startActivity(intent);
                     finish();
                 })
                 .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
@@ -100,9 +78,32 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        UBT.addPageEvent(this, "page_hidden", "activity", getClass().getSimpleName());
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityManager.removeActivity(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getClass().getSimpleName().equals(LaunchActivity.class.getSimpleName())) {
+            UBT.addAppEvent(this, "app_start");
+        }
+        UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        UBT.addAppEvent(this, "app_end");
+        UBT.addAppEvent(this, "app_pause");
     }
 }
 

@@ -30,5 +30,10 @@ public class GetOssTokenBean {
     public class FidDetailBean {
         public String Bucket;
         public String Region;
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
     }
 }

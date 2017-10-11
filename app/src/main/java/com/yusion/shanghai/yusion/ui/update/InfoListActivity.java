@@ -90,9 +90,9 @@ public class InfoListActivity extends BaseActivity {
 
 
 //    private void updateHaveGuaranteeStatus() {
-//        UserApi.getListCurrentTpye(InfoListActivity.this, data -> {
-//            if (data != null) {
-//                if (data.guarantor_commited) {
+//        UserApi.getListCurrentTpye(InfoListActivity.this, contact -> {
+//            if (contact != null) {
+//                if (contact.guarantor_commited) {
 //                    add_guarantee.setVisibility(View.GONE);
 //                    guarantee_info.setVisibility(View.VISIBLE);
 //                } else {

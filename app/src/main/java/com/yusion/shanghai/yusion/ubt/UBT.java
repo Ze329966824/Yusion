@@ -10,7 +10,6 @@ package com.yusion.shanghai.yusion.ubt;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,8 +26,6 @@ import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.ubt.sql.UBTEvent;
-import com.yusion.shanghai.yusion.utils.MobileDataUtil;
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -105,25 +102,8 @@ public class UBT {
                     Log.e(TAG, "run: " + tss);
 
                     //发送
-                    UBTData req = new UBTData();
+                    UBTData req = new UBTData(context);
                     req.data = data;
-                    req.token = SharedPrefsUtil.getInstance(context).getValue("token", "");
-                    req.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", "");
-                    TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                    String imei = telephonyManager.getDeviceId();
-                    String imsi = telephonyManager.getSubscriberId();
-                    req.imei = imei;
-                    req.imsi = imsi;
-                    req.app = "Yusion";
-                    req.system = "android";
-                    req.brand = SharedPrefsUtil.getInstance(context).getValue("brand", "");
-                    req.os_version = SharedPrefsUtil.getInstance(context).getValue("release", "");
-                    req.factory = SharedPrefsUtil.getInstance(context).getValue("factory", "");
-                    req.model = SharedPrefsUtil.getInstance(context).getValue("model", "");
-                    req.rooted = MobileDataUtil.hasRoot();
-                    req.gps.latitude = SharedPrefsUtil.getInstance(context).getValue("latitude", "");
-                    req.gps.longitude = SharedPrefsUtil.getInstance(context).getValue("longitude", "");
-
                     Log.e(TAG, "run: 正在发送");
                     try {
                         if (UBTApi.getUBTService().postUBTData(req).execute().isSuccessful()) {

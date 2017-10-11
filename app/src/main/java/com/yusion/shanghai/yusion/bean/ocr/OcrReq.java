@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.ocr;
 
+import com.google.gson.Gson;
+
 /**
  * 类描述：
  * 伟大的创建人：ice
@@ -18,4 +20,9 @@ public class OcrReq {
     public String region;
     public String bucket;
     public String fid;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

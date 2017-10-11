@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.token;
 
+import com.google.gson.Gson;
+
 /**
  * Created by ice on 2017/7/26.
  */
@@ -9,8 +11,6 @@ public class CheckTokenResp {
 
     @Override
     public String toString() {
-        return "CheckTokenResp{" +
-                "valid=" + valid +
-                '}';
+        return new Gson().toJson(this);
     }
 }

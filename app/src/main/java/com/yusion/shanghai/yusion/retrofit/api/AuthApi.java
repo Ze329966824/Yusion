@@ -3,7 +3,7 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 
-import com.yusion.shanghai.yusion.bean.auth.CheckIsAgreeReq;
+import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
@@ -17,10 +17,6 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by ice on 2017/8/3.
@@ -40,7 +36,6 @@ public class AuthApi {
     public static void login(Context context, LoginReq req, final OnItemDataCallBack<LoginResp> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
         req.reg_id = SharedPrefsUtil.getInstance(context).getValue("reg_id", "");
-//        Log.e("reg_id",req.reg_id);
         Api.getAuthService().login(req).enqueue(new CustomCallBack<LoginResp>(context, dialog) {
             @Override
             public void onCustomResponse(LoginResp data) {
@@ -59,14 +54,13 @@ public class AuthApi {
         });
     }
 
-    public static void isAgree(final Context context, CheckIsAgreeReq req, final OnCodeAndMsgCallBack codeAndMsgCallBack) {
+    public static void isAgree(final Context context, CheckHasAgreedReq req, final OnCodeAndMsgCallBack codeAndMsgCallBack) {
         Api.getAuthService().isAgree(req).enqueue(new CustomCodeAndMsgCallBack(context) {
             @Override
             public void onCustomResponse(int code, String msg) {
                 codeAndMsgCallBack.callBack(code, msg);
             }
         });
-
     }
 
 
