@@ -28,7 +28,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Headers;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -43,33 +42,41 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api {
     private static Retrofit retrofit;
-    private static OkHttpClient okHttpClient;
+    //可打印日志client
+
+    private static OkHttpClient logClient;
+
+    /**
+     * 每个模块需要的retrofit对象不尽相同,通过传入serverUrl可以创建一个新实例
+     */
+    public static Retrofit createRetrofit(String serverUrl) {
+        return new Retrofit.Builder()
+                .baseUrl(serverUrl)
+                .client(logClient)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
+                        .serializeNulls()//null值也进行序列化并上传至服务器
+                        .registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory())//null值序列化为""
+                        .create()))
+                .build();
+    }
 
     static {
-        okHttpClient = new OkHttpClient.Builder()
+        logClient = new OkHttpClient.Builder()
                 .connectTimeout(1, TimeUnit.MINUTES)
                 .writeTimeout(1, TimeUnit.MINUTES)
                 .readTimeout(1, TimeUnit.MINUTES)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request();
-                        Request realRequest = request.newBuilder()
-                                .method(request.method(), request.body())
-                                .addHeader("authentication", String.format(Locale.CHINA, "token %s", TextUtils.isEmpty(YusionApp.TOKEN) ? Settings.TEST_TOKEN : YusionApp.TOKEN))
-                                .build();
-                        Response response = chain.proceed(realRequest);
-                        logResponseInfo(response);
-                        return response;
-                    }
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    Request realRequest = request.newBuilder()
+                            .method(request.method(), request.body())
+                            .addHeader("authentication", String.format(Locale.CHINA, "token %s", TextUtils.isEmpty(YusionApp.TOKEN) ? Settings.TEST_TOKEN : YusionApp.TOKEN))
+                            .build();
+                    Response response = chain.proceed(realRequest);
+                    logRequestInfo(response.request());
+                    return response;
                 })
                 .build();
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Settings.SERVER_URL)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory()).serializeNulls().create()))
-                .build();
-
+        retrofit = createRetrofit(Settings.SERVER_URL);
     }
 
     public static AuthService getAuthService() {
@@ -86,6 +93,43 @@ public class Api {
 
     public static UploadService getUploadService() {
         return retrofit.create(UploadService.class);
+    }
+
+    public static ProductService getProductService() {
+        return retrofit.create(ProductService.class);
+    }
+
+
+    public static OrderService getOrderService() {
+        return retrofit.create(OrderService.class);
+    }
+
+    public static ConfigService getConfigService() {
+        return retrofit.create(ConfigService.class);
+    }
+
+    @NonNull
+    public static String getTag(Request request) {
+        StringBuilder tagBuilder = new StringBuilder("API");
+        if (request.url().toString().contains("application")) {
+            tagBuilder.append("-APPLICATION");
+        } else if (request.url().toString().contains("client")) {
+            tagBuilder.append("-CLIENT");
+        } else if (request.url().toString().contains("auth")) {
+            tagBuilder.append("-AUTH");
+        } else if (request.url().toString().contains("material")) {
+            tagBuilder.append("-MATERIAL");
+        } else if (request.url().toString().contains("ubt")) {
+            tagBuilder.append("-UBT");
+        } else if (request.url().toString().contains("ocr")) {
+            tagBuilder.append("-OCR");
+        } else if (request.url().toString().contains("oss")) {
+            tagBuilder.append("-OSS");
+        } else {
+            tagBuilder.append("-OTHER");
+        }
+        tagBuilder.append("-").append(request.method().toUpperCase());
+        return tagBuilder.toString();
     }
 
     private static void logRequestInfo(Request request) {
@@ -118,41 +162,7 @@ public class Api {
         Log.e(tag, "\n");
     }
 
-    @NonNull
-    public static String getTag(Request request) {
-        StringBuilder tagBuilder = new StringBuilder("API");
-        if (request.url().toString().contains("application")) {
-            tagBuilder.append("-APPLICATION");
-        } else if (request.url().toString().contains("client")) {
-            tagBuilder.append("-CLIENT");
-        } else if (request.url().toString().contains("auth")) {
-            tagBuilder.append("-UBT");
-        } else if (request.url().toString().contains("material")) {
-            tagBuilder.append("-MATERIAL");
-        } else {
-            tagBuilder.append("-OTHER");
-        }
-        tagBuilder.append("-").append(request.method().toUpperCase());
-        return tagBuilder.toString();
-    }
-
-    private static void logResponseInfo(Response response) {
-        logRequestInfo(response.request());
-    }
-
-    public static ProductService getProductService() {
-        return retrofit.create(ProductService.class);
-    }
-
-    public static OrderService getOrderService() {
-        return retrofit.create(OrderService.class);
-    }
-
-    public static ConfigService getConfigService() {
-        return retrofit.create(ConfigService.class);
-    }
-
-    public static class NullStringToEmptyAdapterFactory<T> implements TypeAdapterFactory {
+    private static class NullStringToEmptyAdapterFactory<T> implements TypeAdapterFactory {
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
             Class<T> rawType = (Class<T>) type.getRawType();
             if (rawType != String.class) {
@@ -162,7 +172,7 @@ public class Api {
         }
     }
 
-    public static class StringAdapter extends TypeAdapter<String> {
+    private static class StringAdapter extends TypeAdapter<String> {
         public String read(JsonReader reader) throws IOException {
             if (reader.peek() == JsonToken.NULL) {
                 reader.nextNull();

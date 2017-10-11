@@ -918,8 +918,8 @@ public class UpdatePersonalInfoActivity extends BaseActivity {
 //                    public void callBack() {
 //                        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, new OnItemDataCallBack<ClientInfo>() {
 //                            @Override
-//                            public void onItemDataCallBack(ClientInfo data) {
-//                                if (data == null) return;
+//                            public void onItemDataCallBack(ClientInfo contact) {
+//                                if (contact == null) return;
 //                                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
 //                                startActivity(intent);
 //                                finish();

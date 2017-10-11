@@ -22,12 +22,6 @@ public class CheckUserInfoResp {
 
     @Override
     public String toString() {
-        return "CheckUserInfoResp{" +
-                "name='" + name + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", role='" + role + '\'' +
-                ", commited=" + commited +
-                ", is_agree=" + is_agree +
-                '}';
+        return new Gson().toJson(this);
     }
 }

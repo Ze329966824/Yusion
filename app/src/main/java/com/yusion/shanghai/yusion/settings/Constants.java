@@ -23,7 +23,7 @@ public class Constants {
         public static final String MARRIAGE_PROOF = "marriage_proof";
     }
 
-    public static class PersonType{
+    public static class PersonType {
         public static final String LENDER = "lender";
         public static final String LENDER_SP = "lender_sp";
         public static final String GUARANTOR = "guarantor";

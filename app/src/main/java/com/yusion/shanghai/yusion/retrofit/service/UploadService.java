@@ -1,7 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
 import com.yusion.shanghai.yusion.base.BaseResult;
-import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
 import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;

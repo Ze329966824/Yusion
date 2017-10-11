@@ -514,9 +514,9 @@
 //    }
 //
 //    //获取用户信息
-//    public void getClientinfo(ClientInfo data) {
-//        if (data != null) {
-//            clientInfo = data;
+//    public void getClientinfo(ClientInfo contact) {
+//        if (contact != null) {
+//            clientInfo = contact;
 //            //填充
 //            update_personal_info_clt_nm_edt.setText(clientInfo.clt_nm);
 //            update_personal_info_id_no_edt.setText(clientInfo.id_no);
@@ -820,11 +820,11 @@
 //    }
 //
 //    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK && data != null) {
+//    public void onActivityResult(int requestCode, int resultCode, Intent contact) {
+//        super.onActivityResult(requestCode, resultCode, contact);
+//        if (resultCode == Activity.RESULT_OK && contact != null) {
 //            if (requestCode == Constants.REQUEST_CONTACTS) {
-//                Uri uri = data.getData();
+//                Uri uri = contact.getData();
 //                String[] contacts = ContactsUtil.getPhoneContacts(mContext, uri);
 //                String[] result = new String[]{"", ""};
 //                if (contacts != null) {
@@ -840,16 +840,16 @@
 //                }
 //            } else if (requestCode == Constants.REQUEST_ADDRESS) {
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_current_address1_lin.getId()) {
-//                    update_personal_info_current_address1_tv.setText(data.getStringExtra("result"));
+//                    update_personal_info_current_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_from_income_company_address1_lin.getId()) {
-//                    update_personal_info_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_personal_info_from_income_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_from_self_company_address1_lin.getId()) {
-//                    update_personal_info_from_self_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_personal_info_from_self_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_extra_from_income_company_address1_lin.getId()) {
-//                    update_personal_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_personal_info_extra_from_income_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //            }
 //        }

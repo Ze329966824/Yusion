@@ -3,7 +3,6 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.YusionApp;
@@ -17,6 +16,8 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class ConfigApi {
     /**
@@ -48,115 +49,38 @@ public class ConfigApi {
         });
     }
 
-    public static ConfigResp parseJsonObject2ConfigResp(Context context, JSONObject jsonObject) throws JSONException {
+    private static ConfigResp parseJsonObject2ConfigResp(Context context, JSONObject jsonObject) throws JSONException {
         ConfigResp configResp = new ConfigResp();
 
-        String agreement_url = jsonObject.optString("agreement_url");
-        String confident_policy_url = jsonObject.optString("confident_policy_url");
-        configResp.confident_policy_url = confident_policy_url;
-        configResp.agreement_url = agreement_url;
+        configResp.confident_policy_url = jsonObject.optString("confident_policy_url");
+        configResp.agreement_url = jsonObject.optString("agreement_url");
 
-        JSONArray education_list = jsonObject.optJSONArray("education_list");
-        for (int i = 0; education_list != null && i < education_list.length(); i++) {
-            JSONObject o = education_list.getJSONObject(i);
-            String next = o.keys().next();
-            configResp.education_list_key.add(next);
-            configResp.education_list_value.add(o.getString(next));
-        }
-
-        JSONArray marriage_list = jsonObject.optJSONArray("marriage");
-        for (int i = 0; marriage_list != null && i < marriage_list.length(); i++) {
-            JSONObject o = marriage_list.getJSONObject(i);
-            String next = o.keys().next();
-            configResp.marriage_key.add(next);
-            configResp.marriage_value.add(o.getString(next));
-        }
-
-        JSONArray work_position_list = jsonObject.optJSONArray("work_position");
-        for (int i = 0; work_position_list != null && i < work_position_list.length(); i++) {
-            JSONObject o = work_position_list.getJSONObject(i);
-            String next = o.keys().next();
-            configResp.work_position_key.add(next);
-            configResp.work_position_value.add(o.getString(next));
-        }
-
-        JSONArray gender_list = jsonObject.optJSONArray("gender_list");
-        for (int i = 0; gender_list != null && i < gender_list.length(); i++) {
-            JSONObject item = gender_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.gender_list_key.add(key);
-            configResp.gender_list_value.add(value);
-        }
-
-        JSONArray house_type_list = jsonObject.optJSONArray("house_type_list");
-        for (int i = 0; house_type_list != null && i < house_type_list.length(); i++) {
-            JSONObject item = house_type_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.house_type_list_key.add(key);
-            configResp.house_type_list_value.add(value);
-        }
-
-        JSONArray house_relationship_list = jsonObject.optJSONArray("house_relationship_list");
-        for (int i = 0; house_relationship_list != null && i < house_relationship_list.length(); i++) {
-            JSONObject item = house_relationship_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.house_relationship_list_key.add(key);
-            configResp.house_relationship_list_value.add(value);
-        }
-
-        JSONArray urg_other_relationship_list = jsonObject.optJSONArray("urg_other_relationship_list");
-        for (int i = 0; urg_other_relationship_list != null && i < urg_other_relationship_list.length(); i++) {
-            JSONObject item = urg_other_relationship_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.urg_other_relationship_list_key.add(key);
-            configResp.urg_other_relationship_list_value.add(value);
-        }
-
-        JSONArray urg_rela_relationship_list = jsonObject.optJSONArray("urg_rela_relationship_list");
-        for (int i = 0; urg_rela_relationship_list != null && i < urg_rela_relationship_list.length(); i++) {
-            JSONObject item = urg_rela_relationship_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.urg_rela_relationship_list_key.add(key);
-            configResp.urg_rela_relationship_list_value.add(value);
-        }
-
-        JSONArray drv_lic_relationship_list = jsonObject.optJSONArray("drv_lic_relationship_list");
-        for (int i = 0; drv_lic_relationship_list != null && i < drv_lic_relationship_list.length(); i++) {
-            JSONObject item = drv_lic_relationship_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.drv_lic_relationship_list_key.add(key);
-            configResp.drv_lic_relationship_list_value.add(value);
-        }
-
-        JSONArray busi_type_list = jsonObject.optJSONArray("busi_type_list");
-        for (int i = 0; busi_type_list != null && i < busi_type_list.length(); i++) {
-            JSONObject item = busi_type_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.busi_type_list_key.add(key);
-            configResp.busi_type_list_value.add(value);
-        }
-
-        JSONArray guarantor_relationship_list = jsonObject.optJSONArray("guarantor_relationship_list");
-        for (int i = 0; guarantor_relationship_list != null && i < guarantor_relationship_list.length(); i++) {
-            JSONObject item = guarantor_relationship_list.getJSONObject(i);
-            String key = item.keys().next();
-            String value = item.getString(key);
-            configResp.guarantor_relationship_list_key.add(key);
-            configResp.guarantor_relationship_list_value.add(value);
-        }
-
+        fullConfigResp(jsonObject, "education_list", configResp.education_list_key, configResp.education_list_value);
+        fullConfigResp(jsonObject, "marriage", configResp.marriage_key, configResp.marriage_value);
+        fullConfigResp(jsonObject, "work_position", configResp.work_position_key, configResp.work_position_value);
+        fullConfigResp(jsonObject, "gender_list", configResp.gender_list_key, configResp.gender_list_value);
+        fullConfigResp(jsonObject, "house_type_list", configResp.house_type_list_key, configResp.house_type_list_value);
+        fullConfigResp(jsonObject, "house_relationship_list", configResp.house_relationship_list_key, configResp.house_relationship_list_value);
+        fullConfigResp(jsonObject, "urg_other_relationship_list", configResp.urg_other_relationship_list_key, configResp.urg_other_relationship_list_value);
+        fullConfigResp(jsonObject, "urg_rela_relationship_list", configResp.urg_rela_relationship_list_key, configResp.urg_rela_relationship_list_value);
+        fullConfigResp(jsonObject, "drv_lic_relationship_list", configResp.drv_lic_relationship_list_key, configResp.drv_lic_relationship_list_value);
+        fullConfigResp(jsonObject, "busi_type_list", configResp.busi_type_list_key, configResp.busi_type_list_value);
+        fullConfigResp(jsonObject, "guarantor_relationship_list", configResp.guarantor_relationship_list_key, configResp.guarantor_relationship_list_value);
 
         JSONArray client_material = jsonObject.optJSONArray("client_material");
         configResp.client_material = client_material != null ? client_material.toString() : "";
 
         YusionApp.CONFIG_RESP = configResp;
         return configResp;
+    }
+
+    private static void fullConfigResp(JSONObject jsonObject, String arrayName, List<String> keyList, List<String> valueList) throws JSONException {
+        JSONArray education_list = jsonObject.optJSONArray(arrayName);
+        for (int i = 0; education_list != null && i < education_list.length(); i++) {
+            JSONObject o = education_list.getJSONObject(i);
+            String next = o.keys().next();
+            keyList.add(next);
+            valueList.add(o.getString(next));
+        }
     }
 }

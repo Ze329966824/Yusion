@@ -154,19 +154,19 @@ public class ImgsListFragment extends BaseFragment {
 
 
 //
-//            if (!TextUtils.isEmpty(data.guarantor)) {
+//            if (!TextUtils.isEmpty(contact.guarantor)) {
 //                guarantor_imgs.setVisibility(View.VISIBLE);
-//                if (TextUtils.isEmpty(data.guarantor_sp)) {
+//                if (TextUtils.isEmpty(contact.guarantor_sp)) {
 //                    guarantorspouse_imgs.setVisibility(View.GONE);
 //                }else {
 //                    guarantorspouse_imgs.setVisibility(View.VISIBLE);
 //                }
 //            }
 //
-//            if (!TextUtils.isEmpty(data.lender)) {
+//            if (!TextUtils.isEmpty(contact.lender)) {
 //                personal_imgs.setVisibility(View.VISIBLE);
 //
-//                if (TextUtils.isEmpty(data.lender_sp)) {
+//                if (TextUtils.isEmpty(contact.lender_sp)) {
 //                    personalspouse_imgs.setVisibility(View.GONE);
 //                }else {
 //                    personalspouse_imgs.setVisibility(View.VISIBLE);

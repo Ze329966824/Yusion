@@ -852,8 +852,8 @@ public class UpdateGuarantorInfoActivity extends BaseActivity {
 //                if (mUpdateGuarantorInfoFragment.updateGuarantorinfo()) {
 //                    ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, new OnItemDataCallBack<GuarantorInfo>() {
 //                        @Override
-//                        public void onItemDataCallBack(GuarantorInfo data) {
-//                            if (data == null) return;
+//                        public void onItemDataCallBack(GuarantorInfo contact) {
+//                            if (contact == null) return;
 //                            Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
 //                            startActivity(intent);
 //                            finish();

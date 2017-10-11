@@ -1,6 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
-import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
+import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,6 +12,5 @@ import retrofit2.http.POST;
 
 public interface PersonInfoService {
     @POST("contact/")
-
-    Call<Void> uploadPersonAndDeviceInfo(@Body ContactPersonInfoReq req);
+    Call<Void> uploadPersonAndDeviceInfo(@Body UBTData req);
 }

@@ -14,7 +14,7 @@ import android.widget.Button;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.auth.CheckIsAgreeReq;
+import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
@@ -24,7 +24,7 @@ public class AgreeMentActivity extends BaseActivity implements View.OnClickListe
     private TitleBar titleBar;
     private Button acceptBtn;
     private Button noAcceptBtn;
-    private CheckIsAgreeReq req;
+    private CheckHasAgreedReq req;
     private WebView webView;
     private String url;
 
@@ -47,7 +47,7 @@ public class AgreeMentActivity extends BaseActivity implements View.OnClickListe
         acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                req = new CheckIsAgreeReq();
+                req = new CheckHasAgreedReq();
                 req.is_agree = true;
 
                 AuthApi.isAgree(AgreeMentActivity.this, req, new OnCodeAndMsgCallBack() {

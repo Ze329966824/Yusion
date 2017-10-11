@@ -516,11 +516,11 @@
 //    }
 //
 //    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK && data != null) {
+//    public void onActivityResult(int requestCode, int resultCode, Intent contact) {
+//        super.onActivityResult(requestCode, resultCode, contact);
+//        if (resultCode == Activity.RESULT_OK && contact != null) {
 //            if (requestCode == Constants.REQUEST_CONTACTS) {
-//                Uri uri = data.getData();
+//                Uri uri = contact.getData();
 //                String[] contacts = ContactsUtil.getPhoneContacts(mContext, uri);
 //                String[] result = new String[]{"", ""};
 //                if (contacts != null) {
@@ -531,24 +531,24 @@
 //                }
 //            } else if (requestCode == Constants.REQUEST_ADDRESS) {
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_from_income_company_address1_lin.getId()) {
-//                    update_spouse_info_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_spouse_info_from_income_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_from_self_company_address1_lin.getId()) {
-//                    update_spouse_info_from_self_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_spouse_info_from_self_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_spouse_info_extra_from_income_company_address1_lin.getId()) {
-//                    update_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_spouse_info_extra_from_income_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //            } else if (requestCode == Constants.REQUEST_DOCUMENT) {
 //                /*
 //
-//                backImg = (UploadImgItemBean) data.getSerializableExtra("backImg");
+//                backImg = (UploadImgItemBean) contact.getSerializableExtra("backImg");
 //                switch (backImg.type){
 //                    case Constants.FileLabelType.ID_BACK:
-//                        if (data.getBooleanExtra("ishaveImg",false)){
+//                        if (contact.getBooleanExtra("ishaveImg",false)){
 //                            update_spouse_info_id_back_tv.setText("已上传");
 //                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
-//                            ocrResp = (OcrResp.ShowapiResBodyBean) data.getSerializableExtra("ocrResp");
+//                            ocrResp = (OcrResp.ShowapiResBodyBean) contact.getSerializableExtra("ocrResp");
 //                        }else{
 //                             update_spouse_info_id_back_tv.setText("请上传");
 //                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
@@ -567,7 +567,7 @@
 //                        break;
 //
 //                   case Constants.FileLabelType.ID_FRONT:
-//                         if (data.getBooleanExtra("ishaveImg",false)){
+//                         if (contact.getBooleanExtra("ishaveImg",false)){
 //                            update_spouse_info_id_front_tv.setText("已上传");
 //                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
 //                        } else {
@@ -578,14 +578,14 @@
 //                }
 //*/
 //
-//                switch (data.getStringExtra("type")) {
+//                switch (contact.getStringExtra("type")) {
 //                    case Constants.FileLabelType.ID_BACK:
-//                        ID_BACK_FID = data.getStringExtra("objectKey");
-//                        idBackImgUrl = data.getStringExtra("imgUrl");
+//                        ID_BACK_FID = contact.getStringExtra("objectKey");
+//                        idBackImgUrl = contact.getStringExtra("imgUrl");
 //                        if (!idBackImgUrl.isEmpty()) {
 //                            update_spouse_info_id_back_tv.setText("已上传");
 //                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.system_color));
-//                            ocrResp = (OcrResp.ShowapiResBodyBean) data.getSerializableExtra("ocrResp");
+//                            ocrResp = (OcrResp.ShowapiResBodyBean) contact.getSerializableExtra("ocrResp");
 //                        } else {
 //                            update_spouse_info_id_back_tv.setText("请上传");
 //                            update_spouse_info_id_back_tv.setTextColor(getResources().getColor(R.color.please_upload_color));
@@ -604,8 +604,8 @@
 //
 //                        break;
 //                    case Constants.FileLabelType.ID_FRONT:
-//                        ID_FRONT_FID = data.getStringExtra("objectKey");
-//                        idFrontImgUrl = data.getStringExtra("imgUrl");
+//                        ID_FRONT_FID = contact.getStringExtra("objectKey");
+//                        idFrontImgUrl = contact.getStringExtra("imgUrl");
 //                        if (!idFrontImgUrl.isEmpty()) {
 //                            update_spouse_info_id_front_tv.setText("已上传");
 //                            update_spouse_info_id_front_tv.setTextColor(getResources().getColor(R.color.system_color));
@@ -616,9 +616,9 @@
 //                        break;
 //                }
 //            } else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
-//                switch (data.getStringExtra("type")) {
+//                switch (contact.getStringExtra("type")) {
 //                    case Constants.FileLabelType.RES_BOOKLET:
-//                        resBookList = (ArrayList<UploadImgItemBean>) data.getSerializableExtra("imgList");
+//                        resBookList = (ArrayList<UploadImgItemBean>) contact.getSerializableExtra("imgList");
 //                        if (resBookList.size() > 0) {
 //                            update_spouse_info_register_addr_tv.setText("已上传");
 //                            update_spouse_info_register_addr_tv.setTextColor(getResources().getColor(R.color.system_color));
@@ -628,7 +628,7 @@
 //                        }
 //                        break;
 //                    case Constants.FileLabelType.MARRIAGE_PROOF:
-//                        divorceImgsList = (ArrayList<UploadImgItemBean>) data.getSerializableExtra("imgList");
+//                        divorceImgsList = (ArrayList<UploadImgItemBean>) contact.getSerializableExtra("imgList");
 //                        if (divorceImgsList.size() > 0) {
 //                            update_spouse_info_divorced_tv.setText("已上传");
 //                            update_spouse_info_divorced_tv.setTextColor(getResources().getColor(R.color.system_color));
@@ -870,9 +870,9 @@
 //        }
 //    }
 //
-//    public void getClientinfo(ClientInfo data) {
-//        if (data != null) {
-//            clientInfo = data;
+//    public void getClientinfo(ClientInfo contact) {
+//        if (contact != null) {
+//            clientInfo = contact;
 //            //填充
 //            update_spouse_info_marriage_tv.setText(clientInfo.marriage);
 //            switch (clientInfo.marriage) {
@@ -882,7 +882,7 @@
 //
 //                    ListImgsReq req1 = new ListImgsReq();
 //                    req1.label = Constants.FileLabelType.ID_BACK;
-//                    req1.clt_id = data.spouse.clt_id;
+//                    req1.clt_id = contact.spouse.clt_id;
 //                    UploadApi.listImgs(mContext, req1, resp -> {
 //                        if (resp.list.size() != 0) {
 //                            update_spouse_info_id_back_tv.setText("已上传");
@@ -895,7 +895,7 @@
 //                    });
 //                    ListImgsReq req2 = new ListImgsReq();
 //                    req2.label = Constants.FileLabelType.ID_FRONT;
-//                    req2.clt_id = data.spouse.clt_id;
+//                    req2.clt_id = contact.spouse.clt_id;
 //                    UploadApi.listImgs(mContext, req2, resp -> {
 //                        if (resp.list.size() != 0) {
 //                            update_spouse_info_id_front_tv.setText("已上传");
@@ -973,7 +973,7 @@
 //                case "离异":
 //                    ListImgsReq req3 = new ListImgsReq();
 //                    req3.label = Constants.FileLabelType.MARRIAGE_PROOF;
-//                    req3.clt_id = data.clt_id;
+//                    req3.clt_id = contact.clt_id;
 //                    UploadApi.listImgs(mContext, req3, resp -> {
 //                        if (resp.list.size() != 0) {
 //                            update_spouse_info_divorced_tv.setText("已上传");
@@ -987,7 +987,7 @@
 //                case "丧偶":
 //                    ListImgsReq req4 = new ListImgsReq();
 //                    req4.label = Constants.FileLabelType.RES_BOOKLET;
-//                    req4.clt_id = data.clt_id;
+//                    req4.clt_id = contact.clt_id;
 //                    UploadApi.listImgs(mContext, req4, resp -> {
 //                        if (resp.list.size() != 0) {
 //                            update_spouse_info_register_addr_tv.setText("已上传");
