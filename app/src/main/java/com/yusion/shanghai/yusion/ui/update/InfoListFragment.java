@@ -10,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.chanven.lib.cptr.PtrClassicFrameLayout;
+import com.chanven.lib.cptr.PtrDefaultHandler;
+import com.chanven.lib.cptr.PtrFrameLayout;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
-import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.ui.apply.guarantor.AddGuarantorActivity;
 
 /**
@@ -23,6 +27,8 @@ public class InfoListFragment extends BaseFragment {
 
     private LinearLayout guarantee_info;
     private LinearLayout add_guarantee;
+    private PtrClassicFrameLayout ptr;
+
     public InfoListFragment() {
         // Required empty public constructor
     }
@@ -64,20 +70,31 @@ public class InfoListFragment extends BaseFragment {
     private void initView(View view) {
         guarantee_info = (LinearLayout) view.findViewById(R.id.guarantee_info);
         add_guarantee = (LinearLayout) view.findViewById(R.id.add_guarantee);
+        ptr = (PtrClassicFrameLayout) view.findViewById(R.id.List_info_ptr);
+        ptr.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                refresh();
+            }
+        });
+
     }
 
 
-
-    public void refresh(ListCurrentTpye data) {
-        if (data != null) {
-            if (data.guarantor_commited){
-                getView().findViewById(R.id.add_guarantee).setVisibility(View.GONE);
-                getView().findViewById(R.id.guarantee_info).setVisibility(View.VISIBLE);
-            } else {
-                getView().findViewById(R.id.add_guarantee).setVisibility(View.VISIBLE);
-                getView().findViewById(R.id.guarantee_info).setVisibility(View.GONE);
+    public void refresh() {
+        UserApi.getListCurrentTpye(mContext, data -> {
+            if (data != null) {
+                ptr.refreshComplete();
+                if (data.guarantor_commited) {
+                    getView().findViewById(R.id.add_guarantee).setVisibility(View.GONE);
+                    getView().findViewById(R.id.guarantee_info).setVisibility(View.VISIBLE);
+                } else {
+                    getView().findViewById(R.id.add_guarantee).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.guarantee_info).setVisibility(View.GONE);
+                }
+                Toast.makeText(mContext,"刷新成功",Toast.LENGTH_SHORT).show();
             }
-        }
+        });
     }
 
     @Override

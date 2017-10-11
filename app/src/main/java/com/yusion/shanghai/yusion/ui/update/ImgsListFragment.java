@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.chanven.lib.cptr.PtrClassicFrameLayout;
+import com.chanven.lib.cptr.PtrDefaultHandler;
+import com.chanven.lib.cptr.PtrFrameLayout;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseFragment;
-import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
 import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
 
@@ -34,6 +36,7 @@ public class ImgsListFragment extends BaseFragment {
     private RelativeLayout guarantor_imgs;
     private RelativeLayout guarantorspouse_imgs;
     private LinearLayout guarantee_info;
+    private PtrClassicFrameLayout ptr;
 
     private View view;
 
@@ -59,17 +62,6 @@ public class ImgsListFragment extends BaseFragment {
         initView(view);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            UserApi.getListCurrentTpye(mContext, data -> {
-                if (data != null) {
-                    refresh(data);
-                }
-            });
-        }
-    }
 
     private void initView(View view) {
         personal_imgs = (RelativeLayout) view.findViewById(R.id.list_personal_imgs_layout);
@@ -118,63 +110,51 @@ public class ImgsListFragment extends BaseFragment {
             intent.putExtra("title", "担保人配偶影像件资料");
             startActivity(intent);
         });
+
+        ptr = (PtrClassicFrameLayout) view.findViewById(R.id.List_imgs_ptr);
+        ptr.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                refresh();
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
         initView(view);
+        refresh();
     }
 
-    public void refresh(ListCurrentTpye data) {
+    public void refresh() {
         initView(view);
-        if (data != null) {
-            //这个时候 我们需要时刻刷新四个人的clt_id
-            lender_clt_id = data.lender;
-            lender_sp_clt_id = data.lender_sp;
-            guarantor_clt_id = data.guarantor;
-            guarantor_sp_clt_id = data.guarantor_sp;
+        UserApi.getListCurrentTpye(mContext, data -> {
+            if (data != null) {
+                ptr.refreshComplete();
+                //这个时候 我们需要时刻刷新四个人的clt_id
+                lender_clt_id = data.lender;
+                lender_sp_clt_id = data.lender_sp;
+                guarantor_clt_id = data.guarantor;
+                guarantor_sp_clt_id = data.guarantor_sp;
 
 
-            if (TextUtils.isEmpty(lender_sp_clt_id)) {
-                personalspouse_imgs.setVisibility(View.GONE);
-            } else {
-                personalspouse_imgs.setVisibility(View.VISIBLE);
-            }
-            if (data.guarantor_commited) {
-                guarantor_imgs.setVisibility(View.VISIBLE);
-                if (TextUtils.isEmpty(data.guarantor_sp)) {
-                    guarantorspouse_imgs.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(lender_sp_clt_id)) {
+                    personalspouse_imgs.setVisibility(View.GONE);
                 } else {
-                    guarantorspouse_imgs.setVisibility(View.VISIBLE);
+                    personalspouse_imgs.setVisibility(View.VISIBLE);
                 }
-            } else {
-                guarantee_info.setVisibility(View.GONE);
+                if (data.guarantor_commited) {
+                    guarantor_imgs.setVisibility(View.VISIBLE);
+                    if (TextUtils.isEmpty(data.guarantor_sp)) {
+                        guarantorspouse_imgs.setVisibility(View.GONE);
+                    } else {
+                        guarantorspouse_imgs.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    guarantee_info.setVisibility(View.GONE);
+                }
             }
-
-
-//
-//            if (!TextUtils.isEmpty(data.guarantor)) {
-//                guarantor_imgs.setVisibility(View.VISIBLE);
-//                if (TextUtils.isEmpty(data.guarantor_sp)) {
-//                    guarantorspouse_imgs.setVisibility(View.GONE);
-//                }else {
-//                    guarantorspouse_imgs.setVisibility(View.VISIBLE);
-//                }
-//            }
-//
-//            if (!TextUtils.isEmpty(data.lender)) {
-//                personal_imgs.setVisibility(View.VISIBLE);
-//
-//                if (TextUtils.isEmpty(data.lender_sp)) {
-//                    personalspouse_imgs.setVisibility(View.GONE);
-//                }else {
-//                    personalspouse_imgs.setVisibility(View.VISIBLE);
-//
-//                }
-//            }
-
-
-        }
+        });
     }
 }

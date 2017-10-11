@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -130,15 +129,9 @@ public class InfoListActivity extends BaseActivity {
         super.onResume();
 //        updateHaveGuaranteeStatus();
 
-        UserApi.getListCurrentTpye(InfoListActivity.this, data -> {
-            if (data != null) {
 
-
-
-                mInfoListFragment.refresh(data);
-                mImgsListFragment.refresh(data);
-            }
-        });
+                mInfoListFragment.refresh();
+                mImgsListFragment.refresh();
     }
 
     private class InfoViewPagerAdapter extends FragmentPagerAdapter {
