@@ -41,7 +41,7 @@ android {
 //        prod {
 ////            applicationId "com.yusion.shanghai.yusion.prod"
 //            resValue "string", "app_name", "正式环境"
-////            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+////            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]*
 //        }
 //        alpha {
 ////            applicationId "com.yusion.shanghai.yusion.alpha"
