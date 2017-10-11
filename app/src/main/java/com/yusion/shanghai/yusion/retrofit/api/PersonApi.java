@@ -87,20 +87,33 @@ public class PersonApi {
         logRequestInfo(response.request());
     }
 
-    public static void uploadPersonAndDeviceInfo(ContactPersonInfoReq req) {
+//    public static void uploadPersonAndDeviceInfo(ContactPersonInfoReq req) {
+//
+//        PersonApi.getPersonInfoService().uploadPersonAndDeviceInfo(req).enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
+    public static void uploadPersonAndDeviceInfo(ContactPersonInfoReq req, Callback callback) {
         PersonApi.getPersonInfoService().uploadPersonAndDeviceInfo(req).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
-
+                callback.onResponse(call, response);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                callback.onFailure(call, t);
             }
         });
-
     }
 
 }

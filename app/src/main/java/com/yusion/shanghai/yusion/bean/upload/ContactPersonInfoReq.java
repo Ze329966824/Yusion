@@ -42,6 +42,7 @@ public class ContactPersonInfoReq {
     public String model;
     public String brand;
     public String os_version;
+    public boolean rooted;
     public DataBean data = new DataBean();
     public SmsBean sms = new SmsBean();
     public Gps gps = new Gps();
