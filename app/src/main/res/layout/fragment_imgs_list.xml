@@ -6,184 +6,196 @@
     android:orientation="vertical"
     tools:context="com.yusion.shanghai.yusion.ui.update.ImgsListFragment">
 
-
-    <LinearLayout
+    <com.chanven.lib.cptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/List_imgs_ptr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        tools:visibility="visible">
-
-
-        <RelativeLayout
-            android:id="@+id/list_personal_imgs_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick"
-            android:visibility="visible">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separate_line_height"
-                android:background="@color/separate_line_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:text="个人影像件"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/list_personalspouse_imgs_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#FFFFFF"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separate_line_height"
-                android:layout_marginLeft="15dp"
-                android:background="@color/separate_line_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="配偶影像件"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
-        </RelativeLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:background="@color/separate_line_color" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/guarantee_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
         android:visibility="visible"
-        tools:visibility="visible">
+        cube_ptr:ptr_duration_to_close="1000"
+        cube_ptr:ptr_duration_to_close_header="200"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
 
-        <RelativeLayout
-            android:id="@+id/list_guarantor_imgs_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/separate_line_height"
-                android:background="@color/separate_line_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:text="担保人影像件"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
+                android:layout_marginTop="15dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                >
 
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/list_personal_imgs_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:descendantFocusability="blocksDescendants"
+                    android:onClick="onClick"
+                    >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:text="个人影像件"
+                        android:textColor="#222A36"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:background="@android:color/transparent"
+                        android:src="@mipmap/mine_arrow_right" />
+                </RelativeLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/list_guarantorspouse_imgs_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#FFFFFF"
-            android:clickable="true"
-            android:descendantFocusability="blocksDescendants"
-            android:onClick="onClick"
-            android:visibility="gone"
-            tools:visibility="visible">
+                <RelativeLayout
+                    android:id="@+id/list_personalspouse_imgs_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#FFFFFF"
+                    android:clickable="true"
+                    android:descendantFocusability="blocksDescendants"
+                    android:onClick="onClick"
+                    >
 
-            <View
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="配偶影像件"
+                        android:textColor="#222A36"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:background="@android:color/transparent"
+                        android:src="@mipmap/mine_arrow_right" />
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/guarantee_info"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/separate_line_height"
-                android:layout_marginLeft="15dp"
-                android:background="@color/separate_line_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="担保人配偶影像件"
-                android:textColor="#222A36"
-                android:textSize="16sp" />
+                android:layout_marginTop="15dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@android:color/transparent"
-                android:src="@mipmap/mine_arrow_right" />
+                <RelativeLayout
+                    android:id="@+id/list_guarantor_imgs_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:descendantFocusability="blocksDescendants"
+                    android:onClick="onClick"
+                    android:orientation="vertical">
 
-        </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:background="@color/separate_line_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:text="担保人影像件"
+                        android:textColor="#222A36"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:background="@android:color/transparent"
+                        android:src="@mipmap/mine_arrow_right" />
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separate_line_height"
-            android:background="@color/separate_line_color" />
-    </LinearLayout>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/list_guarantorspouse_imgs_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#FFFFFF"
+                    android:clickable="true"
+                    android:descendantFocusability="blocksDescendants"
+                    android:onClick="onClick">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separate_line_height"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/separate_line_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:text="担保人配偶影像件"
+                        android:textColor="#222A36"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:background="@android:color/transparent"
+                        android:src="@mipmap/mine_arrow_right" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/separate_line_height"
+                    android:background="@color/separate_line_color" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.chanven.lib.cptr.PtrClassicFrameLayout>
 </LinearLayout>
