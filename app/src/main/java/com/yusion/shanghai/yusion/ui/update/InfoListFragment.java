@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
 import com.chanven.lib.cptr.PtrDefaultHandler;
@@ -85,6 +85,12 @@ public class InfoListFragment extends BaseFragment {
         UserApi.getListCurrentTpye(mContext, data -> {
             if (data != null) {
                 ptr.refreshComplete();
+
+                if (!TextUtils.isEmpty(data.lender)){
+                    getView().findViewById(R.id.personal_info).setVisibility(View.VISIBLE);
+                }
+
+
                 if (data.guarantor_commited) {
                     getView().findViewById(R.id.add_guarantee).setVisibility(View.GONE);
                     getView().findViewById(R.id.guarantee_info).setVisibility(View.VISIBLE);
@@ -92,7 +98,6 @@ public class InfoListFragment extends BaseFragment {
                     getView().findViewById(R.id.add_guarantee).setVisibility(View.VISIBLE);
                     getView().findViewById(R.id.guarantee_info).setVisibility(View.GONE);
                 }
-                Toast.makeText(mContext,"刷新成功",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -100,5 +105,6 @@ public class InfoListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        refresh();
     }
 }

@@ -128,10 +128,6 @@ public class InfoListActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 //        updateHaveGuaranteeStatus();
-
-
-                mInfoListFragment.refresh();
-                mImgsListFragment.refresh();
     }
 
     private class InfoViewPagerAdapter extends FragmentPagerAdapter {

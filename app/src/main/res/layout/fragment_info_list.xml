@@ -20,8 +20,14 @@
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_resistance="1.7">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/personal_info"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -103,14 +109,13 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/guarantee_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:background="#FFFFFF"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/list_guarantor_info"
@@ -191,12 +196,11 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/add_guarantee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:orientation="vertical">
 
 
                 <RelativeLayout
@@ -242,6 +246,9 @@
 
                 </RelativeLayout>
             </LinearLayout>
+
+
+        </LinearLayout>
     </com.chanven.lib.cptr.PtrClassicFrameLayout>
 
 </LinearLayout>
