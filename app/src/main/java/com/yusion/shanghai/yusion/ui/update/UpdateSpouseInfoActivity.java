@@ -50,7 +50,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateSpouseInfoActivity extends BaseActivity {
+public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 //    private UpdateSpouseInfoFragment mUpdateSpouseInfoFragment;
 //    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
 //    private String[] mTabTitle = {"配偶信息", "影像件"};

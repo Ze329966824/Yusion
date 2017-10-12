@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
-import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
@@ -32,7 +31,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateGuarantorInfoActivity extends BaseActivity {
+public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
 //    private UpdateGuarantorInfoFragment mUpdateGuarantorInfoFragment;
 //    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
 //    private String[] mTabTitle = {"担保人资料", "影像件"};\

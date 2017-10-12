@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -110,6 +111,8 @@ public class Api {
 
     @NonNull
     public static String getTag(Request request) {
+        Pattern pattern = Pattern.compile("");
+
         StringBuilder tagBuilder = new StringBuilder("API");
         if (request.url().toString().contains("application")) {
             tagBuilder.append("-APPLICATION");

@@ -4,7 +4,6 @@ import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
@@ -16,7 +15,6 @@ import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;
@@ -34,6 +32,7 @@ public class YusionApp extends MultiDexApplication {
     public static String MOBILE;
     public static ConfigResp CONFIG_RESP;
     public static boolean isLogin;
+    public static boolean isForeground;
 
     //定位服务类
     public static AMapLocationClient aMapLocationClient;
@@ -123,7 +122,7 @@ public class YusionApp extends MultiDexApplication {
     public void requestLocation(AMapLocationListener listener) {
         aMapLocationClient.setLocationListener(aMapLocation -> {
             if (aMapLocation.getErrorCode() == 0) {
-                //定位成功
+                //定位成功git
                 String longitude = String.valueOf(aMapLocation.getLongitude());
                 String latitude = String.valueOf(aMapLocation.getLatitude());
                 Log.e("GPS", String.format(Locale.CHINA, "location Success: {\"latitude\":\"%s\",\"longitude\":\"%s\"}", latitude, longitude));
