@@ -36,7 +36,6 @@ import com.yusion.shanghai.yusion.ui.upload.OnlyReadUploadListActivity;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
 import com.yusion.shanghai.yusion.ui.upload.UploadListActivity;
-import com.yusion.shanghai.yusion.ui.upload.UploadListNotFromLabelLIstActivity;
 
 import java.util.HashMap;
 
@@ -90,7 +89,6 @@ public class UBTCollections {
         pageNameMaps.put(OnlyReadUploadListActivity.class.getSimpleName(), new Pair<>("img_authorization_book", "授权书查看页面"));
         pageNameMaps.put(UploadLabelListActivity.class.getSimpleName(), new Pair<>("upload_label_list", "上传影像件标签列表页面"));
         pageNameMaps.put(UploadListActivity.class.getSimpleName(), new Pair<>("upload_img_list", "上传影像件列表页面"));
-        pageNameMaps.put(UploadListNotFromLabelLIstActivity.class.getSimpleName(), new Pair<>("upload_img_list_for_apply", "上传影像件列表页面(申请界面进入)"));
     }
 
     public static String getPageNm(String key) {

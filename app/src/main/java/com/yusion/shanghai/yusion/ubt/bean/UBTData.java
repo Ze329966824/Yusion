@@ -8,6 +8,7 @@ import com.yusion.shanghai.yusion.ubt.sql.UBTEvent;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.TELEPHONY_SERVICE;
@@ -49,9 +50,8 @@ public class UBTData {
     public String os_version;
     public boolean rooted;
     public Gps gps = new Gps();
-    public List<UBTEvent> data;
-    public SmsBean sms = new SmsBean();
-    public ContactBean contact = new ContactBean();
+    public List<DataBean> data = new ArrayList<>();
+    //    public List<UBTEvent> data;
 
     public UBTData(Context context) {
         gps.latitude = SharedPrefsUtil.getInstance(context).getValue("latitude", "");
@@ -86,25 +86,21 @@ public class UBTData {
         return new Gson().toJson(this);
     }
 
-    public static class ContactBean {
-        /**
-         * name : 姓名
-         * mobile : 手机号
-         * contact_list : [{"display_name":"老哥","data1":"13323432354"},{"display_name":"老马","data1":"13823432354"}]
-         */
-        public String action;
+    public static class DataBean {
+        public String category;
         public String clt_nm;
         public String mobile;
-        public List<String> raw_data;
-        public List<ContactListBean> contact_list;
+        public List<UBTEvent> ubt_list = new ArrayList<>();
+        public List<ContactBean> contact_list = new ArrayList<>();
+        public List<SmsBean> sms_list = new ArrayList<>();
+        public List<String> raw_data = new ArrayList<>();
 
         @Override
         public String toString() {
             return new Gson().toJson(this);
         }
 
-
-        public static class ContactListBean {
+        public static class ContactBean {
             /**
              * display_name : 老哥
              * data1 : 13323432354
@@ -117,21 +113,9 @@ public class UBTData {
             public String toString() {
                 return new Gson().toJson(this);
             }
-
-        }
-    }
-
-    public static class SmsBean {
-        public String clt_nm;
-        public String mobile;
-        public List<SmsListBean> sms_list;
-
-        @Override
-        public String toString() {
-            return new Gson().toJson(this);
         }
 
-        public static class SmsListBean {
+        public static class SmsBean {
             public String to;
             public String from;
             public String content;

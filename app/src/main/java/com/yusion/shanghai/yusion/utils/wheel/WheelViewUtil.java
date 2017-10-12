@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.utils.wheel;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ public class WheelViewUtil {
     }
 
     private static <T> void showWheelView(final List<T> list, int selectedIndex, final TextView showView,
-                                         final String title, final OnSubmitCallBack onSubmitCallBack) {
+                                          final String title, final OnSubmitCallBack onSubmitCallBack) {
         showWheelView(list, selectedIndex, showView, showView, title, onSubmitCallBack);
     }
 
@@ -182,6 +183,7 @@ public class WheelViewUtil {
             }
         });
 
+
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,6 +217,12 @@ public class WheelViewUtil {
         mWheelViewDialog.getWindow().setGravity(Gravity.BOTTOM);
         mWheelViewDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWheelViewDialog.show();
+        mWheelViewDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.dismiss();
+            }
+        });
     }
 
 

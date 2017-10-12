@@ -12,18 +12,17 @@ import com.yusion.shanghai.yusion.utils.GlideUtil;
 
 public class PreviewActivity extends BaseActivity {
     private String imageUrl;
-    private StatusImageRel imageView;
+    private StatusImageRel statusImageRel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
-        imageView = (StatusImageRel) findViewById(R.id.image_preview);
-        imageView.getSourceImg().setScaleType(ImageView.ScaleType.FIT_CENTER);
+        statusImageRel = (StatusImageRel) findViewById(R.id.image_preview);
+        statusImageRel.getSourceImg().setScaleType(ImageView.ScaleType.FIT_CENTER);
         Intent intent = getIntent();
         imageUrl = intent.getStringExtra("PreviewImg");
-//        Glide.with(this).load(imageUrl).into(imageView);
-        GlideUtil.loadImg(this, imageView, imageUrl);
-        imageView.setOnClickListener(v -> finish());
+        GlideUtil.loadImg(this, statusImageRel, imageUrl);
+        statusImageRel.setOnClickListener(v -> finish());
     }
 }

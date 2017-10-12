@@ -24,7 +24,7 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
-import com.yusion.shanghai.yusion.ui.upload.UploadListNotFromLabelLIstActivity
+import com.yusion.shanghai.yusion.ui.upload.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import kotlinx.android.synthetic.main.guarantor_spouse_info.*
@@ -113,16 +113,18 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             })
         }
         guarantor_spouse_info_divorced_lin.setOnClickListener {
-            var intent = Intent(mContext, UploadListNotFromLabelLIstActivity::class.java)
+            var intent = Intent(mContext, UploadListActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.MARRIAGE_PROOF)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", divorceImgsList)
             intent.putExtra("title", "离婚证")
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         guarantor_spouse_info_register_addr_lin.setOnClickListener {
-            var intent = Intent(mContext, UploadListNotFromLabelLIstActivity::class.java)
+            var intent = Intent(mContext, UploadListActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.RES_BOOKLET)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgList", resBookList)
             intent.putExtra("title", "户口本")
@@ -347,14 +349,11 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
 //            }
             else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "项目经营地址不能为空", Toast.LENGTH_SHORT).show()
-            }
- else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address1_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show()
-            }
- else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
+            } else if (guarantor_spouse_info_income_from_tv.text == "自营" && guarantor_spouse_info_from_self_company_address2_tv.text.isEmpty()) {
                 Toast.makeText(mContext, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show()
-            }
-            else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
+            } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_year_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
             } else if (guarantor_spouse_info_income_from_tv.text == "其他" && guarantor_spouse_info_from_other_remark_edt.text.isEmpty()) {
                 Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()

@@ -26,6 +26,7 @@ import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.ubt.sql.UBTEvent;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -103,7 +104,11 @@ public class UBT {
 
                     //发送
                     UBTData req = new UBTData(context);
-                    req.data = data;
+                    UBTData.DataBean dataBean = new UBTData.DataBean();
+                    dataBean.category = "ubt";
+                    dataBean.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", null);
+                    dataBean.ubt_list = data;
+                    req.data.add(dataBean);
                     Log.e(TAG, "run: 正在发送");
                     try {
                         if (UBTApi.getUBTService().postUBTData(req).execute().isSuccessful()) {
