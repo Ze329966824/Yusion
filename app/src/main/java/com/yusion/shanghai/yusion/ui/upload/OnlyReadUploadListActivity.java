@@ -31,7 +31,6 @@ import java.util.List;
 public class OnlyReadUploadListActivity extends BaseActivity {
 
     private OnlyReadUploadImgListAdapter adapter;
-    private Intent mGetIntent;
     private String type;
     private String title;
     private String clt_id;
@@ -42,7 +41,7 @@ public class OnlyReadUploadListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_list);
 
-        mGetIntent = getIntent();
+        Intent mGetIntent = getIntent();
         type = mGetIntent.getStringExtra("type");
         title = mGetIntent.getStringExtra("title");
         clt_id = mGetIntent.getStringExtra("clt_id");
@@ -115,7 +114,6 @@ public class OnlyReadUploadListActivity extends BaseActivity {
 
         @Override
         public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-//            View view = new StatusImageRel(mContext);
             View view = mLayoutInflater.inflate(R.layout.upload_list_img_item, parent, false);
             return new VH(view);
         }
@@ -128,14 +126,12 @@ public class OnlyReadUploadListActivity extends BaseActivity {
             holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item));
         }
 
-        //size+1是因为有 添加图片的item
         @Override
         public int getItemCount() {
             return mItems == null ? 0 : mItems.size();
         }
 
         protected class VH extends RecyclerView.ViewHolder {
-
             public VH(View itemView) {
                 super(itemView);
             }
@@ -150,5 +146,4 @@ public class OnlyReadUploadListActivity extends BaseActivity {
         }
 
     }
-
 }

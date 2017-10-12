@@ -42,6 +42,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by ice on 2017/9/8.
@@ -62,18 +63,20 @@ public class UploadListActivity extends BaseActivity {
     private String type;
     private String clt_id;
     private String title;
+    private boolean needUploadFidToServer;
+    private Intent mGetIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_list);
 
-        Intent mGetIntent = getIntent();
+        mGetIntent = getIntent();
         role = mGetIntent.getStringExtra("role");
         type = mGetIntent.getStringExtra("type");
         clt_id = mGetIntent.getStringExtra("clt_id");
         title = mGetIntent.getStringExtra("title");
-
+        needUploadFidToServer = mGetIntent.getBooleanExtra("needUploadFidToServer", true);
         initView();
         initData();
     }
@@ -112,7 +115,7 @@ public class UploadListActivity extends BaseActivity {
                         itemBean.hasChoose = true;
                     }
                     uploadTv1.setText("取消全选");
-                    uploadTv2.setText(String.format("删除(%d)", getCurrentChooseItemCount()));
+                    uploadTv2.setText(String.format(Locale.CHINA, "删除(%d)", getCurrentChooseItemCount()));
                     uploadTv2.setTextColor(Color.RED);
                     adapter.notifyDataSetChanged();
                 } else if (uploadTv1.getText().toString().equals("取消全选")) {
@@ -139,7 +142,7 @@ public class UploadListActivity extends BaseActivity {
                 }
                 Collections.sort(indexList);
 
-                //没删除一个对象就该偏移+1
+                //每删除一个对象就该偏移+1
                 int offset = 0;
                 for (int i = 0; i < indexList.size(); i++) {
                     int delIndex = indexList.get(i) - offset;
@@ -150,21 +153,26 @@ public class UploadListActivity extends BaseActivity {
 
                 uploadTv2.setText("删除");
                 uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
-                adapter.notifyDataSetChanged();
+                if (needUploadFidToServer) {
+                    adapter.notifyDataSetChanged();
 
-                DelImgsReq req = new DelImgsReq();
-                req.clt_id = clt_id;
-                req.id.addAll(delImgIdList);
-                if (delImgIdList.size() > 0) {
-                    UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
-                        @Override
-                        public void callBack(int code, String msg) {
-                            if (code == 0) {
-                                Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
-                                onImgCountChange(lists.size() > 0);
+                    DelImgsReq req = new DelImgsReq();
+                    req.clt_id = clt_id;
+                    req.id.addAll(delImgIdList);
+                    if (delImgIdList.size() > 0) {
+                        UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
+                            @Override
+                            public void callBack(int code, String msg) {
+                                // TODO: 2017/10/12  先删除local图片再删除remote图片会有隐患
+                                if (code == 0) {
+                                    Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                                    onImgCountChange(lists.size() > 0);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                } else {
+                    onImgCountChange(lists.size() > 0);
                 }
             }
         });
@@ -174,20 +182,20 @@ public class UploadListActivity extends BaseActivity {
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.upload_list_rv);
         rv.setLayoutManager(new GridLayoutManager(this, 3));
+        if (!needUploadFidToServer) {
+            lists = ((ArrayList<UploadImgItemBean>) mGetIntent.getSerializableExtra("imgList"));
+        }
         adapter = new RvAdapter(this, lists);
         rv.setAdapter(adapter);
         adapter.setOnItemClick(new RvAdapter.OnItemClick() {
+            //不是编辑状态的话点击后进行预览,否则是编辑操作
             @Override
             public void onItemClick(View v, UploadImgItemBean item, int index) {
                 if (isEditing) {
-                    if (item.hasChoose) {
-                        item.hasChoose = false;
-                    } else {
-                        item.hasChoose = true;
-                    }
+                    item.hasChoose = !item.hasChoose;
                     adapter.notifyDataSetChanged();
                     if (getCurrentChooseItemCount() != 0) {
-                        uploadTv2.setText(String.format("删除(%d)", getCurrentChooseItemCount()));
+                        uploadTv2.setText(String.format(Locale.CHINA, "删除(%d)", getCurrentChooseItemCount()));
                         uploadTv2.setTextColor(Color.RED);
                     } else {
                         uploadTv2.setText("删除");
@@ -201,7 +209,6 @@ public class UploadListActivity extends BaseActivity {
                         imgUrl = item.raw_url;
                     }
                     previewImg(findViewById(R.id.preview_anchor), imgUrl);
-
                 }
             }
 
@@ -222,24 +229,28 @@ public class UploadListActivity extends BaseActivity {
     }
 
     private void initData() {
-        ListImgsReq req = new ListImgsReq();
-        req.label = type;
-        req.clt_id = clt_id;
-        UploadApi.listImgs(this, req, resp -> {
-            if (resp.has_err) {
-                errorLin.setVisibility(View.VISIBLE);
-                errorTv.setText("您提交的资料有误：" + resp.error);
-            } else {
-                errorLin.setVisibility(View.GONE);
-            }
+        if (needUploadFidToServer) {
+            ListImgsReq req = new ListImgsReq();
+            req.label = type;
+            req.clt_id = clt_id;
+            UploadApi.listImgs(this, req, resp -> {
+                if (resp.has_err) {
+                    errorLin.setVisibility(View.VISIBLE);
+                    errorTv.setText("您提交的资料有误：" + resp.error);
+                } else {
+                    errorLin.setVisibility(View.GONE);
+                }
 
-            onImgCountChange(resp.list.size() > 0);
+                onImgCountChange(resp.list.size() > 0);
 
-            if (resp.list.size() != 0) {
-                lists.addAll(resp.list);
-                adapter.notifyDataSetChanged();
-            }
-        });
+                if (resp.list.size() != 0) {
+                    lists.addAll(resp.list);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+            onImgCountChange(lists.size() > 0);
+        }
     }
 
     private int getCurrentChooseItemCount() {
@@ -315,13 +326,18 @@ public class UploadListActivity extends BaseActivity {
                     calculateRelToAddList(toAddList, new OnItemDataCallBack<List<UploadImgItemBean>>() {
                         @Override
                         public void onItemDataCallBack(List<UploadImgItemBean> relToAddList) {
-                            uploadImgs(clt_id, relToAddList, new OnVoidCallBack() {
-                                @Override
-                                public void callBack() {
-                                    lists.addAll(relToAddList);
-                                    onImgCountChange(lists.size() > 0);
-                                }
-                            });
+                            if (needUploadFidToServer) {
+                                uploadImgs(clt_id, relToAddList, new OnVoidCallBack() {
+                                    @Override
+                                    public void callBack() {
+                                        lists.addAll(relToAddList);
+                                        onImgCountChange(lists.size() > 0);
+                                    }
+                                });
+                            } else {
+                                lists.addAll(relToAddList);
+                                onImgCountChange(lists.size() > 0);
+                            }
                         }
                     });
                 }
@@ -379,6 +395,9 @@ public class UploadListActivity extends BaseActivity {
     }
 
     private void onBack() {
+        if (!needUploadFidToServer) {
+            setResult(RESULT_OK, mGetIntent);
+        }
         finish();
     }
 
@@ -405,7 +424,6 @@ public class UploadListActivity extends BaseActivity {
                 view = mLayoutInflater.inflate(R.layout.upload_list_add_img_item, parent, false);
             } else if (viewType == TYPE_IMG) {
                 view = mLayoutInflater.inflate(R.layout.upload_list_img_item, parent, false);
-//                view = new StatusImageRel(mContext);
             }
             return new VH(view);
         }
@@ -418,13 +436,9 @@ public class UploadListActivity extends BaseActivity {
                 UploadImgItemBean item = mItems.get(position);
                 StatusImageRel statusImageRel = (StatusImageRel) holder.itemView;
                 if (!TextUtils.isEmpty(item.local_path)) {
-//                    Glide.with(mContext).load(new File(item.local_path)).into(statusImageRel.getSourceImg());
-//                    Glide.with(mContext).load(new File(item.local_path)).into(statusImageRel.getSourceImg());
                     GlideUtil.loadLocalImg(mContext, statusImageRel, new File(item.local_path));
                 } else {
-                    //加载缩略图也会读取流 会存在bug 所以禁止加载缩略图
                     GlideUtil.loadImg(mContext, statusImageRel, item.s_url);
-//                    Glide.with(mContext).using(new ProgressModelLoader(statusImageRel)).load(item.s_url).placeholder(R.mipmap.place_holder_img).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(statusImageRel.getSourceImg());
                 }
                 holder.itemView.setOnClickListener(mOnItemClick == null ? null : (View.OnClickListener) v -> mOnItemClick.onItemClick(v, item, position));
                 if (isEditing) {
