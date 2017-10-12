@@ -1673,7 +1673,7 @@
             app:elevation="0dp"
             app:layout_anchor="@id/scrollview_fiance"
             app:layout_anchorGravity="bottom|right|end"
-            app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.CustomBehavior"
+            app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.AutoInOutBehavior"
             app:rippleColor="@color/transparent" />
     </android.support.design.widget.CoordinatorLayout>
 

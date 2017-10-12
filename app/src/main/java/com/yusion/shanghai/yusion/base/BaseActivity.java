@@ -2,6 +2,7 @@ package com.yusion.shanghai.yusion.base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.entrance.LaunchActivity;
 import com.yusion.shanghai.yusion.ui.update.CommitActivity;
 import com.yusion.shanghai.yusion.widget.TitleBar;
+
+import java.util.List;
 
 /**
  * Created by ice on 2017/8/3.
@@ -85,6 +88,15 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (!isAppOnForeground()) {
+            YusionApp.isForeground = false;
+            UBT.addAppEvent(this, "app_pause");
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ActivityManager.removeActivity(this);
@@ -96,6 +108,10 @@ public class BaseActivity extends AppCompatActivity {
         if (getClass().getSimpleName().equals(LaunchActivity.class.getSimpleName())) {
             UBT.addAppEvent(this, "app_start");
         }
+        if (!YusionApp.isForeground) {
+            YusionApp.isForeground = true;
+            UBT.addAppEvent(this, "app_awake");
+        }
         UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
         MobclickAgent.onResume(this);
     }
@@ -104,6 +120,26 @@ public class BaseActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         UBT.addAppEvent(this, "app_pause");
+    }
+
+    private boolean isAppOnForeground() {
+        android.app.ActivityManager activityManager = (android.app.ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = getApplicationContext().getPackageName();
+
+        List<android.app.ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null)
+            return false;
+
+        for (android.app.ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            // The name of the process that this object is associated with.
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance == android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
