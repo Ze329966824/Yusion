@@ -93,7 +93,7 @@ public class UBTData {
         public List<UBTEvent> ubt_list = new ArrayList<>();
         public List<ContactBean> contact_list = new ArrayList<>();
         public List<SmsBean> sms_list = new ArrayList<>();
-        public List<String> raw_data = new ArrayList<>();
+        //public List<String> raw_data = new ArrayList<>();
 
         @Override
         public String toString() {

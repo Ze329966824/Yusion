@@ -7,6 +7,7 @@ import android.view.View;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.UserApi;
+import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
 
 public class CommitActivity extends BaseActivity {
@@ -20,6 +21,9 @@ public class CommitActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit);
         initTitleBar(this, getResources().getString(R.string.commit));
+
+        UBT.uploadPersonAndDeviceInfo(this);
+
         mGetIntent = getIntent();
         switch (mGetIntent.getStringExtra("commit_state")) {
             case "return":

