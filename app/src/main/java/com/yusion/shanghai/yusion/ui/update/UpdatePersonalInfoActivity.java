@@ -37,7 +37,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdatePersonalInfoActivity extends BaseActivity {
+public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 
 //    private UpdateImgsLabelFragment mUpdateImgsLabelFragment;
 //    private String[] mTabTitle = {"个人资料", "影像件"};
