@@ -103,7 +103,12 @@ public class UBT {
 
                     //发送
                     UBTData req = new UBTData(context);
-                    req.data = data;
+                    UBTData.DataBean dataBean = new UBTData.DataBean();
+                    dataBean.category = "ubt";
+//                    dataBean.clt_nm = "ubt";
+//                    dataBean.mobile = "ubt";
+                    dataBean.ubt_list = data;
+                    req.data.add(dataBean);
                     Log.e(TAG, "run: 正在发送");
                     try {
                         if (UBTApi.getUBTService().postUBTData(req).execute().isSuccessful()) {
