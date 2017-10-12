@@ -497,35 +497,35 @@
 //    }
 //
 //    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK && data != null) {
+//    public void onActivityResult(int requestCode, int resultCode, Intent contact) {
+//        super.onActivityResult(requestCode, resultCode, contact);
+//        if (resultCode == Activity.RESULT_OK && contact != null) {
 //            if (requestCode == Constants.REQUEST_ADDRESS) {
 //
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_info_current_address1_lin.getId()) {
-//                    update_guarantor_info_current_address1_tv.setText(data.getStringExtra("result"));
+//                    update_guarantor_info_current_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_info_house_address1_lin.getId()) {
-//                    update_guarantor_info_house_address1_tv.setText(data.getStringExtra("result"));
+//                    update_guarantor_info_house_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_info_from_income_company_address1_lin.getId()) {
-//                    update_guarantor_info_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_guarantor_info_from_income_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_info_from_self_company_address1_lin.getId()) {
-//                    update_guarantor_info_from_self_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_guarantor_info_from_self_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //                if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_info_extra_from_income_company_address1_lin.getId()) {
-//                    update_guarantor_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
+//                    update_guarantor_info_extra_from_income_company_address1_tv.setText(contact.getStringExtra("result"));
 //                }
 //
 //            }
 //        }
 //    }
 //
-//    public void getGuarantorInfo(GuarantorInfo data) {
-//        if (data != null) {
-//            guarantorInfo = data;
+//    public void getGuarantorInfo(GuarantorInfo contact) {
+//        if (contact != null) {
+//            guarantorInfo = contact;
 //            //填充
 //            update_guarantor_info_clt_nm_edt.setText(guarantorInfo.clt_nm);
 //            update_guarantor_info_id_no_edt.setText(guarantorInfo.id_no);

@@ -20,8 +20,6 @@ public class UpdateResp {
     public String download_url;
     public String change_log;
 
-
-
     @Override
     public String toString() {
         return new Gson().toJson(this);

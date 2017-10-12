@@ -23,7 +23,7 @@ public class OcrApi {
         Api.getOcrService().requestOcr(req).enqueue(new Callback<BaseResult<OcrResp>>() {
             @Override
             public void onResponse(Call<BaseResult<OcrResp>> call, Response<BaseResult<OcrResp>> response) {
-                Log.e("API", "onResponse: " + response.body());
+                Log.e(Api.getTag(call.request()), "onResponse: " + response.body());
                 onSuccessCallBack.onItemDataCallBack(response.body().data);
             }
 

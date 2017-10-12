@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.upload;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +48,6 @@ public class UploadLabelItemBean implements Serializable {
 
     @Override
     public String toString() {
-        return "UploadLabelItemBean{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                ", img_list=" + img_list +
-                ", label_list=" + label_list +
-                ", hasError=" + hasError +
-                ", errorInfo='" + errorInfo + '\'' +
-                ", hasGetImgsFromServer=" + hasGetImgsFromServer +
-                '}';
+        return new Gson().toJson(this);
     }
 }

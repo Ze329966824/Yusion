@@ -74,19 +74,6 @@ public class SelfDialog extends Dialog {
     }
 
     /**
-     * 初始化界面控件的显示数据
-     */
-
-
-
-    /**
-     * 从外界Activity为Dialog设置dialog的message
-     *
-     * @param message
-     */
-
-
-    /**
      * 设置确定按钮和取消被点击的接口
      */
     public interface onYesOnclickListener {

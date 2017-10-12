@@ -18,9 +18,9 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.oss.GetOssTokenBean;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
+import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.api.OssApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.service.OssService;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -32,6 +32,7 @@ import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import io.sentry.Sentry;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,19 +42,21 @@ import retrofit2.Response;
  */
 
 public class OssUtil {
-    public static void uploadOss(final Context context, boolean showDialog, final String localPath, @NonNull OSSObjectKeyBean objectKeyBean, @NonNull final OnItemDataCallBack<String> onSuccessCallBack, final OnItemDataCallBack<Throwable> onFailureCallBack) {
+    public static void uploadOss(final Context context, boolean showDialog, final String localPath, @NonNull OSSObjectKeyBean objectKeyBean, @NonNull final OnItemDataCallBack<String> onOssSuccessCallBack, final OnItemDataCallBack<Throwable> onFailureCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
         if (showDialog) {
             dialog.show();
         }
+
         Map<String, String> body = new LinkedHashMap<>();
         body.put("duration_second", "1800");
         body.put("method", "put");
         body.put("timestamp", new Date().getTime() + "");
         body.put("signature", getSignature(body));
-        OssApi.retrofit.create(OssService.class).getOSSToken(body).enqueue(new Callback<GetOssTokenBean>() {
+        OssApi.ossService.getOSSToken(body).enqueue(new Callback<GetOssTokenBean>() {
             @Override
             public void onResponse(Call<GetOssTokenBean> call, Response<GetOssTokenBean> response) {
+                Log.e(Api.getTag(call.request()), "onResponse: " + response.body());
                 GetOssTokenBean ossTokenBean = response.body();
                 final String objectKey = getObjectKey(objectKeyBean.role, objectKeyBean.category, objectKeyBean.suffix);
                 PutObjectRequest request = new PutObjectRequest(ossTokenBean.FidDetail.Bucket, objectKey, localPath);
@@ -69,7 +72,7 @@ public class OssUtil {
                         if (showDialog) {
                             dialog.dismiss();
                         }
-                        onSuccessCallBack.onItemDataCallBack(request.getObjectKey());
+                        onOssSuccessCallBack.onItemDataCallBack(request.getObjectKey());
                     }
 
                     @Override
@@ -91,7 +94,9 @@ public class OssUtil {
                                 onFailureCallBack.onItemDataCallBack(serviceException);
                             }
                         }
-                        Log.e("TAG", "onFailure() called with: request = [" + request + "], clientExcepion = [" + clientExcepion + "], serviceException = [" + serviceException + "]");
+                        String errorInfo = "onFailure() called with: request = [" + request + "], clientExcepion = [" + clientExcepion + "], serviceException = [" + serviceException + "]";
+                        Sentry.capture(errorInfo);
+                        Log.e("TAG", errorInfo);
                     }
                 });
             }
@@ -101,32 +106,28 @@ public class OssUtil {
                 if (showDialog) {
                     dialog.dismiss();
                 }
-                t.printStackTrace();
                 if (onFailureCallBack != null) {
                     onFailureCallBack.onItemDataCallBack(t);
                 }
-                Log.e("TAG", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+                String errorInfo = "onFailure() called with: call = [" + call + "], t = [" + t + "]";
+                Sentry.capture(errorInfo);
+                Log.e("TAG", errorInfo);
             }
         });
     }
 
     /**
-     * @param client
-     * @param mobile
-     * @param role
-     * @param category
      * @param suffix   eg: .png .mp4
-     * @return
      */
-    public static String getObjectKey(String client, String mobile, String role, String category, String suffix) {
+    private static String getObjectKey(String client, String mobile, String role, String category, String suffix) {
         return client + "/" + mobile + "/" + role + "/" + category + "/" + System.currentTimeMillis() + suffix;
     }
 
-    public static String getObjectKey(String role, String category, String suffix) {
+    private static String getObjectKey(String role, String category, String suffix) {
         return getObjectKey("CUSTOMER", YusionApp.MOBILE, role, category, suffix);
     }
 
-    public static String getSignature(Map<String, String> map) {
+    private static String getSignature(Map<String, String> map) {
         StringBuilder urlReq = new StringBuilder();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             urlReq.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
@@ -134,7 +135,7 @@ public class OssUtil {
         return stringToSign(urlReq.substring(0, urlReq.length() - 1));
     }
 
-    public static String stringToSign(String data) {
+    private static String stringToSign(String data) {
         try {
             Mac mac = Mac.getInstance("HmacSHA1");
             String REGISTER_HMAC_KEY = "temp";

@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.bean.amap;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
@@ -26,13 +28,7 @@ public class PoiResp {
 
     @Override
     public String toString() {
-        return "PoiResp{" +
-                "status='" + status + '\'' +
-                ", count='" + count + '\'' +
-                ", info='" + info + '\'' +
-                ", infocode='" + infocode + '\'' +
-                ", pois=" + pois +
-                '}';
+        return new Gson().toJson(this);
     }
 
     public static class PoisBean {
@@ -62,11 +58,7 @@ public class PoiResp {
 
         @Override
         public String toString() {
-            return "PoisBean{" +
-                    "name='" + name + '\'' +
-                    ", type='" + type + '\'' +
-                    ", address='" + address + '\'' +
-                    '}';
+            return new Gson().toJson(this);
         }
     }
 }

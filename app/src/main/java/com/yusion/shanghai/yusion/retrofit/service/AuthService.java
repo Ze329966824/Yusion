@@ -1,7 +1,7 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
 import com.yusion.shanghai.yusion.base.BaseResult;
-import com.yusion.shanghai.yusion.bean.auth.CheckIsAgreeReq;
+import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
@@ -30,7 +30,7 @@ public interface AuthService {
     Call<BaseResult<CheckUserInfoResp>> checkUserInfo();
 
     @POST("/api/client/check_user_info/")
-    Call<BaseResult> isAgree(@Body CheckIsAgreeReq req);
+    Call<BaseResult> isAgree(@Body CheckHasAgreedReq req);
 
 
     @POST("/api/auth/check_token/")

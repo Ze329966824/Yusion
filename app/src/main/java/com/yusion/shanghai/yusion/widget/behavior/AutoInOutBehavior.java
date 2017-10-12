@@ -14,9 +14,12 @@ import android.view.ViewGroup;
  * Created by ice on 2017/8/15.
  */
 
-public class CustomBehavior extends FloatingActionButton.Behavior {
+/**
+ * 通过检测 上滑下滑 操作来显示 FAB 控件
+ */
+public class AutoInOutBehavior extends FloatingActionButton.Behavior {
 
-    public CustomBehavior(Context context, AttributeSet attrs) {
+    public AutoInOutBehavior(Context context, AttributeSet attrs) {
         super();
     }
 

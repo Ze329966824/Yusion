@@ -32,11 +32,11 @@ public class TitleBar extends ViewGroup {
 
     private boolean mImmersive;
 
-    public TextView getmLeftTextTv() {
+    public TextView getLeftTextTv() {
         return mLeftTextTv;
     }
 
-    public void setmLeftTextTv(TextView mLeftTextTv) {
+    public void setLeftTextTv(TextView mLeftTextTv) {
         this.mLeftTextTv = mLeftTextTv;
     }
 

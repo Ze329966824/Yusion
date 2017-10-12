@@ -121,12 +121,12 @@ package com.yusion.shanghai.yusion.ui.upload;
 //    }
 //
 //    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+//    public void onActivityResult(int requestCode, int resultCode, Intent contact) {
+//        super.onActivityResult(requestCode, resultCode, contact);
 //        if (requestCode == 100) {
 //            if (resultCode == Activity.RESULT_OK) {
-//                UploadLabelItemBean item = (UploadLabelItemBean) data.getSerializableExtra("topItem");
-//                mItems.set(data.getIntExtra("index", -1), item);
+//                UploadLabelItemBean item = (UploadLabelItemBean) contact.getSerializableExtra("topItem");
+//                mItems.set(contact.getIntExtra("index", -1), item);
 //                mAdapter.notifyDataSetChanged();
 //            }
 //        }

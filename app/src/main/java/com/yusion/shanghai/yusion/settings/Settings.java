@@ -10,8 +10,6 @@ public class Settings {
     public static boolean isOnline = BuildConfig.isOnline;
     public static boolean isShameData = false;
     private static String ALPHA_SERVER_URL = "http://api.alpha.yusiontech.com:8000/";
-
-
 //    private static String ALPHA_SERVER_URL = "http://192.168.0.214:8000/";
 
     public static String PERSON_SERVER_URL = "http://ubt.yusiontech.com:5141/";

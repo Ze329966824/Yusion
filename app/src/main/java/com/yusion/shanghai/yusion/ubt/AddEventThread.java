@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 
 import java.util.Date;
@@ -75,14 +76,8 @@ public class AddEventThread implements Runnable {
 
     }
 
-
     @Override
     public String toString() {
-        return "AddEventThread{" +
-                "action='" + action + '\'' +
-                ", view=" + view +
-                ", pageName='" + pageName + '\'' +
-                ", action_value='" + action_value + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 }

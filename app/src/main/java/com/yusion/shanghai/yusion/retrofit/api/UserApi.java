@@ -3,7 +3,6 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 
-import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
@@ -15,7 +14,6 @@ import com.yusion.shanghai.yusion.utils.LoadingUtils;
  */
 
 public class UserApi {
-
     public static void getListCurrentTpye(Context context, final OnItemDataCallBack<ListCurrentTpye> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getUserApi().getListCurrentTpye().enqueue(new CustomCallBack<ListCurrentTpye>(context, dialog) {

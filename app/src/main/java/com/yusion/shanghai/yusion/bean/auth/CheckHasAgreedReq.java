@@ -3,11 +3,11 @@ package com.yusion.shanghai.yusion.bean.auth;
 import com.google.gson.Gson;
 
 /**
- * Created by ice on 2017/8/3.
+ * Created by aa on 2017/9/21.
  */
 
-public class GetVCodeResp {
-    public String verify_code;
+public class CheckHasAgreedReq {
+    public boolean is_agree;
 
     @Override
     public String toString() {
