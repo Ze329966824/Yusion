@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -50,63 +51,50 @@ public class LoginActivity extends BaseActivity {
     private OpenIdReq req;
 
     @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            //微信登录
+            case R.id.btn_wx:
+                if (!api.isWXAppInstalled()) {
+                    Toast.makeText(this, "您还未安装微信客户端！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // 应用的作用域，获取个人信息
+                SendAuth.Req req = new SendAuth.Req();
+                /**  用于保持请求和回调的状态，授权请求后原样带回给第三方  * 为了防止csrf攻击（跨站请求伪造攻击），后期改为随机数加session来校验   */
+                req.scope = "snsapi_userinfo";
+                req.state = "diandi_wx_login";
+                api.sendReq(req);
+                break;
+            //qq登录
+            case R.id.btn_qq:
+                //如果session不可用，则登录，否则说明已经登录
+                if (!tencent.isSessionValid()) {
+                    tencent.login(this, "all", mListener);
+                }else {
+                    tencent.logout(this);
+                }
+                break;
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        context = this;
-        req = new OpenIdReq();
-        //微信登录
-        findViewById(R.id.btn_wx).setOnClickListener(v -> {
-            if (!api.isWXAppInstalled()) {
-                Toast.makeText(this, "您还未安装微信客户端！", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            // 应用的作用域，获取个人信息
-            SendAuth.Req req = new SendAuth.Req();
-            /**  用于保持请求和回调的状态，授权请求后原样带回给第三方  * 为了防止csrf攻击（跨站请求伪造攻击），后期改为随机数加session来校验   */
-            req.scope = "snsapi_userinfo";
-            req.state = "diandi_wx_login";
-            api.sendReq(req);
-
-            finish();
-
-        });
 
 
-        //qq登录
-        tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
-        mListener = new QQLoginListener();
-        findViewById(R.id.btn_qq).setOnClickListener(v -> {
-
-
-            //如果session不可用，则登录，否则说明已经登录
-            if (!tencent.isSessionValid()) {
-                tencent.login(this, "all", mListener);
-            }else {
-                tencent.logout(this);
-            }
-
-        });
-
-
-        ApplicationInfo applicationInfo = null;
-        try {
-            applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            String pgyer_appid = applicationInfo.metaData.getString("PGYER_APPID");
-            Log.e("TAG", "onCreate: pgyer_appid = " + pgyer_appid);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("TAG", "onCreate: " + e);
-            e.printStackTrace();
-        }
-        Log.e("TAG", "onCreate: Settings.isOnline = " + Settings.isOnline);
-        Log.e("TAG", "onCreate: Settings.SERVER_URL = " + Settings.SERVER_URL);
-        Log.e("TAG", "onCreate: Settings.OSS_SERVER_URL = " + Settings.OSS_SERVER_URL);
-
+        initView();
 
         YusionApp.isLogin = false;
-        mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
-        mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
-        mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
+
+
+
+
+
+
+
         if (Settings.isOnline) {
             mCountDownBtnWrap = new CountDownButtonWrap(mLoginCodeBtn, "重试", 30, 1);
         } else {
@@ -154,6 +142,30 @@ public class LoginActivity extends BaseActivity {
 //            mLoginCodeTV.setText("6666");
         }
 
+    }
+
+    private void initView() {
+        context = this;
+        req = new OpenIdReq();
+        tencent = Tencent.createInstance(QQ_APP_ID, LoginActivity.this);
+        mListener = new QQLoginListener();
+
+        mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
+        mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
+        mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
+
+        ApplicationInfo applicationInfo = null;
+        try {
+            applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            String pgyer_appid = applicationInfo.metaData.getString("PGYER_APPID");
+            Log.e("TAG", "onCreate: pgyer_appid = " + pgyer_appid);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("TAG", "onCreate: " + e);
+            e.printStackTrace();
+        }
+        Log.e("TAG", "onCreate: Settings.isOnline = " + Settings.isOnline);
+        Log.e("TAG", "onCreate: Settings.SERVER_URL = " + Settings.SERVER_URL);
+        Log.e("TAG", "onCreate: Settings.OSS_SERVER_URL = " + Settings.OSS_SERVER_URL);
     }
 
     private void loginSuccess(LoginResp resp) {

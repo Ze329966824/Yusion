@@ -138,6 +138,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:onClick="onClick"
             android:src="@mipmap/wx"
             android:id="@+id/btn_wx"
             android:layout_width="0dp"
@@ -147,6 +148,7 @@
             android:text="微信登录" />
 
         <ImageView
+            android:onClick="onClick"
             android:src="@mipmap/qq"
             android:id="@+id/btn_qq"
             android:layout_width="0dp"
