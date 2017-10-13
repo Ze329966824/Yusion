@@ -55,6 +55,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         YusionApp yusionApp = (YusionApp) getApplication();
         yusionApp.requestLocation(null);
 
@@ -133,10 +135,20 @@ public class LoginActivity extends BaseActivity {
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+
             //上传设备信息
-            uploadPersonAndDeviceInfo();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    uploadPersonAndDeviceInfo();
+                }
+            }).start();
         }
     }
+
 
     @Override
     protected void onResume() {
@@ -240,8 +252,6 @@ public class LoginActivity extends BaseActivity {
                 PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
                     }
 
@@ -252,9 +262,6 @@ public class LoginActivity extends BaseActivity {
                 });
             }
         });
-//        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
     }
 
 }

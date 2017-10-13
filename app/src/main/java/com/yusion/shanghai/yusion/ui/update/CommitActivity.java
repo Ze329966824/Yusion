@@ -21,8 +21,14 @@ public class CommitActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit);
         initTitleBar(this, getResources().getString(R.string.commit));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UBT.uploadPersonAndDeviceInfo(CommitActivity.this);
+            }
+        }).start();
 
-        UBT.uploadPersonAndDeviceInfo(this);
+        //UBT.uploadPersonAndDeviceInfo(this);
 
         mGetIntent = getIntent();
         switch (mGetIntent.getStringExtra("commit_state")) {
