@@ -50,10 +50,34 @@ public class LoginActivity extends BaseActivity {
     private Context context;
     private OpenIdReq req;
 
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+
+        initView();
+
+        YusionApp.isLogin = false;
+
+        //短信倒计时
+        countDown();
+
+
+
+//        if (Settings.isShameData) {
+//            mLoginMobileTV.setText("17621066549");
+//            mLoginCodeTV.setText("6666");
+//        }
+
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             //微信登录
             case R.id.btn_wx:
                 if (!api.isWXAppInstalled()) {
@@ -72,76 +96,54 @@ public class LoginActivity extends BaseActivity {
                 //如果session不可用，则登录，否则说明已经登录
                 if (!tencent.isSessionValid()) {
                     tencent.login(this, "all", mListener);
-                }else {
+                } else {
                     tencent.logout(this);
                 }
+                break;
+
+            case R.id.login_code_btn:
+                if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+                    Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+                } else {
+                    mCountDownBtnWrap.start();
+                    AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
+                        if (data != null) {
+                            if (!Settings.isOnline) {
+                                mLoginCodeTV.setText(data.verify_code);
+                            }
+                        }
+                    });
+                }
+                break;
+
+            case R.id.login_submit_btn:
+                //            startActivity(new Intent(this, UploadLabelListActivity.class));
+                if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+                    Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
+                    Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    LoginReq loginReq = new LoginReq();
+                    loginReq.mobile = mLoginMobileTV.getText().toString();
+                    loginReq.verify_code = mLoginCodeTV.getText().toString();
+                    AuthApi.login(LoginActivity.this, loginReq, this::loginSuccess);
+                }
+                break;
+
+            case R.id.login_agreement_tv:
+                Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                intent.putExtra("type", "Agreement");
+                startActivity(intent);
                 break;
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-
-        initView();
-
-        YusionApp.isLogin = false;
-
-
-
-
-
-
-
+    private void countDown() {
         if (Settings.isOnline) {
             mCountDownBtnWrap = new CountDownButtonWrap(mLoginCodeBtn, "重试", 30, 1);
         } else {
             mCountDownBtnWrap = new CountDownButtonWrap(mLoginCodeBtn, "重试", 5, 1);
         }
-        mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
-        mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
-        mLoginCodeBtn.setOnClickListener(v -> {
-
-            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
-                Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
-            } else {
-                mCountDownBtnWrap.start();
-                AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
-                    if (data != null) {
-                        if (!Settings.isOnline) {
-                            mLoginCodeTV.setText(data.verify_code);
-                        }
-                    }
-                });
-            }
-        });
-        mLoginSubmitBtn.setOnClickListener(v -> {
-//            startActivity(new Intent(this, UploadLabelListActivity.class));
-            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
-                Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
-                Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                LoginReq req = new LoginReq();
-                req.mobile = mLoginMobileTV.getText().toString();
-                req.verify_code = mLoginCodeTV.getText().toString();
-                AuthApi.login(LoginActivity.this, req, this::loginSuccess);
-            }
-        });
-
-        mLoginAgreement.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
-            intent.putExtra("type", "Agreement");
-            startActivity(intent);
-        });
-
-        if (Settings.isShameData) {
-//            mLoginMobileTV.setText("17621066549");
-//            mLoginCodeTV.setText("6666");
-        }
-
     }
 
     private void initView() {
@@ -153,8 +155,10 @@ public class LoginActivity extends BaseActivity {
         mLoginMobileTV = (EditText) findViewById(R.id.login_mobile_edt);
         mLoginCodeTV = (EditText) findViewById(R.id.login_code_edt);
         mLoginCodeBtn = (Button) findViewById(R.id.login_code_btn);
+        mLoginSubmitBtn = (Button) findViewById(R.id.login_submit_btn);
+        mLoginAgreement = (TextView) findViewById(R.id.login_agreement_tv);
 
-        ApplicationInfo applicationInfo = null;
+        ApplicationInfo applicationInfo;
         try {
             applicationInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             String pgyer_appid = applicationInfo.metaData.getString("PGYER_APPID");
