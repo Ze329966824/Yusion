@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -75,6 +76,10 @@ public class UBT {
         singleThreadPool.execute(new Runnable() {
             @Override
             public void run() {
+                //没有token和mobile的数据暂不发送
+                if (TextUtils.isEmpty(SharedPrefsUtil.getInstance(context).getValue("mobile", ""))
+                        || TextUtils.isEmpty(SharedPrefsUtil.getInstance(context).getValue("token", "")))
+                    return;
                 String TAG = "UBT";
                 Cursor cursor = SqlLiteUtil.query(null, null, null, null);
                 int count = cursor.getCount();
@@ -106,7 +111,7 @@ public class UBT {
                     UBTData req = new UBTData(context);
                     UBTData.DataBean dataBean = new UBTData.DataBean();
                     dataBean.category = "ubt";
-                    dataBean.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", null);
+                    dataBean.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", "");
                     dataBean.ubt_list = data;
                     req.data.add(dataBean);
                     Log.e(TAG, "run: 正在发送");
