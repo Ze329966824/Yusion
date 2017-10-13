@@ -17,7 +17,9 @@ import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
+import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.ui.entrance.WebViewActivity;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
@@ -165,10 +167,15 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void logout() {
-        myApp.clearUserData();
-
-        startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-        finish();
+        Toast.makeText(myApp, "正在退出,请稍等", Toast.LENGTH_SHORT).show();
+        UBT.sendAllUBTEvents(this, new OnVoidCallBack() {
+            @Override
+            public void callBack() {
+                myApp.clearUserData();
+                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
