@@ -3,7 +3,6 @@ package com.yusion.shanghai.yusion.ui.main.mine;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
@@ -30,6 +28,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private String desc;
     private String url;
     private String versionCode;
+    public boolean finishByLoginOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +36,10 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_settings);
         initTitleBar(this, getResources().getString(R.string.main_setting_title));
         TextView versionCodeTv = (TextView) findViewById(R.id.settings_version_code_tv);
-        versionCode = Settings.isOnline == false ? "测试环境" : BuildConfig.VERSION_NAME;
+        versionCode = !Settings.isOnline ? "测试环境" : BuildConfig.VERSION_NAME;
         versionCodeTv.setText(versionCode);
 
         initSetURL();
-
 //        initView();
     }
 
@@ -62,7 +60,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                                     Settings.SERVER_URL = editText.getText().toString();
                                     SharedPrefsUtil.getInstance(SettingsActivity.this).putValue("SERVER_URL", editText.getText().toString());
                                     dialog.dismiss();
-
                                     new AlertDialog.Builder(SettingsActivity.this)
                                             .setMessage("请自行重启app")
                                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -76,7 +73,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                             }).show();
 
                 }
-
                 return true;
             }
         });
@@ -120,7 +116,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initUpdate(String download_url) {
-
         PgyUpdateManager.register(SettingsActivity.this, null, new UpdateManagerListener() {
             @Override
             public void onNoUpdateAvailable() {
@@ -146,41 +141,24 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         new AlertDialog.Builder(SettingsActivity.this)
                 .setCancelable(true)
                 .setTitle(getResources().getString(R.string.mine_logout_dialog_title))
-                .setPositiveButton(getResources().getString(R.string.mine_logout_dialog_sure), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(@NonNull DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        logout();
+                .setPositiveButton(getResources().getString(R.string.mine_logout_dialog_sure), (dialog, which) -> {
+                    dialog.dismiss();
+                    logout();
 
-                    }
                 })
-                .setNegativeButton(getResources().getString(R.string.mine_logout_dialog_cancle), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(@NonNull DialogInterface dialog, int which) {
-                        dialog.dismiss();
-
-
-                    }
-                })
+                .setNegativeButton(getResources().getString(R.string.mine_logout_dialog_cancle), (dialog, which) -> dialog.dismiss())
                 .setMessage(getResources().getString(R.string.mine_logout_dialog_msg))
                 .show();
     }
 
     private void logout() {
-        Toast.makeText(myApp, "正在退出,请稍等", Toast.LENGTH_SHORT).show();
-        UBT.sendAllUBTEvents(this, new OnVoidCallBack() {
-            @Override
-            public void callBack() {
-                myApp.clearUserData();
-                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-                finish();
-            }
+        Toast.makeText(myApp, "正在退出,请稍等...", Toast.LENGTH_SHORT).show();
+        UBT.addPageEvent(this, "page_hidden", "activity", getClass().getSimpleName());
+        UBT.sendAllUBTEvents(this, () -> {
+            finishByLoginOut = true;
+            myApp.clearUserData();
+            startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+            finish();
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
     }
 }

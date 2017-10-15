@@ -8,7 +8,6 @@ package com.yusion.shanghai.yusion.ubt;
  */
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -33,11 +32,8 @@ import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.ubt.sql.UBTEvent;
-import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
-import com.yusion.shanghai.yusion.ui.entrance.MainActivity;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
-import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -165,9 +161,9 @@ public class UBT {
 
     static {
         if (Settings.isOnline) {
-            LIMIT = 50;
+            LIMIT = 100;
         } else {
-            LIMIT = 10;
+            LIMIT = 50;
         }
     }
 
@@ -194,11 +190,13 @@ public class UBT {
         singleThreadPool.execute(new Runnable() {
             @Override
             public void run() {
+                String TAG = "UBT";
                 //没有token和mobile的数据暂不发送
                 if (TextUtils.isEmpty(SharedPrefsUtil.getInstance(context).getValue("mobile", ""))
-                        || TextUtils.isEmpty(SharedPrefsUtil.getInstance(context).getValue("token", "")))
+                        || TextUtils.isEmpty(SharedPrefsUtil.getInstance(context).getValue("token", ""))) {
+                    Log.e(TAG, "run: mobile或token为空 禁止发送");
                     return;
-                String TAG = "UBT";
+                }
                 Cursor cursor = SqlLiteUtil.query(null, null, null, null);
                 int count = cursor.getCount();
                 if (count > limit) {
