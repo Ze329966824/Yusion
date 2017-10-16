@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -319,7 +320,9 @@ public class UploadListActivity extends BaseActivity {
 
     private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
         if (finalAccount == files.size()) {
+            Log.e("TAG", "onUploadOssFinish: 1");
             dialog.dismiss();
+            Log.e("TAG", "onUploadOssFinish: 2");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -367,10 +370,17 @@ public class UploadListActivity extends BaseActivity {
             uploadFileUrlBeanList.add(fileUrlBean);
         }
 
+        Log.e("TAG", "uploadImgs: 1");
+        if (isFinishing()) {
+            Log.e("TAG", "uploadImgs: 2");
+            return;
+        }
         if (mUploadFileDialog == null) {
+            Log.e("TAG", "uploadImgs: 3");
             mUploadFileDialog = LoadingUtils.createLoadingDialog(this);
             mUploadFileDialog.setCancelable(false);
         }
+        Log.e("TAG", "uploadImgs: 4");
         mUploadFileDialog.show();
         UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
         uploadFilesUrlReq.files = uploadFileUrlBeanList;
