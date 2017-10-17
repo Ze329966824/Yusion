@@ -11,6 +11,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -55,20 +56,34 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
 
-    @BindView(id = R.id.autonym_certify_id_front_tv ,widgetName = "autonym_certify_id_front_tv")
-    var autonym_certify_id_front_tv:TextView? = null
+    @BindView(id = R.id.autonym_certify_id_back_tv, widgetName = "autonym_certify_id_back_tv")
+    var autonym_certify_id_back_tv: TextView? = null
 
-    @BindView(id = R.id.autonym_certify_name_tv ,widgetName = "autonym_certify_name_tv")
-    var autonym_certify_name_tv:EditText? = null
+    @BindView(id = R.id.autonym_certify_id_front_tv, widgetName = "autonym_certify_id_front_tv")
+    var autonym_certify_id_front_tv: TextView? = null
+
+    @BindView(id = R.id.autonym_certify_name_tv, widgetName = "autonym_certify_name_tv")
+    var autonym_certify_name_tv: EditText? = null
 
     @BindView(id = R.id.autonym_certify_id_number_tv, widgetName = "autonym_certify_id_number_tv")
     var autonym_certify_id_number_tv: EditText? = null
 
-    @BindView(id = R.id.autonym_certify_driving_license_tv ,widgetName = "autonym_certify_driving_license_tv")
-    var autonym_certify_driving_license_tv:TextView? = null
+    @BindView(id = R.id.autonym_certify_driving_license_tv, widgetName = "autonym_certify_driving_license_tv")
+    var autonym_certify_driving_license_tv: TextView? = null
 
-    @BindView(id = R.id.autonym_certify_driving_license_rel_tv ,widgetName = "autonym_certify_driving_license_rel_tv")
-    var autonym_certify_driving_license_rel_tv:TextView? = null
+    @BindView(id = R.id.autonym_certify_driving_license_rel_tv, widgetName = "autonym_certify_driving_license_rel_tv")
+    var autonym_certify_driving_license_rel_tv: TextView? = null
+
+    @BindView(id = R.id.autonym_certify_next_btn, widgetName = "autonym_certify_next_btn",onClick = "submitAutonymCertify")
+    var autonym_certify_next_btn: Button? = null
+
+
+    fun submitAutonymCertify(view: View?){
+        autonym_certify_next_btn?.setFocusable(true)
+        autonym_certify_next_btn?.setFocusableInTouchMode(true)
+        autonym_certify_next_btn?.requestFocus()
+        autonym_certify_next_btn?.requestFocusFromTouch()
+    }
 
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -111,7 +126,8 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 //                nextStep()
             }
         }
-        autonym_certify_next_btn.setOnClickListener {
+
+        autonym_certify_next_btn?.setOnFocusChangeListener { v, hasFocus ->
             if (checkCanNextStep()) {
                 clearDoubleCheckItems()
                 addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
@@ -207,13 +223,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
         } else if (DRI_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_name_tv?.text?.trim()?.isEmpty() as Boolean) {
+        } else if ((autonym_certify_name_tv as EditText).text.trim().isEmpty()) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_id_number_tv?.text?.isEmpty() as Boolean) {
+        } else if ((autonym_certify_id_number_tv as EditText).text.isEmpty()) {
             Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv?.text.toString())) {
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard((autonym_certify_id_number_tv as EditText).text.toString())) {
             Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_driving_license_rel_tv?.text?.isEmpty() as Boolean) {
+        } else if ((autonym_certify_driving_license_rel_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "请选择驾照证持有人与本人关系", Toast.LENGTH_SHORT).show()
         } else {
             return true
@@ -248,7 +264,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 }
                                 if (ocrResp.name.isNotEmpty()) {
                                     autonym_certify_name_tv?.setText(ocrResp.name)
-                                }else{
+                                } else {
 
                                 }
                             }

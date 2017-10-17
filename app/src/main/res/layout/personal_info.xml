@@ -1577,7 +1577,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/personal_info_next_btn"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"

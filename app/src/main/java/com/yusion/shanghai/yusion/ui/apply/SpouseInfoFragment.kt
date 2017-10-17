@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -161,6 +162,16 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     @BindView(id = R.id.spouse_info_extra_from_income_work_phone_num_edt, widgetName = "spouse_info_extra_from_income_work_phone_num_edt")
     var spouse_info_extra_from_income_work_phone_num_edt: EditText? = null
 
+    @BindView(id = R.id.spouse_info_submit_btn, widgetName = "spouse_info_submit_btn", onClick = "submitSpouseInfo")
+    var spouse_info_submit_btn: Button? = null
+
+    fun submitSpouseInfo(view: View?) {
+        spouse_info_submit_btn?.setFocusable(true)
+        spouse_info_submit_btn?.setFocusableInTouchMode(true)
+        spouse_info_submit_btn?.requestFocus()
+        spouse_info_submit_btn?.requestFocusFromTouch()
+    }
+
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -170,6 +181,19 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         UBT.bind(this, view, DocumentActivity::class.java.getSimpleName())
+        spouse_info_submit_btn?.setOnFocusChangeListener { v, hasFocus ->
+            if (checkCanNextStep())
+                if (spouse_info_marriage_tv?.text.toString() == "已婚") {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", spouse_info_clt_nm_edt?.text.toString())
+                    addDoubleCheckItem("身份证号", spouse_info_id_no_edt?.text.toString())
+                    addDoubleCheckItem("手机号", spouse_info_mobile_edt?.text.toString())
+                    mDoubleCheckDialog.show()
+                } else {
+                    submit()
+                }
+//                nextStep()
+        }
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
@@ -239,22 +263,6 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, spouse_info_gender_lin, spouse_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
-        }
-
-        spouse_info_mobile_img.setOnClickListener { selectContact() }
-        spouse_info_submit_btn.setOnClickListener {
-            if (checkCanNextStep()) {
-                if (spouse_info_marriage_tv?.text.toString() == "已婚") {
-                    clearDoubleCheckItems()
-                    addDoubleCheckItem("姓名", spouse_info_clt_nm_edt?.text.toString())
-                    addDoubleCheckItem("身份证号", spouse_info_id_no_edt?.text.toString())
-                    addDoubleCheckItem("手机号", spouse_info_mobile_edt?.text.toString())
-                    mDoubleCheckDialog.show()
-                } else {
-                    submit()
-                }
-//                nextStep()
-            }
         }
 
 

@@ -99,12 +99,14 @@ public class UBTCollections {
         widgetNameMaps.put("autonym_certify_id_number_tv", "输入身份证号");
         widgetNameMaps.put("autonym_certify_driving_license_tv", "上传驾驶证");
         widgetNameMaps.put("autonym_certify_driving_license_rel_tv", "选择驾驶证与本人关系");
-        
+        widgetNameMaps.put("autonym_certify_next_btn", "提交征信信息");
+
         
         
         
         widgetNameMaps.put("personal_info_gender_tv", "选择性别");
         widgetNameMaps.put("personal_info_reg_tv", "选择户籍地");
+        widgetNameMaps.put("personal_info_mobile_edt", "输入手机号");
         widgetNameMaps.put("personal_info_education_tv", "选择学历");
         widgetNameMaps.put("personal_info_current_address_tv", "选择现住地址");
         widgetNameMaps.put("personal_info_current_address1_tv", "选择详细地址");
@@ -150,6 +152,7 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_urg_relation2_tv", "与申请人关系(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_mobile2_edt", "手机号码(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_contact2_edt", "联系人姓名(紧急联系人2)");
+        widgetNameMaps.put("personal_info_next_btn", "提交主贷人信息");
 
 
 
@@ -199,6 +202,9 @@ public class UBTCollections {
         widgetNameMaps.put("spouse_info_extra_from_income_company_address2_tv", "输入配偶门牌号(额外工资)");
         widgetNameMaps.put("spouse_info_extra_from_income_work_position_tv", "选择配偶职务(额外工资)");
         widgetNameMaps.put("spouse_info_extra_from_income_work_phone_num_edt", "输入配偶单位座机(额外工资)");
+        widgetNameMaps.put("spouse_info_submit_btn", "提交配偶信息");
+
+
 
 
 

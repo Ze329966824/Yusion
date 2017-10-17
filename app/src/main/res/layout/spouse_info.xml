@@ -1429,7 +1429,7 @@
                 <include layout="@layout/include_line" />
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/spouse_info_submit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
