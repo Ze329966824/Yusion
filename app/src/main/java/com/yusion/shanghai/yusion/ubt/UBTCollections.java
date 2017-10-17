@@ -150,12 +150,64 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_urg_relation2_tv", "与申请人关系(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_mobile2_edt", "手机号码(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_contact2_edt", "联系人姓名(紧急联系人2)");
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+        widgetNameMaps.put("spouse_info_marriage_tv", "选择婚否");
+
+        widgetNameMaps.put("spouse_info_divorced_child_count_edt", "输入子女数量(离异)");
+        widgetNameMaps.put("spouse_info_divorced_tv", "上传离婚证");
+
+        widgetNameMaps.put("spouse_info_die_child_count_edt", "输入子女数量(丧偶)");
+        widgetNameMaps.put("spouse_info_register_addr_tv", "上传户口本");
+
+        widgetNameMaps.put("spouse_info_id_back_tv", "上传配偶身份证人像面");
+        widgetNameMaps.put("spouse_info_id_front_tv", "上传配偶身份证国徽面");
+        widgetNameMaps.put("spouse_info_clt_nm_edt", "输入配偶姓名");
+        widgetNameMaps.put("spouse_info_id_no_edt", "输入配偶身份证号");
+        widgetNameMaps.put("spouse_info_gender_tv", "选择配偶性别");
+        widgetNameMaps.put("spouse_info_mobile_edt", "输入配偶手机号");
+        widgetNameMaps.put("spouse_info_child_count_edt", "输入子女数量(已婚)");
+
+
+
+        widgetNameMaps.put("spouse_info_income_from_tv", "选择配偶主要收入来源");
+        widgetNameMaps.put("spouse_info_from_income_year_edt", "输入配偶年收入(主要工资)");
+        widgetNameMaps.put("spouse_info_from_income_company_name_edt", "输入配偶单位名称(主要工资)");
+        widgetNameMaps.put("spouse_info_from_income_company_address_tv", "选择配偶单位地址(主要工资)");
+        widgetNameMaps.put("spouse_info_from_income_company_address1_tv", "选择配偶详细地址(主要工资)");
+        widgetNameMaps.put("spouse_info_from_income_company_address2_tv", "输入配偶门牌号(主要工资)");
+        widgetNameMaps.put("spouse_info_from_income_work_position_tv", "选择配偶职务(主要工资)");
+        widgetNameMaps.put("spouse_info_from_income_work_phone_num_edt", "输入配偶单位座机(主要工资)");
+
+        widgetNameMaps.put("spouse_info_from_self_year_edt", "输入配偶年收入(主要自营)");
+        widgetNameMaps.put("spouse_info_from_self_type_tv", "选择配偶业务类型(主要自营)");
+        widgetNameMaps.put("spouse_info_from_self_company_name_edt", "输入配偶店铺名称(主要自营)");
+        widgetNameMaps.put("spouse_info_from_self_company_address_tv", "选择配偶经营项目地址(主要自营)");
+        widgetNameMaps.put("spouse_info_from_self_company_address1_tv", "选择配偶详细地址(主要自营)");
+        widgetNameMaps.put("spouse_info_from_self_company_address2_tv", "输入配偶门牌号(主要自营)");
+
+        widgetNameMaps.put("spouse_info_extra_income_from_tv", "选择配偶额外收入来源");
+
+        widgetNameMaps.put("spouse_info_extra_from_income_year_edt", "输入配偶年收入(额外工资)");
+        widgetNameMaps.put("spouse_info_extra_from_income_company_name_edt", "输入配偶单位名称(额外工资)");
+        widgetNameMaps.put("spouse_info_extra_from_income_company_address_tv", "选择配偶单位地址(额外工资)");
+        widgetNameMaps.put("spouse_info_extra_from_income_company_address1_tv", "选择配偶详细地址(额外工资)");
+        widgetNameMaps.put("spouse_info_extra_from_income_company_address2_tv", "输入配偶门牌号(额外工资)");
+        widgetNameMaps.put("spouse_info_extra_from_income_work_position_tv", "选择配偶职务(额外工资)");
+        widgetNameMaps.put("spouse_info_extra_from_income_work_phone_num_edt", "输入配偶单位座机(额外工资)");
+
+
+
+
+
+
+
+
+
         
         
 
