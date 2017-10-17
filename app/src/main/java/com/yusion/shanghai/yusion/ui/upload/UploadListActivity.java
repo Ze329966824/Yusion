@@ -85,96 +85,87 @@ public class UploadListActivity extends BaseActivity {
     private void initView() {
         TitleBar titleBar = initTitleBar(this, title).setLeftClickListener(v -> onBack());
         mEditTv = titleBar.getRightTextTv();
-        titleBar.setRightText("编辑").setRightClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isEditing) {
-                    isEditing = false;
-                    mEditTv.setText("编辑");
-                    uploadBottomLin.setVisibility(View.GONE);
-                } else {
-                    isEditing = true;
-                    mEditTv.setText("取消");
-                    uploadBottomLin.setVisibility(View.VISIBLE);
+        titleBar.setRightText("编辑").setRightClickListener(v -> {
+            if (isEditing) {
+                isEditing = false;
+                mEditTv.setText("编辑");
+                uploadBottomLin.setVisibility(View.GONE);
+            } else {
+                isEditing = true;
+                mEditTv.setText("取消");
+                uploadBottomLin.setVisibility(View.VISIBLE);
 
-                    uploadTv1.setText("全选");
-                    uploadTv2.setText("删除");
-                    uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
-                }
-                adapter.setIsEditing(isEditing);
+                uploadTv1.setText("全选");
+                uploadTv2.setText("删除");
+                uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
             }
+            adapter.setIsEditing(isEditing);
         });
 
         uploadBottomLin = (LinearLayout) findViewById(R.id.upload_bottom_lin);
         uploadTv1 = (TextView) findViewById(R.id.upload_bottom_tv1);
         uploadTv2 = (TextView) findViewById(R.id.upload_bottom_tv2);
-        uploadTv1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (uploadTv1.getText().toString().equals("全选")) {
-                    for (UploadImgItemBean itemBean : lists) {
-                        itemBean.hasChoose = true;
-                    }
-                    uploadTv1.setText("取消全选");
-                    uploadTv2.setText(String.format(Locale.CHINA, "删除(%d)", getCurrentChooseItemCount()));
-                    uploadTv2.setTextColor(Color.RED);
-                    adapter.notifyDataSetChanged();
-                } else if (uploadTv1.getText().toString().equals("取消全选")) {
-                    for (UploadImgItemBean itemBean : lists) {
-                        itemBean.hasChoose = false;
-                    }
-                    uploadTv1.setText("全选");
-                    uploadTv2.setText("删除");
-                    uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
-                    adapter.notifyDataSetChanged();
+        uploadTv1.setOnClickListener(v -> {
+            if (uploadTv1.getText().toString().equals("全选")) {
+                for (UploadImgItemBean itemBean : lists) {
+                    itemBean.hasChoose = true;
                 }
-            }
-        });
-        uploadTv2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //要删除的图片的id集合
-                List<String> delImgIdList = new ArrayList<>();
-
-                //要删除的索引集合
-                List<Integer> indexList = new ArrayList<>();
-                for (int i = 0; i < lists.size(); i++) {
-                    if (lists.get(i).hasChoose) indexList.add(i);
+                uploadTv1.setText("取消全选");
+                uploadTv2.setText(String.format(Locale.CHINA, "删除(%d)", getCurrentChooseItemCount()));
+                uploadTv2.setTextColor(Color.RED);
+                adapter.notifyDataSetChanged();
+            } else if (uploadTv1.getText().toString().equals("取消全选")) {
+                for (UploadImgItemBean itemBean : lists) {
+                    itemBean.hasChoose = false;
                 }
-                Collections.sort(indexList);
-
-                //每删除一个对象就该偏移+1
-                int offset = 0;
-                for (int i = 0; i < indexList.size(); i++) {
-                    int delIndex = indexList.get(i) - offset;
-                    delImgIdList.add(lists.get(delIndex).id);
-                    lists.remove(delIndex);
-                    offset++;
-                }
-
+                uploadTv1.setText("全选");
                 uploadTv2.setText("删除");
                 uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
-                if (needUploadFidToServer) {
-                    adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        uploadTv2.setOnClickListener(v -> {
+            //要删除的图片的id集合
+            List<String> delImgIdList = new ArrayList<>();
 
-                    DelImgsReq req = new DelImgsReq();
-                    req.clt_id = clt_id;
-                    req.id.addAll(delImgIdList);
-                    if (delImgIdList.size() > 0) {
-                        UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
-                            @Override
-                            public void callBack(int code, String msg) {
-                                // TODO: 2017/10/12  先删除local图片再删除remote图片会有隐患
-                                if (code == 0) {
-                                    Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
-                                    onImgCountChange(lists.size() > 0);
-                                }
+            //要删除的索引集合
+            List<Integer> indexList = new ArrayList<>();
+            for (int i = 0; i < lists.size(); i++) {
+                if (lists.get(i).hasChoose) indexList.add(i);
+            }
+            Collections.sort(indexList);
+
+            //每删除一个对象就该偏移+1
+            int offset = 0;
+            for (int i = 0; i < indexList.size(); i++) {
+                int delIndex = indexList.get(i) - offset;
+                delImgIdList.add(lists.get(delIndex).id);
+                lists.remove(delIndex);
+                offset++;
+            }
+
+            uploadTv2.setText("删除");
+            uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
+            if (needUploadFidToServer) {
+                adapter.notifyDataSetChanged();
+
+                DelImgsReq req = new DelImgsReq();
+                req.clt_id = clt_id;
+                req.id.addAll(delImgIdList);
+                if (delImgIdList.size() > 0) {
+                    UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
+                        @Override
+                        public void callBack(int code, String msg) {
+                            // TODO: 2017/10/12  先删除local图片再删除remote图片会有隐患
+                            if (code == 0) {
+                                Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                                onImgCountChange(lists.size() > 0);
                             }
-                        });
-                    }
-                } else {
-                    onImgCountChange(lists.size() > 0);
+                        }
+                    });
                 }
+            } else {
+                onImgCountChange(lists.size() > 0);
             }
         });
 
