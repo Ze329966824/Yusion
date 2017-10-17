@@ -9,7 +9,8 @@ import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.retrofit.api.OcrApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnTwoCallBack;
+
 import io.sentry.Sentry;
 
 /**
@@ -17,7 +18,7 @@ import io.sentry.Sentry;
  */
 public class OcrUtil {
     public static void requestOcr(final Context context, final String localPath, @NonNull OSSObjectKeyBean objectKeyBean, String type,
-                                  @NonNull final OnOcrSuccessCallBack onSuccessCallBack, @NonNull final OnMultiDataCallBack<Throwable, String> onFailureCallBack) {
+                                  @NonNull final OnOcrSuccessCallBack onSuccessCallBack, @NonNull final OnTwoCallBack<Throwable, String> onFailureCallBack) {
 
         OssUtil.uploadOss(context, false, localPath, objectKeyBean, objectKey -> {
             OcrReq ocrReq = new OcrReq();
@@ -36,13 +37,13 @@ public class OcrUtil {
                     String errorInfo = "onFailure() called with:  throwable = [" + throwable + "]";
                     Sentry.capture(errorInfo);
                     Log.e("TAG", errorInfo);
-                    onFailureCallBack.onMultiDataCallBack(throwable, objectKey);
+                    onFailureCallBack.onTwoDataCallBack(throwable, objectKey);
                 }
             });
         }, new OnItemDataCallBack<Throwable>() {
             @Override
             public void onItemDataCallBack(Throwable throwable) {
-                onFailureCallBack.onMultiDataCallBack(throwable, null);
+                onFailureCallBack.onTwoDataCallBack(throwable, null);
             }
         });
     }

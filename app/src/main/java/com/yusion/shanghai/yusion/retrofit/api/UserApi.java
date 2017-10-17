@@ -16,7 +16,7 @@ import com.yusion.shanghai.yusion.utils.LoadingUtils;
 public class UserApi {
     public static void getListCurrentTpye(Context context, final OnItemDataCallBack<ListCurrentTpye> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        Api.getUserApi().getListCurrentTpye().enqueue(new CustomCallBack<ListCurrentTpye>(context, dialog) {
+        Api.getUserApi().getListCurrentType().enqueue(new CustomCallBack<ListCurrentTpye>(context, dialog) {
             @Override
             public void onCustomResponse(ListCurrentTpye data) {
                 onItemDataCallBack.onItemDataCallBack(data);

@@ -38,7 +38,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnTwoCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
@@ -419,9 +419,9 @@ public class DocmtActivity extends BaseActivity {
                             dialog.dismiss();
                         }
                     }
-                }, new OnMultiDataCallBack<Throwable, String>() {
+                }, new OnTwoCallBack<Throwable, String>() {
                     @Override
-                    public void onMultiDataCallBack(Throwable throwable, String objectKey) {
+                    public void onTwoDataCallBack(Throwable throwable, String objectKey) {
                         if (!TextUtils.isEmpty(objectKey)) {
                             mImgObjectKey = objectKey;
                         }
