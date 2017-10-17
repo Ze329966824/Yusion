@@ -136,10 +136,8 @@ public class LoginActivity extends BaseActivity {
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("mobile", YusionApp.MOBILE);
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-
             //上传设备信息
             new Thread(new Runnable() {
                 @Override
@@ -248,10 +246,16 @@ public class LoginActivity extends BaseActivity {
                 contactBean.mobile = data.mobile;
                 simBean.clt_nm = data.name;
                 simBean.mobile = data.mobile;
-                //PersonApi.uploadPersonAndDeviceInfo(req);
+
                 PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {
                     @Override
                     public void onResponse(Call call, Response response) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                finish();
+//                            }
+//                        });
                         finish();
                     }
 

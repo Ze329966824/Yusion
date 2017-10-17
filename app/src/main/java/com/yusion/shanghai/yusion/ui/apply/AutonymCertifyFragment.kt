@@ -11,6 +11,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
@@ -19,10 +21,12 @@ import com.yusion.shanghai.yusion.bean.ocr.OcrResp
 import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
-import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
+import com.yusion.shanghai.yusion.ubt.UBT
+import com.yusion.shanghai.yusion.ubt.annotate.BindView
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -49,6 +53,23 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var idFrontImgUrl = ""
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
+
+
+    @BindView(id = R.id.autonym_certify_id_front_tv ,widgetName = "autonym_certify_id_front_tv")
+    var autonym_certify_id_front_tv:TextView? = null
+
+    @BindView(id = R.id.autonym_certify_name_tv ,widgetName = "autonym_certify_name_tv")
+    var autonym_certify_name_tv:EditText? = null
+
+    @BindView(id = R.id.autonym_certify_id_number_tv, widgetName = "autonym_certify_id_number_tv")
+    var autonym_certify_id_number_tv: EditText? = null
+
+    @BindView(id = R.id.autonym_certify_driving_license_tv ,widgetName = "autonym_certify_driving_license_tv")
+    var autonym_certify_driving_license_tv:TextView? = null
+
+    @BindView(id = R.id.autonym_certify_driving_license_rel_tv ,widgetName = "autonym_certify_driving_license_rel_tv")
+    var autonym_certify_driving_license_rel_tv:TextView? = null
+
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -66,12 +87,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        UBT.bind(this, view, DocumentActivity::class.java.getSimpleName())
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
-            ProductApi.getClientInfo(mContext, GetClientInfoReq(autonym_certify_id_number_tv.text.toString(), autonym_certify_name_tv.text.toString(), "1")) {
+            ProductApi.getClientInfo(mContext, GetClientInfoReq(autonym_certify_id_number_tv?.text.toString(), autonym_certify_name_tv?.text.toString(), "1")) {
                 if (it == null) {
                     return@getClientInfo
                 }
@@ -92,8 +114,8 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         autonym_certify_next_btn.setOnClickListener {
             if (checkCanNextStep()) {
                 clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", autonym_certify_name_tv.text.toString())
-                addDoubleCheckItem("身份证号", autonym_certify_id_number_tv.text.toString())
+                addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
+                addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
                 mDoubleCheckDialog.show()
             }
         }
@@ -132,9 +154,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf");
 
         if (Settings.isShameData) {
-            autonym_certify_name_tv.setText("just Test")
-            autonym_certify_id_number_tv.setText("${Date().time}")
-            autonym_certify_id_number_tv.setText("513001198707080231")
+            autonym_certify_name_tv?.setText("just Test")
+            autonym_certify_id_number_tv?.setText("${Date().time}")
+            autonym_certify_id_number_tv?.setText("513001198707080231")
             ID_BACK_FID = "test"
             ID_FRONT_FID = "test"
         }
@@ -185,13 +207,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
         } else if (DRI_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_name_tv.text.trim().isEmpty()) {
+        } else if (autonym_certify_name_tv?.text?.trim()?.isEmpty() as Boolean) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_id_number_tv.text.isEmpty()) {
+        } else if (autonym_certify_id_number_tv?.text?.isEmpty() as Boolean) {
             Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv.text.toString())) {
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv?.text.toString())) {
             Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_driving_license_rel_tv.text.isEmpty()) {
+        } else if (autonym_certify_driving_license_rel_tv?.text?.isEmpty() as Boolean) {
             Toast.makeText(mContext, "请选择驾照证持有人与本人关系", Toast.LENGTH_SHORT).show()
         } else {
             return true
@@ -214,41 +236,45 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 ID_BACK_FID = data.getStringExtra("objectKey")
                                 idBackImgUrl = data.getStringExtra("imgUrl")
                                 if (ID_BACK_FID.isNotEmpty()) {
-                                    autonym_certify_id_back_tv.text = "已上传"
-                                    autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
+                                    autonym_certify_id_back_tv?.text = "已上传"
+                                    autonym_certify_id_back_tv?.setTextColor(resources.getColor(R.color.system_color))
                                     ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
                                 } else {
-                                    autonym_certify_id_back_tv.text = "请上传"
-                                    autonym_certify_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    autonym_certify_id_back_tv?.text = "请上传"
+                                    autonym_certify_id_back_tv?.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
                                 if (ocrResp.idNo.isNotEmpty()) {
-                                    autonym_certify_id_number_tv.setText(ocrResp.idNo)
+                                    autonym_certify_id_number_tv?.setText(ocrResp.idNo)
                                 }
                                 if (ocrResp.name.isNotEmpty()) {
-                                    autonym_certify_name_tv.setText(ocrResp.name)
+                                    autonym_certify_name_tv?.setText(ocrResp.name)
+                                }else{
+
                                 }
                             }
                             Constants.FileLabelType.ID_FRONT -> {
                                 ID_FRONT_FID = data.getStringExtra("objectKey")
                                 idFrontImgUrl = data.getStringExtra("imgUrl")
                                 if (ID_FRONT_FID.isNotEmpty()) {
-                                    autonym_certify_id_front_tv.text = "已上传"
-                                    autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                                    autonym_certify_id_front_tv?.text = "已上传"
+                                    autonym_certify_id_front_tv?.setTextColor(resources.getColor(R.color.system_color))
                                 } else {
-                                    autonym_certify_id_front_tv.text = "请上传"
-                                    autonym_certify_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    autonym_certify_id_front_tv?.text = "请上传"
+                                    autonym_certify_id_front_tv?.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
                             }
                             Constants.FileLabelType.DRI_LIC -> {
                                 DRI_FID = data.getStringExtra("objectKey")
                                 drivingLicImgUrl = data.getStringExtra("imgUrl")
                                 if (DRI_FID.isNotEmpty()) {
-                                    autonym_certify_driving_license_tv.text = "已上传"
-                                    autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.system_color))
+                                    autonym_certify_driving_license_tv?.text = "已上传"
+                                    autonym_certify_driving_license_tv?.setTextColor(resources.getColor(R.color.system_color))
                                 } else {
-                                    autonym_certify_driving_license_tv.text = "请上传"
-                                    autonym_certify_driving_license_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    autonym_certify_driving_license_tv?.text = "请上传"
+                                    autonym_certify_driving_license_tv?.setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
+                            }
+                            else -> {
                             }
                         }
                     }

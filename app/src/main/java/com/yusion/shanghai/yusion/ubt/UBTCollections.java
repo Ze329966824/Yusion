@@ -45,6 +45,7 @@ import java.util.HashMap;
 
 public class UBTCollections {
     public static HashMap<String, Pair<String, String>> pageNameMaps = new HashMap<>();
+    public static HashMap<String, String> widgetNameMaps = new HashMap<>();
 
     static {
         pageNameMaps.put(LaunchActivity.class.getSimpleName(), new Pair<>("launch", "启动页面"));
@@ -91,6 +92,75 @@ public class UBTCollections {
         pageNameMaps.put(UploadListActivity.class.getSimpleName(), new Pair<>("upload_img_list", "上传影像件列表页面"));
     }
 
+    static {
+        widgetNameMaps.put("autonym_certify_id_back_tv", "上传身份证人像面");
+        widgetNameMaps.put("autonym_certify_id_front_tv", "上传身份证国徽面");
+        widgetNameMaps.put("autonym_certify_name_tv", "输入姓名");
+        widgetNameMaps.put("autonym_certify_id_number_tv", "输入身份证号");
+        widgetNameMaps.put("autonym_certify_driving_license_tv", "上传驾驶证");
+        widgetNameMaps.put("autonym_certify_driving_license_rel_tv", "选择驾驶证与本人关系");
+        
+        
+        
+        
+        widgetNameMaps.put("personal_info_gender_tv", "选择性别");
+        widgetNameMaps.put("personal_info_reg_tv", "选择户籍地");
+        widgetNameMaps.put("personal_info_education_tv", "选择学历");
+        widgetNameMaps.put("personal_info_current_address_tv", "选择现住地址");
+        widgetNameMaps.put("personal_info_current_address1_tv", "选择详细地址");
+        widgetNameMaps.put("personal_info_current_address2_tv", "输入门牌号");
+        widgetNameMaps.put("personal_info_live_with_parent_tv", "选择是否与父母同住");
+        
+        widgetNameMaps.put("personal_info_income_from_tv", "选择主要收入来源");
+        
+        widgetNameMaps.put("personal_info_from_income_year_edt", "输入年收入(主要工资)");
+        widgetNameMaps.put("personal_info_from_income_company_name_edt", "输入单位名称(主要工资)");
+        widgetNameMaps.put("personal_info_from_income_company_address_tv", "选择单位地址(主要工资)");
+        widgetNameMaps.put("personal_info_from_income_company_address1_tv", "选择详细地址(主要工资)");
+        widgetNameMaps.put("personal_info_from_income_company_address2_tv", "输入门牌号(主要工资)");
+        widgetNameMaps.put("personal_info_from_income_work_position_tv", "选择职务(主要工资)");
+        widgetNameMaps.put("personal_info_from_income_work_phone_num_edt", "输入单位座机(主要工资)");
+       
+        widgetNameMaps.put("personal_info_from_self_year_edt", "输入年收入(主要自营)");
+        widgetNameMaps.put("personal_info_from_self_type_tv", "选择业务类型(主要自营)");
+        widgetNameMaps.put("personal_info_from_self_company_name_edt", "输入店铺名称(主要自营)");
+        widgetNameMaps.put("personal_info_from_self_company_address_tv", "选择经营项目地址(主要自营)");
+        widgetNameMaps.put("personal_info_from_self_company_address1_tv", "选择详细地址(主要自营)");
+        widgetNameMaps.put("personal_info_from_self_company_address2_tv", "输入门牌号(主要自营)");
+        
+        
+        widgetNameMaps.put("personal_info_extra_income_from_tv", "选择额外收入来源");
+        widgetNameMaps.put("personal_info_extra_from_income_year_edt", "输入年收入(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_company_name_edt", "输入单位名称(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_company_address_tv", "选择单位名称(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_company_address1_tv", "选择详细地址(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_company_address2_tv", "输入门牌号(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_work_position_tv", "选择职务(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_work_phone_num_edt", "输入单位座机(额外工资)");
+        
+        
+        widgetNameMaps.put("personal_info_house_type_tv", "选择房屋性质");
+        widgetNameMaps.put("personal_info_house_area_edt", "输入房屋面积");
+        widgetNameMaps.put("personal_info_house_owner_name_edt", "输入房屋所有人");
+        widgetNameMaps.put("personal_info_house_owner_relation_tv", "选择与申请人关系(房屋所有人)");
+        
+        widgetNameMaps.put("personal_info_urg_relation1_tv", "与申请人关系(紧急联系人1)");
+        widgetNameMaps.put("personal_info_urg_mobile1_edt", "手机号码(紧急联系人1)");
+        widgetNameMaps.put("personal_info_urg_contact1_edt", "联系人姓名(紧急联系人1)");        
+        widgetNameMaps.put("personal_info_urg_relation2_tv", "与申请人关系(紧急联系人2)");
+        widgetNameMaps.put("personal_info_urg_mobile2_edt", "手机号码(紧急联系人2)");
+        widgetNameMaps.put("personal_info_urg_contact2_edt", "联系人姓名(紧急联系人2)");
+        
+        
+        
+        
+        
+        
+        
+        
+
+    }
+
     public static String getPageNm(String key) {
         Pair<String, String> pair = pageNameMaps.get(key);
         if (pair == null) {
@@ -107,5 +177,8 @@ public class UBTCollections {
         } else {
             return pair.second;
         }
+    }
+    public static String getWidgetNmCn(String widget) {
+        return widgetNameMaps.get(widget);
     }
 }
