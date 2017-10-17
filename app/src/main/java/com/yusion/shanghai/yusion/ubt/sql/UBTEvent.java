@@ -11,9 +11,11 @@ public class UBTEvent {
     //eg:onClick onResume
     public String action;
     public long ts;
+    public String widget;
+    public String widget_cn;
     public String page; //eg:LoginActivity
     public String page_cn;
-
+    public String action_value;
     @Override
     public String toString() {
         return new Gson().toJson(this);

@@ -68,7 +68,8 @@ public class LaunchActivity extends BaseActivity {
         //product：调用oss接口更新
         AuthApi.update(this, "yusion", data -> {
             if (data != null) {
-                if (versionCode.contains(data.version)) {
+                int result = splitVersion(versionCode.substring(1)).compareTo(splitVersion(data.version));
+                if (result < 0) {
                     UpdateUtil.showUpdateDialog(LaunchActivity.this, data.change_log, true, data.download_url);
                 } else {
                     getConfigJson();
@@ -241,5 +242,11 @@ public class LaunchActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Permissions4M.onRequestPermissionsResult(LaunchActivity.this, requestCode, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+    private String splitVersion(String s) {
+        String ss = null;
+        char[] str = s.toCharArray();
+        ss = String.valueOf(str[0]) + String.valueOf(str[2]) + String.valueOf(str[4]);
+        return ss;
     }
 }
