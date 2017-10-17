@@ -97,7 +97,6 @@ public class Api {
         return retrofit.create(ProductService.class);
     }
 
-
     public static OrderService getOrderService() {
         return retrofit.create(OrderService.class);
     }

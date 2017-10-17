@@ -11,7 +11,6 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
@@ -61,17 +60,11 @@ public class OssUtil {
                 GetOssTokenBean ossTokenBean = response.body();
                 final String objectKey = getObjectKey(objectKeyBean.role, objectKeyBean.category, objectKeyBean.suffix);
                 PutObjectRequest request = new PutObjectRequest(ossTokenBean.FidDetail.Bucket, objectKey, localPath);
-                request.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-                    @Override
-                    public void onProgress(PutObjectRequest putObjectRequest, long l, long l1) {
-                        Log.e("TAG", "onProgress() called with: putObjectRequest = [" + putObjectRequest + "], l = [" + l + "], l1 = [" + l1 + "]");
-                    }
-                });
 
                 OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossTokenBean.AccessKeyId, ossTokenBean.AccessKeySecret, ossTokenBean.SecurityToken);
                 OSS oss = new OSSClient(context, ossTokenBean.FidDetail.Region, credentialProvider);
-                SharedPrefsUtil.getInstance(context).putValue("region",ossTokenBean.FidDetail.Region);
-                SharedPrefsUtil.getInstance(context).putValue("bucket",ossTokenBean.FidDetail.Bucket);
+                SharedPrefsUtil.getInstance(context).putValue("region", ossTokenBean.FidDetail.Region);
+                SharedPrefsUtil.getInstance(context).putValue("bucket", ossTokenBean.FidDetail.Bucket);
 
                 oss.asyncPutObject(request, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override
@@ -124,7 +117,7 @@ public class OssUtil {
     }
 
     /**
-     * @param suffix   eg: .png .mp4
+     * @param suffix eg: .png .mp4
      */
     private static String getObjectKey(String client, String mobile, String role, String category, String suffix) {
         return client + "/" + mobile + "/" + role + "/" + category + "/" + System.currentTimeMillis() + suffix;
