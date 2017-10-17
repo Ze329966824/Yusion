@@ -422,16 +422,19 @@ class SpouseInfoFragment : DoubleCheckFragment() {
 
     fun checkCanNextStep(): Boolean {
 //        return true
-        if (spouse_info_marriage_tv?.text?.isEmpty() as Boolean) {
+        if ((spouse_info_marriage_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "请选择婚姻状况", Toast.LENGTH_SHORT).show()
             return false
         }
-        if (spouse_info_marriage_tv?.text == "已婚") {
+//        var textView = spouse_info_marriage_tv as TextView
+//        var text: String = textView.text.toString()
+//        if (text.equals("已婚")) {
+        if ((spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
             if (ID_BACK_FID.isEmpty()) {
                 Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
             } else if (ID_FRONT_FID.isEmpty()) {
                 Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
-            } else if (spouse_info_clt_nm_edt?.text?.isEmpty() as Boolean) {
+            } else if ((spouse_info_clt_nm_edt as TextView).text.isEmpty()) {
                 Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
             } else if (spouse_info_id_no_edt?.text?.isEmpty() as Boolean) {
                 Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
