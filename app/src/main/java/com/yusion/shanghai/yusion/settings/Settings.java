@@ -1,5 +1,7 @@
 package com.yusion.shanghai.yusion.settings;
 
+import android.util.Log;
+
 import com.yusion.shanghai.yusion.BuildConfig;
 
 /**
@@ -9,6 +11,14 @@ import com.yusion.shanghai.yusion.BuildConfig;
 public class Settings {
     public static boolean isOnline = BuildConfig.isOnline;
     public static boolean isShameData = false;
+
+    static {
+        if (isOnline && isShameData) {
+            isShameData = false;
+            Log.e("TAG", "如果是线上，记得改isShameData为false");
+        }
+    }
+
     private static String ALPHA_SERVER_URL = "http://api.alpha.yusiontech.com:8000/";
 //    private static String ALPHA_SERVER_URL = "http://192.168.0.214:8000/";
 

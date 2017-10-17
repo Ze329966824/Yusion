@@ -89,6 +89,10 @@ public class UBTCollections {
         pageNameMaps.put(OnlyReadUploadListActivity.class.getSimpleName(), new Pair<>("img_authorization_book", "授权书查看页面"));
         pageNameMaps.put(UploadLabelListActivity.class.getSimpleName(), new Pair<>("upload_label_list", "上传影像件标签列表页面"));
         pageNameMaps.put(UploadListActivity.class.getSimpleName(), new Pair<>("upload_img_list", "上传影像件列表页面"));
+
+
+        //widgetNameMaps.put("personal_info_income_from_tv", "选择主要收入来源");
+
     }
 
     public static String getPageNm(String key) {

@@ -25,6 +25,8 @@ import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
+import com.yusion.shanghai.yusion.ubt.UBT;
+import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
@@ -99,9 +101,16 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_personal_info_from_self_group_lin;
     private LinearLayout update_personal_info_from_other_group_lin;
     private LinearLayout update_personal_info_extra_from_income_group_lin;
+
+    @BindView(id = R.id.update_personal_info_clt_nm_edt, widgetName = "update_personal_info_clt_nm_edt")
     private NoEmptyEditText update_personal_info_clt_nm_edt;                       //姓名
+
+    @BindView(id = R.id.update_personal_info_id_no_edt,widgetName = "update_personal_info_id_no_edt")
     private EditText update_personal_info_id_no_edt;                        //身份证号
+
+    @BindView(id = R.id.update_personal_info_gender_tv,widgetName = "update_personal_info_gender_tv")
     private TextView update_personal_info_gender_tv;                        //性别
+
     private TextView update_personal_info_reg_tv;                           //户籍
     private EditText update_personal_info_mobile_edt;                       //手机号
     private TextView update_personal_info_education_tv;                     //学历
@@ -152,8 +161,8 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_personal_info);
+        UBT.bind(this);
         initTitleBar(this, "个人资料").setLeftClickListener(v -> showDoubleCheckForExit());
-//        initTitleBar(this,"个人资料");
 
         initView();
 
@@ -785,9 +794,9 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
             Toast.makeText(this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
-        }else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
-        }else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+        } else if (update_personal_info_income_from_tv.getText().toString().equals("自营") && update_personal_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
         }
 

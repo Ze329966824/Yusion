@@ -208,8 +208,10 @@ public class MyOrderFragment extends BaseFragment {
             if (item.status_st == 2) {//待审核
                 vh.st.setTextColor(Color.parseColor("#FFA400"));
                 vh.line_21.setBackgroundColor(Color.parseColor("#06b7a3"));
+                vh.line_12.setBackgroundColor(Color.parseColor("#06b7a3"));
                 vh.point_image_1.setBackgroundResource(R.drawable.poi_green);
-                vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
+                //vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
+                vh.point_image_2.setImageResource(R.drawable.poi_grey);
             } else if (item.status_st == 3) {//审核失败
                 vh.st.setTextColor(Color.parseColor("#FF3F00"));
                 vh.line_21.setBackgroundColor(Color.parseColor("#FF3F00"));
@@ -227,6 +229,8 @@ public class MyOrderFragment extends BaseFragment {
                 vh.st.setTextColor(Color.parseColor("#666666"));
                 vh.point_image_1.setBackgroundResource(R.drawable.poi_grey);
                 vh.line_12.setBackgroundColor(Color.parseColor("#dddddd"));
+                vh.line_21.setBackgroundColor(Color.parseColor("#dddddd"));
+
             }
             vh.st.setText(item.status_code);//待审核  status_code status_st: 2
             vh.periods.setText(item.nper);
