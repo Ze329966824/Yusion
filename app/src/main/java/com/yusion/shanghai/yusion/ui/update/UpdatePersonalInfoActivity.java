@@ -10,6 +10,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -105,57 +106,143 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     @BindView(id = R.id.update_personal_info_clt_nm_edt, widgetName = "update_personal_info_clt_nm_edt")
     private NoEmptyEditText update_personal_info_clt_nm_edt;                       //姓名
 
-    @BindView(id = R.id.update_personal_info_id_no_edt,widgetName = "update_personal_info_id_no_edt")
+    @BindView(id = R.id.update_personal_info_id_no_edt, widgetName = "update_personal_info_id_no_edt")
     private EditText update_personal_info_id_no_edt;                        //身份证号
 
-    @BindView(id = R.id.update_personal_info_gender_tv,widgetName = "update_personal_info_gender_tv")
+    @BindView(id = R.id.update_personal_info_gender_tv, widgetName = "update_personal_info_gender_tv")
     private TextView update_personal_info_gender_tv;                        //性别
 
-    private TextView update_personal_info_reg_tv;                           //户籍
+    @BindView(id = R.id.update_personal_info_reg_tv, widgetName = "update_personal_info_reg_tv")
+    private TextView update_personal_info_reg_tv;//户籍
+
+    @BindView(id = R.id.update_personal_info_mobile_edt, widgetName = "update_personal_info_mobile_edt")
     private EditText update_personal_info_mobile_edt;                       //手机号
+
+    @BindView(id = R.id.update_personal_info_education_tv, widgetName = "update_personal_info_education_tv")
     private TextView update_personal_info_education_tv;                     //学历
+
+    @BindView(id = R.id.update_personal_info_current_address_tv, widgetName = "update_personal_info_current_address_tv")
     private TextView update_personal_info_current_address_tv;               //现住地址
+
+    @BindView(id = R.id.update_personal_info_current_address1_tv, widgetName = "update_personal_info_current_address1_tv")
     private TextView update_personal_info_current_address1_tv;              //详细地址
+
+    @BindView(id = R.id.update_personal_info_current_address2_tv, widgetName = "update_personal_info_current_address2_tv")
     private NoEmptyEditText update_personal_info_current_address2_tv;              //门牌号
+
+    @BindView(id = R.id.update_personal_info_income_from_tv, widgetName = "update_personal_info_income_from_tv")
     private TextView update_personal_info_income_from_tv;                   //主要收入来源
+
+    @BindView(id = R.id.update_personal_info_from_income_year_edt, widgetName = "update_personal_info_from_income_year_edt")
     private EditText update_personal_info_from_income_year_edt;             //主要-工资-年收入
+
+    @BindView(id = R.id.update_personal_info_from_income_company_name_edt, widgetName = "update_personal_info_from_income_company_name_edt")
     private NoEmptyEditText update_personal_info_from_income_company_name_edt;     //主要-工资-单位名称
+
+    @BindView(id = R.id.update_personal_info_from_income_company_address_tv, widgetName = "update_personal_info_from_income_company_address_tv")
     private TextView update_personal_info_from_income_company_address_tv;   //主要-工资-单位地址
+
+    @BindView(id = R.id.update_personal_info_from_income_company_address1_tv, widgetName = "update_personal_info_from_income_company_address1_tv")
     private TextView update_personal_info_from_income_company_address1_tv;  //主要-工资-详细地址
+
+    @BindView(id = R.id.update_personal_info_from_income_company_address2_tv, widgetName = "update_personal_info_from_income_company_address2_tv")
     private NoEmptyEditText update_personal_info_from_income_company_address2_tv;  //主要-工资-门牌号
+
+    @BindView(id = R.id.update_personal_info_work_position_tv, widgetName = "update_personal_info_work_position_tv")
     private TextView update_personal_info_work_position_tv;                 //主要-工资-职务
+
+    @BindView(id = R.id.update_personal_info_from_income_work_phone_num_edt, widgetName = "update_personal_info_from_income_work_phone_num_edt")
     private NoEmptyEditText update_personal_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
+
+    @BindView(id = R.id.update_personal_info_from_self_year_edt, widgetName = "update_personal_info_from_self_year_edt")
     private EditText update_personal_info_from_self_year_edt;               //主要-自营-年收入
+
+    @BindView(id = R.id.update_personal_info_from_self_type_tv, widgetName = "update_personal_info_from_self_type_tv")
     private TextView update_personal_info_from_self_type_tv;                //主要-自营-业务类型
+
+    @BindView(id = R.id.update_personal_info_from_self_company_name_edt, widgetName = "update_personal_info_from_self_company_name_edt")
     private NoEmptyEditText update_personal_info_from_self_company_name_edt;       //主要-自营-店铺名称
+
+    @BindView(id = R.id.update_personal_info_from_self_company_address_tv, widgetName = "update_personal_info_from_self_company_address_tv")
     private TextView update_personal_info_from_self_company_address_tv;     //主要-自营-单位地址
+
+    @BindView(id = R.id.update_personal_info_from_self_company_address1_tv, widgetName = "update_personal_info_from_self_company_address1_tv")
     private TextView update_personal_info_from_self_company_address1_tv;    //主要-自营-详细地址
+
+    @BindView(id = R.id.update_personal_info_from_self_company_address2_tv, widgetName = "update_personal_info_from_self_company_address2_tv")
     private NoEmptyEditText update_personal_info_from_self_company_address2_tv;    //主要-自营-门牌号
+
+    @BindView(id = R.id.update_personal_info_from_other_year_edt, widgetName = "update_personal_info_from_other_year_edt")
     private EditText update_personal_info_from_other_year_edt;              //主要-其他-年收入
+
+    @BindView(id = R.id.update_personal_info_from_other_remark_tv, widgetName = "update_personal_info_from_other_remark_tv")
     private NoEmptyEditText update_personal_info_from_other_remark_tv;             //主要-其他-备注
+
+    @BindView(id = R.id.update_personal_info_extra_income_from_tv, widgetName = "update_personal_info_extra_income_from_tv")
     private TextView update_personal_info_extra_income_from_tv;             //额外收入来源
+
+    @BindView(id = R.id.update_personal_info_extra_from_income_year_edt, widgetName = "update_personal_info_extra_from_income_year_edt")
     private EditText update_personal_info_extra_from_income_year_edt;            //额外-工资-年收入
+
+    @BindView(id = R.id.update_personal_info_extra_from_income_company_name_edt, widgetName = "update_personal_info_extra_from_income_company_name_edt")
     private NoEmptyEditText update_personal_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
+
+    @BindView(id = R.id.update_personal_info_extra_from_income_company_address_tv, widgetName = "update_personal_info_extra_from_income_company_address_tv")
     private TextView update_personal_info_extra_from_income_company_address_tv;  //额外-工资-公司地址
+
+    @BindView(id = R.id.update_personal_info_extra_from_income_company_address1_tv, widgetName = "update_personal_info_extra_from_income_company_address1_tv")
     private TextView update_personal_info_extra_from_income_company_address1_tv; //额外-工资-详细地址
+
+    @BindView(id = R.id.update_personal_info_extra_from_income_company_address2_tv, widgetName = "update_personal_info_extra_from_income_company_address2_tv")
     private NoEmptyEditText update_personal_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
+
+    @BindView(id = R.id.update_personal_extra_info_work_position_tv, widgetName = "update_personal_extra_info_work_position_tv")
     private TextView update_personal_extra_info_work_position_tv;                //额外-工资-职务
+
+    @BindView(id = R.id.update_personal_info_extra_from_income_work_phone_num_edt, widgetName = "update_personal_info_extra_from_income_work_phone_num_edt")
     private NoEmptyEditText update_personal_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+
+    @BindView(id = R.id.update_personal_info_house_type_tv, widgetName = "update_personal_info_house_type_tv")
     private TextView update_personal_info_house_type_tv;                     //房屋性质
+
+    @BindView(id = R.id.update_personal_info_house_area_edt, widgetName = "update_personal_info_house_area_edt")
     private NoEmptyEditText update_personal_info_house_area_edt;                    //房屋面积
+
+    @BindView(id = R.id.update_personal_info_house_owner_name_edt, widgetName = "update_personal_info_house_owner_name_edt")
     private NoEmptyEditText update_personal_info_house_owner_name_edt;              //房屋所有人
+
+    @BindView(id = R.id.update_personal_info_house_owner_relation_tv, widgetName = "update_personal_info_house_owner_relation_tv")
     private TextView update_personal_info_house_owner_relation_tv;           //与申请人关系
+
+    @BindView(id = R.id.update_personal_info_urg_relation1_tv, widgetName = "update_personal_info_urg_relation1_tv")
     private TextView update_personal_info_urg_relation1_tv;           //紧急联系人-与申请人关系1
+
+    @BindView(id = R.id.update_personal_info_urg_mobile1_edt, widgetName = "update_personal_info_urg_mobile1_edt")
     private EditText update_personal_info_urg_mobile1_edt;            //紧急联系人-手机号1
+
+    @BindView(id = R.id.update_personal_info_urg_contact1_edt, widgetName = "update_personal_info_urg_contact1_edt")
     private NoEmptyEditText update_personal_info_urg_contact1_edt;           //紧急联系人-姓名1
+
+    @BindView(id = R.id.update_personal_info_urg_relation2_tv, widgetName = "update_personal_info_urg_relation2_tv")
     private TextView update_personal_info_urg_relation2_tv;           //紧急联系人-与申请人关系2
+
+    @BindView(id = R.id.update_personal_info_urg_mobile2_edt, widgetName = "update_personal_info_urg_mobile2_edt")
     private EditText update_personal_info_urg_mobile2_edt;            //紧急联系人-手机号2
+
+    @BindView(id = R.id.update_personal_info_urg_contact2_edt, widgetName = "update_personal_info_urg_contact2_edt")
     private NoEmptyEditText update_personal_info_urg_contact2_edt;           //紧急联系人-姓名2
+
     private LinearLayout update_personal_info_live_with_parent_lin;       //是否与父母同住
-    private TextView update_personal_info_live_with_parent_tv;
+
+    @BindView(id = R.id.update_personal_info_live_with_parent_tv, widgetName = "update_personal_info_live_with_parent_tv")
+    private TextView update_personal_info_live_with_parent_tv;//是否与父母同住
+
     private File imageFile;
     private OcrResp.ShowapiResBodyBean mOcrResp;
     private ClientInfo clientInfo;
+
+    @BindView(id = R.id.submit_img,widgetName = "submit_img",onClick = "submitMaterial")
+    private Button submitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,9 +255,12 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 
         getInfo();  //获取用户信息
 
-        findViewById(R.id.submit_img).setOnClickListener(v -> {
-            submit();   //更新信息
-        });
+//        findViewById(R.id.submit_img).setOnClickListener(v -> {
+//            submit();   //更新信息
+//        });
+    }
+    private void submitMaterial(View view){
+        submit();
     }
 
     private void initView() {
@@ -219,6 +309,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         update_personal_info_urg_relation2_tv = (TextView) findViewById(R.id.update_personal_info_urg_relation2_tv);
         update_personal_info_urg_mobile2_edt = (EditText) findViewById(R.id.update_personal_info_urg_mobile2_edt);
         update_personal_info_urg_contact2_edt = (NoEmptyEditText) findViewById(R.id.update_personal_info_urg_contact2_edt);
+
         update_personal_info_live_with_parent_lin = (LinearLayout) findViewById(R.id.update_personal_info_live_with_parent_lin);
         update_personal_info_live_with_parent_tv = (TextView) findViewById(R.id.update_personal_info_live_with_parent_tv);
         mScrollView = ((NestedScrollView) findViewById(R.id.scrollView));

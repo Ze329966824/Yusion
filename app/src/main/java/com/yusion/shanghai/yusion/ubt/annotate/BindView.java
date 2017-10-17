@@ -15,8 +15,6 @@ public @interface BindView {
 
     String widgetName();
 
-    String widgetName();
-
     String onClick() default "onClick";
 
     String onFocusChange() default "onFocusChange";
