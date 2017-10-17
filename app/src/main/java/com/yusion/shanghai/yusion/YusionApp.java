@@ -24,7 +24,8 @@ import io.sentry.android.AndroidSentryClientFactory;
 import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
 
 /**
- * Created by ice on 2017/8/3.
+ * @author ice
+ * @date 2017/8/3
  */
 public class YusionApp extends MultiDexApplication {
 
@@ -34,9 +35,13 @@ public class YusionApp extends MultiDexApplication {
     public static boolean isLogin;
     public static boolean isForeground;
 
-    //定位服务类
+    /**
+     * 定位服务类
+     */
     public static AMapLocationClient aMapLocationClient;
-    //定位参数设置
+    /**
+     * 定位参数设置
+     */
     public AMapLocationClientOption aMapLocationClientOption;
 
     @Override

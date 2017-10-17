@@ -1,11 +1,9 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.yusion.shanghai.yusion.bean.order.ConfirmFinancePlanReq;
-import com.yusion.shanghai.yusion.bean.order.GetAppDetailResp;
 import com.yusion.shanghai.yusion.bean.order.GetAppListResp;
 import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
 import com.yusion.shanghai.yusion.bean.order.OrderDetailBean;
@@ -13,7 +11,6 @@ import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 

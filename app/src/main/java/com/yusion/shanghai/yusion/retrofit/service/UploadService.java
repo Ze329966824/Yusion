@@ -21,7 +21,6 @@ import retrofit2.http.POST;
  */
 
 public interface UploadService {
-
     @POST("/api/material/upload_yc_client_material/")
     Call<BaseResult> uploadFileUrl(@Body UploadFilesUrlReq req);
 
@@ -36,6 +35,4 @@ public interface UploadService {
 
     @POST("/api/material/upload_yc_client_material/")
     Call<BaseResult<List<String>>> uploadFileUrlWithIdsResp(@Body UploadFilesUrlReq req);
-
-
 }

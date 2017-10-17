@@ -63,8 +63,8 @@ public class OssUtil {
 
                 OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossTokenBean.AccessKeyId, ossTokenBean.AccessKeySecret, ossTokenBean.SecurityToken);
                 OSS oss = new OSSClient(context, ossTokenBean.FidDetail.Region, credentialProvider);
-                SharedPrefsUtil.getInstance(context).putValue("region",ossTokenBean.FidDetail.Region);
-                SharedPrefsUtil.getInstance(context).putValue("bucket",ossTokenBean.FidDetail.Bucket);
+                SharedPrefsUtil.getInstance(context).putValue("region", ossTokenBean.FidDetail.Region);
+                SharedPrefsUtil.getInstance(context).putValue("bucket", ossTokenBean.FidDetail.Bucket);
 
                 oss.asyncPutObject(request, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override
@@ -117,7 +117,7 @@ public class OssUtil {
     }
 
     /**
-     * @param suffix   eg: .png .mp4
+     * @param suffix eg: .png .mp4
      */
     private static String getObjectKey(String client, String mobile, String role, String category, String suffix) {
         return client + "/" + mobile + "/" + role + "/" + category + "/" + System.currentTimeMillis() + suffix;

@@ -11,8 +11,6 @@ import retrofit2.http.GET;
  */
 
 public interface ConfigService {
-
     @GET("/api/material/global_config/")
     Call<ResponseBody> getConfigJson();
-
 }

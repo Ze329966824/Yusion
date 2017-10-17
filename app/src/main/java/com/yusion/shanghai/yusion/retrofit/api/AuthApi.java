@@ -16,7 +16,6 @@ import com.yusion.shanghai.yusion.retrofit.callback.CustomCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
-import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
 /**
  * Created by ice on 2017/8/3.
@@ -35,7 +34,6 @@ public class AuthApi {
 
     public static void login(Context context, LoginReq req, final OnItemDataCallBack<LoginResp> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        req.reg_id = SharedPrefsUtil.getInstance(context).getValue("reg_id", "");
         Api.getAuthService().login(req).enqueue(new CustomCallBack<LoginResp>(context, dialog) {
             @Override
             public void onCustomResponse(LoginResp data) {
@@ -45,7 +43,6 @@ public class AuthApi {
     }
 
     public static void checkUserInfo(Context context, final OnItemDataCallBack<CheckUserInfoResp> onItemDataCallBack) {
-        //Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getAuthService().checkUserInfo().enqueue(new CustomCallBack<CheckUserInfoResp>(context) {
             @Override
             public void onCustomResponse(CheckUserInfoResp data) {
@@ -55,6 +52,7 @@ public class AuthApi {
     }
 
     public static void isAgree(final Context context, CheckHasAgreedReq req, final OnCodeAndMsgCallBack codeAndMsgCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getAuthService().isAgree(req).enqueue(new CustomCodeAndMsgCallBack(context) {
             @Override
             public void onCustomResponse(int code, String msg) {
@@ -66,7 +64,7 @@ public class AuthApi {
 
     public static void checkToken(final Context context, final OnItemDataCallBack<CheckTokenResp> onItemDataCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        Api.getAuthService().checkToken().enqueue(new CustomCallBack<CheckTokenResp>(context, dialog) {
+        Api.getAuthService().checkToken().enqueue(new CustomCallBack<CheckTokenResp>(context) {
             @Override
             public void onCustomResponse(CheckTokenResp data) {
                 onItemDataCallBack.onItemDataCallBack(data);

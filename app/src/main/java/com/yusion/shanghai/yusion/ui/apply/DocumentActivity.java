@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
@@ -35,14 +32,12 @@ import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
-import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnMultiDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnTwoCallBack;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
-import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -510,9 +505,9 @@ public class DocumentActivity extends BaseActivity {
                             dialog.dismiss();
                         }
                     }
-                }, new OnMultiDataCallBack<Throwable, String>() {
+                }, new OnTwoCallBack<Throwable, String>() {
                     @Override
-                    public void onMultiDataCallBack(Throwable throwable, String objectKey) {
+                    public void onTwoDataCallBack(Throwable throwable, String objectKey) {
                         if (!TextUtils.isEmpty(objectKey)) {
                             mImgObjectKey = objectKey;
                         }

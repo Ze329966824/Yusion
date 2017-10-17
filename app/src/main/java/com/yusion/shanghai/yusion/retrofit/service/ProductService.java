@@ -13,7 +13,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ProductService {
-
     @GET("api/client/client_info/")
     Call<BaseResult<UserInfoBean>> getUserInfo(@Query("id_no") String id_no, @Query("clt_nm") String clt_nm);
 
