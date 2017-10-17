@@ -95,7 +95,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                     //product：调用oss接口更新
                     AuthApi.update(this, "yusion", data -> {
                         if (data != null) {
-                            if (BuildConfig.VERSION_NAME.contains(data.version)) {
+                            int result = splitVersion(versionCode.substring(1)).compareTo(splitVersion(data.version));
+                            if (result < 0) {
                                 UpdateUtil.showUpdateDialog(SettingsActivity.this, data.change_log, false, data.download_url);
                             } else {
                                 Toast.makeText(this, "已经是最新的版本啦！", Toast.LENGTH_SHORT).show();
@@ -160,5 +161,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
             startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
             finish();
         });
+    }
+    private String splitVersion(String s) {
+        String ss = null;
+        char[] str = s.toCharArray();
+        ss = String.valueOf(str[0]) + String.valueOf(str[2]) + String.valueOf(str[4]);
+        return ss;
     }
 }
