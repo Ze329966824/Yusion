@@ -2,4 +2,5 @@
 <resources>
     <item name="hasChoose" type="id"/>
     <item name="UBT_WIDGET" type="id" />
+
 </resources>
