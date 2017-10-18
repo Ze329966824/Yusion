@@ -28,8 +28,8 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
-import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
-import com.yusion.shanghai.yusion.ui.upload.UploadListActivity
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
+import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText
@@ -208,6 +208,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("imgUrl", idBackImgUrl)
@@ -217,6 +218,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.GUARANTOR_SP)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_FRONT_FID)
             intent.putExtra("imgUrl", idFrontImgUrl)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)

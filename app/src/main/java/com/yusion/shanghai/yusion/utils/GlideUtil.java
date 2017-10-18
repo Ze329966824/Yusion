@@ -44,12 +44,9 @@ public class GlideUtil {
     }
 
     public static void loadLocalImg(Context context, StatusImageRel statusImageRel, String url) {
-        statusImageRel.getSourceImg().loadLocalImage(url, R.mipmap.place_holder_img).listener(new OnGlideImageViewListener() {
-            @Override
-            public void onProgress(int percent, boolean isDone, GlideException exception) {
-                if (exception != null && !TextUtils.isEmpty(exception.getMessage())) {
-                    Toast.makeText(context, exception.getMessage(), Toast.LENGTH_LONG).show();
-                }
+        statusImageRel.getSourceImg().loadLocalImage(url, R.mipmap.place_holder_img).listener((percent, isDone, exception) -> {
+            if (exception != null && !TextUtils.isEmpty(exception.getMessage())) {
+                Toast.makeText(context, exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

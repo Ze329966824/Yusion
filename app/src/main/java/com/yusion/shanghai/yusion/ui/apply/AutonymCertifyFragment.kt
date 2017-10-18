@@ -28,6 +28,7 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -148,6 +149,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
@@ -157,6 +159,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idFrontImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -165,6 +168,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.DRI_LIC)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", drivingLicImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", DRI_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }

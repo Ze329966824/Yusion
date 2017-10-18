@@ -8,7 +8,6 @@ import com.yusion.shanghai.yusion.bean.ocr.OcrReq;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
 import com.yusion.shanghai.yusion.retrofit.api.OcrApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnTwoCallBack;
 
 import io.sentry.Sentry;
@@ -26,26 +25,13 @@ public class OcrUtil {
             ocrReq.region = SharedPrefsUtil.getInstance(context).getValue("region", "");
             ocrReq.bucket = SharedPrefsUtil.getInstance(context).getValue("bucket", "");
             ocrReq.type = type;
-            OcrApi.requestOcr(ocrReq, new OnItemDataCallBack<OcrResp>() {
-                @Override
-                public void onItemDataCallBack(OcrResp data) {
-                    onSuccessCallBack.OnOcrSuccess(data, objectKey);
-                }
-            }, new OnItemDataCallBack<Throwable>() {
-                @Override
-                public void onItemDataCallBack(Throwable throwable) {
-                    String errorInfo = "onFailure() called with:  throwable = [" + throwable + "]";
-                    Sentry.capture(errorInfo);
-                    Log.e("TAG", errorInfo);
-                    onFailureCallBack.onTwoDataCallBack(throwable, objectKey);
-                }
+            OcrApi.requestOcr(ocrReq, data -> onSuccessCallBack.OnOcrSuccess(data, objectKey), throwable -> {
+                String errorInfo = "onFailure() called with:  throwable = [" + throwable + "]";
+                Sentry.capture(errorInfo);
+                Log.e("TAG", errorInfo);
+                onFailureCallBack.onTwoDataCallBack(throwable, objectKey);
             });
-        }, new OnItemDataCallBack<Throwable>() {
-            @Override
-            public void onItemDataCallBack(Throwable throwable) {
-                onFailureCallBack.onTwoDataCallBack(throwable, null);
-            }
-        });
+        }, throwable -> onFailureCallBack.onTwoDataCallBack(throwable, null));
     }
 
     public interface OnOcrSuccessCallBack {

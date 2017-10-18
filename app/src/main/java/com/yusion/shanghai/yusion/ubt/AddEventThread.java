@@ -16,9 +16,10 @@ import java.util.Date;
 public class AddEventThread implements Runnable {
     private String action;
     private View view;
+    private String widget;
     private String pageName;
     private String action_value;
-    private String widget;
+
     private boolean isPageEvent;
     private boolean isAppEvent;
     private String object;
@@ -28,9 +29,9 @@ public class AddEventThread implements Runnable {
     public AddEventThread(Context context, String action, View view, String pageName, String action_value, String widget) {
         this.context = context;
         this.action = action;
-        this.view = view;
         this.pageName = pageName;
         this.action_value = action_value;
+        this.view = view;
         this.widget = widget;
     }
 
@@ -69,7 +70,6 @@ public class AddEventThread implements Runnable {
             values.put("object", object);
         }
 
-
         values.put("action", action);
         values.put("action_value", action_value);
 
@@ -103,10 +103,11 @@ public class AddEventThread implements Runnable {
 
     @Override
     public String toString() {
-        return  "AddEventThread{" +
+        return "AddEventThread{" +
                 "action='" + action + '\'' +
                 ", view=" + view +
                 ", pageName='" + pageName + '\'' +
+                ", widget='" + widget + '\'' +
                 ", action_value='" + action_value + '\'' +
                 ", isPageEvent=" + isPageEvent +
                 ", isAppEvent=" + isAppEvent +

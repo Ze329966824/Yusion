@@ -23,6 +23,7 @@ import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
@@ -67,7 +68,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
 
     @BindView(id = R.id.guarantor_credit_info_next_btn, widgetName = "guarantor_credit_info_next_btn",onClick = "submitGuarantorCreditInfo")
     var guarantor_credit_info_next_btn: Button? = null
-    
+
     fun submitGuarantorCreditInfo(view: View?){
         (guarantor_credit_info_next_btn as Button).setFocusable(true)
         (guarantor_credit_info_next_btn as Button).setFocusableInTouchMode(true)
@@ -136,6 +137,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.GUARANTOR)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("imgUrl", idBackImgUrl)
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
@@ -145,6 +147,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.GUARANTOR)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("imgUrl", idFrontImgUrl)
             intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)

@@ -1,4 +1,4 @@
-package com.yusion.shanghai.yusion.ui.upload;
+package com.yusion.shanghai.yusion.ui.upload.img;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
+import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OssUtil;
@@ -47,7 +47,7 @@ import java.util.Locale;
 /**
  * Created by ice on 2017/9/8.
  */
-
+//一个从立刻申请页面进入 一个从影像件列表进入
 public class UploadListActivity extends BaseActivity {
     private RvAdapter adapter;
     private TextView errorTv;
@@ -58,7 +58,7 @@ public class UploadListActivity extends BaseActivity {
     private TextView uploadTv2;
     private TextView uploadTv1;
     private List<UploadImgItemBean> lists = new ArrayList<>();
-    private List<UploadImgItemBean> hasUploadLists = new ArrayList<>();
+    private List<UploadImgItemBean> hasUploadOssLists = new ArrayList<>();
     private String role;
     private String type;
     private String clt_id;
@@ -136,33 +136,41 @@ public class UploadListActivity extends BaseActivity {
             }
             Collections.sort(indexList);
 
-            //每删除一个对象就该偏移+1
-            int offset = 0;
-            for (int i = 0; i < indexList.size(); i++) {
-                int delIndex = indexList.get(i) - offset;
-                delImgIdList.add(lists.get(delIndex).id);
-                lists.remove(delIndex);
-                offset++;
-            }
-
-            uploadTv2.setText("删除");
-            uploadTv2.setTextColor(Color.parseColor("#d1d1d1"));
             if (needUploadFidToServer) {
-                adapter.notifyDataSetChanged();
+                for (int i = 0; i < indexList.size(); i++) {
+                    delImgIdList.add(lists.get(i).id);
+                }
 
                 DelImgsReq req = new DelImgsReq();
                 req.clt_id = clt_id;
                 req.id.addAll(delImgIdList);
                 if (delImgIdList.size() > 0) {
                     UploadApi.delImgs(UploadListActivity.this, req, (code, msg) -> {
-                        // TODO: 2017/10/12  先删除local图片再删除remote图片会有隐患
                         if (code == 0) {
+
+                            int offset = 0;
+                            for (int i = 0; i < indexList.size(); i++) {
+                                int delIndex = indexList.get(i) - offset;
+                                lists.remove(delIndex);
+                                offset++;
+                            }
+
                             Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
                             onImgCountChange(lists.size() > 0);
                         }
                     });
                 }
+
+
             } else {
+                //每删除一个对象就该偏移+1
+                int offset = 0;
+                for (int i = 0; i < indexList.size(); i++) {
+                    int delIndex = indexList.get(i) - offset;
+                    lists.remove(delIndex);
+                    offset++;
+                }
+
                 onImgCountChange(lists.size() > 0);
             }
         });
@@ -283,7 +291,7 @@ public class UploadListActivity extends BaseActivity {
                 toAddList.add(item);
             }
 
-            hasUploadLists.clear();
+            hasUploadOssLists.clear();
 
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
@@ -291,15 +299,15 @@ public class UploadListActivity extends BaseActivity {
                 OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
                     @Override
                     public void onItemDataCallBack(String objectKey) {
-                        hasUploadLists.add(imgItemBean);
+                        hasUploadOssLists.add(imgItemBean);
                         imgItemBean.objectKey = objectKey;
-                        onUploadOssFinish(hasUploadLists.size(), files, dialog, toAddList);
+                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
                     }
                 }, new OnItemDataCallBack<Throwable>() {
                     @Override
                     public void onItemDataCallBack(Throwable data) {
-                        hasUploadLists.add(imgItemBean);
-                        onUploadOssFinish(hasUploadLists.size(), files, dialog, toAddList);
+                        hasUploadOssLists.add(imgItemBean);
+                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
                     }
                 });
             }
@@ -309,9 +317,7 @@ public class UploadListActivity extends BaseActivity {
 
     private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
         if (finalAccount == files.size()) {
-            Log.e("TAG", "onUploadOssFinish: 1");
             dialog.dismiss();
-            Log.e("TAG", "onUploadOssFinish: 2");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -359,17 +365,13 @@ public class UploadListActivity extends BaseActivity {
             uploadFileUrlBeanList.add(fileUrlBean);
         }
 
-        Log.e("TAG", "uploadImgs: 1");
         if (isFinishing()) {
-            Log.e("TAG", "uploadImgs: 2");
             return;
         }
         if (mUploadFileDialog == null) {
-            Log.e("TAG", "uploadImgs: 3");
             mUploadFileDialog = LoadingUtils.createLoadingDialog(this);
             mUploadFileDialog.setCancelable(false);
         }
-        Log.e("TAG", "uploadImgs: 4");
         mUploadFileDialog.show();
         UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
         uploadFilesUrlReq.files = uploadFileUrlBeanList;
