@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
-import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
@@ -895,7 +894,11 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     public void submit() {
         //提交用户资料
         updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
-            if (data == null) return;
+            if (data == null) {
+                {
+                    return;
+                }
+            }
             clientInfo = data;
             //上传影像件
             toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");

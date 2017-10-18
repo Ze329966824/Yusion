@@ -41,6 +41,7 @@ class AddGuarantorActivity : BaseActivity() {
                 .add(R.id.container, mGuarantorCreditInfoFragment)
                 .add(R.id.container, mGuarantorInfoFragment)
                 .add(R.id.container, mGuarantorSpouseInfoFragment)
+//                .hide(mGuarantorCreditInfoFragment)
                 .hide(mGuarantorInfoFragment)
                 .hide(mGuarantorSpouseInfoFragment)
                 .commit()

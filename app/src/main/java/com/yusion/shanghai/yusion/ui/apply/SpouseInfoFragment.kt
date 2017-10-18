@@ -23,6 +23,7 @@ import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean
 import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
@@ -181,18 +182,21 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
-        spouse_info_submit_btn?.setOnFocusChangeListener { v, hasFocus ->
-            if (checkCanNextStep())
-                if (spouse_info_marriage_tv?.text.toString() == "已婚") {
-                    clearDoubleCheckItems()
-                    addDoubleCheckItem("姓名", spouse_info_clt_nm_edt?.text.toString())
-                    addDoubleCheckItem("身份证号", spouse_info_id_no_edt?.text.toString())
-                    addDoubleCheckItem("手机号", spouse_info_mobile_edt?.text.toString())
-                    mDoubleCheckDialog.show()
-                } else {
-                    submit()
-                }
+        (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                (spouse_info_submit_btn as Button).clearFocus();
+                if (checkCanNextStep())
+                    if (spouse_info_marriage_tv?.text.toString() == "已婚") {
+                        clearDoubleCheckItems()
+                        addDoubleCheckItem("姓名", spouse_info_clt_nm_edt?.text.toString())
+                        addDoubleCheckItem("身份证号", spouse_info_id_no_edt?.text.toString())
+                        addDoubleCheckItem("手机号", spouse_info_mobile_edt?.text.toString())
+                        mDoubleCheckDialog.show()
+                    } else {
+                        submit()
+                    }
 //                nextStep()
+            }
         }
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
@@ -576,7 +580,10 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
-                nextStep()
+                UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
+                    nextStep()
+                })
+//                nextStep()
             }
         }
     }

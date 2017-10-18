@@ -74,11 +74,11 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     @BindView(id = R.id.autonym_certify_driving_license_rel_tv, widgetName = "autonym_certify_driving_license_rel_tv")
     var autonym_certify_driving_license_rel_tv: TextView? = null
 
-    @BindView(id = R.id.autonym_certify_next_btn, widgetName = "autonym_certify_next_btn",onClick = "submitAutonymCertify")
+    @BindView(id = R.id.autonym_certify_next_btn, widgetName = "autonym_certify_next_btn", onClick = "submitAutonymCertify")
     var autonym_certify_next_btn: Button? = null
 
 
-    fun submitAutonymCertify(view: View?){
+    fun submitAutonymCertify(view: View?) {
         (autonym_certify_next_btn as Button).setFocusable(true)
         (autonym_certify_next_btn as Button).setFocusableInTouchMode(true)
         (autonym_certify_next_btn as Button).requestFocus()
@@ -128,11 +128,14 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
 
         (autonym_certify_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
-            if (checkCanNextStep()) {
-                clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
-                addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
-                mDoubleCheckDialog.show()
+            if (hasFocus) {
+                (autonym_certify_next_btn as Button).clearFocus();
+                if (checkCanNextStep()) {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
+                    addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
+                    mDoubleCheckDialog.show()
+                }
             }
         }
         autonym_certify_driving_license_rel_lin.setOnClickListener {
@@ -210,7 +213,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+
                 nextStep()
+
             }
         }
     }

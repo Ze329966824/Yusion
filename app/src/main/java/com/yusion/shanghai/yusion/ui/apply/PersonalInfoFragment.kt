@@ -193,13 +193,16 @@ class PersonalInfoFragment : DoubleCheckFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
-        personal_info_next_btn?.setOnFocusChangeListener { v, hasFocus ->
-            if (checkCanNextStep()) {
-                clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", personal_info_clt_nm_edt.text.toString())
-                addDoubleCheckItem("身份证号", personal_info_id_no_edt.text.toString())
-                addDoubleCheckItem("手机号", personal_info_mobile_edt?.text.toString())
-                mDoubleCheckDialog.show()
+        (personal_info_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                (personal_info_next_btn as Button).clearFocus();
+                if (checkCanNextStep()) {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", personal_info_clt_nm_edt.text.toString())
+                    addDoubleCheckItem("身份证号", personal_info_id_no_edt.text.toString())
+                    addDoubleCheckItem("手机号", personal_info_mobile_edt?.text.toString())
+                    mDoubleCheckDialog.show()
+                }
             }
         }
 

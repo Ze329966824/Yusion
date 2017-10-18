@@ -287,6 +287,8 @@
                                 android:text="手机号码" />
 
                             <EditText
+                                android:enabled="false"
+                                android:textColor="#999999"
                                 android:id="@+id/personal_info_mobile_edt"
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
