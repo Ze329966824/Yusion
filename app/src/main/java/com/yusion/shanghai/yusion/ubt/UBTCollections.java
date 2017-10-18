@@ -33,7 +33,6 @@ import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity;
 import com.yusion.shanghai.yusion.ui.upload.OnlyReadUploadListActivity;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.ui.upload.UploadLabelListActivity;
-import com.yusion.shanghai.yusion.ui.upload.img.DocumentFromLabelListActivity;
 import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity;
 
 import java.util.HashMap;
@@ -81,8 +80,6 @@ public class UBTCollections {
         pageNameMaps.put(GuarantorInfoFragment.class.getSimpleName(), new Pair<>("guarantor_apply_personal", "担保人-个人信息页面"));
         pageNameMaps.put(GuarantorSpouseInfoFragment.class.getSimpleName(), new Pair<>("guarantor_apply_personal", "担保人-配偶页面"));
         pageNameMaps.put(AMapPoiListActivity.class.getSimpleName(), new Pair<>("poi_address", "高德地图POI检索界面"));
-
-        pageNameMaps.put(DocumentFromLabelListActivity.class.getSimpleName(), new Pair<>("multi_img_upload", "多张图片上传界面"));
 
         pageNameMaps.put(PreviewActivity.class.getSimpleName(), new Pair<>("img_preview", "图片预览界面"));
         pageNameMaps.put(OnlyReadUploadListActivity.class.getSimpleName(), new Pair<>("img_authorization_book", "授权书查看页面"));

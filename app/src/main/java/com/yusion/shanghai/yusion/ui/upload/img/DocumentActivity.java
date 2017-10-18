@@ -27,7 +27,13 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.bean.ocr.OcrResp;
 import com.yusion.shanghai.yusion.bean.oss.OSSObjectKeyBean;
+import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
+import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
+import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
+import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.glide.StatusImageRel;
+import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
 import com.yusion.shanghai.yusion.ui.upload.PreviewActivity;
 import com.yusion.shanghai.yusion.utils.DensityUtil;
@@ -35,12 +41,13 @@ import com.yusion.shanghai.yusion.utils.GlideUtil;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.OcrUtil;
 import com.yusion.shanghai.yusion.utils.OssUtil;
+import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.TitleBar;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-//提交申请页面进入 单张图片上传
 public class DocumentActivity extends BaseActivity {
     public Button ancher;
     public ImageView choose_icon;
@@ -56,15 +63,62 @@ public class DocumentActivity extends BaseActivity {
     private TextView mEditTv;
     private StatusImageRel statusImageRel;
     private boolean hasChoose;
+    private boolean needUploadFidToServer;
+    private TextView errorTv;
+    private LinearLayout errorLin;
+    //label页进入
+    private String clt_id;
+    private UploadImgItemBean uploadImgItemBean;
+    private String imgId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document);
+
         mGetIntent = getIntent();
         mType = mGetIntent.getStringExtra("type");
         mRole = mGetIntent.getStringExtra("role");
+        clt_id = mGetIntent.getStringExtra("clt_id");
         mImgObjectKey = mGetIntent.getStringExtra("objectKey");
+
+        needUploadFidToServer = mGetIntent.getBooleanExtra("needUploadFidToServer", true);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        if (needUploadFidToServer) {
+            ListImgsReq req = new ListImgsReq();
+            req.clt_id = clt_id;
+            req.label = mType;
+            UploadApi.listImgs(this, req, resp -> {
+                if (resp != null) {
+                    if (resp.has_err) {
+                        errorLin.setVisibility(View.VISIBLE);
+                        errorTv.setText("您提交的资料有误：" + resp.error);
+                    } else {
+                        errorLin.setVisibility(View.GONE);
+                    }
+                    if (resp.list.size() > 0) {
+                        this.uploadImgItemBean = resp.list.get(0);
+                        imgUrl = this.uploadImgItemBean.s_url;
+                        imgId = this.uploadImgItemBean.id;
+                        GlideUtil.loadImg(this, statusImageRel, imgUrl);
+                    }
+                }
+                onImageCountChange();
+            });
+        } else {
+            if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
+                imgUrl = mGetIntent.getStringExtra("imgUrl");
+                GlideUtil.loadLocalImg(this, statusImageRel, new File(imgUrl));
+            }
+            onImageCountChange();
+        }
+    }
+
+    private void initView() {
         LinearLayout template = (LinearLayout) findViewById(R.id.document_template_lin);
         LayoutInflater inflater = LayoutInflater.from(this);
         switch (mType) {
@@ -81,6 +135,7 @@ public class DocumentActivity extends BaseActivity {
         }
 
         createBottomDialog();
+
         ancher = (Button) findViewById(R.id.ancher);
         statusImageRel = (StatusImageRel) findViewById(R.id.statusImageRel);
         statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
@@ -105,16 +160,30 @@ public class DocumentActivity extends BaseActivity {
             }
         });
         delete_image_btn = (Button) findViewById(R.id.image_del_btn);
+        delete_image_btn.setOnClickListener(v -> {
+            if (!hasChoose) return;
+            if (needUploadFidToServer) {
+                List<String> relDelImgIdList = new ArrayList<>();
+                relDelImgIdList.add(imgId);
+                DelImgsReq req = new DelImgsReq();
+                req.id = relDelImgIdList;
+                req.clt_id = clt_id;
+                UploadApi.delImgs(DocumentActivity.this, req, new OnCodeAndMsgCallBack() {
+                    @Override
+                    public void callBack(int code, String msg) {
+                        if (code == 0) {
+                            onImgDel();
+                        }
+                    }
+                });
+
+            } else {
+                onImgDel();
+            }
+        });
 
         titleBar = initTitleInfo();
         mEditTv = titleBar.getRightTextTv();
-
-        if (!TextUtils.isEmpty(mGetIntent.getStringExtra("imgUrl"))) {
-            imgUrl = mGetIntent.getStringExtra("imgUrl");
-            GlideUtil.loadLocalImg(this, statusImageRel, new File(imgUrl));
-        }
-        onImageCountChange();
-
         titleBar.setRightClickListener(v -> {
             isEditing = !isEditing;
             if (isEditing) {
@@ -132,17 +201,21 @@ public class DocumentActivity extends BaseActivity {
             }
         });
 
+        if (needUploadFidToServer) {
+            errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
+            errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
+        }
+    }
 
-        delete_image_btn.setOnClickListener(v -> {
-            if (!hasChoose) return;
-            imgUrl = "";
-            mImgObjectKey = "";
-            onImageCountChange();
-            isEditing = false;
-            statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
-            delete_image_btn.setVisibility(View.GONE);
-            statusImageRel.cbImg.setVisibility(View.GONE);
-        });
+    private void onImgDel() {
+        Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+        imgUrl = "";
+        mImgObjectKey = "";
+        onImageCountChange();
+        isEditing = false;
+        statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
+        delete_image_btn.setVisibility(View.GONE);
+        statusImageRel.cbImg.setVisibility(View.GONE);
     }
 
     private Dialog mBottomDialog;
@@ -154,11 +227,14 @@ public class DocumentActivity extends BaseActivity {
         TextView tv3 = ((TextView) bottomLayout.findViewById(R.id.tv3));
         tv1.setOnClickListener(v -> {
             Intent intent = new Intent(DocumentActivity.this, PreviewActivity.class);
-            intent.putExtra("PreviewImg", imgUrl);
+            if (uploadImgItemBean != null && !TextUtils.isEmpty(uploadImgItemBean.raw_url)) {
+                intent.putExtra("PreviewImg", uploadImgItemBean.raw_url);
+            } else {
+                intent.putExtra("PreviewImg", imgUrl);
+            }
 
             ActivityOptionsCompat compat =
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(DocumentActivity.this,
-                            ancher, "shareNames");
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(DocumentActivity.this, ancher, "shareNames");
             ActivityCompat.startActivity(DocumentActivity.this, intent, compat.toBundle());
             if (mBottomDialog.isShowing()) {
                 mBottomDialog.dismiss();
@@ -244,7 +320,9 @@ public class DocumentActivity extends BaseActivity {
             String localPath = files.get(0);
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
-            if (mType.equals(Constants.FileLabelType.ID_BACK)) {
+            if (needUploadFidToServer) {
+                upLoadImg(dialog, localPath);
+            } else if (mType.equals(Constants.FileLabelType.ID_BACK)) {
                 OcrUtil.requestOcr(this, localPath, new OSSObjectKeyBean(mRole, mType, ".png"), "id_card", (ocrResp, objectKey) -> {
                             if (ocrResp == null) {
                                 Toast.makeText(this, "识别失败", Toast.LENGTH_LONG).show();
@@ -267,6 +345,28 @@ public class DocumentActivity extends BaseActivity {
             }
         }
 
+    }
+
+    private void upLoadImg(final Dialog dialog, String imagePath) {
+        OssUtil.uploadOss(this, false, imagePath, new OSSObjectKeyBean(mRole, mType, ".png"), objectKey -> {
+            List<UploadFilesUrlReq.FileUrlBean> uploadFileUrlBeanList = new ArrayList<>();
+            UploadFilesUrlReq.FileUrlBean fileUrlBean = new UploadFilesUrlReq.FileUrlBean();
+            fileUrlBean.clt_id = clt_id;
+            fileUrlBean.label = mType;
+            fileUrlBean.file_id = objectKey;
+            uploadFileUrlBeanList.add(fileUrlBean);
+            UploadFilesUrlReq uploadFilesUrlReq = new UploadFilesUrlReq();
+            uploadFilesUrlReq.files = uploadFileUrlBeanList;
+            uploadFilesUrlReq.region = SharedPrefsUtil.getInstance(this).getValue("region", "");
+            uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(this).getValue("bucket", "");
+            UploadApi.uploadFileUrl(this, uploadFilesUrlReq, data -> {
+                imgId = data.get(0);
+                onUploadOssSuccess(imagePath, dialog, objectKey);
+            });
+        }, data -> {
+            Toast.makeText(DocumentActivity.this, "上传图片异常", Toast.LENGTH_SHORT).show();
+            onUploadOssFailure(dialog);
+        });
     }
 
     void onUploadOssFailure(Dialog dialog) {

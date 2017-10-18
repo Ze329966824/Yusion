@@ -21,7 +21,7 @@ import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.ui.upload.img.DocumentFromLabelListActivity;
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity;
 import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity;
 
 import org.json.JSONArray;
@@ -60,7 +60,7 @@ public class UploadLabelListActivity extends BaseActivity {
                 if (item.name.contains("授权书")) {
                     intent.setClass(UploadLabelListActivity.this, OnlyReadUploadListActivity.class);
                 } else if (item.name.contains("人像面") || item.name.contains("国徽面") || item.name.contains("驾驶证")) {
-                    intent.setClass(UploadLabelListActivity.this, DocumentFromLabelListActivity.class);
+                    intent.setClass(UploadLabelListActivity.this, DocumentActivity.class);
                 }
                 intent.putExtra("type", item.value);//id_card_back
                 intent.putExtra("title", item.name);//身份证人像面

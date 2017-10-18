@@ -206,6 +206,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         spouse_info_id_back_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("ocrResp", ocrResp)
             intent.putExtra("imgUrl", idBackImgUrl)
@@ -215,6 +216,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         spouse_info_id_front_lin.setOnClickListener {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("role", Constants.PersonType.LENDER_SP)
             intent.putExtra("imgUrl", idFrontImgUrl)
             intent.putExtra("objectKey", ID_FRONT_FID)

@@ -75,11 +75,11 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     @BindView(id = R.id.autonym_certify_driving_license_rel_tv, widgetName = "autonym_certify_driving_license_rel_tv")
     var autonym_certify_driving_license_rel_tv: TextView? = null
 
-    @BindView(id = R.id.autonym_certify_next_btn, widgetName = "autonym_certify_next_btn",onClick = "submitAutonymCertify")
+    @BindView(id = R.id.autonym_certify_next_btn, widgetName = "autonym_certify_next_btn", onClick = "submitAutonymCertify")
     var autonym_certify_next_btn: Button? = null
 
 
-    fun submitAutonymCertify(view: View?){
+    fun submitAutonymCertify(view: View?) {
         (autonym_certify_next_btn as Button).setFocusable(true)
         (autonym_certify_next_btn as Button).setFocusableInTouchMode(true)
         (autonym_certify_next_btn as Button).requestFocus()
@@ -146,6 +146,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
@@ -155,6 +156,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idFrontImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -163,6 +165,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.DRI_LIC)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", drivingLicImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", DRI_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
