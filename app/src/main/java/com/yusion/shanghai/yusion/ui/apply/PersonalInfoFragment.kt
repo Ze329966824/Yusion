@@ -200,7 +200,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     clearDoubleCheckItems()
                     addDoubleCheckItem("姓名", personal_info_clt_nm_edt.text.toString())
                     addDoubleCheckItem("身份证号", personal_info_id_no_edt.text.toString())
-                    addDoubleCheckItem("手机号", personal_info_mobile_edt?.text.toString())
+                    addDoubleCheckItem("手机号", (personal_info_mobile_edt as EditText).text.toString())
                     mDoubleCheckDialog.show()
                 }
             }
@@ -212,56 +212,56 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             var applyActivity = activity as ApplyActivity
-            if (personal_info_reg_tv?.text?.isNotEmpty() as Boolean) {
-                applyActivity.mClientInfo.reg_addr.province = personal_info_reg_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                applyActivity.mClientInfo.reg_addr.city = personal_info_reg_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                applyActivity.mClientInfo.reg_addr.district = personal_info_reg_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+            if ((personal_info_reg_tv as TextView).text.isNotEmpty() as Boolean) {
+                applyActivity.mClientInfo.reg_addr.province = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                applyActivity.mClientInfo.reg_addr.city = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                applyActivity.mClientInfo.reg_addr.district = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
             }
-            applyActivity.mClientInfo.gender = personal_info_gender_tv?.text.toString()
-            applyActivity.mClientInfo.mobile = personal_info_mobile_edt?.text.toString()
-            applyActivity.mClientInfo.edu = personal_info_education_tv?.text.toString()
+            applyActivity.mClientInfo.gender = (personal_info_gender_tv as TextView).text.toString()
+            applyActivity.mClientInfo.mobile = (personal_info_mobile_edt as EditText).text.toString()
+            applyActivity.mClientInfo.edu = (personal_info_education_tv as TextView).text.toString()
 
             //现住地址
-            if (personal_info_current_address_tv?.text?.isNotEmpty() as Boolean) {
-                applyActivity.mClientInfo.current_addr.province = personal_info_current_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                applyActivity.mClientInfo.current_addr.city = personal_info_current_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                applyActivity.mClientInfo.current_addr.district = personal_info_current_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+            if ((personal_info_current_address_tv as TextView).text.isNotEmpty() as Boolean) {
+                applyActivity.mClientInfo.current_addr.province = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                applyActivity.mClientInfo.current_addr.city = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                applyActivity.mClientInfo.current_addr.district = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
             }
-            applyActivity.mClientInfo.current_addr.address1 = personal_info_current_address1_tv?.text.toString()
-            applyActivity.mClientInfo.current_addr.address2 = personal_info_current_address2_tv?.text.toString()
-            applyActivity.mClientInfo.is_live_with_parent = personal_info_live_with_parent_tv?.text.toString()
+            applyActivity.mClientInfo.current_addr.address1 = (personal_info_current_address1_tv as TextView).text.toString()
+            applyActivity.mClientInfo.current_addr.address2 = (personal_info_current_address2_tv as NoEmptyEditText).text.toString()
+            applyActivity.mClientInfo.is_live_with_parent = (personal_info_live_with_parent_tv as TextView).text.toString()
 
 
             //主要收入来源
-            when (personal_info_income_from_tv?.text) {
+            when ((personal_info_income_from_tv as TextView).text) {
                 "工资" -> {
                     applyActivity.mClientInfo.major_income_type = "工资"
-                    applyActivity.mClientInfo.major_income = personal_info_from_income_year_edt?.text.toString()
-                    applyActivity.mClientInfo.major_company_name = personal_info_from_income_company_name_edt?.text.toString()
-                    applyActivity.mClientInfo.major_company_addr.province = personal_info_from_income_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    applyActivity.mClientInfo.major_company_addr.city = personal_info_from_income_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    applyActivity.mClientInfo.major_company_addr.district = personal_info_from_income_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                    applyActivity.mClientInfo.major_company_addr.address1 = personal_info_from_income_company_address1_tv?.text.toString()
-                    applyActivity.mClientInfo.major_company_addr.address2 = personal_info_from_income_company_address2_tv?.text.toString()
-                    applyActivity.mClientInfo.major_work_position = personal_info_from_income_work_position_tv?.text.toString()
-                    applyActivity.mClientInfo.major_work_phone_num = personal_info_from_income_work_phone_num_edt?.text.toString()
+                    applyActivity.mClientInfo.major_income = (personal_info_from_income_year_edt as EditText).text.toString()
+                    applyActivity.mClientInfo.major_company_name = (personal_info_from_income_company_name_edt as EditText).text.toString()
+                    applyActivity.mClientInfo.major_company_addr.province = (personal_info_from_income_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    applyActivity.mClientInfo.major_company_addr.city = (personal_info_from_income_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                    applyActivity.mClientInfo.major_company_addr.district = (personal_info_from_income_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    applyActivity.mClientInfo.major_company_addr.address1 = (personal_info_from_income_company_address1_tv as TextView).text.toString()
+                    applyActivity.mClientInfo.major_company_addr.address2 = (personal_info_from_income_company_address2_tv as NoEmptyEditText).text.toString()
+                    applyActivity.mClientInfo.major_work_position = (personal_info_from_income_work_position_tv as TextView).text.toString()
+                    applyActivity.mClientInfo.major_work_phone_num = (personal_info_from_income_work_phone_num_edt as EditText).text.toString()
                 }
                 "自营" -> {
                     applyActivity.mClientInfo.major_income_type = "自营"
-                    applyActivity.mClientInfo.major_income = personal_info_from_self_year_edt?.text.toString()
-                    applyActivity.mClientInfo.major_busi_type = personal_info_from_self_type_tv?.text.toString()
-                    applyActivity.mClientInfo.major_company_name = personal_info_from_self_company_name_edt?.text.toString()
-                    if (TextUtils.isEmpty(personal_info_from_self_company_address_tv?.text)) {
+                    applyActivity.mClientInfo.major_income = (personal_info_from_self_year_edt as EditText).text.toString()
+                    applyActivity.mClientInfo.major_busi_type = (personal_info_from_self_type_tv as TextView).text.toString()
+                    applyActivity.mClientInfo.major_company_name = (personal_info_from_self_company_name_edt as EditText).text.toString()
+                    if (TextUtils.isEmpty((personal_info_from_self_company_address_tv as TextView).text)) {
                         applyActivity.mClientInfo.major_company_addr.province = ""
                         applyActivity.mClientInfo.major_company_addr.city = ""
                         applyActivity.mClientInfo.major_company_addr.district = ""
                     } else {
-                        applyActivity.mClientInfo.major_company_addr.province = personal_info_from_self_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                        applyActivity.mClientInfo.major_company_addr.city = personal_info_from_self_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                        applyActivity.mClientInfo.major_company_addr.district = personal_info_from_self_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                        applyActivity.mClientInfo.major_company_addr.province = (personal_info_from_self_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                        applyActivity.mClientInfo.major_company_addr.city = (personal_info_from_self_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                        applyActivity.mClientInfo.major_company_addr.district = (personal_info_from_self_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
                     }
-                    applyActivity.mClientInfo.major_company_addr.address1 = personal_info_from_self_company_address1_tv?.text.toString()
-                    applyActivity.mClientInfo.major_company_addr.address2 = personal_info_from_self_company_address2_tv?.text.toString()
+                    applyActivity.mClientInfo.major_company_addr.address1 = (personal_info_from_self_company_address1_tv as TextView).text.toString()
+                    applyActivity.mClientInfo.major_company_addr.address2 = (personal_info_from_self_company_address2_tv as NoEmptyEditText).text.toString()
                 }
                 "其他" -> {
                     applyActivity.mClientInfo.major_income_type = "其他"
@@ -270,18 +270,18 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when (personal_info_extra_income_from_tv?.text) {
+            when ((personal_info_extra_income_from_tv as TextView).text) {
                 "工资" -> {
                     applyActivity.mClientInfo.extra_income_type = "工资"
-                    applyActivity.mClientInfo.extra_income = personal_info_extra_from_income_year_edt?.text.toString()
-                    applyActivity.mClientInfo.extra_company_name = personal_info_extra_from_income_company_name_edt?.text.toString()
-                    applyActivity.mClientInfo.extra_company_addr.province = personal_info_extra_from_income_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
-                    applyActivity.mClientInfo.extra_company_addr.city = personal_info_extra_from_income_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
-                    applyActivity.mClientInfo.extra_company_addr.district = personal_info_extra_from_income_company_address_tv?.text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
-                    applyActivity.mClientInfo.extra_company_addr.address1 = personal_info_extra_from_income_company_address1_tv?.text.toString()
-                    applyActivity.mClientInfo.extra_company_addr.address2 = personal_info_extra_from_income_company_address2_tv?.text.toString()
-                    applyActivity.mClientInfo.extra_work_position = personal_info_extra_from_income_work_position_tv?.text.toString()
-                    applyActivity.mClientInfo.extra_work_phone_num = personal_info_extra_from_income_work_phone_num_edt?.text.toString()
+                    applyActivity.mClientInfo.extra_income = (personal_info_extra_from_income_year_edt as EditText).text.toString()
+                    applyActivity.mClientInfo.extra_company_name = (personal_info_extra_from_income_company_name_edt as EditText).text.toString()
+                    applyActivity.mClientInfo.extra_company_addr.province = (personal_info_extra_from_income_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    applyActivity.mClientInfo.extra_company_addr.city = (personal_info_extra_from_income_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
+                    applyActivity.mClientInfo.extra_company_addr.district = (personal_info_extra_from_income_company_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
+                    applyActivity.mClientInfo.extra_company_addr.address1 = (personal_info_extra_from_income_company_address1_tv as TextView).text.toString()
+                    applyActivity.mClientInfo.extra_company_addr.address2 = (personal_info_extra_from_income_company_address2_tv as NoEmptyEditText).text.toString()
+                    applyActivity.mClientInfo.extra_work_position = (personal_info_extra_from_income_work_position_tv as TextView).text.toString()
+                    applyActivity.mClientInfo.extra_work_phone_num = (personal_info_extra_from_income_work_phone_num_edt as EditText).text.toString()
                 }
                 "无" -> {
                     applyActivity.mClientInfo.extra_income_type = "无"
@@ -289,20 +289,20 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             }
 
             //房屋性质
-            applyActivity.mClientInfo.house_owner_name = personal_info_house_owner_name_edt?.text.toString()
-            applyActivity.mClientInfo.house_owner_relation = personal_info_house_owner_relation_tv?.text.toString()
-            applyActivity.mClientInfo.house_type = personal_info_house_type_tv?.text.toString()
-            applyActivity.mClientInfo.house_area = personal_info_house_area_edt?.text.toString()
-            applyActivity.mClientInfo.urg_contact1 = personal_info_urg_contact1_edt?.text.toString()
-            applyActivity.mClientInfo.urg_mobile1 = personal_info_urg_mobile1_edt?.text.toString()
-            applyActivity.mClientInfo.urg_relation1 = personal_info_urg_relation1_tv?.text.toString()
-            applyActivity.mClientInfo.urg_contact2 = personal_info_urg_contact2_edt?.text.toString()
-            applyActivity.mClientInfo.urg_mobile2 = personal_info_urg_mobile2_edt?.text.toString()
-            applyActivity.mClientInfo.urg_relation2 = personal_info_urg_relation2_tv?.text.toString()
+            applyActivity.mClientInfo.house_owner_name = (personal_info_house_owner_name_edt as EditText).text.toString()
+            applyActivity.mClientInfo.house_owner_relation = (personal_info_house_owner_relation_tv as TextView).text.toString()
+            applyActivity.mClientInfo.house_type = (personal_info_house_type_tv as TextView).text.toString()
+            applyActivity.mClientInfo.house_area = (personal_info_house_area_edt as EditText).text.toString()
+            applyActivity.mClientInfo.urg_contact1 = (personal_info_urg_contact1_edt as EditText).text.toString()
+            applyActivity.mClientInfo.urg_mobile1 = (personal_info_urg_mobile1_edt as EditText).text.toString()
+            applyActivity.mClientInfo.urg_relation1 = (personal_info_urg_relation1_tv as TextView).text.toString()
+            applyActivity.mClientInfo.urg_contact2 = (personal_info_urg_contact2_edt as EditText).text.toString()
+            applyActivity.mClientInfo.urg_mobile2 = (personal_info_urg_mobile2_edt as EditText).text.toString()
+            applyActivity.mClientInfo.urg_relation2 = (personal_info_urg_relation2_tv as TextView).text.toString()
             nextStep()
         }
 
-        personal_info_mobile_edt?.setText(YusionApp.MOBILE)
+        (personal_info_mobile_edt as EditText).setText(YusionApp.MOBILE)
         personal_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
@@ -339,23 +339,23 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             })
         }
         personal_info_current_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_current_address_lin, personal_info_current_address_tv, "请选择所在地区") { _, _ -> personal_info_current_address1_tv?.text = "" }
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_current_address_lin, personal_info_current_address_tv, "请选择所在地区") { _, _ -> (personal_info_current_address1_tv as TextView).text = "" }
         }
         personal_info_current_address1_lin.setOnClickListener {
-            if (personal_info_current_address_tv?.text?.isNotEmpty() as Boolean) {
+            if ((personal_info_current_address_tv as TextView).text?.isNotEmpty() as Boolean) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_current_address1_lin.id
-                requestPOI(personal_info_current_address_tv?.text.toString())
+                requestPOI((personal_info_current_address_tv as TextView).text.toString())
             }
         }
 
         //工资
         personal_info_from_income_company_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_income_company_address_lin, personal_info_from_income_company_address_tv, "请选择所在地区") { _, _ -> personal_info_from_income_company_address1_tv?.text = "" }
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_income_company_address_lin, personal_info_from_income_company_address_tv, "请选择所在地区") { _, _ -> (personal_info_from_income_company_address1_tv as TextView).text = "" }
         }
         personal_info_from_income_company_address1_lin.setOnClickListener {
-            if (personal_info_from_income_company_address_tv?.text?.isNotEmpty() as Boolean) {
+            if ((personal_info_from_income_company_address_tv as TextView).text?.isNotEmpty() as Boolean) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_income_company_address1_lin.id
-                requestPOI(personal_info_from_income_company_address_tv?.text.toString())
+                requestPOI((personal_info_from_income_company_address_tv as TextView).text.toString())
             }
         }
         personal_info_from_income_work_position_lin.setOnClickListener {
@@ -366,7 +366,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
         //自营
         personal_info_from_self_company_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_self_company_address_lin, personal_info_from_self_company_address_tv, "请选择所在地区") { _, _ -> personal_info_from_self_company_address1_tv?.text = "" }
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_self_company_address_lin, personal_info_from_self_company_address_tv, "请选择所在地区") { _, _ -> (personal_info_from_self_company_address1_tv as TextView).text = "" }
         }
         personal_info_from_self_type_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, _FROM_SELF_TYPE_INDEX, personal_info_from_self_type_lin, personal_info_from_self_type_tv, "请选择", { _, index ->
@@ -378,7 +378,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                             .setView(editText)
                             .setCancelable(false)
                             .setPositiveButton("确定") { dialog, _ ->
-                                personal_info_from_self_type_tv?.text = editText.text
+                                (personal_info_from_self_type_tv as TextView).text = editText.text
                                 _FROM_SELF_TYPE_INDEX = 0
                                 InputMethodUtil.hideInputMethod(mContext)
                                 dialog.dismiss()
@@ -386,27 +386,27 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                             .setNegativeButton("取消") { dialog, _ ->
                                 dialog.dismiss()
                                 _FROM_SELF_TYPE_INDEX = 0;
-                                personal_info_from_self_type_tv?.text = null
+                                (personal_info_from_self_type_tv as TextView).text = null
                                 InputMethodUtil.hideInputMethod(mContext)
                             }.show()
                 }
             })
         }
         personal_info_from_self_company_address1_lin.setOnClickListener {
-            if (personal_info_from_self_company_address_tv?.text?.isNotEmpty() as Boolean) {
+            if ((personal_info_from_self_company_address_tv as TextView).text?.isNotEmpty() as Boolean) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_self_company_address1_lin.id
-                requestPOI(personal_info_from_self_company_address_tv?.text.toString())
+                requestPOI((personal_info_from_self_company_address_tv as TextView).text.toString())
             }
         }
 
         //额外工资
         personal_info_extra_from_income_company_address_lin.setOnClickListener {
-            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_extra_from_income_company_address_lin, personal_info_extra_from_income_company_address_tv, "请选择所在地区") { _, _ -> personal_info_extra_from_income_company_address1_tv?.text = "" }
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_extra_from_income_company_address_lin, personal_info_extra_from_income_company_address_tv, "请选择所在地区") { _, _ -> (personal_info_extra_from_income_company_address1_tv as TextView).text = "" }
         }
         personal_info_extra_from_income_company_address1_lin.setOnClickListener {
-            if (personal_info_extra_from_income_company_address_tv?.text?.isNotEmpty() as Boolean) {
+            if ((personal_info_extra_from_income_company_address_tv as TextView).text.isNotEmpty()) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_extra_from_income_company_address1_lin.id
-                requestPOI(personal_info_extra_from_income_company_address_tv?.text.toString())
+                requestPOI((personal_info_extra_from_income_company_address_tv as TextView).text.toString())
             }
         }
         personal_info_extra_from_income_work_position_lin.setOnClickListener {
@@ -460,13 +460,13 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             personal_info_clt_nm_edt.text = clientInfoBean.clt_nm
             personal_info_id_no_edt.text = clientInfoBean.id_no
             if (clientInfoBean.gender.isNotEmpty()) {
-                personal_info_gender_tv?.text = clientInfoBean.gender
+                (personal_info_gender_tv as TextView).text = clientInfoBean.gender
             }
             var empty = clientInfoBean.reg_addr.province.isNotEmpty()
             var notEmpty = clientInfoBean.reg_addr.city.isNotEmpty()
             var notEmpty1 = clientInfoBean.reg_addr.district.isNotEmpty()
             if (empty && notEmpty && notEmpty1) {
-                personal_info_reg_tv?.text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
+                (personal_info_reg_tv as TextView).text = clientInfoBean.reg_addr.province + "/" + clientInfoBean.reg_addr.city + "/" + clientInfoBean.reg_addr.district
             }
         }
     }
@@ -596,27 +596,27 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 }
                 when (CURRENT_CLICKED_VIEW_FOR_CONTACT) {
                     personal_info_urg_mobile1_img.id -> {
-                        personal_info_urg_contact1_edt?.setText(result[0])
-                        personal_info_urg_mobile1_edt?.setText(result[1].replace(" ", ""))
+                        (personal_info_urg_contact1_edt as EditText).setText(result[0])
+                        (personal_info_urg_mobile1_edt as EditText).setText(result[1].replace(" ", ""))
                     }
                     personal_info_urg_mobile2_img.id -> {
-                        personal_info_urg_contact2_edt?.setText(result[0])
-                        personal_info_urg_mobile2_edt?.setText(result[1].replace(" ", ""))
+                        (personal_info_urg_contact2_edt as EditText).setText(result[0])
+                        (personal_info_urg_mobile2_edt as EditText).setText(result[1].replace(" ", ""))
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 when (CURRENT_CLICKED_VIEW_FOR_ADDRESS) {
                     personal_info_current_address1_lin.id -> {
-                        personal_info_current_address1_tv?.text = data.getStringExtra("result");
+                        (personal_info_current_address1_tv as TextView).text = data.getStringExtra("result");
                     }
                     personal_info_from_income_company_address1_lin.id -> {
-                        personal_info_from_income_company_address1_tv?.text = data.getStringExtra("result");
+                        (personal_info_from_income_company_address1_tv as TextView).text = data.getStringExtra("result");
                     }
                     personal_info_from_self_company_address1_lin.id -> {
-                        personal_info_from_self_company_address1_tv?.text = data.getStringExtra("result");
+                        (personal_info_from_self_company_address1_tv as TextView).text = data.getStringExtra("result");
                     }
                     personal_info_extra_from_income_company_address1_lin.id -> {
-                        personal_info_extra_from_income_company_address1_tv?.text = data.getStringExtra("result");
+                        (personal_info_extra_from_income_company_address1_tv as TextView).text = data.getStringExtra("result");
                     }
                 }
             }
