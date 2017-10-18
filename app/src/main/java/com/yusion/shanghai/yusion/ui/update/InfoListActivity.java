@@ -90,7 +90,7 @@ public class InfoListActivity extends BaseActivity {
 
 
 //    private void updateHaveGuaranteeStatus() {
-//        UserApi.getListCurrentTpye(InfoListActivity.this, contact -> {
+//        UserApi.getListCurrentType(InfoListActivity.this, contact -> {
 //            if (contact != null) {
 //                if (contact.guarantor_commited) {
 //                    add_guarantee.setVisibility(View.GONE);

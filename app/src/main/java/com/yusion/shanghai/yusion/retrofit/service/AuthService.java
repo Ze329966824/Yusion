@@ -32,11 +32,9 @@ public interface AuthService {
     @POST("/api/client/check_user_info/")
     Call<BaseResult> isAgree(@Body CheckHasAgreedReq req);
 
-
     @POST("/api/auth/check_token/")
     Call<BaseResult<CheckTokenResp>> checkToken();
 
     @GET("/api/check_new_app/")
     Call<BaseResult<UpdateResp>> update(@Query("frontend") String frontend);
-
 }

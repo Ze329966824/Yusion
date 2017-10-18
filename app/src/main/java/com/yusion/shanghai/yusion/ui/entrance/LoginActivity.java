@@ -112,6 +112,7 @@ public class LoginActivity extends BaseActivity {
                 LoginReq req = new LoginReq();
                 req.mobile = mLoginMobileTV.getText().toString();
                 req.verify_code = mLoginCodeTV.getText().toString();
+                req.reg_id = SharedPrefsUtil.getInstance(this).getValue("reg_id", "");
                 AuthApi.login(LoginActivity.this, req, this::loginSuccess);
             }
         });
@@ -155,8 +156,7 @@ public class LoginActivity extends BaseActivity {
         //每次回到登陆界面都需清除缓存
         myApp.clearUserData();
 
-        ConfigApi.getConfigJson(LoginActivity.this, resp -> {
-        });
+        ConfigApi.getConfigJson(LoginActivity.this, null);
     }
 
 

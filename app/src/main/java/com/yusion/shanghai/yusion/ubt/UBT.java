@@ -10,7 +10,6 @@ package com.yusion.shanghai.yusion.ubt;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -55,26 +54,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.TELEPHONY_SERVICE;
-
 
 public class UBT {
 
     public static void uploadPersonAndDeviceInfo(Context context) {
-        TelephonyManager telephonyManager;
-        telephonyManager = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
         UBTData req = new UBTData(context);
-        String imei = telephonyManager.getDeviceId();
-        String imsi = telephonyManager.getSubscriberId();
-        req.imei = imei;
-        req.imsi = imsi;
-        req.app = "Yusion";
-        req.token = SharedPrefsUtil.getInstance(context).getValue("token", null);
-        req.mobile = SharedPrefsUtil.getInstance(context).getValue("mobile", null);
 
         JSONArray contactJsonArray = MobileDataUtil.getUserData(context, "contact");
         List<UBTData.DataBean.ContactBean> contactBeenList = new ArrayList<>();
-        //List<String> raw_list = new ArrayList<>();
         for (int i = 0; i < contactJsonArray.length(); i++) {
             JSONObject jsonObject = null;
             try {
@@ -162,9 +149,9 @@ public class UBT {
 
     static {
         if (Settings.isOnline) {
-            LIMIT = 500;
+            LIMIT = 20;
         } else {
-            LIMIT = 100;
+            LIMIT = 10;
         }
     }
 
@@ -246,8 +233,10 @@ public class UBT {
                             }
                         }
                     } catch (IOException e) {
+                        if (callBack != null) {
+                            callBack.callBack();
+                        }
                         Log.e(TAG, "run: " + e);
-                        e.printStackTrace();
                     }
                 }
             }
@@ -271,14 +260,22 @@ public class UBT {
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                    processorOnClick(object, viewAnnotation.onClick(), view, pageName);
-                    processorOnFocusChange(object, viewAnnotation.onFocusChange(), view, pageName);
-                    if (view instanceof CompoundButton) {
-                        processorOnCheckedChange(object, viewAnnotation.onCheckedChanged(), (CompoundButton) view, pageName);
-                    } else if (view instanceof TextView && !(view instanceof EditText)) {
+                    //按钮才监听点击事件
+                    if (view instanceof Button) {
+                        processorOnClick(object, viewAnnotation.onClick(), view, pageName);
+                    }
+                    if (view instanceof EditText) {
+                        processorOnFocusChange(object, viewAnnotation.onFocusChange(), view, pageName);
+                    }
+//                    if (view instanceof CompoundButton) {
+//                        processorOnCheckedChange(object, viewAnnotation.onCheckedChanged(), (CompoundButton) view, pageName);
+//                    }
+                    //只有最原生的textview才有文本改变事件
+                    //edittext没有文本改变事件
+                    if (view instanceof TextView && !(view instanceof EditText)) {
                         processorOnTextChange((TextView) view, pageName);
                     }
-                    processorOnTouch(object, viewAnnotation.onTouch(), view, pageName);
+//                    processorOnTouch(object, viewAnnotation.onTouch(), view, pageName);
                 }
             }
         }
@@ -296,7 +293,7 @@ public class UBT {
             @Override
             public void onClick(View v) {
                 try {
-                    addEvent(view.getContext(), "onClick", view, pageName);
+                    addEvent(view.getContext(), "click", view, pageName);
                     try {
                         final Method method = object.getClass().getDeclaredMethod(methodName, View.class);
                         method.setAccessible(true);
@@ -331,6 +328,7 @@ public class UBT {
                     String action = hasFocus ? "focus_in" : "focus_out";
                     addEvent(view.getContext(), action, view, pageName, ((EditText) view).getText().toString());
 //                    addEvent(view.getContext(), "onFocusChange", view, pageName, hasFocus ? "onFocus" : "onBlur");
+
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
@@ -346,11 +344,11 @@ public class UBT {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
-                    addEvent(view.getContext(), "text_change", view, pageName, isChecked ? "checked" : "unchecked");
+                    addEvent(view.getContext(), "checked_change", view, pageName, isChecked ? "checked" : "unchecked");
                     try {
                         final Method method = object.getClass().getDeclaredMethod(methodName, View.class, boolean.class);
                         method.setAccessible(true);
-                        method.invoke(object, isChecked);
+                        method.invoke(object, view, isChecked);
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     }
@@ -378,7 +376,7 @@ public class UBT {
                 if (TextUtils.isEmpty(s)) {
                     return;
                 }
-                addEvent(view.getContext(), "onTextChanged", view, pageName, s.toString());
+                addEvent(view.getContext(), "text_change", view, pageName, s.toString());
             }
         });
     }

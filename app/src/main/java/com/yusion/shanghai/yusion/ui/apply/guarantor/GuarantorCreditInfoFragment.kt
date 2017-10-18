@@ -9,6 +9,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.yusion.shanghai.yusion.R
 import com.yusion.shanghai.yusion.YusionApp
@@ -20,6 +23,9 @@ import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
+import com.yusion.shanghai.yusion.ubt.UBT
+import com.yusion.shanghai.yusion.ubt.annotate.BindView
 import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil
@@ -42,20 +48,48 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
     var idFrontImgUrl = ""
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
+    @BindView(id = R.id.guarantor_credit_info_rel_tv, widgetName = "guarantor_credit_info_rel_tv")
+    var guarantor_credit_info_rel_tv: TextView? = null
+
+    @BindView(id = R.id.guarantor_credit_info_id_back_tv, widgetName = "guarantor_credit_info_id_back_tv")
+    var guarantor_credit_info_id_back_tv: TextView? = null
+
+    @BindView(id = R.id.guarantor_credit_info_id_front_tv, widgetName = "guarantor_credit_info_id_front_tv")
+    var guarantor_credit_info_id_front_tv: TextView? = null
+
+    @BindView(id = R.id.guarantor_credit_info_name_tv, widgetName = "guarantor_credit_info_name_tv")
+    var guarantor_credit_info_name_tv: EditText? = null
+
+    @BindView(id = R.id.guarantor_credit_info_id_number_tv, widgetName = "guarantor_credit_info_id_number_tv")
+    var guarantor_credit_info_id_number_tv: EditText? = null
+
+    @BindView(id = R.id.guarantor_credit_info_mobile_edt, widgetName = "guarantor_credit_info_mobile_edt")
+    var guarantor_credit_info_mobile_edt: EditText? = null
+
+    @BindView(id = R.id.guarantor_credit_info_next_btn, widgetName = "guarantor_credit_info_next_btn",onClick = "submitGuarantorCreditInfo")
+    var guarantor_credit_info_next_btn: Button? = null
+
+    fun submitGuarantorCreditInfo(view: View?){
+        (guarantor_credit_info_next_btn as Button).setFocusable(true)
+        (guarantor_credit_info_next_btn as Button).setFocusableInTouchMode(true)
+        (guarantor_credit_info_next_btn as Button).requestFocus()
+        (guarantor_credit_info_next_btn as Button).requestFocusFromTouch()
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.guarantor_credit_info, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        UBT.bind(this, view, AddGuarantorActivity::class.java.getSimpleName())
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
-            ProductApi.getGuarantorInfo(mContext, GetGuarantorInfoReq(guarantor_credit_info_id_number_tv.text.toString(), guarantor_credit_info_name_tv.text.toString()
-                    , guarantor_credit_info_mobile_edt.text.toString(), guarantor_credit_info_rel_tv.text.toString(), "1")) {
+            ProductApi.getGuarantorInfo(mContext, GetGuarantorInfoReq((guarantor_credit_info_id_number_tv as EditText).text.toString(), (guarantor_credit_info_name_tv as EditText).text.toString()
+                    , (guarantor_credit_info_mobile_edt as EditText).text.toString(), (guarantor_credit_info_rel_tv as TextView).text.toString(), "1")) {
                 if (it == null) {
                     return@getGuarantorInfo
                 }
@@ -73,14 +107,19 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                 uploadUrl(it.clt_id)
             }
         }
-        guarantor_credit_info_next_btn.setOnClickListener {
-            if (checkCanNextStep()) {
-                clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", guarantor_credit_info_name_tv.text.toString())
-                addDoubleCheckItem("身份证号", guarantor_credit_info_id_number_tv.text.toString())
-                mDoubleCheckDialog.show()
+        (guarantor_credit_info_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                (guarantor_credit_info_next_btn as Button).clearFocus();
+                if (checkCanNextStep()) {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", (guarantor_credit_info_name_tv as EditText).text.toString())
+                    addDoubleCheckItem("身份证号", (guarantor_credit_info_id_number_tv as EditText).text.toString())
+                    mDoubleCheckDialog.show()
+                }
             }
         }
+
+
         step1.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf")
         step2.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf")
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf")
@@ -98,6 +137,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.GUARANTOR)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("imgUrl", idBackImgUrl)
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
@@ -107,6 +147,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             var intent = Intent(mContext, DocumentActivity::class.java)
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.GUARANTOR)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("imgUrl", idFrontImgUrl)
             intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
@@ -122,19 +163,19 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()
         } else if (ID_FRONT_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
-        } else if (guarantor_credit_info_name_tv.text.isEmpty()) {
+        } else if ((guarantor_credit_info_name_tv as EditText).text.isEmpty()) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if (guarantor_credit_info_id_number_tv.text.isEmpty()) {
+        } else if ((guarantor_credit_info_id_number_tv as EditText).text.isEmpty()) {
             Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(guarantor_credit_info_id_number_tv.text.toString())) {
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard((guarantor_credit_info_id_number_tv as EditText).text.toString())) {
             Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-        } else if (guarantor_credit_info_rel_tv.text.isEmpty()) {
+        } else if ((guarantor_credit_info_rel_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "请选择担保人与本人关系", Toast.LENGTH_SHORT).show()
         }
-        else if (guarantor_credit_info_mobile_edt.text.isEmpty()) {
+        else if ((guarantor_credit_info_mobile_edt as EditText).text.isEmpty()) {
             Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show()
         }
-        else if (!CheckMobileUtil.checkMobile(guarantor_credit_info_mobile_edt.text.toString())) {
+        else if (!CheckMobileUtil.checkMobile((guarantor_credit_info_mobile_edt as EditText).text.toString())) {
             Toast.makeText(mContext, "手机号格式错误", Toast.LENGTH_SHORT).show()
         } else {
             return true
@@ -163,6 +204,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+
                 nextStep()
             }
         }
@@ -183,29 +225,29 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                                 ID_BACK_FID = data.getStringExtra("objectKey")
                                 idBackImgUrl = data.getStringExtra("imgUrl")
                                 if (ID_BACK_FID.isNotEmpty()) {
-                                    guarantor_credit_info_id_back_tv.text = "已上传"
-                                    guarantor_credit_info_id_back_tv.setTextColor(resources.getColor(R.color.system_color))
+                                    (guarantor_credit_info_id_back_tv as TextView).text = "已上传"
+                                    (guarantor_credit_info_id_back_tv as TextView).setTextColor(resources.getColor(R.color.system_color))
                                     ocrResp = data.getSerializableExtra("ocrResp") as OcrResp.ShowapiResBodyBean
                                 } else {
-                                    guarantor_credit_info_id_back_tv.text = "请上传"
-                                    guarantor_credit_info_id_back_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    (guarantor_credit_info_id_back_tv as TextView).text = "请上传"
+                                    (guarantor_credit_info_id_back_tv as TextView).setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
                                 if (ocrResp.idNo.isNotEmpty()) {
-                                    guarantor_credit_info_id_number_tv.setText(ocrResp.idNo)
+                                    (guarantor_credit_info_id_number_tv as EditText).setText(ocrResp.idNo)
                                 }
                                 if (ocrResp.name.isNotEmpty()) {
-                                    guarantor_credit_info_name_tv.setText(ocrResp.name)
+                                    (guarantor_credit_info_name_tv as EditText).setText(ocrResp.name)
                                 }
                             }
                             Constants.FileLabelType.ID_FRONT -> {
                                 ID_FRONT_FID = data.getStringExtra("objectKey")
                                 idFrontImgUrl = data.getStringExtra("imgUrl")
                                 if (ID_FRONT_FID.isNotEmpty()) {
-                                    guarantor_credit_info_id_front_tv.text = "已上传"
-                                    guarantor_credit_info_id_front_tv.setTextColor(resources.getColor(R.color.system_color))
+                                    (guarantor_credit_info_id_front_tv as TextView).text = "已上传"
+                                    (guarantor_credit_info_id_front_tv as TextView).setTextColor(resources.getColor(R.color.system_color))
                                 } else {
-                                    guarantor_credit_info_id_front_tv.text = "请上传"
-                                    guarantor_credit_info_id_front_tv.setTextColor(resources.getColor(R.color.please_upload_color))
+                                    (guarantor_credit_info_id_front_tv as TextView).text = "请上传"
+                                    (guarantor_credit_info_id_front_tv as TextView).setTextColor(resources.getColor(R.color.please_upload_color))
                                 }
                             }
                         }
@@ -218,7 +260,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                     if (contacts != null) {
                         System.arraycopy(contacts, 0, result, 0, contacts.size)
                     }
-                    guarantor_credit_info_mobile_edt.setText(result[1].replace(" ", ""))
+                    (guarantor_credit_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
                 }
             }
         }

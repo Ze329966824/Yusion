@@ -286,7 +286,9 @@
                                 style="@style/apply_info_title"
                                 android:text="手机号码" />
 
-                            <TextView
+                            <EditText
+                                android:enabled="false"
+                                android:textColor="#999999"
                                 android:id="@+id/personal_info_mobile_edt"
                                 style="@style/apply_info_content_type_mobile"
                                 android:layout_marginRight="35dp"
@@ -1577,7 +1579,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/personal_info_next_btn"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"

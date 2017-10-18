@@ -30,7 +30,7 @@
 //import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 //import com.yusion.shanghai.yusion.settings.Constants;
 //import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
-//import com.yusion.shanghai.yusion.ui.apply.DocumentActivity;
+//import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity;
 //import com.yusion.shanghai.yusion.ui.upload.UploadListNotFromLabelLIstActivity;
 //import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 //import com.yusion.shanghai.yusion.utils.CheckMobileUtil;

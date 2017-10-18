@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.yusion.shanghai.yusion.ui.apply.DocumentActivity">
+    tools:context="com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,127 +56,33 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="136dp">
-
             <com.yusion.shanghai.yusion.glide.StatusImageRel
                 android:id="@+id/statusImageRel"
                 android:layout_width="98dp"
                 android:layout_height="98dp"
                 android:layout_marginLeft="14.5dp"
-                android:layout_marginTop="20dp"
-                >
-
-            </com.yusion.shanghai.yusion.glide.StatusImageRel>
-
-            <!--<ImageView-->
-            <!--android:id="@+id/camera_document"-->
-            <!--android:layout_width="98dp"-->
-            <!--android:layout_height="98dp"-->
-            <!--android:layout_marginLeft="14.5dp"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@mipmap/camera_document" />-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/choose_icon"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="76dp"-->
-            <!--android:layout_marginTop="30dp"-->
-            <!--android:src="@mipmap/choose_icon"-->
-            <!--android:visibility="gone" />-->
+                android:layout_marginTop="20dp" />
 
         </FrameLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/bg_color" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:layout_marginLeft="14.5dp"
-            android:gravity="center_vertical"
-            android:text="身份证国徽面照片要求"
-            android:textSize="14.5dp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginLeft="14.5dp"
-            android:layout_marginRight="14.5dp"
-            android:background="@color/bg_color" />
-
         <LinearLayout
-            android:layout_width="332dp"
-            android:layout_height="16.5dp"
-            android:layout_marginTop="12.5dp"
-            android:orientation="horizontal">
+            android:id="@+id/document_template_lin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14.5dp"
-                android:text="有效"
-                android:textColor="#ffa400"
-                android:textSize="11.5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="二代身份证"
-                android:textSize="11.5dp"
-
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="332dp"
-            android:layout_height="16.5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14.5dp"
-                android:text="拍摄时确保身份证"
-                android:textSize="11.5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="边框完整，字体清晰，亮度均匀。"
-                android:textColor="#ffa400"
-                android:textSize="11.5dp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14.5dp"
-            android:layout_marginTop="14.5dp"
-            android:text="身份证国徽面实例"
-            android:textSize="11.5dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12.5dp"
-            android:src="@mipmap/guohui_document" />
     </LinearLayout>
+
 
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_above="@+id/image_update_btn"
+        android:layout_above="@+id/image_del_btn"
         android:background="@mipmap/shadow_h_line" />
 
     <Button
-        android:id="@+id/image_update_btn"
+        android:id="@+id/image_del_btn"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
@@ -189,7 +95,7 @@
         android:visibility="gone" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/ancher"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_centerInParent="true"

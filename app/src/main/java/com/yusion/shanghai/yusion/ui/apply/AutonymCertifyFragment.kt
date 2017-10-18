@@ -11,6 +11,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -27,6 +28,7 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
@@ -55,20 +57,34 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     var ocrResp = OcrResp.ShowapiResBodyBean()
 
 
-    @BindView(id = R.id.autonym_certify_id_front_tv ,widgetName = "autonym_certify_id_front_tv")
-    var autonym_certify_id_front_tv:TextView? = null
+    @BindView(id = R.id.autonym_certify_id_back_tv, widgetName = "autonym_certify_id_back_tv")
+    var autonym_certify_id_back_tv: TextView? = null
 
-    @BindView(id = R.id.autonym_certify_name_tv ,widgetName = "autonym_certify_name_tv")
-    var autonym_certify_name_tv:EditText? = null
+    @BindView(id = R.id.autonym_certify_id_front_tv, widgetName = "autonym_certify_id_front_tv")
+    var autonym_certify_id_front_tv: TextView? = null
+
+    @BindView(id = R.id.autonym_certify_name_tv, widgetName = "autonym_certify_name_tv")
+    var autonym_certify_name_tv: EditText? = null
 
     @BindView(id = R.id.autonym_certify_id_number_tv, widgetName = "autonym_certify_id_number_tv")
     var autonym_certify_id_number_tv: EditText? = null
 
-    @BindView(id = R.id.autonym_certify_driving_license_tv ,widgetName = "autonym_certify_driving_license_tv")
-    var autonym_certify_driving_license_tv:TextView? = null
+    @BindView(id = R.id.autonym_certify_driving_license_tv, widgetName = "autonym_certify_driving_license_tv")
+    var autonym_certify_driving_license_tv: TextView? = null
 
-    @BindView(id = R.id.autonym_certify_driving_license_rel_tv ,widgetName = "autonym_certify_driving_license_rel_tv")
-    var autonym_certify_driving_license_rel_tv:TextView? = null
+    @BindView(id = R.id.autonym_certify_driving_license_rel_tv, widgetName = "autonym_certify_driving_license_rel_tv")
+    var autonym_certify_driving_license_rel_tv: TextView? = null
+
+    @BindView(id = R.id.autonym_certify_next_btn, widgetName = "autonym_certify_next_btn", onClick = "submitAutonymCertify")
+    var autonym_certify_next_btn: Button? = null
+
+
+    fun submitAutonymCertify(view: View?) {
+        (autonym_certify_next_btn as Button).setFocusable(true)
+        (autonym_certify_next_btn as Button).setFocusableInTouchMode(true)
+        (autonym_certify_next_btn as Button).requestFocus()
+        (autonym_certify_next_btn as Button).requestFocusFromTouch()
+    }
 
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -87,7 +103,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        UBT.bind(this, view, DocumentActivity::class.java.getSimpleName())
+        UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
@@ -111,12 +127,16 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 //                nextStep()
             }
         }
-        autonym_certify_next_btn.setOnClickListener {
-            if (checkCanNextStep()) {
-                clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
-                addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
-                mDoubleCheckDialog.show()
+
+        (autonym_certify_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                (autonym_certify_next_btn as Button).clearFocus();
+                if (checkCanNextStep()) {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
+                    addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
+                    mDoubleCheckDialog.show()
+                }
             }
         }
         autonym_certify_driving_license_rel_lin.setOnClickListener {
@@ -129,6 +149,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_BACK)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idBackImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_BACK_FID)
             intent.putExtra("ocrResp", ocrResp)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
@@ -138,6 +159,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.ID_FRONT)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", idFrontImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", ID_FRONT_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -146,6 +168,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             intent.putExtra("type", Constants.FileLabelType.DRI_LIC)
             intent.putExtra("role", Constants.PersonType.LENDER)
             intent.putExtra("imgUrl", drivingLicImgUrl)
+            intent.putExtra("needUploadFidToServer", false)
             intent.putExtra("objectKey", DRI_FID)
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
@@ -194,7 +217,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+
                 nextStep()
+
             }
         }
     }
@@ -207,13 +232,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
         } else if (DRI_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_name_tv?.text?.trim()?.isEmpty() as Boolean) {
+        } else if ((autonym_certify_name_tv as EditText).text.trim().isEmpty()) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_id_number_tv?.text?.isEmpty() as Boolean) {
+        } else if ((autonym_certify_id_number_tv as EditText).text.isEmpty()) {
             Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
-        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard(autonym_certify_id_number_tv?.text.toString())) {
+        } else if (!CheckIdCardValidUtil.isValidatedAllIdcard((autonym_certify_id_number_tv as EditText).text.toString())) {
             Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-        } else if (autonym_certify_driving_license_rel_tv?.text?.isEmpty() as Boolean) {
+        } else if ((autonym_certify_driving_license_rel_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "请选择驾照证持有人与本人关系", Toast.LENGTH_SHORT).show()
         } else {
             return true
@@ -248,7 +273,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                                 }
                                 if (ocrResp.name.isNotEmpty()) {
                                     autonym_certify_name_tv?.setText(ocrResp.name)
-                                }else{
+                                } else {
 
                                 }
                             }

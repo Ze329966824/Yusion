@@ -1,6 +1,5 @@
 package com.yusion.shanghai.yusion.retrofit;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -43,7 +41,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api {
     private static Retrofit retrofit;
-    //可打印日志client
 
     private static OkHttpClient logClient;
 
@@ -100,7 +97,6 @@ public class Api {
         return retrofit.create(ProductService.class);
     }
 
-
     public static OrderService getOrderService() {
         return retrofit.create(OrderService.class);
     }
@@ -109,10 +105,7 @@ public class Api {
         return retrofit.create(ConfigService.class);
     }
 
-    @NonNull
     public static String getTag(Request request) {
-        Pattern pattern = Pattern.compile("");
-
         StringBuilder tagBuilder = new StringBuilder("API");
         if (request.url().toString().contains("application")) {
             tagBuilder.append("-APPLICATION");

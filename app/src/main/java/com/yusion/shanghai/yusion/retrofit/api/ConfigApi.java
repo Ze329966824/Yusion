@@ -9,7 +9,7 @@ import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomResponseBodyCallBack;
-import com.yusion.shanghai.yusion.retrofit.callback.OnDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
@@ -25,9 +25,9 @@ public class ConfigApi {
      * 如果返回的responseBody为空则从缓存文件中取
      * 否则直接返回并存入缓存文件
      */
-    public static void getConfigJson(final Context context, final OnDataCallBack<ConfigResp> onDataCallBack) {
+    public static void getConfigJson(final Context context, final OnVoidCallBack onVoidCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        Api.getConfigService().getConfigJson().enqueue(new CustomResponseBodyCallBack(context, dialog) {
+        Api.getConfigService().getConfigJson().enqueue(new CustomResponseBodyCallBack(context) {
             @Override
             public void onCustomResponse(String body) {
                 JSONObject data;
@@ -39,7 +39,9 @@ public class ConfigApi {
                         data = new JSONObject(body).getJSONObject("data");
                         SharedPrefsUtil.getInstance(context).putValue("config_json", data.toString());
                     }
-                    onDataCallBack.callBack(parseJsonObject2ConfigResp(context, data));
+                    YusionApp.CONFIG_RESP = parseJsonObject2ConfigResp(data);
+                    if (onVoidCallBack != null)
+                        onVoidCallBack.callBack();
                 } catch (JSONException e) {
                     //两种可能 一种是用户第一次使用APP时未能成功拉取服务器配置文件 一种是parseJsonObject2ConfigResp解析出错
                     Toast.makeText(context, "静态文件获取失败，请重新打开APP。", Toast.LENGTH_SHORT).show();
@@ -49,7 +51,7 @@ public class ConfigApi {
         });
     }
 
-    private static ConfigResp parseJsonObject2ConfigResp(Context context, JSONObject jsonObject) throws JSONException {
+    private static ConfigResp parseJsonObject2ConfigResp(JSONObject jsonObject) throws JSONException {
         ConfigResp configResp = new ConfigResp();
 
         configResp.confident_policy_url = jsonObject.optString("confident_policy_url");
@@ -70,7 +72,6 @@ public class ConfigApi {
         JSONArray client_material = jsonObject.optJSONArray("client_material");
         configResp.client_material = client_material != null ? client_material.toString() : "";
 
-        YusionApp.CONFIG_RESP = configResp;
         return configResp;
     }
 

@@ -91,8 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        ConfigApi.getConfigJson(this, resp -> {
-        });
+        ConfigApi.getConfigJson(this, null);
 
         AuthApi.checkUserInfo(this, data -> {
             mHomeFragment.refresh(data);

@@ -15,8 +15,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface UBTService {
-
     @POST("/ubt/")
     Call<Void> postUBTData(@Body UBTData req);
-
 }
