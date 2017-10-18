@@ -80,8 +80,8 @@ class ApplyActivity : BaseActivity() {
                 .add(R.id.container, mPersonalInfoFragment)
                 .add(R.id.container, mSpouseInfoFragment)
                 .hide(mPersonalInfoFragment)
-                .hide(mAutonymCertifyFragment)
-//                .hide(mSpouseInfoFragment)
+//                .hide(mAutonymCertifyFragment)
+                .hide(mSpouseInfoFragment)
                 .commit()
         mCurrentFragment = mAutonymCertifyFragment
     }

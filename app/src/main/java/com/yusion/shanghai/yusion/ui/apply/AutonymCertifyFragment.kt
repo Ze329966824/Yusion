@@ -79,10 +79,10 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
 
     fun submitAutonymCertify(view: View?){
-        autonym_certify_next_btn?.setFocusable(true)
-        autonym_certify_next_btn?.setFocusableInTouchMode(true)
-        autonym_certify_next_btn?.requestFocus()
-        autonym_certify_next_btn?.requestFocusFromTouch()
+        (autonym_certify_next_btn as Button).setFocusable(true)
+        (autonym_certify_next_btn as Button).setFocusableInTouchMode(true)
+        (autonym_certify_next_btn as Button).requestFocus()
+        (autonym_certify_next_btn as Button).requestFocusFromTouch()
     }
 
     private val handler = object : Handler() {
@@ -102,7 +102,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        UBT.bind(this, view, DocumentActivity::class.java.getSimpleName())
+        UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
@@ -127,7 +127,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             }
         }
 
-        autonym_certify_next_btn?.setOnFocusChangeListener { v, hasFocus ->
+        (autonym_certify_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
             if (checkCanNextStep()) {
                 clearDoubleCheckItems()
                 addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())

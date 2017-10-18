@@ -192,7 +192,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        UBT.bind(this, view, DocumentActivity::class.java.getSimpleName())
+        UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
         personal_info_next_btn?.setOnFocusChangeListener { v, hasFocus ->
             if (checkCanNextStep()) {
                 clearDoubleCheckItems()
@@ -470,15 +470,15 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
     fun checkCanNextStep(): Boolean {
 //        return true
-        if ((personal_info_reg_tv as TextView).text.isEmpty()) {
-            Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_gender_tv as TextView).text.isEmpty()) {
+        if ((personal_info_gender_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+        } else if ((personal_info_reg_tv as TextView).text.isEmpty()) {
+            Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show()
         } else if ((personal_info_mobile_edt as EditText).text.isEmpty()) {
             Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
         } else if (!CheckMobileUtil.checkMobile((personal_info_mobile_edt as EditText).text.toString())) {
             Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_education_tv as TextView).text.isEmpty() ) {
+        } else if ((personal_info_education_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show()
         } else if ((personal_info_current_address_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "现住地址不能为空", Toast.LENGTH_SHORT).show()
@@ -486,9 +486,9 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
         } else if ((personal_info_current_address2_tv as NoEmptyEditText).text.isEmpty()) {
             Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_live_with_parent_tv as TextView).text.isEmpty() ) {
+        } else if ((personal_info_live_with_parent_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "是否与父母同住不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as EditText).text.isEmpty()) {
+        } else if ((personal_info_income_from_tv as TextView).text.isEmpty()) {
             Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
         } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_year_edt as EditText).text.isEmpty() as Boolean) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
