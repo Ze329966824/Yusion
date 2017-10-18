@@ -47,6 +47,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+//提交申请页面进入 单张图片上传
 public class DocumentActivity extends BaseActivity {
     //private StatusImageRel statusImageRel;
     Button btn;
