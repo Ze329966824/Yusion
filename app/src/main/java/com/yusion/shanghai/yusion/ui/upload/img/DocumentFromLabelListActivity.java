@@ -1,13 +1,10 @@
-package com.yusion.shanghai.yusion.ui.apply.guarantor;
+package com.yusion.shanghai.yusion.ui.upload.img;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
@@ -154,8 +151,8 @@ public class DocumentFromLabelListActivity extends BaseActivity {
         statusImageRel.sourceImg.setImageResource(R.mipmap.camera_document);
         errorTv = (TextView) findViewById(R.id.upload_list_error_tv);
         errorLin = (LinearLayout) findViewById(R.id.upload_list_error_lin);
-        btn = (Button) findViewById(R.id.btn);
-        delete_image_btn = (Button) findViewById(R.id.image_update_btn);
+        btn = (Button) findViewById(R.id.ancher);
+        delete_image_btn = (Button) findViewById(R.id.image_del_btn);
         titleBar = initTitleBar(this, title).setLeftClickListener(v -> onBack());
         // takePhoto = (ImageView) findViewById(R.id.camera_document);
         //choose_icon = (ImageView) findViewById(R.id.choose_icon);

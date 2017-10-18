@@ -28,6 +28,7 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.settings.Settings
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil

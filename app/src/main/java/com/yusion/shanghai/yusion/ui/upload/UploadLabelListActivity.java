@@ -21,7 +21,8 @@ import com.yusion.shanghai.yusion.bean.upload.ListLabelsErrorResp;
 import com.yusion.shanghai.yusion.bean.upload.UploadLabelItemBean;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
-import com.yusion.shanghai.yusion.ui.apply.guarantor.DocumentFromLabelListActivity;
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentFromLabelListActivity;
+import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -20,7 +20,7 @@ import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
-import com.yusion.shanghai.yusion.ui.apply.DocumentActivity
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil

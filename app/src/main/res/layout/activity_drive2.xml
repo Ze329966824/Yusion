@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.yusion.shanghai.yusion.ui.apply.DocumentActivity">
+    tools:context="com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
 
 
             <ImageView
-            android:id="@+id/camera_document1"
+                android:id="@+id/document_img"
             android:layout_width="98dp"
             android:layout_height="98dp"
             android:layout_marginLeft="14.5dp"
@@ -161,7 +161,7 @@
         android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_above="@+id/image_update_btn"
+        android:layout_above="@+id/image_del_btn"
         android:background="@mipmap/shadow_h_line" />
 
     <Button
@@ -178,7 +178,7 @@
         android:visibility="gone" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/ancher"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_centerInParent="true"

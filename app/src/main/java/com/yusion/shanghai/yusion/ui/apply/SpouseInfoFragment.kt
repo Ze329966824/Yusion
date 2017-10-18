@@ -26,7 +26,8 @@ import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
-import com.yusion.shanghai.yusion.ui.upload.UploadListActivity
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
+import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText
