@@ -30,7 +30,6 @@ import com.yusion.shanghai.yusion.bean.upload.UploadFilesUrlReq;
 import com.yusion.shanghai.yusion.bean.upload.UploadImgItemBean;
 import com.yusion.shanghai.yusion.glide.StatusImageRel;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.utils.GlideUtil;
@@ -85,6 +84,8 @@ public class UploadListActivity extends BaseActivity {
     private void initView() {
         TitleBar titleBar = initTitleBar(this, title).setLeftClickListener(v -> onBack());
         mEditTv = titleBar.getRightTextTv();
+        mEditTv.setEnabled(false);
+        mEditTv.setTextColor(Color.parseColor("#d1d1d1"));
         titleBar.setRightText("编辑").setRightClickListener(v -> {
             if (isEditing) {
                 isEditing = false;
@@ -153,14 +154,11 @@ public class UploadListActivity extends BaseActivity {
                 req.clt_id = clt_id;
                 req.id.addAll(delImgIdList);
                 if (delImgIdList.size() > 0) {
-                    UploadApi.delImgs(UploadListActivity.this, req, new OnCodeAndMsgCallBack() {
-                        @Override
-                        public void callBack(int code, String msg) {
-                            // TODO: 2017/10/12  先删除local图片再删除remote图片会有隐患
-                            if (code == 0) {
-                                Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
-                                onImgCountChange(lists.size() > 0);
-                            }
+                    UploadApi.delImgs(UploadListActivity.this, req, (code, msg) -> {
+                        // TODO: 2017/10/12  先删除local图片再删除remote图片会有隐患
+                        if (code == 0) {
+                            Toast.makeText(myApp, "删除成功", Toast.LENGTH_SHORT).show();
+                            onImgCountChange(lists.size() > 0);
                         }
                     });
                 }

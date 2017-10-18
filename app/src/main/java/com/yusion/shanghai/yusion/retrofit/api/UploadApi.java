@@ -2,7 +2,10 @@ package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 
+import com.yusion.shanghai.yusion.base.BaseResult;
 import com.yusion.shanghai.yusion.bean.upload.DelImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsReq;
 import com.yusion.shanghai.yusion.bean.upload.ListImgsResp;
@@ -17,6 +20,8 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 /**
  * 类描述：
@@ -57,7 +62,18 @@ public class UploadApi {
 
     public static void delImgs(final Context context, DelImgsReq req, OnCodeAndMsgCallBack onCodeAndMsgCallBack) {
         Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        Api.getUploadService().delImgs(req).enqueue(new CustomCodeAndMsgCallBack(context,dialog) {
+        Call<BaseResult> call = Api.getUploadService().delImgs(req);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Log.e("TAG", "onCancel: 1111");
+                if (call.isExecuted()) {
+                    Log.e("TAG", "onCancel:     取消了接口");
+                    call.cancel();
+                }
+            }
+        });
+        call.enqueue(new CustomCodeAndMsgCallBack(context, dialog) {
             @Override
             public void onCustomResponse(int code, String msg) {
                 onCodeAndMsgCallBack.callBack(code,msg);
