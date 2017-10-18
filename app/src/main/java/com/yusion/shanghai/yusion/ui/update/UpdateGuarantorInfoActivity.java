@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import com.yusion.shanghai.yusion.bean.user.GuarantorInfo;
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
+import com.yusion.shanghai.yusion.ubt.UBT;
+import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
@@ -57,21 +60,31 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
     public static int CURRENT_CLICKED_VIEW_FOR_ADDRESS = -1;
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
+
+    @BindView(id = R.id.update_guarantor_info_income_from_tv, widgetName = "update_spouse_info_income_from_tv")
     private TextView income_from_tv;
+    @BindView(id = R.id.update_guarantor_info_extra_income_from_tv, widgetName = "update_spouse_info_extra_income_from_tv")
     private TextView income_extra_from_tv;
+
     private LinearLayout update_guarantor_info_gender_lin;
     private LinearLayout update_guarantor_info_reg_lin;
     private LinearLayout update_guarantor_info_education_lin;
     private LinearLayout update_guarantor_info_current_address_lin;
     private LinearLayout update_guarantor_info_current_address1_lin;
     private LinearLayout update_guarantor_info_house_type_lin;
+
+    @BindView(id = R.id.update_guarantor_info_house_owner_relation_tv, widgetName = "update_guarantor_info_house_owner_relation_tv")
     private TextView update_guarantor_info_house_owner_relation_tv;
+
     private LinearLayout update_guarantor_info_from_income_company_address_lin;
     private LinearLayout update_guarantor_info_from_income_company_address1_lin;
     private LinearLayout update_guarantor_info_from_income_work_position_lin;
     private LinearLayout update_guarantor_info_extra_from_income_company_address1_lin;
     private LinearLayout update_guarantor_info_extra_from_income_work_position_lin;
-    private TextView update_guarantor_info_extra_from_income_work_position_tv;
+
+    @BindView(id = R.id.update_guarantor_extra_info_work_position_tv,widgetName = "update_guarantor_info_extra_from_income_work_position_tv")
+      private TextView update_guarantor_info_extra_from_income_work_position_tv;
+
     private LinearLayout update_guarantor_info_extra_from_income_company_address_lin;
     private LinearLayout update_guarantor_info_from_self_company_address_lin;
     private LinearLayout update_guarantor_info_from_self_company_address1_lin;
@@ -81,6 +94,125 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_guarantor_info_from_self_group_lin;
     private LinearLayout update_guarantor_info_from_other_group_lin;
     private LinearLayout update_guarantor_info_extra_from_income_group_lin;
+
+    @BindView(id = R.id.update_guarantor_info_clt_nm_edt, widgetName = "update_guarantor_info_clt_nm_edt")
+    private NoEmptyEditText update_guarantor_info_clt_nm_edt;                       //姓名
+
+    @BindView(id = R.id.update_guarantor_info_id_no_edt, widgetName = "update_guarantor_info_id_no_edt")
+    private EditText update_guarantor_info_id_no_edt;                        //身份证号
+
+    @BindView(id = R.id.update_guarantor_info_gender_tv, widgetName = "update_guarantor_info_gender_tv")
+    private TextView update_guarantor_info_gender_tv;                        //性别
+
+    @BindView(id = R.id.update_guarantor_info_reg_tv, widgetName = "update_guarantor_info_reg_tv")
+    private TextView update_guarantor_info_reg_tv;//户籍
+
+    @BindView(id = R.id.update_guarantor_info_mobile_edt, widgetName = "update_guarantor_info_mobile_edt")
+    private EditText update_guarantor_info_mobile_edt;                       //手机号
+
+    @BindView(id = R.id.update_guarantor_info_education_tv, widgetName = "update_guarantor_info_education_tv")
+    private TextView update_guarantor_info_education_tv;                     //学历
+
+    @BindView(id = R.id.update_guarantor_info_current_address_tv, widgetName = "update_guarantor_info_current_address_tv")
+    private TextView update_guarantor_info_current_address_tv;               //现住地址
+
+    @BindView(id = R.id.update_guarantor_info_current_address1_tv, widgetName = "update_guarantor_info_current_address1_tv")
+    private TextView update_guarantor_info_current_address1_tv;              //详细地址
+
+    @BindView(id = R.id.update_guarantor_info_current_address2_tv, widgetName = "update_guarantor_info_current_address2_tv")
+    private NoEmptyEditText update_guarantor_info_current_address2_tv;              //门牌号
+
+    @BindView(id = R.id.update_guarantor_info_income_from_tv, widgetName = "update_guarantor_info_income_from_tv")
+    private TextView update_guarantor_info_income_from_tv;                   //主要收入来源
+
+    @BindView(id = R.id.update_guarantor_info_from_income_year_edt, widgetName = "update_guarantor_info_from_income_year_edt")
+    private EditText update_guarantor_info_from_income_year_edt;             //主要-工资-年收入
+
+    @BindView(id = R.id.update_guarantor_info_from_income_company_name_edt, widgetName = "update_guarantor_info_from_income_company_name_edt")
+    private NoEmptyEditText update_guarantor_info_from_income_company_name_edt;     //主要-工资-单位名称
+
+    @BindView(id = R.id.update_guarantor_info_from_income_company_address_tv, widgetName = "update_guarantor_info_from_income_company_address_tv")
+    private TextView update_guarantor_info_from_income_company_address_tv;   //主要-工资-单位地址
+
+    @BindView(id = R.id.update_guarantor_info_from_income_company_address1_tv, widgetName = "update_guarantor_info_from_income_company_address1_tv")
+    private TextView update_guarantor_info_from_income_company_address1_tv;  //主要-工资-详细地址
+
+    @BindView(id = R.id.update_guarantor_info_from_income_company_address2_tv, widgetName = "update_guarantor_info_from_income_company_address2_tv")
+    private NoEmptyEditText update_guarantor_info_from_income_company_address2_tv;  //主要-工资-门牌号
+
+    @BindView(id = R.id.update_guarantor_info_work_position_tv, widgetName = "update_guarantor_info_work_position_tv")
+    private TextView update_guarantor_info_work_position_tv;                 //主要-工资-职务
+
+    @BindView(id = R.id.update_guarantor_info_from_income_work_phone_num_edt, widgetName = "update_guarantor_info_from_income_work_phone_num_edt")
+    private NoEmptyEditText update_guarantor_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
+
+    @BindView(id = R.id.update_guarantor_info_from_self_year_edt, widgetName = "update_guarantor_info_from_self_year_edt")
+    private EditText update_guarantor_info_from_self_year_edt;               //主要-自营-年收入
+
+    @BindView(id = R.id.update_guarantor_info_from_self_type_tv, widgetName = "update_guarantor_info_from_self_type_tv")
+    private TextView update_guarantor_info_from_self_type_tv;                //主要-自营-业务类型
+
+    @BindView(id = R.id.update_guarantor_info_from_self_company_name_edt, widgetName = "update_guarantor_info_from_self_company_name_edt")
+    private NoEmptyEditText update_guarantor_info_from_self_company_name_edt;       //主要-自营-店铺名称
+
+    @BindView(id = R.id.update_guarantor_info_from_self_company_address_tv, widgetName = "update_guarantor_info_from_self_company_address_tv")
+    private TextView update_guarantor_info_from_self_company_address_tv;     //主要-自营-单位地址
+
+    @BindView(id = R.id.update_guarantor_info_from_self_company_address1_tv, widgetName = "update_guarantor_info_from_self_company_address1_tv")
+    private TextView update_guarantor_info_from_self_company_address1_tv;    //主要-自营-详细地址
+
+    @BindView(id = R.id.update_guarantor_info_from_self_company_address2_tv, widgetName = "update_guarantor_info_from_self_company_address2_tv")
+    private NoEmptyEditText update_guarantor_info_from_self_company_address2_tv;    //主要-自营-门牌号
+
+    @BindView(id = R.id.update_guarantor_info_from_other_year_edt, widgetName = "update_guarantor_info_from_other_year_edt")
+    private EditText update_guarantor_info_from_other_year_edt;              //主要-其他-年收入
+
+    @BindView(id = R.id.update_guarantor_info_from_other_remark_tv, widgetName = "update_guarantor_info_from_other_remark_tv")
+    private NoEmptyEditText update_guarantor_info_from_other_remark_tv;             //主要-其他-备注
+
+    @BindView(id = R.id.update_guarantor_info_extra_income_from_tv, widgetName = "update_guarantor_info_extra_income_from_tv")
+    private TextView update_guarantor_info_extra_income_from_tv;             //额外收入来源
+
+    @BindView(id = R.id.update_guarantor_info_extra_from_income_year_edt, widgetName = "update_guarantor_info_extra_from_income_year_edt")
+    private EditText update_guarantor_info_extra_from_income_year_edt;            //额外-工资-年收入
+
+    @BindView(id = R.id.update_guarantor_info_extra_from_income_company_name_edt, widgetName = "update_guarantor_info_extra_from_income_company_name_edt")
+    private NoEmptyEditText update_guarantor_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
+
+    @BindView(id = R.id.update_guarantor_info_extra_from_income_company_address_tv, widgetName = "update_guarantor_info_extra_from_income_company_address_tv")
+    private TextView update_guarantor_info_extra_from_income_company_address_tv;  //额外-工资-公司地址
+
+    @BindView(id = R.id.update_guarantor_info_extra_from_income_company_address1_tv, widgetName = "update_guarantor_info_extra_from_income_company_address1_tv")
+    private TextView update_guarantor_info_extra_from_income_company_address1_tv; //额外-工资-详细地址
+
+    @BindView(id = R.id.update_guarantor_info_extra_from_income_company_address2_tv, widgetName = "update_guarantor_info_extra_from_income_company_address2_tv")
+    private NoEmptyEditText update_guarantor_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
+
+    @BindView(id = R.id.update_guarantor_extra_info_work_position_tv, widgetName = "update_guarantor_extra_info_work_position_tv")
+    private TextView update_guarantor_extra_info_work_position_tv;                //额外-工资-职务
+
+    @BindView(id = R.id.update_guarantor_info_extra_from_income_work_phone_num_edt, widgetName = "update_guarantor_info_extra_from_income_work_phone_num_edt")
+    private NoEmptyEditText update_guarantor_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+
+    @BindView(id = R.id.update_guarantor_info_house_type_tv, widgetName = "update_guarantor_info_house_type_tv")
+    private TextView update_guarantor_info_house_type_tv;                     //房屋性质
+
+    @BindView(id = R.id.update_guarantor_info_house_address_tv, widgetName = "update_guarantor_info_house_address_tv")
+    private TextView update_guarantor_info_house_address_tv; //房屋地址
+
+    @BindView(id = R.id.update_guarantor_info_house_address1_tv, widgetName = "update_guarantor_info_house_address1_tv")
+    private TextView update_guarantor_info_house_address1_tv; //房屋详细地址
+
+    @BindView(id = R.id.update_guarantor_info_house_address2_tv, widgetName = "update_guarantor_info_house_address2_tv")
+    private TextView update_guarantor_info_house_address2_tv;               //门牌号
+
+    @BindView(id = R.id.update_guarantor_info_house_owner_name_edt, widgetName = "update_guarantor_info_house_owner_name_edt")
+    private NoEmptyEditText update_guarantor_info_house_owner_name_edt;              //房屋所有人
+
+
+    private LinearLayout update_guarantor_info_house_address_lin;         //房屋地址
+    private LinearLayout update_guarantor_info_house_address1_lin;        //房屋详细地址
+    /*
     private NoEmptyEditText update_guarantor_info_clt_nm_edt;                       //姓名
     private EditText update_guarantor_info_id_no_edt;                        //身份证号
     private TextView update_guarantor_info_gender_tv;                        //性别
@@ -98,12 +230,14 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
     private NoEmptyEditText update_guarantor_info_from_income_company_address2_tv;  //主要-工资-门牌号
     private TextView update_guarantor_info_work_position_tv;                 //主要-工资-职务
     private NoEmptyEditText update_guarantor_info_from_income_work_phone_num_edt;   //主要-工资-单位座机(选填)
+    
     private EditText update_guarantor_info_from_self_year_edt;               //主要-自营-年收入
     private TextView update_guarantor_info_from_self_type_tv;                //主要-自营-业务类型
     private NoEmptyEditText update_guarantor_info_from_self_company_name_edt;       //主要-自营-店铺名称
     private TextView update_guarantor_info_from_self_company_address_tv;     //主要-自营-单位地址
     private TextView update_guarantor_info_from_self_company_address1_tv;    //主要-自营-详细地址
     private NoEmptyEditText update_guarantor_info_from_self_company_address2_tv;    //主要-自营-门牌号
+    
     private EditText update_guarantor_info_from_other_year_edt;              //主要-其他-年收入
     private NoEmptyEditText update_guarantor_info_from_other_remark_tv;             //主要-其他-备注
     private TextView update_guarantor_info_extra_income_from_tv;             //额外收入来源
@@ -114,34 +248,58 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
     private NoEmptyEditText update_guarantor_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
     private TextView update_guarantor_extra_info_work_position_tv;                //额外-工资-职务
     private NoEmptyEditText update_guarantor_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+
+
+
     private TextView update_guarantor_info_house_type_tv;                     //房屋性质
     private LinearLayout update_guarantor_info_house_address_lin;         //房屋地址
     private TextView update_guarantor_info_house_address_tv;
     private LinearLayout update_guarantor_info_house_address1_lin;        //房屋详细地址
     private TextView update_guarantor_info_house_address1_tv;
     private TextView update_guarantor_info_house_address2_tv;               //门牌号
+    */
 
 
-    private NoEmptyEditText update_guarantor_info_house_owner_name_edt;              //房屋所有人
+    //private NoEmptyEditText update_guarantor_info_house_owner_name_edt;              //房屋所有人
     private LinearLayout update_guarantor_info_house_owner_relation_lin;    //与担保人关系
 
     private GuarantorInfo guarantorInfo;
     private File imageFile;
     private OcrResp.ShowapiResBodyBean mOcrResp;
 
+    @BindView(id = R.id.submit_img, widgetName = "submit_img", onClick = "submitMaterial")
+    private Button submitBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_guarantor_info);
+        UBT.bind(this);
         initTitleBar(this, "担保人资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
 
         getInfo();  //获取担保人信息
-        findViewById(R.id.submit_img).setOnClickListener(v -> {
-            submit();   //更新用户信息
+        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.clearFocus();
+                    submit();
+                }
+            }
         });
+//        findViewById(R.id.submit_img).setOnClickListener(v -> {
+//            submit();   //更新用户信息
+//        });
 
 
+    }
+
+    private void submitMaterial(View view) {
+        submitBtn.setFocusable(true);
+        submitBtn.setFocusableInTouchMode(true);
+        submitBtn.requestFocus();
+        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -367,6 +525,7 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
         // 额外 选择职务
         update_guarantor_info_extra_from_income_work_position_lin = (LinearLayout) findViewById(R.id.update_guarantor_info_extra_from_income_work_position_lin);
         update_guarantor_info_extra_from_income_work_position_tv = (TextView) findViewById(R.id.update_guarantor_extra_info_work_position_tv);
+       // update_guarantor_info_work_position_tv = (TextView) findViewById(R.id.update_guarantor_info_work_position_tv);
         update_guarantor_info_extra_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
                 UPDATE_FROM_EXTRA_WORK_POSITION_INDEX,
                 update_guarantor_info_extra_from_income_work_position_lin,
@@ -522,10 +681,11 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
         updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, data -> {
             if (data == null) return;
             guarantorInfo = data;
+            UBT.sendAllUBTEvents(this);
             //上传影像件
 //            mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
 
-            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料","continue");
+            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料", "continue");
 
 //            });
         }));
@@ -789,12 +949,11 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "自营年收入不能为空", Toast.LENGTH_SHORT).show();
         } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_type_tv.getText().toString().isEmpty()) {
             Toast.makeText(UpdateGuarantorInfoActivity.this, "业务类型不能为空", Toast.LENGTH_SHORT).show();
-        }
-        else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
-        }else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address1_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
-        }else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
+        } else if (update_guarantor_info_income_from_tv.getText().toString().equals("自营") && update_guarantor_info_from_self_company_address2_tv.getText().toString().isEmpty()) {
             Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
         }
         //主要其他

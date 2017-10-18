@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SearchViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -241,7 +242,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     private OcrResp.ShowapiResBodyBean mOcrResp;
     private ClientInfo clientInfo;
 
-    @BindView(id = R.id.submit_img,widgetName = "submit_img",onClick = "submitMaterial")
+    @BindView(id = R.id.submit_img, widgetName = "submit_img", onClick = "submitMaterial")
     private Button submitBtn;
 
     @Override
@@ -258,9 +259,22 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 //        findViewById(R.id.submit_img).setOnClickListener(v -> {
 //            submit();   //更新信息
 //        });
+        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.clearFocus();
+                    submit();
+                }
+            }
+        });
     }
-    private void submitMaterial(View view){
-        submit();
+
+    private void submitMaterial(View view) {
+        submitBtn.setFocusable(true);
+        submitBtn.setFocusableInTouchMode(true);
+        submitBtn.requestFocus();
+        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -997,6 +1011,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
             if (data == null) return;
             clientInfo = data;
+            UBT.sendAllUBTEvents(this);
             //上传影像件
             toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");
 
