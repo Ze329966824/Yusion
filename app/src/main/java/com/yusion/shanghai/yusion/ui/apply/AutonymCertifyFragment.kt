@@ -232,13 +232,13 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             Toast.makeText(mContext, "请拍摄身份证国徽面", Toast.LENGTH_SHORT).show()
         } else if (DRI_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄驾照影像件", Toast.LENGTH_SHORT).show()
-        } else if ((autonym_certify_name_tv as EditText).text.trim().isEmpty()) {
+        } else if ((autonym_certify_name_tv as EditText).text.toString().trim().isEmpty()) {
             Toast.makeText(mContext, "姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((autonym_certify_id_number_tv as EditText).text.isEmpty()) {
+        } else if ((autonym_certify_id_number_tv as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "身份证号不能为空", Toast.LENGTH_SHORT).show()
         } else if (!CheckIdCardValidUtil.isValidatedAllIdcard((autonym_certify_id_number_tv as EditText).text.toString())) {
             Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
-        } else if ((autonym_certify_driving_license_rel_tv as TextView).text.isEmpty()) {
+        } else if ((autonym_certify_driving_license_rel_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "请选择驾照证持有人与本人关系", Toast.LENGTH_SHORT).show()
         } else {
             return true

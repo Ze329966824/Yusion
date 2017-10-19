@@ -419,7 +419,7 @@ public class DocumentActivity extends BaseActivity {
                 title = "身份证国徽面";
                 break;
             case "id_card_back":
-                title = "征信授权书";
+                title = "身份证人像面";
                 break;
             case "driving_lic":
                 title = "驾驶证影像件";

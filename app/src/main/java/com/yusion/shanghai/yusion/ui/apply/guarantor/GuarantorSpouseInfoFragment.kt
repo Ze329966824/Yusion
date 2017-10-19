@@ -562,7 +562,6 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             if (code >= 0) {
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
                     nextStep()
-                    Toast.makeText(mContext,"ubt数据发送成功.",Toast.LENGTH_SHORT).show()
                 })
 //                nextStep()
             }

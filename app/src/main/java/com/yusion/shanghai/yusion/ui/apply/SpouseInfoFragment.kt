@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -186,13 +187,14 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 (spouse_info_submit_btn as Button).clearFocus();
+                Log.e("testttttt","aaa")
                 if (checkCanNextStep())
                     if ((spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
-                        clearDoubleCheckItems()
-                        addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
-                        addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
-                        addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
-                        mDoubleCheckDialog.show()
+                            clearDoubleCheckItems()
+                            addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
+                            addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
+                            addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
+                            mDoubleCheckDialog.show()
                     } else {
                         submit()
                     }

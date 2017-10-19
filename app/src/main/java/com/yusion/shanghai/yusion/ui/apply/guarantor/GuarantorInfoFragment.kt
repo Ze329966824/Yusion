@@ -263,7 +263,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             }
             addGuarantorActivity.mGuarantorInfo.house_addr.address1 = (guarantor_info_house_address1_tv as TextView).text.toString()
             addGuarantorActivity.mGuarantorInfo.house_addr.address2 = (guarantor_info_house_address2_tv as NoEmptyEditText).text.toString()
-            addGuarantorActivity.mGuarantorInfo.house_owner_relation = (guarantor_info_house_owner_relation_tv as EditText).text.toString()
+            addGuarantorActivity.mGuarantorInfo.house_owner_relation = (guarantor_info_house_owner_relation_tv as TextView).text.toString()
             addGuarantorActivity.mGuarantorInfo.house_type = (guarantor_info_house_type_tv as TextView).text.toString()
             nextStep()
         }
