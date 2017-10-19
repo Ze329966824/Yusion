@@ -279,27 +279,26 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
         initView();
 
         getInfo();  //获取担保人信息
-        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    v.clearFocus();
-                    submit();
-                }
-            }
-        });
-//        findViewById(R.id.submit_img).setOnClickListener(v -> {
-//            submit();   //更新用户信息
+//        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    v.clearFocus();
+//                    submit();
+//                }
+//            }
 //        });
+
 
 
     }
 
     private void submitMaterial(View view) {
-        submitBtn.setFocusable(true);
-        submitBtn.setFocusableInTouchMode(true);
-        submitBtn.requestFocus();
-        submitBtn.requestFocusFromTouch();
+//        submitBtn.setFocusable(true);
+//        submitBtn.setFocusableInTouchMode(true);
+//        submitBtn.requestFocus();
+//        submitBtn.requestFocusFromTouch();
+        submit();
     }
 
     private void initView() {
