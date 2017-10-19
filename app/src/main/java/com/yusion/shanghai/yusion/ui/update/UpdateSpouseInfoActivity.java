@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,8 @@ import com.yusion.shanghai.yusion.retrofit.api.ProductApi;
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Constants;
+import com.yusion.shanghai.yusion.ubt.UBT;
+import com.yusion.shanghai.yusion.ubt.annotate.BindView;
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity;
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
@@ -82,10 +85,17 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     public static int CURRENT_CLICKED_VIEW_FOR_CONTACT = -1;
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
+
+    @BindView(id = R.id.update_spouse_info_income_from_tv, widgetName = "update_spouse_info_income_from_tv")
     private TextView income_from_tv;
+    @BindView(id = R.id.update_spouse_info_extra_income_from_tv, widgetName = "update_spouse_info_extra_income_from_tv")
     private TextView income_extra_from_tv;
+
     private LinearLayout update_spouse_info_marriage_lin;
+
+    @BindView(id = R.id.update_spouse_info_marriage_tv, widgetName = "update_spouse_info_marriage_tv")
     private TextView update_spouse_info_marriage_tv;
+
     private LinearLayout update_spouse_info_gender_lin;
     private LinearLayout update_spouse_info_from_income_company_address_lin;
     private LinearLayout update_spouse_info_from_income_company_address1_lin;
@@ -114,10 +124,92 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     private TextView update_spouse_info_id_back_tv;
     private TextView update_spouse_info_id_front_tv;
 
+    @BindView(id = R.id.update_spouse_info_clt_nm_edt, widgetName = "update_spouse_info_clt_nm_edt")
+    private NoEmptyEditText update_spouse_info_clt_nm_edt;                       //姓名
 
+    @BindView(id = R.id.update_spouse_info_id_no_edt, widgetName = "update_spouse_info_id_no_edt")
+    private EditText update_spouse_info_id_no_edt;    //身份证号  
+
+    @BindView(id = R.id.update_spouse_info_gender_tv, widgetName = "update_spouse_info_gender_tv")
+    private TextView update_spouse_info_gender_tv;                        //性别
+
+    @BindView(id = R.id.update_spouse_info_mobile_edt, widgetName = "update_spouse_info_mobile_edt")
+    private EditText update_spouse_info_mobile_edt;                       //手机号
+
+    @BindView(id = R.id.update_spouse_info_income_from_tv, widgetName = "update_spouse_info_income_from_tv")
+    private TextView update_spouse_info_income_from_tv;                   //主要收入来源
+
+    @BindView(id = R.id.update_spouse_info_from_income_year_edt, widgetName = "update_spouse_info_from_income_year_edt")
+    private EditText update_spouse_info_from_income_year_edt;             //主要-工资-年收入
+
+    @BindView(id = R.id.update_spouse_info_from_income_company_name_edt, widgetName = "update_spouse_info_from_income_company_name_edt")
+    private NoEmptyEditText update_spouse_info_from_income_company_name_edt;     //主要-工资-单位名称
+
+    @BindView(id = R.id.update_spouse_info_from_income_company_address_tv, widgetName = "update_spouse_info_from_income_company_address_tv")
+    private TextView update_spouse_info_from_income_company_address_tv;   //主要-工资-单位地址
+
+    @BindView(id = R.id.update_spouse_info_from_income_company_address1_tv, widgetName = "update_spouse_info_from_income_company_address1_tv")
+    private TextView update_spouse_info_from_income_company_address1_tv;  //主要-工资-详细地址
+
+    @BindView(id = R.id.update_spouse_info_from_income_company_address2_tv, widgetName = "update_spouse_info_from_income_company_address2_tv")
+    private NoEmptyEditText update_spouse_info_from_income_company_address2_tv;  //主要-工资-门牌号
+
+    @BindView(id = R.id.update_spouse_info_work_position_tv, widgetName = "update_spouse_info_work_position_tv")
+    private TextView update_spouse_info_work_position_tv;                 //主要-工资-职务
+
+    @BindView(id = R.id.update_spouse_info_from_income_work_phone_num_edt, widgetName = "update_spouse_info_from_income_work_phone_num_edt")
+    private NoEmptyEditText update_spouse_info_from_income_work_phone_num_edt;   //主要-工资-单位座机
+
+    @BindView(id = R.id.update_spouse_info_from_self_year_edt, widgetName = "update_spouse_info_from_self_year_edt")
+    private EditText update_spouse_info_from_self_year_edt;               //主要-自营-年收入
+
+    @BindView(id = R.id.update_spouse_info_from_self_type_tv, widgetName = "update_spouse_info_from_self_type_tv")
+    private TextView update_spouse_info_from_self_type_tv;                //主要-自营-业务类型
+
+    @BindView(id = R.id.update_spouse_info_from_self_company_name_edt, widgetName = "update_spouse_info_from_self_company_name_edt")
+    private NoEmptyEditText update_spouse_info_from_self_company_name_edt;       //主要-自营-店铺名称
+
+    @BindView(id = R.id.update_spouse_info_from_self_company_address_tv, widgetName = "update_spouse_info_from_self_company_address_tv")
+    private TextView update_spouse_info_from_self_company_address_tv;     //主要-自营-单位地址
+
+    @BindView(id = R.id.update_spouse_info_from_self_company_address1_tv, widgetName = "update_spouse_info_from_self_company_address1_tv")
+    private TextView update_spouse_info_from_self_company_address1_tv;    //主要-自营-详细地址
+
+    @BindView(id = R.id.update_spouse_info_from_self_company_address2_tv, widgetName = "update_spouse_info_from_self_company_address2_tv")
+    private NoEmptyEditText update_spouse_info_from_self_company_address2_tv;    //主要-自营-门牌号
+
+    @BindView(id = R.id.update_spouse_info_from_other_year_edt, widgetName = "update_spouse_info_from_other_year_edt")
+    private EditText update_spouse_info_from_other_year_edt;              //主要-其他-年收入
+
+    @BindView(id = R.id.update_spouse_info_from_other_remark_tv, widgetName = "update_spouse_info_from_other_remark_tv")
+    private NoEmptyEditText update_spouse_info_from_other_remark_tv;             //主要-其他-备注
+
+    @BindView(id = R.id.update_spouse_info_extra_income_from_tv, widgetName = "update_spouse_info_extra_income_from_tv")
+    private TextView update_spouse_info_extra_income_from_tv;             //额外收入来源
+
+    @BindView(id = R.id.update_spouse_info_extra_from_income_year_edt, widgetName = "update_spouse_info_extra_from_income_year_edt")
+    private EditText update_spouse_info_extra_from_income_year_edt;            //额外-工资-年收入
+
+    @BindView(id = R.id.update_spouse_info_extra_from_income_company_name_edt, widgetName = "update_spouse_info_extra_from_income_company_name_edt")
+    private NoEmptyEditText update_spouse_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
+
+    @BindView(id = R.id.update_spouse_info_extra_from_income_company_address_tv, widgetName = "update_spouse_info_extra_from_income_company_address_tv")
+    private TextView update_spouse_info_extra_from_income_company_address_tv;  //额外-工资-公司地址
+
+    @BindView(id = R.id.update_spouse_info_extra_from_income_company_address1_tv, widgetName = "update_spouse_info_extra_from_income_company_address1_tv")
+    private TextView update_spouse_info_extra_from_income_company_address1_tv; //额外-工资-详细地址
+
+    @BindView(id = R.id.update_spouse_info_extra_from_income_company_address2_tv, widgetName = "update_spouse_info_extra_from_income_company_address2_tv")
+    private NoEmptyEditText update_spouse_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
+
+    @BindView(id = R.id.update_spouse_info_extra_from_income_work_phone_num_edt, widgetName = "update_spousespouse_info_extra_from_income_work_phone_num_edt")
+    private NoEmptyEditText update_spouse_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+
+
+    private ImageView update_spouse_info_id_no_img;                       //身份证号旁边的一个按钮（——>DocumentActivity）
+/*
     private NoEmptyEditText update_spouse_info_clt_nm_edt;                       //姓名
     private EditText update_spouse_info_id_no_edt;                        //身份证号
-    private ImageView update_spouse_info_id_no_img;                       //身份证号旁边的一个按钮（——>DocumentActivity）
     private TextView update_spouse_info_gender_tv;                        //性别
     private EditText update_spouse_info_mobile_edt;                       //手机号
     private TextView update_spouse_info_income_from_tv;                   //主要收入来源
@@ -136,6 +228,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     private NoEmptyEditText update_spouse_info_from_self_company_address2_tv;    //主要-自营-门牌号
     private EditText update_spouse_info_from_other_year_edt;              //主要-其他-年收入
     private NoEmptyEditText update_spouse_info_from_other_remark_tv;             //主要-其他-备注
+    
     private TextView update_spouse_info_extra_income_from_tv;             //额外收入来源
     private EditText update_spouse_info_extra_from_income_year_edt;            //额外-工资-年收入
     private NoEmptyEditText update_spouse_info_extra_from_income_company_name_edt;    //额外-工资-单位名称
@@ -143,18 +236,30 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     private TextView update_spouse_info_extra_from_income_company_address1_tv; //额外-工资-详细地址
     private NoEmptyEditText update_spouse_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
     private NoEmptyEditText update_spouse_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
+    */
+
+
     private OcrResp.ShowapiResBodyBean ocrResp = new OcrResp.ShowapiResBodyBean();
     private ArrayList<UploadImgItemBean> divorceImgsList = new ArrayList<UploadImgItemBean>();
     private ArrayList<UploadImgItemBean> resBookList = new ArrayList<UploadImgItemBean>();
     private UploadImgItemBean backImg = new UploadImgItemBean();
     private UploadImgItemBean frontImg = new UploadImgItemBean();
+
+    @BindView(id = R.id.update_spouse_info_child_count_edt, widgetName = "update_spouse_info_child_count_edt")
     private EditText update_spouse_info_child_count_edt;                   //子女数量
+
+    @BindView(id = R.id.update_spouse_info_child_count1_edt, widgetName = "update_spouse_info_child_count1_edt")
     private EditText update_spouse_info_child_count1_edt;                   //子女数量
+
+    @BindView(id = R.id.update_spouse_info_child_count2_edt, widgetName = "update_spouse_info_child_count2_edt")
     private EditText update_spouse_info_child_count2_edt;                   //子女数量
 
     public ClientInfo clientInfo;
     private File imageFile;
     private OcrResp.ShowapiResBodyBean mOcrResp;
+
+    @BindView(id = R.id.submit_img, widgetName = "submit_img", onClick = "submitMaterial")
+    private Button submitBtn;
 
     private String old_marriage;
     private String now_marriage;
@@ -164,15 +269,31 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_spouse_info);
+        UBT.bind(this);
         initTitleBar(this, "配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
 
         getInfo();  //获取配偶信息
 
-
-        findViewById(R.id.submit_img).setOnClickListener(v -> {
-            submit();   //更新配偶信息
+        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    v.clearFocus();
+                    submit();
+                }
+            }
         });
+//        findViewById(R.id.submit_img).setOnClickListener(v -> {
+//            submit();   //更新配偶信息
+//        });
+    }
+
+    private void submitMaterial(View view) {
+        submitBtn.setFocusable(true);
+        submitBtn.setFocusableInTouchMode(true);
+        submitBtn.requestFocus();
+        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -579,7 +700,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     update_spouse_info_extra_from_income_company_address1_tv.setText(data.getStringExtra("result"));
                 }
             }
-        } else if (resultCode == Activity.RESULT_OK &&requestCode == 3001) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 3001) {
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
             OcrUtil.requestOcr(this, imageFile.getAbsolutePath(), new OSSObjectKeyBean("lender_sp", "id_card_back", ".png"), "id_card", (ocrResp1, objectKey) -> {
@@ -606,7 +727,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     }
                 }
             }, (throwable, s) ->
-            Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
+                    Toast.makeText(UpdateSpouseInfoActivity.this, "识别失败", Toast.LENGTH_LONG).show());
         }
 
 //            else if (requestCode == Constants.REQUEST_MULTI_DOCUMENT) {
@@ -744,6 +865,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
             if (data == null) {
                 return;
             }
+            UBT.sendAllUBTEvents(this);
             clientInfo = data;
             //已婚状态：上传配偶cltid
 //            if (contact != null) {
@@ -924,7 +1046,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                 Toast.makeText(this, "项目经营地址不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address1_tv.getText().toString())) {
                 Toast.makeText(this, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            }else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address2_tv.getText().toString())) {
+            } else if (update_spouse_info_income_from_tv.getText().toString().equals("自营") && TextUtils.isEmpty(update_spouse_info_from_self_company_address2_tv.getText().toString())) {
                 Toast.makeText(this, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show();
             }//主要其他
             else if (update_spouse_info_income_from_tv.getText().toString().equals("其他") && TextUtils.isEmpty(update_spouse_info_from_other_year_edt.getText().toString())) {

@@ -85,6 +85,10 @@ public class UBTCollections {
         pageNameMaps.put(OnlyReadUploadListActivity.class.getSimpleName(), new Pair<>("img_authorization_book", "授权书查看页面"));
         pageNameMaps.put(UploadLabelListActivity.class.getSimpleName(), new Pair<>("upload_label_list", "上传影像件标签列表页面"));
         pageNameMaps.put(UploadListActivity.class.getSimpleName(), new Pair<>("upload_img_list", "上传影像件列表页面"));
+
+
+        //widgetNameMaps.put("personal_info_income_from_tv", "选择主要收入来源");
+
     }
 
     static {
@@ -98,6 +102,8 @@ public class UBTCollections {
         widgetNameMaps.put("autonym_certify_id_number_tv", "输入身份证号");
         widgetNameMaps.put("autonym_certify_driving_license_tv", "上传驾驶证");
         widgetNameMaps.put("autonym_certify_driving_license_rel_tv", "选择驾驶证与本人关系");
+
+
         widgetNameMaps.put("autonym_certify_next_btn", "提交征信信息");
 
 
@@ -153,6 +159,162 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_urg_relation2_tv", "与申请人关系(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_mobile2_edt", "手机号码(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_contact2_edt", "联系人姓名(紧急联系人2)");
+
+//个人资料
+        widgetNameMaps.put("update_personal_info_clt_nm_edt", "输入姓名");
+        widgetNameMaps.put("update_personal_info_id_no_edt", "身份证号");
+        widgetNameMaps.put("update_personal_info_gender_tv", "性别");
+        widgetNameMaps.put("update_personal_info_reg_tv", "户籍地");
+        widgetNameMaps.put("update_personal_info_mobile_edt", "手机号");
+        widgetNameMaps.put("update_personal_info_education_tv", "学历");
+        widgetNameMaps.put("update_personal_info_current_address_tv", "现住地址");
+        widgetNameMaps.put("update_personal_info_current_address1_tv", "详细地址");
+        widgetNameMaps.put("update_personal_info_current_address2_tv", "门牌号");
+        widgetNameMaps.put("update_personal_info_live_with_parent_tv", "是否与父母同住");
+        widgetNameMaps.put("update_personal_info_income_from_tv", "主要收入来源");
+        widgetNameMaps.put("update_personal_info_from_income_year_edt", "主要-工资-年收入");
+        widgetNameMaps.put("update_personal_info_from_income_company_name_edt", "主要-工资-单位名称");
+        widgetNameMaps.put("update_personal_info_from_income_company_address_tv", "主要-工资-单位地址");
+        widgetNameMaps.put("update_personal_info_from_income_company_address1_tv", "主要-工资-详细地址");
+        widgetNameMaps.put("update_personal_info_from_income_company_address2_tv", "主要-工资-门牌号");
+        widgetNameMaps.put("update_personal_info_work_position_tv", "主要-工资-职务");
+        widgetNameMaps.put("update_personal_info_from_income_work_phone_num_edt", "主要-工资-单位座机");
+        widgetNameMaps.put("update_personal_info_from_self_year_edt", "主要-自营-年收入");
+        widgetNameMaps.put("update_personal_info_from_self_type_tv", "主要-自营-业务类型");
+        widgetNameMaps.put("update_personal_info_from_self_company_name_edt", "主要-自营-店铺名称");
+        widgetNameMaps.put("update_personal_info_from_self_company_address_tv", "主要-自营-单位地址");
+        widgetNameMaps.put("update_personal_info_from_self_company_address1_tv", "主要-自营-详细地址");
+        widgetNameMaps.put("update_personal_info_from_self_company_address2_tv", "主要-自营-门牌号");
+        widgetNameMaps.put("update_personal_info_from_other_year_edt", "主要-其他-年收入");
+        widgetNameMaps.put("update_personal_info_from_other_remark_tv", "主要-其他-备注");
+        widgetNameMaps.put("update_personal_info_extra_income_from_tv", "额外收入来源");
+        widgetNameMaps.put("update_personal_info_extra_from_income_year_edt", "额外-工资-年收入");
+        widgetNameMaps.put("update_personal_info_extra_from_income_company_name_edt", "额外-工资-单位名称");
+        widgetNameMaps.put("update_personal_info_extra_from_income_company_address_tv", "额外-工资-公司地址");
+        widgetNameMaps.put("update_personal_info_extra_from_income_company_address1_tv", "额外-工资-详细地址");
+        widgetNameMaps.put("update_personal_info_extra_from_income_company_address2_tv", "额外-工资-门牌号");
+        widgetNameMaps.put("update_personal_extra_info_work_position_tv", "额外-工资-职务");
+        widgetNameMaps.put("update_personal_info_extra_from_income_work_phone_num_edt", "额外-工资-单位座机");
+        widgetNameMaps.put("update_personal_info_house_type_tv", "房屋性质");
+        widgetNameMaps.put("update_personal_info_house_area_edt", "房屋面积");
+        widgetNameMaps.put("update_personal_info_house_owner_name_edt", "房屋所有人");
+        widgetNameMaps.put("update_personal_info_house_owner_relation_tv", "与申请人关系");
+        widgetNameMaps.put("update_personal_info_urg_relation1_tv", "紧急联系人-与申请人关系1");
+        widgetNameMaps.put("update_personal_info_urg_mobile1_edt", "紧急联系人-手机号1");
+        widgetNameMaps.put("update_personal_info_urg_contact1_edt", "紧急联系人-姓名1");
+        widgetNameMaps.put("update_personal_info_urg_relation2_tv", "紧急联系人-与申请人关系2");
+        widgetNameMaps.put("update_personal_info_urg_mobile2_edt", "紧急联系人-手机号2");
+        widgetNameMaps.put("update_personal_info_urg_contact2_edt", "紧急联系人-姓名2");
+        widgetNameMaps.put("submit_img", "提交个人资料");
+
+        //配偶资料
+        widgetNameMaps.put("update_spouse_info_marriage_tv", "婚否");
+        widgetNameMaps.put("update_spouse_info_clt_nm_edt", "输入姓名");
+        widgetNameMaps.put("update_spouse_info_id_no_edt", "身份证号");
+        widgetNameMaps.put("update_spouse_info_gender_tv", "性别");
+        widgetNameMaps.put("update_spouse_info_mobile_edt", "手机号");
+        widgetNameMaps.put("update_spouse_info_income_from_tv", "主要收入来源");
+        widgetNameMaps.put("update_spouse_info_from_income_year_edt", "主要-工资-年收入");
+        widgetNameMaps.put("update_spouse_info_from_income_company_name_edt", "主要-工资-单位名称");
+        widgetNameMaps.put("update_spouse_info_from_income_company_address_tv", "主要-工资-单位地址");
+        widgetNameMaps.put("update_spouse_info_from_income_company_address1_tv", "主要-工资-详细地址");
+        widgetNameMaps.put("update_spouse_info_from_income_company_address2_tv", "主要-工资-门牌号");
+        widgetNameMaps.put("update_spouse_info_work_position_tv", "主要-工资-职务");
+        widgetNameMaps.put("update_spouse_info_from_income_work_phone_num_edt", "主要-工资-单位座机");
+        widgetNameMaps.put("update_spouse_info_from_self_year_edt", "主要-自营-年收入");
+        widgetNameMaps.put("update_spouse_info_from_self_type_tv", "主要-自营-业务类型");
+        widgetNameMaps.put("update_spouse_info_from_self_company_name_edt", "主要-自营-店铺名称");
+        widgetNameMaps.put("update_spouse_info_from_self_company_address_tv", "主要-自营-单位地址");
+        widgetNameMaps.put("update_spouse_info_from_self_company_address1_tv", "主要-自营-详细地址");
+        widgetNameMaps.put("update_spouse_info_from_self_company_address2_tv", "主要-自营-门牌号");
+        widgetNameMaps.put("update_spouse_info_from_other_year_edt", "主要-其他-年收入");
+        widgetNameMaps.put("update_spouse_info_from_other_remark_tv", "主要-其他-备注");
+        widgetNameMaps.put("update_spouse_info_extra_income_from_tv", "额外收入来源");
+        widgetNameMaps.put("update_spouse_info_extra_from_income_year_edt", "额外-工资-年收入");
+        widgetNameMaps.put("update_spouse_info_extra_from_income_company_name_edt", "额外-工资-单位名称");
+        widgetNameMaps.put("update_spouse_info_extra_from_income_company_address_tv", "额外-工资-公司地址");
+        widgetNameMaps.put("update_spouse_info_extra_from_income_company_address1_tv", "额外-工资-详细地址");
+        widgetNameMaps.put("update_spouse_info_extra_from_income_company_address2_tv", "额外-工资-门牌号");
+        widgetNameMaps.put("update_spouse_info_extra_from_income_work_phone_num_edt", "额外-工资-单位座机");
+        widgetNameMaps.put("update_spouse_info_child_count_edt", "子女数量");
+        widgetNameMaps.put("update_spouse_info_child_count1_edt", "子女数量");
+        widgetNameMaps.put("update_spouse_info_child_count2_edt", "子女数量");
+        widgetNameMaps.put("submit_img", "提交配偶资料");
+
+        //担保人资料
+        widgetNameMaps.put("update_guarantor_info_clt_nm_edt", "输入姓名");
+        widgetNameMaps.put("update_guarantor_info_id_no_edt", "身份证号");
+        widgetNameMaps.put("update_guarantor_info_gender_tv", "性别");
+        widgetNameMaps.put("update_guarantor_info_reg_tv", "户籍地");
+        widgetNameMaps.put("update_guarantor_info_mobile_edt", "手机号");
+        widgetNameMaps.put("update_guarantor_info_education_tv", "学历");
+        widgetNameMaps.put("update_guarantor_info_current_address_tv", "现住地址");
+        widgetNameMaps.put("update_guarantor_info_current_address1_tv", "详细地址");
+        widgetNameMaps.put("update_guarantor_info_current_address2_tv", "门牌号");
+        widgetNameMaps.put("update_guarantor_info_income_from_tv", "主要收入来源");
+        widgetNameMaps.put("update_guarantor_info_from_income_year_edt", "主要-工资-年收入");
+        widgetNameMaps.put("update_guarantor_info_from_income_company_name_edt", "主要-工资-单位名称");
+        widgetNameMaps.put("update_guarantor_info_from_income_company_address_tv", "主要-工资-单位地址");
+        widgetNameMaps.put("update_guarantor_info_from_income_company_address1_tv", "主要-工资-详细地址");
+        widgetNameMaps.put("update_guarantor_info_from_income_company_address2_tv", "主要-工资-门牌号");
+        widgetNameMaps.put("update_guarantor_info_work_position_tv", "主要-工资-职务");
+        widgetNameMaps.put("update_guarantor_info_from_income_work_phone_num_edt", "主要-工资-单位座机");
+        widgetNameMaps.put("update_guarantor_info_from_self_year_edt", "主要-自营-年收入");
+        widgetNameMaps.put("update_guarantor_info_from_self_type_tv", "主要-自营-业务类型");
+        widgetNameMaps.put("update_guarantor_info_from_self_company_name_edt", "主要-自营-店铺名称");
+        widgetNameMaps.put("update_guarantor_info_from_self_company_address_tv", "主要-自营-单位地址");
+        widgetNameMaps.put("update_guarantor_info_from_self_company_address1_tv", "主要-自营-详细地址");
+        widgetNameMaps.put("update_guarantor_info_from_self_company_address2_tv", "主要-自营-门牌号");
+        widgetNameMaps.put("update_guarantor_info_from_other_year_edt", "主要-其他-年收入");
+        widgetNameMaps.put("update_guarantor_info_from_other_remark_tv", "主要-其他-备注");
+        widgetNameMaps.put("update_guarantor_info_extra_income_from_tv", "额外收入来源");
+        widgetNameMaps.put("update_guarantor_info_extra_from_income_year_edt", "额外-工资-年收入");
+        widgetNameMaps.put("update_guarantor_info_extra_from_income_company_name_edt", "额外-工资-单位名称");
+        widgetNameMaps.put("update_guarantor_info_extra_from_income_company_address_tv", "额外-工资-公司地址");
+        widgetNameMaps.put("update_guarantor_info_extra_from_income_company_address1_tv", "额外-工资-详细地址");
+        widgetNameMaps.put("update_guarantor_info_extra_from_income_company_address2_tv", "额外-工资-门牌号");
+        widgetNameMaps.put("update_guarantor_extra_info_work_position_tv", "额外-工资-职务");
+        widgetNameMaps.put("update_guarantor_info_extra_from_income_work_phone_num_edt", "额外-工资-单位座机");
+        widgetNameMaps.put("update_guarantor_info_house_type_tv", "房屋性质");
+        widgetNameMaps.put("update_guarantor_info_house_address_tv", "房屋地址");
+        widgetNameMaps.put("update_guarantor_info_house_address1_tv", "房屋详细地址");
+        widgetNameMaps.put("update_guarantor_info_house_address2_tv", "门牌号");
+        widgetNameMaps.put("update_guarantor_info_house_owner_name_edt", "房屋所有人");
+        widgetNameMaps.put("update_guarantor_info_house_owner_relation_tv", "与申请人关系");
+
+        widgetNameMaps.put("submit_img", "提交担保人资料");
+
+
+        //担保人配偶资料
+        widgetNameMaps.put("update_guarantor_spouse_info_clt_nm_edt", "输入姓名");
+        widgetNameMaps.put("update_guarantor_spouse_info_id_no_edt", "身份证号");
+        widgetNameMaps.put("update_guarantor_spouse_info_gender_tv", "性别");
+        widgetNameMaps.put("update_guarantor_spouse_info_mobile_edt", "手机号");
+        widgetNameMaps.put("update_guarantor_spouse_info_income_from_tv", "主要收入来源");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_income_year_edt", "主要-工资-年收入");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_income_company_name_edt", "主要-工资-单位名称");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_income_company_address_tv", "主要-工资-单位地址");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_income_company_address1_tv", "主要-工资-详细地址");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_income_company_address2_tv", "主要-工资-门牌号");
+        widgetNameMaps.put("update_guarantor_spouse_info_work_position_tv", "主要-工资-职务");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_income_work_phone_num_edt", "主要-工资-单位座机");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_self_year_edt", "主要-自营-年收入");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_self_type_tv", "主要-自营-业务类型");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_self_company_name_edt", "主要-自营-店铺名称");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_self_company_address_tv", "主要-自营-单位地址");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_self_company_address1_tv", "主要-自营-详细地址");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_self_company_address2_tv", "主要-自营-门牌号");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_other_year_edt", "主要-其他-年收入");
+        widgetNameMaps.put("update_guarantor_spouse_info_from_other_remark_tv", "主要-其他-备注");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_income_from_tv", "额外收入来源");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_from_income_year_edt", "额外-工资-年收入");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_from_income_company_name_edt", "额外-工资-单位名称");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_from_income_company_address_tv", "额外-工资-公司地址");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_from_income_company_address1_tv", "额外-工资-详细地址");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_from_income_company_address2_tv", "额外-工资-门牌号");
+        widgetNameMaps.put("update_guarantor_spouse_info_extra_from_income_work_phone_num_edt", "额外-工资-单位座机");
+        widgetNameMaps.put("update_guarantor_spouse_info_marriage_tv", "婚否");
+        widgetNameMaps.put("submit_img", "提交担保人配偶资料");
         widgetNameMaps.put("personal_info_next_btn", "提交主贷人信息");
 
 
@@ -309,7 +471,6 @@ public class UBTCollections {
         widgetNameMaps.put("guarantor_spouse_info_extra_from_income_work_position_tv", "选择担保人配偶职务(额外工资)");
         widgetNameMaps.put("guarantor_spouse_info_extra_from_income_work_phone_num_edt", "输入担保人配偶单位座机(额外工资)");
         widgetNameMaps.put("guarantor_spouse_info_submit_btn", "提交担保人配偶信息");
-
 
 
     }

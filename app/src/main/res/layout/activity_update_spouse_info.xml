@@ -1320,8 +1320,9 @@
             app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.AutoInOutBehavior"
             app:rippleColor="@color/transparent" />
 
-        <ImageView
+        <Button
             android:id="@+id/submit_img"
+            android:background="@mipmap/submit_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
