@@ -39,7 +39,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             return;
         if (type.equals("Agreement")) {
             initTitleBar(this, "用户协议");
-            webView.loadUrl(YusionApp.CONFIG_RESP.agreement_url);
+            webView.loadUrl(((YusionApp) getApplication()).getConfigResp().agreement_url);
         }
 
 

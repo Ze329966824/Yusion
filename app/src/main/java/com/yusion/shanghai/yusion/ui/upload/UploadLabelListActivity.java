@@ -80,7 +80,7 @@ public class UploadLabelListActivity extends BaseActivity {
         initTitleBar(this,title ).setRightTextColor(Color.WHITE).setLeftClickListener(v -> onBack());
 
         try {
-            JSONArray jsonArray = new JSONArray(YusionApp.CONFIG_RESP.client_material);
+            JSONArray jsonArray = new JSONArray(((YusionApp) getApplication()).getConfigResp().client_material);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 UploadLabelItemBean uploadLabelItemBean = new Gson().fromJson(jsonObject.toString(), UploadLabelItemBean.class);
@@ -175,6 +175,7 @@ public class UploadLabelListActivity extends BaseActivity {
             UploadLabelItemBean item = mItems.get(position);
             holder.name.setText(item.name);
 
+            holder.status.setVisibility(View.VISIBLE);
             if (item.hasImg) {
                 holder.status.setText("已上传");
                 holder.status.setTextColor(mContext.getResources().getColor(R.color.system_color));
