@@ -72,7 +72,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         (guarantor_credit_info_next_btn as Button).setFocusable(true)
         (guarantor_credit_info_next_btn as Button).setFocusableInTouchMode(true)
         (guarantor_credit_info_next_btn as Button).requestFocus()
-       // (guarantor_credit_info_next_btn as Button).requestFocusFromTouch()
+       (guarantor_credit_info_next_btn as Button).requestFocusFromTouch()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

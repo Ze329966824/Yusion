@@ -172,7 +172,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         spouse_info_submit_btn?.setFocusable(true)
         spouse_info_submit_btn?.setFocusableInTouchMode(true)
         spouse_info_submit_btn?.requestFocus()
-       // spouse_info_submit_btn?.requestFocusFromTouch()
+       spouse_info_submit_btn?.requestFocusFromTouch()
     }
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
