@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -196,7 +195,7 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
             PoiResp.PoisBean poisBean = mDataList.get(position);
             holder.itemView.setOnClickListener(this);
             holder.mItemTitle.setText(poisBean.name);
-            holder.mItemText.setText(poisBean.address);
+            holder.mItemText.setText(poisBean.address.toString());
         }
 
         @Override

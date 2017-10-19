@@ -331,8 +331,8 @@ public class DocumentActivity extends BaseActivity {
                             } else {
                                 Toast.makeText(this, "识别成功", Toast.LENGTH_LONG).show();
                                 mOcrResp = ocrResp.showapi_res_body;
-                                onUploadOssSuccess(localPath, dialog, objectKey);
                             }
+                             onUploadOssSuccess(localPath, dialog, objectKey);
                         }, (throwable, s) -> {
                             Toast.makeText(myApp, "ocr识别失败", Toast.LENGTH_SHORT).show();
                             onUploadOssFailure(dialog);

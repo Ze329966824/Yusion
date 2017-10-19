@@ -54,7 +54,7 @@ public class PoiResp {
 
         public String name;
         public String type;
-        public String address;
+        public Object address;
 
         @Override
         public String toString() {
