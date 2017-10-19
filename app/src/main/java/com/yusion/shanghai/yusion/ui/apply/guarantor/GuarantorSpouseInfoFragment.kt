@@ -377,7 +377,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.spouse.mobile = (guarantor_spouse_info_mobile_edt as EditText).text.toString()
 
             //主要收入来源
-            when ((guarantor_spouse_info_income_from_tv as TextView).text) {
+            when ((guarantor_spouse_info_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income_type = "工资"
                     addGuarantorActivity.mGuarantorInfo.spouse.major_income = (guarantor_spouse_info_from_income_year_edt as EditText).text.toString()
@@ -414,7 +414,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when ((guarantor_spouse_info_extra_income_from_tv as TextView).text) {
+            when ((guarantor_spouse_info_extra_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.spouse.extra_income_type = "工资"
                     addGuarantorActivity.mGuarantorInfo.spouse.extra_income = (guarantor_spouse_info_extra_from_income_year_edt as EditText).text.toString()

@@ -367,7 +367,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.child_num = (spouse_info_child_count_edt as EditText).text.toString()
 
             //主要收入来源
-            when ((spouse_info_income_from_tv as TextView).text) {
+            when ((spouse_info_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     applyActivity.mClientInfo.spouse.major_income_type = "工资"
                     applyActivity.mClientInfo.spouse.major_income = (spouse_info_from_income_year_edt as EditText).text.toString()
@@ -404,7 +404,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when ((spouse_info_extra_income_from_tv as TextView).text) {
+            when ((spouse_info_extra_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     applyActivity.mClientInfo.spouse.extra_income_type = "工资"
                     applyActivity.mClientInfo.spouse.extra_income = (spouse_info_extra_from_income_year_edt as EditText).text.toString()
