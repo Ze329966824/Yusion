@@ -168,7 +168,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         (guarantor_spouse_info_submit_btn as Button).setFocusable(true)
         (guarantor_spouse_info_submit_btn as Button).setFocusableInTouchMode(true)
         (guarantor_spouse_info_submit_btn as Button).requestFocus()
-        (guarantor_spouse_info_submit_btn as Button).requestFocusFromTouch()
+       // (guarantor_spouse_info_submit_btn as Button).requestFocusFromTouch()
     }
 
 

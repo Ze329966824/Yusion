@@ -157,7 +157,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
         (guarantor_info_next_btn as Button).setFocusable(true)
         (guarantor_info_next_btn as Button).setFocusableInTouchMode(true)
         (guarantor_info_next_btn as Button).requestFocus()
-        (guarantor_info_next_btn as Button).requestFocusFromTouch()
+       // (guarantor_info_next_btn as Button).requestFocusFromTouch()
     }
 
 

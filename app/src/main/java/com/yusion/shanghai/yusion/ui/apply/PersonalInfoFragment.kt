@@ -182,7 +182,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         personal_info_next_btn?.setFocusable(true)
         personal_info_next_btn?.setFocusableInTouchMode(true)
         personal_info_next_btn?.requestFocus()
-        personal_info_next_btn?.requestFocusFromTouch()
+       // personal_info_next_btn?.requestFocusFromTouch()
     }
 
 
