@@ -180,7 +180,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             var addGuarantorActivity = activity as AddGuarantorActivity
-            if ((guarantor_info_reg_tv as TextView).text.isNotEmpty()) {
+            if ((guarantor_info_reg_tv as TextView).text.toString().isNotEmpty()) {
                 addGuarantorActivity.mGuarantorInfo.reg_addr.province = (guarantor_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 addGuarantorActivity.mGuarantorInfo.reg_addr.city = (guarantor_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 addGuarantorActivity.mGuarantorInfo.reg_addr.district = (guarantor_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -189,7 +189,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.edu = (guarantor_info_education_tv as TextView).text.toString()
 
             //现住地址
-            if ((guarantor_info_current_address_tv as TextView).text.isNotEmpty()) {
+            if ((guarantor_info_current_address_tv as TextView).text.toString().isNotEmpty()) {
                 addGuarantorActivity.mGuarantorInfo.current_addr.province = (guarantor_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 addGuarantorActivity.mGuarantorInfo.current_addr.city = (guarantor_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 addGuarantorActivity.mGuarantorInfo.current_addr.district = (guarantor_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -198,7 +198,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.current_addr.address2 = (guarantor_info_current_address2_tv as TextView).text.toString()
 
             //主要收入来源
-            when ((guarantor_info_income_from_tv as TextView).text) {
+            when ((guarantor_info_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.major_income_type = "工资"
                     addGuarantorActivity.mGuarantorInfo.major_income = (guarantor_info_from_income_year_edt as EditText).text.toString()
@@ -235,7 +235,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when ((guarantor_info_extra_income_from_tv as TextView).text) {
+            when ((guarantor_info_extra_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.extra_income_type = "工资"
                     addGuarantorActivity.mGuarantorInfo.extra_income = (guarantor_info_extra_from_income_year_edt as EditText).text.toString()
@@ -263,7 +263,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             }
             addGuarantorActivity.mGuarantorInfo.house_addr.address1 = (guarantor_info_house_address1_tv as TextView).text.toString()
             addGuarantorActivity.mGuarantorInfo.house_addr.address2 = (guarantor_info_house_address2_tv as NoEmptyEditText).text.toString()
-            addGuarantorActivity.mGuarantorInfo.house_owner_relation = (guarantor_info_house_owner_relation_tv as EditText).text.toString()
+            addGuarantorActivity.mGuarantorInfo.house_owner_relation = (guarantor_info_house_owner_relation_tv as TextView).text.toString()
             addGuarantorActivity.mGuarantorInfo.house_type = (guarantor_info_house_type_tv as TextView).text.toString()
             nextStep()
         }
@@ -280,7 +280,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             }
         }
         guarantor_info_gender_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, guarantor_info_gender_lin, guarantor_info_gender_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.gender_list_key, _GENDER_INDEX, guarantor_info_gender_lin, guarantor_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
         }
@@ -302,7 +302,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, guarantor_info_reg_lin, guarantor_info_reg_tv, "请选择所在地区") { _, _ -> }
         }
         guarantor_info_education_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.education_list_key, _EDUCATION_INDEX, guarantor_info_education_lin, guarantor_info_education_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.education_list_key, _EDUCATION_INDEX, guarantor_info_education_lin, guarantor_info_education_tv, "请选择", { _, index ->
                 _EDUCATION_INDEX = index
             })
         }
@@ -327,7 +327,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             }
         }
         guarantor_info_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, guarantor_info_from_income_work_position_lin, guarantor_info_from_income_work_position_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, guarantor_info_from_income_work_position_lin, guarantor_info_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_INCOME_WORK_POSITION_INDEX = index
             })
         }

@@ -141,7 +141,7 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_extra_income_from_tv", "选择额外收入来源");
         widgetNameMaps.put("personal_info_extra_from_income_year_edt", "输入年收入(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_company_name_edt", "输入单位名称(额外工资)");
-        widgetNameMaps.put("personal_info_extra_from_income_company_address_tv", "选择单位名称(额外工资)");
+        widgetNameMaps.put("personal_info_extra_from_income_company_address_tv", "选择单位地址(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_company_address1_tv", "选择详细地址(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_company_address2_tv", "输入门牌号(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_work_position_tv", "选择职务(额外工资)");

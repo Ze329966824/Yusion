@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -186,13 +187,14 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 (spouse_info_submit_btn as Button).clearFocus();
+                Log.e("testttttt","aaa")
                 if (checkCanNextStep())
                     if ((spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
-                        clearDoubleCheckItems()
-                        addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
-                        addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
-                        addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
-                        mDoubleCheckDialog.show()
+                            clearDoubleCheckItems()
+                            addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
+                            addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
+                            addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
+                            mDoubleCheckDialog.show()
                     } else {
                         submit()
                     }
@@ -227,11 +229,11 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             startActivityForResult(intent, Constants.REQUEST_DOCUMENT)
         }
         spouse_info_marriage_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.marriage_key, _MARRIAGE_INDEX, spouse_info_marriage_lin, spouse_info_marriage_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.marriage_key, _MARRIAGE_INDEX, spouse_info_marriage_lin, spouse_info_marriage_tv, "请选择", { _, index ->
                 _MARRIAGE_INDEX = index
-                spouse_info_marriage_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "已婚") View.VISIBLE else View.GONE
-                spouse_info_divorced_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "离异") View.VISIBLE else View.GONE
-                spouse_info_die_group_lin.visibility = if (YusionApp.CONFIG_RESP.marriage_value[_MARRIAGE_INDEX] == "丧偶") View.VISIBLE else View.GONE
+                spouse_info_marriage_group_lin.visibility = if ((activity.application as YusionApp).configResp.marriage_value[_MARRIAGE_INDEX] == "已婚") View.VISIBLE else View.GONE
+                spouse_info_divorced_group_lin.visibility = if ((activity.application as YusionApp).configResp.marriage_value[_MARRIAGE_INDEX] == "离异") View.VISIBLE else View.GONE
+                spouse_info_die_group_lin.visibility = if ((activity.application as YusionApp).configResp.marriage_value[_MARRIAGE_INDEX] == "丧偶") View.VISIBLE else View.GONE
             })
         }
         spouse_info_income_from_lin.setOnClickListener {
@@ -267,7 +269,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             startActivityForResult(intent, Constants.REQUEST_MULTI_DOCUMENT)
         }
         spouse_info_gender_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, spouse_info_gender_lin, spouse_info_gender_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.gender_list_key, _GENDER_INDEX, spouse_info_gender_lin, spouse_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
         }
@@ -284,7 +286,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             }
         }
         spouse_info_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, spouse_info_from_income_work_position_lin, spouse_info_from_income_work_position_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, spouse_info_from_income_work_position_lin, spouse_info_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_INCOME_WORK_POSITION_INDEX = index
             })
         }
@@ -300,9 +302,9 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             }
         }
         spouse_info_from_self_type_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, _FROM_SELF_TYPE_INDEX, spouse_info_from_self_type_lin, spouse_info_from_self_type_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.busi_type_list_key, _FROM_SELF_TYPE_INDEX, spouse_info_from_self_type_lin, spouse_info_from_self_type_tv, "请选择", { _, index ->
                 _FROM_SELF_TYPE_INDEX = index
-                if (YusionApp.CONFIG_RESP.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
+                if ((activity.application as YusionApp).configResp.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
                     val editText = EditText(mContext)
                     AlertDialog.Builder(mContext)
                             .setTitle("请输入业务类型")
@@ -335,7 +337,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             }
         }
         spouse_info_extra_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, spouse_info_extra_from_income_work_position_lin, spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, spouse_info_extra_from_income_work_position_lin, spouse_info_extra_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_EXTRA_WORK_POSITION_INDEX = index
             })
         }
@@ -367,7 +369,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.child_num = (spouse_info_child_count_edt as EditText).text.toString()
 
             //主要收入来源
-            when ((spouse_info_income_from_tv as TextView).text) {
+            when ((spouse_info_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     applyActivity.mClientInfo.spouse.major_income_type = "工资"
                     applyActivity.mClientInfo.spouse.major_income = (spouse_info_from_income_year_edt as EditText).text.toString()
@@ -404,7 +406,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when ((spouse_info_extra_income_from_tv as TextView).text) {
+            when ((spouse_info_extra_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     applyActivity.mClientInfo.spouse.extra_income_type = "工资"
                     applyActivity.mClientInfo.spouse.extra_income = (spouse_info_extra_from_income_year_edt as EditText).text.toString()
@@ -585,6 +587,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             if (code >= 0) {
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
                     nextStep()
+                    Toast.makeText(mContext,"ubt数据发送成功.",Toast.LENGTH_SHORT).show()
                 })
 //                nextStep()
             }

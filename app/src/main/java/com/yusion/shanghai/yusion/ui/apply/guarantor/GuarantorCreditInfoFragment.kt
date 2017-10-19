@@ -124,7 +124,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf")
 
         guarantor_credit_info_rel_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.guarantor_relationship_list_key, _GUARANTOR_REL_INDEX, guarantor_credit_info_rel_lin, guarantor_credit_info_rel_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.guarantor_relationship_list_key, _GUARANTOR_REL_INDEX, guarantor_credit_info_rel_lin, guarantor_credit_info_rel_tv, "请选择", { _, index ->
                 _GUARANTOR_REL_INDEX = index
             })
         }

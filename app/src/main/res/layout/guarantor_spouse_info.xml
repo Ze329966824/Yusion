@@ -392,7 +392,7 @@
 
                         <EditText
                             android:id="@+id/guarantor_spouse_info_mobile_edt"
-                            style="@style/apply_info_content"
+                            style="@style/apply_info_content_type_mobile"
                             android:hint="请输入" />
 
 
@@ -574,7 +574,7 @@
                             <TextView
                                 android:id="@+id/guarantor_spouse_info_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
@@ -1061,7 +1061,7 @@
                             <TextView
                                 android:id="@+id/guarantor_spouse_info_extra_from_income_company_address1_tv"
                                 style="@style/apply_info_content"
-                                android:hint="小区/写字楼/学校等" />
+                                android:hint="请选择" />
 
                             <FrameLayout
                                 android:layout_width="20dp"
