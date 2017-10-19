@@ -180,7 +180,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             var addGuarantorActivity = activity as AddGuarantorActivity
-            if ((guarantor_info_reg_tv as TextView).text.isNotEmpty()) {
+            if ((guarantor_info_reg_tv as TextView).text.toString().isNotEmpty()) {
                 addGuarantorActivity.mGuarantorInfo.reg_addr.province = (guarantor_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 addGuarantorActivity.mGuarantorInfo.reg_addr.city = (guarantor_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 addGuarantorActivity.mGuarantorInfo.reg_addr.district = (guarantor_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -189,7 +189,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.edu = (guarantor_info_education_tv as TextView).text.toString()
 
             //现住地址
-            if ((guarantor_info_current_address_tv as TextView).text.isNotEmpty()) {
+            if ((guarantor_info_current_address_tv as TextView).text.toString().isNotEmpty()) {
                 addGuarantorActivity.mGuarantorInfo.current_addr.province = (guarantor_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 addGuarantorActivity.mGuarantorInfo.current_addr.city = (guarantor_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 addGuarantorActivity.mGuarantorInfo.current_addr.district = (guarantor_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -198,7 +198,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.current_addr.address2 = (guarantor_info_current_address2_tv as TextView).text.toString()
 
             //主要收入来源
-            when ((guarantor_info_income_from_tv as TextView).text) {
+            when ((guarantor_info_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.major_income_type = "工资"
                     addGuarantorActivity.mGuarantorInfo.major_income = (guarantor_info_from_income_year_edt as EditText).text.toString()
@@ -235,7 +235,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when ((guarantor_info_extra_income_from_tv as TextView).text) {
+            when ((guarantor_info_extra_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     addGuarantorActivity.mGuarantorInfo.extra_income_type = "工资"
                     addGuarantorActivity.mGuarantorInfo.extra_income = (guarantor_info_extra_from_income_year_edt as EditText).text.toString()

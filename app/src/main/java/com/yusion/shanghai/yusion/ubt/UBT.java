@@ -421,11 +421,11 @@ public class UBT {
         });
     }
 
-    private static void addEvent(Context context, String action, View view, final String pageName, String action_value) {
+    public static void addEvent(Context context, String action, View view, final String pageName, String action_value) {
         singleThreadPool.execute(new AddEventThread(context, action, view, pageName, action_value, ((String) view.getTag(R.id.UBT_WIDGET))));
     }
 
-    private static void addEvent(Context context, String action, View view, final String pageName) {
+    public static void addEvent(Context context, String action, View view, final String pageName) {
         addEvent(context, action, view, pageName, null);
     }
 

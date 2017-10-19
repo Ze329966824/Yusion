@@ -212,7 +212,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             var applyActivity = activity as ApplyActivity
-            if ((personal_info_reg_tv as TextView).text.isNotEmpty() ) {
+            if ((personal_info_reg_tv as TextView).text.toString().isNotEmpty() ) {
                 applyActivity.mClientInfo.reg_addr.province = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 applyActivity.mClientInfo.reg_addr.city = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 applyActivity.mClientInfo.reg_addr.district = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -222,7 +222,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.edu = (personal_info_education_tv as TextView).text.toString()
 
             //现住地址
-            if ((personal_info_current_address_tv as TextView).text.isNotEmpty() ) {
+            if ((personal_info_current_address_tv as TextView).text.toString().isNotEmpty() ) {
                 applyActivity.mClientInfo.current_addr.province = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 applyActivity.mClientInfo.current_addr.city = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 applyActivity.mClientInfo.current_addr.district = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -233,7 +233,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
 
             //主要收入来源
-            when ((personal_info_income_from_tv as TextView).text) {
+            when ((personal_info_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     applyActivity.mClientInfo.major_income_type = "工资"
                     applyActivity.mClientInfo.major_income = (personal_info_from_income_year_edt as EditText).text.toString()
@@ -270,7 +270,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                 }
             }
             //额外收入来源
-            when ((personal_info_extra_income_from_tv as TextView).text) {
+            when ((personal_info_extra_income_from_tv as TextView).text.toString()) {
                 "工资" -> {
                     applyActivity.mClientInfo.extra_income_type = "工资"
                     applyActivity.mClientInfo.extra_income = (personal_info_extra_from_income_year_edt as EditText).text.toString()

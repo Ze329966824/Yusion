@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.yusion.shanghai.yusion.ui.update.UpdateGuarantorInfoActivity">
 
@@ -104,8 +105,8 @@
 
                                 <EditText
                                     android:id="@+id/update_guarantor_info_id_no_edt"
-                                    android:layout_marginRight="35dp"
-                                    style="@style/apply_info_content_type_id" />
+                                    style="@style/apply_info_content_type_id"
+                                    android:layout_marginRight="35dp" />
 
                             </LinearLayout>
 
@@ -1334,8 +1335,9 @@
             app:layout_behavior="com.yusion.shanghai.yusion.widget.behavior.AutoInOutBehavior"
             app:rippleColor="@color/transparent" />
 
-        <ImageView
+        <Button
             android:id="@+id/submit_img"
+            android:background="@mipmap/submit_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

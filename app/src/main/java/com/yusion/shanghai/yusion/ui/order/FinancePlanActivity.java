@@ -87,44 +87,47 @@ public class FinancePlanActivity extends BaseActivity {
         OrderApi.getFinancePlanDetail(this, getIntent().getStringExtra("app_id"), new OnItemDataCallBack<GetFinancePlanDetailResp>() {
             @Override
             public void onItemDataCallBack(GetFinancePlanDetailResp resp) {
-                applyBillPriceTv.setText(resp.app.vehicle_price);
-                replyBillPriceTv.setText(resp.uw.vehicle_price);
-                //compare(resp.app.getVehicle_price(),resp.uw.getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
+                if (resp != null) {
+                    applyBillPriceTv.setText(resp.app.vehicle_price);
+                    replyBillPriceTv.setText(resp.uw.vehicle_price);
+                    //compare(resp.app.getVehicle_price(),resp.uw.getVehicle_price(),applyBillPriceTv,replyBillPriceTv);
 
-                applyFirstPriceTv.setText(resp.app.vehicle_down_payment);
-                replyFirstPriceTv.setText(resp.uw.vehicle_down_payment);
+                    applyFirstPriceTv.setText(resp.app.vehicle_down_payment);
+                    replyFirstPriceTv.setText(resp.uw.vehicle_down_payment);
 
-                applyLoanPriceTv.setText(resp.app.vehicle_loan_amt);
-                replyLoanPriceTv.setText(resp.uw.vehicle_down_payment);
+                    applyLoanPriceTv.setText(resp.app.vehicle_loan_amt);
+                    replyLoanPriceTv.setText(resp.uw.vehicle_down_payment);
 
-                applyManagementPriceTv.setText(resp.app.management_fee);
-                replyManagementPriceTv.setText(resp.uw.management_fee);
+                    applyManagementPriceTv.setText(resp.app.management_fee);
+                    replyManagementPriceTv.setText(resp.uw.management_fee);
 
-                applyOtherPriceTv.setText(resp.app.other_fee);
-                replyOtherPriceTv.setText(resp.uw.other_fee);
+                    applyOtherPriceTv.setText(resp.app.other_fee);
+                    replyOtherPriceTv.setText(resp.uw.other_fee);
 
-                applyTotalPriceTv.setText(resp.app.loan_amt);
-                replyTotalPriceTv.setText(resp.uw.loan_amt);
+                    applyTotalPriceTv.setText(resp.app.loan_amt);
+                    replyTotalPriceTv.setText(resp.uw.loan_amt);
 
-                applyBankTv.setText(resp.app.loan_bank);
-                replyBankTv.setText(resp.uw.loan_bank);
+                    applyBankTv.setText(resp.app.loan_bank);
+                    replyBankTv.setText(resp.uw.loan_bank);
 
-                applyReplyDateTv.setText(resp.app.nper + "期");
-                ReplyRepayDateTv.setText(resp.uw.nper + "期");
+                    applyReplyDateTv.setText(resp.app.nper + "期");
+                    ReplyRepayDateTv.setText(resp.uw.nper + "期");
 
-                applyMonthPriceTv.setText(resp.app.monthly_payment);
-                replyMonthPriceTv.setText(resp.uw.monthly_payment);
+                    applyMonthPriceTv.setText(resp.app.monthly_payment);
+                    replyMonthPriceTv.setText(resp.uw.monthly_payment);
 
-                //percentTv.setText(resp.uw.getVehicle_down_payment_percent() * 100 + "%");
-                compare(applyMonthPriceTv, replyMonthPriceTv);
-                compare(applyBillPriceTv, replyBillPriceTv);
-                compare(applyFirstPriceTv, replyFirstPriceTv);
-                compare(applyLoanPriceTv, replyLoanPriceTv);
-                compare(applyManagementPriceTv, replyManagementPriceTv);
-                compare(applyOtherPriceTv, replyOtherPriceTv);
-                compare(applyTotalPriceTv, replyTotalPriceTv);
-                compare(applyBankTv, replyBankTv);
-                compare(applyReplyDateTv, ReplyRepayDateTv);
+                    //percentTv.setText(resp.uw.getVehicle_down_payment_percent() * 100 + "%");
+                    compare(applyMonthPriceTv, replyMonthPriceTv);
+                    compare(applyBillPriceTv, replyBillPriceTv);
+                    compare(applyFirstPriceTv, replyFirstPriceTv);
+                    compare(applyLoanPriceTv, replyLoanPriceTv);
+                    compare(applyManagementPriceTv, replyManagementPriceTv);
+                    compare(applyOtherPriceTv, replyOtherPriceTv);
+                    compare(applyTotalPriceTv, replyTotalPriceTv);
+                    compare(applyBankTv, replyBankTv);
+                    compare(applyReplyDateTv, ReplyRepayDateTv);
+                }
+
             }
         });
 
