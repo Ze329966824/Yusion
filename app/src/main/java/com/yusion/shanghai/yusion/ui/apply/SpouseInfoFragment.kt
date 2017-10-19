@@ -184,6 +184,8 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
+        spouse_info_mobile_img.setOnClickListener { selectContact() }
+
         (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 (spouse_info_submit_btn as Button).clearFocus();
