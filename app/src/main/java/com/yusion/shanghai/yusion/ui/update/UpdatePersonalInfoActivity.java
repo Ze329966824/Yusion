@@ -282,7 +282,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         submitBtn.setFocusable(true);
         submitBtn.setFocusableInTouchMode(true);
         submitBtn.requestFocus();
-       // submitBtn.requestFocusFromTouch();
+        // submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -1053,8 +1053,15 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
             clientInfo = data;
             UBT.sendAllUBTEvents(this);
         }));
-            //上传影像件
-            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");
+        //上传影像件
+        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+        intent.putExtra("clt_id", clientInfo.clt_id);
+        intent.putExtra("role", "lender");
+        intent.putExtra("title", "个人影像件资料");
+        intent.putExtra("commit_state", "continue");
+        startActivity(intent);
+        finish();
+//            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");
 
 
 //            mUpdateImgsLabelFragment.requestUpload(clientInfo.clt_id, () -> {

@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -278,7 +279,9 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    Log.e("testtttttttt","aaaa");
                     v.clearFocus();
+                    Log.e("testtttttttt","bbbbbbbb");
                     submit();
                 }
             }
@@ -858,6 +861,8 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 
 
     private void submit() {
+        Log.e("testtttttttt","cccccccccccccc");
+
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
         updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
