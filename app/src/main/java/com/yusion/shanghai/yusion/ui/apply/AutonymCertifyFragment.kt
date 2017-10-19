@@ -129,11 +129,14 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         }
 
         (autonym_certify_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
-            if (checkCanNextStep()) {
-                clearDoubleCheckItems()
-                addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
-                addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
-                mDoubleCheckDialog.show()
+            if (hasFocus) {
+                (autonym_certify_next_btn as Button).clearFocus();
+                if (checkCanNextStep()) {
+                    clearDoubleCheckItems()
+                    addDoubleCheckItem("姓名", autonym_certify_name_tv?.text.toString())
+                    addDoubleCheckItem("身份证号", autonym_certify_id_number_tv?.text.toString())
+                    mDoubleCheckDialog.show()
+                }
             }
         }
         autonym_certify_driving_license_rel_lin.setOnClickListener {
@@ -214,7 +217,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+
                 nextStep()
+
             }
         }
     }

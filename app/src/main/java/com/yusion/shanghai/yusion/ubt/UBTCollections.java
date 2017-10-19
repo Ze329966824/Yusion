@@ -88,6 +88,10 @@ public class UBTCollections {
     }
 
     static {
+
+    /*
+     *   主贷人征信信息
+     */
         widgetNameMaps.put("autonym_certify_id_back_tv", "上传身份证人像面");
         widgetNameMaps.put("autonym_certify_id_front_tv", "上传身份证国徽面");
         widgetNameMaps.put("autonym_certify_name_tv", "输入姓名");
@@ -96,9 +100,11 @@ public class UBTCollections {
         widgetNameMaps.put("autonym_certify_driving_license_rel_tv", "选择驾驶证与本人关系");
         widgetNameMaps.put("autonym_certify_next_btn", "提交征信信息");
 
-        
-        
-        
+
+     /*
+      *   主贷人
+      */
+
         widgetNameMaps.put("personal_info_gender_tv", "选择性别");
         widgetNameMaps.put("personal_info_reg_tv", "选择户籍地");
         widgetNameMaps.put("personal_info_mobile_edt", "输入手机号");
@@ -107,9 +113,9 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_current_address1_tv", "选择详细地址");
         widgetNameMaps.put("personal_info_current_address2_tv", "输入门牌号");
         widgetNameMaps.put("personal_info_live_with_parent_tv", "选择是否与父母同住");
-        
+
         widgetNameMaps.put("personal_info_income_from_tv", "选择主要收入来源");
-        
+
         widgetNameMaps.put("personal_info_from_income_year_edt", "输入年收入(主要工资)");
         widgetNameMaps.put("personal_info_from_income_company_name_edt", "输入单位名称(主要工资)");
         widgetNameMaps.put("personal_info_from_income_company_address_tv", "选择单位地址(主要工资)");
@@ -117,15 +123,15 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_from_income_company_address2_tv", "输入门牌号(主要工资)");
         widgetNameMaps.put("personal_info_from_income_work_position_tv", "选择职务(主要工资)");
         widgetNameMaps.put("personal_info_from_income_work_phone_num_edt", "输入单位座机(主要工资)");
-       
+
         widgetNameMaps.put("personal_info_from_self_year_edt", "输入年收入(主要自营)");
         widgetNameMaps.put("personal_info_from_self_type_tv", "选择业务类型(主要自营)");
         widgetNameMaps.put("personal_info_from_self_company_name_edt", "输入店铺名称(主要自营)");
         widgetNameMaps.put("personal_info_from_self_company_address_tv", "选择经营项目地址(主要自营)");
         widgetNameMaps.put("personal_info_from_self_company_address1_tv", "选择详细地址(主要自营)");
         widgetNameMaps.put("personal_info_from_self_company_address2_tv", "输入门牌号(主要自营)");
-        
-        
+
+
         widgetNameMaps.put("personal_info_extra_income_from_tv", "选择额外收入来源");
         widgetNameMaps.put("personal_info_extra_from_income_year_edt", "输入年收入(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_company_name_edt", "输入单位名称(额外工资)");
@@ -134,16 +140,16 @@ public class UBTCollections {
         widgetNameMaps.put("personal_info_extra_from_income_company_address2_tv", "输入门牌号(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_work_position_tv", "选择职务(额外工资)");
         widgetNameMaps.put("personal_info_extra_from_income_work_phone_num_edt", "输入单位座机(额外工资)");
-        
-        
+
+
         widgetNameMaps.put("personal_info_house_type_tv", "选择房屋性质");
         widgetNameMaps.put("personal_info_house_area_edt", "输入房屋面积");
         widgetNameMaps.put("personal_info_house_owner_name_edt", "输入房屋所有人");
         widgetNameMaps.put("personal_info_house_owner_relation_tv", "选择与申请人关系(房屋所有人)");
-        
+
         widgetNameMaps.put("personal_info_urg_relation1_tv", "与申请人关系(紧急联系人1)");
         widgetNameMaps.put("personal_info_urg_mobile1_edt", "手机号码(紧急联系人1)");
-        widgetNameMaps.put("personal_info_urg_contact1_edt", "联系人姓名(紧急联系人1)");        
+        widgetNameMaps.put("personal_info_urg_contact1_edt", "联系人姓名(紧急联系人1)");
         widgetNameMaps.put("personal_info_urg_relation2_tv", "与申请人关系(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_mobile2_edt", "手机号码(紧急联系人2)");
         widgetNameMaps.put("personal_info_urg_contact2_edt", "联系人姓名(紧急联系人2)");
@@ -151,9 +157,9 @@ public class UBTCollections {
 
 
 
-
-
-
+    /*
+     *   主贷人配偶
+     */
         widgetNameMaps.put("spouse_info_marriage_tv", "选择婚否");
 
         widgetNameMaps.put("spouse_info_divorced_child_count_edt", "输入子女数量(离异)");
@@ -169,7 +175,6 @@ public class UBTCollections {
         widgetNameMaps.put("spouse_info_gender_tv", "选择配偶性别");
         widgetNameMaps.put("spouse_info_mobile_edt", "输入配偶手机号");
         widgetNameMaps.put("spouse_info_child_count_edt", "输入子女数量(已婚)");
-
 
 
         widgetNameMaps.put("spouse_info_income_from_tv", "选择配偶主要收入来源");
@@ -201,16 +206,111 @@ public class UBTCollections {
 
 
 
+    /*
+     *   担保人征信信息
+     */
+        widgetNameMaps.put("guarantor_credit_info_rel_tv", "选择担保人与主贷人信息");
+        widgetNameMaps.put("guarantor_credit_info_id_back_tv", "上传担保人身份证人像面");
+        widgetNameMaps.put("guarantor_credit_info_id_front_tv", "上传担保人身份证国徽面");
+        widgetNameMaps.put("guarantor_credit_info_name_tv", "输入担保人姓名");
+        widgetNameMaps.put("guarantor_credit_info_id_number_tv", "输入担保人身份证号");
+        widgetNameMaps.put("guarantor_credit_info_mobile_edt", "输入担保人手机号");
+        widgetNameMaps.put("guarantor_credit_info_next_btn", "提交担保人征信信息");
+
+    /*
+     *   担保人
+     */
+        widgetNameMaps.put("guarantor_info_gender_tv", "选择担保人性别");
+        widgetNameMaps.put("guarantor_info_reg_tv", "选择担保人户籍地");
+        widgetNameMaps.put("guarantor_info_education_tv", "选择担保人学历");
+        widgetNameMaps.put("guarantor_info_current_address_tv", "选择担保人现住地址");
+        widgetNameMaps.put("guarantor_info_current_address1_tv", "选择担保人详细地址");
+        widgetNameMaps.put("guarantor_info_current_address2_tv", "选择担保人门牌号");
+
+        widgetNameMaps.put("guarantor_info_from_income_year_edt", "选择担保人主要收入来源");
+        //主要工资
+        widgetNameMaps.put("guarantor_info_from_income_year_edt", "输入担保人年收入(主要工资)");
+        widgetNameMaps.put("guarantor_info_from_income_company_name_edt", "输入担保人单位名称(主要工资)");
+        widgetNameMaps.put("guarantor_info_from_income_company_address_tv", "输入担保人单位地址(主要工资)");
+        widgetNameMaps.put("guarantor_info_from_income_company_address1_tv", "输入担保人详细地址(主要工资)");
+        widgetNameMaps.put("guarantor_info_from_income_company_address2_tv", "输入担保人门牌号(主要工资)");
+        widgetNameMaps.put("guarantor_info_from_income_work_position_tv", "输入担保人职务(主要工资)");
+        widgetNameMaps.put("guarantor_info_from_income_work_phone_num_edt", "输入担保人单位座机(主要工资)");
+        //主要自营
+        widgetNameMaps.put("guarantor_info_from_self_year_edt", "输入担保人年收入(主要自营)");
+        widgetNameMaps.put("guarantor_info_from_self_type_tv", "选择担保人业务类型(主要自营)");
+        widgetNameMaps.put("guarantor_info_from_self_company_name_edt", "输入担保人店铺名称(主要自营)");
+        widgetNameMaps.put("guarantor_info_from_self_company_address_tv", "选择担保人经营项目地址(主要自营)");
+        widgetNameMaps.put("guarantor_info_from_self_company_address1_tv", "选择担保人详细地址(主要自营)");
+        widgetNameMaps.put("guarantor_info_from_self_company_address2_tv", "输入担保人门牌号(主要自营)");
+
+        widgetNameMaps.put("guarantor_info_extra_income_from_tv", "选择担保人额外收入来源");
+        //额外工资
+        widgetNameMaps.put("guarantor_info_extra_from_income_year_edt", "输入担保人年收入(额外工资)");
+        widgetNameMaps.put("guarantor_info_extra_from_income_company_name_edt", "输入担保人单位名称(额外工资)");
+        widgetNameMaps.put("guarantor_info_extra_from_income_company_address_tv", "选择担保人单位地址(额外工资)");
+        widgetNameMaps.put("guarantor_info_extra_from_income_company_address1_tv", "选择担保人详细地址(额外工资)");
+        widgetNameMaps.put("guarantor_info_extra_from_income_company_address2_tv", "输入担保人门牌号(额外工资)");
+        widgetNameMaps.put("guarantor_info_extra_from_income_work_position_tv", "选择担保人职务(额外工资)");
+        widgetNameMaps.put("guarantor_info_extra_from_income_work_phone_num_edt", "输入担保人单位座机(额外工资)");
+        widgetNameMaps.put("guarantor_info_house_type_tv", "选择担保人房屋性质");
+        widgetNameMaps.put("guarantor_info_house_address_tv", "选择担保人房屋地址");
+        widgetNameMaps.put("guarantor_info_house_address1_tv", "选择担保人房屋详细地址");
+        widgetNameMaps.put("guarantor_info_house_address2_tv", "输入担保人房屋详细地址");
+        widgetNameMaps.put("guarantor_info_house_owner_name_edt", "输入担保人房屋所有人");
+        widgetNameMaps.put("guarantor_info_house_owner_relation_tv", "输入担保人房屋所有人与担保人关系");
+
+        widgetNameMaps.put("guarantor_info_next_btn", "提交担保人资料");
 
 
+    /*
+     *   担保人担保人配偶
+     */
+        widgetNameMaps.put("guarantor_spouse_info_marriage_tv", "选择婚否");
+
+        widgetNameMaps.put("guarantor_spouse_info_divorced_child_count_edt", "输入子女数量(离异)");
+        widgetNameMaps.put("guarantor_spouse_info_divorced_tv", "上传离婚证");
+
+        widgetNameMaps.put("guarantor_spouse_info_die_child_count_edt", "输入子女数量(丧偶)");
+        widgetNameMaps.put("guarantor_spouse_info_register_addr_tv", "上传户口本");
+
+        widgetNameMaps.put("guarantor_spouse_info_id_back_tv", "上传担保人配偶身份证人像面");
+        widgetNameMaps.put("guarantor_spouse_info_id_front_tv", "上传担保人配偶身份证国徽面");
+        widgetNameMaps.put("guarantor_spouse_info_clt_nm_edt", "输入担保人配偶姓名");
+        widgetNameMaps.put("guarantor_spouse_info_id_no_edt", "输入担保人配偶身份证号");
+        widgetNameMaps.put("guarantor_spouse_info_gender_tv", "选择担保人配偶性别");
+        widgetNameMaps.put("guarantor_spouse_info_mobile_edt", "输入担保人配偶手机号");
+        widgetNameMaps.put("guarantor_spouse_info_child_count_edt", "输入子女数量(已婚)");
 
 
+        widgetNameMaps.put("guarantor_spouse_info_income_from_tv", "选择担保人配偶主要收入来源");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_year_edt", "输入担保人配偶年收入(主要工资)");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_company_name_edt", "输入担保人配偶单位名称(主要工资)");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_company_address_tv", "选择担保人配偶单位地址(主要工资)");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_company_address1_tv", "选择担保人配偶详细地址(主要工资)");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_company_address2_tv", "输入担保人配偶门牌号(主要工资)");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_work_position_tv", "选择担保人配偶职务(主要工资)");
+        widgetNameMaps.put("guarantor_spouse_info_from_income_work_phone_num_edt", "输入担保人配偶单位座机(主要工资)");
+
+        widgetNameMaps.put("guarantor_spouse_info_from_self_year_edt", "输入担保人配偶年收入(主要自营)");
+        widgetNameMaps.put("guarantor_spouse_info_from_self_type_tv", "选择担保人配偶业务类型(主要自营)");
+        widgetNameMaps.put("guarantor_spouse_info_from_self_company_name_edt", "输入担保人配偶店铺名称(主要自营)");
+        widgetNameMaps.put("guarantor_spouse_info_from_self_company_address_tv", "选择担保人配偶经营项目地址(主要自营)");
+        widgetNameMaps.put("guarantor_spouse_info_from_self_company_address1_tv", "选择担保人配偶详细地址(主要自营)");
+        widgetNameMaps.put("guarantor_spouse_info_from_self_company_address2_tv", "输入担保人配偶门牌号(主要自营)");
+
+        widgetNameMaps.put("guarantor_spouse_info_extra_income_from_tv", "选择担保人配偶额外收入来源");
+
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_year_edt", "输入担保人配偶年收入(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_company_name_edt", "输入担保人配偶单位名称(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_company_address_tv", "选择担保人配偶单位地址(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_company_address1_tv", "选择担保人配偶详细地址(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_company_address2_tv", "输入担保人配偶门牌号(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_work_position_tv", "选择担保人配偶职务(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_extra_from_income_work_phone_num_edt", "输入担保人配偶单位座机(额外工资)");
+        widgetNameMaps.put("guarantor_spouse_info_submit_btn", "提交担保人配偶信息");
 
 
-
-
-        
-        
 
     }
 
@@ -231,6 +331,7 @@ public class UBTCollections {
             return pair.second;
         }
     }
+
     public static String getWidgetNmCn(String widget) {
         return widgetNameMaps.get(widget);
     }

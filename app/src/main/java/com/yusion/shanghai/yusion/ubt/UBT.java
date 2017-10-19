@@ -233,6 +233,9 @@ public class UBT {
                             }
                         }
                     } catch (IOException e) {
+                        if (callBack != null) {
+                            callBack.callBack();
+                        }
                         Log.e(TAG, "run: " + e);
                     }
                 }

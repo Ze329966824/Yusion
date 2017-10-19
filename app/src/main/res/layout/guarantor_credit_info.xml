@@ -281,6 +281,7 @@
                     <EditText
                         android:id="@+id/guarantor_credit_info_name_tv"
                         style="@style/apply_info_content"
+                        android:layout_marginRight="35dp"
                         android:hint="请输入" />
                 </LinearLayout>
 
@@ -299,6 +300,7 @@
                     <EditText
                         android:id="@+id/guarantor_credit_info_id_number_tv"
                         style="@style/apply_info_content_type_id"
+                        android:layout_marginRight="35dp"
                         android:hint="请输入" />
 
                 </LinearLayout>
@@ -340,7 +342,7 @@
 
             <include layout="@layout/include_line" />
 
-            <TextView
+            <Button
                 android:id="@+id/guarantor_credit_info_next_btn"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
