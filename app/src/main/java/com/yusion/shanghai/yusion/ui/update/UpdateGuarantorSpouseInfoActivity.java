@@ -78,14 +78,15 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
 
-    @BindView(id = R.id.update_guarantor_spouse_info_income_from_tv,widgetName = "update_guarantor_spouse_info_income_from_tv")
+    @BindView(id = R.id.update_guarantor_spouse_info_income_from_tv, widgetName = "update_guarantor_spouse_info_income_from_tv")
     private TextView income_from_tv;
 
-    @BindView(id = R.id.update_guarantor_spouse_info_extra_income_from_tv,widgetName = "update_guarantor_spouse_info_extra_income_from_tv")
+    @BindView(id = R.id.update_guarantor_spouse_info_extra_income_from_tv, widgetName = "update_guarantor_spouse_info_extra_income_from_tv")
     private TextView income_extra_from_tv;
 
     private LinearLayout update_guarantor_spouse_info_marriage_lin;
 
+    @BindView(id = R.id.update_guarantor_spouse_info_marriage_tv, widgetName = "update_guarantor_spouse_info_marriage_tv")
     private TextView update_guarantor_spouse_info_marriage_tv;
 
     private LinearLayout update_guarantor_spouse_info_gender_lin;
@@ -98,7 +99,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_guarantor_spouse_info_extra_from_income_company_address1_lin;
     private LinearLayout update_guarantor_spouse_info_extra_from_income_work_position_lin;
 
-    @BindView(id = R.id.update_guarantor_spouse_info_marriage_tv,widgetName = "update_guarantor_spouse_info_marriage_tv")
+    @BindView(id = R.id.update_guarantor_spouse_info_marriage_tv, widgetName = "update_guarantor_spouse_info_marriage_tv")
     private TextView update_guarantor_spouse_info_extra_from_income_work_position_tv;
 
     private ImageView update_guarantor_spouse_info_mobile_img;

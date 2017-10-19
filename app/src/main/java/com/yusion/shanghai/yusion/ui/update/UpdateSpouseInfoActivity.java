@@ -86,14 +86,14 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
 
-    @BindView(id = R.id.update_spouse_info_income_from_tv,widgetName = "update_spouse_info_income_from_tv")
+    @BindView(id = R.id.update_spouse_info_income_from_tv, widgetName = "update_spouse_info_income_from_tv")
     private TextView income_from_tv;
-    @BindView(id =R.id.update_spouse_info_extra_income_from_tv,widgetName = "update_spouse_info_extra_income_from_tv")
+    @BindView(id = R.id.update_spouse_info_extra_income_from_tv, widgetName = "update_spouse_info_extra_income_from_tv")
     private TextView income_extra_from_tv;
 
     private LinearLayout update_spouse_info_marriage_lin;
 
-    @BindView(id = R.id.update_spouse_info_marriage_tv,widgetName = "update_spouse_info_marriage_tv")
+    @BindView(id = R.id.update_spouse_info_marriage_tv, widgetName = "update_spouse_info_marriage_tv")
     private TextView update_spouse_info_marriage_tv;
 
     private LinearLayout update_spouse_info_gender_lin;
@@ -244,8 +244,14 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     private ArrayList<UploadImgItemBean> resBookList = new ArrayList<UploadImgItemBean>();
     private UploadImgItemBean backImg = new UploadImgItemBean();
     private UploadImgItemBean frontImg = new UploadImgItemBean();
+
+    @BindView(id = R.id.update_spouse_info_child_count_edt, widgetName = "update_spouse_info_child_count_edt")
     private EditText update_spouse_info_child_count_edt;                   //子女数量
+
+    @BindView(id = R.id.update_spouse_info_child_count1_edt, widgetName = "update_spouse_info_child_count1_edt")
     private EditText update_spouse_info_child_count1_edt;                   //子女数量
+
+    @BindView(id = R.id.update_spouse_info_child_count2_edt, widgetName = "update_spouse_info_child_count2_edt")
     private EditText update_spouse_info_child_count2_edt;                   //子女数量
 
     public ClientInfo clientInfo;

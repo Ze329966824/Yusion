@@ -236,6 +236,9 @@ public class UBTCollections {
         widgetNameMaps.put("update_spouse_info_extra_from_income_company_address1_tv", "额外-工资-详细地址");
         widgetNameMaps.put("update_spouse_info_extra_from_income_company_address2_tv", "额外-工资-门牌号");
         widgetNameMaps.put("update_spouse_info_extra_from_income_work_phone_num_edt", "额外-工资-单位座机");
+        widgetNameMaps.put("update_spouse_info_child_count_edt", "子女数量");
+        widgetNameMaps.put("update_spouse_info_child_count1_edt", "子女数量");
+        widgetNameMaps.put("update_spouse_info_child_count2_edt", "子女数量");
         widgetNameMaps.put("submit_img", "提交配偶资料");
 
         //担保人资料
@@ -468,7 +471,6 @@ public class UBTCollections {
         widgetNameMaps.put("guarantor_spouse_info_extra_from_income_work_position_tv", "选择担保人配偶职务(额外工资)");
         widgetNameMaps.put("guarantor_spouse_info_extra_from_income_work_phone_num_edt", "输入担保人配偶单位座机(额外工资)");
         widgetNameMaps.put("guarantor_spouse_info_submit_btn", "提交担保人配偶信息");
-
 
 
     }
