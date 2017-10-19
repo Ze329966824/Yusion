@@ -82,8 +82,8 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_guarantor_info_extra_from_income_company_address1_lin;
     private LinearLayout update_guarantor_info_extra_from_income_work_position_lin;
 
-    @BindView(id = R.id.update_guarantor_extra_info_work_position_tv,widgetName = "update_guarantor_info_extra_from_income_work_position_tv")
-      private TextView update_guarantor_info_extra_from_income_work_position_tv;
+    @BindView(id = R.id.update_guarantor_extra_info_work_position_tv, widgetName = "update_guarantor_info_extra_from_income_work_position_tv")
+    private TextView update_guarantor_info_extra_from_income_work_position_tv;
 
     private LinearLayout update_guarantor_info_extra_from_income_company_address_lin;
     private LinearLayout update_guarantor_info_from_self_company_address_lin;
@@ -525,7 +525,6 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
         // 额外 选择职务
         update_guarantor_info_extra_from_income_work_position_lin = (LinearLayout) findViewById(R.id.update_guarantor_info_extra_from_income_work_position_lin);
         update_guarantor_info_extra_from_income_work_position_tv = (TextView) findViewById(R.id.update_guarantor_extra_info_work_position_tv);
-       // update_guarantor_info_work_position_tv = (TextView) findViewById(R.id.update_guarantor_info_work_position_tv);
         update_guarantor_info_extra_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
                 UPDATE_FROM_EXTRA_WORK_POSITION_INDEX,
                 update_guarantor_info_extra_from_income_work_position_lin,

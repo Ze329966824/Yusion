@@ -66,6 +66,7 @@ public class DocumentActivity extends BaseActivity {
     private boolean needUploadFidToServer;
     private TextView errorTv;
     private LinearLayout errorLin;
+
     //label页进入
     private String clt_id;
     private UploadImgItemBean uploadImgItemBean;
@@ -120,7 +121,27 @@ public class DocumentActivity extends BaseActivity {
 
     private void initView() {
         LinearLayout template = (LinearLayout) findViewById(R.id.document_template_lin);
+        TextView textView = (TextView) findViewById(R.id.smalltitle);
+        String title = "";
+        switch (mType) {
+            case "auth_credit":
+                title = "征信授权书";
+                break;
+            case "id_card_front":
+                title = "身份证国徽面";
+                break;
+            case "id_card_back":
+                title = "身份证人像面";
+                break;
+            case "driving_lic":
+                title = "驾驶证影像件";
+                break;
+            default:
+                title = mType;
+        }
+        textView.setText(title);
         LayoutInflater inflater = LayoutInflater.from(this);
+
         switch (mType) {
             case "id_card_front": //身份证国徽面
                 template.addView(inflater.inflate(R.layout.template_id_front, template, false));
@@ -332,7 +353,7 @@ public class DocumentActivity extends BaseActivity {
                                 Toast.makeText(this, "识别成功", Toast.LENGTH_LONG).show();
                                 mOcrResp = ocrResp.showapi_res_body;
                             }
-                             onUploadOssSuccess(localPath, dialog, objectKey);
+                            onUploadOssSuccess(localPath, dialog, objectKey);
                         }, (throwable, s) -> {
                             Toast.makeText(myApp, "ocr识别失败", Toast.LENGTH_SHORT).show();
                             onUploadOssFailure(dialog);
@@ -419,7 +440,7 @@ public class DocumentActivity extends BaseActivity {
                 title = "身份证国徽面";
                 break;
             case "id_card_back":
-                title = "征信授权书";
+                title = "身份证人像面";
                 break;
             case "driving_lic":
                 title = "驾驶证影像件";
