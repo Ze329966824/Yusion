@@ -268,8 +268,10 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                Log.e("TAG2222", "onFocusChange() called with: v = [" + v + "], hasFocus = [" + hasFocus + "]");
                 if (hasFocus) {
                     v.clearFocus();
+//                    Log.e("testttttt","bbb")
                     submit();
                 }
             }
