@@ -102,6 +102,12 @@ public class WheelViewUtil {
         mWheelViewDialog = new Dialog(context, R.style.MyDialogStyle);
         mWheelViewDialog.setContentView(wheelViewLayout);
         mWheelViewDialog.setCanceledOnTouchOutside(false);
+        mWheelViewDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                clickedView.setEnabled(true);
+            }
+        });
 //        mWheelViewDialog.setCanceledOnTouchOutside(true);
 //        mWheelViewDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 //            @Override

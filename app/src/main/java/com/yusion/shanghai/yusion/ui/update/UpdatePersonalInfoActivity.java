@@ -74,8 +74,13 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     public static int CURRENT_CLICKED_VIEW_FOR_CONTACT = -1;
     private LinearLayout income_from_lin;
     private LinearLayout income_extra_from_lin;
+
+    @BindView(id = R.id.update_personal_info_income_from_tv, widgetName = "update_personal_info_income_from_tv")
     private TextView income_from_tv;
+
+    @BindView(id = R.id.update_personal_info_extra_income_from_tv, widgetName = "update_personal_info_extra_income_from_tv")
     private TextView income_extra_from_tv;
+
     private LinearLayout update_personal_info_gender_lin;
     private LinearLayout update_personal_info_reg_lin;
     private LinearLayout update_personal_info_education_lin;
@@ -90,7 +95,10 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_personal_info_from_income_work_position_lin;
     private LinearLayout update_personal_info_extra_from_income_company_address1_lin;
     private LinearLayout update_personal_info_extra_from_income_work_position_lin;
+
+    @BindView(id = R.id.update_personal_extra_info_work_position_tv, widgetName = "update_personal_extra_info_work_position_tv")
     private TextView update_personal_info_extra_from_income_work_position_tv;
+
     private LinearLayout update_personal_info_extra_from_income_company_address_lin;
     private LinearLayout update_personal_info_from_self_company_address_lin;
     private LinearLayout update_personal_info_from_self_company_address1_lin;
