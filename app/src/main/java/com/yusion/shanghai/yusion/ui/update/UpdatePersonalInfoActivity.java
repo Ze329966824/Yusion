@@ -282,7 +282,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         submitBtn.setFocusable(true);
         submitBtn.setFocusableInTouchMode(true);
         submitBtn.requestFocus();
-        // submitBtn.requestFocusFromTouch();
+        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -1015,52 +1015,45 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     }
 
     public void submit() {
-//        new AlertDialog.Builder(this)
-//                .setMessage("确认要更改个人资料信息？")
-//                .setCancelable(false)
-//                .setPositiveButton("确认更改", (dialog, which) -> {
-//                    //              UBT.addEvent(this, "onclick",new Button(this), getClass().getSimpleName());
-////                    UBT.sendAllUBTEvents(this);
-//
-//                    //提交用户资料
-//                    updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
-//                        if (data == null) {
-//                            {
-//                                return;
-//                            }
-//                        }
-//                        clientInfo = data;
-//                        UBT.sendAllUBTEvents(this);
-//                    }));
-//                    Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-//                    intent.putExtra("clt_id", clientInfo.clt_id);
-//                    intent.putExtra("role", "lender");
-//                    intent.putExtra("title", "个人影像件资料");
-//                    intent.putExtra("commit_state", "continue");
-//                    startActivity(intent);
-//                    finish();
-//                })
-//                .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
-//                .show();
+        new AlertDialog.Builder(this)
+                .setMessage("确认要更改个人资料信息？")
+                .setCancelable(false)
+                .setPositiveButton("确认更改", (dialog, which) -> {
+                    //              UBT.addEvent(this, "onclick",new Button(this), getClass().getSimpleName());
+//                    UBT.sendAllUBTEvents(this);
 
-        //提交用户资料
-        updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
-            if (data == null) {
-                {
-                    return;
-                }
-            }
-            clientInfo = data;
-            UBT.sendAllUBTEvents(this);
-        }));
-        //上传影像件
-        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-        intent.putExtra("clt_id", clientInfo.clt_id);
-        intent.putExtra("role", "lender");
-        intent.putExtra("title", "个人影像件资料");
-        intent.putExtra("commit_state", "continue");
-        startActivity(intent);
-        finish();
+                    //提交用户资料
+                    updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+                        if (data == null) {
+                            {
+                                return;
+                            }
+                        }
+                        clientInfo = data;
+                        UBT.sendAllUBTEvents(this);
+                    }));
+                    Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                    intent.putExtra("clt_id", clientInfo.clt_id);
+                    intent.putExtra("role", "lender");
+                    intent.putExtra("title", "个人影像件资料");
+                    intent.putExtra("commit_state", "continue");
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
+                .show();
+
+//        //提交用户资料
+//        updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+//            if (data == null) {
+//                {
+//                    return;
+//                }
+//            }
+//            clientInfo = data;
+//            UBT.sendAllUBTEvents(this);
+//        }));
+            //上传影像件
 //            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");
 
 
