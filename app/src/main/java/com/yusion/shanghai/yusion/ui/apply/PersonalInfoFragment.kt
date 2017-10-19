@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -212,7 +213,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
         mDoubleCheckSubmitBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
             var applyActivity = activity as ApplyActivity
-            if ((personal_info_reg_tv as TextView).text.isNotEmpty() as Boolean) {
+            if ((personal_info_reg_tv as TextView).text.isNotEmpty() ) {
                 applyActivity.mClientInfo.reg_addr.province = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 applyActivity.mClientInfo.reg_addr.city = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 applyActivity.mClientInfo.reg_addr.district = (personal_info_reg_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -222,7 +223,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.edu = (personal_info_education_tv as TextView).text.toString()
 
             //现住地址
-            if ((personal_info_current_address_tv as TextView).text.isNotEmpty() as Boolean) {
+            if ((personal_info_current_address_tv as TextView).text.isNotEmpty() ) {
                 applyActivity.mClientInfo.current_addr.province = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
                 applyActivity.mClientInfo.current_addr.city = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[1]
                 applyActivity.mClientInfo.current_addr.district = (personal_info_current_address_tv as TextView).text.toString().split("/".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[2]
@@ -342,7 +343,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_current_address_lin, personal_info_current_address_tv, "请选择所在地区") { _, _ -> (personal_info_current_address1_tv as TextView).text = "" }
         }
         personal_info_current_address1_lin.setOnClickListener {
-            if ((personal_info_current_address_tv as TextView).text?.isNotEmpty() as Boolean) {
+            if ((personal_info_current_address_tv as TextView).text.isNotEmpty() ) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_current_address1_lin.id
                 requestPOI((personal_info_current_address_tv as TextView).text.toString())
             }
@@ -353,7 +354,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_income_company_address_lin, personal_info_from_income_company_address_tv, "请选择所在地区") { _, _ -> (personal_info_from_income_company_address1_tv as TextView).text = "" }
         }
         personal_info_from_income_company_address1_lin.setOnClickListener {
-            if ((personal_info_from_income_company_address_tv as TextView).text?.isNotEmpty() as Boolean) {
+            if ((personal_info_from_income_company_address_tv as TextView).text.isNotEmpty() ) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_income_company_address1_lin.id
                 requestPOI((personal_info_from_income_company_address_tv as TextView).text.toString())
             }
@@ -393,7 +394,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             })
         }
         personal_info_from_self_company_address1_lin.setOnClickListener {
-            if ((personal_info_from_self_company_address_tv as TextView).text?.isNotEmpty() as Boolean) {
+            if ((personal_info_from_self_company_address_tv as TextView).text.isNotEmpty() ) {
                 CURRENT_CLICKED_VIEW_FOR_ADDRESS = personal_info_from_self_company_address1_lin.id
                 requestPOI((personal_info_from_self_company_address_tv as TextView).text.toString())
             }
@@ -473,93 +474,93 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
     fun checkCanNextStep(): Boolean {
 //        return true
-        if ((personal_info_gender_tv as TextView).text.isEmpty()) {
+        if ((personal_info_gender_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_reg_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_reg_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_mobile_edt as EditText).text.isEmpty()) {
+        } else if ((personal_info_mobile_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
-        } else if (!CheckMobileUtil.checkMobile((personal_info_mobile_edt as EditText).text.toString())) {
+        } else if (!CheckMobileUtil.checkMobile((personal_info_mobile_edt as EditText).text.toString().toString())) {
             Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_education_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_education_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_current_address_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_current_address_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "现住地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_current_address1_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_current_address1_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_current_address2_tv as NoEmptyEditText).text.isEmpty()) {
+        } else if ((personal_info_current_address2_tv as NoEmptyEditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_live_with_parent_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_live_with_parent_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "是否与父母同住不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_year_edt as EditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "工资" && (personal_info_from_income_year_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_company_name_edt as EditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "工资" && (personal_info_from_income_company_name_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_company_address_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "工资" && (personal_info_from_income_company_address_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_company_address1_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "工资" && (personal_info_from_income_company_address1_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_company_address2_tv as NoEmptyEditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "工资" && (personal_info_from_income_company_address2_tv as NoEmptyEditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "工资" && (personal_info_from_income_work_position_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "工资" && (personal_info_from_income_work_position_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "自营" && (personal_info_from_self_year_edt as EditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "自营" && (personal_info_from_self_year_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "自营" && (personal_info_from_self_type_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "自营" && (personal_info_from_self_type_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "业务类型不能为空", Toast.LENGTH_SHORT).show()
         }
-//        else if (personal_info_income_from_tv.text == "自营" && personal_info_from_self_company_name_edt.text.isEmpty()) {
+//        else if (personal_info_income_from_tv.text.toString() == "自营" && personal_info_from_self_company_name_edt.text.toString().isEmpty()) {
 //            Toast.makeText(mContext, "店铺名称不能为空", Toast.LENGTH_SHORT).show()
 //        }
-        else if ((personal_info_income_from_tv as TextView).text == "自营" && (personal_info_from_self_company_address_tv as TextView).text.isEmpty() as Boolean) {
+        else if ((personal_info_income_from_tv as TextView).text.toString() == "自营" && (personal_info_from_self_company_address_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "项目经营地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "自营" && (personal_info_from_self_company_address1_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "自营" && (personal_info_from_self_company_address1_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "自营的详细地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_income_from_tv as TextView).text == "自营" && (personal_info_from_self_company_address2_tv as NoEmptyEditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_income_from_tv as TextView).text.toString() == "自营" && (personal_info_from_self_company_address2_tv as NoEmptyEditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "自营的门牌号不能为空", Toast.LENGTH_SHORT).show()
         }
-//        else if ((personal_info_income_from_tv as TextView).text == "其他" && personal_info_from_other_year_edt.text.isEmpty()) {
+//        else if ((personal_info_income_from_tv as TextView).text.toString() == "其他" && personal_info_from_other_year_edt.text.toString().isEmpty()) {
 //            Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-//        } else if ((personal_info_income_from_tv as TextView).text == "其他" && personal_info_from_other_remark_edt.text.isEmpty()) {
+//        } else if ((personal_info_income_from_tv as TextView).text.toString() == "其他" && personal_info_from_other_remark_edt.text.toString().isEmpty()) {
 //            Toast.makeText(mContext, "备注不能为空", Toast.LENGTH_SHORT).show()
 //        }
-        else if ((personal_info_extra_income_from_tv as TextView).text == "工资" && (personal_info_extra_from_income_year_edt as EditText).text.isEmpty() as Boolean) {
+        else if ((personal_info_extra_income_from_tv as TextView).text.toString() == "工资" && (personal_info_extra_from_income_year_edt as EditText).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "年收入不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_extra_income_from_tv as TextView).text == "工资" && (personal_info_extra_from_income_company_name_edt as EditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_extra_income_from_tv as TextView).text.toString() == "工资" && (personal_info_extra_from_income_company_name_edt as EditText).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "单位名称不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_extra_income_from_tv as TextView).text == "工资" && (personal_info_extra_from_income_company_address_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_extra_income_from_tv as TextView).text.toString() == "工资" && (personal_info_extra_from_income_company_address_tv as TextView).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "单位地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_extra_income_from_tv as TextView).text == "工资" && (personal_info_extra_from_income_company_address1_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_extra_income_from_tv as TextView).text.toString() == "工资" && (personal_info_extra_from_income_company_address1_tv as TextView).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "详细地址不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_extra_income_from_tv as TextView).text == "工资" && (personal_info_extra_from_income_company_address2_tv as NoEmptyEditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_extra_income_from_tv as TextView).text.toString() == "工资" && (personal_info_extra_from_income_company_address2_tv as NoEmptyEditText).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_extra_income_from_tv as TextView).text == "工资" && (personal_info_extra_from_income_work_position_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_extra_income_from_tv as TextView).text.toString() == "工资" && (personal_info_extra_from_income_work_position_tv as TextView).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_house_type_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_house_type_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_house_area_edt as EditText).text.isEmpty()) {
+        } else if ((personal_info_house_area_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "房屋面积不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_house_owner_name_edt as EditText).text.isEmpty()) {
+        } else if ((personal_info_house_owner_name_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_house_owner_relation_tv as TextView).text.isEmpty()) {
+        } else if ((personal_info_house_owner_relation_tv as TextView).text.toString().isEmpty()) {
             Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_urg_contact1_edt as EditText).text.isEmpty()) {
+        } else if ((personal_info_urg_contact1_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_urg_mobile1_edt as EditText).text.isEmpty()) {
+        } else if ((personal_info_urg_mobile1_edt as EditText).text.toString().isEmpty()) {
             Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
-        } else if (!CheckMobileUtil.checkMobile((personal_info_urg_mobile1_edt as EditText).text.toString())) {
+        } else if (!CheckMobileUtil.checkMobile((personal_info_urg_mobile1_edt as EditText).text.toString().toString())) {
             Toast.makeText(mContext, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_urg_relation1_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_urg_relation1_tv as TextView).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_urg_contact2_edt as EditText).text.isEmpty() as Boolean) {
+        } else if ((personal_info_urg_contact2_edt as EditText).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "紧急联系人姓名不能为空", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_urg_mobile2_edt as EditText).text.isEmpty() as Boolean) {
-            Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
-        } else if (!CheckMobileUtil.checkMobile((personal_info_urg_mobile2_edt as EditText).text.toString())) {
+        } else if ((personal_info_urg_mobile2_edt as EditText).text.toString().isEmpty() ) {
+            Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show()
+        } else if (!CheckMobileUtil.checkMobile((personal_info_urg_mobile2_edt as EditText).text.toString().toString())) {
             Toast.makeText(mContext, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show()
-        } else if ((personal_info_urg_relation2_tv as TextView).text.isEmpty() as Boolean) {
+        } else if ((personal_info_urg_relation2_tv as TextView).text.toString().isEmpty() ) {
             Toast.makeText(mContext, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show()
         } else {
             return true
