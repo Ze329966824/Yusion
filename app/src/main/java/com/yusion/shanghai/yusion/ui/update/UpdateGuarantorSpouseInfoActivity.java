@@ -282,7 +282,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
         submitBtn.setFocusable(true);
         submitBtn.setFocusableInTouchMode(true);
         submitBtn.requestFocus();
-        submitBtn.requestFocusFromTouch();
+       // submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {

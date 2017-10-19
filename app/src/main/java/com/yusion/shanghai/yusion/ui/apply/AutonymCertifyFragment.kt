@@ -83,7 +83,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         (autonym_certify_next_btn as Button).setFocusable(true)
         (autonym_certify_next_btn as Button).setFocusableInTouchMode(true)
         (autonym_certify_next_btn as Button).requestFocus()
-        (autonym_certify_next_btn as Button).requestFocusFromTouch()
+       // (autonym_certify_next_btn as Button).requestFocusFromTouch()
     }
 
     private val handler = object : Handler() {
