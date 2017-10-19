@@ -122,7 +122,8 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.reg_addr.city = ocrResp.city
                     applyActivity.mClientInfo.reg_addr.district = ocrResp.town
                 }
-                applyActivity.mClientInfo.drv_lic_relationship = YusionApp.CONFIG_RESP.drv_lic_relationship_list_value[_DIR_REL_INDEX]
+//                var config = (applyActivity.application as YusionApp).configResp
+                applyActivity.mClientInfo.drv_lic_relationship = (applyActivity.application as YusionApp).configResp.drv_lic_relationship_list_value[_DIR_REL_INDEX]
                 uploadUrl(it.clt_id)
 //                nextStep()
             }
@@ -140,7 +141,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
             }
         }
         autonym_certify_driving_license_rel_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.drv_lic_relationship_list_key, _DIR_REL_INDEX, autonym_certify_driving_license_rel_lin, autonym_certify_driving_license_rel_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.drv_lic_relationship_list_key, _DIR_REL_INDEX, autonym_certify_driving_license_rel_lin, autonym_certify_driving_license_rel_tv, "请选择", { _, index ->
                 _DIR_REL_INDEX = index
             })
         }

@@ -56,7 +56,7 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
     private TextView mPoiCity;
     private String mCity;
     private Intent mIntent;
-    private TextView mCancel;
+    private TextView mSure;
     private ImageView mDelete;
 
     @Override
@@ -104,7 +104,7 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
         mNoAddress = (LinearLayout) findViewById(R.id.poi_no_address);
         mPoiCity = (TextView) findViewById(R.id.poi_city);
 
-        mCancel = (TextView) findViewById(R.id.poi_cancel);
+        mSure = (TextView) findViewById(R.id.poi_sure);
         mDelete = (ImageView) findViewById(R.id.poi_delete);
 
         mDelete.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +137,7 @@ public class AMapPoiListActivity extends BaseActivity implements View.OnClickLis
             case R.id.poi_submit:
                 over(mPoiKeywords.getText().toString());
                 break;
-
-            case R.id.poi_cancel:
+            case R.id.poi_sure:
                 over(mPoiKeywords.getText().toString());
                 break;
         }

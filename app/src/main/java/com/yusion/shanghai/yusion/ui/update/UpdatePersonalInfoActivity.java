@@ -277,7 +277,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         // 工资 选择职务
         update_personal_info_from_income_work_position_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_income_work_position_lin);
         update_personal_info_work_position_tv = (TextView) findViewById(R.id.update_personal_info_work_position_tv);
-        update_personal_info_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
+        update_personal_info_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().work_position_key,
                 UPDATE_FROM_INCOME_WORK_POSITION_INDEX,
                 update_personal_info_from_income_work_position_lin,
                 update_personal_info_work_position_tv,
@@ -287,14 +287,14 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         //自营 业务类型
         update_personal_info_from_self_type_lin = (LinearLayout) findViewById(R.id.update_personal_info_from_self_type_lin);
         update_personal_info_from_self_type_tv = (TextView) findViewById(R.id.update_personal_info_from_self_type_tv);
-        update_personal_info_from_self_type_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.busi_type_list_key,
+        update_personal_info_from_self_type_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().busi_type_list_key,
                 UPDATE_FROM_SELF_TYPE_INDEX,
                 update_personal_info_from_self_type_lin,
                 update_personal_info_from_self_type_tv,
                 "请选择",
                 (clickedView, selectedIndex) -> {
                     UPDATE_FROM_SELF_TYPE_INDEX = selectedIndex;
-                    if (YusionApp.CONFIG_RESP.busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
+                    if (((YusionApp) getApplication()).getConfigResp().busi_type_list_value.get(UPDATE_FROM_SELF_TYPE_INDEX).equals("其他")) {
                         EditText editText = new EditText(this);
                         new AlertDialog.Builder(this)
                                 .setTitle("请输入业务类型")
@@ -394,7 +394,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         // 额外 选择职务
         update_personal_info_extra_from_income_work_position_lin = (LinearLayout) findViewById(R.id.update_personal_info_extra_from_income_work_position_lin);
         update_personal_info_extra_from_income_work_position_tv = (TextView) findViewById(R.id.update_personal_extra_info_work_position_tv);
-        update_personal_info_extra_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
+        update_personal_info_extra_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().work_position_key,
                 UPDATE_FROM_EXTRA_WORK_POSITION_INDEX,
                 update_personal_info_extra_from_income_work_position_lin,
                 update_personal_info_extra_from_income_work_position_tv,
@@ -404,7 +404,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         //选择性别
         update_personal_info_gender_lin = (LinearLayout) findViewById(R.id.update_personal_info_gender_lin);
         update_personal_info_gender_tv = (TextView) findViewById(R.id.update_personal_info_gender_tv);
-        update_personal_info_gender_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.gender_list_key,
+        update_personal_info_gender_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().gender_list_key,
                 UPDATE_SEX_INDEX,
                 update_personal_info_gender_lin,
                 update_personal_info_gender_tv,
@@ -432,7 +432,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         //选择学历
         update_personal_info_education_lin = (LinearLayout) findViewById(R.id.update_personal_info_education_lin);
         update_personal_info_education_tv = (TextView) findViewById(R.id.update_personal_info_education_tv);
-        update_personal_info_education_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.education_list_key,
+        update_personal_info_education_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().education_list_key,
                 UPDATE_EDUCATION_INDEX,
                 update_personal_info_education_lin,
                 update_personal_info_education_tv,
@@ -470,7 +470,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         //房屋类型
         update_personal_info_house_type_lin = (LinearLayout) findViewById(R.id.update_personal_info_house_type_lin);
         update_personal_info_house_type_tv = (TextView) findViewById(R.id.update_personal_info_house_type_tv);
-        update_personal_info_house_type_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.house_type_list_key,
+        update_personal_info_house_type_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().house_type_list_key,
                 UPDATE_HOUSE_TYPE_INDEX,
                 update_personal_info_house_type_lin,
                 update_personal_info_house_type_tv,
@@ -480,7 +480,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         //与申请人关系
         update_personal_info_house_owner_relation_lin = (LinearLayout) findViewById(R.id.update_personal_info_house_owner_relation_lin);
         update_personal_info_house_owner_relation_tv = (TextView) findViewById(R.id.update_personal_info_house_owner_relation_tv);
-        update_personal_info_house_owner_relation_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.house_relationship_list_key,
+        update_personal_info_house_owner_relation_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().house_relationship_list_key,
                 UPDATE_HOUSE_OWNER_RELATION_INDEX,
                 update_personal_info_house_owner_relation_lin,
                 update_personal_info_house_owner_relation_tv,
@@ -488,7 +488,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
                 (clickedView, selectedIndex) -> UPDATE_HOUSE_OWNER_RELATION_INDEX = selectedIndex));
         update_personal_info_urg_relation2_lin = (LinearLayout) findViewById(R.id.update_personal_info_urg_relation2_lin);
         update_personal_info_urg_relation2_tv = (TextView) findViewById(R.id.update_personal_info_urg_relation2_tv);
-        update_personal_info_urg_relation2_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.urg_other_relationship_list_key,
+        update_personal_info_urg_relation2_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().urg_other_relationship_list_key,
                 UPDATE_URG_RELATION_INDEX2,
                 update_personal_info_urg_relation2_lin,
                 update_personal_info_urg_relation2_tv,
@@ -496,7 +496,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
                 (clickedView, selectedIndex) -> UPDATE_URG_RELATION_INDEX2 = selectedIndex));
         update_personal_info_urg_relation1_lin = (LinearLayout) findViewById(R.id.update_personal_info_urg_relation1_lin);
         update_personal_info_urg_relation1_tv = (TextView) findViewById(R.id.update_personal_info_urg_relation1_tv);
-        update_personal_info_urg_relation1_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.urg_rela_relationship_list_key,
+        update_personal_info_urg_relation1_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().urg_rela_relationship_list_key,
                 UPDATE_URG_RELATION_INDEX1,
                 update_personal_info_urg_relation1_lin,
                 update_personal_info_urg_relation1_tv,

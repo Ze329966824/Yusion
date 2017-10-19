@@ -39,7 +39,7 @@ public class AgreeMentActivity extends BaseActivity implements View.OnClickListe
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         acceptBtn = (Button) findViewById(R.id.accept);
         noAcceptBtn = (Button) findViewById(R.id.no_accept);
-        url = YusionApp.CONFIG_RESP.confident_policy_url;
+        url = ((YusionApp) getApplication()).getConfigResp().confident_policy_url;
         webView.loadUrl(url);
 
         initWebView();

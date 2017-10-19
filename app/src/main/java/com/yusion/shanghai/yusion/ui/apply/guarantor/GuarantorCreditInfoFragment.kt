@@ -23,9 +23,9 @@ import com.yusion.shanghai.yusion.event.AddGuarantorActivityEvent
 import com.yusion.shanghai.yusion.retrofit.api.ProductApi
 import com.yusion.shanghai.yusion.retrofit.api.UploadApi
 import com.yusion.shanghai.yusion.settings.Constants
-import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
+import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
@@ -101,7 +101,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.reg_addr.city = ocrResp.city
                     addGuarantorActivity.mGuarantorInfo.reg_addr.district = ocrResp.town
                 }
-                addGuarantorActivity.mGuarantorInfo.social_ship = YusionApp.CONFIG_RESP.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
+                addGuarantorActivity.mGuarantorInfo.social_ship = (activity.application as YusionApp).configResp.guarantor_relationship_list_key[_GUARANTOR_REL_INDEX]
 //                nextStep()
                 uploadUrl(it.clt_id)
             }
@@ -124,7 +124,7 @@ class GuarantorCreditInfoFragment : DoubleCheckFragment() {
         step3.typeface = Typeface.createFromAsset(mContext.assets, "yj.ttf")
 
         guarantor_credit_info_rel_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.guarantor_relationship_list_key, _GUARANTOR_REL_INDEX, guarantor_credit_info_rel_lin, guarantor_credit_info_rel_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.guarantor_relationship_list_key, _GUARANTOR_REL_INDEX, guarantor_credit_info_rel_lin, guarantor_credit_info_rel_tv, "请选择", { _, index ->
                 _GUARANTOR_REL_INDEX = index
             })
         }

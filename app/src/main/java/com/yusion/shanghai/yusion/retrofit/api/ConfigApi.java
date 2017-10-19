@@ -51,7 +51,7 @@ public class ConfigApi {
         });
     }
 
-    private static ConfigResp parseJsonObject2ConfigResp(JSONObject jsonObject) throws JSONException {
+    public static ConfigResp parseJsonObject2ConfigResp(JSONObject jsonObject) throws JSONException {
         ConfigResp configResp = new ConfigResp();
 
         configResp.confident_policy_url = jsonObject.optString("confident_policy_url");

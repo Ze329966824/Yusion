@@ -7,7 +7,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -305,7 +304,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
 
         (personal_info_mobile_edt as EditText).setText(YusionApp.MOBILE)
         personal_info_gender_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.gender_list_key, _GENDER_INDEX, personal_info_gender_lin, personal_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
         }
@@ -335,7 +334,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_reg_lin, personal_info_reg_tv, "请选择所在地区") { _, _ -> }
         }
         personal_info_education_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.education_list_key, _EDUCATION_INDEX, personal_info_education_lin, personal_info_education_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.education_list_key, _EDUCATION_INDEX, personal_info_education_lin, personal_info_education_tv, "请选择", { _, index ->
                 _EDUCATION_INDEX = index
             })
         }
@@ -360,7 +359,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             }
         }
         personal_info_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, personal_info_from_income_work_position_lin, personal_info_from_income_work_position_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, personal_info_from_income_work_position_lin, personal_info_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_INCOME_WORK_POSITION_INDEX = index
             })
         }
@@ -370,9 +369,9 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, personal_info_from_self_company_address_lin, personal_info_from_self_company_address_tv, "请选择所在地区") { _, _ -> (personal_info_from_self_company_address1_tv as TextView).text = "" }
         }
         personal_info_from_self_type_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.busi_type_list_key, _FROM_SELF_TYPE_INDEX, personal_info_from_self_type_lin, personal_info_from_self_type_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.busi_type_list_key, _FROM_SELF_TYPE_INDEX, personal_info_from_self_type_lin, personal_info_from_self_type_tv, "请选择", { _, index ->
                 _FROM_SELF_TYPE_INDEX = index
-                if (YusionApp.CONFIG_RESP.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
+                if ((activity.application as YusionApp).configResp.busi_type_list_value[_FROM_SELF_TYPE_INDEX] == "其他") {
                     val editText = EditText(mContext)
                     AlertDialog.Builder(mContext)
                             .setTitle("请输入业务类型")
@@ -411,29 +410,29 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             }
         }
         personal_info_extra_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, personal_info_extra_from_income_work_position_lin, personal_info_extra_from_income_work_position_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.work_position_key, _FROM_EXTRA_WORK_POSITION_INDEX, personal_info_extra_from_income_work_position_lin, personal_info_extra_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_EXTRA_WORK_POSITION_INDEX = index
             })
         }
 
 
         personal_info_house_type_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_type_list_key, _HOUSE_TYPE_INDEX, personal_info_house_type_lin, personal_info_house_type_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.house_type_list_key, _HOUSE_TYPE_INDEX, personal_info_house_type_lin, personal_info_house_type_tv, "请选择", { _, index ->
                 _HOUSE_TYPE_INDEX = index
             })
         }
         personal_info_house_owner_relation_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.house_relationship_list_key, _HOUSE_OWNER_RELATION_INDEX, personal_info_house_owner_relation_lin, personal_info_house_owner_relation_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.house_relationship_list_key, _HOUSE_OWNER_RELATION_INDEX, personal_info_house_owner_relation_lin, personal_info_house_owner_relation_tv, "请选择", { _, index ->
                 _HOUSE_OWNER_RELATION_INDEX = index
             })
         }
         personal_info_urg_relation1_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.urg_rela_relationship_list_key, _URG_RELATION_INDEX1, personal_info_urg_relation1_lin, personal_info_urg_relation1_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.urg_rela_relationship_list_key, _URG_RELATION_INDEX1, personal_info_urg_relation1_lin, personal_info_urg_relation1_tv, "请选择", { _, index ->
                 _URG_RELATION_INDEX1 = index
             })
         }
         personal_info_urg_relation2_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.urg_other_relationship_list_key, _URG_RELATION_INDEX2, personal_info_urg_relation2_lin, personal_info_urg_relation2_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.urg_other_relationship_list_key, _URG_RELATION_INDEX2, personal_info_urg_relation2_lin, personal_info_urg_relation2_tv, "请选择", { _, index ->
                 _URG_RELATION_INDEX2 = index
             })
         }

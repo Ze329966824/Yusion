@@ -62,27 +62,16 @@
             android:layout_margin="10dp"
             android:background="#B1B1B1" />
 
-        <!--<TextView-->
-        <!--android:id="@+id/poi_cancel"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:clickable="true"-->
-        <!--android:color="#FF06B7A3"-->
-        <!--android:textSize="15sp"-->
-        <!--tools:text="取消" />-->
         <TextView
-            android:onClick="onClick"
-            android:clickable="true"
-            android:id="@+id/poi_cancel"
-            android:layout_marginRight="10dp"
+            android:id="@+id/poi_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消"
-            android:textSize="15dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="确定"
             android:textColor="#FF06B7A3"
-
-            />
+            android:textSize="15dp" />
 
     </LinearLayout>
 

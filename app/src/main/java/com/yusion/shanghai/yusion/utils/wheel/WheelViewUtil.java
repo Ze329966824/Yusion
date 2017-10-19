@@ -2,7 +2,6 @@ package com.yusion.shanghai.yusion.utils.wheel;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -65,7 +64,6 @@ public class WheelViewUtil {
         }
 
         View wheelViewLayout = LayoutInflater.from(context).inflate(R.layout.wheel_view_layout, null);
-
         TextView textTitle = (TextView) wheelViewLayout.findViewById(R.id.select_title);
         textTitle.setText(title);
 
@@ -84,8 +82,10 @@ public class WheelViewUtil {
                     onSubmitCallBack.onSubmitCallBack(clickedView, wv.getSelectedIndex());
                 }
                 showView.setText(wv.getSelectedItem().toString());
-                mWheelViewDialog.dismiss();
-                mWheelViewDialog = null;
+                if (mWheelViewDialog != null && mWheelViewDialog.isShowing()) {
+                    mWheelViewDialog.dismiss();
+                    mWheelViewDialog = null;
+                }
                 clickedView.setEnabled(true);
             }
         });
@@ -93,8 +93,10 @@ public class WheelViewUtil {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWheelViewDialog.dismiss();
-                mWheelViewDialog = null;
+                if (mWheelViewDialog != null && mWheelViewDialog.isShowing()) {
+                    mWheelViewDialog.dismiss();
+                    mWheelViewDialog = null;
+                }
                 clickedView.setEnabled(true);
             }
         });
@@ -102,6 +104,7 @@ public class WheelViewUtil {
         mWheelViewDialog = new Dialog(context, R.style.MyDialogStyle);
         mWheelViewDialog.setContentView(wheelViewLayout);
         mWheelViewDialog.setCanceledOnTouchOutside(false);
+        mWheelViewDialog.setOnCancelListener(dialog -> clickedView.setEnabled(true));
 //        mWheelViewDialog.setCanceledOnTouchOutside(true);
 //        mWheelViewDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 //            @Override
@@ -195,8 +198,10 @@ public class WheelViewUtil {
                 if (onCitySubmitCallBack != null) {
                     onCitySubmitCallBack.onCitySubmitCallBack(clickedView, result);
                 }
-                mWheelViewDialog.dismiss();
-                mWheelViewDialog = null;
+                if (mWheelViewDialog != null && mWheelViewDialog.isShowing()) {
+                    mWheelViewDialog.dismiss();
+                    mWheelViewDialog = null;
+                }
                 clickedView.setEnabled(true);
             }
         });
@@ -204,8 +209,10 @@ public class WheelViewUtil {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWheelViewDialog.dismiss();
-                mWheelViewDialog = null;
+                if (mWheelViewDialog != null && mWheelViewDialog.isShowing()) {
+                    mWheelViewDialog.dismiss();
+                    mWheelViewDialog = null;
+                }
                 clickedView.setEnabled(true);
             }
         });
@@ -216,13 +223,8 @@ public class WheelViewUtil {
         mWheelViewDialog.getWindow().setWindowAnimations(R.style.dialogAnimationStyle);
         mWheelViewDialog.getWindow().setGravity(Gravity.BOTTOM);
         mWheelViewDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mWheelViewDialog.setOnCancelListener(dialog -> clickedView.setEnabled(true));
         mWheelViewDialog.show();
-        mWheelViewDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                dialog.dismiss();
-            }
-        });
     }
 
 

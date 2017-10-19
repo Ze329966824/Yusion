@@ -267,16 +267,16 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
         //选择个人婚姻状态
         update_guarantor_spouse_info_marriage_lin = (LinearLayout) findViewById(R.id.update_guarantor_spouse_info_marriage_lin);
         update_guarantor_spouse_info_marriage_tv = (TextView) findViewById(R.id.update_guarantor_spouse_info_marriage_tv);
-        update_guarantor_spouse_info_marriage_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.marriage_key,
+        update_guarantor_spouse_info_marriage_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().marriage_key,
                 UPDATE_MARRIAGE_INDEX,
                 update_guarantor_spouse_info_marriage_lin,
                 update_guarantor_spouse_info_marriage_tv,
                 "请选择",
                 (clickedView, selectedIndex) -> {
                     UPDATE_MARRIAGE_INDEX = selectedIndex;
-                    guarantorInfo.marriage = YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX);
+                    guarantorInfo.marriage = ((YusionApp) getApplication()).getConfigResp().marriage_key.get(UPDATE_MARRIAGE_INDEX);
 
-                    if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
+                    if (((YusionApp) getApplication()).getConfigResp().marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("已婚")) {
                         update_guarantor_spouse_info_marriage_group_lin.setVisibility(VISIBLE);
                         findViewById(R.id.fab).setVisibility(View.VISIBLE);
                     } else {
@@ -290,7 +290,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                         update_guarantor_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     }
 
-                    if (YusionApp.CONFIG_RESP.marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("丧偶")) {
+                    if (((YusionApp) getApplication()).getConfigResp().marriage_key.get(UPDATE_MARRIAGE_INDEX).equals("丧偶")) {
                         findViewById(R.id.fab).setVisibility(View.GONE);
                         update_guarantor_spouse_info_die_group_lin.setVisibility(View.GONE);
                     } else {
@@ -330,7 +330,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
         //选择性别
         update_guarantor_spouse_info_gender_lin = (LinearLayout) findViewById(R.id.update_guarantor_spouse_info_gender_lin);
         update_guarantor_spouse_info_gender_tv = (TextView) findViewById(R.id.update_guarantor_spouse_info_gender_tv);
-        update_guarantor_spouse_info_gender_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.gender_list_key,
+        update_guarantor_spouse_info_gender_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().gender_list_key,
                 UPDATE_SEX_INDEX,
                 update_guarantor_spouse_info_gender_lin,
                 update_guarantor_spouse_info_gender_tv,
@@ -369,7 +369,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
         // 工资 选择职务
         update_guarantor_spouse_info_from_income_work_position_lin = (LinearLayout) findViewById(R.id.update_guarantor_spouse_info_from_income_work_position_lin);
         update_guarantor_spouse_info_work_position_tv = (TextView) findViewById(R.id.update_guarantor_spouse_info_work_position_tv);
-        update_guarantor_spouse_info_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(YusionApp.CONFIG_RESP.work_position_key,
+        update_guarantor_spouse_info_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().work_position_key,
                 UPDATE_FROM_INCOME_WORK_POSITION_INDEX,
                 update_guarantor_spouse_info_from_income_work_position_lin,
                 update_guarantor_spouse_info_work_position_tv,

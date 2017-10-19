@@ -280,7 +280,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             }
         }
         guarantor_info_gender_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.gender_list_key, _GENDER_INDEX, guarantor_info_gender_lin, guarantor_info_gender_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.gender_list_key, _GENDER_INDEX, guarantor_info_gender_lin, guarantor_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index
             })
         }
@@ -302,7 +302,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             WheelViewUtil.showCityWheelView(javaClass.simpleName, guarantor_info_reg_lin, guarantor_info_reg_tv, "请选择所在地区") { _, _ -> }
         }
         guarantor_info_education_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.education_list_key, _EDUCATION_INDEX, guarantor_info_education_lin, guarantor_info_education_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.education_list_key, _EDUCATION_INDEX, guarantor_info_education_lin, guarantor_info_education_tv, "请选择", { _, index ->
                 _EDUCATION_INDEX = index
             })
         }
@@ -327,7 +327,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             }
         }
         guarantor_info_from_income_work_position_lin.setOnClickListener {
-            WheelViewUtil.showWheelView<String>(YusionApp.CONFIG_RESP.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, guarantor_info_from_income_work_position_lin, guarantor_info_from_income_work_position_tv, "请选择", { _, index ->
+            WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.work_position_key, _FROM_INCOME_WORK_POSITION_INDEX, guarantor_info_from_income_work_position_lin, guarantor_info_from_income_work_position_tv, "请选择", { _, index ->
                 _FROM_INCOME_WORK_POSITION_INDEX = index
             })
         }
