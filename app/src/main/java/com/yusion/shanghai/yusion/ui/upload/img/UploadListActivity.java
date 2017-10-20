@@ -303,7 +303,6 @@ public class UploadListActivity extends BaseActivity {
                         uploadImgItemBean.objectKey = objectKey;
                     }, data1 -> {
                         hasUploadOssLists.add(uploadImgItemBean);
-                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
                     });
                     onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
                 }
@@ -327,7 +326,7 @@ public class UploadListActivity extends BaseActivity {
         }
     }
 
-    private synchronized void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
+    private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
         Log.e("TAG", "finalAccount: " + finalAccount);
         Log.e("TAG", "files.size(): " + files.size());
         if (finalAccount == files.size()) {

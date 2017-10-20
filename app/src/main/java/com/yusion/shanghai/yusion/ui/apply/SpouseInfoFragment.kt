@@ -33,6 +33,7 @@ import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText
+import io.sentry.Sentry
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -169,10 +170,20 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     var spouse_info_submit_btn: Button? = null
 
     fun submitSpouseInfo(view: View?) {
-        spouse_info_submit_btn?.setFocusable(true)
-        spouse_info_submit_btn?.setFocusableInTouchMode(true)
-        spouse_info_submit_btn?.requestFocus()
-       spouse_info_submit_btn?.requestFocusFromTouch()
+        if (checkCanNextStep())
+            if ((spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
+                clearDoubleCheckItems()
+                addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
+                addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
+                addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
+                mDoubleCheckDialog.show()
+            } else {
+                submit()
+            }
+//        spouse_info_submit_btn?.setFocusable(true)
+//        spouse_info_submit_btn?.setFocusableInTouchMode(true)
+//        spouse_info_submit_btn?.requestFocus()
+//       spouse_info_submit_btn?.requestFocusFromTouch()
     }
 
     var ocrResp = OcrResp.ShowapiResBodyBean()
@@ -186,23 +197,23 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
         spouse_info_mobile_img.setOnClickListener { selectContact() }
 
-        (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                (spouse_info_submit_btn as Button).clearFocus();
-                Log.e("testttttt","aaa")
-                if (checkCanNextStep())
-                    if ((spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
-                            clearDoubleCheckItems()
-                            addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
-                            addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
-                            addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
-                            mDoubleCheckDialog.show()
-                    } else {
-                        submit()
-                    }
-//                nextStep()
-            }
-        }
+//        (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                (spouse_info_submit_btn as Button).clearFocus();
+//                Log.e("testttttt","aaa")
+//                if (checkCanNextStep())
+//                    if ((spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
+//                            clearDoubleCheckItems()
+//                            addDoubleCheckItem("姓名", (spouse_info_clt_nm_edt as EditText).text.toString())
+//                            addDoubleCheckItem("身份证号", (spouse_info_id_no_edt as EditText).text.toString())
+//                            addDoubleCheckItem("手机号", (spouse_info_mobile_edt as EditText).text.toString())
+//                            mDoubleCheckDialog.show()
+//                    } else {
+//                        submit()
+//                    }
+////                nextStep()
+//            }
+//        }
         mDoubleCheckChangeBtn.setOnClickListener {
             mDoubleCheckDialog.dismiss()
         }
@@ -430,7 +441,13 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         } else if (applyActivity.mClientInfo.marriage == "丧偶") {
             applyActivity.mClientInfo.child_num = (spouse_info_die_child_count_edt as EditText).text.toString()
         }
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.province)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.city)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.district)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.address1)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.address2)
 
+        FileUtil.saveLog(applyActivity.mClientInfo.toString())
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
                 applyActivity.mClientInfo = it
@@ -587,9 +604,9 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+                nextStep()
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
-                    nextStep()
-//                    Toast.makeText(mContext,"ubt数据发送成功.",Toast.LENGTH_SHORT).show()
+
                 })
 //                nextStep()
             }

@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -165,10 +166,22 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     var guarantor_spouse_info_submit_btn: Button? = null
 
     fun submitGuarantorSpouseInfo(view: View?) {
-        (guarantor_spouse_info_submit_btn as Button).setFocusable(true)
-        (guarantor_spouse_info_submit_btn as Button).setFocusableInTouchMode(true)
-        (guarantor_spouse_info_submit_btn as Button).requestFocus()
-        (guarantor_spouse_info_submit_btn as Button).requestFocusFromTouch()
+        if (checkCanNextStep()) {
+            if ((guarantor_spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
+                clearDoubleCheckItems()
+                addDoubleCheckItem("姓名", (guarantor_spouse_info_clt_nm_edt as EditText).text.toString())
+                addDoubleCheckItem("身份证号", (guarantor_spouse_info_id_no_edt as EditText).text.toString())
+                addDoubleCheckItem("手机号", (guarantor_spouse_info_mobile_edt as EditText).text.toString())
+                mDoubleCheckDialog.show()
+            } else {
+                submit()
+            }
+
+        }
+//        (guarantor_spouse_info_submit_btn as Button).setFocusable(true)
+//        (guarantor_spouse_info_submit_btn as Button).setFocusableInTouchMode(true)
+//        (guarantor_spouse_info_submit_btn as Button).requestFocus()
+//        (guarantor_spouse_info_submit_btn as Button).requestFocusFromTouch()
     }
 
 
@@ -270,23 +283,23 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         }
 
         guarantor_spouse_info_mobile_img.setOnClickListener { selectContact() }
-        (guarantor_spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                (guarantor_spouse_info_submit_btn as Button).clearFocus()
-                if (checkCanNextStep()) {
-                    if ((guarantor_spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
-                        clearDoubleCheckItems()
-                        addDoubleCheckItem("姓名", (guarantor_spouse_info_clt_nm_edt as EditText).text.toString())
-                        addDoubleCheckItem("身份证号", (guarantor_spouse_info_id_no_edt as EditText).text.toString())
-                        addDoubleCheckItem("手机号", (guarantor_spouse_info_mobile_edt as EditText).text.toString())
-                        mDoubleCheckDialog.show()
-                    } else {
-                        submit()
-                    }
-
-                }
-            }
-        }
+//        (guarantor_spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                (guarantor_spouse_info_submit_btn as Button).clearFocus()
+//                if (checkCanNextStep()) {
+//                    if ((guarantor_spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
+//                        clearDoubleCheckItems()
+//                        addDoubleCheckItem("姓名", (guarantor_spouse_info_clt_nm_edt as EditText).text.toString())
+//                        addDoubleCheckItem("身份证号", (guarantor_spouse_info_id_no_edt as EditText).text.toString())
+//                        addDoubleCheckItem("手机号", (guarantor_spouse_info_mobile_edt as EditText).text.toString())
+//                        mDoubleCheckDialog.show()
+//                    } else {
+//                        submit()
+//                    }
+//
+//                }
+//            }
+//        }
 
 
 
@@ -361,6 +374,8 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     }
 
     private fun submit() {
+        (guarantor_spouse_info_submit_btn as Button) . setFocusable(false)
+
         var addGuarantorActivity = activity as AddGuarantorActivity
         addGuarantorActivity.mGuarantorInfo.marriage = (guarantor_spouse_info_marriage_tv as TextView).text.toString()
         if (addGuarantorActivity.mGuarantorInfo.marriage == "已婚") {
@@ -432,7 +447,13 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                 }
             }
         }
+        Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.province)
+        Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.city)
+        Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.district)
+        Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.address1)
+        Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.address2)
         //nextStep()
+        FileUtil.saveLog(applyActivity.mGuarantorInfo.toString())
         ProductApi.updateGuarantorInfo(mContext, addGuarantorActivity.mGuarantorInfo) {
             if (it != null) {
                 addGuarantorActivity.mGuarantorInfo = it
@@ -560,8 +581,8 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+                nextStep()
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
-                    nextStep()
                 })
 //                nextStep()
             }

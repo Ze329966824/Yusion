@@ -266,28 +266,26 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 //        findViewById(R.id.submit_img).setOnClickListener(v -> {
 //            submit();   //更新信息
 //        });
-        /*
-        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                Log.e("TAG2222", "onFocusChange() called with: v = [" + v + "], hasFocus = [" + hasFocus + "]");
-                if (hasFocus) {
-                    v.clearFocus();
-//                    Log.e("testttttt","bbb")
-                    submit();
-                }
-            }
-        });
-        */
-
+//        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                Log.e("TAG2222", "onFocusChange() called with: v = [" + v + "], hasFocus = [" + hasFocus + "]");
+//                if (hasFocus) {
+////                    Log.e("testttttt","bbb")
+//                    submit();
+//                    v.clearFocus();
+//                }
+//            }
+//        });
     }
 
     private void submitMaterial(View view) {
+        submit();
 //        submitBtn.setFocusable(true);
 //        submitBtn.setFocusableInTouchMode(true);
 //        submitBtn.requestFocus();
 //        submitBtn.requestFocusFromTouch();
-        submit();
+//        submitBtn.setEnabled(false);
     }
 
     private void initView() {
@@ -1024,33 +1022,37 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     }
 
     public void submit() {
-        new AlertDialog.Builder(this)
-                .setMessage("确认要更改个人资料信息？")
-                .setCancelable(false)
-                .setPositiveButton("确认更改", (dialog, which) -> {
-                    //              UBT.addEvent(this, "onclick",new Button(this), getClass().getSimpleName());
-//                    UBT.sendAllUBTEvents(this);
+//        submitBtn.setEnabled(false);
+//        submitBtn.setFocusable(false);
+//提交用户资料
+        updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+            if (data == null) {
+                {
+                    return;
+                }
+            }
+            clientInfo = data;
+            UBT.sendAllUBTEvents(this);
+            Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+            intent.putExtra("clt_id", clientInfo.clt_id);
+            intent.putExtra("role", "lender");
+            intent.putExtra("title", "个人影像件资料");
+            intent.putExtra("commit_state", "continue");
+            startActivity(intent);
+            finish();
+        }));
 
-                    //提交用户资料
-                    updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
-                        if (data == null) {
-                            {
-                                return;
-                            }
-                        }
-                        clientInfo = data;
-                        UBT.sendAllUBTEvents(this);
-                    }));
-                    Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-                    intent.putExtra("clt_id", clientInfo.clt_id);
-                    intent.putExtra("role", "lender");
-                    intent.putExtra("title", "个人影像件资料");
-                    intent.putExtra("commit_state", "continue");
-                    startActivity(intent);
-                    finish();
-                })
-                .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
-                .show();
+//        new AlertDialog.Builder(this)
+//                .setMessage("确认要更改个人资料信息？")
+//                .setCancelable(false)
+//                .setPositiveButton("确认更改", (dialog, which) -> {
+//                    //              UBT.addEvent(this, "onclick",new Button(this), getClass().getSimpleName());
+////                    UBT.sendAllUBTEvents(this);
+//
+//
+//                })
+//                .setNegativeButton("放弃更改", (dialog, which) -> dialog.dismiss())
+//                .show();
 
 //        //提交用户资料
 //        updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {

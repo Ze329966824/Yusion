@@ -26,6 +26,7 @@ import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
+import com.yusion.shanghai.yusion.utils.FileUtil;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
@@ -57,6 +58,8 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
 
+        FileUtil.saveLog("xxxxxxxxx");
+        FileUtil.saveLog("xxxxxxxx22222x");
         YusionApp yusionApp = (YusionApp) getApplication();
         yusionApp.requestLocation(null);
 

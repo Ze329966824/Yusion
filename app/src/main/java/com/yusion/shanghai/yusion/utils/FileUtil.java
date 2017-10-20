@@ -1,14 +1,63 @@
 package com.yusion.shanghai.yusion.utils;
 
+import android.os.Environment;
+
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by ice on 2017/9/29.
  */
 
 public class FileUtil {
+
+    public static void saveImg(InputStream inputStream, String desPath) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    File file = new File(desPath);
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, length);
+                    }
+                    inputStream.close();
+                    outputStream.close();
+                } catch (IOException e) {
+
+                }
+            }
+        }).start();
+    }
+
+    public static void saveLog(String log) {
+        new Thread(() -> {
+            String fileName = new SimpleDateFormat("MM-dd").format(new Date()) + ".txt";
+            File dir = new File(Environment.getExternalStorageDirectory(), "yusion");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File desFile = new File(dir, fileName);
+//                Log.e("path", ""+Environment.getExternalStorageDirectory());
+            try {
+                FileOutputStream fos = new FileOutputStream(desFile, true);
+                fos.write("\r\n".getBytes());
+                fos.write(log.getBytes());
+                fos.write("\r\n".getBytes());
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+            }
+        }).start();
+    }
+
     /**
      * 判断文件类型 只支持本地图片
      */

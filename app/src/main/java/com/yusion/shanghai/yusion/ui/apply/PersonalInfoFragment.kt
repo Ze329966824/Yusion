@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -230,6 +231,11 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.current_addr.address1 = (personal_info_current_address1_tv as TextView).text.toString()
             applyActivity.mClientInfo.current_addr.address2 = (personal_info_current_address2_tv as NoEmptyEditText).text.toString()
             applyActivity.mClientInfo.is_live_with_parent = (personal_info_live_with_parent_tv as TextView).text.toString()
+            Log.e("current_addr1--------",applyActivity.mClientInfo.current_addr.province)
+            Log.e("current_addr1--------",applyActivity.mClientInfo.current_addr.city)
+            Log.e("current_addr1--------",applyActivity.mClientInfo.current_addr.district)
+            Log.e("current_addr1--------",applyActivity.mClientInfo.current_addr.address1)
+            Log.e("current_addr1--------",applyActivity.mClientInfo.current_addr.address2)
 
 
             //主要收入来源
