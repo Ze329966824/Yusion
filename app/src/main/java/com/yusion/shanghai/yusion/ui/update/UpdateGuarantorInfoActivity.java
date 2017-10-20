@@ -279,15 +279,15 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
         initView();
 
         getInfo();  //获取担保人信息
-        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    v.clearFocus();
-                    submit();
-                }
-            }
-        });
+//        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    v.clearFocus();
+//                    submit();
+//                }
+//            }
+//        });
 //        findViewById(R.id.submit_img).setOnClickListener(v -> {
 //            submit();   //更新用户信息
 //        });
@@ -296,10 +296,11 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
     }
 
     private void submitMaterial(View view) {
-        submitBtn.setFocusable(true);
-        submitBtn.setFocusableInTouchMode(true);
-        submitBtn.requestFocus();
-        submitBtn.requestFocusFromTouch();
+        submit();
+//        submitBtn.setFocusable(true);
+//        submitBtn.setFocusableInTouchMode(true);
+//        submitBtn.requestFocus();
+//        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -677,16 +678,27 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
 
 
     private void submit() {
+        submitBtn.setFocusable(false);
         //提交用户资料
         updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorInfoActivity.this, guarantorInfo, data -> {
-            if (data == null) return;
+            if (data == null) {
+                {
+                    return;
+                }
+            }
             guarantorInfo = data;
             UBT.sendAllUBTEvents(this);
             //上传影像件
 //            mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
 
-            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料", "continue");
-
+//            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料", "continue");
+            Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
+            intent.putExtra("clt_id", guarantorInfo.clt_id);
+            intent.putExtra("role", "guarantor");
+            intent.putExtra("title", "担保人影像件资料");
+            intent.putExtra("commit_state", "continue");
+            startActivity(intent);
+            finish();
 //            });
         }));
     }

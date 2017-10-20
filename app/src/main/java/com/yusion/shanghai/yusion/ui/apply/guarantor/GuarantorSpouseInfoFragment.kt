@@ -361,6 +361,8 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     }
 
     private fun submit() {
+        (guarantor_spouse_info_submit_btn as Button) . setFocusable(false)
+
         var addGuarantorActivity = activity as AddGuarantorActivity
         addGuarantorActivity.mGuarantorInfo.marriage = (guarantor_spouse_info_marriage_tv as TextView).text.toString()
         if (addGuarantorActivity.mGuarantorInfo.marriage == "已婚") {

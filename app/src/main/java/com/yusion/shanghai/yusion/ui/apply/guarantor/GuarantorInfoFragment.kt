@@ -154,10 +154,16 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
     var guarantor_info_next_btn: Button? = null
 
     fun submitGuarantorInfo(view: View?) {
-        (guarantor_info_next_btn as Button).setFocusable(true)
-        (guarantor_info_next_btn as Button).setFocusableInTouchMode(true)
-        (guarantor_info_next_btn as Button).requestFocus()
-       (guarantor_info_next_btn as Button).requestFocusFromTouch()
+        if (checkCanNextStep()) {
+            clearDoubleCheckItems()
+            addDoubleCheckItem("姓名", guarantor_info_clt_nm_edt.text.toString())
+            addDoubleCheckItem("身份证号", guarantor_info_id_no_edt.text.toString())
+            mDoubleCheckDialog.show()
+        }
+//        (guarantor_info_next_btn as Button).setFocusable(true)
+//        (guarantor_info_next_btn as Button).setFocusableInTouchMode(true)
+//        (guarantor_info_next_btn as Button).requestFocus()
+//       (guarantor_info_next_btn as Button).requestFocusFromTouch()
     }
 
 
@@ -267,18 +273,18 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.house_type = (guarantor_info_house_type_tv as TextView).text.toString()
             nextStep()
         }
-
-        (guarantor_info_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                (guarantor_info_next_btn as Button).clearFocus();
-                if (checkCanNextStep()) {
-                    clearDoubleCheckItems()
-                    addDoubleCheckItem("姓名", guarantor_info_clt_nm_edt.text.toString())
-                    addDoubleCheckItem("身份证号", guarantor_info_id_no_edt.text.toString())
-                    mDoubleCheckDialog.show()
-                }
-            }
-        }
+//
+//        (guarantor_info_next_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                (guarantor_info_next_btn as Button).clearFocus();
+//                if (checkCanNextStep()) {
+//                    clearDoubleCheckItems()
+//                    addDoubleCheckItem("姓名", guarantor_info_clt_nm_edt.text.toString())
+//                    addDoubleCheckItem("身份证号", guarantor_info_id_no_edt.text.toString())
+//                    mDoubleCheckDialog.show()
+//                }
+//            }
+//        }
         guarantor_info_gender_lin.setOnClickListener {
             WheelViewUtil.showWheelView<String>((activity.application as YusionApp).configResp.gender_list_key, _GENDER_INDEX, guarantor_info_gender_lin, guarantor_info_gender_tv, "请选择", { _, index ->
                 _GENDER_INDEX = index

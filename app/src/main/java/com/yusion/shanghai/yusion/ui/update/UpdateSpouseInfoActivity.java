@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -275,27 +274,28 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 
         getInfo();  //获取配偶信息
 
-        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    Log.e("testtttttttt","aaaa");
-                    v.clearFocus();
-                    Log.e("testtttttttt","bbbbbbbb");
-                    submit();
-                }
-            }
-        });
+//        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//
+//                    Log.e("testtttttttt","aaaa");
+//                    v.clearFocus();
+//
+//                    submit();
+//
+//            }
+//        });
 //        findViewById(R.id.submit_img).setOnClickListener(v -> {
 //            submit();   //更新配偶信息
 //        });
     }
 
     private void submitMaterial(View view) {
-        submitBtn.setFocusable(true);
-        submitBtn.setFocusableInTouchMode(true);
-        submitBtn.requestFocus();
-        submitBtn.requestFocusFromTouch();
+        submit();
+//        submitBtn.setFocusable(true);
+//        submitBtn.setFocusableInTouchMode(true);
+//        submitBtn.requestFocus();
+//        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -861,8 +861,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 
 
     private void submit() {
-        Log.e("testtttttttt","cccccccccccccc");
-
+        submitBtn.setFocusable(false);
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
         updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
@@ -877,8 +876,14 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 //                requestUpload(clientInfo.spouse.clt_id, () -> {
                 //上传影像件
 //                    requestUpload(clientInfo.spouse.clt_id, () -> {
-                toCommitActivity(clientInfo.spouse.clt_id, "lender_sp", "个人配偶影像件资料", "continue");
-
+//                toCommitActivity(clientInfo.spouse.clt_id, "lender_sp", "个人配偶影像件资料", "continue");
+                Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                intent.putExtra("clt_id", clientInfo.spouse.clt_id);
+                intent.putExtra("role", "lender_sp");
+                intent.putExtra("title", "个人配偶影像件资料");
+                intent.putExtra("commit_state", "continue");
+                startActivity(intent);
+                finish();
 //                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
 //                        startActivity(intent);
 //                        finish();
@@ -891,18 +896,46 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                 if (!TextUtils.equals(now_marriage, "未婚")) {
                     //状态没变：一个按钮
                     if (TextUtils.equals(old_marriage, now_marriage)) {
-                        toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "return");
+//                        toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "return");
+                        Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                        intent.putExtra("clt_id", clientInfo.clt_id);
+                        intent.putExtra("role", "lender_sp");
+                        intent.putExtra("title", "个人影像件资料");
+                        intent.putExtra("commit_state", "return");
+                        startActivity(intent);
+                        finish();
                     }//状态改变：两个按钮
                     else {
                         if (TextUtils.equals(now_marriage, "丧偶")) {
-                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "continue");
+//                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "continue");
+                            Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                            intent.putExtra("clt_id", clientInfo.clt_id);
+                            intent.putExtra("role", "lender_sp");
+                            intent.putExtra("title", "个人影像件资料");
+                            intent.putExtra("commit_state", "continue");
+                            startActivity(intent);
+                            finish();
                         } else if (TextUtils.equals(now_marriage, "离异")) {
-                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "continue");
+//                            toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "continue");
+                            Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                            intent.putExtra("clt_id", clientInfo.clt_id);
+                            intent.putExtra("role", "lender_sp");
+                            intent.putExtra("title", "个人影像件资料");
+                            intent.putExtra("commit_state", "continue");
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 }//未婚：一个按钮
                 else {
-                    toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "return");
+//                    toCommitActivity(clientInfo.clt_id, "lender_sp", "个人影像件资料", "return");
+                    Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
+                    intent.putExtra("clt_id", clientInfo.clt_id);
+                    intent.putExtra("role", "lender_sp");
+                    intent.putExtra("title", "个人影像件资料");
+                    intent.putExtra("commit_state", "return");
+                    startActivity(intent);
+                    finish();
                 }
 //                    new AlertDialog.Builder(this)
 //                            .setMessage("资料上传成功，请前往影像件界面上传影像件")
