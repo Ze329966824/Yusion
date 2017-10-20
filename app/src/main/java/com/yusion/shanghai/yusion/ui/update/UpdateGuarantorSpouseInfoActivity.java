@@ -263,15 +263,15 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
         initTitleBar(this, "担保人配偶资料").setLeftClickListener(v -> showDoubleCheckForExit());
         initView();
         getInfo();  //获取配偶信息
-        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    v.clearFocus();
-                    submit();
-                }
-            }
-        });
+//        submitBtn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    v.clearFocus();
+//                    submit();
+//                }
+//            }
+//        });
 
 //        findViewById(R.id.submit_img).setOnClickListener(v -> {
 //            submit();   //更新配偶信息
@@ -279,10 +279,11 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
     }
 
     private void submitMaterial(View view) {
-        submitBtn.setFocusable(true);
-        submitBtn.setFocusableInTouchMode(true);
-        submitBtn.requestFocus();
-        submitBtn.requestFocusFromTouch();
+        submit();
+//        submitBtn.setFocusable(true);
+//        submitBtn.setFocusableInTouchMode(true);
+//        submitBtn.requestFocus();
+//        submitBtn.requestFocusFromTouch();
     }
 
     private void initView() {
@@ -669,9 +670,14 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
 
 
     private void submit() {
+        submitBtn.setFocusable(false);
         //上传用户资料
         updateGuarantorinfo(() -> ProductApi.updateGuarantorInfo(UpdateGuarantorSpouseInfoActivity.this, guarantorInfo, data -> {
-            if (data == null) return;
+            if (data == null) {
+                {
+                    return;
+                }
+            }
             guarantorInfo = data;
             UBT.sendAllUBTEvents(this);
             if (guarantorInfo.marriage.equals("已婚")) {
@@ -681,8 +687,14 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
 //                        Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                toCommitActivity(guarantorInfo.spouse.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
-
+//                toCommitActivity(guarantorInfo.spouse.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
+                Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                intent.putExtra("clt_id", guarantorInfo.spouse.clt_id);
+                intent.putExtra("role", "guarantor_sp");
+                intent.putExtra("title", "担保人配偶影像件资料");
+                intent.putExtra("commit_state", "continue");
+                startActivity(intent);
+                finish();
 //                    });
 //                });
             } else {
@@ -693,16 +705,44 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
 //                    finish();
                 if (!TextUtils.equals(now_marriage, "未婚")) {
                     if (TextUtils.equals(old_marriage, now_marriage)) {
-                        toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "return");
+//                        toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "return");
+                        Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                        intent.putExtra("clt_id", guarantorInfo.clt_id);
+                        intent.putExtra("role", "guarantor_sp");
+                        intent.putExtra("title", "担保人配偶影像件资料");
+                        intent.putExtra("commit_state", "return");
+                        startActivity(intent);
+                        finish();
                     } else {
                         if (TextUtils.equals(now_marriage, "丧偶")) {
-                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
+//                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
+                            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                            intent.putExtra("clt_id", guarantorInfo.clt_id);
+                            intent.putExtra("role", "guarantor_sp");
+                            intent.putExtra("title", "担保人配偶影像件资料");
+                            intent.putExtra("commit_state", "continue");
+                            startActivity(intent);
+                            finish();
                         } else if (TextUtils.equals(now_marriage, "离异")) {
-                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
+//                            toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "continue");
+                            Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                            intent.putExtra("clt_id", guarantorInfo.clt_id);
+                            intent.putExtra("role", "guarantor_sp");
+                            intent.putExtra("title", "担保人配偶影像件资料");
+                            intent.putExtra("commit_state", "continue");
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 } else {
-                    toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "return");
+//                    toCommitActivity(guarantorInfo.clt_id, "guarantor_sp", "担保人配偶影像件资料", "return");
+                    Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
+                    intent.putExtra("clt_id", guarantorInfo.clt_id);
+                    intent.putExtra("role", "guarantor_sp");
+                    intent.putExtra("title", "担保人配偶影像件资料");
+                    intent.putExtra("commit_state", "return");
+                    startActivity(intent);
+                    finish();
                 }
 
             }

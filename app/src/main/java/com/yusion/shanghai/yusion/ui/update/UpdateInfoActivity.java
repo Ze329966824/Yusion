@@ -38,6 +38,7 @@ public class UpdateInfoActivity extends BaseActivity {
                 .setPositiveButton("确认更改", (dialog, which) -> {
                     //              UBT.addEvent(this, "onclick",new Button(this), getClass().getSimpleName());
 //                    UBT.sendAllUBTEvents(this);
+                   // UBT.addEvent(this,"onclick",new Button(this),getClass().getSimpleName());
                     Intent intent = new Intent(UpdateInfoActivity.this, CommitActivity.class);
                     intent.putExtra("clt_id", clt_id);
                     intent.putExtra("role", role);
