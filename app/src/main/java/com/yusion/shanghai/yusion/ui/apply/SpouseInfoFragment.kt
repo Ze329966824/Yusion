@@ -604,8 +604,9 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+                nextStep()
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
-                    nextStep()
+
                 })
 //                nextStep()
             }
