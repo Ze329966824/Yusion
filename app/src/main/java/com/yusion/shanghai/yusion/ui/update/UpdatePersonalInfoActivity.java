@@ -1028,14 +1028,15 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
             }
             clientInfo = data;
             UBT.sendAllUBTEvents(this);
+            Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+            intent.putExtra("clt_id", clientInfo.clt_id);
+            intent.putExtra("role", "lender");
+            intent.putExtra("title", "个人影像件资料");
+            intent.putExtra("commit_state", "continue");
+            startActivity(intent);
+            finish();
         }));
-        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-        intent.putExtra("clt_id", clientInfo.clt_id);
-        intent.putExtra("role", "lender");
-        intent.putExtra("title", "个人影像件资料");
-        intent.putExtra("commit_state", "continue");
-        startActivity(intent);
-        finish();
+
 //        new AlertDialog.Builder(this)
 //                .setMessage("确认要更改个人资料信息？")
 //                .setCancelable(false)

@@ -165,10 +165,22 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
     var guarantor_spouse_info_submit_btn: Button? = null
 
     fun submitGuarantorSpouseInfo(view: View?) {
-        (guarantor_spouse_info_submit_btn as Button).setFocusable(true)
-        (guarantor_spouse_info_submit_btn as Button).setFocusableInTouchMode(true)
-        (guarantor_spouse_info_submit_btn as Button).requestFocus()
-        (guarantor_spouse_info_submit_btn as Button).requestFocusFromTouch()
+        if (checkCanNextStep()) {
+            if ((guarantor_spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
+                clearDoubleCheckItems()
+                addDoubleCheckItem("姓名", (guarantor_spouse_info_clt_nm_edt as EditText).text.toString())
+                addDoubleCheckItem("身份证号", (guarantor_spouse_info_id_no_edt as EditText).text.toString())
+                addDoubleCheckItem("手机号", (guarantor_spouse_info_mobile_edt as EditText).text.toString())
+                mDoubleCheckDialog.show()
+            } else {
+                submit()
+            }
+
+        }
+//        (guarantor_spouse_info_submit_btn as Button).setFocusable(true)
+//        (guarantor_spouse_info_submit_btn as Button).setFocusableInTouchMode(true)
+//        (guarantor_spouse_info_submit_btn as Button).requestFocus()
+//        (guarantor_spouse_info_submit_btn as Button).requestFocusFromTouch()
     }
 
 
@@ -270,23 +282,23 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         }
 
         guarantor_spouse_info_mobile_img.setOnClickListener { selectContact() }
-        (guarantor_spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                (guarantor_spouse_info_submit_btn as Button).clearFocus()
-                if (checkCanNextStep()) {
-                    if ((guarantor_spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
-                        clearDoubleCheckItems()
-                        addDoubleCheckItem("姓名", (guarantor_spouse_info_clt_nm_edt as EditText).text.toString())
-                        addDoubleCheckItem("身份证号", (guarantor_spouse_info_id_no_edt as EditText).text.toString())
-                        addDoubleCheckItem("手机号", (guarantor_spouse_info_mobile_edt as EditText).text.toString())
-                        mDoubleCheckDialog.show()
-                    } else {
-                        submit()
-                    }
-
-                }
-            }
-        }
+//        (guarantor_spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                (guarantor_spouse_info_submit_btn as Button).clearFocus()
+//                if (checkCanNextStep()) {
+//                    if ((guarantor_spouse_info_marriage_tv as TextView).text.toString() == "已婚") {
+//                        clearDoubleCheckItems()
+//                        addDoubleCheckItem("姓名", (guarantor_spouse_info_clt_nm_edt as EditText).text.toString())
+//                        addDoubleCheckItem("身份证号", (guarantor_spouse_info_id_no_edt as EditText).text.toString())
+//                        addDoubleCheckItem("手机号", (guarantor_spouse_info_mobile_edt as EditText).text.toString())
+//                        mDoubleCheckDialog.show()
+//                    } else {
+//                        submit()
+//                    }
+//
+//                }
+//            }
+//        }
 
 
 

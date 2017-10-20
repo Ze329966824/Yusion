@@ -688,10 +688,6 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
             }
             guarantorInfo = data;
             UBT.sendAllUBTEvents(this);
-            //上传影像件
-//            mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
-
-//            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料", "continue");
             Intent intent = new Intent(UpdateGuarantorInfoActivity.this, CommitActivity.class);
             intent.putExtra("clt_id", guarantorInfo.clt_id);
             intent.putExtra("role", "guarantor");
@@ -699,6 +695,11 @@ public class UpdateGuarantorInfoActivity extends UpdateInfoActivity {
             intent.putExtra("commit_state", "continue");
             startActivity(intent);
             finish();
+            //上传影像件
+//            mUpdateImgsLabelFragment.requestUpload(guarantorInfo.clt_id, () -> {
+
+//            toCommitActivity(guarantorInfo.clt_id, "guarantor", "担保人影像件资料", "continue");
+
 //            });
         }));
     }
