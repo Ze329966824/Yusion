@@ -447,7 +447,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.address1)
         Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.address2)
 
-        Sentry.capture(applyActivity.mClientInfo.toString())
+        FileUtil.saveLog(applyActivity.mClientInfo.toString())
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
                 applyActivity.mClientInfo = it
