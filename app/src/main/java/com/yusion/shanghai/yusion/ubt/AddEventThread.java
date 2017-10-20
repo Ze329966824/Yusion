@@ -16,7 +16,7 @@ import java.util.Date;
 public class AddEventThread implements Runnable {
     private String action;
     private View view;
-    private String widget;
+    private String widget;//update_personal_info_urg_contact2_edt
     private String pageName;
     private String action_value;
 
@@ -25,6 +25,7 @@ public class AddEventThread implements Runnable {
     private String object;
     private Context context;
     private String TAG = "UBT";
+    private String viewName;
 
     public AddEventThread(Context context, String action, View view, String pageName, String action_value, String widget) {
         this.context = context;
@@ -32,6 +33,15 @@ public class AddEventThread implements Runnable {
         this.pageName = pageName;
         this.action_value = action_value;
         this.view = view;
+        this.widget = widget;
+    }
+
+    public AddEventThread(Context context, String action, String viewName, String pageName, String action_value, String widget) {
+        this.context = context;
+        this.action = action;
+        this.pageName = pageName;
+        this.action_value = action_value;
+        this.viewName = viewName;
         this.widget = widget;
     }
 
@@ -58,13 +68,15 @@ public class AddEventThread implements Runnable {
             values.put("object", "");
         } else {
             String object = "";
-            if (view instanceof EditText) {
+            if (!TextUtils.isEmpty(viewName)) {
+                object = viewName;
+            } else if (view instanceof EditText) {
                 object = "edit_text";
             } else if (view instanceof Button) {
                 object = "button";
-            }else if (view instanceof TextView) {
+            } else if (view instanceof TextView) {
                 object = "text_view";
-            }else {
+            } else {
                 object = view.getClass().getSimpleName();
             }
             values.put("object", object);
