@@ -101,6 +101,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_personal_info_extra_from_income_company_address_lin;
     private LinearLayout update_personal_info_from_self_company_address_lin;
     private LinearLayout update_personal_info_from_self_company_address1_lin;
+
     private ImageView update_personal_info_urg_mobile1_img;
     private ImageView update_personal_info_urg_mobile2_img;
     private LinearLayout update_personal_info_from_self_type_lin;
@@ -996,10 +997,14 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile1_img.getId()) {
                     update_personal_info_urg_contact1_edt.setText(result[0]);
                     update_personal_info_urg_mobile1_edt.setText(result[1].replaceAll(" ", ""));
+                    UBT.addEvent(this, "text_change", "edit_text", "update_personal_info_urg_mobile1_edt", UpdatePersonalInfoActivity.class.getSimpleName(), "手机号");
+                    UBT.addEvent(this, "text_change", "edit_text", "update_personal_info_urg_contact1_edt", UpdatePersonalInfoActivity.class.getSimpleName(), "联系人姓名");
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_personal_info_urg_mobile2_img.getId()) {
                     update_personal_info_urg_contact2_edt.setText(result[0]);
                     update_personal_info_urg_mobile2_edt.setText(result[1].replaceAll(" ", ""));
+                    UBT.addEvent(this, "text_change", "edit_text", "update_personal_info_urg_mobile2_edt", UpdatePersonalInfoActivity.class.getSimpleName(), "手机号");
+                    UBT.addEvent(this, "text_change", "edit_text", "update_personal_info_urg_contact2_edt", UpdatePersonalInfoActivity.class.getSimpleName(), "联系人姓名");
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_personal_info_current_address1_lin.getId()) {

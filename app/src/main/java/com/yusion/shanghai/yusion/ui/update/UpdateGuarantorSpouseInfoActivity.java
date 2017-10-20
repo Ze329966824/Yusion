@@ -793,6 +793,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_guarantor_spouse_info_mobile_img.getId()) {
                     update_guarantor_spouse_info_mobile_edt.setText(result[1].replaceAll(" ", ""));
+                    UBT.addEvent(this, "text_change", "edit_text", "update_guarantor_spouse_info_mobile_edt", UpdateGuarantorSpouseInfoActivity.class.getSimpleName(), "手机号");
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_spouse_info_from_income_company_address1_lin.getId()) {
