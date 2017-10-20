@@ -453,7 +453,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.address1)
         Log.e("houseeee","2----"+addGuarantorActivity.mGuarantorInfo.house_addr.address2)
         //nextStep()
-        FileUtil.saveLog(applyActivity.mGuarantorInfo.toString())
+        FileUtil.saveLog(addGuarantorActivity.mGuarantorInfo.toString())
         ProductApi.updateGuarantorInfo(mContext, addGuarantorActivity.mGuarantorInfo) {
             if (it != null) {
                 addGuarantorActivity.mGuarantorInfo = it
