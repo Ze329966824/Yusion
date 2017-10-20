@@ -709,7 +709,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                         Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                         intent.putExtra("clt_id", guarantorInfo.clt_id);
                         intent.putExtra("role", "guarantor_sp");
-                        intent.putExtra("title", "担保人配偶影像件资料");
+                        intent.putExtra("title", "担保人影像件资料");
                         intent.putExtra("commit_state", "return");
                         startActivity(intent);
                         finish();
@@ -719,7 +719,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                             Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                             intent.putExtra("clt_id", guarantorInfo.clt_id);
                             intent.putExtra("role", "guarantor_sp");
-                            intent.putExtra("title", "担保人配偶影像件资料");
+                            intent.putExtra("title", "担保人影像件资料");
                             intent.putExtra("commit_state", "continue");
                             startActivity(intent);
                             finish();
@@ -728,7 +728,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                             Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                             intent.putExtra("clt_id", guarantorInfo.clt_id);
                             intent.putExtra("role", "guarantor_sp");
-                            intent.putExtra("title", "担保人配偶影像件资料");
+                            intent.putExtra("title", "担保人影像件资料");
                             intent.putExtra("commit_state", "continue");
                             startActivity(intent);
                             finish();
@@ -739,7 +739,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                     Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                     intent.putExtra("clt_id", guarantorInfo.clt_id);
                     intent.putExtra("role", "guarantor_sp");
-                    intent.putExtra("title", "担保人配偶影像件资料");
+                    intent.putExtra("title", "担保人影像件资料");
                     intent.putExtra("commit_state", "return");
                     startActivity(intent);
                     finish();
