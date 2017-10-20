@@ -604,6 +604,7 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     personal_info_urg_mobile1_img.id -> {
                         (personal_info_urg_contact1_edt as EditText).setText(result[0])
                         (personal_info_urg_mobile1_edt as EditText).setText(result[1].replace(" ", ""))
+//                        UBT.addEvent(mContext,"textchange","edit_text","personal_info_urg_mobile1_edt","PersonalInfoFragment",personal_info_urg_mobile1_edt.toString())
                     }
                     personal_info_urg_mobile2_img.id -> {
                         (personal_info_urg_contact2_edt as EditText).setText(result[0])
