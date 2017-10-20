@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -440,6 +441,11 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         } else if (applyActivity.mClientInfo.marriage == "丧偶") {
             applyActivity.mClientInfo.child_num = (spouse_info_die_child_count_edt as EditText).text.toString()
         }
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.province)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.city)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.district)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.address1)
+        Log.e("current_addr2--------",applyActivity.mClientInfo.current_addr.address2)
 
         Sentry.capture(applyActivity.mClientInfo.toString())
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {

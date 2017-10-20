@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -254,7 +255,7 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
                     addGuarantorActivity.mGuarantorInfo.extra_work_position = (guarantor_info_extra_from_income_work_position_tv as TextView).text.toString()
                     addGuarantorActivity.mGuarantorInfo.extra_work_phone_num = (guarantor_info_extra_from_income_work_phone_num_edt as EditText).text.toString()
                 }
-                "工资" -> {
+                "无" -> {
                     addGuarantorActivity.mGuarantorInfo.extra_income_type = "无"
                 }
             }
@@ -271,6 +272,12 @@ class GuarantorInfoFragment : DoubleCheckFragment() {
             addGuarantorActivity.mGuarantorInfo.house_addr.address2 = (guarantor_info_house_address2_tv as NoEmptyEditText).text.toString()
             addGuarantorActivity.mGuarantorInfo.house_owner_relation = (guarantor_info_house_owner_relation_tv as TextView).text.toString()
             addGuarantorActivity.mGuarantorInfo.house_type = (guarantor_info_house_type_tv as TextView).text.toString()
+            Log.e("houseeee","1----"+addGuarantorActivity.mGuarantorInfo.house_addr.province)
+            Log.e("houseeee","1----"+addGuarantorActivity.mGuarantorInfo.house_addr.city)
+            Log.e("houseeee","1----"+addGuarantorActivity.mGuarantorInfo.house_addr.district)
+            Log.e("houseeee","1----"+addGuarantorActivity.mGuarantorInfo.house_addr.address1)
+            Log.e("houseeee","1----"+addGuarantorActivity.mGuarantorInfo.house_addr.address2)
+
             nextStep()
         }
 //
