@@ -7,7 +7,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +32,7 @@ import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText
+import io.sentry.Sentry
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -441,6 +441,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.child_num = (spouse_info_die_child_count_edt as EditText).text.toString()
         }
 
+        Sentry.capture(applyActivity.mClientInfo.toString())
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
                 applyActivity.mClientInfo = it
