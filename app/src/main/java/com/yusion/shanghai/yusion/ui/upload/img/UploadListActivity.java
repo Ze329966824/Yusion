@@ -296,25 +296,16 @@ public class UploadListActivity extends BaseActivity {
 
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (UploadImgItemBean uploadImgItemBean : toAddList) {
-                        OssUtil.synchronizationUploadOss(UploadListActivity.this, uploadImgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
-                            @Override
-                            public void onItemDataCallBack(String objectKey) {
-                                hasUploadOssLists.add(uploadImgItemBean);
-                                uploadImgItemBean.objectKey = objectKey;
-                            }
-                        }, new OnItemDataCallBack<Throwable>() {
-                            @Override
-                            public void onItemDataCallBack(Throwable data) {
-                                hasUploadOssLists.add(uploadImgItemBean);
-                                onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
-                            }
-                        });
+            new Thread(() -> {
+                for (UploadImgItemBean uploadImgItemBean : toAddList) {
+                    OssUtil.synchronizationUploadOss(UploadListActivity.this, uploadImgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), objectKey -> {
+                        hasUploadOssLists.add(uploadImgItemBean);
+                        uploadImgItemBean.objectKey = objectKey;
+                    }, data1 -> {
+                        hasUploadOssLists.add(uploadImgItemBean);
                         onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
-                    }
+                    });
+                    onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
                 }
             }).start();
 //            for (UploadImgItemBean imgItemBean : toAddList) {
