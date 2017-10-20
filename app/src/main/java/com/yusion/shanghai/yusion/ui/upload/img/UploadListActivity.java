@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -295,32 +296,46 @@ public class UploadListActivity extends BaseActivity {
 
             Dialog dialog = LoadingUtils.createLoadingDialog(this);
             dialog.show();
-            for (UploadImgItemBean imgItemBean : toAddList) {
-                OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
-                    @Override
-                    public void onItemDataCallBack(String objectKey) {
-                        hasUploadOssLists.add(imgItemBean);
-                        imgItemBean.objectKey = objectKey;
+            new Thread(() -> {
+                for (UploadImgItemBean uploadImgItemBean : toAddList) {
+                    OssUtil.synchronizationUploadOss(UploadListActivity.this, uploadImgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), objectKey -> {
+                        hasUploadOssLists.add(uploadImgItemBean);
+                        uploadImgItemBean.objectKey = objectKey;
+                    }, data1 -> {
+                        hasUploadOssLists.add(uploadImgItemBean);
                         onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
-                    }
-                }, new OnItemDataCallBack<Throwable>() {
-                    @Override
-                    public void onItemDataCallBack(Throwable data) {
-                        hasUploadOssLists.add(imgItemBean);
-                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
-                    }
-                });
-            }
+                    });
+                    onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
+                }
+            }).start();
+//            for (UploadImgItemBean imgItemBean : toAddList) {
+//                OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
+//                    @Override
+//                    public void onItemDataCallBack(String objectKey) {
+//                        hasUploadOssLists.add(imgItemBean);
+//                        imgItemBean.objectKey = objectKey;
+//                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
+//                    }
+//                }, new OnItemDataCallBack<Throwable>() {
+//                    @Override
+//                    public void onItemDataCallBack(Throwable data) {
+//                        hasUploadOssLists.add(imgItemBean);
+//                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
+//                    }
+//                });
+//            }
         }
-
     }
 
-    private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
+    private synchronized void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
+        Log.e("TAG", "finalAccount: " + finalAccount);
+        Log.e("TAG", "files.size(): " + files.size());
         if (finalAccount == files.size()) {
             dialog.dismiss();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    Log.e("TAG", "run: ");
                     calculateRelToAddList(toAddList, new OnItemDataCallBack<List<UploadImgItemBean>>() {
                         @Override
                         public void onItemDataCallBack(List<UploadImgItemBean> relToAddList) {
