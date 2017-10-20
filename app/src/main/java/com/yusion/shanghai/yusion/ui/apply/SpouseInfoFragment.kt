@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -363,8 +364,6 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     }
 
     private fun submit() {
-        (spouse_info_submit_btn as Button) . setFocusable(false)
-
         var applyActivity = activity as ApplyActivity
         applyActivity.mClientInfo.marriage = (spouse_info_marriage_tv as TextView).text.toString()
         if (applyActivity.mClientInfo.marriage == "已婚") {
