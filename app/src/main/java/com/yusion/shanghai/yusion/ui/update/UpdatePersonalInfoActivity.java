@@ -1053,7 +1053,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 //            clientInfo = data;
 //            UBT.sendAllUBTEvents(this);
 //        }));
-            //上传影像件
+        //上传影像件
 //            toCommitActivity(clientInfo.clt_id, "lender", "个人影像件资料", "continue");
 
 
