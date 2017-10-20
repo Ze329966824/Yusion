@@ -431,6 +431,8 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.child_num = (spouse_info_die_child_count_edt as EditText).text.toString()
         }
 
+
+        FileUtil.saveLog(applyActivity.mClientInfo.toString())
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
                 applyActivity.mClientInfo = it

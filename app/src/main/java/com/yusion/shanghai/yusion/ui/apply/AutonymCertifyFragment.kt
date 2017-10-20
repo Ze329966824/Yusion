@@ -180,7 +180,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
         if (Settings.isShameData) {
             autonym_certify_name_tv?.setText("just Test")
             autonym_certify_id_number_tv?.setText("${Date().time}")
-            autonym_certify_id_number_tv?.setText("513001198707080231")
+//            autonym_certify_id_number_tv?.setText("513001198707080231")
             ID_BACK_FID = "test"
             ID_FRONT_FID = "test"
         }
@@ -226,6 +226,9 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
     }
 
     fun checkCanNextStep(): Boolean {
+        if (Settings.isShameData) {
+            return true
+        }
 //        return true
         if (ID_BACK_FID.isEmpty()) {
             Toast.makeText(mContext, "请拍摄身份证人像面", Toast.LENGTH_SHORT).show()

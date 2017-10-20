@@ -433,6 +433,7 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
             }
         }
         //nextStep()
+        FileUtil.saveLog(applyActivity.mGuarantorInfo.toString())
         ProductApi.updateGuarantorInfo(mContext, addGuarantorActivity.mGuarantorInfo) {
             if (it != null) {
                 addGuarantorActivity.mGuarantorInfo = it
