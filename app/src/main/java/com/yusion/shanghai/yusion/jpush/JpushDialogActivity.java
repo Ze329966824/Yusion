@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
@@ -113,7 +114,7 @@ public class JpushDialogActivity extends BaseActivity {
         if (mJpushDialog == null) {
             mJpushDialog = new JpushDialog(context, title, message);
         }
-//        mJpushDialog.show();
+        mJpushDialog.show();
 
     }
     private static class JpushDialog implements View.OnClickListener {
@@ -122,18 +123,49 @@ public class JpushDialogActivity extends BaseActivity {
         private View mView;
         private TextView mMessage;
         private TextView mTitle;
-        private ImageView mClose;
-        private ImageView mOK;
+
         JpushDialog(Context context,String title,String message){
             mContext = context;
-//            mView = LayoutInflater.from(mContext).inflate(R.layout.dialog_approval,null);
-//            mTitle = title;
-//            mMessage = message;
+            mView = LayoutInflater.from(mContext).inflate(R.layout.dialog_approval,null);
+
+            mTitle = (TextView) mView.findViewById(R.id.dialog_approve_pass_title);
+            mTitle.setText(title);
+            mMessage = (TextView) mView.findViewById(R.id.dialog_approve_pass_message);
+            mMessage.setText(message);
+
+            mView.findViewById(R.id.btn_cancel).setOnClickListener(this);
+            mView.findViewById(R.id.btn_ok).setOnClickListener(this);
+
+            mDialog = new Dialog(mContext,R.style.MyDialogStyle);
+            mDialog.setContentView(mView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            mDialog.setCancelable(false);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.show();
+        }
+        void show() {
+            if (mDialog != null) {
+                mDialog.show();
+            }
         }
 
+        void dismiss() {
+            if (mDialog != null) {
+                mDialog.dismiss();
+            }
+        }
         @Override
         public void onClick(View v) {
-
+            switch (v.getId()){
+                case R.id.btn_cancel:
+                    dismiss();
+                    break;
+                case R.id.btn_ok:
+                    dismiss();
+                    break;
+                default:
+                    dismiss();
+                    break;
+            }
         }
     }
 }
