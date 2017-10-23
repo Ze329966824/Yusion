@@ -51,12 +51,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import static com.yusion.shanghai.yusion.utils.SharedPrefsUtil.getInstance;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     public static final int READ_CONTACTS_CODE = 10;
     private EditText mLoginMobileTV;
     private EditText mLoginCodeTV;
@@ -68,7 +65,6 @@ public class LoginActivity extends BaseActivity {
     private QQLoginListener mListener;
     private Context context;
     private OpenIdReq req;
-
 
 
     @Override
@@ -104,7 +100,6 @@ public class LoginActivity extends BaseActivity {
         countDown();
 
 
-
 //        if (Settings.isShameData) {
 //            mLoginMobileTV.setText("17621066549");
 //            mLoginCodeTV.setText("6666");
@@ -114,7 +109,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             //微信登录
             case R.id.btn_wx:
@@ -133,41 +127,58 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_qq:
                 //如果session不可用，则登录，否则说明已经登录
                 if (!tencent.isSessionValid()) {
-                    tencent.login(this, "all", mListener);
+                    tencent.login(LoginActivity.this, "all", mListener);
                 } else {
                     tencent.logout(this);
                 }
                 break;
 
-            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
-                Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
-            } else {
-                mCountDownBtnWrap.start();
-                AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
-                    if (data != null) {
-                        if (!Settings.isOnline) {
-                            mLoginCodeTV.setText(data.verify_code);
-                        }
-                    }
-                });
-            }
-        });
-        mLoginSubmitBtn.setOnClickListener(v -> {
+//        if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+//            Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+//        } else {
+//            mCountDownBtnWrap.start();
+//            AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
+//                if (data != null) {
+//                    if (!Settings.isOnline) {
+//                        mLoginCodeTV.setText(data.verify_code);
+//                    }
+//                }
+//            });
+//        }
+            case R.id.login_submit_btn:
+                //            startActivity(new Intent(this, UploadLabelListActivity.class));
+                if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+                    Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
+                    Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    LoginReq loginReq = new LoginReq();
+                    loginReq.mobile = mLoginMobileTV.getText().toString();
+                    loginReq.verify_code = mLoginCodeTV.getText().toString();
+                    loginReq.reg_id = SharedPrefsUtil.getInstance(LoginActivity.this).getValue("reg_id", "");
+                    AuthApi.login(LoginActivity.this, loginReq, this::loginSuccess);
+                }
 
-//            startActivity(new Intent(this, UploadLabelListActivity.class));
-            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
-                Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
-                Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
-            } else {
-                LoginReq req = new LoginReq();
-                req.mobile = mLoginMobileTV.getText().toString();
-                req.verify_code = mLoginCodeTV.getText().toString();
-                req.reg_id = SharedPrefsUtil.getInstance(this).getValue("reg_id", "");
-                AuthApi.login(LoginActivity.this, req, this::loginSuccess);
-            }
-        });
+//        mLoginSubmitBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //            startActivity(new Intent(this, UploadLabelListActivity.class));
+//                if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+//                    Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+//                } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
+//                    Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    LoginReq req = new LoginReq();
+//                    req.mobile = mLoginMobileTV.getText().toString();
+//                    req.verify_code = mLoginCodeTV.getText().toString();
+//                    req.reg_id = SharedPrefsUtil.getInstance(LoginActivity.this).getValue("reg_id", "");
+//                    AuthApi.login(LoginActivity.this, req, this::loginSuccess);
+//                }
+//        });
+
+
             case R.id.login_code_btn:
+
                 if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
                 } else {
@@ -181,20 +192,37 @@ public class LoginActivity extends BaseActivity {
                     });
                 }
                 break;
+//        case R.id.login_code_btn:
+//            if(!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())){
+//        Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+//    } else
+//
+//    {
+//        mCountDownBtnWrap.start();
+//        AuthApi.getVCode(LoginActivity.this, mLoginMobileTV.getText().toString(), data -> {
+//            if (data != null) {
+//                if (!Settings.isOnline) {
+//                    mLoginCodeTV.setText(data.verify_code);
+//                }
+//            }
+//        });
+//    }
+//        break;
 
-            case R.id.login_submit_btn:
-                //            startActivity(new Intent(this, UploadLabelListActivity.class));
-                if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
-                    Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
-                    Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
-                } else {
-                    LoginReq loginReq = new LoginReq();
-                    loginReq.mobile = mLoginMobileTV.getText().toString();
-                    loginReq.verify_code = mLoginCodeTV.getText().toString();
-                    AuthApi.login(LoginActivity.this, loginReq, this::loginSuccess);
-                }
-                break;
+//        case R.id.login_submit_btn:
+//            //            startActivity(new Intent(this, UploadLabelListActivity.class));
+//            if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
+//                Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
+//            } else if (TextUtils.isEmpty(mLoginCodeTV.getText())) {
+//                Toast.makeText(LoginActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+//            } else {
+//                LoginReq req = new LoginReq();
+//                req.mobile = mLoginMobileTV.getText().toString();
+//                req.verify_code = mLoginCodeTV.getText().toString();
+//                req.reg_id = SharedPrefsUtil.getInstance(this).getValue("reg_id", "");
+//                AuthApi.login(LoginActivity.this, req, this::loginSuccess);
+//            }
+//        break;
 
             case R.id.login_agreement_tv:
                 Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
@@ -204,9 +232,11 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-        if (Settings.isShameData) {
+
+    //        if (Settings.isShameData) {
 //            mLoginMobileTV.setText("17631066542");
 //            mLoginCodeTV.setText("6666");
+
     private void countDown() {
         if (Settings.isOnline) {
             mCountDownBtnWrap = new CountDownButtonWrap(mLoginCodeBtn, "重试", 30, 1);
@@ -251,12 +281,7 @@ public class LoginActivity extends BaseActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             //上传设备信息
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    uploadPersonAndDeviceInfo();
-                }
-            }).start();
+            new Thread(() -> uploadPersonAndDeviceInfo()).start();
         }
     }
 
@@ -269,10 +294,12 @@ public class LoginActivity extends BaseActivity {
         myApp.clearUserData();
 
         ConfigApi.getConfigJson(LoginActivity.this, null);
-        ConfigApi.getConfigJson(LoginActivity.this, resp -> {
-        });
-
-        wxLoginSuccess();
+//        ConfigApi.getConfigJson(LoginActivity.this, resp -> {
+//        });
+        String mtoken = getIntent().getStringExtra("token");
+        if (mtoken != null) {
+            wxLoginSuccess();
+        }
     }
 
     private void wxLoginSuccess() {
@@ -394,11 +421,10 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        tencent.onActivityResultData(requestCode, resultCode, data, mListener);
+        Tencent.onActivityResultData(requestCode, resultCode, data, mListener);
     }
 
     private class QQLoginListener implements IUiListener {

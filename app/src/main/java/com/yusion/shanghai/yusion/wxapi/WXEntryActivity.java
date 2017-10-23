@@ -83,6 +83,9 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     e.printStackTrace();
                 }
                 break;
+            default:
+                startActivity(new Intent(WXEntryActivity.this, LoginActivity.class));
+                finish();
         }
     }
 
@@ -157,4 +160,15 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void onVisibleBehindCanceled() {
+        super.onVisibleBehindCanceled();
+        finish();
+    }
 }

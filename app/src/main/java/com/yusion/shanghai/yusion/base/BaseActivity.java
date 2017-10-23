@@ -23,7 +23,7 @@ import static com.instabug.library.Instabug.isAppOnForeground;
  */
 
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public class BaseActivity extends AppCompatActivity {
     public static final String WX_APP_ID = "wxf2c47c30395cfb84";
     public static final String QQ_APP_ID = "101425795";
     public IWXAPI api;
@@ -100,7 +100,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
         MobclickAgent.onResume(this);
     }
-
 
 }
 
