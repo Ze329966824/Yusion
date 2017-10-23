@@ -92,8 +92,12 @@ public class YusionApp extends MultiDexApplication {
     public void clearUserData() {
         TOKEN = "";
         MOBILE = "";
+        OPEN_ID = "";
+        USERINFOBEAN = null;
+
         getInstance(this).putValue("token", TOKEN);
         getInstance(this).putValue("mobile", MOBILE);
+        getInstance(this).putValue("open_id", OPEN_ID);
     }
 
     private void initJpush() {
