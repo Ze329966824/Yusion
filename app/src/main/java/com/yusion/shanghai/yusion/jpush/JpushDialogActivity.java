@@ -1,8 +1,13 @@
 package com.yusion.shanghai.yusion.jpush;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -99,6 +104,36 @@ public class JpushDialogActivity extends BaseActivity {
             }
         } else {
             finish();
+        }
+    }
+
+    private static JpushDialog mJpushDialog;
+
+    public static void showJpushDialog(Context context,String title,String message){
+        if (mJpushDialog == null) {
+            mJpushDialog = new JpushDialog(context, title, message);
+        }
+//        mJpushDialog.show();
+
+    }
+    private static class JpushDialog implements View.OnClickListener {
+        private Context mContext;
+        private Dialog mDialog;
+        private View mView;
+        private TextView mMessage;
+        private TextView mTitle;
+        private ImageView mClose;
+        private ImageView mOK;
+        JpushDialog(Context context,String title,String message){
+            mContext = context;
+//            mView = LayoutInflater.from(mContext).inflate(R.layout.dialog_approval,null);
+//            mTitle = title;
+//            mMessage = message;
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 }

@@ -112,6 +112,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                     //initUpdate();
                 }
                 break;
+            default:
+                finish();
         }
 
     }
