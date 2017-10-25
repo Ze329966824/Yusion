@@ -57,37 +57,37 @@ public class BindingActivity extends BaseActivity {
             if (!CheckMobileUtil.checkMobile(mBindingMobileTV.getText().toString())) {
                 Toast.makeText(BindingActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
             } else {
-                AuthApi.checkOpenID(BindingActivity.this, mBindingMobileTV.getText().toString(), req.source, data -> {
-                    if (data != null) {
-                        if (data == 1) {
-                            new AlertDialog.Builder(BindingActivity.this)
-                                    .setMessage("检测到当前手机号已经绑定过微信，是否替换？")
-                                    .setPositiveButton("是", (dialog, which) -> {
-                                        getVCode();
-                                        dialog.dismiss();})
-                                    .setNegativeButton("否", (dialog, which) -> {
-                                        dialog.dismiss();})
-                                    .setCancelable(false)
-                                    .show();
-                        } else {
-                            getVCode();
-                        }
-                    }
-
-                });
-
-
-//                mCountDownBtnWrap.start();
-//                AuthApi.getVCode(BindingActivity.this, mBindingMobileTV.getText().toString(), data -> {
+//                AuthApi.checkOpenID(BindingActivity.this, mBindingMobileTV.getText().toString(), req.source, data -> {
 //                    if (data != null) {
-//                        if (!Settings.isOnline) {
-//                            mBindingCodeTV.setText(data.verify_code);
-//                            req.verify_code = data.verify_code;
-//                            req.mobile = mBindingMobileTV.getText().toString();
-//
+//                        if (data == 1) {
+//                            new AlertDialog.Builder(BindingActivity.this)
+//                                    .setMessage("检测到当前手机号已经绑定过微信，是否替换？")
+//                                    .setPositiveButton("是", (dialog, which) -> {
+//                                        getVCode();
+//                                        dialog.dismiss();})
+//                                    .setNegativeButton("否", (dialog, which) -> {
+//                                        dialog.dismiss();})
+//                                    .setCancelable(false)
+//                                    .show();
+//                        } else {
+//                            getVCode();
 //                        }
 //                    }
+//
 //                });
+
+
+                mCountDownBtnWrap.start();
+                AuthApi.getVCode(BindingActivity.this, mBindingMobileTV.getText().toString(), data -> {
+                    if (data != null) {
+                        if (!Settings.isOnline) {
+                            mBindingCodeTV.setText(data.verify_code);
+                            req.verify_code = data.verify_code;
+                            req.mobile = mBindingMobileTV.getText().toString();
+
+                        }
+                    }
+                });
             }
         });
 
@@ -98,18 +98,41 @@ public class BindingActivity extends BaseActivity {
             } else if (TextUtils.isEmpty(mBindingCodeTV.getText())) {
                 Toast.makeText(BindingActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
             } else {
-                req.verify_code = mBindingCodeTV.getText().toString();
-                AuthApi.binding(this, req, new OnItemDataCallBack<BindingResp>() {
-                    @Override
-                    public void onItemDataCallBack(BindingResp data) {
-                        if (data != null) {
-                            YusionApp.TOKEN = data.token;
-                            SharedPrefsUtil.getInstance(BindingActivity.this).putValue("token", YusionApp.TOKEN);
-                            startActivity(new Intent(BindingActivity.this, MainActivity.class));
-                            finish();
+
+
+                AuthApi.checkOpenID(BindingActivity.this, mBindingMobileTV.getText().toString(), req.source, data -> {
+                    if (data != null) {
+                        if (data == 1) {
+                            new AlertDialog.Builder(BindingActivity.this)
+                                    .setMessage("检测到手机号："+ mBindingMobileTV.getText().toString()+"已经绑定过其他微信，是否替换？")
+                                    .setPositiveButton("是", (dialog, which) -> {
+                                        bind();
+                                        dialog.dismiss();
+                                    })
+                                    .setNegativeButton("否", (dialog, which) -> {
+                                        dialog.dismiss();
+                                    })
+                                    .setCancelable(false)
+                                    .show();
+                        } else {
+                            bind();
                         }
                     }
+
                 });
+
+//                req.verify_code = mBindingCodeTV.getText().toString();
+//                AuthApi.binding(this, req, new OnItemDataCallBack<BindingResp>() {
+//                    @Override
+//                    public void onItemDataCallBack(BindingResp data) {
+//                        if (data != null) {
+//                            YusionApp.TOKEN = data.token;
+//                            SharedPrefsUtil.getInstance(BindingActivity.this).putValue("token", YusionApp.TOKEN);
+//                            startActivity(new Intent(BindingActivity.this, MainActivity.class));
+//                            finish();
+//                        }
+//                    }
+//                });
 
 //                startActivity(new Intent(BindingActivity.this,MainActivity.class));
 //                finish();
@@ -135,6 +158,21 @@ public class BindingActivity extends BaseActivity {
 //                    req.verify_code = data.verify_code;
                     req.mobile = mBindingMobileTV.getText().toString();
 
+                }
+            }
+        });
+    }
+
+    private void bind() {
+        req.verify_code = mBindingCodeTV.getText().toString();
+        AuthApi.binding(this, req, new OnItemDataCallBack<BindingResp>() {
+            @Override
+            public void onItemDataCallBack(BindingResp data) {
+                if (data != null) {
+                    YusionApp.TOKEN = data.token;
+                    SharedPrefsUtil.getInstance(BindingActivity.this).putValue("token", YusionApp.TOKEN);
+                    startActivity(new Intent(BindingActivity.this, MainActivity.class));
+                    finish();
                 }
             }
         });
