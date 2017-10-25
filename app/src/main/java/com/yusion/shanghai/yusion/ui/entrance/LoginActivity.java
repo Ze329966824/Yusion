@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 req.scope = "snsapi_userinfo";
                 req.state = "diandi_wx_login";
                 api.sendReq(req);
-                finish();
+
                 break;
             //qq登录
             case R.id.btn_qq:
@@ -159,6 +159,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     loginReq.reg_id = SharedPrefsUtil.getInstance(LoginActivity.this).getValue("reg_id", "");
                     AuthApi.login(LoginActivity.this, loginReq, this::loginSuccess);
                 }
+                break;
 
 //        mLoginSubmitBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
