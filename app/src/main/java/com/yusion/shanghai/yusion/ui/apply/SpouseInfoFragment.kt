@@ -603,8 +603,9 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+                nextStep()
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
-                    nextStep()
+
                 })
 //                nextStep()
             }
@@ -625,6 +626,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 (spouse_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
+                UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_mobile_edt", ApplyActivity::class.java.simpleName, "手机号")
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {

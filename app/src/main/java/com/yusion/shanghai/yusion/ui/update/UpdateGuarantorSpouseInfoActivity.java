@@ -709,7 +709,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                         Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                         intent.putExtra("clt_id", guarantorInfo.clt_id);
                         intent.putExtra("role", "guarantor_sp");
-                        intent.putExtra("title", "担保人配偶影像件资料");
+                        intent.putExtra("title", "担保人影像件资料");
                         intent.putExtra("commit_state", "return");
                         startActivity(intent);
                         finish();
@@ -719,7 +719,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                             Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                             intent.putExtra("clt_id", guarantorInfo.clt_id);
                             intent.putExtra("role", "guarantor_sp");
-                            intent.putExtra("title", "担保人配偶影像件资料");
+                            intent.putExtra("title", "担保人影像件资料");
                             intent.putExtra("commit_state", "continue");
                             startActivity(intent);
                             finish();
@@ -728,7 +728,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                             Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                             intent.putExtra("clt_id", guarantorInfo.clt_id);
                             intent.putExtra("role", "guarantor_sp");
-                            intent.putExtra("title", "担保人配偶影像件资料");
+                            intent.putExtra("title", "担保人影像件资料");
                             intent.putExtra("commit_state", "continue");
                             startActivity(intent);
                             finish();
@@ -739,7 +739,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                     Intent intent = new Intent(UpdateGuarantorSpouseInfoActivity.this, CommitActivity.class);
                     intent.putExtra("clt_id", guarantorInfo.clt_id);
                     intent.putExtra("role", "guarantor_sp");
-                    intent.putExtra("title", "担保人配偶影像件资料");
+                    intent.putExtra("title", "担保人影像件资料");
                     intent.putExtra("commit_state", "return");
                     startActivity(intent);
                     finish();
@@ -835,6 +835,7 @@ public class UpdateGuarantorSpouseInfoActivity extends UpdateInfoActivity {
                 }
                 if (CURRENT_CLICKED_VIEW_FOR_CONTACT == update_guarantor_spouse_info_mobile_img.getId()) {
                     update_guarantor_spouse_info_mobile_edt.setText(result[1].replaceAll(" ", ""));
+                    UBT.addEvent(this, "text_change", "edit_text", "update_guarantor_spouse_info_mobile_edt", UpdateGuarantorSpouseInfoActivity.class.getSimpleName(), "手机号");
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {
                 if (CURRENT_CLICKED_VIEW_FOR_ADDRESS == update_guarantor_spouse_info_from_income_company_address1_lin.getId()) {

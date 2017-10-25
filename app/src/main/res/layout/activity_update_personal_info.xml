@@ -1527,7 +1527,6 @@
 
 
         <Button
-            android:background="@mipmap/submit_info"
             android:id="@+id/submit_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -1535,6 +1534,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
+            android:background="@mipmap/submit_info"
             android:clickable="true"
             android:src="@mipmap/submit_info"
             app:borderWidth="0dp"

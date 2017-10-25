@@ -1,8 +1,14 @@
 package com.yusion.shanghai.yusion.jpush;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -58,7 +64,7 @@ public class JpushDialogActivity extends BaseActivity {
 
     }
 
-    private void JpushDialog() {
+    void JpushDialog() {
         if (YusionApp.isLogin && mobile.equals(YusionApp.MOBILE)) {
             switch (category) {
                 case "login":
@@ -67,21 +73,25 @@ public class JpushDialogActivity extends BaseActivity {
                             .setMessage(content)
                             .setPositiveButton("确定", (dialog, which) -> {
                                 myApp.clearUserData();
+                                tencent.logout(this);
+                                api.unregisterApp();
                                 startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
                                 finish();
                             })
                             .show();
                     break;
                 case "application":
-                    new AlertDialog.Builder(JpushDialogActivity.this)
-                            .setCancelable(false)
-                            .setTitle(title)
-                            .setMessage(content)
-                            .setPositiveButton("知道啦", (dialog, which) -> {
-                                dialog.dismiss();
-                                finish();
-                            })
-                            .show();
+//                    new AlertDialog.Builder(JpushDialogActivity.this)
+//                            .setCancelable(false)
+//                            .setTitle(title)
+//                            .setMessage(content)
+//                            .setPositiveButton("知道啦", (dialog, which) -> {
+//                                dialog.dismiss();
+//                                finish();
+//                            })
+//                            .show();
+//                    new JpushDialogRefuse(this,title,content).show();
+                    new JpushDialogPass(this,title,content).show();
                     break;
                 default:
                     new AlertDialog.Builder(JpushDialogActivity.this)
@@ -99,4 +109,152 @@ public class JpushDialogActivity extends BaseActivity {
             finish();
         }
     }
+
+    private static JpushDialogPass mJpushDialogPass;
+    private static JpushDialogRefuse mJpushDialogRefuse;
+
+//    public static void showJpushDialog(Context context, String state, String title, String message) {
+//        switch (state) {
+//            case "pass":
+//                if (mJpushDialogPass == null) {
+//                    mJpushDialogPass = new JpushDialogPass(context, title, message);
+//                    mJpushDialogPass.show();
+//                }
+//                break;
+//            case "refuse":
+//                if (mJpushDialogRefuse == null) {
+//                    mJpushDialogRefuse = new JpushDialogRefuse(context, title, message);
+//                    mJpushDialogRefuse.show();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+
+    private static class JpushDialogPass implements View.OnClickListener {
+        private Context mContext;
+        private Dialog mDialog;
+        private View mView;
+        private TextView mMessage;
+        private TextView mTitle;
+
+        JpushDialogPass(Context context, String title, String message) {
+            mContext = context;
+            mView = LayoutInflater.from(mContext).inflate(R.layout.dialog_approval_pass, null);
+
+            mTitle = (TextView) mView.findViewById(R.id.dialog_approve_pass_title);
+            mTitle.setText(title);
+            mMessage = (TextView) mView.findViewById(R.id.dialog_approve_pass_message);
+            mMessage.setText(message);
+
+            mView.findViewById(R.id.btn_cancel).setOnClickListener(this);
+            mView.findViewById(R.id.btn_ok).setOnClickListener(this);
+
+            mDialog = new Dialog(mContext, R.style.MyDialogStyle);
+//            mDialog.setContentView(mView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            mDialog.setCancelable(false);
+//            mDialog.getWindow().getAttributes().width = 900;
+//            mDialog.getWindow().getAttributes().height = 1200;
+            mDialog.setContentView(mView);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.show();
+        }
+
+        void show() {
+            if (mDialog != null) {
+                mDialog.show();
+            }
+        }
+
+        void dismiss() {
+            if (mDialog != null) {
+                mDialog.dismiss();
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_cancel:
+                    dismiss();
+                    break;
+                case R.id.btn_ok:
+                    dismiss();
+                    break;
+                default:
+                    dismiss();
+                    break;
+            }
+        }
+    }
+
+    private class JpushDialogRefuse implements View.OnClickListener {
+        private Context mContext;
+        private Dialog mDialog;
+        private View mView;
+        private TextView mMessage;
+        private TextView mTitle;
+        private TextView mCall;
+
+        JpushDialogRefuse(Context context, String title, String message) {
+            mContext = context;
+            mView = LayoutInflater.from(mContext).inflate(R.layout.dialog_approval_refuse, null);
+
+            mTitle = (TextView) mView.findViewById(R.id.dialog_approve_refuse_title);
+            mTitle.setText(title);
+            mMessage = (TextView) mView.findViewById(R.id.dialog_approve_refuse_message);
+            mMessage.setText(message);
+            mCall = (TextView) mView.findViewById(R.id.btn_calltocustomer);
+
+            mView.findViewById(R.id.btn_cancel).setOnClickListener(this);
+            mView.findViewById(R.id.btn_ok).setOnClickListener(this);
+            mView.findViewById(R.id.btn_calltocustomer).setOnClickListener(this);
+
+            mDialog = new Dialog(mContext, R.style.MyDialogStyle);
+//            mDialog.setContentView(mView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            mDialog.setCancelable(false);
+//            mDialog.getWindow().getAttributes().width = 900;
+//            mDialog.getWindow().getAttributes().height = 1200;
+            mDialog.setContentView(mView);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.show();
+        }
+
+        void show() {
+            if (mDialog != null) {
+                mDialog.show();
+            }
+        }
+
+        void dismiss() {
+            if (mDialog != null) {
+                mDialog.dismiss();
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_cancel:
+                    dismiss();
+                    break;
+                case R.id.btn_ok:
+                    dismiss();
+                    break;
+                case R.id.btn_calltocustomer:
+
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13888888888"));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    dismiss();
+
+                    break;
+                default:
+                    dismiss();
+                    break;
+            }
+        }
+    }
+
 }

@@ -16,7 +16,6 @@ import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
-import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
@@ -113,6 +112,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                     //initUpdate();
                 }
                 break;
+            default:
+                finish();
         }
 
     }
@@ -159,9 +160,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         UBT.sendAllUBTEvents(this, () -> {
             finishByLoginOut = true;
             myApp.clearUserData();
-            startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-            finish();
+//            startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+//            finish();
         });
+        startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+        finish();
     }
     private String splitVersion(String s) {
         String ss = null;

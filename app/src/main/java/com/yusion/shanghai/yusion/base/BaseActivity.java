@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.Tencent;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
@@ -18,8 +22,13 @@ import static com.instabug.library.Instabug.isAppOnForeground;
 /**
  * Created by ice on 2017/8/3.
  */
-public class BaseActivity extends AppCompatActivity {
 
+
+public class BaseActivity extends AppCompatActivity {
+    public static final String WX_APP_ID = "wxf2c47c30395cfb84";
+    public static final String QQ_APP_ID = "101425795";
+    public IWXAPI api;
+    public Tencent tencent;
     protected YusionApp myApp;
 
     @Override
@@ -31,6 +40,10 @@ public class BaseActivity extends AppCompatActivity {
 
     private void initData() {
         myApp = ((YusionApp) getApplication());
+//        PgyCrashManager.register(this);
+
+        api = WXAPIFactory.createWXAPI(this,WX_APP_ID,false);
+        api.registerApp(WX_APP_ID);
     }
 
     public TitleBar initTitleBar(final Activity activity, String title) {
@@ -87,8 +100,11 @@ public class BaseActivity extends AppCompatActivity {
         }
         UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
         MobclickAgent.onResume(this);
-    }
+        for (StackTraceElement i : Thread.currentThread().getStackTrace()) {
+            Log.i("getStackTrace-----------", i.toString());
+        }
 
+    }
 
 }
 

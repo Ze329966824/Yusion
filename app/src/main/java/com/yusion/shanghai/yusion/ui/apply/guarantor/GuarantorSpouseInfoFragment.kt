@@ -29,6 +29,7 @@ import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
 import com.yusion.shanghai.yusion.ui.apply.AMapPoiListActivity
+import com.yusion.shanghai.yusion.ui.apply.ApplyActivity
 import com.yusion.shanghai.yusion.ui.upload.img.DocumentActivity
 import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
@@ -581,8 +582,8 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
         uploadFilesUrlReq.bucket = SharedPrefsUtil.getInstance(mContext).getValue("bucket", "")
         UploadApi.uploadFileUrl(mContext, uploadFilesUrlReq) { code, _ ->
             if (code >= 0) {
+                nextStep()
                 UBT.sendAllUBTEvents(mContext, OnVoidCallBack {
-                    nextStep()
                 })
 //                nextStep()
             }
@@ -611,6 +612,8 @@ class GuarantorSpouseInfoFragment : DoubleCheckFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 (guarantor_spouse_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
+                UBT.addEvent(mContext, "text_change", "edit_text", "guarantor_spouse_info_mobile_edt", AddGuarantorActivity::class.java.simpleName, "手机号")
+
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
