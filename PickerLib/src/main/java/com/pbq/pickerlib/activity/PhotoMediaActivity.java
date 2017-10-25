@@ -238,6 +238,9 @@ public class PhotoMediaActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (currentDir == null) {
+                            currentDir = new PhotoVideoDir(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath());
+                            currentDir.dirName = "Movies";
+                            loadVideoImages(currentDir);
                             Toast.makeText(PhotoMediaActivity.this, "视频列表为空", Toast.LENGTH_SHORT).show();
                         } else {
                             loadVideoImages(currentDir);
