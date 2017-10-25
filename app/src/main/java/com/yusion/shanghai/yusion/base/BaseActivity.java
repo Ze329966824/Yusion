@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -99,6 +100,10 @@ public class BaseActivity extends AppCompatActivity {
         }
         UBT.addPageEvent(this, "page_show", "activity", getClass().getSimpleName());
         MobclickAgent.onResume(this);
+        for (StackTraceElement i : Thread.currentThread().getStackTrace()) {
+            Log.i("getStackTrace-----------", i.toString());
+        }
+
     }
 
 }

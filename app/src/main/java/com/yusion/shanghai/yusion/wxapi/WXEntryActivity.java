@@ -46,7 +46,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, APP_ID, false);
         api.handleIntent(getIntent(), this);
-
         req = new OpenIdReq();
     }
 

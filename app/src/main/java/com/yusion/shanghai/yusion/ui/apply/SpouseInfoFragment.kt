@@ -33,7 +33,6 @@ import com.yusion.shanghai.yusion.ui.upload.img.UploadListActivity
 import com.yusion.shanghai.yusion.utils.*
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText
-import io.sentry.Sentry
 import kotlinx.android.synthetic.main.spouse_info.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -627,6 +626,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
                 (spouse_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
+                UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_mobile_edt", ApplyActivity::class.java.simpleName, "手机号")
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {

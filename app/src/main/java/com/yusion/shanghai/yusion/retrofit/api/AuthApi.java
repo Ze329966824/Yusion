@@ -3,9 +3,9 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 
-import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.bean.auth.BindingReq;
 import com.yusion.shanghai.yusion.bean.auth.BindingResp;
+import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
@@ -61,6 +61,15 @@ public class AuthApi {
         Api.getAuthService().binding(req).enqueue(new CustomCallBack<BindingResp>(context, dialog) {
             @Override
             public void onCustomResponse(BindingResp data) {
+                onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
+    public static void checkOpenID(Context context, String mobile, String source, final OnItemDataCallBack<Integer>onItemDataCallBack){
+        Api.getAuthService().checkOpenID(mobile,source).enqueue(new CustomCallBack<Integer>(context) {
+            @Override
+            public void onCustomResponse(Integer data) {
                 onItemDataCallBack.onItemDataCallBack(data);
             }
         });
