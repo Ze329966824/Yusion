@@ -49,7 +49,7 @@ public class BindingActivity extends BaseActivity {
         req.open_id = getIntent().getStringExtra("open_id");
 
         if (Settings.isOnline) {
-            mCountDownBtnWrap = new CountDownButtonWrap(mBindingCodeBtn, "重试", 30, 1);
+            mCountDownBtnWrap = new CountDownButtonWrap(mBindingCodeBtn, "重试", 60, 1);
         } else {
             mCountDownBtnWrap = new CountDownButtonWrap(mBindingCodeBtn, "重试", 5, 1);
         }
@@ -104,7 +104,7 @@ public class BindingActivity extends BaseActivity {
                     if (data != null) {
                         if (data == 1) {
                             new AlertDialog.Builder(BindingActivity.this)
-                                    .setMessage("检测到手机号："+ mBindingMobileTV.getText().toString()+"已经绑定过其他微信，是否替换？")
+                                    .setMessage("检测到手机号：" + mBindingMobileTV.getText().toString() + "已经绑定过其他微信，是否替换？")
                                     .setPositiveButton("是", (dialog, which) -> {
                                         bind();
                                         dialog.dismiss();
@@ -165,6 +165,7 @@ public class BindingActivity extends BaseActivity {
 
     private void bind() {
         req.verify_code = mBindingCodeTV.getText().toString();
+        req.mobile = mBindingMobileTV.getText().toString();
         AuthApi.binding(this, req, new OnItemDataCallBack<BindingResp>() {
             @Override
             public void onItemDataCallBack(BindingResp data) {
