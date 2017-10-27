@@ -1,11 +1,11 @@
 package com.yusion.shanghai.yusion.jpush;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -37,7 +37,8 @@ public class JpushDialogActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jpush_dialog);
+//        setContentView(R.layout.activity_jpush_dialog);
+
         try {
             initJpush();
         } catch (JSONException e) {
@@ -73,7 +74,7 @@ public class JpushDialogActivity extends BaseActivity {
                             .setMessage(content)
                             .setPositiveButton("确定", (dialog, which) -> {
                                 myApp.clearUserData();
-                                tencent.logout(this);
+//                                tencent.logout(this);
                                 api.unregisterApp();
                                 startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
                                 finish();
@@ -92,6 +93,7 @@ public class JpushDialogActivity extends BaseActivity {
 //                            .show();
 //                    new JpushDialogRefuse(this,title,content).show();
                     new JpushDialogPass(this,title,content).show();
+
                     break;
                 default:
                     new AlertDialog.Builder(JpushDialogActivity.this)

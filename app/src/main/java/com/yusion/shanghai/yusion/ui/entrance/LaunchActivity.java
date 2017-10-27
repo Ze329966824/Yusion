@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.joker.annotation.PermissionsDenied;
 import com.joker.annotation.PermissionsGranted;
@@ -84,6 +85,7 @@ public class LaunchActivity extends BaseActivity {
     private void checkServerUrl() {
         if (!Settings.isOnline) {
             String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+            Log.e("当前服务器地址：",str);
             if (!TextUtils.isEmpty(str)) {
                 new AlertDialog.Builder(this)
                         .setTitle("请确认服务器地址：")
