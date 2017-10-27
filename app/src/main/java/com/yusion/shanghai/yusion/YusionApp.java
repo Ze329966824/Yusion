@@ -13,6 +13,7 @@ import com.pgyersdk.crash.PgyCrashManager;
 import com.umeng.analytics.MobclickAgent;
 import com.yusion.shanghai.yusion.bean.config.ConfigResp;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
+import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.ubt.sql.SqlLiteUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 
@@ -40,6 +41,7 @@ public class YusionApp extends MultiDexApplication {
     public static ConfigResp CONFIG_RESP;
     public static boolean isLogin;
     public static boolean isForeground;
+    public static boolean isChangeURL;
 
     /**
      * 定位服务类
@@ -61,10 +63,15 @@ public class YusionApp extends MultiDexApplication {
         initUmeng();
         initInstabug();
         SqlLiteUtil.init(this);
+        String cacheUrl = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+        if (!TextUtils.isEmpty(cacheUrl)) {
+            Settings.SERVER_URL = cacheUrl;
+        }
+
     }
 
     private void initData() {
-        reg_id= SharedPrefsUtil.getInstance(this).getValue("reg_id", "");
+        reg_id = SharedPrefsUtil.getInstance(this).getValue("reg_id", "");
         TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
         MOBILE = SharedPrefsUtil.getInstance(this).getValue("mobile", "");
     }

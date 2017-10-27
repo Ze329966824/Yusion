@@ -15,6 +15,7 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.yusion.shanghai.yusion.BuildConfig;
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.settings.Settings;
@@ -61,6 +62,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                                 public void onClick(DialogInterface dialog, int which) {
                                     Settings.SERVER_URL = editText.getText().toString();
                                     SharedPrefsUtil.getInstance(SettingsActivity.this).putValue("SERVER_URL", editText.getText().toString());
+                                    YusionApp.isChangeURL = true;
                                     dialog.dismiss();
                                     new AlertDialog.Builder(SettingsActivity.this)
                                             .setMessage("请自行重启app")
