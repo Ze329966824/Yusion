@@ -3,11 +3,15 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 
+import com.yusion.shanghai.yusion.bean.auth.BindingReq;
+import com.yusion.shanghai.yusion.bean.auth.BindingResp;
 import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdResp;
 import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
@@ -41,6 +45,36 @@ public class AuthApi {
             }
         });
     }
+
+    public static void thirdLogin(Context context, OpenIdReq req, final OnItemDataCallBack<OpenIdResp> onItemDataCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getAuthService().openId(req).enqueue(new CustomCallBack<OpenIdResp>(context, dialog) {
+            @Override
+            public void onCustomResponse(OpenIdResp data) {
+                onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
+    public static void binding(Context context, BindingReq req, final OnItemDataCallBack<BindingResp> onItemDataCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getAuthService().binding(req).enqueue(new CustomCallBack<BindingResp>(context, dialog) {
+            @Override
+            public void onCustomResponse(BindingResp data) {
+                onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
+    public static void checkOpenID(Context context, String mobile, String source, final OnItemDataCallBack<Integer>onItemDataCallBack){
+        Api.getAuthService().checkOpenID(mobile,source).enqueue(new CustomCallBack<Integer>(context) {
+            @Override
+            public void onCustomResponse(Integer data) {
+                onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
 
     public static void checkUserInfo(Context context, final OnItemDataCallBack<CheckUserInfoResp> onItemDataCallBack) {
         Api.getAuthService().checkUserInfo().enqueue(new CustomCallBack<CheckUserInfoResp>(context) {

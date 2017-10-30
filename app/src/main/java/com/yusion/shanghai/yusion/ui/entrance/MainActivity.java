@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        ActivityManager.finishOtherActivityEx(MainActivity.class);
         ConfigApi.getConfigJson(this, null);
 
         AuthApi.checkUserInfo(this, data -> {
@@ -123,6 +125,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
 
 //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {

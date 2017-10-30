@@ -35,6 +35,8 @@ public class YusionApp extends MultiDexApplication {
 
     public static String TOKEN;
     public static String MOBILE;
+    public static String OPEN_ID;
+    public static String reg_id;
     public static ConfigResp CONFIG_RESP;
     public static boolean isLogin;
     public static boolean isForeground;
@@ -62,6 +64,7 @@ public class YusionApp extends MultiDexApplication {
     }
 
     private void initData() {
+        reg_id= SharedPrefsUtil.getInstance(this).getValue("reg_id", "");
         TOKEN = SharedPrefsUtil.getInstance(this).getValue("token", "");
         MOBILE = SharedPrefsUtil.getInstance(this).getValue("mobile", "");
     }
@@ -92,8 +95,12 @@ public class YusionApp extends MultiDexApplication {
     public void clearUserData() {
         TOKEN = "";
         MOBILE = "";
+        OPEN_ID = "";
+//        USERINFOBEAN = null;
+
         getInstance(this).putValue("token", TOKEN);
         getInstance(this).putValue("mobile", MOBILE);
+        getInstance(this).putValue("open_id", OPEN_ID);
     }
 
     private void initJpush() {

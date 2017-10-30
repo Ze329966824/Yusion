@@ -22,6 +22,7 @@ import com.yusion.shanghai.yusion.event.ApplyActivityEvent
 import com.yusion.shanghai.yusion.settings.Constants
 import com.yusion.shanghai.yusion.ubt.UBT
 import com.yusion.shanghai.yusion.ubt.annotate.BindView
+import com.yusion.shanghai.yusion.ui.update.UpdateSpouseInfoActivity
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil
 import com.yusion.shanghai.yusion.utils.ContactsUtil
 import com.yusion.shanghai.yusion.utils.InputMethodUtil
@@ -604,11 +605,14 @@ class PersonalInfoFragment : DoubleCheckFragment() {
                     personal_info_urg_mobile1_img.id -> {
                         (personal_info_urg_contact1_edt as EditText).setText(result[0])
                         (personal_info_urg_mobile1_edt as EditText).setText(result[1].replace(" ", ""))
-//                        UBT.addEvent(mContext,"textchange","edit_text","personal_info_urg_mobile1_edt","PersonalInfoFragment",personal_info_urg_mobile1_edt.toString())
+                        UBT.addEvent(mContext, "text_change", "edit_text", "personal_info_urg_mobile1_edt", ApplyActivity::class.java.simpleName, "手机号")
+
                     }
                     personal_info_urg_mobile2_img.id -> {
                         (personal_info_urg_contact2_edt as EditText).setText(result[0])
                         (personal_info_urg_mobile2_edt as EditText).setText(result[1].replace(" ", ""))
+                        UBT.addEvent(mContext, "text_change", "edit_text", "personal_info_urg_mobile2_edt", ApplyActivity::class.java.simpleName, "手机号")
+
                     }
                 }
             } else if (requestCode == Constants.REQUEST_ADDRESS) {

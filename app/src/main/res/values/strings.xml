@@ -26,5 +26,6 @@
     <string name="certificate_info">征信授权书</string>
 
     <string name="commit">提交成功</string>
+    <string name="title_activity_binding">BindingActivity</string>
 
 </resources>

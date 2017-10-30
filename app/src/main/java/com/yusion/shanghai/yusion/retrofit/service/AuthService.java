@@ -1,11 +1,15 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
 import com.yusion.shanghai.yusion.base.BaseResult;
+import com.yusion.shanghai.yusion.bean.auth.BindingReq;
+import com.yusion.shanghai.yusion.bean.auth.BindingResp;
 import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
 import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.GetVCodeResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdResp;
 import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 
@@ -37,4 +41,13 @@ public interface AuthService {
 
     @GET("/api/check_new_app/")
     Call<BaseResult<UpdateResp>> update(@Query("frontend") String frontend);
+
+    @POST("/api/auth/auth_open_id/")
+    Call<BaseResult<OpenIdResp>> openId(@Body OpenIdReq req);
+
+    @GET("/api/auth/auth_open_id/")
+    Call<BaseResult<Integer>> checkOpenID(@Query("mobile") String mobile,@Query("source") String source);
+
+    @POST("/api/auth/auth_user_login/")
+    Call<BaseResult<BindingResp>> binding(@Body BindingReq req);
 }

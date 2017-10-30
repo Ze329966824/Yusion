@@ -14,8 +14,8 @@ android {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 34
-        versionName "V1.8.4"
+        versionCode 36
+        versionName "V1.8.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi"
@@ -92,6 +92,8 @@ dependencies {
     compile project(path: ':PickerLib')
     compile files('libs/jcore-android-1.1.6.jar')
     compile files('libs/jpush-android-3.0.8.jar')
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile files('libs/open_sdk_r5793.jar')
     compile 'com.github.jokermonn:permissions4m:2.1.1-lib'
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.github.bumptech.glide:compiler:4.0.0'
@@ -111,9 +113,12 @@ dependencies {
     compile 'com.instabug.library:instabug:4.2.10'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.amap.api:location:latest.integration'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
     annotationProcessor 'com.github.jokermonn:permissions4m:2.1.1-processor'
+    compile files('libs/open_sdk_r5886_lite.jar')
 }
 repositories {
     mavenCentral()
