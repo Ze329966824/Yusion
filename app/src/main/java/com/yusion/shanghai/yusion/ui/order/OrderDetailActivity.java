@@ -100,9 +100,9 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView monthPrice;
 
     private LinearLayout orderDetailFianceLin;
+
     //车辆信息修改
     private LinearLayout alter_carInfo_lin;
-
     private RelativeLayout carinfoRel;
     private TextView alter_before_dlr;
     private TextView alter_after_dlr;
@@ -129,13 +129,6 @@ public class OrderDetailActivity extends BaseActivity {
         initTitleBar(this, "申请详情");
         initView();
         initData();
-
-//        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mScrollView.smoothScrollTo(0,0);
-//            }
-//        });
     }
 
     private void initView() {
@@ -246,7 +239,6 @@ public class OrderDetailActivity extends BaseActivity {
         alter_before_date = (TextView) findViewById(R.id.alter_before_date);
         alter_after_date = (TextView) findViewById(R.id.alter_after_date);
 
-
     }
 
     private void initData() {
@@ -254,6 +246,9 @@ public class OrderDetailActivity extends BaseActivity {
         OrderApi.getAppDetails(this, app_id, new OnItemDataCallBack<OrderDetailBean>() {
             @Override
             public void onItemDataCallBack(OrderDetailBean resp) {
+                if (resp == null) {
+                    return;
+                }
                 if (resp.status_st == 2) {//2是待审核
                     waitRel.setVisibility(View.VISIBLE);
                     passRel.setVisibility(View.GONE);
@@ -284,18 +279,18 @@ public class OrderDetailActivity extends BaseActivity {
                     rejectReason.setText(resp.uw_detail.comments);
                     //orderDetailFianceLin.setVisibility(View.GONE);
                 }
-                if (resp.uw) {
-                    applyLin.setVisibility(View.GONE);
+                if (resp.uw && resp.uw_detail != null) {
+                    // applyLin.setVisibility(View.GONE);
                     orderDetailFianceLin.setVisibility(View.VISIBLE);
-                    applyBillPriceTv.setText(resp.vehicle_price);
-                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
-                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
-                    applyManagementPriceTv.setText(resp.management_fee);
-                    applyOtherPriceTv.setText(resp.other_fee);
-                    applyTotalLoanPriceTv.setText(resp.loan_amt);
-                    applyLoanBankTv.setText(resp.loan_bank);
-                    applyProductTypeTv.setText(resp.product_type);
-                    applyPeriodsTv.setText(resp.nper);
+//                    applyBillPriceTv.setText(resp.vehicle_price);
+//                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
+//                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
+//                    applyManagementPriceTv.setText(resp.management_fee);
+//                    applyOtherPriceTv.setText(resp.other_fee);
+//                    applyTotalLoanPriceTv.setText(resp.loan_amt);
+//                    applyLoanBankTv.setText(resp.loan_bank);
+//                    applyProductTypeTv.setText(resp.product_type);
+//                    applyPeriodsTv.setText(resp.nper);
 
 
                     replayBillPriceTv.setText(resp.uw_detail.vehicle_price);
@@ -320,21 +315,43 @@ public class OrderDetailActivity extends BaseActivity {
                     compare(applyReplyDateTv2, ReplyRepayDateTv2);
 
                 } else {
-                    applyLin.setVisibility(View.VISIBLE);
+                    // applyLin.setVisibility(View.VISIBLE);
                     orderDetailFianceLin.setVisibility(View.GONE);
-                    applyBillPriceTv.setText(resp.vehicle_price);
-                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
-                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
-                    applyManagementPriceTv.setText(resp.management_fee);
-                    applyOtherPriceTv.setText(resp.other_fee);
-                    applyTotalLoanPriceTv.setText(resp.loan_amt);
-                    applyLoanBankTv.setText(resp.loan_bank);
-                    applyProductTypeTv.setText(resp.product_type);
-                    applyPeriodsTv.setText(resp.nper);
+//                    applyBillPriceTv.setText(resp.vehicle_price);
+//                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
+//                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
+//                    applyManagementPriceTv.setText(resp.management_fee);
+//                    applyOtherPriceTv.setText(resp.other_fee);
+//                    applyTotalLoanPriceTv.setText(resp.loan_amt);
+//                    applyLoanBankTv.setText(resp.loan_bank);
+//                    applyProductTypeTv.setText(resp.product_type);
+//                    applyPeriodsTv.setText(resp.nper);
                 }
+                applyBillPriceTv.setText(resp.vehicle_price);
+                applyFirstPriceTv.setText(resp.vehicle_down_payment);
+                applyLoanPriceTv.setText(resp.vehicle_loan_amt);
+                applyManagementPriceTv.setText(resp.management_fee);
+                applyOtherPriceTv.setText(resp.other_fee);
+                applyTotalLoanPriceTv.setText(resp.loan_amt);
+                applyLoanBankTv.setText(resp.loan_bank);
+                applyProductTypeTv.setText(resp.product_type);
+                applyPeriodsTv.setText(resp.nper);
+
+                compare(applyMonthPrice, replyMonthPrice);
+                compare(applyFirstPercentTv2, replyFirstPercentTv2);
+                compare(applyBillPriceTv2, replyBillPriceTv2);
+                compare(applyFirstPriceTv2, replyFirstPriceTv2);
+                compare(applyLoanPriceTv2, replyLoanPriceTv2);
+                compare(applyManagementPriceTv2, replyManagementPriceTv2);
+                compare(applyOtherPriceTv2, replyOtherPriceTv2);
+                compare(applyTotalPriceTv2, replyTotalPriceTv2);
+                compare(applyBankTv2, replyBankTv2);
+                compare(applyReplyDateTv2, ReplyRepayDateTv2);
+
 
                 if (resp.is_modify && resp.old_app != null) {
                     alter_carInfo_lin.setVisibility(View.VISIBLE);
+
                     order_detail_car_info_layout.setVisibility(View.GONE);
                     //车辆原信息和修改信息
 
