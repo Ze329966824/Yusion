@@ -1324,7 +1324,6 @@
 
                 </LinearLayout>
 
-
                 <!--车辆信息-->
                 <LinearLayout
                     android:id="@+id/order_detail_car_info_layout"
@@ -1341,7 +1340,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="15dp"
-                        android:text="车辆信息"
+                        android:text="订单信息"
                         android:textColor="@color/text_normal"
                         android:textSize="13.5sp" />
 
@@ -1350,6 +1349,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/main_driver" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="门店"
+                            android:textColor="@color/text_light_grey"
+                            android:textSize="13.5sp" />
+
+                        <TextView
+                            android:id="@+id/order_detail_dlr_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:textColor="@color/text_normal"
+                            android:textSize="13.5sp" />
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1458,69 +1485,13 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-
                             android:textColor="@color/text_normal"
                             android:textSize="13.5sp" />
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <!--门店信息-->
-                <LinearLayout
-                    android:id="@+id/order_detail_store_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:paddingBottom="20dp"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/order_detail_store"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:text="门店信息"
-                        android:textColor="@color/text_normal"
-                        android:textSize="13.5sp" />
-
-                    <View
-                        android:id="@+id/order_detail_store_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/main_driver" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="门店"
-                            android:textColor="@color/text_light_grey"
-                            android:textSize="13.5sp" />
-
-                        <TextView
-                            android:id="@+id/order_detail_dlr_name_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-
-                            android:textColor="@color/text_normal"
-                            android:textSize="13.5sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                <!-- 汽车信息修改对比  -->
+                <include layout="@layout/alter_carinfo_layout" />
 
                 <!--报单人员信息-->
                 <LinearLayout

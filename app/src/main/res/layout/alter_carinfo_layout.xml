@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_color">
+
+    <LinearLayout
+        android:id="@+id/alter_carInfo_lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/order_detail_plan_reply_info9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="订单信息"
+            android:textColor="@color/text_normal"
+            android:textSize="13.5sp" />
+
+        <View
+            android:id="@+id/order_detail_plan_reply_info_line9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/main_driver" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#f7f7f7"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/eee"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="名称"
+                android:textSize="11.5sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="修改前"
+                android:textSize="11.5sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:text="修改后"
+                android:textSize="11.5sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="门店"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_dlr"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_dlr"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="品牌"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_brand"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_brand"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:visibility="visible">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="车系"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_trix"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_trix"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:visibility="visible">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="车辆型号"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_model"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_model"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="厂商指导价"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_guiderpice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_guideprice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="总贷款额"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_totalpice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_totalprice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="月供"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_monthpice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_monthprice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="还款期限"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_before_date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/alter_after_date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:textColor="@color/text_grey"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

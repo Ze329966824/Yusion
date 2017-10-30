@@ -16,12 +16,11 @@ import android.widget.TextView;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
-import com.yusion.shanghai.yusion.bean.order.GetAppDetailResp;
-import com.yusion.shanghai.yusion.bean.order.GetFinancePlanDetailResp;
 import com.yusion.shanghai.yusion.bean.order.OrderDetailBean;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 
+import static com.yusion.shanghai.yusion.R.id.order_detail_apply_lin;
 
 
 public class OrderDetailActivity extends BaseActivity {
@@ -61,9 +60,9 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView cancelReason;
     private TextView passReason;
     private TextView rejectReason;
-
     private LinearLayout order_detail_sale_info_layout;//报单人员
     private LinearLayout order_detail_customer_info_layout;//金融专员
+    private LinearLayout order_detail_car_info_layout;//订单信息
 
     //申请和批复的金融方案
     private TextView applyFirstPercentTv2;
@@ -101,6 +100,27 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView monthPrice;
 
     private LinearLayout orderDetailFianceLin;
+    //车辆信息修改
+    private LinearLayout alter_carInfo_lin;
+
+    private RelativeLayout carinfoRel;
+    private TextView alter_before_dlr;
+    private TextView alter_after_dlr;
+    private TextView alter_before_brand;
+    private TextView alter_after_brand;
+    private TextView alter_before_trix;
+    private TextView alter_after_trix;
+    private TextView alter_before_model;
+    private TextView alter_after_model;
+    private TextView alter_before_guiderpice;
+    private TextView alter_after_guideprice;
+
+    private TextView alter_before_totalpice;
+    private TextView alter_after_totalprice;
+    private TextView alter_before_monthpice;
+    private TextView alter_after_monthprice;
+    private TextView alter_before_date;
+    private TextView alter_after_date;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,7 +154,7 @@ public class OrderDetailActivity extends BaseActivity {
         passRel = (RelativeLayout) findViewById(R.id.order_detail_status_pass_layout);
         rejectRel = (RelativeLayout) findViewById(R.id.order_detail_status_reject_layout);
         replyLin = (LinearLayout) findViewById(R.id.order_detail_reply_lin);
-        applyLin = (LinearLayout) findViewById(R.id.order_detail_apply_lin);
+        applyLin = (LinearLayout) findViewById(order_detail_apply_lin);
         waitReason = (TextView) findViewById(R.id.order_detail_status_wait_reason);
         cancelReason = (TextView) findViewById(R.id.order_detail_status_cancel_reason);
         passReason = (TextView) findViewById(R.id.order_detail_status_pass_reason);
@@ -204,6 +224,29 @@ public class OrderDetailActivity extends BaseActivity {
 
         orderDetailFianceLin = (LinearLayout) findViewById(R.id.order_detail_fiance_lin);
 
+        //车辆信息对比修改
+        order_detail_car_info_layout = (LinearLayout) findViewById(R.id.order_detail_car_info_layout);
+        alter_carInfo_lin = (LinearLayout) findViewById(R.id.alter_carInfo_lin);
+        //carinfoRel.setVisibility(View.GONE);
+        alter_before_dlr = (TextView) findViewById(R.id.alter_before_dlr);
+        alter_after_dlr = (TextView) findViewById(R.id.alter_after_dlr);
+        alter_before_brand = (TextView) findViewById(R.id.alter_before_brand);
+        alter_after_brand = (TextView) findViewById(R.id.alter_after_brand);
+        alter_before_trix = (TextView) findViewById(R.id.alter_before_trix);
+        alter_after_trix = (TextView) findViewById(R.id.alter_after_trix);
+        alter_before_model = (TextView) findViewById(R.id.alter_before_model);
+        alter_after_model = (TextView) findViewById(R.id.alter_after_model);
+        alter_before_guiderpice = (TextView) findViewById(R.id.alter_before_guiderpice);
+        alter_after_guideprice = (TextView) findViewById(R.id.alter_after_guideprice);
+
+        alter_before_totalpice = (TextView) findViewById(R.id.alter_before_totalpice);
+        alter_after_totalprice = (TextView) findViewById(R.id.alter_after_totalprice);
+        alter_before_monthpice = (TextView) findViewById(R.id.alter_before_monthpice);
+        alter_after_monthprice = (TextView) findViewById(R.id.alter_after_monthprice);
+        alter_before_date = (TextView) findViewById(R.id.alter_before_date);
+        alter_after_date = (TextView) findViewById(R.id.alter_after_date);
+
+
     }
 
     private void initData() {
@@ -211,7 +254,6 @@ public class OrderDetailActivity extends BaseActivity {
         OrderApi.getAppDetails(this, app_id, new OnItemDataCallBack<OrderDetailBean>() {
             @Override
             public void onItemDataCallBack(OrderDetailBean resp) {
-
                 if (resp.status_st == 2) {//2是待审核
                     waitRel.setVisibility(View.VISIBLE);
                     passRel.setVisibility(View.GONE);
@@ -226,8 +268,7 @@ public class OrderDetailActivity extends BaseActivity {
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.GONE);
                     replyLin.setVisibility(View.VISIBLE);
-                    passReason.setText(resp.uw_detail.comments);
-                    // orderDetailFianceLin.setVisibility(View.VISIBLE);
+                    //passReason.setText(resp.uw_detail.comments);
                 } else if (resp.status_st == 6) {//放款中      //有批复的
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
@@ -244,37 +285,98 @@ public class OrderDetailActivity extends BaseActivity {
                     //orderDetailFianceLin.setVisibility(View.GONE);
                 }
                 if (resp.uw) {
+                    applyLin.setVisibility(View.GONE);
                     orderDetailFianceLin.setVisibility(View.VISIBLE);
+                    applyBillPriceTv.setText(resp.vehicle_price);
+                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
+                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
+                    applyManagementPriceTv.setText(resp.management_fee);
+                    applyOtherPriceTv.setText(resp.other_fee);
+                    applyTotalLoanPriceTv.setText(resp.loan_amt);
+                    applyLoanBankTv.setText(resp.loan_bank);
+                    applyProductTypeTv.setText(resp.product_type);
+                    applyPeriodsTv.setText(resp.nper);
+
+
+                    replayBillPriceTv.setText(resp.uw_detail.vehicle_price);
+                    replayFirstPriceTv.setText(resp.uw_detail.vehicle_down_payment);
+                    replayLoanPriceTv.setText(resp.uw_detail.vehicle_loan_amt);
+                    replayManagementPriceTv.setText(resp.uw_detail.management_fee);
+                    replayOtherPriceTv.setText(resp.uw_detail.other_fee);
+                    replayTotalLoanPriceTv.setText(resp.uw_detail.loan_amt);
+                    replayLoanBankTv.setText(resp.loan_bank);
+                    replayProductTypeTv.setText(resp.product_type);
+                    replayPeriodsTv.setText(resp.uw_detail.nper);
+
+                    compare(applyMonthPrice, replyMonthPrice);
+                    compare(applyFirstPercentTv2, replyFirstPercentTv2);
+                    compare(applyBillPriceTv2, replyBillPriceTv2);
+                    compare(applyFirstPriceTv2, replyFirstPriceTv2);
+                    compare(applyLoanPriceTv2, replyLoanPriceTv2);
+                    compare(applyManagementPriceTv2, replyManagementPriceTv2);
+                    compare(applyOtherPriceTv2, replyOtherPriceTv2);
+                    compare(applyTotalPriceTv2, replyTotalPriceTv2);
+                    compare(applyBankTv2, replyBankTv2);
+                    compare(applyReplyDateTv2, ReplyRepayDateTv2);
+
                 } else {
+                    applyLin.setVisibility(View.VISIBLE);
                     orderDetailFianceLin.setVisibility(View.GONE);
+                    applyBillPriceTv.setText(resp.vehicle_price);
+                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
+                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
+                    applyManagementPriceTv.setText(resp.management_fee);
+                    applyOtherPriceTv.setText(resp.other_fee);
+                    applyTotalLoanPriceTv.setText(resp.loan_amt);
+                    applyLoanBankTv.setText(resp.loan_bank);
+                    applyProductTypeTv.setText(resp.product_type);
+                    applyPeriodsTv.setText(resp.nper);
                 }
 
-                applyBillPriceTv.setText(resp.vehicle_price);
-                applyFirstPriceTv.setText(resp.vehicle_down_payment);
-                applyLoanPriceTv.setText(resp.vehicle_loan_amt);
-                applyManagementPriceTv.setText(resp.management_fee);
-                applyOtherPriceTv.setText(resp.other_fee);
-                applyTotalLoanPriceTv.setText(resp.loan_amt);
-                applyLoanBankTv.setText(resp.loan_bank);
-                applyProductTypeTv.setText(resp.product_type);
-                applyPeriodsTv.setText(resp.nper);
+                if (resp.is_modify && resp.old_app != null) {
+                    alter_carInfo_lin.setVisibility(View.VISIBLE);
+                    order_detail_car_info_layout.setVisibility(View.GONE);
+                    //车辆原信息和修改信息
 
+                    alter_before_dlr.setText(resp.old_app.dlr_nm);
+                    alter_after_dlr.setText(resp.new_app.dlr_nm);
+                    alter_before_brand.setText(resp.old_app.brand);
+                    alter_after_brand.setText(resp.new_app.brand);
+                    alter_before_trix.setText(resp.old_app.trix);
+                    alter_after_trix.setText(resp.new_app.trix);
+                    alter_before_model.setText(resp.old_app.model_name);
+                    alter_after_model.setText(resp.new_app.model_name);
+                    alter_before_guiderpice.setText(resp.old_app.msrp);
+                    alter_after_guideprice.setText(resp.new_app.msrp);
 
-                replayBillPriceTv.setText(resp.uw_detail.vehicle_price);
-                replayFirstPriceTv.setText(resp.uw_detail.vehicle_down_payment);
-                replayLoanPriceTv.setText(resp.uw_detail.vehicle_loan_amt);
-                replayManagementPriceTv.setText(resp.uw_detail.management_fee);
-                replayOtherPriceTv.setText(resp.uw_detail.other_fee);
-                replayTotalLoanPriceTv.setText(resp.uw_detail.loan_amt);
-                replayLoanBankTv.setText(resp.loan_bank);
-                replayProductTypeTv.setText(resp.product_type);
-                replayPeriodsTv.setText(resp.uw_detail.nper);
+                    alter_before_totalpice.setText(resp.old_app.loan_amt);
+                    alter_after_totalprice.setText(resp.new_app.loan_amt);
+                    alter_before_monthpice.setText(resp.old_app.monthly_payment);
+                    alter_after_monthprice.setText(resp.new_app.monthly_payment);
+                    alter_before_date.setText(resp.old_app.nper);
+                    alter_after_date.setText(resp.new_app.nper);
+
+                    compare(alter_before_dlr, alter_after_dlr);
+                    compare(alter_before_brand, alter_after_brand);
+                    compare(alter_before_trix, alter_after_trix);
+                    compare(alter_before_model, alter_after_model);
+                    compare(alter_before_guiderpice, alter_after_guideprice);
+                    compare(alter_before_totalpice, alter_after_totalprice);
+                    compare(alter_before_monthpice, alter_after_monthprice);
+                    compare(alter_before_date, alter_after_date);
+
+                } else {
+                    order_detail_car_info_layout.setVisibility(View.VISIBLE);
+                    alter_carInfo_lin.setVisibility(View.GONE);
+                }
+
 
                 brandTv.setText(resp.brand);
                 trixTv.setText(resp.trix);
                 modelTv.setText(resp.model_name);
                 guidePriceTv.setText(resp.msrp);
                 dlrNameTv.setText(resp.dlr_nm);
+
 
                 if (TextUtils.isEmpty(resp.dlr_sales_name)) {
                     order_detail_sale_info_layout.setVisibility(View.GONE);
@@ -300,16 +402,6 @@ public class OrderDetailActivity extends BaseActivity {
                 applyReplyDateTv2.setText(resp.nper);
                 ReplyRepayDateTv2.setText(resp.uw_detail.nper);
 
-                compare(applyMonthPrice, replyMonthPrice);
-                compare(applyFirstPercentTv2, replyFirstPercentTv2);
-                compare(applyBillPriceTv2, replyBillPriceTv2);
-                compare(applyFirstPriceTv2, replyFirstPriceTv2);
-                compare(applyLoanPriceTv2, replyLoanPriceTv2);
-                compare(applyManagementPriceTv2, replyManagementPriceTv2);
-                compare(applyOtherPriceTv2, replyOtherPriceTv2);
-                compare(applyTotalPriceTv2, replyTotalPriceTv2);
-                compare(applyBankTv2, replyBankTv2);
-                compare(applyReplyDateTv2, ReplyRepayDateTv2);
 
                 //金融专员信息
                 findViewById(R.id.order_detail_customer_mobile_img).setOnClickListener(new View.OnClickListener() {
@@ -329,9 +421,7 @@ public class OrderDetailActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 });
-
             }
-
         });
 
 
@@ -345,6 +435,7 @@ public class OrderDetailActivity extends BaseActivity {
             tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tv1.setTextColor(Color.parseColor("#999999"));
             tv2.setTextColor(Color.parseColor("#CBA053"));
+
         }
     }
 

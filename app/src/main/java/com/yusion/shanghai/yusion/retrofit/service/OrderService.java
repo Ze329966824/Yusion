@@ -25,7 +25,7 @@ public interface OrderService {
     Call<BaseResult<List<GetAppListResp>>> getAppList(@Query("st") String st);
 
     //获取订单详情
-    @GET("/api/application/get_app_details/")
+    @GET("/api/application/modify_app_detail/")
     Call<BaseResult<OrderDetailBean>> getAppDetails(@Query("app_id") String app_id);
 
     //确认金融方案
