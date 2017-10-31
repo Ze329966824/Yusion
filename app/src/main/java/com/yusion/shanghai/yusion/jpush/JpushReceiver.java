@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import cn.jpush.android.api.JPushInterface;
 import io.sentry.Sentry;
@@ -28,12 +29,11 @@ public class JpushReceiver extends BroadcastReceiver {
                 String content = bundle.getString(JPushInterface.EXTRA_ALERT);
                 JPushInterface.clearNotificationById(context, notificationID);
             }
+            Log.e("EXTRA_EXTRA", string);
             Sentry.capture(string);
             i.putExtra("jsonObject", string);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if (!TextUtils.isEmpty(string)) {
-                context.startActivity(i);
-            }
+            context.startActivity(i);
         }
     }
 }
