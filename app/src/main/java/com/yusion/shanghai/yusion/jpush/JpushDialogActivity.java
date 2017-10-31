@@ -57,14 +57,14 @@ public class JpushDialogActivity extends BaseActivity {
             app_st = jo.optString("app_st");
             app_id = jo.optString("app_id");
             category = jo.optString("category");
-            JpushDialog();
+            popJpushDialog();
         } else {
             finish();
         }
 
     }
 
-    void JpushDialog() {
+    void popJpushDialog() {
         if (YusionApp.isLogin && mobile.equals(YusionApp.MOBILE)) {
             switch (category) {
                 case "login":
