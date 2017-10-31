@@ -86,6 +86,19 @@ public class HomeFragment extends BaseFragment {
     public void refresh(CheckUserInfoResp userInfo) {
         if (userInfo.commited) {
             bottomBtn.setText("查看个人资料");
+//            bottomBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    PopupDialogUtil.showOneButtonDialog(mContext, "这是一个标题", "这是一些内容", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(mContext, OrderDetailActivity.class);
+//                            mContext.startActivity(intent);
+//                        }
+//                    });
+//                }
+//            });
+
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, UpdateUserInfoActivity.class)));
             bottomBtn.setOnClickListener(v -> {
                 UserApi.getListCurrentTpye(mContext, new OnItemDataCallBack<ListCurrentTpye>() {
@@ -105,10 +118,10 @@ public class HomeFragment extends BaseFragment {
                     }
                 });
 
-
             });
         } else {
             bottomBtn.setText("立即申请");
+
             bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, ApplyActivity.class)));
 //            bottomBtn.setOnClickListener(v -> startActivity(new Intent(mContext, AddGuarantorActivity.class)));
         }
