@@ -67,6 +67,7 @@ public class YusionApp extends MultiDexApplication {
         if (!TextUtils.isEmpty(cacheUrl)) {
             Settings.SERVER_URL = cacheUrl;
         }
+        Log.e("TAG", "url: Settings.SERVER_URL: " + Settings.SERVER_URL);
 
     }
 

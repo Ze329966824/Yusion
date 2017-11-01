@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.joker.annotation.PermissionsDenied;
 import com.joker.annotation.PermissionsGranted;
@@ -93,10 +94,12 @@ public class LaunchActivity extends BaseActivity {
                             @Override
                             public void onOkClick(Dialog dialog) {
 //                                YusionApp.isChangeURL = false;
-                                Settings.SERVER_URL = "http://api.alpha.yusiontech.com:8000/";
+//                                Settings.SERVER_URL = "http://api.alpha.yusiontech.com:8000/";
 //                                Api.initRetrofit();
                                 dialog.dismiss();
-                                getConfigJson();
+                                SharedPrefsUtil.getInstance(LaunchActivity.this).putValue("SERVER_URL", "");
+                                Toast.makeText(myApp, "还原成功,请自己重启APP！！！", Toast.LENGTH_SHORT).show();
+//                                getConfigJson();
                             }
                         }, new PopupDialogUtil.OnCancelClickListener() {
                             @Override

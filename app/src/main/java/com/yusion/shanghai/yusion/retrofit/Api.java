@@ -48,6 +48,7 @@ public class Api {
      * 每个模块需要的retrofit对象不尽相同,通过传入serverUrl可以创建一个新实例
      */
     public static Retrofit createRetrofit(String serverUrl) {
+        Log.e("TAG", "url: create retrofit: " + Settings.SERVER_URL);
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
                 .client(logClient)
