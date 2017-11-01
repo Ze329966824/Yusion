@@ -42,6 +42,7 @@ public class LaunchActivity extends BaseActivity {
     public static final int READ_CONTACTS_CODE = 10;
     public static final int READ_PHONESTATE_CODE = 9;
 
+
     private boolean isRead;
     private boolean isPhoneState;
 
@@ -54,6 +55,8 @@ public class LaunchActivity extends BaseActivity {
 //        } else {
 //            getPermisson();
 //        }
+
+
         if (Settings.isOnline) {
             checkVersion();
         } else {
@@ -90,7 +93,7 @@ public class LaunchActivity extends BaseActivity {
         if (!Settings.isOnline) {
             Log.e("当前服务器地址：","启动前"+str);
             if (!TextUtils.isEmpty(str)) {
-                PopupDialogUtil.showTwoButtonsDialog(this, "还原", "确定", "服务器地址为：\n" + str, new PopupDialogUtil.OnOkClickListener() {
+                PopupDialogUtil.showTwoButtonsDialog(this,WIDTH*2/3,HEIGHT*1/5, "还原", "确定", "服务器地址为：\n" + str, new PopupDialogUtil.OnOkClickListener() {
                             @Override
                             public void onOkClick(Dialog dialog) {
 //                                YusionApp.isChangeURL = false;

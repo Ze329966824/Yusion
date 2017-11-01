@@ -70,6 +70,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     dialog.dismiss();
+//                                                    RestartAPPUtil.restartAPP(SettingsActivity.this);
                                                 }
                                             })
                                             .show();
@@ -154,7 +155,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
     private void showLogoutDialog() {
 
-        PopupDialogUtil.showTwoButtonsDialog(SettingsActivity.this, new PopupDialogUtil.OnOkClickListener() {
+        PopupDialogUtil.showTwoButtonsDialog(SettingsActivity.this,WIDTH*2/3,HEIGHT*1/5, new PopupDialogUtil.OnOkClickListener() {
             @Override
             public void onOkClick(Dialog dialog) {
                 dialog.dismiss();
@@ -181,10 +182,10 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         UBT.addPageEvent(this, "page_hidden", "activity", getClass().getSimpleName());
         UBT.sendAllUBTEvents(this, () -> {
             finishByLoginOut = true;
-            myApp.clearUserData();
 //            startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
 //            finish();
         });
+        myApp.clearUserData();
         startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
         finish();
     }

@@ -31,6 +31,9 @@ public class BaseActivity extends AppCompatActivity {
     public Tencent tencent;
     protected YusionApp myApp;
 
+    public int WIDTH;
+    public int HEIGHT;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        WIDTH = this.getWindowManager().getDefaultDisplay().getWidth();
+        HEIGHT = this.getWindowManager().getDefaultDisplay().getHeight();
         myApp = ((YusionApp) getApplication());
 //        PgyCrashManager.register(this);
 
