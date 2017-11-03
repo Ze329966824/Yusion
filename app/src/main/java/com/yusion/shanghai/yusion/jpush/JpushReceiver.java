@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.yusion.shanghai.yusion.YusionApp;
+
 import cn.jpush.android.api.JPushInterface;
 import io.sentry.Sentry;
 
-/**
- * Created by LX on 2017/8/14.
- */
 
 public class JpushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+//        Log.e("推送-----------------", "");
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             Intent i = new Intent(context, JpushDialogActivity.class);
@@ -25,9 +25,11 @@ public class JpushReceiver extends BroadcastReceiver {
             if (TextUtils.isEmpty(string)) {
                 return;
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                int notificationID = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                String content = bundle.getString(JPushInterface.EXTRA_ALERT);
-                JPushInterface.clearNotificationById(context, notificationID);
+                if (YusionApp.isForeground) {
+                    int notificationID = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+                    String content = bundle.getString(JPushInterface.EXTRA_ALERT);
+                    JPushInterface.clearNotificationById(context, notificationID);
+                }
             }
             Log.e("EXTRA_EXTRA", string);
             Sentry.capture(string);

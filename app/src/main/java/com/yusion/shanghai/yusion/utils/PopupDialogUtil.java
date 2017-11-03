@@ -41,12 +41,10 @@ public class PopupDialogUtil {
     }
 
 
-    public static void showOneButtonDialog(Context context, String title, String msg,
-                                           OnOkClickListener clickListener) {
+    public static void showOneButtonDialog(Context context, String title, String msg, OnOkClickListener clickListener) {
         mContext = context;
-        if (dialog == null) {
-            dialog = new Dialog(mContext, R.style.MyDialogStyle);
-        }
+        dialog = new Dialog(mContext, R.style.MyDialogStyle);
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.popup_dialog_one_button, null);
         TextView mTitle = (TextView) view.findViewById(R.id.popup_dialog_title);
         mTitle.setText(title);
@@ -84,7 +82,75 @@ public class PopupDialogUtil {
         dialog.show();
     }
 
-    public static void showTwoButtonsDialog(Context context,int width,int height, OnOkClickListener clickListener) {
+    public static void showOneButtonDialog(Context context, String msg, OnOkClickListener clickListener) {
+        mContext = context;
+        dialog = new Dialog(mContext, R.style.MyDialogStyle);
+
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_login, null);
+
+        TextView mMessage = (TextView) view.findViewById(R.id.dialog_login_msg);
+        mMessage.setText(msg);
+        TextView mOK = (TextView) view.findViewById(R.id.dialog_login_ok);
+        mOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickListener != null) {
+                    clickListener.onOkClick(dialog);
+                }
+            }
+        });
+
+
+        dialog.setContentView(view);
+
+
+//        int screenWidth = getWindowManager().getDefaultDisplay().getWidth(); // 屏幕宽
+//        int screenHeight = getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
+
+
+//        dialog.getWindow().getAttributes().width = 259;
+//        dialog.getWindow().getAttributes().height = 259;
+        dialog.setCancelable(false);
+//        dialog.getWindow().getAttributes()
+        show();
+    }
+
+    public static void showTwoButtonsDialog(Context context, String content, String leftMsg, String rightMsg, OnOkClickListener clickListener) {
+        mContext = context;
+//        if (dialog == null) {
+        dialog = new Dialog(mContext, R.style.MyDialogStyle);
+//        }
+        View view = LayoutInflater.from(mContext).inflate(R.layout.popup_dialog_two_button, null);
+        TextView mOK = (TextView) view.findViewById(R.id.popup_dialog_ok);
+//        mOK.setOnClickListener(okListener);
+        mOK.setText(leftMsg);
+        mOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickListener != null) {
+                    clickListener.onOkClick(dialog);
+                }
+            }
+        });
+        TextView mCancel = (TextView) view.findViewById(R.id.popup_dialog_cancel);
+        mCancel.setText(rightMsg);
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        TextView mMsg = (TextView) view.findViewById(R.id.popup_dialog_msg);
+        mMsg.setText(content);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
+//
+//        dialog.getWindow().getAttributes().width = width;
+//        dialog.getWindow().getAttributes().height = height;
+        show();
+    }
+
+    public static void showTwoButtonsDialog(Context context, int width, int height, OnOkClickListener clickListener) {
         mContext = context;
 //        if (dialog == null) {
         dialog = new Dialog(mContext, R.style.MyDialogStyle);
@@ -115,8 +181,55 @@ public class PopupDialogUtil {
         show();
     }
 
+    public static void showTwoButtonsDialog(Context context, String leftbtn, String rightbtn, String message, OnOkClickListener clickListener, OnCancelClickListener cancelListener) {
+        mContext = context;
+//        if (dialog == null) {
+        dialog = new Dialog(mContext, R.style.MyDialogStyle);
+//        }
+        View view = LayoutInflater.from(mContext).inflate(R.layout.popup_dialog_two_button, null);
+        TextView mOK = (TextView) view.findViewById(R.id.popup_dialog_ok);
+//        mOK.setOnClickListener(okListener);
+        mOK.setText(leftbtn);
+        mOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickListener != null) {
+                    clickListener.onOkClick(dialog);
+                }
+            }
+        });
+        TextView mCancel = (TextView) view.findViewById(R.id.popup_dialog_cancel);
+        mCancel.setText(rightbtn);
+//        mCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cancelListener != null) {
+                    cancelListener.onCancelClick(dialog);
+                }
+            }
+        });
 
-    public static void showTwoButtonsDialog(Context context,int width,int height,String leftbtn, String rightbtn,String message, OnOkClickListener clickListener, OnCancelClickListener cancelListener) {
+        TextView mMsg = (TextView) view.findViewById(R.id.popup_dialog_msg);
+        mMsg.setText(message);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
+
+//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(view.getWidth(),view.getHeight());
+//        dialog.addContentView(view, params);
+//
+//        dialog.getWindow().getAttributes().width = width;
+//        dialog.getWindow().getAttributes().height = height;
+
+        show();
+    }
+
+    public static void showTwoButtonsDialog(Context context, int width, int height, String leftbtn, String rightbtn, String message, OnOkClickListener clickListener, OnCancelClickListener cancelListener) {
         mContext = context;
 //        if (dialog == null) {
         dialog = new Dialog(mContext, R.style.MyDialogStyle);
@@ -163,6 +276,7 @@ public class PopupDialogUtil {
     public interface OnOkClickListener {
         void onOkClick(Dialog dialog);
     }
+
     public interface OnCancelClickListener {
         void onCancelClick(Dialog dialog);
     }
