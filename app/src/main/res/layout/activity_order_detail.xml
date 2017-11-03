@@ -528,7 +528,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="15dp"
-                        android:text="金融方案申请信息"
+                        android:text="金融方案原始申请信息"
                         android:textColor="@color/text_normal"
                         android:textSize="13.5sp" />
 
@@ -1624,7 +1624,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="60dp"
                     android:background="@color/bg_color" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

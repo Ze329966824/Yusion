@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         myApp = ((YusionApp) getApplication());
 //        PgyCrashManager.register(this);
 
-        api = WXAPIFactory.createWXAPI(this,WX_APP_ID,false);
+        api = WXAPIFactory.createWXAPI(this, WX_APP_ID, false);
         api.registerApp(WX_APP_ID);
     }
 

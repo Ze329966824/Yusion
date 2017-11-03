@@ -20,8 +20,6 @@ import com.yusion.shanghai.yusion.bean.order.OrderDetailBean;
 import com.yusion.shanghai.yusion.retrofit.api.OrderApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 
-import static com.yusion.shanghai.yusion.R.id.order_detail_apply_lin;
-
 
 public class OrderDetailActivity extends BaseActivity {
 
@@ -147,7 +145,7 @@ public class OrderDetailActivity extends BaseActivity {
         passRel = (RelativeLayout) findViewById(R.id.order_detail_status_pass_layout);
         rejectRel = (RelativeLayout) findViewById(R.id.order_detail_status_reject_layout);
         replyLin = (LinearLayout) findViewById(R.id.order_detail_reply_lin);
-        applyLin = (LinearLayout) findViewById(order_detail_apply_lin);
+        applyLin = (LinearLayout) findViewById(R.id.order_detail_apply_lin);
         waitReason = (TextView) findViewById(R.id.order_detail_status_wait_reason);
         cancelReason = (TextView) findViewById(R.id.order_detail_status_cancel_reason);
         passReason = (TextView) findViewById(R.id.order_detail_status_pass_reason);
@@ -280,7 +278,7 @@ public class OrderDetailActivity extends BaseActivity {
                     //orderDetailFianceLin.setVisibility(View.GONE);
                 }
                 if (resp.uw && resp.uw_detail != null) {
-                    // applyLin.setVisibility(View.GONE);
+                    applyLin.setVisibility(View.GONE);
                     orderDetailFianceLin.setVisibility(View.VISIBLE);
 //                    applyBillPriceTv.setText(resp.vehicle_price);
 //                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
@@ -292,61 +290,68 @@ public class OrderDetailActivity extends BaseActivity {
 //                    applyProductTypeTv.setText(resp.product_type);
 //                    applyPeriodsTv.setText(resp.nper);
 
+//                    replayBillPriceTv.setText(resp.uw_detail.vehicle_price);
+//                    replayFirstPriceTv.setText(resp.uw_detail.vehicle_down_payment);
+//                    replayLoanPriceTv.setText(resp.uw_detail.vehicle_loan_amt);
+//                    replayManagementPriceTv.setText(resp.uw_detail.management_fee);
+//                    replayOtherPriceTv.setText(resp.uw_detail.other_fee);
+//                    replayTotalLoanPriceTv.setText(resp.uw_detail.loan_amt);
+//                    replayLoanBankTv.setText(resp.loan_bank);
+//                    replayProductTypeTv.setText(resp.product_type);
+//                    replayPeriodsTv.setText(resp.uw_detail.nper);
 
-                    replayBillPriceTv.setText(resp.uw_detail.vehicle_price);
-                    replayFirstPriceTv.setText(resp.uw_detail.vehicle_down_payment);
-                    replayLoanPriceTv.setText(resp.uw_detail.vehicle_loan_amt);
-                    replayManagementPriceTv.setText(resp.uw_detail.management_fee);
-                    replayOtherPriceTv.setText(resp.uw_detail.other_fee);
-                    replayTotalLoanPriceTv.setText(resp.uw_detail.loan_amt);
-                    replayLoanBankTv.setText(resp.loan_bank);
-                    replayProductTypeTv.setText(resp.product_type);
-                    replayPeriodsTv.setText(resp.uw_detail.nper);
+                    applyTotalPriceTv2.setText(resp.loan_amt);
+                    replyTotalPriceTv2.setText(resp.uw_detail.loan_amt);
+                    applyMonthPrice.setText(resp.monthly_payment);
+                    replyMonthPrice.setText(resp.uw_detail.monthly_payment);
+                    applyReplyDateTv2.setText(resp.nper);
+                    ReplyRepayDateTv2.setText(resp.uw_detail.nper);
 
                     compare(applyMonthPrice, replyMonthPrice);
-                    compare(applyFirstPercentTv2, replyFirstPercentTv2);
-                    compare(applyBillPriceTv2, replyBillPriceTv2);
-                    compare(applyFirstPriceTv2, replyFirstPriceTv2);
-                    compare(applyLoanPriceTv2, replyLoanPriceTv2);
-                    compare(applyManagementPriceTv2, replyManagementPriceTv2);
-                    compare(applyOtherPriceTv2, replyOtherPriceTv2);
+//                    compare(applyFirstPercentTv2, replyFirstPercentTv2);
+//                    compare(applyBillPriceTv2, replyBillPriceTv2);
+//                    compare(applyFirstPriceTv2, replyFirstPriceTv2);
+//                    compare(applyLoanPriceTv2, replyLoanPriceTv2);
+//                    compare(applyManagementPriceTv2, replyManagementPriceTv2);
+//                    compare(applyOtherPriceTv2, replyOtherPriceTv2);
                     compare(applyTotalPriceTv2, replyTotalPriceTv2);
-                    compare(applyBankTv2, replyBankTv2);
+//                    compare(applyBankTv2, replyBankTv2);
                     compare(applyReplyDateTv2, ReplyRepayDateTv2);
 
                 } else {
-                    // applyLin.setVisibility(View.VISIBLE);
+                    applyLin.setVisibility(View.VISIBLE);
                     orderDetailFianceLin.setVisibility(View.GONE);
 //                    applyBillPriceTv.setText(resp.vehicle_price);
 //                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
 //                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
 //                    applyManagementPriceTv.setText(resp.management_fee);
 //                    applyOtherPriceTv.setText(resp.other_fee);
-//                    applyTotalLoanPriceTv.setText(resp.loan_amt);
+                    applyTotalLoanPriceTv.setText(resp.loan_amt);
 //                    applyLoanBankTv.setText(resp.loan_bank);
 //                    applyProductTypeTv.setText(resp.product_type);
-//                    applyPeriodsTv.setText(resp.nper);
+                    applyPeriodsTv.setText(resp.nper);
+                    monthPrice.setText(resp.monthly_payment);
                 }
-                applyBillPriceTv.setText(resp.vehicle_price);
-                applyFirstPriceTv.setText(resp.vehicle_down_payment);
-                applyLoanPriceTv.setText(resp.vehicle_loan_amt);
-                applyManagementPriceTv.setText(resp.management_fee);
-                applyOtherPriceTv.setText(resp.other_fee);
-                applyTotalLoanPriceTv.setText(resp.loan_amt);
-                applyLoanBankTv.setText(resp.loan_bank);
-                applyProductTypeTv.setText(resp.product_type);
-                applyPeriodsTv.setText(resp.nper);
+//                applyBillPriceTv.setText(resp.vehicle_price);
+//                applyFirstPriceTv.setText(resp.vehicle_down_payment);
+//                applyLoanPriceTv.setText(resp.vehicle_loan_amt);
+//                applyManagementPriceTv.setText(resp.management_fee);
+//                applyOtherPriceTv.setText(resp.other_fee);
+//                applyTotalLoanPriceTv.setText(resp.loan_amt);
+//                applyLoanBankTv.setText(resp.loan_bank);
+//                applyProductTypeTv.setText(resp.product_type);
+//                applyPeriodsTv.setText(resp.nper);
 
-                compare(applyMonthPrice, replyMonthPrice);
-                compare(applyFirstPercentTv2, replyFirstPercentTv2);
-                compare(applyBillPriceTv2, replyBillPriceTv2);
-                compare(applyFirstPriceTv2, replyFirstPriceTv2);
-                compare(applyLoanPriceTv2, replyLoanPriceTv2);
-                compare(applyManagementPriceTv2, replyManagementPriceTv2);
-                compare(applyOtherPriceTv2, replyOtherPriceTv2);
-                compare(applyTotalPriceTv2, replyTotalPriceTv2);
-                compare(applyBankTv2, replyBankTv2);
-                compare(applyReplyDateTv2, ReplyRepayDateTv2);
+//                compare(applyMonthPrice, replyMonthPrice);
+//                compare(applyFirstPercentTv2, replyFirstPercentTv2);
+//                compare(applyBillPriceTv2, replyBillPriceTv2);
+//                compare(applyFirstPriceTv2, replyFirstPriceTv2);
+//                compare(applyLoanPriceTv2, replyLoanPriceTv2);
+//                compare(applyManagementPriceTv2, replyManagementPriceTv2);
+//                compare(applyOtherPriceTv2, replyOtherPriceTv2);
+//                compare(applyTotalPriceTv2, replyTotalPriceTv2);
+//                compare(applyBankTv2, replyBankTv2);
+//                compare(applyReplyDateTv2, ReplyRepayDateTv2);
 
 
                 if (resp.is_modify && resp.old_app != null) {
@@ -402,7 +407,7 @@ public class OrderDetailActivity extends BaseActivity {
                     salesNameTv.setText(resp.dlr_sales_name);
                 }
 
-                monthPrice.setText(resp.monthly_payment);
+//                monthPrice.setText(resp.monthly_payment);
 
                 if (TextUtils.isEmpty(resp.dlr_dfim_name)) {//金融专员
                     order_detail_customer_info_layout.setVisibility(View.GONE);
@@ -411,13 +416,12 @@ public class OrderDetailActivity extends BaseActivity {
                     customerNameTv.setText(resp.dlr_dfim_name);
                 }
 
-
-                applyTotalPriceTv2.setText(resp.loan_amt);
-                replyTotalPriceTv2.setText(resp.uw_detail.loan_amt);
-                applyMonthPrice.setText(resp.monthly_payment);
-                replyMonthPrice.setText(resp.uw_detail.monthly_payment);
-                applyReplyDateTv2.setText(resp.nper);
-                ReplyRepayDateTv2.setText(resp.uw_detail.nper);
+//                applyTotalPriceTv2.setText(resp.loan_amt);
+//                replyTotalPriceTv2.setText(resp.uw_detail.loan_amt);
+//                applyMonthPrice.setText(resp.monthly_payment);
+//                replyMonthPrice.setText(resp.uw_detail.monthly_payment);
+//                applyReplyDateTv2.setText(resp.nper);
+//                ReplyRepayDateTv2.setText(resp.uw_detail.nper);
 
 
                 //金融专员信息
