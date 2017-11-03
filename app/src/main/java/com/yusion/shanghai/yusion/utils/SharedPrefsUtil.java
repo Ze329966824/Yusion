@@ -2,8 +2,6 @@ package com.yusion.shanghai.yusion.utils;
 
 import android.content.Context;
 
-import static android.R.attr.value;
-
 /**
  * Created by suijin on 2017/3/21.
  */
@@ -46,7 +44,7 @@ public class SharedPrefsUtil {
     }
 
     public int getValue(String key, int defValue) {
-        return context.getSharedPreferences(spName, Context.MODE_PRIVATE).getInt(key, value);
+        return context.getSharedPreferences(spName, Context.MODE_PRIVATE).getInt(key, defValue);
     }
 
     public long getValue(String key, long defValue) {

@@ -125,14 +125,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
             //qq登录
-            case R.id.btn_qq:
-                //如果session不可用，则登录，否则说明已经登录
-                if (!tencent.isSessionValid()) {
-                    tencent.login(LoginActivity.this, "all", mListener);
-                } else {
-                    tencent.logout(this);
-                }
-                break;
+//            case R.id.btn_qq:
+//                //如果session不可用，则登录，否则说明已经登录
+//                if (!tencent.isSessionValid()) {
+//                    tencent.login(LoginActivity.this, "all", mListener);
+//                } else {
+//                    tencent.logout(this);
+//                }
+//                break;
 
 //        if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
 //            Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();

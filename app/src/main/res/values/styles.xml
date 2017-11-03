@@ -80,6 +80,13 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle" >true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 
     <style name="JpushDialogStyle" parent="@style/AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>

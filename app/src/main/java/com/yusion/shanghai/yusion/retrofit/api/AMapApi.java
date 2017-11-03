@@ -1,6 +1,5 @@
 package com.yusion.shanghai.yusion.retrofit.api;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -8,7 +7,6 @@ import com.yusion.shanghai.yusion.bean.amap.PoiResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.retrofit.service.AMapService;
-import com.yusion.shanghai.yusion.utils.LoadingUtils;
 
 import io.sentry.Sentry;
 import retrofit2.Call;
@@ -28,12 +26,12 @@ public class AMapApi {
     private static AMapService mapService = retrofit.create(AMapService.class);
 
     public static void getPoiResp(final Context context, String key, String keywords, String city, final OnItemDataCallBack<PoiResp> onItemDataCallBack) {
-        Dialog dialog = LoadingUtils.createLoadingDialog(context);
-        dialog.show();
+//        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+//        dialog.show();
         mapService.getPoiResp(key, keywords, city).enqueue(new Callback<PoiResp>() {
             @Override
             public void onResponse(Call<PoiResp> call, Response<PoiResp> response) {
-                dialog.dismiss();
+//                dialog.dismiss();
                 PoiResp body = response.body();
                 if (body != null) {
                     if ("0".equals(body.status)) {
@@ -50,7 +48,7 @@ public class AMapApi {
 
             @Override
             public void onFailure(Call<PoiResp> call, Throwable t) {
-                dialog.dismiss();
+//                dialog.dismiss();
                 Sentry.capture("AMAP:" + t);
                 Toast.makeText(context, "网络繁忙", Toast.LENGTH_SHORT).show();
             }

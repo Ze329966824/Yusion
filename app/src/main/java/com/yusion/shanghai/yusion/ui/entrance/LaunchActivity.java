@@ -2,11 +2,14 @@ package com.yusion.shanghai.yusion.ui.entrance;
 
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.joker.annotation.PermissionsDenied;
 import com.joker.annotation.PermissionsGranted;
@@ -21,6 +24,7 @@ import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.settings.Settings;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
+import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.utils.UpdateUtil;
 
@@ -38,6 +42,7 @@ public class LaunchActivity extends BaseActivity {
     public static final int READ_CONTACTS_CODE = 10;
     public static final int READ_PHONESTATE_CODE = 9;
 
+
     private boolean isRead;
     private boolean isPhoneState;
 
@@ -50,6 +55,8 @@ public class LaunchActivity extends BaseActivity {
 //        } else {
 //            getPermisson();
 //        }
+
+
         if (Settings.isOnline) {
             checkVersion();
         } else {
@@ -80,24 +87,45 @@ public class LaunchActivity extends BaseActivity {
 
         });
     }
+    private String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
 
     private void checkServerUrl() {
         if (!Settings.isOnline) {
-            String str = SharedPrefsUtil.getInstance(this).getValue("SERVER_URL", "");
+            Log.e("当前服务器地址：","启动前"+str);
             if (!TextUtils.isEmpty(str)) {
-                new AlertDialog.Builder(this)
-                        .setTitle("请确认服务器地址：")
-                        .setMessage(str)
-                        .setPositiveButton("是", (dialog, which) -> {
-                            Settings.SERVER_URL = str;
-                            getConfigJson();
-                            dialog.dismiss();
-                        })
-                        .setNegativeButton("否", (dialog, which) -> {
-                            getConfigJson();
-                            dialog.dismiss();
-                        })
-                        .show();
+                PopupDialogUtil.showTwoButtonsDialog(this, "还原", "确定", "服务器地址为：\n" + str, new PopupDialogUtil.OnOkClickListener() {
+                            @Override
+                            public void onOkClick(Dialog dialog) {
+//                                YusionApp.isChangeURL = false;
+//                                Settings.SERVER_URL = "http://api.alpha.yusiontech.com:8000/";
+//                                Api.initRetrofit();
+                                dialog.dismiss();
+                                SharedPrefsUtil.getInstance(LaunchActivity.this).putValue("SERVER_URL", "");
+                                Toast.makeText(myApp, "还原成功,请自己重启APP！！！", Toast.LENGTH_SHORT).show();
+//                                getConfigJson();
+                            }
+                        }, new PopupDialogUtil.OnCancelClickListener() {
+                            @Override
+                            public void onCancelClick(Dialog dialog) {
+                                Settings.SERVER_URL = str;
+//                                Api.initRetrofit();
+                                dialog.dismiss();
+                                getConfigJson();
+                            }
+                        });
+//                new AlertDialog.Builder(this)
+//                        .setTitle("请确认服务器地址：")
+//                        .setMessage(str)
+//                        .setPositiveButton("是", (dialog, which) -> {
+//                            Settings.SERVER_URL = str;
+//                            getConfigJson();
+//                            dialog.dismiss();
+//                        })
+//                        .setNegativeButton("否", (dialog, which) -> {
+//                            getConfigJson();
+//                            dialog.dismiss();
+//                        })
+//                        .show();
             } else {
                 getConfigJson();
             }
@@ -107,6 +135,7 @@ public class LaunchActivity extends BaseActivity {
     }
 
     private void getConfigJson() {
+        Log.e("当前服务器地址：","启动后"+str);
         ConfigApi.getConfigJson(LaunchActivity.this, () -> goNextActivity());
     }
 
