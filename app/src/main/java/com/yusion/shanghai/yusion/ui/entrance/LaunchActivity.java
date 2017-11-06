@@ -93,7 +93,7 @@ public class LaunchActivity extends BaseActivity {
         if (!Settings.isOnline) {
             Log.e("当前服务器地址：","启动前"+str);
             if (!TextUtils.isEmpty(str)) {
-                PopupDialogUtil.showTwoButtonsDialog(this,WIDTH*2/3,HEIGHT*1/5, "还原", "确定", "服务器地址为：\n" + str, new PopupDialogUtil.OnOkClickListener() {
+                PopupDialogUtil.showTwoButtonsDialog(this, "还原", "确定", "服务器地址为：\n" + str, new PopupDialogUtil.OnOkClickListener() {
                             @Override
                             public void onOkClick(Dialog dialog) {
 //                                YusionApp.isChangeURL = false;
@@ -112,9 +112,7 @@ public class LaunchActivity extends BaseActivity {
                                 dialog.dismiss();
                                 getConfigJson();
                             }
-                        }
-
-                );
+                        });
 //                new AlertDialog.Builder(this)
 //                        .setTitle("请确认服务器地址：")
 //                        .setMessage(str)

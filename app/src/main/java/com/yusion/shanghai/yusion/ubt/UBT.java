@@ -54,13 +54,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.yusion.shanghai.yusion.utils.MobileDataUtil.getUserData;
+
 
 public class UBT {
 
     public static void uploadPersonAndDeviceInfo(Context context) {
         UBTData req = new UBTData(context);
 
-        JSONArray contactJsonArray = MobileDataUtil.getUserData(context, "contact");
+        JSONArray contactJsonArray = getUserData(context, "contact");
         List<UBTData.DataBean.ContactBean> contactBeenList = new ArrayList<>();
         for (int i = 0; i < contactJsonArray.length(); i++) {
             JSONObject jsonObject = null;
@@ -88,7 +90,7 @@ public class UBT {
 //            contactBean.raw_data = raw_list;
 //        }
 
-        JSONArray smsJsonArray = MobileDataUtil.getUserData(context, "sms");
+        JSONArray smsJsonArray = getUserData(context, "sms");
         List<UBTData.DataBean.SmsBean> smsList = new ArrayList<>();
         for (int i = 0; i < smsJsonArray.length(); i++) {
             JSONObject jsonObject = null;
@@ -120,6 +122,30 @@ public class UBT {
             simBean.sms_list = smsList;
         }
 
+        JSONArray callLogJsonArray = MobileDataUtil.getUserData(context, "call_log");
+        List<UBTData.DataBean.CallLogBean> callLogList = new ArrayList<>();
+        for (int i = 0; i < callLogJsonArray.length(); i++) {
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = callLogJsonArray.getJSONObject(i);
+                UBTData.DataBean.CallLogBean callLogBean = new UBTData.DataBean.CallLogBean();
+                callLogBean.type = jsonObject.optString("type");
+                callLogBean.date = jsonObject.optString("date");
+                callLogBean.number = jsonObject.optString("number");
+                callLogBean.duration = jsonObject.optString("duration");
+                callLogList.add(callLogBean);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        UBTData.DataBean callLogBean = new UBTData.DataBean();
+        callLogBean.category = "calllog";
+        req.data.add(callLogBean);
+        if (callLogList.size() > 0 && !callLogList.isEmpty()) {
+            callLogBean.calllog_list = callLogList;
+        }
+
+
         AuthApi.checkUserInfo(context, new OnItemDataCallBack<CheckUserInfoResp>() {
             @Override
             public void onItemDataCallBack(CheckUserInfoResp data) {
@@ -127,6 +153,8 @@ public class UBT {
                 contactBean.mobile = data.mobile;
                 simBean.clt_nm = data.name;
                 simBean.mobile = data.mobile;
+                callLogBean.clt_nm = data.name;
+                callLogBean.mobile = data.mobile;
                 //PersonApi.uploadPersonAndDeviceInfo(req);
                 PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {
                     @Override

