@@ -140,7 +140,8 @@ public class MyOrderFragment extends BaseFragment {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             VH vh = (VH) holder;
             GetAppListResp item = mItems.get(position);
-            if (item.status_st == 4) {
+            //item.status_st == 4
+            if (item.uw) {
                 vh.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
