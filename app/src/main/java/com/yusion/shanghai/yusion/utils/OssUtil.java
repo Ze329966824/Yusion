@@ -135,6 +135,7 @@ public class OssUtil {
             oss.putObject(request);
             onOssSuccessCallBack.onItemDataCallBack(objectKey);
         } catch (IOException | ServiceException | ClientException e) {
+            onFailureCallBack.onItemDataCallBack(e);
             Sentry.capture(e);
         }
 //        OssApi.ossService.getOSSToken(body).enqueue(new Callback<GetOssTokenBean>() {
