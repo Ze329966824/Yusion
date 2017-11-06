@@ -19,6 +19,8 @@ import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.yusion.shanghai.yusion.R.id.btn_cancel;
+
 public class JpushDialogActivity extends BaseActivity {
     private String mobile = null;
     private String title = null;
@@ -26,6 +28,7 @@ public class JpushDialogActivity extends BaseActivity {
     private String app_st = null;
     private String app_id = null;
     private String category = null;
+    private String order_state = null;
 
 /*    "reg_id":xxxx,
             "mobile": 138xxx,
@@ -41,7 +44,6 @@ public class JpushDialogActivity extends BaseActivity {
 //        setContentView(R.layout.activity_jpush_dialog);
 
         try {
-            Toast.makeText(this, "订单状态推送", Toast.LENGTH_SHORT).show();
             initJpush();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -60,6 +62,8 @@ public class JpushDialogActivity extends BaseActivity {
             app_st = jo.optString("app_st");
             app_id = jo.optString("app_id");
             category = jo.optString("category");
+
+            order_state = jo.optString("order_state");
             popJpushDialog();
         } else {
             finish();
@@ -80,29 +84,19 @@ public class JpushDialogActivity extends BaseActivity {
                             finish();
                         }
                     });
-//                    Log.e("推送-----------------", "");
-//
-//                    new AlertDialog.Builder(JpushDialogActivity.this)
-//                            .setTitle(title)
-//                            .setMessage(content)
-//                            .setCancelable(false)
-//                            .setPositiveButton("这不是一个推送", (dialog, which) -> {
-//                                dialog.dismiss();
-//                                finish();
-//                            })
-//                            .show();
+
                     break;
                 case "application":
-//                    new AlertDialog.Builder(JpushDialogActivity.this)
-//                            .setCancelable(false)
-//                            .setTitle(title)
-//                            .setMessage(content)
-//                            .setPositiveButton("知道啦", (dialog, which) -> {
-//                                dialog.dismiss();
-//                                finish();
-//                            })
-//                            .show();
-                    new JpushDialogRefuse(this, title, content).show();
+                    switch (order_state){
+                        case "pass":
+                            new JpushDialogPass(this,title,content).show();
+                            break;
+                        case "refuse":
+                            new JpushDialogRefuse(this, title, content).show();
+                            break;
+                        default:
+                            break;
+                    }
 
                     break;
                 default:
@@ -144,7 +138,7 @@ public class JpushDialogActivity extends BaseActivity {
 //        }
 //    }
 
-    private static class JpushDialogPass implements View.OnClickListener {
+    private  class JpushDialogPass implements View.OnClickListener {
         private Context mContext;
         private Dialog mDialog;
         private View mView;
@@ -160,7 +154,7 @@ public class JpushDialogActivity extends BaseActivity {
             mMessage = (TextView) mView.findViewById(R.id.dialog_approve_pass_message);
             mMessage.setText(message);
 
-            mView.findViewById(R.id.btn_cancel).setOnClickListener(this);
+            mView.findViewById(btn_cancel).setOnClickListener(this);
             mView.findViewById(R.id.btn_ok).setOnClickListener(this);
 
             mDialog = new Dialog(mContext, R.style.MyDialogStyle);
@@ -188,11 +182,14 @@ public class JpushDialogActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btn_cancel:
+                case btn_cancel:
                     dismiss();
+                    finish();
                     break;
                 case R.id.btn_ok:
                     dismiss();
+                    Toast.makeText(JpushDialogActivity.this, "查看金融方案", Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
                 default:
                     dismiss();
@@ -219,8 +216,7 @@ public class JpushDialogActivity extends BaseActivity {
             mMessage.setText(message);
             mCall = (TextView) mView.findViewById(R.id.btn_calltocustomer);
 
-//            mView.findViewById(R.id.btn_cancel).setOnClickListener(this);
-//            mView.findViewById(R.id.btn_ok).setOnClickListener(this);
+            mView.findViewById(btn_cancel).setOnClickListener(this);
             mView.findViewById(R.id.btn_calltocustomer).setOnClickListener(this);
 
             mDialog = new Dialog(mContext, R.style.MyDialogStyle);
@@ -246,11 +242,24 @@ public class JpushDialogActivity extends BaseActivity {
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btn_cancel:
+                    dismiss();
+                    finish();
+                    break;
+                case R.id.btn_calltocustomer:
+                    Toast.makeText(JpushDialogActivity.this, "查看详情", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                    finish();
+                    break;
+                default:
+                    dismiss();
+                    break;
+            }
 //            Intent intent = new Intent(JpushDialogActivity.this, OrderDetailActivity.class);
 //            intent.putExtra("app_id", item.app_id);
 //            mContext.startActivity(intent);
-            Toast.makeText(JpushDialogActivity.this, "查看详情", Toast.LENGTH_SHORT).show();
         }
     }
 
