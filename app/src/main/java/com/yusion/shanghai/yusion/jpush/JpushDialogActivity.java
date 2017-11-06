@@ -14,6 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
+import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 
 import org.json.JSONException;
@@ -188,7 +189,10 @@ public class JpushDialogActivity extends BaseActivity {
                     break;
                 case R.id.btn_ok:
                     dismiss();
-                    Toast.makeText(JpushDialogActivity.this, "查看金融方案", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(JpushDialogActivity.this, FinancePlanActivity.class);
+                    intent.putExtra("app_id",app_id);
+                    startActivity(intent);
+
                     finish();
                     break;
                 default:
