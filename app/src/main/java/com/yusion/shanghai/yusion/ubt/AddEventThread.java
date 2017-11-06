@@ -3,7 +3,6 @@ package com.yusion.shanghai.yusion.ubt;
 import android.content.ContentValues;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,12 +98,12 @@ public class AddEventThread implements Runnable {
             values.put("widget_cn", UBTCollections.getWidgetNmCn(widget));
         }
         for (String s : values.keySet()) {
-            Log.e("VALUES", "run: " + values.get(s));
+//            Log.e("VALUES", "run: " + values.get(s));
         }
 
         SqlLiteUtil.insert(values);
 //        Log.e(TAG, "run: 插入成功 action=" + action + ",page=" + pageName);
-        Log.e(TAG, "run: 插入成功 ----- " + AddEventThread.this.toString());
+//        Log.e(TAG, "run: 插入成功 ----- " + AddEventThread.this.toString());
 
         //....................
 

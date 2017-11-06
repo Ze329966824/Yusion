@@ -112,8 +112,8 @@
             android:layout_height="5dp"
             android:src="@drawable/apply_step_triangle"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/step1"
-            app:layout_constraintRight_toRightOf="@+id/step1" />
+            app:layout_constraintLeft_toLeftOf="@+id/step2"
+            app:layout_constraintRight_toRightOf="@+id/step2" />
     </android.support.constraint.ConstraintLayout>
 
     <ScrollView
