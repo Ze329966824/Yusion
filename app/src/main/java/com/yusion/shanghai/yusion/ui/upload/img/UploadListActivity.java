@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -133,13 +132,15 @@ public class UploadListActivity extends BaseActivity {
             //要删除的索引集合
             List<Integer> indexList = new ArrayList<>();
             for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).hasChoose) indexList.add(i);
+                UploadImgItemBean imgItemBean = lists.get(i);
+                if (imgItemBean.hasChoose) indexList.add(i);
             }
             Collections.sort(indexList);
 
             if (needUploadFidToServer) {
                 for (int i = 0; i < indexList.size(); i++) {
-                    delImgIdList.add(lists.get(i).id);
+                    UploadImgItemBean imgItemBean = lists.get(indexList.get(i));
+                    delImgIdList.add(imgItemBean.id);
                 }
 
                 DelImgsReq req = new DelImgsReq();
@@ -307,52 +308,24 @@ public class UploadListActivity extends BaseActivity {
                     onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
                 }
             }).start();
-//            for (UploadImgItemBean imgItemBean : toAddList) {
-//                OssUtil.uploadOss(this, false, imgItemBean.local_path, new OSSObjectKeyBean(role, type, ".png"), new OnItemDataCallBack<String>() {
-//                    @Override
-//                    public void onItemDataCallBack(String objectKey) {
-//                        hasUploadOssLists.add(imgItemBean);
-//                        imgItemBean.objectKey = objectKey;
-//                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
-//                    }
-//                }, new OnItemDataCallBack<Throwable>() {
-//                    @Override
-//                    public void onItemDataCallBack(Throwable data) {
-//                        hasUploadOssLists.add(imgItemBean);
-//                        onUploadOssFinish(hasUploadOssLists.size(), files, dialog, toAddList);
-//                    }
-//                });
-//            }
         }
     }
 
     private void onUploadOssFinish(int finalAccount, ArrayList<String> files, Dialog dialog, final List<UploadImgItemBean> toAddList) {
-        Log.e("TAG", "finalAccount: " + finalAccount);
-        Log.e("TAG", "files.size(): " + files.size());
         if (finalAccount == files.size()) {
             dialog.dismiss();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("TAG", "run: ");
-                    calculateRelToAddList(toAddList, new OnItemDataCallBack<List<UploadImgItemBean>>() {
-                        @Override
-                        public void onItemDataCallBack(List<UploadImgItemBean> relToAddList) {
-                            if (needUploadFidToServer) {
-                                uploadImgs(clt_id, relToAddList, new OnVoidCallBack() {
-                                    @Override
-                                    public void callBack() {
-                                        lists.addAll(relToAddList);
-                                        onImgCountChange(lists.size() > 0);
-                                    }
-                                });
-                            } else {
-                                lists.addAll(relToAddList);
-                                onImgCountChange(lists.size() > 0);
-                            }
-                        }
-                    });
-                }
+            runOnUiThread(() -> {
+                calculateRelToAddList(toAddList, relToAddList -> {
+                    if (needUploadFidToServer) {
+                        uploadImgs(clt_id, relToAddList, () -> {
+                            lists.addAll(relToAddList);
+                            onImgCountChange(lists.size() > 0);
+                        });
+                    } else {
+                        lists.addAll(relToAddList);
+                        onImgCountChange(lists.size() > 0);
+                    }
+                });
             });
         }
     }

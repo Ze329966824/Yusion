@@ -48,7 +48,7 @@ public class GetAppListResp {
     public String app_ts;
     public String dlr_sales_nm;
     public String dlr_sales_mobile;
-    //public boolean uw;
+    public boolean uw;
     //public int uw_confirmed;
     public Object dlr_dfim_nm;
     public Object dlr_dfim_mobile;
