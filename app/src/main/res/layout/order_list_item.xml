@@ -251,7 +251,8 @@
         android:background="#fff8f8f8"
         android:orientation="horizontal"
         android:paddingLeft="-20dp"
-        android:paddingRight="-20dp">
+        android:paddingRight="-20dp"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"

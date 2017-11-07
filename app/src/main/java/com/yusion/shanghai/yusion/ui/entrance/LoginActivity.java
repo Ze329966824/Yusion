@@ -332,6 +332,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void uploadPersonAndDeviceInfo() {
         UBTData req = new UBTData(this);
+        telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         String imei = telephonyManager.getDeviceId();
         String imsi = telephonyManager.getSubscriberId();
         req.imei = imei;
