@@ -83,7 +83,7 @@ public class FinancePlanActivity extends BaseActivity {
             }
         });
         //getIntent().getStringExtra("app_id")  1100002
-        String app_id = "11000002";
+        //String app_id = "11000002";
         OrderApi.getFinancePlanDetail(this, getIntent().getStringExtra("app_id"), new OnItemDataCallBack<GetFinancePlanDetailResp>() {
             @Override
             public void onItemDataCallBack(GetFinancePlanDetailResp resp) {
