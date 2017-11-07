@@ -117,6 +117,7 @@ public class YusionApp extends MultiDexApplication {
         String reg_id;
         do {
             reg_id = JPushInterface.getRegistrationID(YusionApp.this);
+            Log.e("reg_id","yusionapp--------"+reg_id);
         } while (TextUtils.isEmpty(reg_id));
         getInstance(this).putValue("reg_id", reg_id);
     }

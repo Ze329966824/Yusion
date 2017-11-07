@@ -40,8 +40,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:text="管理员残忍的拒绝了您的申请！"
             android:textColor="#FF222A36"
             android:textSize="16dp" />

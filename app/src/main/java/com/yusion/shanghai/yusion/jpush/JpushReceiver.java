@@ -16,7 +16,7 @@ import io.sentry.Sentry;
 public class JpushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-//        Log.e("推送-----------------", "");
+        Log.e("推送-----------------", "");
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             Intent i = new Intent(context, JpushDialogActivity.class);
