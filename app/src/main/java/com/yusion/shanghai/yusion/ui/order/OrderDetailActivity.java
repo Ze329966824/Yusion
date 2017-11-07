@@ -392,7 +392,6 @@ public class OrderDetailActivity extends BaseActivity {
                     alter_carInfo_lin.setVisibility(View.GONE);
                 }
 
-
                 brandTv.setText(resp.brand);
                 trixTv.setText(resp.trix);
                 modelTv.setText(resp.model_name);
