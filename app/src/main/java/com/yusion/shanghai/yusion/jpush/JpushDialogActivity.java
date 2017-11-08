@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
-import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
+import com.yusion.shanghai.yusion.ui.order.OrderDetailActivity;
+import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,46 +75,57 @@ public class JpushDialogActivity extends BaseActivity {
         if (YusionApp.isLogin && mobile.equals(YusionApp.MOBILE)) {
             switch (category) {
                 case "login":
-//                    PopupDialogUtil.showOneButtonDialog(this, content, new PopupDialogUtil.OnOkClickListener() {
-//                        @Override
-//                        public void onOkClick(Dialog dialog) {
-//                            myApp.clearUserData();
-//                            api.unregisterApp();
-//                            startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
-//                            finish();
-//                        }
-//                    });
-                    new AlertDialog.Builder(JpushDialogActivity.this)
-                            .setCancelable(false)
-                            .setMessage(content)
-                            .setPositiveButton("确定", (dialog, which) -> {
-                                startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
-                                myApp.clearUserData();
-                                finish();
-                            })
-                            .show();
+                    PopupDialogUtil.showOneButtonDialog(this, content, new PopupDialogUtil.OnOkClickListener() {
+                        @Override
+                        public void onOkClick(Dialog dialog) {
+                            myApp.clearUserData();
+                            api.unregisterApp();
+                            startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
+//                    new AlertDialog.Builder(JpushDialogActivity.this)
+//                            .setCancelable(false)
+//                            .setMessage(content)
+//                            .setPositiveButton("确定", (dialog, which) -> {
+//                                startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+//                                myApp.clearUserData();
+//                                finish();
+//                            })
+//                            .show();
+
                     break;
                 case "application":
-//                    switch (order_state){
-//                        case "pass":
-//                            new JpushDialogPass(this,title,content).show();
-//                            break;
-//                        case "refuse":
-//                            new JpushDialogRefuse(this, title, content).show();
-//                            break;
-//                        default:
-//                            break;
-//                    }
+                    switch (order_state) {
+                        case "pass":
+                            new JpushDialogPass(this, title, content).show();
+                            break;
+                        case "refuse":
+                            new JpushDialogRefuse(this, title, content).show();
+                            break;
+                        default:
+                            new AlertDialog.Builder(JpushDialogActivity.this)
+                                    .setCancelable(false)
+                                    .setTitle(title)
+                                    .setMessage(content)
+                                    .setPositiveButton("知道啦", (dialog, which) -> {
+                                        dialog.dismiss();
+                                        finish();
+                                    })
+                                    .show();
+                            break;
+                    }
 
-                    new AlertDialog.Builder(JpushDialogActivity.this)
-                            .setCancelable(false)
-                            .setTitle(title)
-                            .setMessage(content)
-                            .setPositiveButton("知道啦", (dialog, which) -> {
-                                dialog.dismiss();
-                                finish();
-                            })
-                            .show();
+//                    new AlertDialog.Builder(JpushDialogActivity.this)
+//                            .setCancelable(false)
+//                            .setTitle(title)
+//                            .setMessage(content)
+//                            .setPositiveButton("知道啦", (dialog, which) -> {
+//                                dialog.dismiss();
+//                                finish();
+//                            })
+//                            .show();
+
                     break;
 
 
@@ -157,7 +168,7 @@ public class JpushDialogActivity extends BaseActivity {
 //        }
 //    }
 
-    private  class JpushDialogPass implements View.OnClickListener {
+    private class JpushDialogPass implements View.OnClickListener {
         private Context mContext;
         private Dialog mDialog;
         private View mView;
@@ -207,8 +218,8 @@ public class JpushDialogActivity extends BaseActivity {
                     break;
                 case R.id.btn_ok:
                     dismiss();
-                    Intent intent = new Intent(JpushDialogActivity.this, FinancePlanActivity.class);
-                    intent.putExtra("app_id",app_id);
+                    Intent intent = new Intent(JpushDialogActivity.this, OrderDetailActivity.class);
+                    intent.putExtra("app_id", app_id);
                     startActivity(intent);
 
                     finish();
@@ -265,14 +276,17 @@ public class JpushDialogActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.btn_cancel:
                     dismiss();
                     finish();
                     break;
                 case R.id.btn_calltocustomer:
-                    Toast.makeText(JpushDialogActivity.this, "查看详情", Toast.LENGTH_SHORT).show();
                     dismiss();
+                    Intent intent = new Intent(JpushDialogActivity.this, OrderDetailActivity.class);
+                    intent.putExtra("app_id", app_id);
+                    startActivity(intent);
+
                     finish();
                     break;
                 default:

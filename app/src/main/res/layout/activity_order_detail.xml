@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
-                    android:src="@mipmap/error_img" />
+                    android:src="@mipmap/error_img2" />
 
                 <TextView
                     android:id="@+id/order_detail_status_reject_reason"
