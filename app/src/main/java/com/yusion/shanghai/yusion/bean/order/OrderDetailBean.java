@@ -48,6 +48,7 @@ public class OrderDetailBean {
      * dlr_dfim_mobile : null
      * app_id : 10000300
      */
+    public String client_status_code;
     public boolean is_modify;
     public boolean uw;
     public String brand;

@@ -27,7 +27,7 @@ public class OrderDetailActivity extends BaseActivity {
     private RelativeLayout cancelRel;
     private RelativeLayout passRel;
     private RelativeLayout rejectRel;
-    private LinearLayout replyLin;
+    //    private LinearLayout replyLin;
     private LinearLayout applyLin;
     private TextView applyBillPriceTv;
     private TextView applyFirstPriceTv;
@@ -119,6 +119,10 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView alter_after_monthprice;
     private TextView alter_before_date;
     private TextView alter_after_date;
+    private TextView wait_title;
+    private TextView pass_title;
+    private TextView reject_title;
+    private TextView cancel_title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,7 +148,7 @@ public class OrderDetailActivity extends BaseActivity {
         cancelRel = (RelativeLayout) findViewById(R.id.order_detail_status_cancel_layout);
         passRel = (RelativeLayout) findViewById(R.id.order_detail_status_pass_layout);
         rejectRel = (RelativeLayout) findViewById(R.id.order_detail_status_reject_layout);
-        replyLin = (LinearLayout) findViewById(R.id.order_detail_reply_lin);
+//        replyLin = (LinearLayout) findViewById(R.id.order_detail_reply_lin);
         applyLin = (LinearLayout) findViewById(R.id.order_detail_apply_lin);
         waitReason = (TextView) findViewById(R.id.order_detail_status_wait_reason);
         cancelReason = (TextView) findViewById(R.id.order_detail_status_cancel_reason);
@@ -236,6 +240,11 @@ public class OrderDetailActivity extends BaseActivity {
         alter_after_monthprice = (TextView) findViewById(R.id.alter_after_monthprice);
         alter_before_date = (TextView) findViewById(R.id.alter_before_date);
         alter_after_date = (TextView) findViewById(R.id.alter_after_date);
+        wait_title = (TextView) findViewById(R.id.order_detail_status_wait);
+        pass_title = (TextView) findViewById(R.id.order_detail_status_pass);
+        reject_title = (TextView) findViewById(R.id.order_detail_status_reject);
+        cancel_title = (TextView) findViewById(R.id.order_detail_status_cancel);
+
 
     }
 
@@ -252,29 +261,33 @@ public class OrderDetailActivity extends BaseActivity {
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.VISIBLE);//visiable
-                    replyLin.setVisibility(View.GONE);
+//                    replyLin.setVisibility(View.GONE);
                     waitReason.setText(resp.uw_detail.comments);
+                    wait_title.setText(resp.client_status_code);
                     //   orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 4) {//待确认金融方案 //有批复的
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.GONE);
-                    replyLin.setVisibility(View.VISIBLE);
+                    pass_title.setText(resp.client_status_code);
+//                    replyLin.setVisibility(View.VISIBLE);
                     //passReason.setText(resp.uw_detail.comments);
                 } else if (resp.status_st == 6) {//放款中      //有批复的
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.GONE);
-                    replyLin.setVisibility(View.VISIBLE);
+//                    replyLin.setVisibility(View.VISIBLE);
                     passReason.setText(resp.uw_detail.comments);
+                    pass_title.setText(resp.client_status_code);
                     // orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 3) {
                     waitRel.setVisibility(View.GONE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.VISIBLE);
                     rejectReason.setText(resp.uw_detail.comments);
+                    reject_title.setText(resp.client_status_code);
                     //orderDetailFianceLin.setVisibility(View.GONE);
                 }
                 if (resp.uw && resp.uw_detail != null) {
@@ -391,7 +404,6 @@ public class OrderDetailActivity extends BaseActivity {
                     order_detail_car_info_layout.setVisibility(View.VISIBLE);
                     alter_carInfo_lin.setVisibility(View.GONE);
                 }
-
 
                 brandTv.setText(resp.brand);
                 trixTv.setText(resp.trix);

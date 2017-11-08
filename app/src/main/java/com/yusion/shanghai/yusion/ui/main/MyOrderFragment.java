@@ -231,7 +231,7 @@ public class MyOrderFragment extends BaseFragment {
                 vh.line_21.setBackgroundColor(Color.parseColor("#dddddd"));
 
             }
-            vh.st.setText(item.status_code);//待审核  status_code status_st: 2
+            vh.st.setText(item.client_status_code);//待审核  status_code status_st: 2
             vh.periods.setText(item.nper);
             vh.loan.setText(item.loan_amt);
         }

@@ -30,6 +30,7 @@ public class GetAppListResp {
      * dlr_dfim_mobile : null
      */
 
+    public String client_status_code;
     public String vehicle_price;
     public String loan_amt;
     public String vehicle_loan_amt;

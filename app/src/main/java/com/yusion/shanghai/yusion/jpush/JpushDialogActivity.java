@@ -14,7 +14,7 @@ import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.BaseActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
-import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
+import com.yusion.shanghai.yusion.ui.order.FinancePlanActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,30 +75,49 @@ public class JpushDialogActivity extends BaseActivity {
         if (YusionApp.isLogin && mobile.equals(YusionApp.MOBILE)) {
             switch (category) {
                 case "login":
-                    PopupDialogUtil.showOneButtonDialog(this, content, new PopupDialogUtil.OnOkClickListener() {
-                        @Override
-                        public void onOkClick(Dialog dialog) {
-                            myApp.clearUserData();
-                            api.unregisterApp();
-                            startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
-                            finish();
-                        }
-                    });
-
+//                    PopupDialogUtil.showOneButtonDialog(this, content, new PopupDialogUtil.OnOkClickListener() {
+//                        @Override
+//                        public void onOkClick(Dialog dialog) {
+//                            myApp.clearUserData();
+//                            api.unregisterApp();
+//                            startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+//                            finish();
+//                        }
+//                    });
+                    new AlertDialog.Builder(JpushDialogActivity.this)
+                            .setCancelable(false)
+                            .setMessage(content)
+                            .setPositiveButton("确定", (dialog, which) -> {
+                                startActivity(new Intent(JpushDialogActivity.this, LoginActivity.class));
+                                myApp.clearUserData();
+                                finish();
+                            })
+                            .show();
                     break;
                 case "application":
-                    switch (order_state){
-                        case "pass":
-                            new JpushDialogPass(this,title,content).show();
-                            break;
-                        case "refuse":
-                            new JpushDialogRefuse(this, title, content).show();
-                            break;
-                        default:
-                            break;
-                    }
+//                    switch (order_state){
+//                        case "pass":
+//                            new JpushDialogPass(this,title,content).show();
+//                            break;
+//                        case "refuse":
+//                            new JpushDialogRefuse(this, title, content).show();
+//                            break;
+//                        default:
+//                            break;
+//                    }
 
+                    new AlertDialog.Builder(JpushDialogActivity.this)
+                            .setCancelable(false)
+                            .setTitle(title)
+                            .setMessage(content)
+                            .setPositiveButton("知道啦", (dialog, which) -> {
+                                dialog.dismiss();
+                                finish();
+                            })
+                            .show();
                     break;
+
+
                 default:
                     new AlertDialog.Builder(JpushDialogActivity.this)
                             .setTitle(title)
@@ -188,7 +207,10 @@ public class JpushDialogActivity extends BaseActivity {
                     break;
                 case R.id.btn_ok:
                     dismiss();
-                    Toast.makeText(JpushDialogActivity.this, "查看金融方案", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(JpushDialogActivity.this, FinancePlanActivity.class);
+                    intent.putExtra("app_id",app_id);
+                    startActivity(intent);
+
                     finish();
                     break;
                 default:
