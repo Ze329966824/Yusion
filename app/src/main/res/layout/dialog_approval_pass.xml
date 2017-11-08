@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:background="#FF06B7A3"
                 android:gravity="center"
-                android:text="查看金融方案"
+                android:text="查看详情"
                 android:textColor="#FFFFFFFF" />
 
 
