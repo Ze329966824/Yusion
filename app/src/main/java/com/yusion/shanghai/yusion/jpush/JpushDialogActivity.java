@@ -115,6 +115,7 @@ public class JpushDialogActivity extends BaseActivity {
                                 finish();
                             })
                             .show();
+
                     break;
 
 
