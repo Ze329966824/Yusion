@@ -456,7 +456,6 @@ public class OrderDetailActivity extends BaseActivity {
             tv1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tv1.setTextColor(Color.parseColor("#999999"));
             tv2.setTextColor(Color.parseColor("#CBA053"));
-
         }
     }
 
