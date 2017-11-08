@@ -93,6 +93,7 @@ public class JpushDialogActivity extends BaseActivity {
 //                                finish();
 //                            })
 //                            .show();
+
                     break;
                 case "application":
                     switch (order_state) {
