@@ -30,6 +30,9 @@ import com.yusion.shanghai.yusion.ui.order.OrderDetailActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yusion.shanghai.yusion.R.id.point_line_12;
+import static com.yusion.shanghai.yusion.R.id.point_line_41;
+
 /**
  * Created by aa on 2017/8/4.
  */
@@ -204,33 +207,51 @@ public class MyOrderFragment extends BaseFragment {
                     mContext.startActivity(intent);
                 }
             });
-            if (item.status_st == 2) {//待审核
+            vh.line_12.setBackgroundColor(Color.parseColor("#dddddd"));
+            vh.line_21.setBackgroundColor(Color.parseColor("#dddddd"));
+            vh.point_image_2.setBackgroundResource(R.drawable.poi_grey);
+            vh.line_22.setBackgroundColor(Color.parseColor("#dddddd"));
+            vh.line_41.setBackgroundColor(Color.parseColor("#dddddd"));
+            vh.point_image_4.setBackgroundResource(R.drawable.poi_grey);
+            vh.point_image_1.setBackgroundResource(R.drawable.poi_green);
+//            "2":   # 审核中
+//            "3":   # 审核失败
+//            "4": # 待确认金融方案
+//            "6":   # 放款中
+//            "9":  # 已取消
+//            "11":  # 已经完成
+            if (item.status_st == 2) {//审核中
+                vh.st.setTextColor(Color.parseColor("#FFA400"));
+//                vh.line_21.setBackgroundColor(Color.parseColor("#06b7a3"));
+//                vh.line_12.setBackgroundColor(Color.parseColor("#06b7a3"));
+//                vh.point_image_1.setBackgroundResource(R.drawable.poi_green);
+//                //vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
+//                vh.point_image_2.setImageResource(R.drawable.poi_grey);
+            } else if (item.status_st == 3) {//审核失败
+                vh.st.setTextColor(Color.parseColor("#FF3F00"));
+//                vh.line_21.setBackgroundColor(Color.parseColor("#FF3F00"));
+//                //vh.point_image_2.setBackgroundResource(R.drawable.poi_red);
+//                vh.point_image_2.setBackgroundResource(R.drawable.poi_red);
+            } else if (item.status_st == 4) {//待确认金融方案
                 vh.st.setTextColor(Color.parseColor("#FFA400"));
                 vh.line_21.setBackgroundColor(Color.parseColor("#06b7a3"));
                 vh.line_12.setBackgroundColor(Color.parseColor("#06b7a3"));
-                vh.point_image_1.setBackgroundResource(R.drawable.poi_green);
-                //vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
-                vh.point_image_2.setImageResource(R.drawable.poi_grey);
-            } else if (item.status_st == 3) {//审核失败
-                vh.st.setTextColor(Color.parseColor("#FF3F00"));
-                vh.line_21.setBackgroundColor(Color.parseColor("#FF3F00"));
-                //vh.point_image_2.setBackgroundResource(R.drawable.poi_red);
-                vh.point_image_2.setBackgroundResource(R.drawable.poi_red);
-            } else if (item.status_st == 4) {//待确认金融方案
-                vh.st.setTextColor(Color.parseColor("#FFA400"));
+
             } else if (item.status_st == 6) {//放款中
-                vh.line_41.setBackgroundColor(Color.parseColor("#06b7a3"));
+                vh.line_12.setBackgroundColor(Color.parseColor("#06b7a3"));
                 vh.line_21.setBackgroundColor(Color.parseColor("#06b7a3"));
                 vh.line_22.setBackgroundColor(Color.parseColor("#06b7a3"));
                 vh.point_image_2.setBackgroundResource(R.drawable.poi_green);
                 vh.st.setTextColor(Color.parseColor("#06B7A3"));
             } else if (item.status_st == 9) {//已取消
                 vh.st.setTextColor(Color.parseColor("#666666"));
-                vh.point_image_1.setBackgroundResource(R.drawable.poi_grey);
-                vh.line_12.setBackgroundColor(Color.parseColor("#dddddd"));
-                vh.line_21.setBackgroundColor(Color.parseColor("#dddddd"));
-
+//                vh.point_image_1.setBackgroundResource(R.drawable.poi_grey);
+//                vh.line_12.setBackgroundColor(Color.parseColor("#dddddd"));
+//                vh.line_21.setBackgroundColor(Color.parseColor("#dddddd"));
+            } else {
+                vh.point_image_1.setBackgroundResource(R.drawable.poi_green);
             }
+
             vh.st.setText(item.client_status_code);//待审核  status_code status_st: 2
             vh.periods.setText(item.nper);
             vh.loan.setText(item.loan_amt);
@@ -280,8 +301,8 @@ public class MyOrderFragment extends BaseFragment {
 
                 line_21 = itemView.findViewById(R.id.point_line_21);
                 line_22 = itemView.findViewById(R.id.point_line_22);
-                line_41 = itemView.findViewById(R.id.point_line_41);
-                line_12 = itemView.findViewById(R.id.point_line_12);
+                line_41 = itemView.findViewById(point_line_41);
+                line_12 = itemView.findViewById(point_line_12);
 
                 point_image_2 = (ImageView) itemView.findViewById(R.id.point_image_2);
                 point_image_1 = (ImageView) itemView.findViewById(R.id.point_image_1);

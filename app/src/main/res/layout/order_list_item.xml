@@ -299,7 +299,7 @@
                     android:layout_height="2dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/point_green" />
+                    android:background="@color/point_line_bg" />
             </LinearLayout>
 
         </LinearLayout>
