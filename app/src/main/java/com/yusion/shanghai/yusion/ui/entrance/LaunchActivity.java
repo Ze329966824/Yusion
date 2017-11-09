@@ -50,6 +50,8 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
+
+
 //        if (Build.MANUFACTURER.toUpperCase().equals("MEIZU")) {
 //            onAllPermissionGranted();
 //        } else {

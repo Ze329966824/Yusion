@@ -262,7 +262,9 @@ public class OrderDetailActivity extends BaseActivity {
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.VISIBLE);//visiable
 //                    replyLin.setVisibility(View.GONE);
-                    waitReason.setText(resp.uw_detail.comments);
+                    if (resp.uw) {
+                        waitReason.setText(resp.uw_detail.comments);
+                    }
                     wait_title.setText(resp.client_status_code);
                     //   orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 4) {//待确认金融方案 //有批复的
@@ -279,15 +281,18 @@ public class OrderDetailActivity extends BaseActivity {
                     rejectRel.setVisibility(View.GONE);
                     applyLin.setVisibility(View.GONE);
 //                    replyLin.setVisibility(View.VISIBLE);
-                    passReason.setText(resp.uw_detail.comments);
+                    if (resp.uw) {
+                        passReason.setText(resp.uw_detail.comments);
+                    }
                     pass_title.setText(resp.client_status_code);
                     // orderDetailFianceLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 3) {
                     waitRel.setVisibility(View.GONE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.VISIBLE);
-                    rejectReason.setText(resp.uw_detail.comments);
-                    reject_title.setText(resp.client_status_code);
+                    if (resp.uw) {
+                        rejectReason.setText(resp.uw_detail.comments);
+                    }
                     //orderDetailFianceLin.setVisibility(View.GONE);
                 }
                 if (resp.uw && resp.uw_detail != null) {
