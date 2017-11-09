@@ -28,101 +28,89 @@ public class OrderDetailActivity extends BaseActivity {
     private RelativeLayout passRel;
     private RelativeLayout rejectRel;
     //    private LinearLayout replyLin;
-    private LinearLayout applyLin;
-    private TextView applyBillPriceTv;
-    private TextView applyFirstPriceTv;
-    private TextView applyLoanPriceTv;
-    private TextView applyManagementPriceTv;
-    private TextView applyOtherPriceTv;
-    private TextView applyTotalLoanPriceTv;
-    private TextView applyLoanBankTv;
-    private TextView applyProductTypeTv;
-    private TextView applyPeriodsTv;
-    private TextView replayBillPriceTv;
-    private TextView replayFirstPriceTv;
-    private TextView replayLoanPriceTv;
-    private TextView replayManagementPriceTv;
-    private TextView replayOtherPriceTv;
-    private TextView replayTotalLoanPriceTv;
-    private TextView replayLoanBankTv;
-    private TextView replayProductTypeTv;
-    private TextView replayPeriodsTv;
-    private TextView dlrNameTv;
-    private TextView salesNameTv;
-    private TextView customerNameTv;
-    private TextView brandTv;
-    private TextView trixTv;
-    private TextView modelTv;
-    private TextView guidePriceTv;
-    private TextView waitReason;
-    private TextView cancelReason;
-    private TextView passReason;
-    private TextView rejectReason;
-    private LinearLayout order_detail_sale_info_layout;//报单人员
-    private LinearLayout order_detail_customer_info_layout;//金融专员
-    private LinearLayout order_detail_car_info_layout;//订单信息
+    private LinearLayout nore_financeLin;         //金融方案
+    private TextView applyBillPriceTv;        //金融方案-车辆开票价
+    private TextView applyFirstPriceTv;       //金融方案-车辆首付款
+    private TextView applyLoanPriceTv;        //金融方案-车辆贷款金额
+    private TextView applyManagementPriceTv;  //金融方案-档案管理费
+    private TextView applyOtherPriceTv;       //金融方案-其他费用
+    private TextView applyTotalLoanPriceTv;   //金融方案-总贷款额
+    private TextView applyLoanBankTv;         //金融方案-贷款银行
+    private TextView applyProductTypeTv;      //金融方案-产品类型
+    private TextView applyPeriodsTv;          //金融方案-还款期限
+    private TextView applyMonthPriceTv;       //金融方案-月供
 
-    //申请和批复的金融方案
-    private TextView applyFirstPercentTv2;
-    private TextView replyFirstPercentTv2;
-    private TextView applyBillPriceTv2;
-    private TextView replyBillPriceTv2;
 
-    private TextView applyFirstPriceTv2;
-    private TextView replyFirstPriceTv2;
+    private LinearLayout havere_financeLin;                //金融方案(有批复)
+    private TextView havere_applyFirstPercentTv;     //金融方案(有批复)-首付比例(申请信息)
+    private TextView havere_replyFirstPercentTv;     //金融方案(有批复)-首付比例(批复信息)
+    private TextView havere_applyBillPriceTv;        //金融方案(有批复)-车辆开票价(申请信息)
+    private TextView havere_replyBillPriceTv;        //金融方案(有批复)-车辆开票价(批复信息)
+    private TextView havere_applyFirstPriceTv;       //金融方案(有批复)-车辆首付款(申请信息)
+    private TextView havere_replyFirstPriceTv;       //金融方案(有批复)-车辆首付款(批复信息)
+    private TextView havere_applyLoanPriceTv;        //金融方案(有批复)-车辆贷款金额(申请信息)
+    private TextView havere_replyLoanPriceTv;        //金融方案(有批复)-车辆贷款金额(批复信息)
+    private TextView havere_applyManagementPriceTv;  //金融方案(有批复)-档案管理费(申请信息)
+    private TextView havere_replyManagementPriceTv;  //金融方案(有批复)-档案管理费(批复信息)
+    private TextView havere_applyOtherPriceTv;       //金融方案(有批复)-其他费用(申请信息)
+    private TextView havere_replyOtherPriceTv;       //金融方案(有批复)-其他费用(批复信息)
+    private TextView havere_applyTotalPriceTv;       //金融方案(有批复)-总贷款额(申请信息)
+    private TextView havere_replyTotalPriceTv;       //金融方案(有批复)-总贷款额(批复信息)
+    private TextView havere_applyBankTv;             //金融方案(有批复)-贷款银行(申请信息)
+    private TextView havere_replyBankTv;             //金融方案(有批复)-贷款银行(批复信息)
+    private TextView havere_applyRepayDateTv;        //金融方案(有批复)-还款期限(申请信息)
+    private TextView havere_replyRepayDateTv;        //金融方案(有批复)-还款期限(批复信息)
+    private TextView havere_applyProductTypeTv;      //金融方案(有批复)-产品类型(申请信息)
+    private TextView havere_replyProductTypeTv;      //金融方案(有批复)-产品类型(批复信息)
+    private TextView havere_applyMonthPriceTv;       //金融方案(有批复)-月供(批复信息)
+    private TextView havere_replyMonthPriceTv;       //金融方案(有批复)-月供(批复信息)
 
-    private TextView applyLoanPriceTv2;
-    private TextView replyLoanPriceTv2;
-
-    private TextView applyManagementPriceTv2;
-    private TextView replyManagementPriceTv2;
-
-    private TextView applyOtherPriceTv2;
-    private TextView replyOtherPriceTv2;
-
-    private TextView applyTotalPriceTv2;
-    private TextView replyTotalPriceTv2;
-
-    private TextView applyBankTv2;
-    private TextView replyBankTv2;
-
-    private TextView applyReplyDateTv2;
-    private TextView ReplyRepayDateTv2;
 
     private FloatingActionButton fab;
+
     private NestedScrollView mScrollView;
 
-    private TextView applyMonthPrice;
-    private TextView replyMonthPrice;
 
-    private TextView monthPrice;
+    private TextView dlrNameTv;                 //订单-门店
+    private TextView brandTv;                   //订单-品牌
+    private TextView trixTv;                    //订单-车系
+    private TextView modelTv;                   //订单-车型
+    private TextView guidePriceTv;              //订单-厂商指导价
 
-    private LinearLayout orderDetailFianceLin;
+    private TextView salesNameTv;                 //报单人员姓名
+    private TextView customerNameTv;              //客户身份证号
+    private LinearLayout order_detail_sale_info_layout;         //报单人员
+    private LinearLayout order_detail_customer_info_layout;     //金融专员
+    private LinearLayout order_detail_car_info_layout;          //订单信息
+
 
     //车辆信息修改
-    private LinearLayout alter_carInfo_lin;
-    private RelativeLayout carinfoRel;
-    private TextView alter_before_dlr;
-    private TextView alter_after_dlr;
-    private TextView alter_before_brand;
-    private TextView alter_after_brand;
-    private TextView alter_before_trix;
-    private TextView alter_after_trix;
-    private TextView alter_before_model;
-    private TextView alter_after_model;
-    private TextView alter_before_guiderpice;
-    private TextView alter_after_guideprice;
+    private LinearLayout alter_carInfo_lin;      //订单(修改前后)
+    private TextView alter_before_dlr;           //订单-门店(修改前)
+    private TextView alter_after_dlr;            //订单-门店(修改后)
+    private TextView alter_before_brand;         //订单-品牌(修改前)
+    private TextView alter_after_brand;          //订单-品牌(修改后)
+    private TextView alter_before_trix;          //订单-车系(修改前)
+    private TextView alter_after_trix;           //订单-车系(修改后)
+    private TextView alter_before_model;         //订单-车型(修改前)
+    private TextView alter_after_model;          //订单-车型(修改后)
+    private TextView alter_before_guiderpice;    //订单-厂商指导价(修改前)
+    private TextView alter_after_guideprice;     //订单-厂商指导价(修改后)
 
-    private TextView alter_before_totalpice;
-    private TextView alter_after_totalprice;
-    private TextView alter_before_monthpice;
-    private TextView alter_after_monthprice;
-    private TextView alter_before_date;
-    private TextView alter_after_date;
-    private TextView wait_title;
-    private TextView pass_title;
-    private TextView reject_title;
-    private TextView cancel_title;
+    private TextView alter_before_totalpice;     //订单-总贷款额(修改前)
+    private TextView alter_after_totalprice;     //订单-总贷款额(修改后)
+    private TextView alter_before_monthpice;     //订单-月供(修改前)
+    private TextView alter_after_monthprice;     //订单-月供(修改后)
+    private TextView alter_before_date;          //订单-还款日期(修改前)
+    private TextView alter_after_date;           //订单-还款日期(修改前)
+    private TextView waitReason;        //审核中备注
+    private TextView wait_title;        //审核中标题
+    private TextView passReason;        //通过备注
+    private TextView pass_title;        //通过标题
+    private TextView reject_title;      //拒绝标题
+    private TextView rejectReason;      //拒绝备注
+    private TextView cancelReason;      //取消备注
+    private TextView cancel_title;      //取消标题
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,31 +137,31 @@ public class OrderDetailActivity extends BaseActivity {
         passRel = (RelativeLayout) findViewById(R.id.order_detail_status_pass_layout);
         rejectRel = (RelativeLayout) findViewById(R.id.order_detail_status_reject_layout);
 //        replyLin = (LinearLayout) findViewById(R.id.order_detail_reply_lin);
-        applyLin = (LinearLayout) findViewById(R.id.order_detail_apply_lin);
+        nore_financeLin = (LinearLayout) findViewById(R.id.order_detail_finance_lin);
         waitReason = (TextView) findViewById(R.id.order_detail_status_wait_reason);
         cancelReason = (TextView) findViewById(R.id.order_detail_status_cancel_reason);
         passReason = (TextView) findViewById(R.id.order_detail_status_pass_reason);
         rejectReason = (TextView) findViewById(R.id.order_detail_status_reject_reason);
 
-        applyBillPriceTv = (TextView) findViewById(R.id.order_detail_apply_bill_price_tv);
-        applyFirstPriceTv = (TextView) findViewById(R.id.order_detail_apply_first_price_tv);
-        applyLoanPriceTv = (TextView) findViewById(R.id.order_detail_apply_loan_price_tv);
-        applyManagementPriceTv = (TextView) findViewById(R.id.order_detail_apply_management_price_tv);
-        applyOtherPriceTv = (TextView) findViewById(R.id.order_detail_apply_other_price_tv);
-        applyTotalLoanPriceTv = (TextView) findViewById(R.id.order_detail_apply_total_loan_price_tv);
-        applyLoanBankTv = (TextView) findViewById(R.id.order_detail_apply_loan_bank_price_tv);
-        applyProductTypeTv = (TextView) findViewById(R.id.order_detail_apply_product_type_tv);
-        applyPeriodsTv = (TextView) findViewById(R.id.order_detail_apply_periods_tv);
+        applyBillPriceTv = (TextView) findViewById(R.id.order_detail_finance_bill_price_tv);
+        applyFirstPriceTv = (TextView) findViewById(R.id.order_detail_finance_first_price_tv);
+        applyLoanPriceTv = (TextView) findViewById(R.id.order_detail_finance_loan_price_tv);
+        applyManagementPriceTv = (TextView) findViewById(R.id.order_detail_finance_management_price_tv);
+        applyOtherPriceTv = (TextView) findViewById(R.id.order_detail_finance_other_price_tv);
+        applyTotalLoanPriceTv = (TextView) findViewById(R.id.order_detail_finance_total_loan_price_tv);
+        applyLoanBankTv = (TextView) findViewById(R.id.order_detail_finance_loan_bank_tv);
+        applyProductTypeTv = (TextView) findViewById(R.id.order_detail_finance_product_type_tv);
+        applyPeriodsTv = (TextView) findViewById(R.id.order_detail_finance_periods_tv);
 
-        replayBillPriceTv = (TextView) findViewById(R.id.order_detail_replay_bill_price_tv);
-        replayFirstPriceTv = (TextView) findViewById(R.id.order_detail_replay_first_price_tv);
-        replayLoanPriceTv = (TextView) findViewById(R.id.order_detail_replay_loan_price_tv);
-        replayManagementPriceTv = (TextView) findViewById(R.id.order_detail_replay_management_price_tv);
-        replayOtherPriceTv = (TextView) findViewById(R.id.order_detail_replay_other_price_tv);
-        replayTotalLoanPriceTv = (TextView) findViewById(R.id.order_detail_replay_total_loan_price_tv);
-        replayLoanBankTv = (TextView) findViewById(R.id.order_detail_replay_loan_bank_price_tv);
-        replayProductTypeTv = (TextView) findViewById(R.id.order_detail_replay_product_type_tv);
-        replayPeriodsTv = (TextView) findViewById(R.id.order_detail_replay_periods_tv);
+//        replayBillPriceTv = (TextView) findViewById(R.id.order_detail_finance_bill_price_tv);
+//        replayFirstPriceTv = (TextView) findViewById(R.id.order_detail_finance_first_price_tv);
+//        replayLoanPriceTv = (TextView) findViewById(R.id.order_detail_finance_loan_price_tv);
+//        replayManagementPriceTv = (TextView) findViewById(R.id.order_detail_finance_management_price_tv);
+//        replayOtherPriceTv = (TextView) findViewById(R.id.order_detail_finance_other_price_tv);
+//        replayTotalLoanPriceTv = (TextView) findViewById(R.id.order_detail_finance_total_loan_price_tv);
+//        replayLoanBankTv = (TextView) findViewById(R.id.order_detail_finance_loan_bank_tv);
+//        replayProductTypeTv = (TextView) findViewById(R.id.order_detail_finance_product_type_tv);
+//        replayPeriodsTv = (TextView) findViewById(R.id.order_detail_finance_periods_tv);
 
         brandTv = (TextView) findViewById(R.id.order_detail_brand_tv);
         trixTv = (TextView) findViewById(R.id.order_detail_trix_tv);
@@ -185,61 +173,61 @@ public class OrderDetailActivity extends BaseActivity {
         salesNameTv = (TextView) findViewById(R.id.order_detail_sales_name_tv);
         customerNameTv = (TextView) findViewById(R.id.order_detail_customer_name_tv);
 
-        monthPrice = (TextView) findViewById(R.id.order_detail_month_price_tv);
+        applyMonthPriceTv = (TextView) findViewById(R.id.order_detail_finance_month_price_tv);
 
         //批复和申请的金融方案
-        applyFirstPercentTv2 = (TextView) findViewById(R.id.apply_first_percent_tv);
-        replyFirstPercentTv2 = (TextView) findViewById(R.id.reply_first_percent_tv);
-        applyBillPriceTv2 = (TextView) findViewById(R.id.apply_bill_price_tv2);
-        replyBillPriceTv2 = (TextView) findViewById(R.id.reply_bill_price_tv2);
+        havere_applyFirstPercentTv = (TextView) findViewById(R.id.order_detail_havere_apply_first_percent_tv);
+        havere_replyFirstPercentTv = (TextView) findViewById(R.id.order_detail_havere_reply_first_percent_tv);
+        havere_applyBillPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_bill_price_tv);
+        havere_replyBillPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_bill_price_tv);
 
-        applyFirstPriceTv2 = (TextView) findViewById(R.id.apply_first_price_tv2);
-        replyFirstPriceTv2 = (TextView) findViewById(R.id.reply_first_price_tv2);
+        havere_applyFirstPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_first_price_tv);
+        havere_replyFirstPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_first_price_tv);
 
-        applyLoanPriceTv2 = (TextView) findViewById(R.id.apply_loan_price_tv2);
-        replyLoanPriceTv2 = (TextView) findViewById(R.id.reply_loan_price_tv2);
+        havere_applyLoanPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_loan_price_tv);
+        havere_replyLoanPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_loan_price_tv);
 
-        applyManagementPriceTv2 = (TextView) findViewById(R.id.apply_management_price_tv2);
-        replyManagementPriceTv2 = (TextView) findViewById(R.id.reply_management_price_tv2);
+        havere_applyManagementPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_management_price_tv);
+        havere_replyManagementPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_management_price_tv);
 
-        applyOtherPriceTv2 = (TextView) findViewById(R.id.apply_other_price_tv2);
-        replyOtherPriceTv2 = (TextView) findViewById(R.id.reply_other_price_tv2);
+        havere_applyOtherPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_other_price_tv);
+        havere_replyOtherPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_other_price_tv);
 
-        applyBankTv2 = (TextView) findViewById(R.id.apply_bank_tv2);
-        replyBankTv2 = (TextView) findViewById(R.id.reply_bank_tv2);
+        havere_applyBankTv = (TextView) findViewById(R.id.order_detail_havere_apply_bank_tv);
+        havere_replyBankTv = (TextView) findViewById(R.id.order_detail_havere_reply_bank_tv);
 
-        applyReplyDateTv2 = (TextView) findViewById(R.id.apply_repay_date_tv2);
-        ReplyRepayDateTv2 = (TextView) findViewById(R.id.reply_repay_data_tv2);
+        havere_applyRepayDateTv = (TextView) findViewById(R.id.order_detail_havere_apply_repay_date_tv);
+        havere_replyRepayDateTv = (TextView) findViewById(R.id.order_detail_havere_reply_repay_data_tv);
 
-        applyTotalPriceTv2 = (TextView) findViewById(R.id.apply_total_price_tv2);
-        replyTotalPriceTv2 = (TextView) findViewById(R.id.reply_total_price_tv2);
+        havere_applyTotalPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_total_price_tv);
+        havere_replyTotalPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_total_price_tv);
 
-        applyMonthPrice = (TextView) findViewById(R.id.apply_month_price_tv2);
-        replyMonthPrice = (TextView) findViewById(R.id.reply_month_price_tv2);
+        havere_applyMonthPriceTv = (TextView) findViewById(R.id.order_detail_havere_apply_month_price_tv);
+        havere_replyMonthPriceTv = (TextView) findViewById(R.id.order_detail_havere_reply_month_price_tv);
 
-        orderDetailFianceLin = (LinearLayout) findViewById(R.id.order_detail_fiance_lin);
+        havere_financeLin = (LinearLayout) findViewById(R.id.order_detail_havere_lin);
 
         //车辆信息对比修改
         order_detail_car_info_layout = (LinearLayout) findViewById(R.id.order_detail_car_info_layout);
         alter_carInfo_lin = (LinearLayout) findViewById(R.id.alter_carInfo_lin);
         //carinfoRel.setVisibility(View.GONE);
-        alter_before_dlr = (TextView) findViewById(R.id.alter_before_dlr);
-        alter_after_dlr = (TextView) findViewById(R.id.alter_after_dlr);
-        alter_before_brand = (TextView) findViewById(R.id.alter_before_brand);
-        alter_after_brand = (TextView) findViewById(R.id.alter_after_brand);
-        alter_before_trix = (TextView) findViewById(R.id.alter_before_trix);
-        alter_after_trix = (TextView) findViewById(R.id.alter_after_trix);
-        alter_before_model = (TextView) findViewById(R.id.alter_before_model);
-        alter_after_model = (TextView) findViewById(R.id.alter_after_model);
-        alter_before_guiderpice = (TextView) findViewById(R.id.alter_before_guiderpice);
-        alter_after_guideprice = (TextView) findViewById(R.id.alter_after_guideprice);
+        alter_before_dlr = (TextView) findViewById(R.id.order_detail_before_dlr_name_tv);
+        alter_after_dlr = (TextView) findViewById(R.id.order_detail_dlr_name_tv);
+        alter_before_brand = (TextView) findViewById(R.id.order_detail_before_brand_tv);
+        alter_after_brand = (TextView) findViewById(R.id.order_detail_brand_tv);
+        alter_before_trix = (TextView) findViewById(R.id.order_detail_before_trix_tv);
+        alter_after_trix = (TextView) findViewById(R.id.order_detail_trix_tv);
+        alter_before_model = (TextView) findViewById(R.id.order_detail_before_model_tv);
+        alter_after_model = (TextView) findViewById(R.id.order_detail_model_tv);
+        alter_before_guiderpice = (TextView) findViewById(R.id.order_detail_before_guide_price_tv);
+        alter_after_guideprice = (TextView) findViewById(R.id.order_detail_guide_price_tv);
 
-        alter_before_totalpice = (TextView) findViewById(R.id.alter_before_totalpice);
-        alter_after_totalprice = (TextView) findViewById(R.id.alter_after_totalprice);
-        alter_before_monthpice = (TextView) findViewById(R.id.alter_before_monthpice);
-        alter_after_monthprice = (TextView) findViewById(R.id.alter_after_monthprice);
-        alter_before_date = (TextView) findViewById(R.id.alter_before_date);
-        alter_after_date = (TextView) findViewById(R.id.alter_after_date);
+        alter_before_totalpice = (TextView) findViewById(R.id.order_detail_before_loan_amt_tv);
+        alter_after_totalprice = (TextView) findViewById(R.id.order_detail_loan_amt_tv);
+        alter_before_monthpice = (TextView) findViewById(R.id.order_detail_before_monthpice_tv);
+        alter_after_monthprice = (TextView) findViewById(R.id.order_detail__monthpice_tv);
+        alter_before_date = (TextView) findViewById(R.id.order_detail_before_repaydate_tv);
+        alter_after_date = (TextView) findViewById(R.id.order_detail_before_repaydate_tv);
         wait_title = (TextView) findViewById(R.id.order_detail_status_wait);
         pass_title = (TextView) findViewById(R.id.order_detail_status_pass);
         reject_title = (TextView) findViewById(R.id.order_detail_status_reject);
@@ -260,18 +248,18 @@ public class OrderDetailActivity extends BaseActivity {
                     waitRel.setVisibility(View.VISIBLE);
                     passRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.VISIBLE);//visiable
+                    nore_financeLin.setVisibility(View.VISIBLE);//visiable
 //                    replyLin.setVisibility(View.GONE);
                     if (resp.uw) {
                         waitReason.setText(resp.uw_detail.comments);
                     }
                     wait_title.setText(resp.client_status_code);
-                    //   orderDetailFianceLin.setVisibility(View.VISIBLE);
+                    //   havere_financeLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 4) {//待确认金融方案 //有批复的
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.GONE);
+                    nore_financeLin.setVisibility(View.GONE);
                     pass_title.setText(resp.client_status_code);
 //                    replyLin.setVisibility(View.VISIBLE);
                     //passReason.setText(resp.uw_detail.comments);
@@ -279,13 +267,13 @@ public class OrderDetailActivity extends BaseActivity {
                     passRel.setVisibility(View.VISIBLE);
                     waitRel.setVisibility(View.GONE);
                     rejectRel.setVisibility(View.GONE);
-                    applyLin.setVisibility(View.GONE);
+                    nore_financeLin.setVisibility(View.GONE);
 //                    replyLin.setVisibility(View.VISIBLE);
                     if (resp.uw) {
                         passReason.setText(resp.uw_detail.comments);
                     }
                     pass_title.setText(resp.client_status_code);
-                    // orderDetailFianceLin.setVisibility(View.VISIBLE);
+                    // havere_financeLin.setVisibility(View.VISIBLE);
                 } else if (resp.status_st == 3) {
                     waitRel.setVisibility(View.GONE);
                     passRel.setVisibility(View.GONE);
@@ -293,11 +281,11 @@ public class OrderDetailActivity extends BaseActivity {
                     if (resp.uw) {
                         rejectReason.setText(resp.uw_detail.comments);
                     }
-                    //orderDetailFianceLin.setVisibility(View.GONE);
+                    //havere_financeLin.setVisibility(View.GONE);
                 }
                 if (resp.uw && resp.uw_detail != null) {
-                    applyLin.setVisibility(View.GONE);
-                    orderDetailFianceLin.setVisibility(View.VISIBLE);
+                    nore_financeLin.setVisibility(View.GONE);
+                    havere_financeLin.setVisibility(View.VISIBLE);
 //                    applyBillPriceTv.setText(resp.vehicle_price);
 //                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
 //                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
@@ -318,27 +306,27 @@ public class OrderDetailActivity extends BaseActivity {
 //                    replayProductTypeTv.setText(resp.product_type);
 //                    replayPeriodsTv.setText(resp.uw_detail.nper);
 
-                    applyTotalPriceTv2.setText(resp.loan_amt);
-                    replyTotalPriceTv2.setText(resp.uw_detail.loan_amt);
-                    applyMonthPrice.setText(resp.monthly_payment);
-                    replyMonthPrice.setText(resp.uw_detail.monthly_payment);
-                    applyReplyDateTv2.setText(resp.nper);
-                    ReplyRepayDateTv2.setText(resp.uw_detail.nper);
+                    havere_applyTotalPriceTv.setText(resp.loan_amt);
+                    havere_replyTotalPriceTv.setText(resp.uw_detail.loan_amt);
+                    havere_applyMonthPriceTv.setText(resp.monthly_payment);
+                    havere_replyMonthPriceTv.setText(resp.uw_detail.monthly_payment);
+                    havere_applyRepayDateTv.setText(resp.nper);
+                    havere_replyRepayDateTv.setText(resp.uw_detail.nper);
 
-                    compare(applyMonthPrice, replyMonthPrice);
+                    compare(havere_applyMonthPriceTv, havere_replyMonthPriceTv);
 //                    compare(applyFirstPercentTv2, replyFirstPercentTv2);
-//                    compare(applyBillPriceTv2, replyBillPriceTv2);
+//                    compare(havere_applyBillPriceTv, havere_replyBillPriceTv);
 //                    compare(applyFirstPriceTv2, replyFirstPriceTv2);
 //                    compare(applyLoanPriceTv2, replyLoanPriceTv2);
 //                    compare(applyManagementPriceTv2, replyManagementPriceTv2);
 //                    compare(applyOtherPriceTv2, replyOtherPriceTv2);
-                    compare(applyTotalPriceTv2, replyTotalPriceTv2);
+                    compare(havere_applyTotalPriceTv, havere_replyTotalPriceTv);
 //                    compare(applyBankTv2, replyBankTv2);
-                    compare(applyReplyDateTv2, ReplyRepayDateTv2);
+                    compare(havere_applyRepayDateTv, havere_replyRepayDateTv);
 
                 } else {
-                    applyLin.setVisibility(View.VISIBLE);
-                    orderDetailFianceLin.setVisibility(View.GONE);
+                    nore_financeLin.setVisibility(View.VISIBLE);
+                    havere_financeLin.setVisibility(View.GONE);
 //                    applyBillPriceTv.setText(resp.vehicle_price);
 //                    applyFirstPriceTv.setText(resp.vehicle_down_payment);
 //                    applyLoanPriceTv.setText(resp.vehicle_loan_amt);
@@ -348,7 +336,7 @@ public class OrderDetailActivity extends BaseActivity {
 //                    applyLoanBankTv.setText(resp.loan_bank);
 //                    applyProductTypeTv.setText(resp.product_type);
                     applyPeriodsTv.setText(resp.nper);
-                    monthPrice.setText(resp.monthly_payment);
+                    applyMonthPriceTv.setText(resp.monthly_payment);
                 }
 //                applyBillPriceTv.setText(resp.vehicle_price);
 //                applyFirstPriceTv.setText(resp.vehicle_down_payment);
@@ -362,12 +350,12 @@ public class OrderDetailActivity extends BaseActivity {
 
 //                compare(applyMonthPrice, replyMonthPrice);
 //                compare(applyFirstPercentTv2, replyFirstPercentTv2);
-//                compare(applyBillPriceTv2, replyBillPriceTv2);
+//                compare(havere_applyBillPriceTv, havere_replyBillPriceTv);
 //                compare(applyFirstPriceTv2, replyFirstPriceTv2);
 //                compare(applyLoanPriceTv2, replyLoanPriceTv2);
 //                compare(applyManagementPriceTv2, replyManagementPriceTv2);
 //                compare(applyOtherPriceTv2, replyOtherPriceTv2);
-//                compare(applyTotalPriceTv2, replyTotalPriceTv2);
+//                compare(applyTotalPriceTv2, havere_replyTotalPriceTv);
 //                compare(applyBankTv2, replyBankTv2);
 //                compare(applyReplyDateTv2, ReplyRepayDateTv2);
 
@@ -424,7 +412,7 @@ public class OrderDetailActivity extends BaseActivity {
                     salesNameTv.setText(resp.dlr_sales_name);
                 }
 
-//                monthPrice.setText(resp.monthly_payment);
+//                applyMonthPriceTv.setText(resp.monthly_payment);
 
                 if (TextUtils.isEmpty(resp.dlr_dfim_name)) {//金融专员
                     order_detail_customer_info_layout.setVisibility(View.GONE);
@@ -434,7 +422,7 @@ public class OrderDetailActivity extends BaseActivity {
                 }
 
 //                applyTotalPriceTv2.setText(resp.loan_amt);
-//                replyTotalPriceTv2.setText(resp.uw_detail.loan_amt);
+//                havere_replyTotalPriceTv.setText(resp.uw_detail.loan_amt);
 //                applyMonthPrice.setText(resp.monthly_payment);
 //                replyMonthPrice.setText(resp.uw_detail.monthly_payment);
 //                applyReplyDateTv2.setText(resp.nper);

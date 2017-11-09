@@ -14,7 +14,6 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/order_detail_plan_reply_info9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -23,7 +22,6 @@
             android:textSize="13.5sp" />
 
         <View
-            android:id="@+id/order_detail_plan_reply_info_line9"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/main_driver" />
@@ -37,7 +35,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/eee"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -46,7 +43,6 @@
                 android:textSize="11.5sp" />
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -84,7 +80,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_dlr"
+                android:id="@+id/order_detail_before_dlr_name_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -92,7 +88,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_dlr"
+                android:id="@+id/order_detail_dlr_name_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -122,7 +118,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_brand"
+                android:id="@+id/order_detail_before_brand_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -130,7 +126,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_brand"
+                android:id="@+id/order_detail_brand_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -162,7 +158,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_trix"
+                android:id="@+id/order_detail_before_trix_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -170,7 +166,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_trix"
+                android:id="@+id/order_detail_trix_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -201,7 +197,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_model"
+                android:id="@+id/order_detail_before_model_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -209,7 +205,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_model"
+                android:id="@+id/order_detail_model_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -239,7 +235,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_guiderpice"
+                android:id="@+id/order_detail_before_guide_price_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -247,7 +243,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_guideprice"
+                android:id="@+id/order_detail_guide_price_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -277,7 +273,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_totalpice"
+                android:id="@+id/order_detail_before_loan_amt_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -285,7 +281,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_totalprice"
+                android:id="@+id/order_detail_loan_amt_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -315,7 +311,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_monthpice"
+                android:id="@+id/order_detail_before_monthpice_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -323,7 +319,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_monthprice"
+                android:id="@+id/order_detail__monthpice_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -353,7 +349,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_before_date"
+                android:id="@+id/order_detail_before_repaydate_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -361,7 +357,7 @@
                 android:textSize="13.5sp" />
 
             <TextView
-                android:id="@+id/alter_after_date"
+                android:id="@+id/order_detail_before_repaydate_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
