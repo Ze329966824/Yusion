@@ -116,7 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     Toast.makeText(this, "您还未安装微信客户端！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // 应用的作用域，获取个人信息
+                // 应用的作用域，获取个人信息®
                 SendAuth.Req req = new SendAuth.Req();
                 /**  用于保持请求和回调的状态，授权请求后原样带回给第三方  * 为了防止csrf攻击（跨站请求伪造攻击），后期改为随机数加session来校验   */
                 req.scope = "snsapi_userinfo";
