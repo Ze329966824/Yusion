@@ -203,22 +203,22 @@ public class OrderDetailActivity extends BaseActivity {
         alter_carInfo_lin = (LinearLayout) findViewById(R.id.alter_carInfo_lin);
         //carinfoRel.setVisibility(View.GONE);
         alter_before_dlr = (TextView) findViewById(R.id.order_detail_before_dlr_name_tv);
-        alter_after_dlr = (TextView) findViewById(R.id.order_detail_dlr_name_tv);
+        alter_after_dlr = (TextView) findViewById(R.id.order_detail_after_dlr_name_tv);
         alter_before_brand = (TextView) findViewById(R.id.order_detail_before_brand_tv);
-        alter_after_brand = (TextView) findViewById(R.id.order_detail_brand_tv);
+        alter_after_brand = (TextView) findViewById(R.id.order_detail_after_brand_tv);
         alter_before_trix = (TextView) findViewById(R.id.order_detail_before_trix_tv);
-        alter_after_trix = (TextView) findViewById(R.id.order_detail_trix_tv);
+        alter_after_trix = (TextView) findViewById(R.id.order_detail_after_trix_tv);
         alter_before_model = (TextView) findViewById(R.id.order_detail_before_model_tv);
-        alter_after_model = (TextView) findViewById(R.id.order_detail_model_tv);
+        alter_after_model = (TextView) findViewById(R.id.order_detail_after_model_tv);
         alter_before_guiderpice = (TextView) findViewById(R.id.order_detail_before_guide_price_tv);
-        alter_after_guideprice = (TextView) findViewById(R.id.order_detail_guide_price_tv);
+        alter_after_guideprice = (TextView) findViewById(R.id.order_detail_after_guide_price_tv);
 
         alter_before_totalpice = (TextView) findViewById(R.id.order_detail_before_loan_amt_tv);
-        alter_after_totalprice = (TextView) findViewById(R.id.order_detail_loan_amt_tv);
+        alter_after_totalprice = (TextView) findViewById(R.id.order_detail_after_loan_amt_tv);
         alter_before_monthpice = (TextView) findViewById(R.id.order_detail_before_monthpice_tv);
-        alter_after_monthprice = (TextView) findViewById(R.id.order_detail__monthpice_tv);
+        alter_after_monthprice = (TextView) findViewById(R.id.order_detail_after_monthpice_tv);
         alter_before_date = (TextView) findViewById(R.id.order_detail_before_repaydate_tv);
-        alter_after_date = (TextView) findViewById(R.id.order_detail_before_repaydate_tv);
+        alter_after_date = (TextView) findViewById(R.id.order_detail_after_repaydate_tv);
         wait_title = (TextView) findViewById(R.id.order_detail_status_wait);
         pass_title = (TextView) findViewById(R.id.order_detail_status_pass);
         reject_title = (TextView) findViewById(R.id.order_detail_status_reject);
@@ -295,7 +295,6 @@ public class OrderDetailActivity extends BaseActivity {
                 }
 
 
-
                 if (resp.is_modify && resp.old_app != null) {
                     alter_carInfo_lin.setVisibility(View.VISIBLE);
 
@@ -341,7 +340,6 @@ public class OrderDetailActivity extends BaseActivity {
                 }
 
 
-
                 if (TextUtils.isEmpty(resp.dlr_sales_name)) {
                     order_detail_sale_info_layout.setVisibility(View.GONE);
                 } else {
@@ -356,7 +354,6 @@ public class OrderDetailActivity extends BaseActivity {
                     order_detail_customer_info_layout.setVisibility(View.VISIBLE);
                     customerNameTv.setText(resp.dlr_dfim_name);
                 }
-
 
 
                 //金融专员信息

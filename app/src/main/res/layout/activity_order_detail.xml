@@ -7,20 +7,20 @@
     android:background="@color/bg_color">
 
     <com.yusion.shanghai.yusion.widget.TitleBar
-        tools:visibility="gone"
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:visibility="gone" />
 
-
+    <!--订单状态-->
     <LinearLayout
-        tools:visibility="gone"
         android:id="@+id/line5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_bar"
         android:orientation="vertical"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        tools:visibility="gone">
 
         <!--审核中-->
         <RelativeLayout
@@ -235,286 +235,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <!--审核通过-->
-                <!--审核拒绝-->
-                <!--取消-->
-
-                <!--&lt;!&ndash;金融方案[只有申请没有批复]&ndash;&gt;-->
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/order_detail_finance_lin"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:paddingBottom="20dp"-->
-                    <!--tools:visibility="gone"-->
-                    <!--android:visibility="gone">-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:padding="15dp"-->
-                        <!--android:text="金融方案批复信息"-->
-                        <!--android:textColor="@color/text_normal"-->
-                        <!--android:textSize="13.5sp" />-->
-
-                    <!--<View-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="0.5dp"-->
-                        <!--android:background="@color/main_driver" />-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="车辆开票价"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_bill_price_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="车辆首付款"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_first_price_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="车辆贷款金额"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_loan_price_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="档案管理费"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_management_price_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="其他费用"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_other_price_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="总贷款额"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_total_loan_price_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="贷款银行"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_loan_bank_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="产品类型"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_product_type_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingTop="15dp">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="left"-->
-                            <!--android:text="还款期限"-->
-                            <!--android:textColor="@color/text_light_grey"-->
-                            <!--android:textSize="13.5sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/order_detail_finance_periods_tv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:gravity="right"-->
-
-                            <!--android:textColor="@color/text_normal"-->
-                            <!--android:textSize="13.5sp" />-->
-                    <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-
                 <!--金融方案[只有申请没有批复]-->
                 <LinearLayout
                     android:id="@+id/order_detail_finance_lin"
@@ -524,8 +244,8 @@
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingBottom="20dp"
-                    tools:visibility="gone"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/order_detail_finance_title_info"
@@ -549,8 +269,8 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingTop="15dp"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -578,8 +298,8 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingTop="15dp"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -608,8 +328,8 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingTop="15dp"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -638,8 +358,8 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingTop="15dp"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -668,8 +388,8 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingTop="15dp"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -755,8 +475,8 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingTop="15dp"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -842,8 +562,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    tools:visibility="gone"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/order_detail_havere_title_info"
@@ -861,13 +581,13 @@
                         android:background="@color/main_driver" />
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="#f7f7f7"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:visibility="visible">
 
                         <TextView
                             android:id="@+id/order_detail_havere_header_name_tv"
@@ -898,7 +618,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -906,7 +625,8 @@
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:id="@+id/ss"
@@ -940,16 +660,16 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
-
                         android:layout_width="match_parent"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="0dp"
@@ -982,16 +702,16 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
-
                         android:layout_width="match_parent"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="0dp"
@@ -1024,7 +744,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -1032,7 +751,8 @@
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="0dp"
@@ -1065,16 +785,16 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
-
                         android:layout_width="match_parent"
+
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="0dp"
@@ -1107,7 +827,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -1115,7 +834,8 @@
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="0dp"
@@ -1148,14 +868,14 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
-                        android:paddingTop="5dp">
+                        android:paddingTop="5dp"
+                        tools:visibility="visible">
 
                         <TextView
 
@@ -1187,14 +907,14 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
-                        android:paddingTop="5dp">
+                        android:paddingTop="5dp"
+                        tools:visibility="visible">
 
                         <TextView
 
@@ -1227,7 +947,6 @@
 
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -1235,7 +954,8 @@
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
 
@@ -1267,7 +987,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
@@ -1275,7 +994,8 @@
                         android:background="@color/white"
                         android:orientation="horizontal"
                         android:paddingTop="5dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
 
@@ -1307,14 +1027,14 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        tools:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/white"
                         android:orientation="horizontal"
-                        android:paddingTop="5dp">
+                        android:paddingTop="5dp"
+                        tools:visibility="visible">
 
                         <TextView
 
@@ -1357,8 +1077,8 @@
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingBottom="20dp"
-                    tools:visibility="gone"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -1399,7 +1119,6 @@
                             android:textColor="@color/text_normal"
                             android:textSize="13.5sp" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1525,7 +1244,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/order_detail_sale_info"
@@ -1588,7 +1308,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/order_detail_customer_info"
