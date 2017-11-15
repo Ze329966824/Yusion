@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.base;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -54,5 +55,14 @@ public class ActivityManager {
                 activity.finish();
             }
         }
+    }
+
+    public static void exit() {
+        for (Activity activity : list) {
+            if (activity != null) {
+                activity.finish();
+            }
+        }
+        System.exit(0);
     }
 }

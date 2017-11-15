@@ -312,7 +312,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             YusionApp.TOKEN = mtoken;
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
         }
     }
 
@@ -325,8 +324,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //case 1:如果是从SettingActivity注销登录时，stack中有MainActivity和LoginActivity，所以退出应用需要先结束 MainActivity
-        ActivityManager.finishOtherActivityEx(LoginActivity.class);
+        ActivityManager.exit();
     }
 
 
@@ -445,7 +443,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                            }
 //                        });
                         // callLogBean.calllog_lis
-                        finish();
                     }
 
                     @Override
@@ -530,14 +527,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-
                     } else {
                         Intent intent = new Intent(context, BindingActivity.class);
                         intent.putExtra("source", "qq");
                         intent.putExtra("open_id", req.open_id);
                         startActivity(intent);
-                        finish();
                     }
                 }));
 
