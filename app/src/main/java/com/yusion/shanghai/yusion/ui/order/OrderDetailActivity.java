@@ -274,8 +274,8 @@ public class OrderDetailActivity extends BaseActivity {
 
                     havere_applyTotalPriceTv.setText(resp.loan_amt);
                     havere_replyTotalPriceTv.setText(resp.uw_detail.loan_amt);
-                    havere_applyMonthPriceTv.setText(resp.monthly_payment);
-                    havere_replyMonthPriceTv.setText(resp.uw_detail.monthly_payment);
+                    havere_applyMonthPriceTv.setText(resp.monthly_payment + "元");
+                    havere_replyMonthPriceTv.setText(resp.uw_detail.monthly_payment + "元");
                     havere_applyRepayDateTv.setText(resp.nper);
                     havere_replyRepayDateTv.setText(resp.uw_detail.nper);
 
@@ -288,10 +288,10 @@ public class OrderDetailActivity extends BaseActivity {
                     nore_financeLin.setVisibility(View.VISIBLE);
                     havere_financeLin.setVisibility(View.GONE);
 
-                    applyTotalLoanPriceTv.setText(resp.loan_amt);
+                    applyTotalLoanPriceTv.setText(resp.loan_amt + "元");
 
-                    applyPeriodsTv.setText(resp.nper);
-                    applyMonthPriceTv.setText(resp.monthly_payment);
+                    applyPeriodsTv.setText(resp.nper + "期");
+                    applyMonthPriceTv.setText(resp.monthly_payment + "元");
                 }
 
 
@@ -309,15 +309,15 @@ public class OrderDetailActivity extends BaseActivity {
                     alter_after_trix.setText(resp.new_app.trix);
                     alter_before_model.setText(resp.old_app.model_name);
                     alter_after_model.setText(resp.new_app.model_name);
-                    alter_before_guiderpice.setText(resp.old_app.msrp);
-                    alter_after_guideprice.setText(resp.new_app.msrp);
+                    alter_before_guiderpice.setText(resp.old_app.msrp + "元");
+                    alter_after_guideprice.setText(resp.new_app.msrp + "元");
 
-                    alter_before_totalpice.setText(resp.old_app.loan_amt);
-                    alter_after_totalprice.setText(resp.new_app.loan_amt);
+                    alter_before_totalpice.setText(resp.old_app.loan_amt + "元");
+                    alter_after_totalprice.setText(resp.new_app.loan_amt + "元");
                     alter_before_monthpice.setText(resp.old_app.monthly_payment);
                     alter_after_monthprice.setText(resp.new_app.monthly_payment);
-                    alter_before_date.setText(resp.old_app.nper);
-                    alter_after_date.setText(resp.new_app.nper);
+                    alter_before_date.setText(resp.old_app.nper + "期");
+                    alter_after_date.setText(resp.new_app.nper + "期");
 
                     compare(alter_before_dlr, alter_after_dlr);
                     compare(alter_before_brand, alter_after_brand);
@@ -335,7 +335,7 @@ public class OrderDetailActivity extends BaseActivity {
                     brandTv.setText(resp.brand);
                     trixTv.setText(resp.trix);
                     modelTv.setText(resp.model_name);
-                    guidePriceTv.setText(resp.msrp);
+                    guidePriceTv.setText(resp.msrp + "元");
                     dlrNameTv.setText(resp.dlr_nm);
                 }
 
