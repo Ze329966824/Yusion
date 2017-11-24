@@ -15,7 +15,7 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }//tabLayout
         maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }//pgy
-        flatDir{
+        flatDir {
             dirs 'libs'
         }
     }
@@ -24,3 +24,4 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+

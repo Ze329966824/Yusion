@@ -24,6 +24,7 @@ import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;
@@ -59,8 +60,10 @@ public class YusionApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.setCustomCrashHanler(getApplicationContext());
+        if (Settings.isOnline) {
+            CrashHandler crashHandler = CrashHandler.getInstance();
+            crashHandler.setCustomCrashHanler(getApplicationContext());
+        }
         initData();
         initPgy();
         initSentry();
@@ -120,14 +123,17 @@ public class YusionApp extends MultiDexApplication {
     private void initJpush() {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        String reg_id;
-        int i = 0;
-        do {
-            reg_id = JPushInterface.getRegistrationID(YusionApp.this);
-            Log.e("reg_id","yusionapp--------"+reg_id);
-            i++;
-        } while (TextUtils.isEmpty(reg_id) && i < 10);
-        getInstance(this).putValue("reg_id", reg_id);
+        new Thread(() -> {
+            long time = new Date().getTime();
+            while (TextUtils.isEmpty(reg_id) || (new Date().getTime() - time) / 1000 > 3) {
+                reg_id = JPushInterface.getRegistrationID(YusionApp.this);
+            }
+            if (TextUtils.isEmpty(reg_id)) {
+                reg_id = SharedPrefsUtil.getInstance(YusionApp.this).getValue("reg_id", "");
+            }
+            SharedPrefsUtil.getInstance(YusionApp.this).putValue("reg_id", reg_id);
+            Log.e("TAG", "reg_id: " + reg_id);
+        }).start();
     }
 
     private void initAMap() {
