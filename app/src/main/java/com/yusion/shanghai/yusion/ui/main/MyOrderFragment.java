@@ -253,7 +253,7 @@ public class MyOrderFragment extends BaseFragment {
             }
 
             vh.st.setText(item.client_status_code);//待审核  status_code status_st: 2
-            vh.periods.setText(item.nper);
+            vh.periods.setText(item.nper + "期");
             vh.loan.setText(item.loan_amt);
         }
 
