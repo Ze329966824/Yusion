@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -865,6 +866,9 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
         submitBtn.setFocusable(false);
 //        mUpdateSpouseInfoFragment.requestUpdate();
         //上传用户资料
+
+        TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        clientInfo.spouse.imei = telephonyManager.getDeviceId();
         updateClientinfo(() -> ProductApi.updateClientInfo(UpdateSpouseInfoActivity.this, clientInfo, data -> {
             if (data == null) {
                 return;

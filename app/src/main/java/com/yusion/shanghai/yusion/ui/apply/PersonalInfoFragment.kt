@@ -2,10 +2,12 @@ package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -306,6 +308,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.urg_contact2 = (personal_info_urg_contact2_edt as EditText).text.toString()
             applyActivity.mClientInfo.urg_mobile2 = (personal_info_urg_mobile2_edt as EditText).text.toString()
             applyActivity.mClientInfo.urg_relation2 = (personal_info_urg_relation2_tv as TextView).text.toString()
+            val telephonyManager = mContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+            applyActivity.mClientInfo.imei = telephonyManager.getDeviceId()
             nextStep()
         }
 
