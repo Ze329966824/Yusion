@@ -697,4 +697,9 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             }
         }
     }
+
+    fun fillSpouseInfo() {
+
+
+    }
 }
