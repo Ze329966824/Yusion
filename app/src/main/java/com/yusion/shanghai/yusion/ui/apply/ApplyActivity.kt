@@ -85,9 +85,4 @@ class ApplyActivity : BaseActivity() {
                 .commit()
         mCurrentFragment = mAutonymCertifyFragment
     }
-
-    fun fillInfo() {
-        mPersonalInfoFragment?.fillPersonalInfo()
-        mSpouseInfoFragment?.fillSpouseInfo()
-    }
 }

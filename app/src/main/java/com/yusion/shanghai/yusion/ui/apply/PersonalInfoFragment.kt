@@ -637,9 +637,4 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             }
         }
     }
-
-    fun fillPersonalInfo() {
-
-
-    }
 }
