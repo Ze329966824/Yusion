@@ -60,6 +60,7 @@ import static com.yusion.shanghai.yusion.R.id.update_personal_info_current_addre
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_education_tv;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_house_area_edt;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_house_owner_name_edt;
+import static com.yusion.shanghai.yusion.R.id.update_personal_info_house_owner_relation_tv;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_house_type_tv;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_income_from_tv;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_live_with_parent_tv;
@@ -71,6 +72,7 @@ import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_mobile1_e
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_mobile1_img;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_mobile2_edt;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_mobile2_img;
+import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_relation1_tv;
 import static com.yusion.shanghai.yusion.R.id.update_personal_info_urg_relation2_tv;
 
 
@@ -137,7 +139,8 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     private LinearLayout update_spouse_info_extra_from_income_company_address_lin;
     private LinearLayout update_spouse_info_extra_from_income_company_address1_lin;
     private LinearLayout update_spouse_info_extra_from_income_work_position_lin;
-    private TextView update_spouse_info_extra_from_income_work_position_tv;
+
+
     private TextView update_spouse_info_divorced_tv;
     private LinearLayout update_spouse_info_register_addr_lin;
     private TextView update_spouse_info_register_addr_tv;
@@ -193,7 +196,6 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 
     @BindView(id = R.id.update_spouse_info_current_address2_tv, widgetName = "update_spouse_info_current_address2_tv")
     private NoEmptyEditText update_spouse_info_current_address2_tv;              //门牌号
-
 
     @BindView(id = R.id.update_spouse_info_income_from_tv, widgetName = "update_spouse_info_income_from_tv")
     private TextView update_spouse_info_income_from_tv;                   //主要收入来源
@@ -260,6 +262,9 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 
     @BindView(id = R.id.update_spouse_info_extra_from_income_company_address2_tv, widgetName = "update_spouse_info_extra_from_income_company_address2_tv")
     private NoEmptyEditText update_spouse_info_extra_from_income_company_address2_tv; //额外-工资-门牌号
+
+    @BindView(id = R.id.spouse_extra_info_work_position_tv, widgetName = "update_spouse_info_extra_from_income_work_position_tv")
+    private TextView update_spouse_info_extra_from_income_work_position_tv;
 
     @BindView(id = R.id.update_spouse_info_extra_from_income_work_phone_num_edt, widgetName = "update_spousespouse_info_extra_from_income_work_phone_num_edt")
     private NoEmptyEditText update_spouse_info_extra_from_income_work_phone_num_edt;  //额外-工资-单位座机
@@ -712,7 +717,6 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
         });
         // 额外 选择职务
         update_spouse_info_extra_from_income_work_position_lin = (LinearLayout) findViewById(R.id.update_spouse_info_extra_from_income_work_position_lin);
-        update_spouse_info_extra_from_income_work_position_tv = (TextView) findViewById(R.id.personal_extra_info_work_position_tv);
         update_spouse_info_extra_from_income_work_position_lin.setOnClickListener(v -> WheelViewUtil.showWheelView(((YusionApp) getApplication()).getConfigResp().work_position_key,
                 UPDATE_FROM_EXTRA_WORK_POSITION_INDEX,
                 update_spouse_info_extra_from_income_work_position_lin,
@@ -1065,7 +1069,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
 //                    requestUpload(clientInfo.spouse.clt_id, () -> {
 //                toCommitActivity(clientInfo.spouse.clt_id, "lender_sp", "个人配偶影像件资料", "continue");
                 Intent intent = new Intent(UpdateSpouseInfoActivity.this, CommitActivity.class);
-                intent.putExtra("clt_id", clientInfo.spouse.clt_id);
+                intent.putExtra("clt_id", clientInfo.clt_id);
                 intent.putExtra("role", "lender_sp");
                 intent.putExtra("title", "个人配偶影像件资料");
                 intent.putExtra("commit_state", "continue");
@@ -1150,6 +1154,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
     public void updateClientinfo(OnVoidCallBack callBack) {
         if (checkUserInfo()) {
             //提交
+            clientInfo.spouse.marriage = update_spouse_info_marriage_tv.getText().toString();
             clientInfo.marriage = update_spouse_info_marriage_tv.getText().toString();
             now_marriage = clientInfo.marriage;
             switch (update_spouse_info_marriage_tv.getText().toString()) {
@@ -1159,17 +1164,17 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     clientInfo.spouse.clt_nm = update_spouse_info_clt_nm_edt.getText().toString().trim();
                     clientInfo.spouse.id_no = update_spouse_info_id_no_edt.getText().toString().trim();
                     clientInfo.spouse.gender = update_spouse_info_gender_tv.getText().toString().trim();
-                    clientInfo.reg_addr.province = update_spouse_info_reg_tv.getText().toString().trim().split("/")[0];
-                    clientInfo.reg_addr.city = update_spouse_info_reg_tv.getText().toString().trim().split("/")[1];
-                    clientInfo.reg_addr.district = update_spouse_info_reg_tv.getText().toString().trim().split("/")[2];
-                    clientInfo.edu = update_spouse_info_education_tv.getText().toString().trim();
-                    clientInfo.current_addr.province = update_spouse_info_current_address_tv.getText().toString().trim().split("/")[0];
-                    clientInfo.current_addr.city = update_spouse_info_current_address_tv.getText().toString().trim().split("/")[1];
-                    clientInfo.current_addr.district = update_spouse_info_current_address_tv.getText().toString().trim().split("/")[2];
-                    clientInfo.current_addr.address1 = update_spouse_info_current_address1_tv.getText().toString().trim();
-                    clientInfo.current_addr.address2 = update_spouse_info_current_address2_tv.getText().toString().trim();
-                    clientInfo.is_live_with_parent = update_spouse_info_live_with_parent_tv.getText().toString().trim();
-                    clientInfo.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
+                    clientInfo.spouse.reg_addr.province = update_spouse_info_reg_tv.getText().toString().trim().split("/")[0];
+                    clientInfo.spouse.reg_addr.city = update_spouse_info_reg_tv.getText().toString().trim().split("/")[1];
+                    clientInfo.spouse.reg_addr.district = update_spouse_info_reg_tv.getText().toString().trim().split("/")[2];
+                    clientInfo.spouse.edu = update_spouse_info_education_tv.getText().toString().trim();
+                    clientInfo.spouse.current_addr.province = update_spouse_info_current_address_tv.getText().toString().trim().split("/")[0];
+                    clientInfo.spouse.current_addr.city = update_spouse_info_current_address_tv.getText().toString().trim().split("/")[1];
+                    clientInfo.spouse.current_addr.district = update_spouse_info_current_address_tv.getText().toString().trim().split("/")[2];
+                    clientInfo.spouse.current_addr.address1 = update_spouse_info_current_address1_tv.getText().toString().trim();
+                    clientInfo.spouse.current_addr.address2 = update_spouse_info_current_address2_tv.getText().toString().trim();
+                    clientInfo.spouse.is_live_with_parent = update_spouse_info_live_with_parent_tv.getText().toString().trim();
+                    clientInfo.spouse.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
                     clientInfo.spouse.major_income_type = update_spouse_info_income_from_tv.getText().toString().trim();
                     //判断主要收入类型
                     switch (update_spouse_info_income_from_tv.getText().toString().trim()) {
@@ -1230,18 +1235,17 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                         default:
                             break;
                     }
-
-                    update_spouse_info_house_type_tv.setText(clientInfo.house_type);
-                    update_spouse_info_house_area_edt.setText(clientInfo.house_area);
-                    update_spouse_info_house_owner_name_edt.setText(clientInfo.house_owner_name);
-                    update_spouse_info_house_owner_relation_tv.setText(clientInfo.house_owner_relation);
-                    update_spouse_info_urg_relation1_tv.setText(clientInfo.urg_relation1);
-                    update_spouse_info_urg_mobile1_edt.setText(clientInfo.urg_mobile1);
-                    update_spouse_info_urg_contact1_edt.setText(clientInfo.urg_contact1);
-                    update_spouse_info_urg_relation2_tv.setText(clientInfo.urg_relation2);
-                    update_spouse_info_urg_mobile2_edt.setText(clientInfo.urg_mobile2);
-                    update_spouse_info_urg_contact2_edt.setText(clientInfo.urg_contact2);
-                    update_spouse_info_live_with_parent_tv.setText(clientInfo.is_live_with_parent);
+                    clientInfo.spouse.house_type = update_spouse_info_house_type_tv.getText().toString().trim();
+                    clientInfo.spouse.house_area = update_spouse_info_house_area_edt.getText().toString().trim();
+                    clientInfo.spouse.house_owner_name = update_spouse_info_house_owner_name_edt.getText().toString().trim();
+                    clientInfo.spouse.house_owner_relation = update_spouse_info_house_owner_relation_tv.getText().toString().trim();
+                    clientInfo.spouse.urg_relation1 = update_spouse_info_urg_relation1_tv.getText().toString().trim();
+                    clientInfo.spouse.urg_mobile1 = update_spouse_info_urg_mobile1_edt.getText().toString().trim();
+                    clientInfo.spouse.urg_contact1 = update_spouse_info_urg_contact1_edt.getText().toString().trim();
+                    clientInfo.spouse.urg_relation2 = update_spouse_info_urg_relation2_tv.getText().toString().trim();
+                    clientInfo.spouse.urg_mobile2 = update_spouse_info_urg_mobile2_edt.getText().toString().trim();
+                    clientInfo.spouse.urg_contact2 = update_spouse_info_urg_contact2_edt.getText().toString().trim();
+                    
                     break;
                 case "离异":
                     clientInfo.child_num = update_spouse_info_child_count1_edt.getText().toString().trim();
@@ -1452,7 +1456,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
         if (data != null) {
             clientInfo = data;
             //填充
-            update_spouse_info_marriage_tv.setText(clientInfo.marriage);
+            update_spouse_info_marriage_tv.setText(clientInfo.spouse.marriage);
             old_marriage = clientInfo.marriage;
             switch (clientInfo.marriage) {
                 case "未婚":
@@ -1491,22 +1495,22 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     update_spouse_info_clt_nm_edt.setText(clientInfo.spouse.clt_nm);
                     update_spouse_info_id_no_edt.setText(clientInfo.spouse.id_no);
                     update_spouse_info_gender_tv.setText(clientInfo.spouse.gender);
-                    if (clientInfo.reg_addr.province.equals("") && clientInfo.reg_addr.city.equals("") && clientInfo.reg_addr.district.equals("")) {
+                    if (clientInfo.spouse.reg_addr.province.equals("") && clientInfo.spouse.reg_addr.city.equals("") && clientInfo.spouse.reg_addr.district.equals("")) {
                         update_spouse_info_reg_tv.setText(null);
                     } else {
                         update_spouse_info_reg_tv.setText(clientInfo.reg_addr.province + "/" + clientInfo.reg_addr.city + "/" + clientInfo.reg_addr.district);
                     }
                     update_spouse_info_mobile_edt.setText(clientInfo.spouse.mobile);
-                    update_spouse_info_education_tv.setText(clientInfo.edu);
-                    if (clientInfo.current_addr.province.equals("") && clientInfo.current_addr.city.equals("") && clientInfo.current_addr.district.equals("")) {
+                    update_spouse_info_education_tv.setText(clientInfo.spouse.edu);
+                    if (clientInfo.spouse.current_addr.province.equals("") && clientInfo.spouse.current_addr.city.equals("") && clientInfo.spouse.current_addr.district.equals("")) {
                         update_spouse_info_current_address_tv.setText(null);
                     } else {
                         update_spouse_info_current_address_tv.setText(clientInfo.current_addr.province + "/" + clientInfo.current_addr.city + "/" + clientInfo.current_addr.district);
                     }
-                    update_spouse_info_current_address1_tv.setText(clientInfo.current_addr.address1);
-                    update_spouse_info_current_address2_tv.setText(clientInfo.current_addr.address2);
+                    update_spouse_info_current_address1_tv.setText(clientInfo.spouse.current_addr.address1);
+                    update_spouse_info_current_address2_tv.setText(clientInfo.spouse.current_addr.address2);
                     update_spouse_info_income_from_tv.setText(clientInfo.spouse.major_income_type);
-                    update_spouse_info_child_count_edt.setText(clientInfo.child_num);
+                    update_spouse_info_child_count_edt.setText(clientInfo.spouse.child_num);
                     //判断主要收入类型
                     switch (clientInfo.spouse.major_income_type) {
                         case "工资":
@@ -1569,17 +1573,17 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                             break;
                     }
 
-                    update_spouse_info_house_type_tv.setText(clientInfo.house_type);
-                    update_spouse_info_house_area_edt.setText(clientInfo.house_area);
-                    update_spouse_info_house_owner_name_edt.setText(clientInfo.house_owner_name);
-                    update_spouse_info_house_owner_relation_tv.setText(clientInfo.house_owner_relation);
-                    update_spouse_info_urg_relation1_tv.setText(clientInfo.urg_relation1);
-                    update_spouse_info_urg_mobile1_edt.setText(clientInfo.urg_mobile1);
-                    update_spouse_info_urg_contact1_edt.setText(clientInfo.urg_contact1);
-                    update_spouse_info_urg_relation2_tv.setText(clientInfo.urg_relation2);
-                    update_spouse_info_urg_mobile2_edt.setText(clientInfo.urg_mobile2);
-                    update_spouse_info_urg_contact2_edt.setText(clientInfo.urg_contact2);
-                    update_spouse_info_live_with_parent_tv.setText(clientInfo.is_live_with_parent);
+                    update_spouse_info_house_type_tv.setText(clientInfo.spouse.house_type);
+                    update_spouse_info_house_area_edt.setText(clientInfo.spouse.house_area);
+                    update_spouse_info_house_owner_name_edt.setText(clientInfo.spouse.house_owner_name);
+                    update_spouse_info_house_owner_relation_tv.setText(clientInfo.spouse.house_owner_relation);
+                    update_spouse_info_urg_relation1_tv.setText(clientInfo.spouse.urg_relation1);
+                    update_spouse_info_urg_mobile1_edt.setText(clientInfo.spouse.urg_mobile1);
+                    update_spouse_info_urg_contact1_edt.setText(clientInfo.spouse.urg_contact1);
+                    update_spouse_info_urg_relation2_tv.setText(clientInfo.spouse.urg_relation2);
+                    update_spouse_info_urg_mobile2_edt.setText(clientInfo.spouse.urg_mobile2);
+                    update_spouse_info_urg_contact2_edt.setText(clientInfo.spouse.urg_contact2);
+                    update_spouse_info_live_with_parent_tv.setText(clientInfo.spouse.is_live_with_parent);
 
 
                     break;
@@ -1599,7 +1603,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     update_spouse_info_marriage_group_lin.setVisibility(View.GONE);
                     update_spouse_info_die_group_lin.setVisibility(View.GONE);
                     update_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
-                    update_spouse_info_child_count1_edt.setText(clientInfo.child_num);
+                    update_spouse_info_child_count1_edt.setText(clientInfo.spouse.child_num);
                     break;
                 case "丧偶":
 //                    ListImgsReq req4 = new ListImgsReq();
@@ -1615,7 +1619,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     findViewById(R.id.fab).setVisibility(View.GONE);
                     update_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     update_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
-                    update_spouse_info_child_count2_edt.setText(clientInfo.child_num);
+                    update_spouse_info_child_count2_edt.setText(clientInfo.spouse.child_num);
                     break;
 
                 default:
