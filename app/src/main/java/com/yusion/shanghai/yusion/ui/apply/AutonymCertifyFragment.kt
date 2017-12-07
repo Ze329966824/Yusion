@@ -115,7 +115,7 @@ class AutonymCertifyFragment : DoubleCheckFragment() {
                 }
                 var applyActivity = activity as ApplyActivity
                 applyActivity.mClientInfo = it
-                applyActivity.fillInfo();
+//                applyActivity.fillInfo()
                 ocrResp?.let {
                     applyActivity.mClientInfo.gender = ocrResp.sex
                     applyActivity.mClientInfo.reg_addr_details = if (TextUtils.isEmpty(ocrResp.addr)) "" else ocrResp.addr

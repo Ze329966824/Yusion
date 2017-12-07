@@ -124,7 +124,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     private TextView update_personal_info_gender_tv;                        //性别
 
     @BindView(id = R.id.update_personal_info_reg_tv, widgetName = "update_personal_info_reg_tv")
-    private TextView update_personal_info_reg_tv;//户籍
+    private TextView update_personal_info_reg_tv;                           //户籍
 
     @BindView(id = R.id.update_personal_info_mobile_edt, widgetName = "update_personal_info_mobile_edt")
     private EditText update_personal_info_mobile_edt;                       //手机号

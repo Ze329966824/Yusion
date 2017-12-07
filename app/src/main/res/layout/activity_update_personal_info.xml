@@ -122,11 +122,6 @@
                                     style="@style/apply_info_title"
                                     android:text="性别" />
 
-                                <TextView
-                                    android:id="@+id/update_personal_info_gender_tv"
-                                    style="@style/apply_info_content"
-                                    android:hint="请选择" />
-
                                 <FrameLayout
                                     android:layout_width="20dp"
                                     android:layout_height="match_parent"
@@ -138,6 +133,11 @@
                                         android:layout_gravity="left|center_vertical"
                                         android:src="@mipmap/mine_arrow_right" />
                                 </FrameLayout>
+
+                                <TextView
+                                    android:id="@+id/update_personal_info_gender_tv"
+                                    style="@style/apply_info_content"
+                                    android:hint="请选择" />
 
                             </LinearLayout>
 
