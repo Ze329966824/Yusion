@@ -912,10 +912,10 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             spouse_info_marriage_group_lin.visibility = View.VISIBLE
             spouse_info_divorced_group_lin.visibility = View.GONE
             spouse_info_die_group_lin.visibility = View.GONE
-            spouse_info_clt_nm_edt?.setText(applyActivity.mClientInfo.clt_nm)
-            spouse_info_id_no_edt?.setText(applyActivity.mClientInfo.id_no)
-            spouse_info_gender_tv?.setText(applyActivity.mClientInfo.gender)
-            spouse_info_mobile_edt?.setText(applyActivity.mClientInfo.mobile)
+            spouse_info_clt_nm_edt?.setText(applyActivity.mClientInfo.spouse.clt_nm)
+            spouse_info_id_no_edt?.setText(applyActivity.mClientInfo.spouse.id_no)
+            spouse_info_gender_tv?.setText(applyActivity.mClientInfo.spouse.gender)
+            spouse_info_mobile_edt?.setText(applyActivity.mClientInfo.spouse.mobile)
             spouse_info_child_count_edt?.setText(applyActivity.mClientInfo.child_num)
 
             spouse_info_income_from_tv?.text = applyActivity.mClientInfo.spouse.major_income_type

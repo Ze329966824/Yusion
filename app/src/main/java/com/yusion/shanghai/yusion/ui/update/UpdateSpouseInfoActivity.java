@@ -1174,7 +1174,8 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     clientInfo.spouse.current_addr.address1 = update_spouse_info_current_address1_tv.getText().toString().trim();
                     clientInfo.spouse.current_addr.address2 = update_spouse_info_current_address2_tv.getText().toString().trim();
                     clientInfo.spouse.is_live_with_parent = update_spouse_info_live_with_parent_tv.getText().toString().trim();
-                    clientInfo.spouse.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
+                    clientInfo.child_num = update_spouse_info_child_count_edt.getText().toString().trim();
+                    clientInfo.spouse.mobile = update_spouse_info_mobile_edt.getText().toString().trim();
                     clientInfo.spouse.major_income_type = update_spouse_info_income_from_tv.getText().toString().trim();
                     //判断主要收入类型
                     switch (update_spouse_info_income_from_tv.getText().toString().trim()) {
@@ -1498,19 +1499,19 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     if (clientInfo.spouse.reg_addr.province.equals("") && clientInfo.spouse.reg_addr.city.equals("") && clientInfo.spouse.reg_addr.district.equals("")) {
                         update_spouse_info_reg_tv.setText(null);
                     } else {
-                        update_spouse_info_reg_tv.setText(clientInfo.reg_addr.province + "/" + clientInfo.reg_addr.city + "/" + clientInfo.reg_addr.district);
+                        update_spouse_info_reg_tv.setText(clientInfo.spouse.reg_addr.province + "/" + clientInfo.spouse.reg_addr.city + "/" + clientInfo.spouse.reg_addr.district);
                     }
                     update_spouse_info_mobile_edt.setText(clientInfo.spouse.mobile);
                     update_spouse_info_education_tv.setText(clientInfo.spouse.edu);
                     if (clientInfo.spouse.current_addr.province.equals("") && clientInfo.spouse.current_addr.city.equals("") && clientInfo.spouse.current_addr.district.equals("")) {
                         update_spouse_info_current_address_tv.setText(null);
                     } else {
-                        update_spouse_info_current_address_tv.setText(clientInfo.current_addr.province + "/" + clientInfo.current_addr.city + "/" + clientInfo.current_addr.district);
+                        update_spouse_info_current_address_tv.setText(clientInfo.spouse.current_addr.province + "/" + clientInfo.spouse.current_addr.city + "/" + clientInfo.spouse.current_addr.district);
                     }
                     update_spouse_info_current_address1_tv.setText(clientInfo.spouse.current_addr.address1);
                     update_spouse_info_current_address2_tv.setText(clientInfo.spouse.current_addr.address2);
                     update_spouse_info_income_from_tv.setText(clientInfo.spouse.major_income_type);
-                    update_spouse_info_child_count_edt.setText(clientInfo.spouse.child_num);
+                    update_spouse_info_child_count_edt.setText(clientInfo.child_num);
                     //判断主要收入类型
                     switch (clientInfo.spouse.major_income_type) {
                         case "工资":
@@ -1603,7 +1604,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     update_spouse_info_marriage_group_lin.setVisibility(View.GONE);
                     update_spouse_info_die_group_lin.setVisibility(View.GONE);
                     update_spouse_info_divorced_group_lin.setVisibility(View.VISIBLE);
-                    update_spouse_info_child_count1_edt.setText(clientInfo.spouse.child_num);
+                    update_spouse_info_child_count1_edt.setText(clientInfo.child_num);
                     break;
                 case "丧偶":
 //                    ListImgsReq req4 = new ListImgsReq();
@@ -1619,7 +1620,7 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                     findViewById(R.id.fab).setVisibility(View.GONE);
                     update_spouse_info_divorced_group_lin.setVisibility(View.GONE);
                     update_spouse_info_die_group_lin.setVisibility(View.VISIBLE);
-                    update_spouse_info_child_count2_edt.setText(clientInfo.spouse.child_num);
+                    update_spouse_info_child_count2_edt.setText(clientInfo.child_num);
                     break;
 
                 default:
