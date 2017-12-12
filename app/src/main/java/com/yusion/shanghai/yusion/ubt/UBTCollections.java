@@ -212,7 +212,13 @@ public class UBTCollections {
         widgetNameMaps.put("update_spouse_info_clt_nm_edt", "输入姓名");
         widgetNameMaps.put("update_spouse_info_id_no_edt", "身份证号");
         widgetNameMaps.put("update_spouse_info_gender_tv", "性别");
+        widgetNameMaps.put("update_personal_info_reg_tv", "户籍地");
         widgetNameMaps.put("update_spouse_info_mobile_edt", "手机号");
+        widgetNameMaps.put("update_spouse_info_education_tv", "学历");
+        widgetNameMaps.put("update_spouse_info_current_address_tv", "现住地址");
+        widgetNameMaps.put("update_spouse_info_current_address1_tv", "详细地址");
+        widgetNameMaps.put("update_spouse_info_current_address2_tv", "门牌号");
+        widgetNameMaps.put("update_spouse_info_live_with_parent_tv", "是否与父母同住"); 
         widgetNameMaps.put("update_spouse_info_income_from_tv", "主要收入来源");
         widgetNameMaps.put("update_spouse_info_from_income_year_edt", "主要-工资-年收入");
         widgetNameMaps.put("update_spouse_info_from_income_company_name_edt", "主要-工资-单位名称");
@@ -239,6 +245,16 @@ public class UBTCollections {
         widgetNameMaps.put("update_spouse_info_child_count_edt", "子女数量");
         widgetNameMaps.put("update_spouse_info_child_count1_edt", "子女数量");
         widgetNameMaps.put("update_spouse_info_child_count2_edt", "子女数量");
+        widgetNameMaps.put("update_spouse_info_house_type_tv", "房屋性质");
+        widgetNameMaps.put("update_spouse_info_house_area_edt", "房屋面积");
+        widgetNameMaps.put("update_spouse_info_house_owner_name_edt", "房屋所有人");
+        widgetNameMaps.put("update_spouse_info_house_owner_relation_tv", "与申请人关系");
+        widgetNameMaps.put("update_spouse_info_urg_relation1_tv", "紧急联系人-与申请人关系1");
+        widgetNameMaps.put("update_spouse_info_urg_mobile1_edt", "紧急联系人-手机号1");
+        widgetNameMaps.put("update_spouse_info_urg_contact1_edt", "紧急联系人-姓名1");
+        widgetNameMaps.put("update_spouse_info_urg_relation2_tv", "紧急联系人-与申请人关系2");
+        widgetNameMaps.put("update_spouse_info_urg_mobile2_edt", "紧急联系人-手机号2");
+        widgetNameMaps.put("update_spouse_info_urg_contact2_edt", "紧急联系人-姓名2");
         widgetNameMaps.put("submit_img", "提交配偶资料");
 
         //担保人资料
@@ -337,6 +353,12 @@ public class UBTCollections {
         widgetNameMaps.put("spouse_info_gender_tv", "选择配偶性别");
         widgetNameMaps.put("spouse_info_mobile_edt", "输入配偶手机号");
         widgetNameMaps.put("spouse_info_child_count_edt", "输入子女数量(已婚)");
+        widgetNameMaps.put("spouse_info_reg_tv", "选择配偶户籍地");
+        widgetNameMaps.put("spouse_info_education_tv", "选择配偶学历");
+        widgetNameMaps.put("spouse_info_current_address_tv", "选择配偶现住地址");
+        widgetNameMaps.put("spouse_info_current_address1_tv", "选择配偶详细地址");
+        widgetNameMaps.put("spouse_info_current_address2_tv", "输入配偶门牌号");
+        widgetNameMaps.put("spouse_info_live_with_parent_tv", "选择配偶是否与父母同住");
 
 
         widgetNameMaps.put("spouse_info_income_from_tv", "选择配偶主要收入来源");
@@ -364,6 +386,17 @@ public class UBTCollections {
         widgetNameMaps.put("spouse_info_extra_from_income_company_address2_tv", "输入配偶门牌号(额外工资)");
         widgetNameMaps.put("spouse_info_extra_from_income_work_position_tv", "选择配偶职务(额外工资)");
         widgetNameMaps.put("spouse_info_extra_from_income_work_phone_num_edt", "输入配偶单位座机(额外工资)");
+        widgetNameMaps.put("spouse_info_house_type_tv", "选择配偶房屋性质");
+        widgetNameMaps.put("spouse_info_house_area_edt", "输入配偶房屋面积");
+        widgetNameMaps.put("spouse_info_house_owner_name_edt", "输入配偶房屋所有人");
+        widgetNameMaps.put("spouse_info_house_owner_relation_tv", "选择配偶与申请人关系(房屋所有人)");
+
+        widgetNameMaps.put("spouse_info_urg_relation1_tv", "与申请人关系(配偶紧急联系人1)");
+        widgetNameMaps.put("spouse_info_urg_mobile1_edt", "手机号码(配偶紧急联系人1)");
+        widgetNameMaps.put("spouse_info_urg_contact1_edt", "联系人姓名(配偶紧急联系人1)");
+        widgetNameMaps.put("spouse_info_urg_relation2_tv", "与申请人关系(配偶紧急联系人2)");
+        widgetNameMaps.put("spouse_info_urg_mobile2_edt", "手机号码(配偶紧急联系人2)");
+        widgetNameMaps.put("spouse_info_urg_contact2_edt", "联系人姓名(配偶紧急联系人2)");
         widgetNameMaps.put("spouse_info_submit_btn", "提交配偶信息");
 
 

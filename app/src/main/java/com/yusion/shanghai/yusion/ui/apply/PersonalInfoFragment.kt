@@ -2,10 +2,12 @@ package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -306,6 +308,8 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.urg_contact2 = (personal_info_urg_contact2_edt as EditText).text.toString()
             applyActivity.mClientInfo.urg_mobile2 = (personal_info_urg_mobile2_edt as EditText).text.toString()
             applyActivity.mClientInfo.urg_relation2 = (personal_info_urg_relation2_tv as TextView).text.toString()
+            val telephonyManager = mContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+            applyActivity.mClientInfo.imei = telephonyManager.getDeviceId()
             nextStep()
         }
 
@@ -633,4 +637,67 @@ class PersonalInfoFragment : DoubleCheckFragment() {
             }
         }
     }
+
+//    fun fillPersonalInfo() {
+//        var applyActivity = activity as ApplyActivity
+//        if (applyActivity.mClientInfo.gender.isNotEmpty()) {
+//            personal_info_gender_tv?.text = applyActivity.mClientInfo.gender
+//        }
+//        if (applyActivity.mClientInfo.reg_addr.province.isNotEmpty() && applyActivity.mClientInfo.reg_addr.city.isNotEmpty() && applyActivity.mClientInfo.reg_addr.district.isNotEmpty()) {
+//            personal_info_reg_tv?.text = applyActivity.mClientInfo.reg_addr.province + "/" + applyActivity.mClientInfo.reg_addr.city + "/" + applyActivity.mClientInfo.reg_addr.district
+//        }
+//        personal_info_education_tv?.text = applyActivity.mClientInfo.edu
+//        if (applyActivity.mClientInfo.current_addr.province.isNotEmpty() && applyActivity.mClientInfo.current_addr.city.isNotEmpty() && applyActivity.mClientInfo.current_addr.district.isNotEmpty()){
+//            personal_info_current_address_tv?.text = applyActivity.mClientInfo.current_addr.province + "/" + applyActivity.mClientInfo.current_addr.city + "/" + applyActivity.mClientInfo.current_addr.district
+//        }
+//        personal_info_current_address1_tv?.text = applyActivity.mClientInfo.current_addr.address1
+//        personal_info_current_address2_tv?.setText( applyActivity.mClientInfo.current_addr.address2)
+//
+//        personal_info_live_with_parent_tv?.text = applyActivity.mClientInfo.is_live_with_parent
+//        personal_info_income_from_tv?.text = applyActivity.mClientInfo.major_income_type
+//        if(applyActivity.mClientInfo.major_income_type == "工资"){
+//            personal_info_from_income_group_lin.visibility = View.VISIBLE
+//            personal_info_from_self_group_lin.visibility = View.GONE
+//            personal_info_from_income_year_edt?.setText(applyActivity.mClientInfo.major_income)
+//            personal_info_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.major_company_name)
+//            personal_info_from_income_company_address_tv?.setText(applyActivity.mClientInfo.major_company_addr.province+"/"+applyActivity.mClientInfo.major_company_addr.city+"/"+applyActivity.mClientInfo.major_company_addr.district)
+//            personal_info_from_income_company_address1_tv?.setText(applyActivity.mClientInfo.major_company_addr.address1)
+//            personal_info_from_income_company_address2_tv?.setText(applyActivity.mClientInfo.major_company_addr.address2)
+//            personal_info_from_income_work_position_tv?.setText(applyActivity.mClientInfo.major_work_position)
+//            personal_info_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.major_work_phone_num)
+//        }
+//        if (applyActivity.mClientInfo.major_income_type == "自营"){
+//            personal_info_from_income_group_lin.visibility = View.GONE
+//            personal_info_from_self_group_lin.visibility = View.VISIBLE
+//            personal_info_from_self_year_edt?.setText(applyActivity.mClientInfo.major_income)
+//            personal_info_from_self_type_tv?.setText(applyActivity.mClientInfo.major_busi_type)
+//            personal_info_from_self_company_name_edt?.setText(applyActivity.mClientInfo.major_company_name)
+//            personal_info_from_self_company_address_tv?.setText(applyActivity.mClientInfo.major_company_addr.province+"/"+applyActivity.mClientInfo.major_company_addr.city+"/"+applyActivity.mClientInfo.major_company_addr.district)
+//            personal_info_from_self_company_address1_tv?.setText(applyActivity.mClientInfo.major_company_addr.address1)
+//            personal_info_from_self_company_address2_tv?.setText(applyActivity.mClientInfo.major_company_addr.address2)
+//        }
+//        personal_info_extra_income_from_tv?.text = applyActivity.mClientInfo.extra_income_type
+//        if (applyActivity.mClientInfo.extra_income_type == "工资"){
+//            personal_info_extra_from_income_group_lin.visibility = View.VISIBLE
+//            personal_info_extra_from_income_year_edt?.setText(applyActivity.mClientInfo.extra_income)
+//            personal_info_extra_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.extra_company_name)
+//            personal_info_extra_from_income_company_address_tv?.setText(applyActivity.mClientInfo.extra_company_addr.province+"/"+applyActivity.mClientInfo.extra_company_addr.city+"/"+applyActivity.mClientInfo.extra_company_addr.district)
+//            personal_info_extra_from_income_company_address1_tv?.setText(applyActivity.mClientInfo.extra_company_addr.address1)
+//            personal_info_extra_from_income_company_address2_tv?.setText(applyActivity.mClientInfo.extra_company_addr.address2)
+//            personal_info_extra_from_income_work_position_tv?.setText(applyActivity.mClientInfo.extra_work_position)
+//            personal_info_extra_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.extra_work_phone_num)
+//        }else{
+//            personal_info_extra_from_income_group_lin.visibility = View.GONE
+//        }
+//        personal_info_house_type_tv?.setText(applyActivity.mClientInfo.house_type)
+//        personal_info_house_area_edt?.setText(applyActivity.mClientInfo.house_area)
+//        personal_info_house_owner_name_edt?.setText(applyActivity.mClientInfo.house_owner_name)
+//        personal_info_house_owner_relation_tv?.setText(applyActivity.mClientInfo.house_owner_relation)
+//        personal_info_urg_relation1_tv?.setText(applyActivity.mClientInfo.urg_relation1)
+//        personal_info_urg_mobile1_edt?.setText(applyActivity.mClientInfo.urg_mobile1)
+//        personal_info_urg_contact1_edt?.setText(applyActivity.mClientInfo.urg_contact1)
+//        personal_info_urg_relation2_tv?.setText(applyActivity.mClientInfo.urg_relation2)
+//        personal_info_urg_mobile2_edt?.setText(applyActivity.mClientInfo.urg_mobile2)
+//        personal_info_urg_contact2_edt?.setText(applyActivity.mClientInfo.urg_contact2)
+//    }
 }

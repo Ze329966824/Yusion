@@ -103,10 +103,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //                    requestLogin();
 //                }
                 break;
-            case R.id.mine_customer_service_lin:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13888888888"));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+//            case R.id.mine_customer_service_lin:
+//                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13888888888"));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
 
 //                new UpdateAppManager.Builder()
 //                        .setActivity(getActivity())
@@ -130,7 +130,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //                        })
 //                        .build()
 //                        .update();
-                break;
+//                break;
         }
     }
 

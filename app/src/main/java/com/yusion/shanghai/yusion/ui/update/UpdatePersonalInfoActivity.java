@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.widget.NestedScrollView;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,8 @@ import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.data;
 
 public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 
@@ -121,7 +124,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
     private TextView update_personal_info_gender_tv;                        //性别
 
     @BindView(id = R.id.update_personal_info_reg_tv, widgetName = "update_personal_info_reg_tv")
-    private TextView update_personal_info_reg_tv;//户籍
+    private TextView update_personal_info_reg_tv;                           //户籍
 
     @BindView(id = R.id.update_personal_info_mobile_edt, widgetName = "update_personal_info_mobile_edt")
     private EditText update_personal_info_mobile_edt;                       //手机号
@@ -1025,6 +1028,9 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 //        submitBtn.setEnabled(false);
 //        submitBtn.setFocusable(false);
 //提交用户资料
+        TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        clientInfo.imei = telephonyManager.getDeviceId();
+
         updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
             if (data == null) {
                 {

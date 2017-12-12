@@ -2,10 +2,12 @@ package com.yusion.shanghai.yusion.ui.apply
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -54,8 +56,19 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     var _FROM_INCOME_WORK_POSITION_INDEX: Int = 0
     var _FROM_EXTRA_WORK_POSITION_INDEX: Int = 0
     var _FROM_SELF_TYPE_INDEX: Int = 0
-
-
+    var CURRENT_CLICKED_VIEW_FOR_CONTACT = 0
+    var _LIVE_WITH_PARENT_INDEX = 0
+    var _EDUCATION_INDEX = 0
+    var _HOUSE_TYPE_INDEX = 0
+    var _HOUSE_OWNER_RELATION_INDEX = 0
+    var _URG_RELATION_INDEX1 = 0
+    var _URG_RELATION_INDEX2 = 0
+    val ifwithparentlist = object : ArrayList<String>() {
+        init {
+            add("是")
+            add("否")
+        }
+    }
     @BindView(id = R.id.spouse_info_marriage_tv, widgetName = "spouse_info_marriage_tv")
     var spouse_info_marriage_tv: TextView? = null
 
@@ -165,6 +178,53 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     @BindView(id = R.id.spouse_info_extra_from_income_work_phone_num_edt, widgetName = "spouse_info_extra_from_income_work_phone_num_edt")
     var spouse_info_extra_from_income_work_phone_num_edt: EditText? = null
 
+    @BindView(id = R.id.spouse_info_reg_tv, widgetName = "spouse_info_reg_tv")
+    var spouse_info_reg_tv: TextView? = null
+
+    @BindView(id = R.id.spouse_info_education_tv, widgetName = "spouse_info_education_tv")
+    var spouse_info_education_tv: TextView? = null
+
+    @BindView(id = R.id.spouse_info_current_address_tv, widgetName = "spouse_info_current_address_tv")
+    var spouse_info_current_address_tv: TextView? = null
+
+    @BindView(id = R.id.spouse_info_current_address1_tv, widgetName = "spouse_info_current_address1_tv")
+    var spouse_info_current_address1_tv: TextView? = null
+
+    @BindView(id = R.id.spouse_info_current_address2_tv, widgetName = "spouse_info_current_address2_tv")
+    var spouse_info_current_address2_tv: NoEmptyEditText? = null
+
+    @BindView(id = R.id.spouse_info_live_with_parent_tv, widgetName = "spouse_info_live_with_parent_tv")
+    var spouse_info_live_with_parent_tv: TextView? = null
+
+    @BindView(id = R.id.spouse_info_house_type_tv, widgetName = "spouse_info_house_type_tv")
+    var spouse_info_house_type_: TextView? = null
+
+    @BindView(id = R.id.spouse_info_house_area_edt, widgetName = "spouse_info_house_area_edt")
+    var spouse_info_house_area_: EditText? = null
+
+    @BindView(id = R.id.spouse_info_house_owner_name_edt, widgetName = "spouse_info_house_owner_name_edt")
+    var spouse_info_house_owner_name_: EditText? = null
+
+    @BindView(id = R.id.spouse_info_house_owner_relation_tv, widgetName = "spouse_info_house_owner_relation_tv")
+    var spouse_info_house_owner_relation_: TextView? = null
+
+    @BindView(id = R.id.spouse_info_urg_relation1_tv, widgetName = "spouse_info_urg_relation1_tv")
+    var spouse_info_urg_relation1_: TextView? = null
+
+    @BindView(id = R.id.spouse_info_urg_mobile1_edt, widgetName = "spouse_info_urg_mobile1_edt")
+    var spouse_info_urg_mobile1_: EditText? = null
+
+    @BindView(id = R.id.spouse_info_urg_contact1_edt, widgetName = "spouse_info_urg_contact1_edt")
+    var spouse_info_urg_contact1_: EditText? = null
+
+    @BindView(id = R.id.spouse_info_urg_relation2_tv, widgetName = "spouse_info_urg_relation2_tv")
+    var spouse_info_urg_relation2_: TextView? = null
+
+    @BindView(id = R.id.spouse_info_urg_mobile2_edt, widgetName = "spouse_info_urg_mobile2_edt")
+    var spouse_info_urg_mobile2_: EditText? = null
+
+    @BindView(id = R.id.spouse_info_urg_contact2_edt, widgetName = "spouse_info_urg_contact2_edt")
+    var spouse_info_urg_contact2_: EditText? = null
     @BindView(id = R.id.spouse_info_submit_btn, widgetName = "spouse_info_submit_btn", onClick = "submitSpouseInfo")
     var spouse_info_submit_btn: Button? = null
 
@@ -194,7 +254,10 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
-        spouse_info_mobile_img.setOnClickListener { selectContact() }
+        spouse_info_mobile_img.setOnClickListener {
+            CURRENT_CLICKED_VIEW_FOR_CONTACT = spouse_info_mobile_img.getId()
+            selectContact()
+        }
 
 //        (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
 //            if (hasFocus) {
@@ -353,7 +416,73 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 _FROM_EXTRA_WORK_POSITION_INDEX = index
             })
         }
+        spouse_info_reg_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, spouse_info_reg_lin, spouse_info_reg_tv, "请选择所在地区", { clickedView, city ->
+            })
+        }
+        spouse_info_education_lin.setOnClickListener {
+            WheelViewUtil.showWheelView((activity.application as YusionApp).getConfigResp().education_list_key, _EDUCATION_INDEX, spouse_info_education_lin, spouse_info_education_tv, "请选择", { clickedView, selectedIndex ->
+                _EDUCATION_INDEX = selectedIndex
+            })
+        }
+        spouse_info_current_address_lin.setOnClickListener {
+            WheelViewUtil.showCityWheelView(javaClass.simpleName, spouse_info_current_address_lin, spouse_info_current_address_tv, "请选择所在地区", { clickedView, city ->
+                spouse_info_current_address1_tv?.setText("")
+            })
+        }
 
+        spouse_info_current_address1_lin.setOnClickListener {
+            if (!TextUtils.isEmpty(spouse_info_current_address_tv?.getText())) {
+                CURRENT_CLICKED_VIEW_FOR_ADDRESS = spouse_info_current_address1_lin.getId()
+                requestPOI(spouse_info_current_address_tv?.getText().toString())
+            }
+        }
+
+        //是否与父母同住
+        spouse_info_live_with_parent_lin.setOnClickListener {
+            WheelViewUtil.showWheelView(ifwithparentlist, _LIVE_WITH_PARENT_INDEX, spouse_info_live_with_parent_lin, spouse_info_live_with_parent_tv, "请选择", { clickedView, selectedIndex ->
+                _LIVE_WITH_PARENT_INDEX = selectedIndex
+            })
+        }
+
+
+        spouse_info_house_type_lin.setOnClickListener {
+            WheelViewUtil.showWheelView((activity.application as YusionApp).getConfigResp().house_type_list_key, _HOUSE_TYPE_INDEX, spouse_info_house_type_lin, spouse_info_house_type_tv, "请选择", { clickedView, selectedIndex ->
+                _HOUSE_TYPE_INDEX = selectedIndex
+            })
+        }
+
+
+        spouse_info_house_owner_relation_lin.setOnClickListener {
+            WheelViewUtil.showWheelView((activity.application as YusionApp).getConfigResp().house_relationship_list_key, _HOUSE_OWNER_RELATION_INDEX, spouse_info_house_owner_relation_lin, spouse_info_house_owner_relation_tv, "请选择", { clickedView, selectedIndex ->
+                _HOUSE_OWNER_RELATION_INDEX = selectedIndex
+            })
+        }
+
+
+        spouse_info_urg_relation1_lin.setOnClickListener {
+            WheelViewUtil.showWheelView((activity.application as YusionApp).getConfigResp().urg_rela_relationship_list_key, _URG_RELATION_INDEX1, spouse_info_urg_relation1_lin, spouse_info_urg_relation1_tv, "请选择", { clickedView, selectedIndex ->
+                _URG_RELATION_INDEX1 = selectedIndex
+            })
+        }
+
+
+        spouse_info_urg_relation2_lin.setOnClickListener {
+            WheelViewUtil.showWheelView((activity.application as YusionApp).getConfigResp().urg_other_relationship_list_key, _URG_RELATION_INDEX2, spouse_info_urg_relation2_lin, spouse_info_urg_relation2_tv, "请选择", { clickedView, selectedIndex ->
+                _URG_RELATION_INDEX2 = selectedIndex
+            })
+        }
+
+        spouse_info_urg_mobile1_img.setOnClickListener {
+            CURRENT_CLICKED_VIEW_FOR_CONTACT = spouse_info_urg_mobile1_img.getId()
+            selectContact()
+        }
+
+
+        spouse_info_urg_mobile2_img.setOnClickListener {
+            CURRENT_CLICKED_VIEW_FOR_CONTACT = spouse_info_urg_mobile2_img.getId()
+            selectContact()
+        }
 
         step1.setOnClickListener { EventBus.getDefault().post(ApplyActivityEvent.showAutonymCertifyFragment) }
         step2.setOnClickListener { EventBus.getDefault().post(ApplyActivityEvent.showPersonalInfoFragment) }
@@ -366,6 +495,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     private fun submit() {
         var applyActivity = activity as ApplyActivity
         applyActivity.mClientInfo.marriage = (spouse_info_marriage_tv as TextView).text.toString()
+        applyActivity.mClientInfo.spouse.marriage = (spouse_info_marriage_tv as TextView).text.toString()
         if (applyActivity.mClientInfo.marriage == "已婚") {
             applyActivity.mClientInfo.spouse.marriage = "已婚"
             ocrResp?.let {
@@ -379,6 +509,22 @@ class SpouseInfoFragment : DoubleCheckFragment() {
             applyActivity.mClientInfo.spouse.gender = (spouse_info_gender_tv as TextView).text.toString()
             applyActivity.mClientInfo.spouse.mobile = (spouse_info_mobile_edt as EditText).text.toString()
             applyActivity.mClientInfo.child_num = (spouse_info_child_count_edt as EditText).text.toString()
+            if (!TextUtils.isEmpty(spouse_info_reg_tv?.getText().toString())) {
+                applyActivity.mClientInfo.spouse.reg_addr.province = spouse_info_reg_tv?.getText().toString().trim().split("/")[0]
+                applyActivity.mClientInfo.spouse.reg_addr.city = spouse_info_reg_tv?.getText().toString().trim().split("/")[1]
+                applyActivity.mClientInfo.spouse.reg_addr.district = spouse_info_reg_tv?.getText().toString().trim().split("/")[2]
+            }
+            applyActivity.mClientInfo.spouse.edu = spouse_info_education_tv?.getText().toString();
+
+            //现住地址
+            if (!TextUtils.isEmpty(spouse_info_current_address_tv?.getText().toString())) {
+                applyActivity.mClientInfo.spouse.current_addr.province = spouse_info_current_address_tv?.getText().toString().trim().split("/")[0];
+                applyActivity.mClientInfo.spouse.current_addr.city = spouse_info_current_address_tv?.getText().toString().trim().split("/")[1];
+                applyActivity.mClientInfo.spouse.current_addr.district = spouse_info_current_address_tv?.getText().toString().trim().split("/")[2];
+            }
+            applyActivity.mClientInfo.spouse.current_addr.address1 = (spouse_info_current_address1_tv?.getText().toString())
+            applyActivity.mClientInfo.spouse.current_addr.address2 = (spouse_info_current_address2_tv?.getText().toString())
+            applyActivity.mClientInfo.spouse.is_live_with_parent = (spouse_info_live_with_parent_tv?.getText().toString())
 
             //主要收入来源
             when ((spouse_info_income_from_tv as TextView).text.toString()) {
@@ -435,6 +581,19 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     applyActivity.mClientInfo.spouse.extra_income_type = "无"
                 }
             }
+
+            //房屋性质
+            applyActivity.mClientInfo.spouse.house_owner_name = spouse_info_house_owner_name_edt.getText().toString();
+            applyActivity.mClientInfo.spouse.house_owner_relation = spouse_info_house_owner_relation_tv.getText().toString();
+            applyActivity.mClientInfo.spouse.house_type = spouse_info_house_type_tv.getText().toString();
+            applyActivity.mClientInfo.spouse.house_area = spouse_info_house_area_edt.getText().toString();
+            applyActivity.mClientInfo.spouse.urg_contact1 = spouse_info_urg_contact1_edt.getText().toString();
+            applyActivity.mClientInfo.spouse.urg_mobile1 = spouse_info_urg_mobile1_edt.getText().toString();
+            applyActivity.mClientInfo.spouse.urg_relation1 = spouse_info_urg_relation1_tv.getText().toString();
+            applyActivity.mClientInfo.spouse.urg_contact2 = spouse_info_urg_contact2_edt.getText().toString();
+            applyActivity.mClientInfo.spouse.urg_mobile2 = spouse_info_urg_mobile2_edt.getText().toString();
+            applyActivity.mClientInfo.spouse.urg_relation2 = spouse_info_urg_relation2_tv.getText().toString();
+
         } else if (applyActivity.mClientInfo.marriage == "离异") {
             applyActivity.mClientInfo.child_num = (spouse_info_divorced_child_count_edt as EditText).text.toString()
         } else if (applyActivity.mClientInfo.marriage == "丧偶") {
@@ -447,6 +606,8 @@ class SpouseInfoFragment : DoubleCheckFragment() {
         Log.e("current_addr2--------", applyActivity.mClientInfo.current_addr.address2)
 
         FileUtil.saveLog(applyActivity.mClientInfo.toString())
+        val telephonyManager = mContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        applyActivity.mClientInfo.spouse.imei = telephonyManager.getDeviceId()
         ProductApi.updateClientInfo(mContext, applyActivity.mClientInfo) {
             if (it != null) {
                 applyActivity.mClientInfo = it
@@ -474,12 +635,24 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "身份证号有误", Toast.LENGTH_SHORT).show()
             } else if ((spouse_info_gender_tv as TextView).text.toString().isEmpty()) {
                 Toast.makeText(mContext, "性别不能为空", Toast.LENGTH_SHORT).show()
+            } else if ((spouse_info_reg_tv as TextView).getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "户籍地不能为空", Toast.LENGTH_SHORT).show();
             } else if ((spouse_info_mobile_edt as EditText).text.toString().isEmpty()) {
                 Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
             } else if (!CheckMobileUtil.checkMobile((spouse_info_mobile_edt as EditText).text.toString().toString())) {
                 Toast.makeText(mContext, "手机号码格式错误", Toast.LENGTH_SHORT).show()
+            } else if ((spouse_info_education_tv as TextView).getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "学历不能为空", Toast.LENGTH_SHORT).show();
             } else if ((spouse_info_child_count_edt as EditText).text.toString().isEmpty()) {
                 Toast.makeText(mContext, "子女数量不能为空", Toast.LENGTH_SHORT).show()
+            } else if ((spouse_info_current_address_tv as TextView).getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "现住地址不能为空", Toast.LENGTH_SHORT).show();
+            } else if ((spouse_info_current_address1_tv as TextView).getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show()
+            } else if ((spouse_info_current_address2_tv as NoEmptyEditText).getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show()
+            } else if ((spouse_info_live_with_parent_tv as TextView).getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "是否与父母同住不能为空", Toast.LENGTH_SHORT).show()
             } else if ((spouse_info_income_from_tv as TextView).text.toString().isEmpty()) {
                 Toast.makeText(mContext, "主要收入来源不能为空", Toast.LENGTH_SHORT).show()
             } else if ((spouse_info_income_from_tv as TextView).text.toString() == "工资" && (spouse_info_from_income_year_edt as EditText).text.toString().isEmpty()) {
@@ -520,6 +693,30 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 Toast.makeText(mContext, "门牌号不能为空", Toast.LENGTH_SHORT).show()
             } else if ((spouse_info_extra_income_from_tv as TextView).text.toString() == "工资" && (spouse_info_extra_from_income_work_position_tv as TextView).text.toString().isEmpty()) {
                 Toast.makeText(mContext, "职务不能为空", Toast.LENGTH_SHORT).show()
+            } else if (spouse_info_house_type_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "房屋性质不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_house_area_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "房屋面积不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_house_owner_name_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_house_owner_relation_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_urg_contact1_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_urg_mobile1_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
+            } else if (!CheckMobileUtil.checkMobile(spouse_info_urg_mobile1_edt.getText().toString().toString())) {
+                Toast.makeText(mContext, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_urg_relation1_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_urg_contact2_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "紧急联系人姓名不能为空", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_urg_mobile2_edt.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "手机号不能为空", Toast.LENGTH_SHORT).show();
+            } else if (!CheckMobileUtil.checkMobile(spouse_info_urg_mobile2_edt.getText().toString().toString())) {
+                Toast.makeText(mContext, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
+            } else if (spouse_info_urg_relation2_tv.getText().toString().isEmpty()) {
+                Toast.makeText(mContext, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
             } else {
                 return true
             }
@@ -625,8 +822,21 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                 if (contacts != null) {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
-                (spouse_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
-                UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_mobile_edt", ApplyActivity::class.java.simpleName, "手机号")
+
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == spouse_info_mobile_img?.getId()) {
+                    (spouse_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
+                    UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_mobile_edt", ApplyActivity::class.java.simpleName, "手机号")
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == spouse_info_urg_mobile1_img.getId()) {
+                    spouse_info_urg_contact1_edt.setText(result[0]);
+                    spouse_info_urg_mobile1_edt.setText(result[1].replace(" ", ""));
+                    UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_urg_mobile1_edt", ApplyActivity::class.java.simpleName , "手机号");
+                }
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == spouse_info_urg_mobile2_img.getId()) {
+                    spouse_info_urg_contact2_edt.setText(result[0]);
+                    spouse_info_urg_mobile2_edt.setText(result[1].replace(" ", ""));
+                    UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_urg_mobile2_edt", ApplyActivity::class.java.simpleName , "手机号");
+                }
             } else if (requestCode == Constants.REQUEST_DOCUMENT) {
                 when (data.getStringExtra("type")) {
                     Constants.FileLabelType.ID_BACK -> {
@@ -689,8 +899,96 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     spouse_info_extra_from_income_company_address1_lin.id -> {
                         (spouse_info_extra_from_income_company_address1_tv as TextView).text = data.getStringExtra("result");
                     }
+                    spouse_info_current_address1_lin.id -> {
+                        spouse_info_current_address1_tv?.setText(data.getStringExtra("result"));
+                    }
                 }
             }
+        }
+    }
+
+    fun fillSpouseInfo() {
+        var applyActivity = activity as ApplyActivity
+        spouse_info_marriage_tv?.setText(applyActivity.mClientInfo.marriage)
+
+        if (applyActivity.mClientInfo.marriage == "已婚") {
+            spouse_info_marriage_group_lin.visibility = View.VISIBLE
+            spouse_info_divorced_group_lin.visibility = View.GONE
+            spouse_info_die_group_lin.visibility = View.GONE
+            spouse_info_clt_nm_edt?.setText(applyActivity.mClientInfo.spouse.clt_nm)
+            spouse_info_id_no_edt?.setText(applyActivity.mClientInfo.spouse.id_no)
+            spouse_info_gender_tv?.setText(applyActivity.mClientInfo.spouse.gender)
+            spouse_info_mobile_edt?.setText(applyActivity.mClientInfo.spouse.mobile)
+            spouse_info_child_count_edt?.setText(applyActivity.mClientInfo.child_num)
+
+            spouse_info_income_from_tv?.text = applyActivity.mClientInfo.spouse.major_income_type
+            if (applyActivity.mClientInfo.spouse.major_income_type == "工资") {
+                spouse_info_from_income_group_lin.visibility = View.VISIBLE
+                spouse_info_from_self_group_lin.visibility = View.GONE
+                spouse_info_from_income_year_edt?.setText(applyActivity.mClientInfo.spouse.major_income)
+                spouse_info_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.spouse.major_company_name)
+                spouse_info_from_income_company_address_tv?.setText(applyActivity.mClientInfo.spouse.major_company_addr.province + "/" + applyActivity.mClientInfo.spouse.major_company_addr.city + "/" + applyActivity.mClientInfo.spouse.major_company_addr.district)
+                spouse_info_from_income_company_address1_tv?.setText(applyActivity.mClientInfo.spouse.major_company_addr.address1)
+                spouse_info_from_income_company_address2_tv?.setText(applyActivity.mClientInfo.spouse.major_company_addr.address2)
+                spouse_info_from_income_work_position_tv?.setText(applyActivity.mClientInfo.spouse.major_work_position)
+                spouse_info_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.spouse.major_work_phone_num)
+            }
+            if (applyActivity.mClientInfo.spouse.major_income_type == "自营") {
+                spouse_info_from_income_group_lin.visibility = View.GONE
+                spouse_info_from_self_group_lin.visibility = View.VISIBLE
+                spouse_info_from_self_year_edt?.setText(applyActivity.mClientInfo.spouse.major_income)
+                spouse_info_from_self_type_tv?.setText(applyActivity.mClientInfo.spouse.major_busi_type)
+                spouse_info_from_self_company_name_edt?.setText(applyActivity.mClientInfo.spouse.major_company_name)
+                spouse_info_from_self_company_address_tv?.setText(applyActivity.mClientInfo.spouse.major_company_addr.province + "/" + applyActivity.mClientInfo.spouse.major_company_addr.city + "/" + applyActivity.mClientInfo.spouse.major_company_addr.district)
+                spouse_info_from_self_company_address1_tv?.setText(applyActivity.mClientInfo.spouse.major_company_addr.address1)
+                spouse_info_from_self_company_address2_tv?.setText(applyActivity.mClientInfo.spouse.major_company_addr.address2)
+            }
+
+
+            spouse_info_extra_income_from_tv?.text = applyActivity.mClientInfo.spouse.extra_income_type
+            if (applyActivity.mClientInfo.spouse.extra_income_type == "工资") {
+                spouse_info_extra_from_income_group_lin.visibility = View.VISIBLE
+                spouse_info_extra_from_income_year_edt?.setText(applyActivity.mClientInfo.spouse.extra_income)
+                spouse_info_extra_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.spouse.extra_company_name)
+                spouse_info_extra_from_income_company_address_tv?.setText(applyActivity.mClientInfo.spouse.extra_company_addr.province + "/" + applyActivity.mClientInfo.spouse.extra_company_addr.city + "/" + applyActivity.mClientInfo.spouse.extra_company_addr.district)
+                spouse_info_extra_from_income_company_address1_tv?.setText(applyActivity.mClientInfo.spouse.extra_company_addr.address1)
+                spouse_info_extra_from_income_company_address2_tv?.setText(applyActivity.mClientInfo.spouse.extra_company_addr.address2)
+                spouse_info_extra_from_income_work_position_tv?.setText(applyActivity.mClientInfo.spouse.extra_work_position)
+                spouse_info_extra_from_income_work_phone_num_edt?.setText(applyActivity.mClientInfo.spouse.extra_work_phone_num)
+            } else {
+                spouse_info_extra_from_income_group_lin.visibility = View.GONE
+            }
+
+            /*
+            * 配偶身份证正反面
+            * */
+
+        } else if (applyActivity.mClientInfo.marriage == "离异") {
+            spouse_info_divorced_group_lin.visibility = View.VISIBLE
+            spouse_info_marriage_group_lin.visibility = View.GONE
+            spouse_info_die_group_lin.visibility = View.GONE
+
+            spouse_info_divorced_child_count_edt?.setText(applyActivity.mClientInfo.child_num)
+
+            /*
+            * 离婚证
+            * */
+
+
+        } else if (applyActivity.mClientInfo.marriage == "丧偶") {
+            spouse_info_die_group_lin.visibility = View.VISIBLE
+            spouse_info_marriage_group_lin.visibility = View.GONE
+            spouse_info_divorced_group_lin.visibility = View.GONE
+
+            spouse_info_divorced_child_count_edt?.setText(applyActivity.mClientInfo.child_num)
+
+            /*
+            * 法院判决书
+            * */
+        } else {
+            spouse_info_marriage_group_lin.visibility = View.GONE
+            spouse_info_divorced_group_lin.visibility = View.GONE
+            spouse_info_die_group_lin.visibility = View.GONE
         }
     }
 }
