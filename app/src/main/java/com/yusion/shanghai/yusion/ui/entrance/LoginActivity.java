@@ -1,6 +1,5 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -38,7 +37,6 @@ import com.yusion.shanghai.yusion.ubt.bean.UBTData;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.FileUtil;
 import com.yusion.shanghai.yusion.utils.MobileDataUtil;
-import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 import com.yusion.shanghai.yusion.utils.SharedPrefsUtil;
 import com.yusion.shanghai.yusion.widget.CountDownButtonWrap;
 
@@ -149,15 +147,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //            });
 //        }
             case R.id.login_submit_btn:
-                PopupDialogUtil.showOneButtonDialog4CompleteInfo(this, new PopupDialogUtil.OnOkClickListener() {
-                    @Override
-                    public void onOkClick(Dialog dialog) {
-                        Toast.makeText(context, "222", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-
-
                 //            startActivity(new Intent(this, UploadLabelListActivity.class));
                 if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();
