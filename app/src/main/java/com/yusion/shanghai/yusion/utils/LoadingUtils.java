@@ -16,6 +16,21 @@ import com.yusion.shanghai.yusion.R;
  */
 
 public class LoadingUtils {
+//    public static Dialog createLoadingDialog(Context context) {
+//        Dialog dialog = new Dialog(context, R.style.MyDialogStyle);
+//        dialog.setCanceledOnTouchOutside(false);
+//        Window dialogWindow = dialog.getWindow();
+//        dialogWindow.setGravity(Gravity.CENTER);
+//
+//        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View contentView = inflater.inflate(R.layout.loading_dialog, null);
+//        dialog.setContentView(contentView);
+//        ProgressBar progressBar = (ProgressBar) contentView.findViewById(R.id.loading_dialog_pro);
+//        ThreeBounce threeBounce = new ThreeBounce();
+//        progressBar.setIndeterminateDrawable(threeBounce);
+//        return dialog;
+//    }
+
     public static Dialog createLoadingDialog(Context context) {
         Dialog dialog = new Dialog(context, R.style.MyDialogStyle);
         dialog.setCanceledOnTouchOutside(false);
@@ -25,8 +40,6 @@ public class LoadingUtils {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.loading_dialog, null);
         dialog.setContentView(contentView);
-//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//        dialog.getWindow().setBackgroundDrawableResource(android.R.color.white);
         ProgressBar progressBar = (ProgressBar) contentView.findViewById(R.id.loading_dialog_pro);
         ThreeBounce threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);

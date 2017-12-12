@@ -422,6 +422,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (callLogList.size() > 0 && !callLogList.isEmpty()) {
             callLogBean.calllog_list = callLogList;
         }
+        Log.e("TAG", "uploadPersonAndDeviceInfo: " + req);
 
         AuthApi.checkUserInfo(this, new OnItemDataCallBack<CheckUserInfoResp>() {
             @Override
