@@ -68,7 +68,7 @@ public class PopupDialogUtil {
 
     public static void showOneButtonDialog4CompleteInfo(Context context, OnOkClickListener clickListener) {
         mContext = context;
-        dialog = new Dialog(mContext, R.style.MyDialogStyle);
+        dialog = new Dialog(mContext, R.style.alert_dialog);
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_complete_info, null);
         TextView mOK = (TextView) view.findViewById(R.id.dialog_login_ok);

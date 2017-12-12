@@ -153,6 +153,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onOkClick(Dialog dialog) {
                         Toast.makeText(context, "222", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
                 });
 

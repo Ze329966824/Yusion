@@ -80,14 +80,24 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
     <style name="MyDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle" >true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-
-
     <style name="JpushDialogStyle" parent="@style/AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -101,6 +111,16 @@
 
     <style name="dialogAnimationStyle" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="dialogAnimationStyleBounce" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter_bounce</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="dialogAnimationStyleRotation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter_rotation</item>
         <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 
