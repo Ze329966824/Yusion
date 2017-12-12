@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    def isOnline = false
+    def isOnline = true
 
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
@@ -14,8 +14,8 @@ android {
         applicationId "com.yusion.shanghai.yusion"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 38
-        versionName "V1.8.9"
+        versionCode 39
+        versionName "V1.9.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi"

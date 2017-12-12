@@ -254,7 +254,10 @@ class SpouseInfoFragment : DoubleCheckFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         UBT.bind(this, view, ApplyActivity::class.java.getSimpleName())
-        spouse_info_mobile_img.setOnClickListener { selectContact() }
+        spouse_info_mobile_img.setOnClickListener {
+            CURRENT_CLICKED_VIEW_FOR_CONTACT = spouse_info_mobile_img.getId()
+            selectContact()
+        }
 
 //        (spouse_info_submit_btn as Button).setOnFocusChangeListener { v, hasFocus ->
 //            if (hasFocus) {
@@ -820,7 +823,7 @@ class SpouseInfoFragment : DoubleCheckFragment() {
                     System.arraycopy(contacts, 0, result, 0, contacts.size)
                 }
 
-                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == spouse_info_mobile_edt?.getId()) {
+                if (CURRENT_CLICKED_VIEW_FOR_CONTACT == spouse_info_mobile_img?.getId()) {
                     (spouse_info_mobile_edt as EditText).setText(result[1].replace(" ", ""))
                     UBT.addEvent(mContext, "text_change", "edit_text", "spouse_info_mobile_edt", ApplyActivity::class.java.simpleName, "手机号")
                 }
