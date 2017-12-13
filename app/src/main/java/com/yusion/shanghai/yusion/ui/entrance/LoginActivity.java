@@ -147,6 +147,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //            });
 //        }
             case R.id.login_submit_btn:
+//                PopupDialogUtil.showTwoButtonsDialog4Warning(LoginActivity.this,new PopupDialogUtil.OnOkClickListener() {
+//                    @Override
+//                    public void onOkClick(Dialog dialog) {
+//                        dialog.dismiss();
+//                    }
+//                });
+
+
                 //            startActivity(new Intent(this, UploadLabelListActivity.class));
                 if (!CheckMobileUtil.checkMobile(mLoginMobileTV.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "手机号格式错误", Toast.LENGTH_SHORT).show();

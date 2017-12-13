@@ -185,6 +185,36 @@ public class PopupDialogUtil {
         show();
     }
 
+    public static void showTwoButtonsDialog4Warning(Context context, OnOkClickListener clickListener) {
+        mContext = context;
+        dialog = new Dialog(mContext, R.style.MyDialogStyle);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.popup_dialog_two_button_warning, null);
+        TextView mOK = (TextView) view.findViewById(R.id.popup_dialog_ok);
+//        mOK.setOnClickListener(okListener);
+        mOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickListener != null) {
+                    clickListener.onOkClick(dialog);
+                }
+            }
+        });
+        TextView mCancel = (TextView) view.findViewById(R.id.popup_dialog_cancel);
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        TextView mMsg = (TextView) view.findViewById(R.id.popup_dialog_msg);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
+//
+//        dialog.getWindow().getAttributes().width = width;
+//        dialog.getWindow().getAttributes().height = height;
+        show();
+    }
+
     public static void showTwoButtonsDialog(Context context, int width, int height, OnOkClickListener clickListener) {
         mContext = context;
 //        if (dialog == null) {
