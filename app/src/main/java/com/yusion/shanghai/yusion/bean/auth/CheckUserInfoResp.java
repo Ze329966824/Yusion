@@ -19,6 +19,7 @@ public class CheckUserInfoResp {
     public String role;
     public boolean commited;
     public boolean is_agree;
+    public boolean info_completed;//判断用户信息是否完整
 
     @Override
     public String toString() {

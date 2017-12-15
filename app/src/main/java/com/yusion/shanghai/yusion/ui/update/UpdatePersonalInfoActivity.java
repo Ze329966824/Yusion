@@ -33,14 +33,13 @@ import com.yusion.shanghai.yusion.utils.CheckIdCardValidUtil;
 import com.yusion.shanghai.yusion.utils.CheckMobileUtil;
 import com.yusion.shanghai.yusion.utils.ContactsUtil;
 import com.yusion.shanghai.yusion.utils.InputMethodUtil;
+import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 import com.yusion.shanghai.yusion.utils.wheel.WheelViewUtil;
 import com.yusion.shanghai.yusion.widget.NoEmptyEditText;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.data;
 
 public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
 
@@ -1031,22 +1030,96 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         clientInfo.imei = telephonyManager.getDeviceId();
 
-        updateClientinfo(() -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
-            if (data == null) {
-                {
-                    return;
+        updateClientinfo(() -> {
+                    //增加新的功能 三要素检测。。。
+                    String line1Number = telephonyManager.getLine1Number();
+                    if (line1Number != null && line1Number.length() > 10) {
+                        //获取到了手机号
+                        if (line1Number.contains(clientInfo.mobile) || (clientInfo.spouse != null && line1Number.contains(clientInfo.spouse.mobile))) {
+                            //是本人手机
+                            ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+                                if (data == null) {
+                                    {
+                                        return;
+                                    }
+                                }
+                                clientInfo = data;
+                                UBT.sendAllUBTEvents(this);
+                                Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                                intent.putExtra("clt_id", clientInfo.clt_id);
+                                intent.putExtra("role", "lender");
+                                intent.putExtra("title", "个人影像件资料");
+                                intent.putExtra("commit_state", "continue");
+                                startActivity(intent);
+                                finish();
+                            });
+                        } else {
+                            //不是本人手机 三要素
+                            GetClientInfoReq req = new GetClientInfoReq();
+                            req.id_no = clientInfo.id_no;
+                            req.mobile = clientInfo.mobile;
+                            req.clt_nm = clientInfo.clt_nm;
+                            ProductApi.check3Elements(this, req, check3ElementsResp -> {
+                                if (check3ElementsResp.match.equals("1")) {
+                                    //匹配
+                                    ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+                                        if (data == null) {
+                                            {
+                                                return;
+                                            }
+                                        }
+                                        clientInfo = data;
+                                        UBT.sendAllUBTEvents(this);
+                                        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                                        intent.putExtra("clt_id", clientInfo.clt_id);
+                                        intent.putExtra("role", "lender");
+                                        intent.putExtra("title", "个人影像件资料");
+                                        intent.putExtra("commit_state", "continue");
+                                        startActivity(intent);
+                                        finish();
+                                    });
+                                } else {
+                                    //不匹配
+                                    PopupDialogUtil.showTwoButtonsDialog4Warning(this, dialog -> ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+                                        if (data == null) {
+                                            {
+                                                return;
+                                            }
+                                        }
+                                        clientInfo = data;
+                                        UBT.sendAllUBTEvents(this);
+                                        Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                                        intent.putExtra("clt_id", clientInfo.clt_id);
+                                        intent.putExtra("role", "lender");
+                                        intent.putExtra("title", "个人影像件资料");
+                                        intent.putExtra("commit_state", "continue");
+                                        startActivity(intent);
+                                        finish();
+                                    }));
+                                }
+                            });
+                        }
+                    } else {
+                        //没有获取到手机号直接提交
+                        ProductApi.updateClientInfo(UpdatePersonalInfoActivity.this, clientInfo, data -> {
+                            if (data == null) {
+                                {
+                                    return;
+                                }
+                            }
+                            clientInfo = data;
+                            UBT.sendAllUBTEvents(this);
+                            Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
+                            intent.putExtra("clt_id", clientInfo.clt_id);
+                            intent.putExtra("role", "lender");
+                            intent.putExtra("title", "个人影像件资料");
+                            intent.putExtra("commit_state", "continue");
+                            startActivity(intent);
+                            finish();
+                        });
+                    }
                 }
-            }
-            clientInfo = data;
-            UBT.sendAllUBTEvents(this);
-            Intent intent = new Intent(UpdatePersonalInfoActivity.this, CommitActivity.class);
-            intent.putExtra("clt_id", clientInfo.clt_id);
-            intent.putExtra("role", "lender");
-            intent.putExtra("title", "个人影像件资料");
-            intent.putExtra("commit_state", "continue");
-            startActivity(intent);
-            finish();
-        }));
+        );
 
 //        new AlertDialog.Builder(this)
 //                .setMessage("确认要更改个人资料信息？")

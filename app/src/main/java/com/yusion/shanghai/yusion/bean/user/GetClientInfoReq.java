@@ -10,6 +10,7 @@ public class GetClientInfoReq {
     public String id_no = "";
     public String clt_nm = "";
     public String update = "";//update为1时更新用户
+    public String mobile = "";
 
     public GetClientInfoReq() {
     }

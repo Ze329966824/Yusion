@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.ui.entrance;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,16 +8,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.YusionApp;
 import com.yusion.shanghai.yusion.base.ActivityManager;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.user.ListCurrentTpye;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
+import com.yusion.shanghai.yusion.retrofit.api.UserApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
+import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
+import com.yusion.shanghai.yusion.ui.update.UpdatePersonalInfoActivity;
+import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
 import com.yusion.shanghai.yusion.widget.SelfDialog;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -98,6 +106,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         AuthApi.checkUserInfo(this, data -> {
             mHomeFragment.refresh(data);
             mMineFragment.refresh(data);
+            if (data.is_agree) {
+                if (!data.info_completed) {
+                    PopupDialogUtil.showOneButtonDialog4CompleteInfo(this, dialog -> {
+                        UserApi.getListCurrentTpye(this, listCurrentTpye -> startActivity(new Intent(this, UpdatePersonalInfoActivity.class)));
+                        dialog.dismiss();
+                    });
+                }
+            }
         });
 
     }

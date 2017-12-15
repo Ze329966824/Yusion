@@ -3,6 +3,7 @@ package com.yusion.shanghai.yusion.retrofit.api;
 import android.app.Dialog;
 import android.content.Context;
 
+import com.yusion.shanghai.yusion.bean.auth.Check3ElementsResp;
 import com.yusion.shanghai.yusion.bean.user.ClientInfo;
 import com.yusion.shanghai.yusion.bean.user.GetClientInfoReq;
 import com.yusion.shanghai.yusion.bean.user.GetGuarantorInfoReq;
@@ -62,5 +63,17 @@ public class ProductApi {
                         onItemDataCallBack.onItemDataCallBack(data);
                     }
                 });
+    }
+
+    public static void check3Elements(final Context context, GetClientInfoReq req, final OnItemDataCallBack<Check3ElementsResp> onItemDataCallBack) {
+        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getProductService().check3Elements(req.id_no, req.clt_nm, req.mobile).enqueue(
+                new CustomCallBack<Check3ElementsResp>(context,dialog) {
+                    @Override
+                    public void onCustomResponse(Check3ElementsResp data) {
+                        onItemDataCallBack.onItemDataCallBack(data);
+                    }
+                });
+
     }
 }
