@@ -109,8 +109,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (data.is_agree) {
                 if (!data.info_completed) {
                     PopupDialogUtil.showOneButtonDialog4CompleteInfo(this, dialog -> {
-                        UserApi.getListCurrentTpye(this, listCurrentTpye -> startActivity(new Intent(this, UpdatePersonalInfoActivity.class)));
                         dialog.dismiss();
+                        startActivity(new Intent(this, UpdatePersonalInfoActivity.class));
+//                        UserApi.getListCurrentTpye(this, listCurrentTpye -> startActivity(new Intent(this, UpdatePersonalInfoActivity.class)));
+
                     });
                 }
             }
