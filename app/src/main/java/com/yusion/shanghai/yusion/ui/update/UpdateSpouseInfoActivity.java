@@ -1273,25 +1273,29 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                 Toast.makeText(this, "身份证号有误", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(update_spouse_info_gender_tv.getText().toString())) {
                 Toast.makeText(this, "性别不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_reg_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "户籍地不能为空", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(update_spouse_info_mobile_edt.getText().toString())) {
+            }
+//            else if (update_spouse_info_reg_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "户籍地不能为空", Toast.LENGTH_SHORT).show();
+//            }
+            else if (TextUtils.isEmpty(update_spouse_info_mobile_edt.getText().toString())) {
                 Toast.makeText(this, "手机号码不能为空", Toast.LENGTH_SHORT).show();
             } else if (!CheckMobileUtil.checkMobile(update_spouse_info_mobile_edt.getText().toString())) {
                 Toast.makeText(this, "手机号码有误", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(update_spouse_info_child_count_edt.getText().toString())) {
                 Toast.makeText(this, "子女数量不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_education_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "学历不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_current_address_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "现住地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_current_address1_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_current_address2_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_live_with_parent_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "是否与父母同住不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_income_from_tv.getText().toString().equals("")) {
+            }
+//            else if (update_spouse_info_education_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "学历不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_current_address_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "现住地址不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_current_address1_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "现住地址的详细地址不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_current_address2_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "现住地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_live_with_parent_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "是否与父母同住不能为空", Toast.LENGTH_SHORT).show();
+//            }
+            else if (update_spouse_info_income_from_tv.getText().toString().equals("")) {
                 Toast.makeText(this, "收入来源不能为空", Toast.LENGTH_SHORT).show();
             }//主要工资
             else if (update_spouse_info_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_from_income_year_edt.getText().toString())) {
@@ -1338,31 +1342,33 @@ public class UpdateSpouseInfoActivity extends UpdateInfoActivity {
                 Toast.makeText(this, "单位地址的门牌号不能为空", Toast.LENGTH_SHORT).show();
             } else if (update_spouse_info_extra_income_from_tv.getText().toString().equals("工资") && TextUtils.isEmpty(update_spouse_info_extra_from_income_work_position_tv.getText().toString())) {
                 Toast.makeText(this, "职务不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_house_type_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "房屋性质不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_house_area_edt.getText().toString().isEmpty()) {
-                Toast.makeText(this, "房屋面积不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_house_owner_name_edt.getText().toString().isEmpty()) {
-                Toast.makeText(this, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_house_owner_relation_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_urg_relation1_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(update_spouse_info_urg_mobile1_edt.getText().toString())) {
-                Toast.makeText(this, "紧急联系人手机号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (!CheckMobileUtil.checkMobile(update_spouse_info_urg_mobile1_edt.getText().toString())) {
-                Toast.makeText(this, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_urg_contact1_edt.getText().toString().isEmpty()) {
-                Toast.makeText(this, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_urg_relation2_tv.getText().toString().isEmpty()) {
-                Toast.makeText(this, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(update_spouse_info_urg_mobile2_edt.getText().toString())) {
-                Toast.makeText(this, "紧急联系人手机号不能为空", Toast.LENGTH_SHORT).show();
-            } else if (!CheckMobileUtil.checkMobile(update_spouse_info_urg_mobile2_edt.getText().toString())) {
-                Toast.makeText(this, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
-            } else if (update_spouse_info_urg_contact2_edt.getText().toString().isEmpty()) {
-                Toast.makeText(this, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show();
-            } else {
+            }
+//            else if (update_spouse_info_house_type_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "房屋性质不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_house_area_edt.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "房屋面积不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_house_owner_name_edt.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "房屋所有权人不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_house_owner_relation_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "房屋所有权人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_urg_relation1_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (TextUtils.isEmpty(update_spouse_info_urg_mobile1_edt.getText().toString())) {
+//                Toast.makeText(this, "紧急联系人手机号不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (!CheckMobileUtil.checkMobile(update_spouse_info_urg_mobile1_edt.getText().toString())) {
+//                Toast.makeText(this, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_urg_contact1_edt.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_urg_relation2_tv.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "紧急联系人与申请人关系不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (TextUtils.isEmpty(update_spouse_info_urg_mobile2_edt.getText().toString())) {
+//                Toast.makeText(this, "紧急联系人手机号不能为空", Toast.LENGTH_SHORT).show();
+//            } else if (!CheckMobileUtil.checkMobile(update_spouse_info_urg_mobile2_edt.getText().toString())) {
+//                Toast.makeText(this, "紧急联系人手机号格式错误", Toast.LENGTH_SHORT).show();
+//            } else if (update_spouse_info_urg_contact2_edt.getText().toString().isEmpty()) {
+//                Toast.makeText(this, "紧急联系人人姓名不能为空", Toast.LENGTH_SHORT).show();
+//            }
+            else {
                 return true;
             }
         }
