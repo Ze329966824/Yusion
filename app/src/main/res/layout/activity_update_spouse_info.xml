@@ -299,6 +299,7 @@
                             android:background="@color/separate_line_color" />
                         
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/update_spouse_info_reg_lin"
                             style="@style/apply_info_item">
 
@@ -364,6 +365,7 @@
                             android:layout_marginLeft="15dp"
                             android:background="@color/separate_line_color" />
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/update_spouse_info_education_lin"
                             style="@style/apply_info_item">
 
@@ -435,6 +437,7 @@
 
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -539,6 +542,7 @@
                         
                         <!--是否与父母同住-->
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/update_spouse_info_live_with_parent_lin"
                             style="@style/apply_info_item">
 
@@ -1320,7 +1324,9 @@
                                 android:background="@color/separate_line_color" />
 
                         </LinearLayout>
+
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -1442,6 +1448,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/bg_color"
