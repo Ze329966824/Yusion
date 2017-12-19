@@ -2,13 +2,21 @@ package com.yusion.shanghai.yusion.utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.R;
+import com.yusion.shanghai.yusion.YusionApp;
+import com.yusion.shanghai.yusion.ubt.UBT;
+import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
+import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
+
+import static com.yusion.shanghai.yusion.base.ActivityManager.finish;
 
 
 public class PopupDialogUtil {
@@ -66,7 +74,7 @@ public class PopupDialogUtil {
         show();
     }
 
-    public static void showOneButtonDialog4CompleteInfo(Context context, OnOkClickListener clickListener) {
+    public static void showOneButtonDialog4CompleteInfo(Context context, OnOkClickListener okclickListener, OnCancelClickListener cancelClickListener) {
         mContext = context;
         dialog = new Dialog(mContext, R.style.alert_dialog);
 
@@ -75,12 +83,21 @@ public class PopupDialogUtil {
         mOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (clickListener != null) {
-                    clickListener.onOkClick(dialog);
+                if (okclickListener != null) {
+                    okclickListener.onOkClick(dialog);
                 }
             }
         });
 
+        TextView mCancel = (TextView) view.findViewById(R.id.dialog_login_cancel);
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cancelClickListener != null){
+                    cancelClickListener.onCancelClick(dialog);
+                }
+            }
+        });
 
         dialog.setContentView(view);
         dialog.setCancelable(false);

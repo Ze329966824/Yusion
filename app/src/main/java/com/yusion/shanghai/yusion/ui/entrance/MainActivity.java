@@ -19,9 +19,11 @@ import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.api.UserApi;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.ubt.UBT;
 import com.yusion.shanghai.yusion.ui.main.HomeFragment;
 import com.yusion.shanghai.yusion.ui.main.MineFragment;
 import com.yusion.shanghai.yusion.ui.main.MyOrderFragment;
+import com.yusion.shanghai.yusion.ui.main.mine.SettingsActivity;
 import com.yusion.shanghai.yusion.ui.update.InfoListActivity;
 import com.yusion.shanghai.yusion.ui.update.UpdatePersonalInfoActivity;
 import com.yusion.shanghai.yusion.utils.PopupDialogUtil;
@@ -108,16 +110,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             mMineFragment.refresh(data);
             if (data.is_agree) {
                 if (!data.info_completed) {
-                    PopupDialogUtil.showOneButtonDialog4CompleteInfo(this, dialog -> {
-                        dialog.dismiss();
-                        startActivity(new Intent(this, UpdatePersonalInfoActivity.class));
-//                        UserApi.getListCurrentTpye(this, listCurrentTpye -> startActivity(new Intent(this, UpdatePersonalInfoActivity.class)));
-
-                    });
+                    PopupDialogUtil.showOneButtonDialog4CompleteInfo(this,
+                            dialog -> {
+                                dialog.dismiss();
+                                startActivity(new Intent(this, UpdatePersonalInfoActivity.class));
+                            },
+                            dialog -> {
+                                dialog.dismiss();
+                                logout();
+                            }
+                    );
                 }
             }
         });
 
+    }
+
+    private void logout() {
+        Toast.makeText(myApp, "正在退出,请稍等...", Toast.LENGTH_SHORT).show();
+        myApp.clearUserData();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
     }
 
 
