@@ -86,7 +86,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PopupDialogUtil.dismiss();
+//        PopupDialogUtil.dismiss();
     }
 
     @Override

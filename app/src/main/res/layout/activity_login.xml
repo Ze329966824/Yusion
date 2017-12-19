@@ -25,9 +25,11 @@
 
 
     <EditText
+        android:paddingLeft="5dp"
+        android:background="@null"
         android:id="@+id/login_mobile_edt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="52dp"
@@ -55,16 +57,16 @@
         android:orientation="horizontal">
 
         <EditText
+            android:background="@null"
             android:id="@+id/login_code_edt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginRight="105dp"
             android:digits="0123456789"
             android:hint="请输入验证码"
             android:inputType="number"
             android:maxLength="4"
-            android:paddingBottom="15dp"
-            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:textColor="@color/textColor"

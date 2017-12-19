@@ -1033,6 +1033,7 @@ public class UpdatePersonalInfoActivity extends UpdateInfoActivity {
         updateClientinfo(() -> {
                     //增加新的功能 三要素检测。。。
                     String line1Number = telephonyManager.getLine1Number();
+            Log.e("TAG", "line1Number: "+line1Number);
                     if (line1Number != null && line1Number.length() > 10) {
                         //获取到了手机号
                         if (line1Number.contains(clientInfo.mobile) || (clientInfo.spouse != null && line1Number.contains(clientInfo.spouse.mobile))) {
