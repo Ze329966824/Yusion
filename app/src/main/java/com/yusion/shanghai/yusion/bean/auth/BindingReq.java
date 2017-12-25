@@ -13,6 +13,7 @@ public class BindingReq {
      * open_id :
      * source :
      * reg_id :
+     * unionid :
      */
 
     public String mobile;
@@ -20,6 +21,7 @@ public class BindingReq {
     public String open_id;
     public String source;
     public String reg_id;
+    public String unionid;
 
     @Override
     public String toString() {

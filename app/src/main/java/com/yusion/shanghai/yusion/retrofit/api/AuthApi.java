@@ -2,6 +2,9 @@ package com.yusion.shanghai.yusion.retrofit.api;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.yusion.shanghai.yusion.bean.auth.BindingReq;
 import com.yusion.shanghai.yusion.bean.auth.BindingResp;
@@ -13,13 +16,24 @@ import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
 import com.yusion.shanghai.yusion.bean.auth.OpenIdResp;
 import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
+import com.yusion.shanghai.yusion.bean.auth.WXUserInfoResp;
 import com.yusion.shanghai.yusion.bean.token.CheckTokenResp;
 import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.CustomCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnCodeAndMsgCallBack;
 import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.settings.Settings;
+import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 import com.yusion.shanghai.yusion.utils.LoadingUtils;
+
+import java.net.UnknownHostException;
+import java.util.Locale;
+
+import io.sentry.Sentry;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by ice on 2017/8/3.
@@ -112,6 +126,34 @@ public class AuthApi {
             @Override
             public void onCustomResponse(UpdateResp data) {
                 onItemDataCallBack.onItemDataCallBack(data);
+            }
+        });
+    }
+
+    public static void getWXUserInfo(Context context, String access_token,String openid, final OnItemDataCallBack<WXUserInfoResp> onItemDataCallBack) {
+//        Dialog dialog = LoadingUtils.createLoadingDialog(context);
+        Api.getWXService().getWXUserInfo(access_token,openid).enqueue(new Callback<WXUserInfoResp>() {
+            @Override
+            public void onResponse(Call<WXUserInfoResp> call, Response<WXUserInfoResp> data) {
+//                if (dialog != null) {
+//                    dialog.dismiss();
+//                }
+                onItemDataCallBack.onItemDataCallBack(data.body());
+            }
+
+            @Override
+            public void onFailure(Call<WXUserInfoResp> call, Throwable t) {
+//                if (dialog != null) {
+//                    dialog.dismiss();
+//                }
+                if (t instanceof UnknownHostException) {
+                    Toast.makeText(context, "网络繁忙,请检查网络", Toast.LENGTH_SHORT).show();
+                } else if (Settings.isOnline) {
+                    Toast.makeText(context, "接口调用失败,请稍后再试...", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
+                }
+                Sentry.capture(t);
             }
         });
     }

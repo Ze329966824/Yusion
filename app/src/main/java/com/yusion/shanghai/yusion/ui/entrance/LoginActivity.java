@@ -28,6 +28,7 @@ import com.yusion.shanghai.yusion.bean.auth.CheckUserInfoResp;
 import com.yusion.shanghai.yusion.bean.auth.LoginReq;
 import com.yusion.shanghai.yusion.bean.auth.LoginResp;
 import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
+import com.yusion.shanghai.yusion.bean.auth.WXUserInfoResp;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
 import com.yusion.shanghai.yusion.retrofit.api.ConfigApi;
 import com.yusion.shanghai.yusion.retrofit.api.PersonApi;
@@ -308,17 +309,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ConfigApi.getConfigJson(LoginActivity.this, null);
 //        ConfigApi.getConfigJson(LoginActivity.this, resp -> {
 //        });
-        String mtoken = getIntent().getStringExtra("token");
-        if (mtoken != null) {
-            wxLoginSuccess();
-        }
+
     }
 
-    private void wxLoginSuccess() {
-        String mtoken = getIntent().getStringExtra("token");
+    @Override
+    protected void onNewIntent(Intent intent) {
+        String mtoken = intent.getStringExtra("token");
         if (mtoken != null) {
             YusionApp.TOKEN = mtoken;
             SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+            wxLoginSuccess();
+        }
+
+    }
+
+    private void wxLoginSuccess() {
+        if (YusionApp.TOKEN != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     }
@@ -471,6 +477,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private class QQLoginListener implements IUiListener {
         private UserInfo mInfo;
+        private String unionid;
 
         @Override
         public void onComplete(Object o) {
@@ -526,6 +533,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 req.open_id = openID;
                 req.source = "qq";
+
+
 
 //                YusionApp.OPEN_ID = req.open_id;
 //                SharedPrefsUtil.getInstance(LoginActivity.this).putValue("open_id", YusionApp.OPEN_ID);

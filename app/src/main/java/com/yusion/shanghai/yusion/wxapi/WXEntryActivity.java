@@ -35,6 +35,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     public static final String APP_SECRET = "1ec792a6c092d7803672c5fe8e99cfd4";
     private final OkHttpClient client = new OkHttpClient();
     private OpenIdReq req;
+    private String unionid;
     // IWXAPI 是第三方app和微信通信的openapi接口
 
 
@@ -120,9 +121,12 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     Log.e("TAG", "access_token = " + jsonObject.getString("access_token"));//在回调中获取access_token
                     String access_token = jsonObject.optString("access_token");
                     String openid = jsonObject.optString("openid");
-                    Log.e("openid", "=====" + openid);
-//                    YusionApp.OPEN_ID = openid;
-//                    SharedPrefsUtil.getInstance(WXEntryActivity.this).putValue("open_id", YusionApp.OPEN_ID);
+
+                    // 通过 access_token, openID 获得用户微信信息(包括unionid)
+                    AuthApi.getWXUserInfo(WXEntryActivity.this, access_token, openid, data -> {
+                        unionid = data.unionid;
+                    });
+
                     req.open_id = openid;
                     req.source = "wechat";
                     runOnUiThread(() -> {
@@ -141,6 +145,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                 Intent intent = new Intent(WXEntryActivity.this, BindingActivity.class);
                                 intent.putExtra("source", "wechat");
                                 intent.putExtra("open_id", req.open_id);
+                                intent.putExtra("unionid", unionid);
                                 startActivity(intent);
                                 finish();
                             }

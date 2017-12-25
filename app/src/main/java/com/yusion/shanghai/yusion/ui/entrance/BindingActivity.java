@@ -47,6 +47,7 @@ public class BindingActivity extends BaseActivity {
         req.reg_id = YusionApp.reg_id;
         req.source = getIntent().getStringExtra("source");
         req.open_id = getIntent().getStringExtra("open_id");
+        req.unionid = getIntent().getStringExtra("unionid");
 
         if (Settings.isOnline) {
             mCountDownBtnWrap = new CountDownButtonWrap(mBindingCodeBtn, "重试", 60, 1);
