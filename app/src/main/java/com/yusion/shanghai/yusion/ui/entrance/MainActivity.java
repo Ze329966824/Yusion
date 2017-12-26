@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e("TAG", "MainActivity: YusionApp.token="+YusionApp.TOKEN);
         YusionApp.isLogin = true;
         mHomeFragment = new HomeFragment();
         mOrderFragment = new MyOrderFragment();

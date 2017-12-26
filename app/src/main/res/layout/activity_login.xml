@@ -22,17 +22,21 @@
         android:text="予见汽车"
         android:textColor="#222a36"
         android:textSize="23dp" />
-
+    <LinearLayout
+        android:layout_marginTop="52dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
     <EditText
         android:paddingLeft="5dp"
         android:background="@null"
         android:id="@+id/login_mobile_edt"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="52dp"
+        android:layout_height="match_parent"
         android:digits="0123456789"
         android:hint="请输入手机号"
         android:inputType="number"
@@ -40,6 +44,7 @@
         android:textColor="@color/textColor"
         android:textColorHint="@color/textHintColor"
         android:textSize="15sp" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -57,6 +62,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:paddingLeft="5dp"
             android:background="@null"
             android:id="@+id/login_code_edt"
             android:layout_width="match_parent"

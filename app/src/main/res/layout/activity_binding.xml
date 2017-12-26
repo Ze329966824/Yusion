@@ -13,24 +13,37 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/binding_mobile_edt"
+        <LinearLayout
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:digits="0123456789"
-            android:hint="请输入手机号"
-            android:inputType="number"
-            android:maxLength="11"
-            android:textColor="@color/textColor"
-            android:textColorHint="@color/textHintColor"
-            android:textSize="15sp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/binding_mobile_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:digits="0123456789"
+                android:gravity="center_vertical"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:maxLength="11"
+                android:paddingLeft="5dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/textHintColor"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -52,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="105dp"
+                android:background="@null"
                 android:digits="0123456789"
                 android:hint="请输入验证码"
                 android:inputType="number"
@@ -77,6 +91,7 @@
                 android:textColor="#FFF"
                 android:textSize="12sp" />
         </LinearLayout>
+
         <Button
             android:id="@+id/binding_submit_btn"
             style="?android:attr/borderlessButtonStyle"

@@ -1,5 +1,6 @@
 package com.yusion.shanghai.yusion.retrofit.service;
 
+import com.yusion.shanghai.yusion.bean.auth.AccessTokenResp;
 import com.yusion.shanghai.yusion.bean.auth.UpdateResp;
 import com.yusion.shanghai.yusion.bean.auth.WXUserInfoResp;
 
@@ -12,6 +13,10 @@ import retrofit2.http.Query;
  */
 
 public interface WXService {
+
+    @GET("/sns/oauth2/access_token")
+    Call<AccessTokenResp> getAccessToken(@Query("appid") String appid,@Query("secret") String secret,@Query("code") String code,@Query("grant_type") String grant_type);
+
     @GET("/sns/userinfo")
     Call<WXUserInfoResp> getWXUserInfo(@Query("access_token") String access_token, @Query("openid") String openid);
 }

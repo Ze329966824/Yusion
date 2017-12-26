@@ -12,8 +12,13 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.yusion.shanghai.yusion.R;
 import com.yusion.shanghai.yusion.base.BaseActivity;
+import com.yusion.shanghai.yusion.bean.auth.AccessTokenResp;
 import com.yusion.shanghai.yusion.bean.auth.OpenIdReq;
+import com.yusion.shanghai.yusion.bean.auth.OpenIdResp;
+import com.yusion.shanghai.yusion.retrofit.Api;
 import com.yusion.shanghai.yusion.retrofit.api.AuthApi;
+import com.yusion.shanghai.yusion.retrofit.callback.OnItemDataCallBack;
+import com.yusion.shanghai.yusion.retrofit.callback.OnVoidCallBack;
 import com.yusion.shanghai.yusion.ui.entrance.BindingActivity;
 import com.yusion.shanghai.yusion.ui.entrance.LoginActivity;
 
@@ -26,6 +31,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.R.attr.data;
+import static com.umeng.analytics.pro.x.O;
+
 /**
  * Created by LX on 2017/9/20.
  */
@@ -33,6 +41,7 @@ import okhttp3.Response;
 public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     public static final String APP_ID = "wxf2c47c30395cfb84";
     public static final String APP_SECRET = "1ec792a6c092d7803672c5fe8e99cfd4";
+    public static final String GRANT_TYPE = "authorization_code";
     private final OkHttpClient client = new OkHttpClient();
     private OpenIdReq req;
     private String unionid;
@@ -77,11 +86,15 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 String state = ((SendAuth.Resp) baseResp).state;
                 Log.e("TAG", "code = " + code);
 
-                try {
-                    getAccess_token(code);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // 通过 APP_ID, APP_SECRET, code, GRANT_TYPE 得到 Access_Token 和 open_id
+
+                getAccessToken(code, data -> {
+                    String openid = ((AccessTokenResp) data).openid;
+                    String access_token = ((AccessTokenResp) data).access_token;
+                    //
+                    thirdLogin(access_token, openid);
+                });
+
                 break;
             default:
                 startActivity(new Intent(WXEntryActivity.this, LoginActivity.class));
@@ -89,79 +102,41 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         }
     }
 
-    private void getAccess_token(String code) throws Exception {
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
-                "appid=" + APP_ID +
-                "&secret=" + APP_SECRET +
-                "&code=" + code +
-                "&grant_type=authorization_code";
-        run(url);
 
+    private void thirdLogin(String access_token, String openid) {
+        req.open_id = openid;
+        req.source = "wechat";
+        AuthApi.thirdLogin(WXEntryActivity.this, req, data -> {
+            if (data != null) {
+                // 返回token 正常登陆
+                Toast.makeText(WXEntryActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                Log.e("TAG", " unionid1 = " + unionid);
+
+                Intent intent = new Intent(WXEntryActivity.this, LoginActivity.class);
+                intent.putExtra("token", data.token);
+                startActivity(intent);
+                finish();
+            } else {
+                // data为空  通过 access_token, openID 获得用户个人微信资料(unionid等  再跳转到BindingActivity绑定手机号)
+                AuthApi.getWXUserInfo(WXEntryActivity.this, access_token, openid, data1 -> {
+                    unionid = data1.unionid;
+                    Intent intent = new Intent(WXEntryActivity.this, BindingActivity.class);
+                    intent.putExtra("source", "wechat");
+                    intent.putExtra("open_id", req.open_id);
+                    intent.putExtra("unionid", unionid);
+                    Log.e("TAG", " unionid2 = " + unionid);
+                    startActivity(intent);
+                    finish();
+                });
+            }
+
+        });
     }
 
-    private void run(String url) throws Exception {
-        final Request request = new Request.Builder()
-                //.url("http://publicobject.com/helloworld.txt")
-                .url(url)
-                .get()
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                try {
-                    String responseStr = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseStr);
-                    Log.e("TAG", "access_token = " + jsonObject.getString("access_token"));//在回调中获取access_token
-                    String access_token = jsonObject.optString("access_token");
-                    String openid = jsonObject.optString("openid");
-
-                    // 通过 access_token, openID 获得用户微信信息(包括unionid)
-                    AuthApi.getWXUserInfo(WXEntryActivity.this, access_token, openid, data -> {
-                        unionid = data.unionid;
-                    });
-
-                    req.open_id = openid;
-                    req.source = "wechat";
-                    runOnUiThread(() -> {
-                        AuthApi.thirdLogin(WXEntryActivity.this, req, data -> {
-                            if (data != null) {
-
-                                Toast.makeText(WXEntryActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-
-                                Intent intent = new Intent(WXEntryActivity.this, LoginActivity.class);
-                                intent.putExtra("token", data.token);
-                                startActivity(intent);
-                                finish();
-
-
-                            } else {
-                                Intent intent = new Intent(WXEntryActivity.this, BindingActivity.class);
-                                intent.putExtra("source", "wechat");
-                                intent.putExtra("open_id", req.open_id);
-                                intent.putExtra("unionid", unionid);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-
-                    });
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
+    private void getAccessToken(String code, OnItemDataCallBack callBack) {
+        AuthApi.getAccessToken(WXEntryActivity.this, APP_ID, APP_SECRET, code, GRANT_TYPE, data -> {
+            callBack.onItemDataCallBack(data);
         });
-
-
     }
 
     @Override

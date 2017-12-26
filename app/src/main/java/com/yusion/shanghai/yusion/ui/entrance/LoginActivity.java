@@ -66,6 +66,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private QQLoginListener mListener;
     private Context context;
     private OpenIdReq req;
+    private String mtoken;
 
 
     @Override
@@ -305,22 +306,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         //每次回到登陆界面都需清除缓存
         myApp.clearUserData();
-
         ConfigApi.getConfigJson(LoginActivity.this, null);
-//        ConfigApi.getConfigJson(LoginActivity.this, resp -> {
-//        });
 
+        //由于 onNewIntent在onResume之前，所以在onNewIntent里存的token被清除了  所以要在这里存token
+        if (mtoken != null) {
+        YusionApp.TOKEN = mtoken;
+        SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
+            mtoken = null;
+            wxLoginSuccess();
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        String mtoken = intent.getStringExtra("token");
-        if (mtoken != null) {
+        mtoken = intent.getStringExtra("token");
             YusionApp.TOKEN = mtoken;
-            SharedPrefsUtil.getInstance(LoginActivity.this).putValue("token", YusionApp.TOKEN);
-            wxLoginSuccess();
-        }
-
     }
 
     private void wxLoginSuccess() {

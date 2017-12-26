@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.yusion.shanghai.yusion.bean.auth.AccessTokenResp;
 import com.yusion.shanghai.yusion.bean.auth.BindingReq;
 import com.yusion.shanghai.yusion.bean.auth.BindingResp;
 import com.yusion.shanghai.yusion.bean.auth.CheckHasAgreedReq;
@@ -34,6 +35,8 @@ import io.sentry.Sentry;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.R.attr.data;
 
 /**
  * Created by ice on 2017/8/3.
@@ -131,21 +134,33 @@ public class AuthApi {
     }
 
     public static void getWXUserInfo(Context context, String access_token,String openid, final OnItemDataCallBack<WXUserInfoResp> onItemDataCallBack) {
-//        Dialog dialog = LoadingUtils.createLoadingDialog(context);
         Api.getWXService().getWXUserInfo(access_token,openid).enqueue(new Callback<WXUserInfoResp>() {
             @Override
             public void onResponse(Call<WXUserInfoResp> call, Response<WXUserInfoResp> data) {
-//                if (dialog != null) {
-//                    dialog.dismiss();
-//                }
                 onItemDataCallBack.onItemDataCallBack(data.body());
             }
-
             @Override
             public void onFailure(Call<WXUserInfoResp> call, Throwable t) {
-//                if (dialog != null) {
-//                    dialog.dismiss();
-//                }
+                if (t instanceof UnknownHostException) {
+                    Toast.makeText(context, "网络繁忙,请检查网络", Toast.LENGTH_SHORT).show();
+                } else if (Settings.isOnline) {
+                    Toast.makeText(context, "接口调用失败,请稍后再试...", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
+                }
+                Sentry.capture(t);
+            }
+        });
+    }
+
+    public static void getAccessToken(Context context, String appid, String secret, String code, String grant_type, final OnItemDataCallBack<AccessTokenResp> onItemDataCallBack){
+        Api.getWXService().getAccessToken(appid,secret,code,grant_type).enqueue(new Callback<AccessTokenResp>() {
+            @Override
+            public void onResponse(Call<AccessTokenResp> call, Response<AccessTokenResp> data) {
+                onItemDataCallBack.onItemDataCallBack(data.body());
+            }
+            @Override
+            public void onFailure(Call<AccessTokenResp> call, Throwable t) {
                 if (t instanceof UnknownHostException) {
                     Toast.makeText(context, "网络繁忙,请检查网络", Toast.LENGTH_SHORT).show();
                 } else if (Settings.isOnline) {
